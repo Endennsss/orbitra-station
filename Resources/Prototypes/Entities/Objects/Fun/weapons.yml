@@ -49,11 +49,11 @@
   description: A premium foam rifle of the highest quality. Its plastic feels rugged, and its mechanisms sturdy.
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Objects/Weapons/Guns/Rifles/foam_rifle.rsi # Lime-Edit - графика Monolith
+    sprite: Objects/Fun/Foam/foam_rifle.rsi
   - type: Clothing
-    sprite: _Lime/Imported/Monolith/Objects/Weapons/Guns/Rifles/foam_rifle.rsi # Lime-Edit - графика Monolith
+    sprite: Objects/Fun/Foam/foam_rifle.rsi
   - type: Item
-    sprite: _Lime/Imported/Monolith/Objects/Weapons/Guns/Rifles/foam_rifle_inhand_64x.rsi # Lime-Edit - графика Monolith
+    sprite: Objects/Fun/Foam/foam_rifle_inhand_64x.rsi
     size: Normal
     shape:
     - 0,0,3,0

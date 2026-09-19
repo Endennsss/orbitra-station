@@ -131,7 +131,7 @@
   components:
   - type: Sprite
     drawdepth: WallTops
-    sprite: _Lime/Imported/Monolith/Structures/Windows/reinforced_uranium_diagonal.rsi # Lime-Edit - графика Monolith
+    sprite: Structures/Windows/window-diagonal-uranium-reinf.rsi
     state: state0
   - type: Tag
     tags:
@@ -142,7 +142,7 @@
     key: walls
     base: state
   - type: Icon
-    sprite: _Lime/Imported/Monolith/Structures/Windows/reinforced_uranium_diagonal.rsi # Lime-Edit - графика Monolith
+    sprite: Structures/Windows/window-diagonal-uranium-reinf.rsi
     state: state0
   - type: Fixtures
     fixtures:

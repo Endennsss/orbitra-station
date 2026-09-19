@@ -7,7 +7,7 @@
   - type: Action
     useDelay: 1
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Crescent/Interface/Alerts/internals.rsi # Lime-Edit - графика Monolith
+    sprite: Interface/Alerts/internals.rsi
     layers:
     - state: internal2
       map: ["enum.ActionVisuals.Icon"]

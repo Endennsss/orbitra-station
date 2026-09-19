@@ -194,7 +194,7 @@
         path:
           "/Audio/Weapons/slash.ogg"
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Mono/Objects/Misc/fleshkudzu.rsi # Lime-Edit - графика Monolith
+    sprite: Objects/Misc/fleshkudzu.rsi
     state: kudzu_11
     drawdepth: Overdoors
   - type: KudzuVisuals

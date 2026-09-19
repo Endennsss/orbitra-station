@@ -313,7 +313,7 @@
     - Window
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Structures/Windows/window_diagonal.rsi # Lime-Edit - графика Monolith
+    sprite: Structures/Windows/window-base-diagonal.rsi
     state: state0
   - type: Tag
     tags:
@@ -324,7 +324,7 @@
     key: walls
     base: state
   - type: Icon
-    sprite: _Lime/Imported/Monolith/Structures/Windows/window_diagonal.rsi # Lime-Edit - графика Monolith
+    sprite: Structures/Windows/window-base-diagonal.rsi
     state: state0
   - type: Fixtures
     fixtures:

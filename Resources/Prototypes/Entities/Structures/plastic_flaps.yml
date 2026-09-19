@@ -10,7 +10,7 @@
     - Anchorable
   - type: Rotatable
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Structures/plastic_flaps.rsi # Lime-Edit - графика Monolith
+    sprite: Structures/Specific/plastic-flaps.rsi
     state: plasticflaps
     drawdepth: Mobs
   - type: Physics

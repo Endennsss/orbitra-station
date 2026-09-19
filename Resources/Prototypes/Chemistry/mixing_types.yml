@@ -5,7 +5,7 @@
   id: DummyMix
   verbText: mixing-verb-default-mix
   icon:
-    sprite: _Lime/Imported/Monolith/DV/Objects/Specific/Chemistry/beaker_large.rsi # Lime-Edit - графика Monolith
+    sprite: Objects/Specific/Chemistry/beaker_large.rsi
     state: beakerlarge
 
 - type: mixingCategory

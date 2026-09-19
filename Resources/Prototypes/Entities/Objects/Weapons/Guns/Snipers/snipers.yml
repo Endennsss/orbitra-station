@@ -97,9 +97,9 @@
     shape:
     - 0,0,5,1
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Objects/Weapons/Guns/Snipers/hristov.rsi # Lime-Edit - графика Monolith
+    sprite: Objects/Weapons/Guns/Snipers/heavy_sniper.rsi
   - type: Clothing
-    sprite: _Lime/Imported/Monolith/Objects/Weapons/Guns/Snipers/hristov.rsi # Lime-Edit - графика Monolith
+    sprite: Objects/Weapons/Guns/Snipers/heavy_sniper.rsi
   - type: GunRequiresWield
   - type: Gun
     fireRate: 0.5

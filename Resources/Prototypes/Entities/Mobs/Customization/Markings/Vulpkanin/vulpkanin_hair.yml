@@ -5,7 +5,7 @@
   groupWhitelist: [ Vulpkanin ]
   canBeDisplaced: false
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: adhara
 
 - type: marking
@@ -14,7 +14,7 @@
   groupWhitelist: [ Vulpkanin ]
   canBeDisplaced: false
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: anita
 
 - type: marking
@@ -23,7 +23,7 @@
   groupWhitelist: [ Vulpkanin ]
   canBeDisplaced: false
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: apollo
 
 - type: marking
@@ -32,7 +32,7 @@
   groupWhitelist: [ Vulpkanin ]
   canBeDisplaced: false
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: belle
 
 - type: marking
@@ -41,7 +41,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: braided
 
 - type: marking
@@ -50,7 +50,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: bun
 
 - type: marking
@@ -59,7 +59,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: clean_cut
 
 - type: marking
@@ -68,7 +68,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: curl
 
 - type: marking
@@ -77,7 +77,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: hawk
 
 - type: marking
@@ -86,7 +86,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: jagged
 
 - type: marking
@@ -95,7 +95,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: jeremy
 
 - type: marking
@@ -104,7 +104,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: kajam
 
 - type: marking
@@ -113,7 +113,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: keid
 
 - type: marking
@@ -122,7 +122,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: kleeia
 
 - type: marking
@@ -131,7 +131,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: mizar
 
 - type: marking
@@ -140,7 +140,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: punkbraided
 
 - type: marking
@@ -149,7 +149,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: raine
 
 - type: marking
@@ -158,7 +158,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: rough
 
 - type: marking
@@ -167,7 +167,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: short
 
 - type: marking
@@ -176,7 +176,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: short2
 
 - type: marking
@@ -185,7 +185,7 @@
   canBeDisplaced: false
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/Monolith/DV/Mobs/Customization/Vulpkanin/hair.rsi # Lime-Edit - графика Monolith
+    - sprite: Mobs/Customization/Vulpkanin/hair.rsi
       state: spike
 
 # Facial Hairs

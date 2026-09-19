@@ -5,7 +5,7 @@
   description: I hope you're wearing eye protection.
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Objects/Fun/toys.rsi # Lime-Edit - графика Monolith
+    sprite: Objects/Fun/Foam/foam_dart.rsi
     layers:
     - state: foamdart
   - type: Fixtures

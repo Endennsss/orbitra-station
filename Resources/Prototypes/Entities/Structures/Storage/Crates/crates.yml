@@ -647,7 +647,7 @@
   description: A space pirate chest, not for station lubbers.
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/NF/Structures/Storage/Crates/piratechestgrey.rsi # Lime-Edit - графика Monolith
+    sprite: Structures/Storage/Crates/piratechest.rsi
     layers:
     - state: crate
       map: ["enum.StorageVisualLayers.Base"]
@@ -661,7 +661,7 @@
       offset: "0.0,-0.09375"
       map: ["enum.PaperLabelVisuals.Layer"]
   - type: Icon
-    sprite: _Lime/Imported/Monolith/NF/Structures/Storage/Crates/piratechestgrey.rsi # Lime-Edit - графика Monolith
+    sprite: Structures/Storage/Crates/piratechest.rsi
     state: crate_icon
   - type: Appearance
   - type: EntityStorageVisuals
