@@ -195,7 +195,7 @@
       sound:
         path: /Audio/Items/multitool_drop.ogg
     - type: Sprite
-      sprite: _Lime/Imported/DeadSpace/Objects/Tools/network_configurator.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+      sprite: Objects/Tools/network_configurator.rsi
       layers:
         - state: icon
         - state: mode-link
@@ -204,7 +204,7 @@
     - type: Item
       size: Small
     - type: Clothing
-      sprite: _Lime/Imported/DeadSpace/Objects/Tools/network_configurator.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+      sprite: Objects/Tools/network_configurator.rsi
       quickEquip: false
       slots:
         - Belt

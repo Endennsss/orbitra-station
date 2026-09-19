@@ -483,9 +483,9 @@
   components:
   - type: LimeLampBloom # Lime-Edit - профиль свечения
     maskSprite:
-      sprite: _Lime/Imported/Forge/Structures/Wallmounts/Lighting/emergency_light.rsi
+      sprite: Structures/Wallmounts/Lighting/emergency-light.rsi
       state: emergency_light_on
-    maskOffset: "0, 0" # Lime-Edit - маска светящихся пикселей аварийной лампы
+    maskOffset: "0, 1" # Lime-Edit - маска штатной аварийной лампы
     coreStrength: 0.42
     haloRadius: 0.6
     softness: 0.25
