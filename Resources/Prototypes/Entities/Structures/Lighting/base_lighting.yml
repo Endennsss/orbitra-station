@@ -94,7 +94,7 @@
     graph: LightFixture
     node: tubeLight
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Structures/Wallmounts/Lighting/light_tube.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: _Lime/Imported/Monolith/Structures/Wallmounts/Lighting/light_tube.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
     layers:
     - map: ["enum.PoweredLightLayers.Base"]
       state: base
@@ -511,8 +511,8 @@
   - type: RotatingLight
     speed: 40
   - type: Sprite
-    sprite: _Lime/Imported/Forge/Structures/Wallmounts/Lighting/emergency_light.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
-    offset: 0, 0 # Lime-Edit - аварийная лампа совпадает с маской свечения
+    sprite: Structures/Wallmounts/Lighting/emergency_light.rsi
+    offset: 0, 1
     layers:
     - state: base
       map: [ "enum.EmergencyLightVisualLayers.Base" ]

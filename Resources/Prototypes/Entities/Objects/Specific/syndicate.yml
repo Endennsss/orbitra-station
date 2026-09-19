@@ -7,10 +7,10 @@
   description: It seems to be pulsing with suspiciously enticing energies.
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Forge/Forge/Objects/Specific/Syndicate/telecrystal.rsi # Lime-Edit - текстуры Forge с сохранением лицензии
+    sprite: Objects/Specific/Syndicate/telecrystal.rsi
     state: telecrystal
   - type: Item
-    sprite: _Lime/Imported/Forge/Forge/Objects/Specific/Syndicate/telecrystal.rsi # Lime-Edit - текстуры Forge с сохранением лицензии
+    sprite: Objects/Specific/Syndicate/telecrystal.rsi
     size: Tiny
   - type: Stack
     count: 20

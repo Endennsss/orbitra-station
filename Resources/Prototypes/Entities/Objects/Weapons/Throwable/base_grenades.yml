@@ -4,7 +4,7 @@
   id: GrenadeBase
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Forge/Forge/Objects/Weapons/Grenades/grenade.rsi # Lime-Edit - текстуры Forge с сохранением лицензии
+    sprite: Objects/Weapons/Grenades/grenade.rsi
     layers:
     - state: icon
       map: ["enum.TriggerVisualLayers.Base"]

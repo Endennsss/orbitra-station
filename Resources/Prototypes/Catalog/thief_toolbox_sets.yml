@@ -47,7 +47,7 @@
   name: thief-backpack-category-syndie-name
   description: thief-backpack-category-syndie-description
   sprite:
-    sprite: _Lime/Imported/Forge/Forge/Objects/Specific/Syndicate/telecrystal.rsi # Lime-Edit - текстуры Forge с сохранением лицензии
+    sprite: Objects/Specific/Syndicate/telecrystal.rsi
     state: telecrystal
   content:
   - RadioJammer
