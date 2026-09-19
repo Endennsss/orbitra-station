@@ -863,29 +863,29 @@
   name: mechadermis airlock
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Standard/exo-xenoborg.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Doors/Airlocks/Standard/exo-xenoborg.rsi
     snapCardinals: false # Lime-Edit - ориентация исходного набора
     layers:
     - state: closed
       map: ["enum.DoorVisualLayers.Base"]
     - state: closed_unlit
       shader: unshaded
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects-exo-xenoborg.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo-xenoborg.rsi
       map: ["enum.DoorVisualLayers.BaseUnlit"]
       visible: true
     - state: welded
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
       map: ["enum.WeldableLayers.BaseWelded"]
     - state: bolted_unlit
       shader: unshaded
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects-exo-xenoborg.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo-xenoborg.rsi
       map: ["enum.DoorVisualLayers.BaseBolted"]
     - state: emergency_unlit
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects-exo-xenoborg.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo-xenoborg.rsi
       map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
       shader: unshaded
     - state: panel_open
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
     - state: electrified_ai
       sprite: Interface/Misc/ai_hud.rsi
@@ -898,7 +898,7 @@
       visible: false
       map: ["enum.ElectrifiedLayers.Sparks"]
     - state: sparks
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
       map: ["enum.DoorVisualLayers.BaseEmagging"]
       shader: unshaded
       visible: false
@@ -1821,29 +1821,29 @@
   name: exodermis airlock
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Standard/exo-base.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Doors/Airlocks/Standard/exo-base.rsi
     snapCardinals: false # Lime-Edit - ориентация исходного набора
     layers:
     - state: closed
       map: ["enum.DoorVisualLayers.Base"]
     - state: closed_unlit
       shader: unshaded
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
       map: ["enum.DoorVisualLayers.BaseUnlit"]
       visible: true
     - state: welded
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
       map: ["enum.WeldableLayers.BaseWelded"]
     - state: bolted_unlit
       shader: unshaded
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
       map: ["enum.DoorVisualLayers.BaseBolted"]
     - state: emergency_unlit
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
       map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
       shader: unshaded
     - state: panel_open
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
     - state: electrified_ai
       sprite: Interface/Misc/ai_hud.rsi
@@ -1856,7 +1856,7 @@
       visible: false
       map: ["enum.ElectrifiedLayers.Sparks"]
     - state: sparks
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
       map: ["enum.DoorVisualLayers.BaseEmagging"]
       shader: unshaded
       visible: false
@@ -1879,22 +1879,22 @@
       map: ["enum.DoorVisualLayers.Base"]
     - state: closed_unlit
       shader: unshaded
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
       map: ["enum.DoorVisualLayers.BaseUnlit"]
       visible: true
     - state: welded
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
       map: ["enum.WeldableLayers.BaseWelded"]
     - state: bolted_unlit
       shader: unshaded
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
       map: ["enum.DoorVisualLayers.BaseBolted"]
     - state: emergency_unlit
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects-exo.rsi
       map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
       shader: unshaded
     - state: panel_open
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
     - state: electrified_ai
       sprite: Interface/Misc/ai_hud.rsi
@@ -1907,7 +1907,7 @@
       visible: false
       map: ["enum.ElectrifiedLayers.Sparks"]
     - state: sparks
-      sprite: _Lime/Imported/Monolith/Structures/Doors/Airlocks/Effects/airlock-effects.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
       map: ["enum.DoorVisualLayers.BaseEmagging"]
       shader: unshaded
       visible: false

@@ -4,10 +4,10 @@
   id: PartBase
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Objects/Materials/parts.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Objects/Materials/parts.rsi
     state: rods
   - type: Item
-    sprite: _Lime/Imported/Monolith/Objects/Materials/parts.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Objects/Materials/parts.rsi
   - type: Damageable
     damageModifierSet: FlimsyMetallic
   - type: Tag

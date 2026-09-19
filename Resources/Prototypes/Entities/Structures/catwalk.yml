@@ -12,10 +12,10 @@
     - Anchorable
   - type: Clickable
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Structures/catwalk.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/catwalk.rsi
     drawdepth: FloorTiles
   - type: Icon
-    sprite: _Lime/Imported/Monolith/Structures/catwalk.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/catwalk.rsi
     state: catwalk_preview
   - type: Transform
     anchored: true

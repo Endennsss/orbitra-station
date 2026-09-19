@@ -91,10 +91,10 @@
   name: nanotrasen altar
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Structures/Furniture/Altars/Gods/nanotrasen.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     state: nanotrasen
   - type: Icon
-    sprite: _Lime/Imported/Monolith/Structures/Furniture/Altars/Gods/nanotrasen.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     state: nanotrasen
   - type: StealTarget
     stealGroup: AltarNanotrasen
@@ -105,10 +105,10 @@
   name: chaos altar
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Structures/Furniture/Altars/Gods/nanotrasen.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     state: chaos
   - type: Icon
-    sprite: _Lime/Imported/Monolith/Structures/Furniture/Altars/Gods/nanotrasen.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     state: chaos
 
 - type: entity
@@ -117,10 +117,10 @@
   name: druid altar
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Structures/Furniture/Altars/Gods/nanotrasen.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     state: druid
   - type: Icon
-    sprite: _Lime/Imported/Monolith/Structures/Furniture/Altars/Gods/nanotrasen.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     state: druid
 
 - type: entity
@@ -129,10 +129,10 @@
   name: toolbox altar
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Structures/Furniture/Altars/Gods/nanotrasen.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     state: toolbox
   - type: Icon
-    sprite: _Lime/Imported/Monolith/Structures/Furniture/Altars/Gods/nanotrasen.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     state: toolbox
 
 - type: entity
@@ -141,13 +141,13 @@
   name: space-Christian altar
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Structures/Furniture/Altars/Gods/nanotrasen.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     layers:
     - state: space-christian
     - state: space-christian_lightning
       shader: unshaded
   - type: Icon
-    sprite: _Lime/Imported/Monolith/Structures/Furniture/Altars/Gods/nanotrasen.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     state: space-christian
   - type: PointLight
     radius: 1.5
@@ -160,13 +160,13 @@
   name: satanic altar
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Structures/Furniture/Altars/Gods/nanotrasen.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     layers:
     - state: satana
     - state: satana_lightning
       shader: unshaded
   - type: Icon
-    sprite: _Lime/Imported/Monolith/Structures/Furniture/Altars/Gods/nanotrasen.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     state: satana
   - type: PointLight
     radius: 1.5
@@ -179,13 +179,13 @@
   name: technology altar
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Structures/Furniture/Altars/Gods/nanotrasen.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     layers:
     - state: technology
     - state: technology_lightning
       shader: unshaded
   - type: Icon
-    sprite: _Lime/Imported/Monolith/Structures/Furniture/Altars/Gods/nanotrasen.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     state: technology
   - type: PointLight
     radius: 1.5

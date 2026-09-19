@@ -60,9 +60,9 @@
   components:
   - type: Sprite
     drawdepth: WallTops
-    sprite: _Lime/Imported/Monolith/NF/Structures/Windows/plastitanium_window.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Windows/window-plastitanium.rsi
   - type: Icon
-    sprite: _Lime/Imported/Monolith/NF/Structures/Windows/plastitanium_window.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Windows/window-plastitanium.rsi
     state: full
   - type: IconSmooth
     key: walls
@@ -200,7 +200,7 @@
     damageDivisor: 20
     trackAllDamage: true
     damageOverlay:
-      sprite: _Lime/Imported/Monolith/Structures/Windows/cracks_diagonal.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Structures/Windows/cracks-diagonal.rsi
   - type: Repairable
     fuelCost: 15
     doAfterDelay: 3

@@ -6,7 +6,7 @@
   components:
   - type: StationAiWhitelist
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/NF/Structures/Machines/jukebox.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Machines/jukebox.rsi
     layers:
     - state: "off"
       map: ["enum.JukeboxVisualLayers.Base"]

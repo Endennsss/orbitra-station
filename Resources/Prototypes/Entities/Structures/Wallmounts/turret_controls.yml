@@ -12,7 +12,7 @@
   - type: Sprite
     noRot: false
     drawdepth: SmallObjects
-    sprite: _Lime/Imported/Monolith/Structures/Wallmounts/turret_controls.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Wallmounts/turret_controls.rsi
     layers:
     - state: base
   - type: Damageable
@@ -53,7 +53,7 @@
   - type: Sprite
     noRot: false
     drawdepth: SmallObjects
-    sprite: _Lime/Imported/Monolith/Structures/Wallmounts/turret_controls.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Wallmounts/turret_controls.rsi
     layers:
     - state: base
     - state: safe

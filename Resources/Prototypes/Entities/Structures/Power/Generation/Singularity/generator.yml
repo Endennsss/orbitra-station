@@ -6,7 +6,7 @@
     mode: SnapgridCenter
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Structures/Power/Generation/Singularity/generator.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Power/Generation/Singularity/generator.rsi
     state: icon
   - type: SingularityGenerator
   - type: InteractionOutline

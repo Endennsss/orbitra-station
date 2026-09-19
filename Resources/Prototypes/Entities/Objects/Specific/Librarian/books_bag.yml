@@ -5,10 +5,10 @@
   description: A refined bag to carry your own library.
   components:
     - type: Sprite
-      sprite: _Lime/Imported/Monolith/Objects/Specific/Library/Equipment/books_bag.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Objects/Specific/Library/Equipment/books_bag.rsi
       state: icon
     - type: Clothing
-      sprite: _Lime/Imported/Monolith/Objects/Specific/Library/Equipment/books_bag.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Objects/Specific/Library/Equipment/books_bag.rsi
       quickEquip: false
       slots:
         - belt

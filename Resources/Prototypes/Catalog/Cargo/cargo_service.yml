@@ -81,7 +81,7 @@
 - type: cargoProduct
   id: ServiceFaxMachine
   icon:
-    sprite: _Lime/Imported/Monolith/Structures/Machines/fax_machine.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Machines/fax_machine.rsi
     state: icon
   product: CrateServiceFaxMachine
   cost: 2000

@@ -112,7 +112,7 @@
   description: Looks like some kind of fish. Might be magical.
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/NF/Mobs/Aliens/Carps/magic.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Mobs/Aliens/Carps/magic.rsi
   - type: TypingIndicator
     proto: guardian
 
@@ -123,7 +123,7 @@
   description: Carp made out of holographic energies. Sadly for you, it is very much real.
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/NF/Mobs/Aliens/Carps/holo.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Mobs/Aliens/Carps/holo.rsi
   - type: Physics
   - type: Fixtures
     fixtures:

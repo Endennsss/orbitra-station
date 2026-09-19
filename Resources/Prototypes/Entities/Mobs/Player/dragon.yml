@@ -271,7 +271,7 @@
     sound: !type:SoundPathSpecifier
       path: /Audio/Animals/space_dragon_breath.ogg
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Objects/Weapons/Guns/Projectiles/magic.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Objects/Weapons/Guns/Projectiles/magic.rsi
     layers:
     - state: fireball
   - type: TargetAction

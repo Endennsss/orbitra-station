@@ -7,7 +7,7 @@
   - type: Item
     size: Huge
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Objects/Power/portable_recharger.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Objects/Power/portable_recharger.rsi
     layers:
     - map: ["enum.PowerChargerVisualLayers.Base"]
       state: charging

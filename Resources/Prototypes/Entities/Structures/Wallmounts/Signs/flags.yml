@@ -4,7 +4,7 @@
   id: BaseFlag
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Structures/Wallmounts/flags.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Wallmounts/flags.rsi
   - type: Damageable
     damageModifierSet: ThreadMod
 

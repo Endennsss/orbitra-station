@@ -17,7 +17,7 @@
   abstract: true
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Mobs/Species/Human/organs.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Mobs/Species/Human/organs.rsi
 
 - type: entity
   parent: [ OrganBaseLungs, OrganAnimalInternal, OrganAnimalMetabolizer ]

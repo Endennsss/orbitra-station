@@ -24,7 +24,7 @@
             - tag: Radio
               name: construction-graph-tag-radio
               icon:
-                sprite: _Lime/Imported/Monolith/Objects/Devices/communication.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+                sprite: Objects/Devices/communication.rsi
                 state: walkietalkie
               doAfter: 5
             - material: Manipulator

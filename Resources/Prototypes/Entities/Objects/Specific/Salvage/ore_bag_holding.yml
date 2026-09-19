@@ -7,10 +7,10 @@
   - type: MagnetPickup
     range: 2
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/NF/Objects/Specific/Mining/ore_bag_holding.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Objects/Specific/Mining/ore_bag_holding.rsi
     state: icon
   - type: Clothing
-    sprite: _Lime/Imported/Monolith/NF/Objects/Specific/Mining/ore_bag_holding.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Objects/Specific/Mining/ore_bag_holding.rsi
   - type: Storage
     grid:
     - 0,0,19,9

@@ -6,7 +6,7 @@
   - type: Sprite
     layers:
       - state: red
-      - sprite: _Lime/Imported/Monolith/Structures/Machines/arcade.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      - sprite: Structures/Machines/arcade.rsi
         state: icon
   - type: EntityTableSpawner
     table: !type:GroupSelector

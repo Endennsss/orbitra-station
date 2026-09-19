@@ -10,7 +10,7 @@
   - type: InteractionOutline
   - type: Sprite
     snapCardinals: true
-    sprite: _Lime/Imported/Monolith/Structures/Power/Generation/ame.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Power/Generation/ame.rsi
     state: control
     layers:
     - state: control
@@ -87,7 +87,7 @@
   - type: PowerMonitoringDevice
     group: Generator
     loadNode: input
-    sprite: _Lime/Imported/Monolith/Structures/Power/Generation/ame.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Power/Generation/ame.rsi
     state: static
   - type: PowerSupplier
     supplyRate: 0
@@ -131,7 +131,7 @@
   - type: InteractionOutline
   - type: Sprite
     drawdepth: Walls
-    sprite: _Lime/Imported/Monolith/Structures/Power/Generation/ame.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Power/Generation/ame.rsi
     state: shield_0
     layers:
     - state: shield_0

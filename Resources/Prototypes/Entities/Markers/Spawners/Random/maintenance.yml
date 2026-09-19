@@ -415,7 +415,7 @@
   - type: Sprite
     layers:
     - state: red
-    - sprite: _Lime/Imported/Monolith/Clothing/Hands/Gloves/Color/yellow.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    - sprite: Clothing/Hands/Gloves/Color/yellow.rsi
       state: icon
   - type: EntityTableSpawner
     table: !type:NestedSelector

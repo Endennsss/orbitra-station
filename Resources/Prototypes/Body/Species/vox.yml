@@ -83,53 +83,53 @@
       jumpsuit:
         sizeMaps:
           32:
-            sprite: _Lime/Imported/Monolith/Mobs/Species/Vox/displacement.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+            sprite: Mobs/Species/Vox/displacement.rsi
             state: jumpsuit
       eyes:
         sizeMaps:
           32:
-            sprite: _Lime/Imported/Monolith/Mobs/Species/Vox/displacement.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+            sprite: Mobs/Species/Vox/displacement.rsi
             state: eyes
       gloves:
         sizeMaps:
           32:
-            sprite: _Lime/Imported/Monolith/Mobs/Species/Vox/displacement.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+            sprite: Mobs/Species/Vox/displacement.rsi
             state: hand
       head:
         sizeMaps:
           32:
-            sprite: _Lime/Imported/Monolith/Mobs/Species/Vox/displacement.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+            sprite: Mobs/Species/Vox/displacement.rsi
             state: head
       neck:
         sizeMaps:
           32:
-            sprite: _Lime/Imported/Monolith/Mobs/Species/Vox/displacement.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+            sprite: Mobs/Species/Vox/displacement.rsi
             state: neck
       back:
         sizeMaps:
           32:
-            sprite: _Lime/Imported/Monolith/Mobs/Species/Vox/displacement.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+            sprite: Mobs/Species/Vox/displacement.rsi
             state: back
       ears:
         sizeMaps:
           32:
-            sprite: _Lime/Imported/Monolith/Mobs/Species/Vox/displacement.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+            sprite: Mobs/Species/Vox/displacement.rsi
             state: ears
       shoes:
         sizeMaps:
           32:
-            sprite: _Lime/Imported/Monolith/Mobs/Species/Vox/displacement.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+            sprite: Mobs/Species/Vox/displacement.rsi
             state: shoes
   - type: Hands
     leftHandDisplacement:
       sizeMaps:
         32:
-          sprite: _Lime/Imported/Monolith/Mobs/Species/Vox/displacement.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+          sprite: Mobs/Species/Vox/displacement.rsi
           state: hand_l
     rightHandDisplacement:
       sizeMaps:
         32:
-          sprite: _Lime/Imported/Monolith/Mobs/Species/Vox/displacement.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+          sprite: Mobs/Species/Vox/displacement.rsi
           state: hand_r
   - type: InitialBody
     organs:
@@ -248,7 +248,7 @@
   abstract: true
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Mobs/Species/Vox/organs.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Mobs/Species/Vox/organs.rsi
 
 - type: entity
   id: OrganVoxVisual
@@ -256,7 +256,7 @@
   components:
   - type: VisualOrgan
     data:
-      sprite: _Lime/Imported/Monolith/Mobs/Species/Vox/parts.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Mobs/Species/Vox/parts.rsi
   - type: VisualOrganMarkings
     markingData:
       group: Vox
@@ -267,7 +267,7 @@
   abstract: true
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Mobs/Species/Vox/parts.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Mobs/Species/Vox/parts.rsi
 
 - type: entity
   parent: [ OrganBaseTorso, OrganVoxExternal ]
@@ -293,7 +293,7 @@
       Hair:
         sizeMaps:
           32:
-            sprite: _Lime/Imported/Monolith/Mobs/Species/Vox/displacement.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+            sprite: Mobs/Species/Vox/displacement.rsi
             state: hair
 
 - type: entity

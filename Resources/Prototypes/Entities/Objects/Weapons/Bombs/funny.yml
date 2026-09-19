@@ -5,7 +5,7 @@
   id: HotPotato
   components:
     - type: Sprite
-      sprite: _Lime/Imported/Monolith/Objects/Weapons/Bombs/hot_potato.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+      sprite: Objects/Weapons/Bombs/hot_potato.rsi
       state: icon
       layers:
       - state: icon

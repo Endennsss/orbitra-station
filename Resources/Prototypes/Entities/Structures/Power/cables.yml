@@ -65,11 +65,11 @@
   description: An orange high voltage power cable.
   components:
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Structures/Power/Cables/hv_cable.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Power/Cables/hv_cable.rsi
     state: hvcable_0
     drawdepth: ThickWire
   - type: Icon
-    sprite: _Lime/Imported/Monolith/Structures/Power/Cables/hv_cable.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Power/Cables/hv_cable.rsi
     state: hvcable_4
   - type: NodeContainer
     nodes:
@@ -158,10 +158,10 @@
   components:
   - type: Sprite
     color: Green
-    sprite: _Lime/Imported/Monolith/Structures/Power/Cables/lv_cable.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Power/Cables/lv_cable.rsi
     state: lvcable_0
   - type: Icon
-    sprite: _Lime/Imported/Monolith/Structures/Power/Cables/lv_cable.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Structures/Power/Cables/lv_cable.rsi
     state: lvcable_4
   - type: NodeContainer
     nodes:

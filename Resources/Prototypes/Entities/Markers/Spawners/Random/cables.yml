@@ -7,9 +7,9 @@
   - type: Sprite
     layers:
     - state: red
-    - sprite: _Lime/Imported/Monolith/Structures/Power/Cables/hv_cable.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    - sprite: Structures/Power/Cables/hv_cable.rsi
       state: hvcable_3
-    - sprite: _Lime/Imported/Monolith/Structures/Power/Cables/hv_cable.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    - sprite: Structures/Power/Cables/hv_cable.rsi
       state: hvcable_12
   - type: EntityTableSpawner
     table:
@@ -49,10 +49,10 @@
   - type: Sprite
     layers:
     - state: red
-    - sprite: _Lime/Imported/Monolith/Structures/Power/Cables/lv_cable.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    - sprite: Structures/Power/Cables/lv_cable.rsi
       state: lvcable_3
       color: Green
-    - sprite: _Lime/Imported/Monolith/Structures/Power/Cables/lv_cable.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    - sprite: Structures/Power/Cables/lv_cable.rsi
       state: lvcable_12
       color: Green
   - type: EntityTableSpawner

@@ -398,7 +398,7 @@
   - type: Sprite
     layers:
     - state: red
-    - sprite: _Lime/Imported/Monolith/Objects/Fun/bikehorn.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    - sprite: Objects/Fun/bikehorn.rsi
       state: icon
   - type: EntityTableSpawner
     table: !type:NestedSelector

@@ -21,7 +21,7 @@
 - type: cargoProduct
   id: FoodSoftdrinks
   icon:
-    sprite: _Lime/Imported/Monolith/Objects/Consumable/Drinks/cola.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Objects/Consumable/Drinks/cola.rsi
     state: icon
   product: CrateFoodSoftdrinks
   cost: 1500

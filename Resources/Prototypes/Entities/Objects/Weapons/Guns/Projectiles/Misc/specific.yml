@@ -76,7 +76,7 @@
   - type: InteractionOutline
   - type: Sprite
     noRot: false
-    sprite: _Lime/Imported/Monolith/Objects/Weapons/Guns/Launchers/grappling_gun.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Objects/Weapons/Guns/Launchers/grappling_gun.rsi
     layers:
     - state: hook
   - type: Physics

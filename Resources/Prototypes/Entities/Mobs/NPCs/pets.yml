@@ -825,7 +825,7 @@
       head:
         sizeMaps:
           32:
-            sprite: _Lime/Imported/Monolith/Mobs/Pets/Smile/smile_displacement.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+            sprite: Mobs/Pets/Smile/smile_displacement.rsi
             state: head
   - type: MobThresholds
     thresholds:

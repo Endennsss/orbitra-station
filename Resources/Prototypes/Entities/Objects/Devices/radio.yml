@@ -13,13 +13,13 @@
   - type: Speech
     speechVerb: Robotic
   - type: Sprite
-    sprite: _Lime/Imported/Monolith/Objects/Devices/communication.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Objects/Devices/communication.rsi
     layers:
     - state: walkietalkie
     - state: walkietalkie-on
     state: walkietalkie
   - type: Item
-    sprite: _Lime/Imported/Monolith/Objects/Devices/communication.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
+    sprite: Objects/Devices/communication.rsi
     heldPrefix: walkietalkie
   - type: Tag
     tags:
