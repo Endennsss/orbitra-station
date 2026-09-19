@@ -12,7 +12,7 @@
         Brute:
           collection: GlassBreak
     - type: Sprite
-      sprite: _Lime/Imported/Goob/Objects/Misc/ice_crust.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Objects/Misc/ice_crust.rsi
       layers:
         - state: ice
       drawdepth: FloorObjects

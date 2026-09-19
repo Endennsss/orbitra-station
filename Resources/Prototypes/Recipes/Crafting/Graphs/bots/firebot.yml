@@ -8,7 +8,7 @@
       steps:
       - tag: FireExtinguisher
         icon:
-          sprite: _Lime/Imported/Goob/Objects/Misc/fire_extinguisher.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+          sprite: Objects/Misc/fire_extinguisher.rsi
           state: fire_extinguisher_open
         name: construction-graph-tag-fire-extinguisher
       - tag: FireHelmet

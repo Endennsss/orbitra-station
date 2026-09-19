@@ -31,14 +31,14 @@
     price: 22
   - type: Prying
   - type: Sprite
-    sprite: _Lime/Imported/Goob/Objects/Tools/crowbar.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Objects/Tools/crowbar.rsi
   - type: Clothing
-    sprite: _Lime/Imported/Goob/Objects/Tools/crowbar.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Objects/Tools/crowbar.rsi
     quickEquip: false
     slots:
     - Belt
   - type: Item
-    sprite: _Lime/Imported/Goob/Objects/Tools/crowbar.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Objects/Tools/crowbar.rsi
     size: Small
 
 # Standard (grey) Crowbar
@@ -50,7 +50,7 @@
     state: icon
   - type: Item
     storedSprite:
-      sprite: _Lime/Imported/Goob/Objects/Tools/crowbar.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Objects/Tools/crowbar.rsi
       state: storage
 
 # Emergency (red) Crowbar
@@ -70,7 +70,7 @@
   - type: Item
     storedSprite:
       state: red-storage
-      sprite: _Lime/Imported/Goob/Objects/Tools/crowbar.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Objects/Tools/crowbar.rsi
     inhandVisuals:
       left:
       - state: inhand-left
@@ -100,7 +100,7 @@
   - type: Item
     storedSprite:
       state: green-storage
-      sprite: _Lime/Imported/Goob/Objects/Tools/crowbar.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Objects/Tools/crowbar.rsi
     inhandVisuals:
       left:
       - state: inhand-left
@@ -130,7 +130,7 @@
   - type: Item
     storedSprite:
       state: orange-storage
-      sprite: _Lime/Imported/Goob/Objects/Tools/crowbar.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Objects/Tools/crowbar.rsi
     inhandVisuals:
       left:
       - state: inhand-left
@@ -160,7 +160,7 @@
   - type: Item
     storedSprite:
       state: yellow-storage
-      sprite: _Lime/Imported/Goob/Objects/Tools/crowbar.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Objects/Tools/crowbar.rsi
     inhandVisuals:
       left:
       - state: inhand-left

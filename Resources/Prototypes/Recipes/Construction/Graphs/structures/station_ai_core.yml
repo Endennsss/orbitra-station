@@ -73,7 +73,7 @@
         name: construction-graph-component-borg-brain
         store: station_ai_brain_slot
         icon:
-          sprite: "_Lime/Imported/Goob/Objects/Specific/Robotics/mmi.rsi" # Lime-Edit - текстуры Goob с сохранением лицензии
+          sprite: "Objects/Specific/Robotics/mmi.rsi"
           state: "mmi_icon"
     - to: frameWithoutBrainFinished
       steps:

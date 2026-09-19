@@ -61,7 +61,7 @@
 - type: cargoProduct
   id: StationBeaconBundle
   icon:
-    sprite: _Lime/Imported/Goob/Objects/Devices/station_beacon.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Objects/Devices/station_beacon.rsi
     state: icon
   product: CrateEngineeringStationBeaconBundle
   cost: 500
@@ -81,7 +81,7 @@
 - type: cargoProduct
   id: EngineeringRCDAmmo
   icon:
-    sprite: _Lime/Imported/Goob/Objects/Tools/rcd.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Objects/Tools/rcd.rsi
     state: ammo
   product: CrateRCDAmmo
   cost: 2500
@@ -91,7 +91,7 @@
 - type: cargoProduct
   id: EngineeringRCD
   icon:
-    sprite: _Lime/Imported/Goob/Objects/Tools/rcd.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Objects/Tools/rcd.rsi
     state: icon
   product: CrateRCD
   cost: 800

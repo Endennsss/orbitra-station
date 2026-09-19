@@ -6,10 +6,10 @@
   components:
   - type: MagnetPickup
   - type: Sprite
-    sprite: _Lime/Imported/Goob/Objects/Specific/Mining/ore_bag.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Objects/Specific/Mining/ore_bag.rsi
     state: icon
   - type: Clothing
-    sprite: _Lime/Imported/Goob/Objects/Specific/Mining/ore_bag.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Objects/Specific/Mining/ore_bag.rsi
     quickEquip: false
     slots:
     - belt

@@ -175,7 +175,7 @@
     - type: Seed
       plantId: PineapplePlants
     - type: Sprite
-      sprite: _Lime/Imported/Goob/Objects/Specific/Hydroponics/pineapple.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Objects/Specific/Hydroponics/pineapple.rsi
 
 - type: entity
   parent: SeedBase

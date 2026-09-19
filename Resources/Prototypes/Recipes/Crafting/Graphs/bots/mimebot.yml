@@ -8,7 +8,7 @@
       steps:
       - tag: MimeHappyHonk
         icon:
-          sprite: _Lime/Imported/Goob/Objects/Storage/Happyhonk/mime.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+          sprite: Objects/Storage/Happyhonk/mime.rsi
           state: box
         name: construction-graph-tag-mime-meal
       - tag: MimeBelt

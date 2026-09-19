@@ -8,9 +8,9 @@
     - type: Tag
       tags: [] # ignore "WhitelistChameleon" tag
     - type: Sprite
-      sprite: _Lime/Imported/Goob/Clothing/Ears/Headsets/base.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Clothing/Ears/Headsets/base.rsi
     - type: Clothing
-      sprite: _Lime/Imported/Goob/Clothing/Ears/Headsets/base.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Clothing/Ears/Headsets/base.rsi
     - type: ChameleonClothing
       slot: [ears]
       default: ClothingHeadsetGrey

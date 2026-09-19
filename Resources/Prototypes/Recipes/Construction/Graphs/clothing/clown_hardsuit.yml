@@ -12,7 +12,7 @@
             - tag: SuitEVA
               name: construction-graph-tag-eva-suit
               icon:
-                sprite: _Lime/Imported/Goob/Clothing/OuterClothing/Suits/eva.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+                sprite: Clothing/OuterClothing/Suits/eva.rsi
                 state: icon
               doAfter: 1
             - tag: HelmetEVA

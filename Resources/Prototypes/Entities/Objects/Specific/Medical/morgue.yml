@@ -108,7 +108,7 @@
   - type: Item
     size: Tiny
   - type: Sprite
-    sprite: _Lime/Imported/Goob/Objects/Materials/materials.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Objects/Materials/materials.rsi
     state: ash
   - type: Tag
     tags:

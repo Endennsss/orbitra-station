@@ -17,7 +17,7 @@
   components:
   - type: Objective
     icon:
-      sprite: _Lime/Imported/Goob/Objects/Tools/emag.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Objects/Tools/emag.rsi
       state: icon
   - type: NumberObjective
     min: 15
@@ -66,7 +66,7 @@
   components:
   - type: Objective
     icon:
-      sprite: _Lime/Imported/Goob/Clothing/Mask/ninja.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Clothing/Mask/ninja.rsi
       state: icon
 
 - type: entity
@@ -77,7 +77,7 @@
   components:
   - type: Objective
     icon:
-      sprite: _Lime/Imported/Goob/Objects/Fun/Instruments/otherinstruments.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Objects/Fun/Instruments/otherinstruments.rsi
       state: red_phone
 
 - type: entity
@@ -88,5 +88,5 @@
   components:
   - type: Objective
     icon:
-      sprite: _Lime/Imported/Goob/Objects/Weapons/Melee/stunbaton.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Objects/Weapons/Melee/stunbaton.rsi
       state: stunbaton_on

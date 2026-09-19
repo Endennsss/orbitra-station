@@ -6,7 +6,7 @@
   abstract: true
   components:
     - type: Sprite
-      sprite: _Lime/Imported/Goob/Objects/Misc/stock_parts.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Objects/Misc/stock_parts.rsi
     - type: Item
       size: Tiny
     - type: Stack

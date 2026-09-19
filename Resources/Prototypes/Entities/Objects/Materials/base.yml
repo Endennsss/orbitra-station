@@ -6,9 +6,9 @@
   components:
   - type: Appearance
   - type: Sprite
-    sprite: _Lime/Imported/Goob/Objects/Materials/materials.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Objects/Materials/materials.rsi
   - type: Item
-    sprite: _Lime/Imported/Goob/Objects/Materials/materials.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Objects/Materials/materials.rsi
     size: Normal
   - type: Material
   - type: Tag

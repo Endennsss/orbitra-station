@@ -8,7 +8,7 @@
       steps:
       - tag: HardsuitSpatio
         icon:
-          sprite: _Lime/Imported/Goob/Clothing/OuterClothing/Hardsuits/spatio.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+          sprite: Clothing/OuterClothing/Hardsuits/spatio.rsi
           state: icon
         name: construction-graph-tag-spationaut-hardsuit
         doAfter: 10

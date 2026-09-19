@@ -156,7 +156,7 @@
   id: AdvancedToolsTechnology
   name: research-technology-advanced-tools
   icon:
-    sprite: _Lime/Imported/Goob/Objects/Tools/welder_experimental.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Objects/Tools/welder_experimental.rsi
     state: icon
   discipline: Industrial
   tier: 2
@@ -190,7 +190,7 @@
   id: BluespaceStorage
   name: research-technology-bluespace-storage
   icon:
-    sprite: _Lime/Imported/Goob/Clothing/Back/Backpacks/holding.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Clothing/Back/Backpacks/holding.rsi
     state: holding
   discipline: Industrial
   tier: 3

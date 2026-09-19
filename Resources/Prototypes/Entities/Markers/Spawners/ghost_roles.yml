@@ -378,5 +378,5 @@
     sprite: Markers/jobs.rsi
     layers:
     - state: green
-    - sprite: _Lime/Imported/Goob/Clothing/Head/Hats/wizardhat.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    - sprite: Clothing/Head/Hats/wizardhat.rsi
       state: icon

@@ -8,7 +8,7 @@
         steps:
         - tag: Apron
           icon:
-            sprite: _Lime/Imported/Goob/Clothing/OuterClothing/Misc/apronbotanist.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+            sprite: Clothing/OuterClothing/Misc/apronbotanist.rsi
             state: icon
           name: construction-graph-tag-apron
         - material: Cable

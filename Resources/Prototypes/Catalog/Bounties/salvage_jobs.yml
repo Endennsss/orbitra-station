@@ -163,7 +163,7 @@
   description: bounty-description-diamond
   group: SalvageJobTier3
   sprite:
-    sprite: _Lime/Imported/Goob/Objects/Materials/materials.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Objects/Materials/materials.rsi
     state: diamond
   entries:
   - name: bounty-item-diamond

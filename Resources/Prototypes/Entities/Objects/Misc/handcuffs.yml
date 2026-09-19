@@ -8,10 +8,10 @@
     size: Small
     storedRotation: 90
   - type: Handcuff
-    cuffedRSI: _Lime/Imported/Goob/Objects/Misc/handcuffs.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    cuffedRSI: Objects/Misc/handcuffs.rsi
     bodyIconState: body-overlay
   - type: Sprite
-    sprite: _Lime/Imported/Goob/Objects/Misc/handcuffs.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Objects/Misc/handcuffs.rsi
     state: handcuff
   - type: Tag
     tags:
@@ -150,11 +150,11 @@
   - type: Item
     size: Normal
   - type: Handcuff
-    cuffedRSI: _Lime/Imported/Goob/Clothing/OuterClothing/Misc/straight_jacket.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    cuffedRSI: Clothing/OuterClothing/Misc/straight_jacket.rsi
     breakoutTime: 100
     cuffTime: 10
     uncuffTime: 10
     stunBonus: 4
   - type: Sprite
-    sprite: _Lime/Imported/Goob/Clothing/OuterClothing/Misc/straight_jacket.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+    sprite: Clothing/OuterClothing/Misc/straight_jacket.rsi
     state: icon

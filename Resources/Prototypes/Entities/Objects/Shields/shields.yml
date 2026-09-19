@@ -6,10 +6,10 @@
   abstract: true
   components:
     - type: Sprite
-      sprite: _Lime/Imported/Goob/Objects/Weapons/Melee/shields.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Objects/Weapons/Melee/shields.rsi
       state: riot-icon
     - type: Item
-      sprite: _Lime/Imported/Goob/Objects/Weapons/Melee/shields.rsi # Lime-Edit - текстуры Goob с сохранением лицензии
+      sprite: Objects/Weapons/Melee/shields.rsi
       heldPrefix: riot
     - type: Blocking
       passiveBlockModifier:
