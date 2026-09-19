@@ -10,7 +10,7 @@
   - type: Rotatable
   - type: Sprite
     noRot: true
-    sprite: _Lime/Imported/DeadSpace/Structures/cryostorage.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Structures/cryostorage.rsi
     layers:
     - state: sleeper_0
       map: ["base"]

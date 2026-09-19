@@ -24,26 +24,24 @@
     access: [["Engineering"]]
   - type: Sprite
     drawdepth: WallMountedItems
-    sprite: _Lime/Imported/DeadSpace/Structures/Power/apc.rsi # Lime-Edit - классический корпус и дисплей ЛКП
+    sprite: Structures/Wallmounts/apc.rsi
     offset: 0, -0.25
     layers:
     - state: base
-      sprite: _Lime/Imported/DeadSpace/Structures/Power/apc.rsi # Lime-Edit - классический корпус ЛКП
+      sprite: _Lime/Imported/Monolith/Structures/Power/apc.rsi # Lime-Edit - корпус ЛКП Monolith
     - state: panel
-      sprite: _Lime/Imported/DeadSpace/Structures/Power/apc.rsi # Lime-Edit - классическая панель ЛКП
+      sprite: _Lime/Imported/Monolith/Structures/Power/apc.rsi # Lime-Edit - корпус ЛКП Monolith
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
       visible: false
     - state: display-charging
       shader: unshaded
       map: ["enum.ApcVisualLayers.ChargeState"]
     - state: channel-on
-      sprite: Structures/Wallmounts/apc.rsi # Lime-Edit - сохраняем отдельные индикаторы каналов питания
       shader: unshaded
       map: ["enum.ApcVisualLayers.Equipment"]
       visible: false
   - type: Appearance
   - type: ApcVisuals
-    screenStateSuffixes: [lack, charging, full, remote, lack] # Lime-Edit - отключение питания показываем красным дисплеем
   - type: Battery
     # Very important:
     # Disable networking to prevent the battery getting continuously dirtied every tick as it interacts with the power network.
@@ -67,7 +65,7 @@
     sourceNode: input
     loadNode: output
     collectionName: apc
-    sprite: _Lime/Imported/DeadSpace/Structures/Power/apc.rsi # Lime-Edit - значок классического ЛКП
+    sprite: Structures/Wallmounts/apc.rsi
     state: static
   - type: BatteryCharger
     voltage: Medium
@@ -145,7 +143,7 @@
     mode: SnapgridCenter
   components:
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Structures/Power/apc.rsi # Lime-Edit - классическая рама ЛКП
+    sprite: _Lime/Imported/Monolith/Structures/Power/apc.rsi # Lime-Edit - рама ЛКП Monolith
     state: frame
   - type: Construction
     graph: APC

@@ -22,7 +22,7 @@
     - SimpleHostile
   - type: Sprite
     drawdepth: SmallMobs
-    sprite: _Lime/Imported/DeadSpace/Mobs/Animals/regalrat.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Mobs/Animals/regalrat.rsi
     layers:
     - map: ["enum.DamageStateVisualLayers.Base"]
       state: regalrat
@@ -307,7 +307,7 @@
   - type: Action
     useDelay: 4
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Interface/Actions/actions_rat_king.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Interface/Actions/actions_rat_king.rsi
     layers:
     - state: ratKingArmy
   - type: InstantAction
@@ -322,7 +322,7 @@
   - type: Action
     useDelay: 6
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Interface/Actions/actions_rat_king.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Interface/Actions/actions_rat_king.rsi
     layers:
     - state: ratKingDomain
   - type: InstantAction
@@ -338,7 +338,7 @@
     useDelay: 1
     priority: 5
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Interface/Actions/actions_rat_king.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Interface/Actions/actions_rat_king.rsi
     layers:
     - state: stayOff
       map: ["enum.ActionVisuals.Icon"]
@@ -359,7 +359,7 @@
     useDelay: 1
     priority: 6
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Interface/Actions/actions_rat_king.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Interface/Actions/actions_rat_king.rsi
     layers:
     - state: followOff
       map: ["enum.ActionVisuals.Icon"]
@@ -380,7 +380,7 @@
     useDelay: 1
     priority: 7
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Interface/Actions/actions_rat_king.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Interface/Actions/actions_rat_king.rsi
     layers:
     - state: attackOff
       map: ["enum.ActionVisuals.Icon"]
@@ -401,7 +401,7 @@
     useDelay: 1
     priority: 8
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Interface/Actions/actions_rat_king.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Interface/Actions/actions_rat_king.rsi
     layers:
     - state: looseOff
       map: ["enum.ActionVisuals.Icon"]

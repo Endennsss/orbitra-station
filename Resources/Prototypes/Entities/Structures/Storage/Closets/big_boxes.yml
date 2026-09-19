@@ -55,7 +55,7 @@
               max: 2
     - type: Sprite
       noRot: true
-      sprite: Structures/Storage/closet.rsi # Lime-Edit - сохраняем старую графику шкафов
+      sprite: Structures/Storage/closet.rsi
       layers:
       - state: cardboard
         map: ["enum.StorageVisualLayers.Base"]

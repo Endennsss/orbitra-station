@@ -27,7 +27,7 @@
   - type: Sprite
     drawdepth: Mobs
     noRot: true
-    sprite: _Lime/Imported/DeadSpace/Objects/Consumable/Food/burger_sequence.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Objects/Consumable/Food/burger_sequence.rsi
     layers:
     - state: bun_bottom
     - map: ["foodSequenceLayers"]
@@ -56,7 +56,7 @@
   description: The perfect finish for your burger tower.
   components:
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Objects/Consumable/Food/burger_sequence.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Objects/Consumable/Food/burger_sequence.rsi
     layers:
     - state: bun_top
   - type: Solution

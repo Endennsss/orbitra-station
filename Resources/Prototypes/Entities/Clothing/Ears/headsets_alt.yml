@@ -169,6 +169,6 @@
         key_slots:
         - EncryptionKeyStationMaster
     - type: Sprite
-      sprite: _Lime/Imported/DeadSpace/Clothing/Ears/Headsets/wizard.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+      sprite: Clothing/Ears/Headsets/wizard.rsi
     - type: Clothing
-      sprite: _Lime/Imported/DeadSpace/Clothing/Ears/Headsets/wizard.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+      sprite: Clothing/Ears/Headsets/wizard.rsi

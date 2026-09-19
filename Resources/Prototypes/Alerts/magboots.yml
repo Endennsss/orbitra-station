@@ -1,7 +1,7 @@
 - type: alert
   id: Magboots
   icons:
-  - sprite: /Textures/Clothing/Shoes/Boots/magboots.rsi # Lime-Edit - штатные значки правой панели
+  - sprite: /Textures/_Lime/Imported/Monolith/Clothing/Shoes/Boots/magboots.rsi # Lime-Edit - текстуры Monolith с сохранением лицензии
     state: icon-on
   name: alerts-magboots-name
   description: alerts-magboots-desc

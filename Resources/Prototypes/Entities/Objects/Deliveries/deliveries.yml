@@ -59,7 +59,7 @@
   name: package
   components:
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Objects/Specific/Cargo/mail_large.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Objects/Specific/Cargo/mail_large.rsi
     layers:
     - state: icon
       map: [ "enum.DeliveryVisualLayers.Icon" ]

@@ -697,7 +697,7 @@
   parent: BaseItem
   components:
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Objects/Materials/Sheets/other.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Objects/Materials/Sheets/other.rsi
     state: generic_materials
 
 - type: entity
@@ -1814,7 +1814,7 @@
     components:
     - type: SimpleSpriteOverlay
       overlaySprite:
-        sprite: _Lime/Imported/DeadSpace/Mobs/Silicon/chassis.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+        sprite: Mobs/Silicon/chassis.rsi
         state: xenoborg_heavy_missile_launcher
   - type: ItemBorgModule
     hands:
@@ -1905,7 +1905,7 @@
     components:
     - type: SimpleSpriteOverlay
       overlaySprite:
-        sprite: _Lime/Imported/DeadSpace/Mobs/Silicon/chassis.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+        sprite: Mobs/Silicon/chassis.rsi
         state: xenoborg_heavy_rad
       shader: unshaded
     - type: RadiationSource

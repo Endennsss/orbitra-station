@@ -37,7 +37,7 @@
     itemIconStyle: NoItem
     priority: -11
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Objects/Weapons/Melee/energykatana.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Objects/Weapons/Melee/energykatana.rsi
     layers:
     - state: icon
   - type: InstantAction

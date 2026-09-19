@@ -4,9 +4,9 @@
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: fennec
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: fennec-tip
 
 - type: marking
@@ -14,9 +14,9 @@
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: fluffy
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: fluffy-tip
 
 - type: marking
@@ -24,11 +24,11 @@
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: husky
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: husky-inner
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: husky-outer
 
 - type: marking
@@ -36,9 +36,9 @@
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: long
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: long-tip
 
 - type: marking
@@ -46,9 +46,9 @@
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: vulp
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: vulp-tip
 
 - type: marking
@@ -56,9 +56,9 @@
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: vulp
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: vulp-fade
 
 - type: marking
@@ -66,7 +66,7 @@
   bodyPart: Tail
   groupWhitelist: [ Vulpkanin ]
   sprites:
-  - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+  - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
     state: coyote
 
 # Animated
@@ -75,9 +75,9 @@
   bodyPart: Tail
   groupWhitelist: []
   sprites:
-  - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+  - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
     state: fennec-wagging
-  - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+  - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
     state: fennec-wagging-tip
 
 - type: marking
@@ -85,9 +85,9 @@
   bodyPart: Tail
   groupWhitelist: []
   sprites:
-  - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+  - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
     state: fluffy-wagging
-  - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+  - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
     state: fluffy-wagging-tip
 
 - type: marking
@@ -95,11 +95,11 @@
   bodyPart: Tail
   groupWhitelist: []
   sprites:
-  - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+  - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
     state: husky-wagging
-  - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+  - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
     state: husky-wagging-inner
-  - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+  - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
     state: husky-wagging-outer
 
 - type: marking
@@ -107,9 +107,9 @@
   bodyPart: Tail
   groupWhitelist: []
   sprites:
-  - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+  - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
     state: long-wagging
-  - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+  - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
     state: long-wagging-tip
 
 - type: marking
@@ -117,9 +117,9 @@
   bodyPart: Tail
   groupWhitelist: []
   sprites:
-  - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+  - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
     state: vulp-wagging
-  - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+  - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
     state: vulp-wagging-tip
 
 - type: marking
@@ -127,9 +127,9 @@
   bodyPart: Tail
   groupWhitelist: []
   sprites:
-  - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+  - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
     state: vulp-wagging
-  - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+  - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
     state: vulp-wagging-fade
 
 - type: marking
@@ -137,5 +137,5 @@
   bodyPart: Tail
   groupWhitelist: []
   sprites:
-  - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/tail_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+  - sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
     state: coyote-wagging

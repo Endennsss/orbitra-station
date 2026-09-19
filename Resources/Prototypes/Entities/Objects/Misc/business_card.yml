@@ -5,7 +5,7 @@
   description: A black card with the syndicate's logo. There's something written on the back.
   components:
     - type: Sprite
-      sprite: _Lime/Imported/DeadSpace/Objects/Misc/bureaucracy.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+      sprite: Objects/Misc/bureaucracy.rsi
       layers:
       - state: syndicate_card
       - state: syndicate_card

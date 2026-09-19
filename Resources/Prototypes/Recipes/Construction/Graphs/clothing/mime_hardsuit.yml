@@ -24,13 +24,13 @@
             - tag: CrayonRed
               name: construction-graph-tag-red-crayon
               icon:
-                sprite: _Lime/Imported/DeadSpace/Objects/Fun/crayons.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+                sprite: Objects/Fun/crayons.rsi
                 state: red
               doAfter: 1
             - tag: CrayonBlack
               name: construction-graph-tag-black-crayon
               icon:
-                sprite: _Lime/Imported/DeadSpace/Objects/Fun/crayons.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+                sprite: Objects/Fun/crayons.rsi
                 state: black
               doAfter: 1
             - tag: MimeBelt

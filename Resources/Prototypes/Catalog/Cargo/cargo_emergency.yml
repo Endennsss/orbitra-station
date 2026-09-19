@@ -31,7 +31,7 @@
 - type: cargoProduct
   id: EmergencyRadiation
   icon:
-    sprite: _Lime/Imported/DeadSpace/Structures/Wallmounts/signs.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Structures/Wallmounts/signs.rsi
     state: radiation
   product: CrateEmergencyRadiation
   cost: 1000
@@ -55,7 +55,7 @@
 - type: cargoProduct
   id: EmergencyBiosuit
   icon:
-    sprite: _Lime/Imported/DeadSpace/Clothing/Head/Hoods/Bio/general.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Clothing/Head/Hoods/Bio/general.rsi
     state: icon
   product: CrateGenericBiosuit
   cost: 800

@@ -7,7 +7,7 @@
     mode: SnapgridCenter
   components:
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Structures/Machines/diagnoser.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Structures/Machines/diagnoser.rsi
     layers:
     - state: icon
       map: ["enum.DiseaseMachineVisualLayers.IsRunning"]
@@ -33,7 +33,7 @@
   description: 'A chilling medical receipt.'
   components:
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Objects/Misc/bureaucracy.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Objects/Misc/bureaucracy.rsi
     layers:
     - state: paper_receipt
     - state: paper_receipt_words

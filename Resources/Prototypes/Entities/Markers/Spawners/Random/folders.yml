@@ -8,7 +8,7 @@
   - type: Transform
     anchored: false
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Objects/Misc/folders.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Objects/Misc/folders.rsi
     layers:
     - state: folder-base
     - state: folder-colormap

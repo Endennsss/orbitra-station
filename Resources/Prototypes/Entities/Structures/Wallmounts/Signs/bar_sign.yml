@@ -7,7 +7,7 @@
   - type: WallMount
     arc: 360
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Structures/Wallmounts/barsign.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Structures/Wallmounts/barsign.rsi
     state: empty
   - type: BarSign
     emped: EmpBarSign

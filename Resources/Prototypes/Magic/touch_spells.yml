@@ -85,7 +85,7 @@
     sound: !type:SoundPathSpecifier
       path: /Audio/Effects/slip.ogg
   - type: Sprite
-    sprite: _Lime/Imported/DeadSpace/Objects/Specific/Janitorial/soap.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    sprite: Objects/Specific/Janitorial/soap.rsi
     layers:
     - state: omega-4
   - type: EntityTargetAction

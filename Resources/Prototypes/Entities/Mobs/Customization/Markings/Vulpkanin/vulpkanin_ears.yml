@@ -5,9 +5,9 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: vulp
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: vulp-inner
 
 - type: marking
@@ -15,11 +15,11 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: vulp
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: vulp-sharp
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: vulp-inner
 
 - type: marking
@@ -27,11 +27,11 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: vulp
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: vulp-fade
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: vulp-inner
 
 - type: marking
@@ -39,9 +39,9 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: jackal
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: jackal-inner
 
 - type: marking
@@ -49,9 +49,9 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: terrier
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: terrier-inner
 
 - type: marking
@@ -59,9 +59,9 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: fennec
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: fennec-inner
 
 - type: marking
@@ -69,9 +69,9 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: fox
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: fox-inner
 
 - type: marking
@@ -79,9 +79,9 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: otie
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: otie-inner
 
 - type: marking
@@ -89,9 +89,9 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: shock
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: shock-inner
 
 - type: marking
@@ -99,7 +99,7 @@
   bodyPart: HeadTop
   groupWhitelist: [ Vulpkanin ]
   sprites:
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: coyote
-    - sprite: _Lime/Imported/DeadSpace/Mobs/Customization/Vulpkanin/ear_markings.rsi # Lime-Edit - текстуры DeadSpace с сохранением лицензии
+    - sprite: Mobs/Customization/Vulpkanin/ear_markings.rsi
       state: coyote-inner
