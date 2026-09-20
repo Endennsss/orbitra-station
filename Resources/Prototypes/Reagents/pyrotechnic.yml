@@ -167,17 +167,7 @@
   metabolisms:
     Bloodstream:
       effects:
-      - !type:Satiate
-        satiationType: Thirst
-        factor: 1
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [Vox]
       - !type:HealthChange
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [Vox]
-          inverted: true
         damage:
           types:
             Poison: 1
@@ -210,17 +200,7 @@
   metabolisms:
     Bloodstream:
       effects:
-      - !type:Satiate
-        satiationType: Thirst
-        factor: 1
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [Vox]
       - !type:HealthChange
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [Vox]
-          inverted: true
         damage:
           types:
             Poison: 1

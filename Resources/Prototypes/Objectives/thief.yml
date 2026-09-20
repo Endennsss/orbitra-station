@@ -154,21 +154,6 @@
 
 - type: entity
   parent: BaseThiefStealCollectionObjective
-  id: LAMPStealCollectionObjective
-  components:
-  - type: SpeciesRequirement
-    allowedSpecies:
-    - Moth
-  - type: StealCondition
-    stealGroup: LAMP
-    minCollectionSize: 1
-    maxCollectionSize: 10
-    verifyMapExistence: true
-  - type: Objective
-    difficulty: 0.1 # just for fun, collecting LAMP on Moth
-
-- type: entity
-  parent: BaseThiefStealCollectionObjective
   id: ClothingEyesHudsStealCollectionObjective
   components:
   - type: StealCondition

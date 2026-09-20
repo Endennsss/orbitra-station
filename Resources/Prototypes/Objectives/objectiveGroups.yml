@@ -83,7 +83,6 @@
     TechnologyDiskStealCollectionObjective: 1           #sci
     MailStealCollectionObjective: 1                     #cargo
     IDCardsStealCollectionObjective: 1
-    LAMPStealCollectionObjective: 0.1                   #only for moth, weight decreased cause boring and insanely easy
 
 - type: weightedRandom
   id: ThiefObjectiveGroupItem

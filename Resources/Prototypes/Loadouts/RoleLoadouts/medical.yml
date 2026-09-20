@@ -3,7 +3,6 @@
 - type: roleLoadout
   id: JobChiefMedicalOfficer
   groups:
-  - GroupTankHarness
   - ChiefMedicalOfficerHead
   - MedicalMask
   - ChiefMedicalOfficerJumpsuit
@@ -16,12 +15,10 @@
   - SurvivalMedical
   - Trinkets
 #  - ChiefMedicalOfficerJobTrinkets
-  - GroupSpeciesBreathToolMedical
 
 - type: roleLoadout
   id: JobMedicalDoctor
   groups:
-  - GroupTankHarness
   - MedicalDoctorHead
   - MedicalMask
   - MedicalDoctorJumpsuit
@@ -34,12 +31,10 @@
   - SurvivalMedical
   - Trinkets
 #  - MedicalDoctorJobTrinkets
-  - GroupSpeciesBreathToolMedical
 
 - type: roleLoadout
   id: JobMedicalIntern
   groups:
-  - GroupTankHarness
   - MedicalInternJumpsuit
   - MedicalBackpack
   - Glasses
@@ -47,12 +42,10 @@
   - SurvivalMedical
   - Trinkets
 #  - MedicalInternJobTrinkets
-  - GroupSpeciesBreathToolMedical
 
 - type: roleLoadout
   id: JobChemist
   groups:
-  - GroupTankHarness
   - MedicalMask
   - ChemistJumpsuit
   - ChemistBackpack
@@ -63,12 +56,10 @@
   - SurvivalMedical
   - Trinkets
 #  - ChemistJobTrinkets
-  - GroupSpeciesBreathToolMedical
 
 - type: roleLoadout
   id: JobParamedic
   groups:
-  - GroupTankHarness
   - ParamedicHead
   - MedicalMask
   - ParamedicJumpsuit
@@ -80,4 +71,3 @@
   - SurvivalMedical
   - Trinkets
 #  - ParamedicJobTrinkets
-  - GroupSpeciesBreathToolMedical

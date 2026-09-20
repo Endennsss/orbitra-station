@@ -67,7 +67,6 @@
   # Also ZombieComponent overwrites the old replacement accent, because you can only have one at a time.
   - RussianAccent
   - ScrambledAccent
-  - SkeletonAccent
   - SlurredAccent
   - SouthernAccent
   - SpanishAccent
@@ -152,10 +151,6 @@
   - Inventory # arachnid pockets and diona feet
   - Wagging # lizard tails
   - Storage # slime storage
-  - Rootable # diona
-  - Sericulture # arachnids
-  - MovementSpeedModifier # moths when weightless
-  - JumpAbility # vulp leaping
   - Bloodstream # blood reagents
   copyInternalStorage: false
   copyImplants: false

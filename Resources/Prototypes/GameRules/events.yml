@@ -194,8 +194,6 @@
     duration: 1
     occursDuringRoundEnd: false
     minimumPlayers: 10
-  - type: RandomEntityStorageSpawnRule
-    prototype: MobSkeletonCloset
 
 - type: entity
   parent: BaseAntagGhostRoleRule

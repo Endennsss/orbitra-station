@@ -198,18 +198,6 @@ ghost-role-information-cluwne-name = Клувень
 
 ghost-role-information-cluwne-description = Станьте жалким клувнем. Ваша единственная цель в жизни — найти сладкое избавление от страданий (обычно через избиение до смерти). Клувень не является антагонистом, но может защищаться. Члены экипажа могут свободно убивать клувней.
 
-ghost-role-information-skeleton-pirate-name = Скелет-пират
-
-ghost-role-information-skeleton-pirate-description = Устройте хаос и разграбьте станцию в поисках сокровищ.
-
-ghost-role-information-skeleton-biker-name = Скелет-байкер
-
-ghost-role-information-skeleton-biker-description = Колесите на своём прекрасном байке.
-
-ghost-role-information-closet-skeleton-name = Скелет из шкафа
-
-ghost-role-information-closet-skeleton-description = Вы, похоже, один из старейших сотрудников станции! Верните себе прежнюю должность или устройте хаос! Мир в ваших руках.
-
 ghost-role-information-remilia-name = Ремилия, фамильяр священника
 
 ghost-role-information-remilia-description = Слушайтесь и повинуйтесь священнику. Ешьте фрукты. Громко кричите людям в уши и списывайте это на эхолокацию.
@@ -452,9 +440,6 @@ ghost-role-information-tomatokiller-name = Томат-убийца
 
 ghost-role-information-tomatokiller-description = Этот маленький помидор будет служить ботанику до конца своей жизни... то есть пару минут.
 
-ghost-role-information-gingerbread-name = Пряничный человечек
-
-ghost-role-information-gingerbread-description = Существо чистого праздничного духа.
                                      Распространяйте паточную вкуснятину и хорошее настроение.
 
 ghost-role-information-mothership-core-name = Ядро материнского корабля

@@ -11,17 +11,3 @@
     - texture: Interface/Actions/web.png
   - type: InstantAction
     event: !type:SpiderWebActionEvent
-
-- type: entity
-  parent: BaseAction
-  id: ActionSericulture
-  name: Weave silk
-  description: Weave a bit of silk for use in arts and crafts.
-  components:
-  - type: Action
-    useDelay: 1
-  - type: Sprite
-    layers:
-    - texture: Interface/Actions/web.png
-  - type: InstantAction
-    event: !type:SericultureActionEvent

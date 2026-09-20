@@ -40,10 +40,6 @@
       entity: ChairCursed
       edges:
         - to: chairRitual
-          completed:
-            - !type:SpawnPrototype
-              prototype: OrganSkeletonPersonHead
-              amount: 1
           steps:
             - tool: Prying
               doAfter: 1

@@ -8,7 +8,7 @@
       body_organs: !type:AllSelector
         children:
         - id: OrganAnimalLungs
-        - id: OrganArachnidHeart
+        - id: OrganAnimalHeart
         - id: OrganAnimalStomach
         - id: OrganAnimalLiver
         - id: OrganAnimalKidneys

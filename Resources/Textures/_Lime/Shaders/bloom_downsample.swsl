@@ -1,0 +1,13 @@
+light_mode unshaded;
+blend_mode none;
+
+uniform highp vec2 sample_step;
+
+void fragment() {
+    // Четыре bilinear-выборки покрывают целиком блок 4x4 (Medium/Low) или 2x2 (High).
+    highp vec3 sum = zTexture(UV + sample_step).rgb;
+    sum += zTexture(UV - sample_step).rgb;
+    sum += zTexture(UV + vec2(sample_step.x, -sample_step.y)).rgb;
+    sum += zTexture(UV + vec2(-sample_step.x, sample_step.y)).rgb;
+    COLOR = vec4(sum * 0.25, 1.0);
+}

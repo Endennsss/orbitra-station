@@ -1,4 +1,4 @@
-﻿- type: speechVerb
+- type: speechVerb
   id: Default
   name: chat-speech-verb-name-default
   speechVerbStrings:
@@ -71,28 +71,12 @@
   - chat-speech-verb-insect-2
 
 - type: speechVerb
-  id: Skeleton
-  name: chat-speech-verb-name-skeleton
-  speechVerbStrings:
-  - chat-speech-verb-skeleton-1
-  - chat-speech-verb-skeleton-2
-  - chat-speech-verb-skeleton-3
-
-- type: speechVerb
   id: Slime
   name: chat-speech-verb-name-slime
   speechVerbStrings:
   - chat-speech-verb-slime-1
   - chat-speech-verb-slime-2
   - chat-speech-verb-slime-3
-
-- type: speechVerb
-  id: Vox
-  name: chat-speech-verb-name-vox
-  speechVerbStrings:
-  - chat-speech-verb-vox-1
-  - chat-speech-verb-vox-2
-  - chat-speech-verb-vox-3
 
 - type: speechVerb
   id: Plant
@@ -179,15 +163,6 @@
   - chat-speech-verb-electricity-1
   - chat-speech-verb-electricity-2
   - chat-speech-verb-electricity-3
-
-- type: speechVerb
-  id: Vulpkanin
-  name: chat-speech-verb-vulpkanin
-  speechVerbStrings:
-  - chat-speech-verb-vulpkanin-1
-  - chat-speech-verb-vulpkanin-2
-  - chat-speech-verb-vulpkanin-3
-  - chat-speech-verb-vulpkanin-4
 
 - type: speechVerb
   id: Wawa

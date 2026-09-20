@@ -1,7 +1,12 @@
 - type: shader
-  id: LimeBloomExtract
+  id: LimeWorldBloomExtract
   kind: source
-  path: /Textures/_Lime/Shaders/bloom_extract.swsl
+  path: /Textures/_Lime/Shaders/world_bloom_extract.swsl
+
+- type: shader
+  id: LimeBloomDownsample
+  kind: source
+  path: /Textures/_Lime/Shaders/bloom_downsample.swsl
 
 - type: shader
   id: LimeBloomBlur
@@ -9,17 +14,6 @@
   path: /Textures/_Lime/Shaders/bloom_blur.swsl
 
 - type: shader
-  id: LimeLampCore
-  kind: canvas
-  light_mode: unshaded
-  blend_mode: add
-
-- type: shader
   id: LimeBloomComposite
   kind: source
   path: /Textures/_Lime/Shaders/emissive_bloom.swsl
-
-- type: shader
-  id: LimeEmissiveMask
-  kind: canvas
-  light_mode: unshaded

@@ -80,8 +80,6 @@ ent-ActionToggleParamedicSiren = Переключить сирену парам�
     .desc = Включает или выключает сирену парамедика.
 ent-ActionGravityJump = Прыжок
     .desc = Активируя продвинутую двигательную систему, вы отталкиваетесь на небольшое расстояние в направлении взгляда.
-ent-ActionToggleRootable = Укорениться
-    .desc = Начать или перестать быть прикреплённым к полу.
 ent-ActionChameleonController = Измените свою одежду
     .desc = Быстро измените свою одежду
 ent-ActionActivateReviverImplant = Активировать [color=cyan]реаниматор[/color]

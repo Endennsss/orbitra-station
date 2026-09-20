@@ -11,7 +11,7 @@ namespace Content.Shared.Nutrition.Prototypes;
 
 /// <summary>
 /// A specific variety of satiation. For example, an animal which is always hungry would use one prototype while a
-/// Diona which rarely gets hungry would use a different one.
+/// Species which rarely get hungry can use a different one.
 /// </summary>
 [Prototype]
 public sealed partial class SatiationPrototype : IPrototype, IInheritingPrototype

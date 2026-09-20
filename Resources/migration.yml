@@ -780,17 +780,17 @@ BorgModuleAdvancedChemical: BorgModuleAdvancedTopical
 
 # 2026-01-14
 HeadHuman: OrganHumanHead
-HeadSkeleton: OrganSkeletonPersonHead
+HeadSkeleton: OrganHumanHead
 LeftArmHuman: OrganHumanArmLeft
-LeftArmSkeleton: OrganSkeletonPersonArmLeft
-LeftHandSkeleton: OrganSkeletonPersonHandLeft
+LeftArmSkeleton: OrganHumanArmLeft
+LeftHandSkeleton: OrganHumanHandLeft
 LeftLegHuman: OrganHumanLegLeft
-LeftLegSkeleton: OrganSkeletonPersonLegLeft
+LeftLegSkeleton: OrganHumanLegLeft
 RightArmHuman: OrganHumanArmRight
-RightHandSkeleton: OrganSkeletonPersonHandRight
+RightHandSkeleton: OrganHumanHandRight
 RightLegHuman: OrganHumanLegRight
-TorsoSkeleton: OrganSkeletonPersonTorso
-RightArmSkeleton: OrganSkeletonPersonArmRight
+TorsoSkeleton: OrganHumanTorso
+RightArmSkeleton: OrganHumanArmRight
 
 # 2026-01-19
 TowelColorPurple: null
@@ -908,9 +908,9 @@ CableMVStackLingering10: CableMVStack10
 CableApcStackLingering10: CableApcStack10
 
 # 2026-07-19
-BoxHugNitrogen: BoxSurvivalHugNitrogen
+BoxHugNitrogen: BoxSurvivalHug
 BoxMime: BoxSurvival
-BoxMimeNitrogen: BoxSurvivalNitrogen
+BoxMimeNitrogen: BoxSurvival
 BoxMimeMoth: BoxSurvival
 
 # 2026-07-19

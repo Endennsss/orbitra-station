@@ -22,11 +22,13 @@ public sealed partial class NightVisionSystem : SharedNightVisionSystem
         base.Initialize();
 
         _overlay = new NightVisionOverlay();
+        InitializeLimeNightVision(); // Lime-Edit - отдельное оформление приборов.
     }
 
     [SubscribeLocalEvent]
     private void OnPlayerAttached(LocalPlayerAttachedEvent args)
     {
+        HideLimeNightVision(); // Lime-Edit - не переносим прогрев на другого наблюдателя.
         RefreshOverlay(args.Entity);
     }
 
@@ -39,7 +41,10 @@ public sealed partial class NightVisionSystem : SharedNightVisionSystem
     [SubscribeLocalEvent]
     private void OnHandleState(Entity<NightVisionComponent> ent, ref AfterAutoHandleStateEvent args)
     {
-        RefreshOverlay(ent);
+        // Lime edit start - обновление прибора приходит на предмет, а не на владельца.
+        if (_player.LocalEntity is { } viewer)
+            RefreshOverlay(viewer);
+        // Lime edit end
     }
 
     [SubscribeLocalEvent]
@@ -63,6 +68,7 @@ public sealed partial class NightVisionSystem : SharedNightVisionSystem
     [SubscribeNetworkEvent]
     private void OnRoundRestart(RoundRestartCleanupEvent args)
     {
+        HideLimeNightVision(); // Lime-Edit - сброс даже без прикреплённой сущности.
         var localPlayer = _player.LocalSession?.AttachedEntity;
         if (localPlayer != null)
             Deactivate(localPlayer.Value);
@@ -73,30 +79,10 @@ public sealed partial class NightVisionSystem : SharedNightVisionSystem
         if (entity != _player.LocalSession?.AttachedEntity)
             return;
 
-        // Find the component with the lowest noise.
-        NightVisionComponent? nvision = null;
-        var bestNoise = float.MaxValue;
-        foreach (var ent in entities)
-        {
-            if (!ent.Comp.Enabled)
-                continue;
-
-            if (ent.Comp.RelayOverlay == (ent.Owner == entity))
-                continue;
-
-            if (ent.Comp.Prioritized)
-            {
-                nvision = ent.Comp;
-                break;
-            }
-
-            var noise = ent.Comp.NoiseAmount * ent.Comp.NoiseMultiplier;
-            if (noise < bestNoise)
-            {
-                nvision = ent.Comp;
-                bestNoise = noise;
-            }
-        }
+        // Lime edit start - прежний выбор выделен для тестирования; сохраняем UID источника.
+        var selected = Content.Client._Lime.NightVision.LimeNightVisionPresentation.SelectSource(entity, entities);
+        var nvision = selected?.Comp;
+        // Lime edit end
 
         // There is no active night vision components, so we disable the overlay.
         if (nvision == null)
@@ -104,6 +90,11 @@ public sealed partial class NightVisionSystem : SharedNightVisionSystem
             Deactivate(entity);
             return;
         }
+
+        // Lime added start - новый эффект только у выбранного прибора с маркером.
+        if (TryShowLimeNightVision(entity, selected!.Value))
+            return;
+        // Lime added end
 
         _overlay.SetParameters(nvision.OverlayColor, nvision.LightingColor, nvision.NoiseAmount, nvision.NoiseMultiplier);
 
@@ -117,6 +108,7 @@ public sealed partial class NightVisionSystem : SharedNightVisionSystem
             return;
 
         _overlayMan.RemoveOverlay(_overlay);
+        HideLimeNightVision(); // Lime-Edit - выключаем оба прохода прибора без задержки.
     }
 
     protected override void RefreshOverlay(EntityUid target)

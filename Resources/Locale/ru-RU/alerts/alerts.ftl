@@ -142,9 +142,6 @@ alerts-revenant-corporeal-name = Материальность
 
 alerts-revenant-corporeal-desc = Вы физически воплотились. Окружающие могут видеть и наносить вам вред.
 
-alerts-rooted-name = Укоренены
-
-alerts-rooted-desc = Вы прикреплены к земле. Вы не можете подскользнуться, но вы будете впитывать все жидкости под вами.
 
 alerts-stealthy-name = Карманничество
 

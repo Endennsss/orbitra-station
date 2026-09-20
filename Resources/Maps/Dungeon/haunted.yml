@@ -2224,7 +2224,7 @@ entities:
     - type: Transform
       parent: 1653
       pos: 9.478245,26.669188
-- proto: OrganSkeletonPersonTorso
+- proto: OrganHumanTorso
   entities:
   - uid: 325
     components:

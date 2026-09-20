@@ -7,5 +7,3 @@
   - type: Sprite
     layers:
     - state: green
-    - sprite: Mobs/Species/Skeleton/parts.rsi
-      state: skull_icon

@@ -325,7 +325,7 @@
   id: CleanerGrenade # Storage whitelist: ClothingBeltJanitor. ItemMapper: ClothingBeltJanitor
 
 - type: Tag
-  id: ClothMade # SpecialDigestible: OrganMothStomach. Storage whitelist: FoodBoxCloth
+  id: ClothMade # Storage whitelist: FoodBoxCloth
 
 - type: Tag
   id: ClownMask # ConstructionGraph: Honker, BananaClownMask
@@ -1061,7 +1061,7 @@
   id: Pancake # CargoBounty: BountyPancake
 
 - type: Tag
-  id: Paper # A writeable piece of paper. Subset of Document tag. SpecialDigestible: OrganMothStomach, OrganReptilianStomach. Storage whitelist: MailCart
+  id: Paper # A writeable piece of paper. Subset of Document tag. SpecialDigestible: OrganReptilianStomach. Storage whitelist: MailCart
 
 - type: Tag
   id: ParadoxCloneObjectiveBlacklist # objective entities with this tag don't get copied to paradox clones
@@ -1098,7 +1098,7 @@
   id: Pig # Reproductive partner key.
 
 - type: Tag
-  id: Pill # Storage whitelist: PillCanister. SpecialDigestible: OrganMothStomach, OrganReptilianStomach
+  id: Pill # Storage whitelist: PillCanister. SpecialDigestible: OrganReptilianStomach
 
 - type: Tag
   id: PillCanister # Storage whitelist: ClothingBeltMedical, ChemBag, ChemMaster, SmartFridge. ItemMapper: ClothingBeltMedical
@@ -1462,7 +1462,7 @@
 
 - type: Tag
   id: Trash # Tagged entities are generic garbage. They fit inside TrashBag and are destroyed by Recycler.
-            # CargoBounty: BountyTrash. SpecialDigestible: OrganVoxStomach
+            # CargoBounty: BountyTrash.
 
 - type: Tag
   id: TrashBag # Storage whitelist: BoxTrashbag, ClothingBeltJanitor, JanitorialTrolley. ItemMapper: JanitorialTrolley

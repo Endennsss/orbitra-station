@@ -64,46 +64,26 @@
   - Cane
 
 - type: loadoutGroup
-  id: GroupTankHarness
-  name: loadout-group-tank-harness
+  id: Survival
+  name: loadout-group-survival-basic
   minLimit: 1
   hidden: true
   loadouts:
-  - LoadoutTankHarness
-
-- type: loadoutGroup
-  id: Survival
-  name: loadout-group-survival-basic
-  minLimit: 3
-  hidden: true
-  loadouts:
-  - EmergencyNitrogen
   - EmergencyOxygen
-  - LoadoutSpeciesVoxNitrogen
 
-# nitrogen or oxygen tank, depending on what your species needs
+# Oxygen tank for the remaining playable species.
 - type: loadoutGroup
   id: GroupEVATank
   name: loadout-group-EVA-tank
   hidden: true
   loadouts:
-  - LoadoutSpeciesEVANitrogen
   - LoadoutSpeciesEVAOxygen
-
-# vox get a nitrogen tank, other species get nothing
-- type: loadoutGroup
-  id: GroupEVATankVox
-  name: loadout-group-vox-tank
-  hidden: true
-  loadouts:
-  - LoadoutSpeciesVoxNitrogen
 
 - type: loadoutGroup
   id: GroupPocketTankDouble
   name: loadout-group-pocket-tank-double
   hidden: true
   loadouts:
-  - LoadoutSpeciesPocketDoubleNitrogen
   - LoadoutSpeciesPocketDoubleOxygen
 
 # Command
@@ -556,12 +536,10 @@
 - type: loadoutGroup
   id: SurvivalClown
   name: loadout-group-survival-clown
-  minLimit: 2
+  minLimit: 1
   hidden: true
   loadouts:
-  - EmergencyNitrogenClown
   - EmergencyOxygenClown
-  - LoadoutSpeciesVoxNitrogen
 
 - type: loadoutGroup
   id: ClownJobTrinkets
@@ -955,12 +933,10 @@
 - type: loadoutGroup
   id: SurvivalExtended
   name: loadout-group-survival-extended
-  minLimit: 2
+  minLimit: 1
   hidden: true
   loadouts:
-  - EmergencyNitrogenExtended
   - EmergencyOxygenExtended
-  - LoadoutSpeciesVoxNitrogen
 
 # Science
 - type: loadoutGroup
@@ -1289,12 +1265,10 @@
 - type: loadoutGroup
   id: SurvivalSecurity
   name: loadout-group-survival-security
-  minLimit: 2
+  minLimit: 1
   hidden: true
   loadouts:
-  - EmergencyNitrogenSecurity
   - EmergencyOxygenSecurity
-  - LoadoutSpeciesVoxNitrogen
 
 # Wildcards
 - type: loadoutGroup
@@ -1371,55 +1345,23 @@
 - type: loadoutGroup
   id: SurvivalExtendedAntag # Larger survival box containing food/water, used by antags that spawn off-station (e.g ninjas, wizards)
   name: loadout-group-survival-extended
-  minLimit: 2
+  minLimit: 1
   hidden: true
   loadouts:
-  - EmergencyNitrogenExtendedAntag
   - EmergencyOxygenExtendedAntag
-  - LoadoutSpeciesVoxNitrogen
 
 - type: loadoutGroup
   id: SurvivalSyndicate # Larger survival box containing food, used by syndicate operatives that spawn off-station (e.g nukies)
   name: loadout-group-survival-syndicate
-  minLimit: 2
+  minLimit: 1
   hidden: true
   loadouts:
-  - EmergencyNitrogenSyndicate
   - EmergencyOxygenSyndicate
-  - LoadoutSpeciesVoxNitrogen
 
 - type: loadoutGroup
   id: SurvivalMilitaryDouble # Survival box mostly used by ERT/deathsquad
   name: loadout-group-survival-military
-  minLimit: 2
+  minLimit: 1
   hidden: true
   loadouts:
-  - EmergencyNitrogenMilitaryDouble
   - EmergencyOxygenMilitaryDouble
-
-- type: loadoutGroup
-  id: GroupSpeciesBreathTool
-  name: loadout-group-breath-tool
-  minLimit: 1
-  maxLimit: 1
-  hidden: true
-  loadouts:
-  - LoadoutSpeciesBreathTool
-
-- type: loadoutGroup
-  id: GroupSpeciesBreathToolMedical
-  name: loadout-group-breath-tool
-  minLimit: 1
-  maxLimit: 1
-  hidden: true
-  loadouts:
-  - LoadoutSpeciesBreathToolMedical
-
-- type: loadoutGroup
-  id: GroupSpeciesBreathToolSecurity
-  name: loadout-group-breath-tool
-  minLimit: 1
-  maxLimit: 1
-  hidden: true
-  loadouts:
-  - LoadoutSpeciesBreathToolSecurity

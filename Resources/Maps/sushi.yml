@@ -5360,7 +5360,7 @@ entities:
       - 15312
       - 15136
       - 723
-- proto: AirAlarmVox
+- proto: AirAlarm
   entities:
   - uid: 139
     components:
@@ -9614,7 +9614,7 @@ entities:
     - type: DeviceNetwork
       deviceLists:
       - 138
-- proto: AirSensorVox
+- proto: AirSensor
   entities:
   - uid: 725
     components:
@@ -12391,7 +12391,7 @@ entities:
     - type: Transform
       parent: 2
       pos: 41.5,60.5
-- proto: AtmosFixVoxMarker
+- proto: AtmosFixNitrogenMarker
   entities:
   - uid: 936
     components:
@@ -70121,7 +70121,7 @@ entities:
     - type: Transform
       parent: 2
       pos: 78.5,68.5
-- proto: DefaultStationBeaconVox
+- proto: DefaultStationBeaconAtmospherics
   entities:
   - uid: 9828
     components:
@@ -110374,7 +110374,7 @@ entities:
       - 138
     - type: AtmosPipeColor
       color: '#03FCD3FF'
-- proto: GasVentPumpVox
+- proto: GasVentPump
   entities:
   - uid: 15138
     components:
@@ -112365,7 +112365,7 @@ entities:
       pipeLayer: Secondary
     - type: AtmosPipeColor
       color: '#990000FF'
-- proto: GasVentScrubberVox
+- proto: GasVentScrubber
   entities:
   - uid: 15314
     components:
@@ -122420,7 +122420,7 @@ entities:
     - type: Transform
       parent: 2
       pos: 95.5,41.5
-- proto: OrganArachnidHeart
+- proto: OrganAnimalHeart
   entities:
   - uid: 17226
     components:
@@ -122486,7 +122486,7 @@ entities:
       parent: 2
       rot: 3.141592653589793 rad
       pos: 109.961,23.515942
-- proto: OrganSkeletonPersonHead
+- proto: OrganHumanHead
   entities:
   - uid: 9468
     components:
@@ -122496,7 +122496,7 @@ entities:
     - type: Transform
       parent: 2
       pos: 31.598114,29.47747
-- proto: OrganVoxHeart
+- proto: OrganAnimalHeart
   entities:
   - uid: 17228
     components:
@@ -122504,7 +122504,7 @@ entities:
       parent: 2
       rot: -1.5707963267948966 rad
       pos: 108.836,23.812817
-- proto: OrganVoxLiver
+- proto: OrganAnimalLiver
   entities:
   - uid: 17229
     components:
@@ -137735,7 +137735,7 @@ entities:
     - type: Transform
       parent: 2
       pos: 104.5,58.5
-- proto: SignVox
+- proto: WarningN2
   entities:
   - uid: 19813
     components:

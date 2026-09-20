@@ -795,7 +795,6 @@
           radius: 0.2
   - type: InteractionOutline
   - type: Damageable
-    damageModifierSet: Diona
   - type: Injurable
     damageContainer: Biological
   - type: Destructible

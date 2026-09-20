@@ -74,7 +74,6 @@ admin-smite-remove-gravity-name = Антиграв
 
 admin-smite-reptilian-species-swap-name = Сделать унатхом
 
-admin-smite-vulpkanin-species-swap-name = Сделать вульпканином
 
 admin-smite-locker-stuff-name = Сунуть в шкаф
 
@@ -184,7 +183,6 @@ admin-smite-remove-gravity-description = Наделяет цель антигр�
 
 admin-smite-reptilian-species-swap-description = Меняет вид на Унатха. Пригодится для тех, кто ведёт себя как космический расист.
 
-admin-smite-vulpkanin-species-swap-description = Меняет вид на Вульпканина. Пригодится для тех, кто ведёт себя как космический расист.
 
 admin-smite-locker-stuff-description = Помещает цель в (заваренный) шкафчик.
 

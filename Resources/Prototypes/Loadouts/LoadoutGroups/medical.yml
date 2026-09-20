@@ -25,12 +25,10 @@
 - type: loadoutGroup
   id: SurvivalMedical
   name: loadout-group-survival-medical
-  minLimit: 2
+  minLimit: 1
   hidden: true
   loadouts:
-  - EmergencyNitrogenMedical
   - EmergencyOxygenMedical
-  - LoadoutSpeciesVoxNitrogen
 
 # Chief Medical Officer
 

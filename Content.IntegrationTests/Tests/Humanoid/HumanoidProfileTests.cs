@@ -21,10 +21,11 @@ namespace Content.IntegrationTests.Tests.Humanoid;
 public sealed class HumanoidProfileTests : GameTest
 {
     private static readonly EntProtoId BaseSpecies = "MobHuman";
-    private static readonly ProtoId<SpeciesPrototype> SlimePerson = "SlimePerson";
-    public static readonly ProtoId<EmoteSoundsPrototype> SlimeVoice = "FemaleSlime";
+    private static readonly ProtoId<SpeciesPrototype> Reptilian = "Reptilian";
+    private static readonly ProtoId<EmoteSoundsPrototype> ReptilianVoice = "FemaleReptilian";
+    private static readonly string[] ExpectedRoundStartSpecies = ["Human", "Dwarf", "Reptilian"];
 
-    private static string[] _species = GameDataScrounger.PrototypesOfKind<SpeciesPrototype>();
+    private static readonly string[] _species = GameDataScrounger.PrototypesOfKind<SpeciesPrototype>();
 
     [SidedDependency(Side.Server)] private BodySystem _bodySystem = default!;
     [SidedDependency(Side.Server)] private HumanoidProfileSystem _humanoidProfile = default!;
@@ -48,20 +49,37 @@ public sealed class HumanoidProfileTests : GameTest
                 .WithSex(Sex.Female)
                 .WithAge(67)
                 .WithGender(Gender.Neuter)
-                .WithSpecies(SlimePerson)
-                .WithVoice(SlimeVoice));
+                .WithSpecies(Reptilian)
+                .WithVoice(ReptilianVoice));
 
             var voiceComponent = SEntMan.GetComponent<VocalComponent>(body);
 
             Assert.That(humanoidComponent.Age, Is.EqualTo(67));
             Assert.That(humanoidComponent.Sex, Is.EqualTo(Sex.Female));
             Assert.That(humanoidComponent.Gender, Is.EqualTo(Gender.Neuter));
-            Assert.That(humanoidComponent.Species, Is.EqualTo(SlimePerson));
-            Assert.That(humanoidComponent.Voice, Is.EqualTo(SlimeVoice));
+            Assert.That(humanoidComponent.Species, Is.EqualTo(Reptilian));
+            Assert.That(humanoidComponent.Voice, Is.EqualTo(ReptilianVoice));
 
             var speciesProto = SProtoMan.Index(humanoidComponent.Species);
 
             Assert.That(speciesProto.DefaultSoundsBySex[(int)Sex.Female], Is.EqualTo(voiceComponent.EmoteSounds));
+        });
+    }
+
+    [Test]
+    [TestOf(typeof(SpeciesPrototype))]
+    [Description("The character editor must offer exactly Human, Dwarf, and Reptilian as round-start species.")]
+    public async Task RoundStartSpeciesAreRestricted()
+    {
+        await Server.WaitIdleAsync();
+
+        await Server.WaitAssertion(() =>
+        {
+            var actual = SProtoMan.EnumeratePrototypes<SpeciesPrototype>()
+                .Where(species => species.RoundStart)
+                .Select(species => species.ID);
+
+            Assert.That(actual, Is.EquivalentTo(ExpectedRoundStartSpecies));
         });
     }
 
@@ -192,7 +210,7 @@ public sealed class HumanoidProfileTests : GameTest
         {
             var proto = SProtoMan.Index<SpeciesPrototype>(species);
 
-            // Species like skeletons don't need UI entries
+            // Species unavailable at round start do not need character-editor entries.
             if (!proto.RoundStart)
                 return;
 

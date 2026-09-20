@@ -39,6 +39,15 @@ public sealed partial class NightVisionOverlay : Overlay
         DisableNoise = toggle;
     }
 
+    // Lime added start - освобождение старого режима при shutdown общей системы ПНВ.
+    protected override void DisposeBehavior()
+    {
+        _configManager.UnsubValueChanged(CCVars.DisableNightVisionNoise, OnNightVisionNoiseChanged);
+        _nightVisionShader.Dispose();
+        base.DisposeBehavior();
+    }
+    // Lime added end
+
     public void SetParameters(Color overlayColor, Color lightingColor, float noiseAmount, float noiseMultiplier)
     {
         OverlayColor = overlayColor;

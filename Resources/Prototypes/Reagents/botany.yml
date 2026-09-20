@@ -241,7 +241,7 @@
         probability: 0.12
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Rat, Vox ]
+          type: [ Rat ]
           inverted: true
         - !type:ReagentCondition
           reagent: Ammonia
@@ -275,13 +275,6 @@
         - !type:ReagentCondition
           reagent: Ammonia
           min: 1
-      - !type:Oxygenate # ammonia displaces nitrogen in vox blood
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Vox ]
-        factor: -4
-
-
 - type: reagent
   id: Diethylamine
   name: reagent-name-diethylamine

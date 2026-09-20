@@ -178,21 +178,13 @@ chat-speech-verb-reptilian-2 = фыркает
 
 chat-speech-verb-reptilian-3 = пыхтит
 
-chat-speech-verb-name-skeleton = Скелет
 
-chat-speech-verb-skeleton-1 = гремит
 
-chat-speech-verb-skeleton-2 = клацает
 
-chat-speech-verb-skeleton-3 = скрежещет
 
-chat-speech-verb-name-vox = Вокс
 
-chat-speech-verb-vox-1 = скрипит
 
-chat-speech-verb-vox-2 = визжит
 
-chat-speech-verb-vox-3 = каркает
 
 chat-speech-verb-name-canine = Собака
 
@@ -268,15 +260,10 @@ chat-speech-verb-electricity-2 = гудит
 
 chat-speech-verb-electricity-3 = скрипит
 
-chat-speech-verb-vulpkanin-1 = рычит
 
-chat-speech-verb-vulpkanin-2 = лает
 
-chat-speech-verb-vulpkanin-3 = ворчит
 
-chat-speech-verb-vulpkanin-4 = тявкает
 
-chat-speech-verb-vulpkanin = Вульпканин
 
 chat-speech-verb-name-wawa = Вава
 

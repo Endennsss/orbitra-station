@@ -549,7 +549,7 @@
 
 - type: entity
   categories: [ HideSpawnMenu ]
-  parent: [SolutionFood, SolutionVeryTiny, BaseItem]
+  parent: BaseItem
   id: FoodPacketTrash
   description: This is rubbish.
   abstract: true
@@ -568,15 +568,6 @@
   - type: SpaceGarbage
   - type: StaticPrice
     price: 0
-  - type: Solution
-    solution:
-      maxVol: 7.5
-      reagents:
-      - ReagentId: ToxinTrash
-        Quantity: 7.5
-  - type: Edible
-    requiresSpecialDigestion: true
-
 - type: entity
   categories: [ HideSpawnMenu ]
   parent: FoodPacketTrash

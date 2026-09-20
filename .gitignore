@@ -319,3 +319,6 @@ error.glsl
 
 # C# Dev Kit cache file
 *.lscache
+
+# Lime-Edit - локальные логи и снимки проверок не входят в исходники.
+/Temp/

@@ -41,15 +41,15 @@ public sealed class MarkingTestAttribute : TestAttribute, IWrapTestMethod
 [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
 public sealed class MarkingsViewModelTests
 {
-    public ProtoId<SpeciesPrototype> TestSpecies = "Moth";
+    public ProtoId<SpeciesPrototype> TestSpecies = "Reptilian";
     public ProtoId<OrganCategoryPrototype> Head = "Head";
     public ProtoId<OrganCategoryPrototype> Torso = "Torso";
-    public ProtoId<MarkingPrototype> MothAntennasCharred = "MothAntennasCharred";
-    public ProtoId<MarkingPrototype> MothChestCharred = "MothChestCharred";
-    public ProtoId<MarkingPrototype> MothChestDeathhead = "MothChestDeathhead";
-    public ProtoId<MarkingPrototype> MothChestFan = "MothChestFan";
-    public ProtoId<MarkingPrototype> LizardHornsCurled = "LizardHornsCurled";
-    public ProtoId<MarkingPrototype> MothAntennasDefault = "MothAntennasDefault";
+    public ProtoId<MarkingPrototype> LizardSnoutRound = "LizardSnoutRound";
+    public ProtoId<MarkingPrototype> LizardSnoutSharp = "LizardSnoutSharp";
+    public ProtoId<MarkingPrototype> LizardChestTiger = "LizardChestTiger";
+    public ProtoId<MarkingPrototype> LizardChestUnderbelly = "LizardChestUnderbelly";
+    public ProtoId<MarkingPrototype> LizardChestBackspikes = "LizardChestBackspikes";
+    public ProtoId<MarkingPrototype> LizardChestFin = "LizardChestFin";
 
     public TestPair Pair = default!;
     public RobustIntegrationTest.ClientIntegrationInstance Client => Pair.Client;
@@ -80,57 +80,58 @@ public sealed class MarkingsViewModelTests
     [MarkingTest]
     public void MarkingSelection()
     {
-        Assert.That(Model.TrySelectMarking(Head, HumanoidVisualLayers.HeadTop, MothAntennasCharred), Is.True, "You should be able to select a marking in a limit-1 category if another marking is selected");
-        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.HeadTop)!, Has.Count.EqualTo(1), "The markings model should respect the limits when selecting markings");
-        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.HeadTop)![0].MarkingId, Is.EqualTo(MothAntennasCharred), "The markings model should have replaced the default marking with charred antennae");
+        Assert.That(Model.TrySelectMarking(Head, HumanoidVisualLayers.Snout, LizardSnoutSharp), Is.True, "You should be able to select a marking in a limit-1 category if another marking is selected");
+        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.Snout)!, Has.Count.EqualTo(1), "The markings model should respect the limits when selecting markings");
+        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.Snout)![0].MarkingId, Is.EqualTo(LizardSnoutSharp), "The markings model should replace the default snout");
 
-        Assert.That(Model.TrySelectMarking(Torso, HumanoidVisualLayers.Chest, MothChestCharred), Is.True);
+        Assert.That(Model.TrySelectMarking(Torso, HumanoidVisualLayers.Chest, LizardChestTiger), Is.True);
         Assert.That(Model.SelectedMarkings(Torso, HumanoidVisualLayers.Chest)!, Has.Count.EqualTo(1));
-        Assert.That(Model.SelectedMarkings(Torso, HumanoidVisualLayers.Chest)![0].MarkingId, Is.EqualTo(MothChestCharred));
+        Assert.That(Model.SelectedMarkings(Torso, HumanoidVisualLayers.Chest)![0].MarkingId, Is.EqualTo(LizardChestTiger));
 
-        Assert.That(Model.TrySelectMarking(Torso, HumanoidVisualLayers.Chest, MothChestDeathhead), Is.True);
+        Assert.That(Model.TrySelectMarking(Torso, HumanoidVisualLayers.Chest, LizardChestUnderbelly), Is.True);
         Assert.That(Model.SelectedMarkings(Torso, HumanoidVisualLayers.Chest)!, Has.Count.EqualTo(2));
-        Assert.That(Model.SelectedMarkings(Torso, HumanoidVisualLayers.Chest)![1].MarkingId, Is.EqualTo(MothChestDeathhead));
+        Assert.That(Model.SelectedMarkings(Torso, HumanoidVisualLayers.Chest)![1].MarkingId, Is.EqualTo(LizardChestUnderbelly));
 
-        Assert.That(Model.TrySelectMarking(Torso, HumanoidVisualLayers.Chest, MothChestFan), Is.False);
-        Assert.That(Model.TrySelectMarking(Head, HumanoidVisualLayers.HeadTop, LizardHornsCurled), Is.False);
+        Assert.That(Model.TrySelectMarking(Torso, HumanoidVisualLayers.Chest, LizardChestBackspikes), Is.True);
+        Assert.That(Model.TrySelectMarking(Torso, HumanoidVisualLayers.Chest, LizardChestFin), Is.False);
+        Assert.That(Model.TrySelectMarking(Torso, HumanoidVisualLayers.Chest, LizardSnoutSharp), Is.False);
 
         Model.EnforceLimits = false;
-        Assert.That(Model.TrySelectMarking(Torso, HumanoidVisualLayers.Chest, MothChestFan), Is.True);
-        Assert.That(Model.SelectedMarkings(Torso, HumanoidVisualLayers.Chest)!, Has.Count.EqualTo(3));
-        Assert.That(Model.SelectedMarkings(Torso, HumanoidVisualLayers.Chest)![2].MarkingId, Is.EqualTo(MothChestFan));
+        Assert.That(Model.TrySelectMarking(Torso, HumanoidVisualLayers.Chest, LizardChestFin), Is.True);
+        Assert.That(Model.SelectedMarkings(Torso, HumanoidVisualLayers.Chest)!, Has.Count.EqualTo(4));
+        Assert.That(Model.SelectedMarkings(Torso, HumanoidVisualLayers.Chest)![3].MarkingId, Is.EqualTo(LizardChestFin));
     }
 
     [MarkingTest]
     public void MarkingDeselection()
     {
-        Assert.That(Model.TryDeselectMarking(Head, HumanoidVisualLayers.HeadTop, MothAntennasDefault), Is.False);
-        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.HeadTop)!, Has.Count.EqualTo(1));
-        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.HeadTop)![0].MarkingId, Is.EqualTo(MothAntennasDefault));
+        Assert.That(Model.TryDeselectMarking(Head, HumanoidVisualLayers.Snout, LizardSnoutRound), Is.False);
+        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.Snout)!, Has.Count.EqualTo(1));
+        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.Snout)![0].MarkingId, Is.EqualTo(LizardSnoutRound));
 
         Model.EnforceLimits = false;
 
-        Assert.That(Model.TryDeselectMarking(Head, HumanoidVisualLayers.HeadTop, MothAntennasDefault), Is.True);
-        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.HeadTop)!, Has.Count.EqualTo(0));
+        Assert.That(Model.TryDeselectMarking(Head, HumanoidVisualLayers.Snout, LizardSnoutRound), Is.True);
+        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.Snout)!, Has.Count.EqualTo(0));
     }
 
     [MarkingTest]
     public void MarkingColors()
     {
-        Model.TrySetMarkingColor(Head, HumanoidVisualLayers.HeadTop, MothAntennasDefault, 0, Color.AliceBlue);
-        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.HeadTop)![0].MarkingColors[0], Is.EqualTo(Color.AliceBlue));
+        Model.TrySetMarkingColor(Head, HumanoidVisualLayers.Snout, LizardSnoutRound, 0, Color.AliceBlue);
+        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.Snout)![0].MarkingColors[0], Is.EqualTo(Color.AliceBlue));
     }
 
     [MarkingTest]
     public void MarkingColorRestoration()
     {
         Model.EnforceLimits = false;
-        Model.TrySetMarkingColor(Head, HumanoidVisualLayers.HeadTop, MothAntennasDefault, 0, Color.AliceBlue);
-        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.HeadTop)![0].MarkingColors[0], Is.EqualTo(Color.AliceBlue));
+        Model.TrySetMarkingColor(Head, HumanoidVisualLayers.Snout, LizardSnoutRound, 0, Color.AliceBlue);
+        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.Snout)![0].MarkingColors[0], Is.EqualTo(Color.AliceBlue));
 
-        Assert.That(Model.TryDeselectMarking(Head, HumanoidVisualLayers.HeadTop, MothAntennasDefault), Is.True);
-        Assert.That(Model.TrySelectMarking(Head, HumanoidVisualLayers.HeadTop, MothAntennasDefault), Is.True);
+        Assert.That(Model.TryDeselectMarking(Head, HumanoidVisualLayers.Snout, LizardSnoutRound), Is.True);
+        Assert.That(Model.TrySelectMarking(Head, HumanoidVisualLayers.Snout, LizardSnoutRound), Is.True);
 
-        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.HeadTop)![0].MarkingColors[0], Is.EqualTo(Color.AliceBlue));
+        Assert.That(Model.SelectedMarkings(Head, HumanoidVisualLayers.Snout)![0].MarkingColors[0], Is.EqualTo(Color.AliceBlue));
     }
 }

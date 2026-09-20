@@ -2120,21 +2120,21 @@ entities:
           ent: null
           showEnts: False
           occludes: True
-- proto: OrganSkeletonPersonArmLeft
+- proto: OrganHumanArmLeft
   entities:
   - uid: 175
     components:
     - type: Transform
       parent: 16
       pos: 6.8180027,-5.7761726
-- proto: OrganSkeletonPersonHandLeft
+- proto: OrganHumanHandLeft
   entities:
   - uid: 174
     components:
     - type: Transform
       parent: 16
       pos: 7.1148777,-5.8855476
-- proto: OrganSkeletonPersonTorso
+- proto: OrganHumanTorso
   entities:
   - uid: 173
     components:

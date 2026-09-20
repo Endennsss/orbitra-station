@@ -62,18 +62,9 @@
       metabolismRate: 0.1
       effects:
       - !type:HealthChange
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Arachnid ]
-          inverted: true
         damage:
           types:
             Poison: 0.1
-      - !type:ModifyBloodLevel
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Arachnid ]
-        amount: 0.4
 
 - type: reagent
   id: Fluorine
@@ -149,18 +140,7 @@
     Bloodstream:
       metabolismRate: 0.1
       effects:
-      - !type:HealthChange
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Arachnid ]
-        damage:
-          types:
-            Poison: 0.1
       - !type:ModifyBloodLevel
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Arachnid ]
-          inverted: true
         amount: 0.4
 
 - type: reagent

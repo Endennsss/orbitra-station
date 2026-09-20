@@ -523,18 +523,6 @@
     event: !type:ToggleNightVisionEvent {}
 
 - type: entity
-  parent: ActionToggleWagging
-  id: ActionToggleWaggingVulpkanin
-  components:
-  - type: Action
-    itemIconStyle: NoItem
-    useDelay: 1 # Prevents Emote Spam
-  - type: Sprite
-    sprite: Mobs/Customization/Vulpkanin/tail_markings.rsi
-    layers:
-    - state: tail-wag-icon
-
-- type: entity
   parent: BaseAction
   id: ActionGravityJump
   name: Jump
@@ -560,34 +548,6 @@
     sprite: Interface/Actions/actions_borg.rsi
     layers:
     - state: xenoborg-jump-module
-
-- type: entity
-  parent: BaseAction
-  id: ActionVulpkaninGravityJump
-  name: Leap
-  description: Use your agile legs to leap a short distance. Be careful not to bump into anything!
-  components:
-  - type: Action
-    useDelay: 12
-  - type: Sprite
-    sprite: Interface/Actions/jump.rsi
-    layers:
-    - state: icon
-  - type: InstantAction
-    event: !type:GravityJumpEvent {}
-
-- type: entity
-  parent: BaseToggleAction
-  id: ActionToggleRootable
-  name: Rootable
-  description: Begin or stop being rooted to the floor.
-  components:
-  - type: Action
-    itemIconStyle: NoItem
-    useDelay: 1
-  - type: Sprite
-    layers:
-    - texture: Interface/Actions/rooting.png
 
 - type: entity
   id: ActionChameleonController

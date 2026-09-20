@@ -82,7 +82,7 @@ public sealed partial class GraphicsTab : Control
         Control.AddOptionCheckBox(CCVars.ParallaxLowQuality, ParallaxLowQualityCheckBox);
         Control.AddOptionCheckBox(CCVars.HudFpsCounterVisible, FpsCounterCheckBox);
 
-        InitializeLimeBloomOptions(); // Lime-Edit - подключаем настройки свечения
+        InitializeLimeBloomOptions(); // Lime-Edit - подключаем настройки нового Bloom.
         Control.Initialize();
         UpdateLimeBloomVisibility(); // Lime-Edit
 

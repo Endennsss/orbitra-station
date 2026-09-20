@@ -1,6 +1,5 @@
 #Misc outfit startingGear definitions.
 
-#Skeleton Biker - Just a skeleton now
 - type: startingGear
   id: SkeletonBiker
   equipment:

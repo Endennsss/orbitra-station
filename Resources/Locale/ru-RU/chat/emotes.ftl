@@ -40,7 +40,6 @@ chat-emote-name-weh = Вехать
 
 chat-emote-name-hew = Хевать
 
-chat-emote-name-chirp = Чирикать
 
 chat-emote-name-beep = Бип
 
@@ -66,15 +65,10 @@ chat-emote-name-yawn = Зевать
 
 chat-emote-name-snore = Храпеть
 
-chat-emote-name-bark = Лаять
 
-chat-emote-name-snarl = Скалиться
 
-chat-emote-name-whine = Скулить
 
-chat-emote-name-howl = Выть
 
-chat-emote-name-growl = Рычать
 
 chat-emote-name-flap = Взмахнуть крыльями
 
@@ -124,7 +118,6 @@ chat-emote-msg-weh = вехает!
 
 chat-emote-msg-hew = хевает!
 
-chat-emote-msg-chirp = щебечет!
 
 chat-emote-msg-beep = пищит.
 
@@ -148,14 +141,9 @@ chat-emote-msg-yawn = зевает.
 
 chat-emote-msg-snore = храпит.
 
-chat-emote-msg-bark = лает.
 
-chat-emote-msg-snarl = скалится.
 
-chat-emote-msg-whine = скулит.
 
-chat-emote-msg-howl = воет.
 
-chat-emote-msg-growl = рычит.
 
 chat-emote-msg-flap = машет { POSS-ADJ($entity) } крыльями.

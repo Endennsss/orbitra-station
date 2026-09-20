@@ -467,8 +467,8 @@
   # This is supposed to be for challenge events. Its intentionally missing QOL gear to make interesting scenarios.
   components:
     - type: Sprite
-      sprite: Mobs/Species/Skeleton/parts.rsi
-      state: skull_icon
+      sprite: Markers/jobs.rsi
+      state: captain
     - type: RandomHumanoidSpawner
       settings: ChallengeVictimCaptain
 

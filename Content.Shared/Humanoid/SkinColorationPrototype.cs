@@ -405,7 +405,7 @@ public sealed partial class HueNodeClampedHsvColoration : ISkinColorationStrateg
     /// <summary>
     /// The maximum amount of change to the saturation that we can expect between generating an HSV value
     /// at a threshold, converting it to RGB, then resaving it.
-    /// Found experimentally by running HumanoidProfileTests.EnsureValidRandomSpecies("Vulpkanin") many times.
+    /// Found experimentally by running HumanoidProfileTests.EnsureValidRandomSpecies for many profiles.
     /// </summary>
     /// <remarks>
     /// Due to RGB colors being clamped to 8 bits, precision is lost during transformation to HSL or HSV.

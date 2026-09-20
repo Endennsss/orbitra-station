@@ -207,7 +207,6 @@
   - type: BonusDamageOnMetabolism
     selectedMetabolizer: Human
     excludedMetabolizers:
-    - Vox # Their biology is resistant to this!
     # The rest of these are just so we don't clog up the menu with useless items.
     - Bloodsucker
     - Dragon

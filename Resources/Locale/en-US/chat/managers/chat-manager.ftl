@@ -112,15 +112,7 @@ chat-speech-verb-reptilian-1 = hisses
 chat-speech-verb-reptilian-2 = snorts
 chat-speech-verb-reptilian-3 = huffs
 
-chat-speech-verb-name-skeleton = Skeleton
-chat-speech-verb-skeleton-1 = rattles
-chat-speech-verb-skeleton-2 = clacks
-chat-speech-verb-skeleton-3 = gnashes
 
-chat-speech-verb-name-vox = Vox
-chat-speech-verb-vox-1 = screeches
-chat-speech-verb-vox-2 = shrieks
-chat-speech-verb-vox-3 = croaks
 
 chat-speech-verb-name-canine = Canine
 chat-speech-verb-canine-1 = barks
@@ -170,11 +162,6 @@ chat-speech-verb-electricity-1 = crackles
 chat-speech-verb-electricity-2 = buzzes
 chat-speech-verb-electricity-3 = screeches
 
-chat-speech-verb-vulpkanin-1 = rawrs
-chat-speech-verb-vulpkanin-2 = barks
-chat-speech-verb-vulpkanin-3 = rurs
-chat-speech-verb-vulpkanin-4 = yaps
-chat-speech-verb-vulpkanin = Vulpkanin
 
 chat-speech-verb-name-wawa = Wawa
 chat-speech-verb-wawa-1 = intones

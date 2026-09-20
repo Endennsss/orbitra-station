@@ -33,8 +33,6 @@
 
   Nitrogen is very stable and comprises most of a standard breathable atmosphere.
 
-  Some species like Slimes breathe nitrogen, with the Vox species requiring strictly nitrogen to breathe.
-
   ## Air Mix
   <Box>
     <GuideEntityEmbed Entity="AirCanister" Caption=""/>
@@ -109,7 +107,7 @@
     <GuideEntityEmbed Entity="NitrousOxideCanister" Caption=""/>
     <GuideEntityEmbed Entity="EmergencyFunnyOxygenTank" Caption=""/>
   </Box>
-  A recreational and waste gas, produced by slimes and the combination of frezon and nitrogen.
+  A recreational and waste gas produced by combining frezon and nitrogen.
 
   ## Ammonia
   <Box>

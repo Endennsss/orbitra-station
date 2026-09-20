@@ -9,3 +9,4 @@ Canonical source rule file:
 
 Load rule content from the source rule path.
 Descriptions in new AI-created commits must be in Russian.
+Ask about commit and push before completing repository edits; require explicit consent.

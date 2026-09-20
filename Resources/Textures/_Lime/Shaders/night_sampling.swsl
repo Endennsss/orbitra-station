@@ -1,0 +1,16 @@
+// Тот же тест глубины, что у штатного FOV: скрытый свет не влияет на экспозицию и засветку.
+const highp float g_MinVariance = 0.0;
+#include "/Shaders/Internal/shadow_cast_shared.swsl"
+
+uniform sampler2D FOV_TEXTURE;
+uniform highp mat3 uv_to_eye;
+uniform bool use_fov;
+
+bool night_visible(highp vec2 uv) {
+    highp vec2 diff = (uv_to_eye * vec3(uv, 1.0)).xy;
+    return !use_fov || !doesOcclude(diff, FOV_TEXTURE, 0.75, -0.75 / 32.0);
+}
+
+highp float luminance(highp vec3 color) {
+    return dot(color, vec3(0.2126, 0.7152, 0.0722));
+}

@@ -101,15 +101,6 @@
       mode: 6
 
 - type: entity
-  parent: AtmosFixNitrogenMarker
-  id: AtmosFixVoxMarker
-  suffix: Vox Atmosphere
-  description: "Nitrogen @ 101 kPa, 20C"
-  components:
-  - type: AtmosFixMarker
-    mode: 7
-
-- type: entity
   parent: MarkerBase
   id: AtmosFixAirMarker
   name: Atmos Fix Air Marker

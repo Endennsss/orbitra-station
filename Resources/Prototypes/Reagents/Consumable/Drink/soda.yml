@@ -286,10 +286,6 @@
         satiationType: Thirst
         factor: 2
       - !type:HealthChange
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [Slime]
-          inverted: true
         damage:
           types:
             Poison: 1

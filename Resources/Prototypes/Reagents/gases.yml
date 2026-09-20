@@ -16,63 +16,23 @@
       - !type:Oxygenate
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Human, Animal, Rat, Plant, Arachnid ]
+          type: [ Human, Animal, Rat, Plant ]
       # Convert Oxygen into CO2.
       - !type:ModifyLungGas
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Vox ]
-          inverted: true
         ratios:
           CarbonDioxide: 1.0
           Oxygen: -1.0
-      - !type:HealthChange
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Vox ]
-        ignoreResistances: true
-        damage:
-          types:
-            Poison: 1.5
-      - !type:AdjustAlert
-        alertType: Toxins
-        minScale: 1
-        conditions:
-          - !type:MetabolizerTypeCondition
-            type: [ Vox ]
-        clear: true
-        time: 5
     Respiration:
       effects:
       - !type:Oxygenate
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Human, Animal, Rat, Plant, Arachnid, Moth ]
+          type: [ Human, Animal, Rat, Plant ]
       # Convert Oxygen into CO2.
       - !type:ModifyLungGas
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Vox ]
-          inverted: true
         ratios:
           CarbonDioxide: 1.0
           Oxygen: -1.0
-      - !type:HealthChange
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Vox ]
-        ignoreResistances: true
-        damage:
-          types:
-            Poison: 0.7
-      - !type:AdjustAlert
-        alertType: Toxins
-        minScale: 0.5
-        conditions:
-          - !type:MetabolizerTypeCondition
-            type: [ Vox ]
-        clear: true
-        time: 5
 
 - type: reagent
   id: Plasma
@@ -174,7 +134,7 @@
       - !type:HealthChange
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Plant, Vox ]
+          type: [ Plant ]
           inverted: true
         ignoreResistances: true
         damage:
@@ -197,7 +157,7 @@
         minScale: 0.5
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Plant, Vox ]
+          type: [ Plant ]
           inverted: true
         # Don't want people to get toxin damage from the gas they just
         # exhaled, right?
@@ -232,27 +192,9 @@
         damage:
           types:
             Cold: 0.5 # liquid nitrogen is cold
+    # Lime-Edit: Пустая стадия утилизирует вдыхаемый азот в лёгких, не пропуская его в кровь.
     Respiration:
-      effects:
-      - !type:Oxygenate
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Vox, Slime ]
-      # Converts Nitrogen into Ammonia
-      - !type:ModifyLungGas
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Vox ]
-        ratios:
-          Ammonia: 1.0
-          Nitrogen: -1.0
-      - !type:ModifyLungGas
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Slime ]
-        ratios:
-          NitrousOxide: 1.0
-          Nitrogen: -1.0
+      effects: []
 
 - type: reagent
   id: NitrousOxide
@@ -274,53 +216,29 @@
       effects:
       - !type:Emote
         minScale: 0.2
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Slime ]
-          inverted: true
         emote: Laugh
         probability: 0.1
       - !type:Emote
         minScale: 0.2
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Slime ]
-          inverted: true
         emote: Scream
         probability: 0.01
       - !type:PopupMessage
         minScale: 0.5
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Slime ]
-          inverted: true
         type: Local
         visualType: Medium
         messages: [ "effect-sleepy" ]
         probability: 0.1
       - !type:MovementSpeedModifier
         minScale: 1
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Slime ]
-          inverted: true
         walkSpeedModifier: 0.65
         sprintSpeedModifier: 0.65
       - !type:ModifyStatusEffect
         minScale: 1.8
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Slime ]
-          inverted: true
         effectProto: StatusEffectForcedSleeping
         time: 3
         type: Update
       - !type:HealthChange
         minScale: 3.5
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Slime ]
-          inverted: true
         ignoreResistances: true
         scaling: true
         damage:

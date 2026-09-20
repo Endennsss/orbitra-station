@@ -17,14 +17,13 @@
     - category: Piloting
     - alertType: Corporeal
     - alertType: Stun
-    - category: Breathing # Vox gang not calling this oxygen
+    - category: Breathing
     - category: Pressure
     - alertType: Bleed
     - category: Temperature
     - category: Hunger
     - category: Thirst
     - alertType: Magboots
-    - alertType: Rooted
     - alertType: Pacified
     - alertType: Stealthy
 

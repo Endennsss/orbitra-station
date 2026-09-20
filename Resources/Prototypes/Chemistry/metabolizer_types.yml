@@ -18,14 +18,6 @@
   name: metabolizer-type-human
 
 - type: metabolizerType
-  id: Slime
-  name: metabolizer-type-slime
-
-- type: metabolizerType
-  id: Vox
-  name: metabolizer-type-vox
-
-- type: metabolizerType
   id: Rat
   name: metabolizer-type-rat
 
@@ -36,14 +28,6 @@
 - type: metabolizerType
   id: Dwarf
   name: metabolizer-type-dwarf
-
-- type: metabolizerType
-  id: Moth
-  name: metabolizer-type-moth
-
-- type: metabolizerType
-  id: Arachnid
-  name: metabolizer-type-arachnid
 
 - type: metabolizerType
   id: Changeling

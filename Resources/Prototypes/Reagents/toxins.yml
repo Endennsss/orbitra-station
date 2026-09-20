@@ -413,7 +413,7 @@
       - !type:HealthChange
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Animal, Arachnid ] # Applying damage to the mobs with lower metabolism capabilities
+          type: [ Animal ] # Applying damage to the mobs with lower metabolism capabilities
         damage:
           types:
             Poison: 0.4
@@ -421,7 +421,7 @@
         probability: 0.04 #Scaled for time, not metabolismrate.
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Animal, Arachnid ]
+          type: [ Animal ]
 
 - type: reagent
   id: Amatoxin
@@ -489,7 +489,7 @@
       - !type:PopupMessage
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Animal, Vox, Arachnid ]
+          type: [ Animal ]
           inverted: true
         type: Local
         visualType: MediumCaution
@@ -499,12 +499,12 @@
         probability: 0.1
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Animal, Vox, Plant, Arachnid ]
+          type: [ Animal, Plant ]
           inverted: true
       - !type:HealthChange
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Animal, Vox, Plant, Arachnid ]
+          type: [ Animal, Plant ]
           inverted: true
         damage:
           types:
@@ -519,15 +519,9 @@
       - !type:AdjustReagent
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Animal, Arachnid ]
+          type: [ Animal ]
         reagent: Protein
         amount: 0.5
-      - !type:AdjustReagent
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Vox ]
-        reagent: Protein
-        amount: 0.25
 
 - type: reagent
   id: Allicin
@@ -575,7 +569,7 @@
           reagent: Honk
           min: 1
         - !type:MetabolizerTypeCondition
-          type: [ Animal, Arachnid ]
+          type: [ Animal ]
         damage:
           types:
             Poison: 0.06
@@ -704,10 +698,6 @@
       metabolismRate: 0.2 # Slower metabolism so it can build up over time for slowdown
       effects:
       - !type:HealthChange
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [Arachnid]
-          inverted: true
         damage:
           types:
             Poison: 1.6
@@ -716,9 +706,6 @@
         - !type:ReagentCondition
           reagent: Mechanotoxin
           min: 2
-        - !type:MetabolizerTypeCondition
-          type: [Arachnid]
-          inverted: true
         walkSpeedModifier: 0.8
         sprintSpeedModifier: 0.8
       - !type:MovementSpeedModifier
@@ -726,28 +713,8 @@
         - !type:ReagentCondition
           reagent: Mechanotoxin
           min: 4
-        - !type:MetabolizerTypeCondition
-          type: [Arachnid]
-          inverted: true
         walkSpeedModifier: 0.4
         sprintSpeedModifier: 0.4
-
-- type: reagent
-  id: ToxinTrash
-  name: reagent-name-toxintrash
-  group: Toxins
-  desc: reagent-desc-toxintrash
-  flavor: trashy
-  physicalDesc: reagent-physical-desc-nondescript
-  metabolisms:
-    Digestion:
-      effects:
-      - !type:Satiate
-        satiationType: Hunger
-        factor: 1
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [Vox]
 
 - type: reagent
   id: Hemorrhinol

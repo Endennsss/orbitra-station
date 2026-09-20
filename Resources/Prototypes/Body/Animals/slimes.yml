@@ -7,5 +7,5 @@
     containers:
       body_organs: !type:AllSelector
         children:
-        - id: OrganSlimePersonCore
-        - id: OrganSlimePersonLungs
+        - id: OrganAnimalStomach
+        - id: OrganAnimalLungs

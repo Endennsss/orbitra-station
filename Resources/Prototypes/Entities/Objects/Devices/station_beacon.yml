@@ -844,14 +844,6 @@
   - type: NavMapBeacon
     defaultText: station-beacon-escape-pod-NW
 
-- type: entity
-  parent: DefaultStationBeacon
-  id: DefaultStationBeaconVox
-  suffix: Vox
-  components:
-  - type: NavMapBeacon
-    defaultText: station-beacon-vox
-
 # CentComm Beacons
 - type: entity
   parent: BaseStationBeacon
