@@ -8,11 +8,12 @@ using Robust.Shared.Configuration;
 namespace Content.Client.Options.UI;
 
 [GenerateTypedNameReferences]
-public sealed partial class EscapeMenu : DefaultWindow
+public sealed partial class EscapeMenu : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
 {
     public EscapeMenu()
     {
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
 
         // TODO: removed with https://github.com/space-wizards/space-station-14/pull/44431
         var uriOpener = IoCManager.Resolve<IUriOpener>();

@@ -19,6 +19,7 @@ public sealed partial class FeedbackPopupWindow : FancyWindow
         _proto = proto;
         _uri = uri;
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         DisplayNoEntryLabel();
     }
 

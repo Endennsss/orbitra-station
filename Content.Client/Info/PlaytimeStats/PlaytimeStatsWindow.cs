@@ -21,6 +21,7 @@ public sealed partial class PlaytimeStatsWindow : FancyWindow
     {
         IoCManager.InjectDependencies(this);
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
 
         PopulatePlaytimeHeader();
         PopulatePlaytimeData();

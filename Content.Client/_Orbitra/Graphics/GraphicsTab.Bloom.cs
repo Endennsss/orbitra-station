@@ -45,17 +45,20 @@ public sealed partial class GraphicsTab
 
     private void PreviewOrbitraBloomEnabled(bool enabled)
     {
-        _entityManager.System<OrbitraLightBloomSystem>().PreviewEnabled(enabled);
+        if (_entityManager.TrySystem<OrbitraLightBloomSystem>(out var bloom))
+            bloom.PreviewEnabled(enabled);
     }
 
     private void PreviewOrbitraBloomStrength(float strength)
     {
-        _entityManager.System<OrbitraLightBloomSystem>().PreviewStrength(strength);
+        if (_entityManager.TrySystem<OrbitraLightBloomSystem>(out var bloom))
+            bloom.PreviewStrength(strength);
     }
 
     private void PreviewOrbitraBloomQuality(string quality)
     {
-        _entityManager.System<OrbitraLightBloomSystem>().PreviewQuality(quality);
+        if (_entityManager.TrySystem<OrbitraLightBloomSystem>(out var bloom))
+            bloom.PreviewQuality(quality);
     }
 
     protected override void Dispose(bool disposing)

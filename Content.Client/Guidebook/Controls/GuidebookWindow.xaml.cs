@@ -32,6 +32,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         RobustXamlLoader.Load(this);
             Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         IoCManager.InjectDependencies(this);
+        InitializeOrbitraNavigation(); // Orbitra-Edit
         _sawmill = Logger.GetSawmill("guidebook");
 
         Tree.OnSelectedItemChanged += OnSelectionChanged;
@@ -150,6 +151,8 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
             _sawmill.Error($"Failed to parse contents of guide document {entry.Id}.");
         }
 
+        if (Selected != entry.Id) // Orbitra-Edit - только выбор другой статьи, не прокрутка оглавления.
+            Content.Client._Orbitra.Lobby.OrbitraMotion.Reveal(EntryContainer, Content.Client._Orbitra.Lobby.OrbitraMotion.SectionDuration);
         Selected = entry.Id;
 
         var (linkableControls, linkControls) = GetLinkableControlsAndLinks(EntryContainer);
@@ -256,6 +259,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
             Tree.SetSelectedIndex(item?.Index);
         }
 
+        UpdateOrbitraNavigation(); // Orbitra-Edit
         return sameAsLastUpdate;
     }
 

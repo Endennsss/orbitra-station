@@ -39,6 +39,7 @@ internal static class OrbitraOptionPopup
         var y = openAbove ? option.GlobalPosition.Y - height : option.GlobalPosition.Y + option.Height;
         // Повторный Open закрывает штатную модальность и отвязывает список от дерева.
         PopupContainer.SetPopupOrigin(popup, new Vector2(x, y));
+        OrbitraMotion.BindPopup(popup, option);
         OrbitraMotion.Reveal(popup, OrbitraMotion.MenuDuration);
     }
 

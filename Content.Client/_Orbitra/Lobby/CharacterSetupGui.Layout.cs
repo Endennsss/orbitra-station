@@ -4,6 +4,8 @@ namespace Content.Client.Lobby.UI;
 
 public sealed partial class CharacterSetupGui
 {
+    private Content.Client._Orbitra.Lobby.OrbitraVisibility _orbitraProfilesMotion = default!;
+    private Content.Client._Orbitra.Lobby.OrbitraVisibility _orbitraToolsMotion = default!;
     public event Action? OrbitraExitRequested;
 
     /// <summary>Closes a local menu first, otherwise requests the normal guarded editor exit.</summary>
@@ -19,15 +21,17 @@ public sealed partial class CharacterSetupGui
 
     private void CloseOrbitraMenus()
     {
-        OrbitraCharacterToggle.Pressed = OrbitraCharacterPanel.Visible = false;
-        OrbitraToolsToggle.Pressed = OrbitraToolsPanel.Visible = false;
+        OrbitraCharacterToggle.Pressed = false;
+        OrbitraToolsToggle.Pressed = false;
+        _orbitraProfilesMotion.SetShown(false);
+        _orbitraToolsMotion.SetShown(false);
         OrbitraMenuDismiss.Visible = false;
     }
 
     private void InitializeOrbitraSetup(HumanoidProfileEditor editor)
     {
-        Content.Client._Orbitra.Lobby.OrbitraMotion.AttachReveal(OrbitraCharacterPanel, 0.10f);
-        Content.Client._Orbitra.Lobby.OrbitraMotion.AttachReveal(OrbitraToolsPanel, 0.10f);
+        _orbitraProfilesMotion = new(OrbitraCharacterPanel);
+        _orbitraToolsMotion = new(OrbitraToolsPanel);
         editor.AttachOrbitraSetupControls(CloseButton, OrbitraToolsContents);
         OrbitraMenuDismiss.OnKeyBindDown += args =>
         {
@@ -38,17 +42,23 @@ public sealed partial class CharacterSetupGui
         };
         OrbitraCharacterToggle.OnToggled += args =>
         {
-            OrbitraCharacterPanel.Visible = args.Pressed;
+            _orbitraProfilesMotion.SetShown(args.Pressed);
             if (args.Pressed)
-                OrbitraToolsToggle.Pressed = OrbitraToolsPanel.Visible = false;
-            OrbitraMenuDismiss.Visible = OrbitraCharacterPanel.Visible || OrbitraToolsPanel.Visible;
+            {
+                OrbitraToolsToggle.Pressed = false;
+                _orbitraToolsMotion.SetShown(false);
+            }
+            OrbitraMenuDismiss.Visible = OrbitraCharacterToggle.Pressed || OrbitraToolsToggle.Pressed;
         };
         OrbitraToolsToggle.OnToggled += args =>
         {
-            OrbitraToolsPanel.Visible = args.Pressed;
+            _orbitraToolsMotion.SetShown(args.Pressed);
             if (args.Pressed)
-                OrbitraCharacterToggle.Pressed = OrbitraCharacterPanel.Visible = false;
-            OrbitraMenuDismiss.Visible = OrbitraCharacterPanel.Visible || OrbitraToolsPanel.Visible;
+            {
+                OrbitraCharacterToggle.Pressed = false;
+                _orbitraProfilesMotion.SetShown(false);
+            }
+            OrbitraMenuDismiss.Visible = OrbitraCharacterToggle.Pressed || OrbitraToolsToggle.Pressed;
         };
         OnResized += () =>
         {
@@ -65,9 +75,7 @@ public sealed partial class CharacterSetupGui
         OrbitraCharacterToggle.Text = Loc.GetString("orbitra-editor-selected-profile",
             ("name", string.IsNullOrWhiteSpace(name) ? Loc.GetString("orbitra-lobby-unnamed") : name));
         OrbitraCharacterToggle.ToolTip = OrbitraCharacterToggle.Text;
-        OrbitraCharacterToggle.Pressed = OrbitraCharacterPanel.Visible = false;
-        OrbitraToolsToggle.Pressed = OrbitraToolsPanel.Visible = false;
-        OrbitraMenuDismiss.Visible = false;
+        CloseOrbitraMenus();
         Content.Client._Orbitra.Lobby.OrbitraEditorStyles.Apply(Characters);
     }
 }

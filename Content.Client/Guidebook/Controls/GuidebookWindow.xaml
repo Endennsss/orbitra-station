@@ -2,11 +2,15 @@
                 xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
                 xmlns:fancyTree="clr-namespace:Content.Client.UserInterface.Controls.FancyTree"
                 xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Lobby"
                 SetSize="900 700"
                 MinSize="100 200"
                 Resizable="True"
                 Title="{Loc 'guidebook-window-title'}">
-    <SplitContainer Orientation="Horizontal" HorizontalExpand="True" Name="Split">
+    <!-- Orbitra-Edit - компактная навигация не сжимает статью. -->
+    <BoxContainer Orientation="Vertical" SeparationOverride="8">
+    <Button Name="OrbitraSections" Text="{Loc 'orbitra-guide-sections'}" Visible="False" />
+    <orbitra:OrbitraGuideSplitContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True" Name="Split"> <!-- Orbitra-Edit -->
         <!-- Guide select -->
         <BoxContainer Orientation="Horizontal" Name="TreeBox">
             <fancyTree:FancyTree Name="Tree" VerticalExpand="True" HorizontalExpand="True" Access="Public"/>
@@ -36,5 +40,6 @@
                 </Control>
             </ScrollContainer>
         </BoxContainer>
-    </SplitContainer>
+    </orbitra:OrbitraGuideSplitContainer>
+    </BoxContainer>
 </controls:FancyWindow>

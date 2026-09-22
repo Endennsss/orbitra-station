@@ -44,6 +44,25 @@ internal static class OrbitraEditorStyles
         if (root.HasStyleClass("OrbitraOptionRow"))
             return;
         root.AddStyleClass("OrbitraEditorControl");
+        if (root is Content.Client.UserInterface.Controls.StripeBack stripe)
+            stripe.HasTopEdge = stripe.HasBottomEdge = stripe.HasMargins = false;
+        if (root is Content.Client.LateJoin.JobButton job)
+        {
+            job.AddStyleClass("OrbitraLobbyButton");
+            job.JobLabel.ClipText = true;
+            job.JobLabel.HorizontalExpand = true;
+            OrbitraMotion.AttachButton(job);
+        }
+        if (root is Content.Client.UserInterface.Controls.FancyTree.TreeItem item)
+        {
+            item.Button.StyleIdentifier = null;
+            item.Button.AddStyleClass("OrbitraTreeRow");
+            item.Button.AddStyleClass(ContainerButton.StyleClassButton);
+            item.Label.ClipText = true;
+            item.Label.HorizontalExpand = true;
+            item.Button.ToolTip = item.Label.Text;
+            OrbitraMotion.AttachButton(item.Button);
+        }
         if (root is TabContainer tabs)
             OrbitraMotion.AttachTabs(tabs);
         if (root is Content.Client.UserInterface.Controls.FancyWindow window)
@@ -64,8 +83,12 @@ internal static class OrbitraEditorStyles
             box.SeparationOverride ??= 8;
         if (root is Content.Client.Lobby.UI.Roles.RequirementsSelector selector)
             selector.ApplyOrbitraLayout();
-        if (root is Button or OptionButton && root is not OrbitraWindowCloseButton)
+        if (root is Button or OptionButton && root is not OrbitraWindowCloseButton && root is not CheckBox)
         {
+            if (root.HasStyleClass("negative"))
+                root.AddStyleClass("OrbitraDangerButton");
+            foreach (var legacy in new[] { "OpenLeft", "OpenRight", "OpenBoth", "negative" })
+                root.RemoveStyleClass(legacy);
             root.AddStyleClass(ContainerButton.StyleClassButton);
             if (!root.HasStyleClass("OrbitraLobbyPrimary") && !root.HasStyleClass("OrbitraDangerButton"))
                 root.AddStyleClass("OrbitraLobbyButton");
@@ -77,6 +100,15 @@ internal static class OrbitraEditorStyles
             // Обрезаем только растягиваемые строки: у обычной кнопки текст задаёт её ширину.
             button.ClipText = button.HorizontalExpand;
             button.ToolTip ??= button.Text;
+        }
+        if (root is CheckBox check)
+        {
+            check.RemoveStyleClass("OrbitraLobbyButton");
+            check.MinHeight = 36;
+            check.HorizontalExpand = true;
+            check.Label.HorizontalExpand = true;
+            check.ClipText = true;
+            check.ToolTip ??= check.Text;
         }
         if (root is OptionButton option)
         {

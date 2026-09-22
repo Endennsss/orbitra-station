@@ -35,7 +35,7 @@ public sealed partial class VoteCallMenu
         }
         CloseButton.Visible = false;
         var close = new OrbitraWindowCloseButton();
-        close.OnPressed += _ => Close();
+        close.OnPressed += _ => OrbitraEntryWindow.RequestClose(this);
         row.AddChild(close);
         foreach (var child in layout.Children)
         {

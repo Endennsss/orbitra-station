@@ -14,6 +14,7 @@ namespace Content.Client.Info
         public RulesAndInfoWindow()
         {
             IoCManager.InjectDependencies(this);
+            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
 
             Title = Loc.GetString("ui-info-title");
 

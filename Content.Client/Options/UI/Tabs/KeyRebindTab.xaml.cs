@@ -546,8 +546,9 @@ namespace Content.Client.Options.UI.Tabs
                 BindButton2 = new BindButton(parent, this, StyleClass.ButtonOpenLeft);
                 ResetButton = new Button { Text = Loc.GetString("ui-options-bind-reset"), StyleClasses = { StyleClass.Negative } };
 
-                var hBox = new BoxContainer
+                var hBox = new Content.Client._Orbitra.Lobby.OrbitraAdaptiveRow // Orbitra-Edit - привязки не выходят за узкую вкладку.
                 {
+                    Breakpoint = 720,
                     Orientation = LayoutOrientation.Horizontal,
                     Children =
                     {
@@ -595,7 +596,8 @@ namespace Content.Client.Options.UI.Tabs
 
                 Button.OnKeyBindDown += ButtonOnOnKeyBindDown;
 
-                MinSize = new Vector2(200, 0);
+                MinSize = new Vector2(0, 36); // Orbitra-Edit
+                HorizontalExpand = true; // Orbitra-Edit
             }
 
             protected override void EnteredTree()

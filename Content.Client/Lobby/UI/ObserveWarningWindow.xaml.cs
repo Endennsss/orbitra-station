@@ -30,6 +30,6 @@ public sealed partial class ObserveWarningWindow : Content.Client.UserInterface.
         }
 
         ObserveButton.OnPressed += _ => { this.Close(); };
-        NevermindButton.OnPressed += _ => { this.Close(); };
+        NevermindButton.OnPressed += _ => Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose(this); // Orbitra-Edit
     }
 }

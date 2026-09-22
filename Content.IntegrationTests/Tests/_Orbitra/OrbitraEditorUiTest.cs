@@ -284,5 +284,12 @@ public sealed class OrbitraEditorUiTest : GameTest
             await Pair.Client.DoGuiEvent(control, args);
             await Pair.RunTicksSync(1);
         }
+        await Pair.Client.WaitPost(() =>
+        {
+            var ui = Pair.Client.Resolve<IUserInterfaceManager>();
+            // Закрытие теперь кадровое: одних сетевых тиков недостаточно для завершения затухания.
+            for (var i = 0; i < 12; i++)
+                OrbitraWindowLifecycleTest.Frame(ui, 0.025f);
+        });
     }
 }

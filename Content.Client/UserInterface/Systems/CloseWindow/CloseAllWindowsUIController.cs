@@ -26,7 +26,7 @@ public sealed partial class CloseAllWindowsUIController : UIController
         {
             if (childControl is BaseWindow)
             {
-                ((BaseWindow) childControl).Close();
+                Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose((BaseWindow) childControl); // Orbitra-Edit
             }
         }
     }

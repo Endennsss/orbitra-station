@@ -29,6 +29,14 @@ public sealed class OrbitraLobbySheetlet : Sheetlet<PalettedStylesheet>
         var journalSelected = new StyleBoxFlat(journalTab) { BorderColor = OrbitraPalettes.Highlight.Text, BorderThickness = new Thickness(0, 0, 0, 2) };
         var rules = new List<StyleRule>
         {
+            E<Content.Client.UserInterface.Controls.StripeBack>().Class("OrbitraEditorControl")
+                .Prop(Content.Client.UserInterface.Controls.StripeBack.StylePropertyBackground, new StyleBoxFlat(Color.Transparent)),
+            E<ContainerButton>().Class("OrbitraTreeRow").Box(new StyleBoxFlat(Color.Transparent)),
+            E<ContainerButton>().Class("OrbitraTreeRow").PseudoNormal().Box(new StyleBoxFlat(Color.Transparent)),
+            E<ContainerButton>().Class("OrbitraTreeRow").PseudoHovered().Box(optionHover),
+            E<ContainerButton>().Class("OrbitraTreeRow", "selected").Box(optionHover),
+            E<PanelContainer>().Class("OrbitraEditorControl", "even-row").Panel(new StyleBoxFlat(Color.Transparent)),
+            E<PanelContainer>().Class("OrbitraEditorControl", "odd-row").Panel(new StyleBoxFlat(Color.Transparent)),
             E<ContainerButton>().Class("OrbitraJournalTab", ContainerButton.StyleClassButton).Box(journalTab),
             E<ContainerButton>().Class("OrbitraJournalTab", ContainerButton.StyleClassButton).PseudoNormal().Box(journalTab),
             E<ContainerButton>().Class("OrbitraJournalTab", ContainerButton.StyleClassButton).PseudoHovered().Box(new StyleBoxFlat(journalTab) { BackgroundColor = OrbitraPalettes.PanelHighlight }),

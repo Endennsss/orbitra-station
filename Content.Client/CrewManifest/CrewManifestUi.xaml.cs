@@ -7,11 +7,12 @@ using Robust.Client.UserInterface.XAML;
 namespace Content.Client.CrewManifest;
 
 [GenerateTypedNameReferences]
-public sealed partial class CrewManifestUi : DefaultWindow
+public sealed partial class CrewManifestUi : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
 {
     public CrewManifestUi()
     {
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
 
         StationName.AddStyleClass("LabelBig");
     }

@@ -72,6 +72,8 @@ public sealed partial class ChangelogWindow
         if (!_orbitraJournals.TryGetValue(id, out var journal) || journal.AdminOnly && !_adminManager.IsAdmin(true))
             return;
         var changed = _orbitraSelected != id;
+        if (changed && _orbitraSelected != null && _orbitraViews.TryGetValue(_orbitraSelected, out var previous))
+            OrbitraMotion.Finish(previous);
         _orbitraSelected = id;
         if (!_orbitraViews.TryGetValue(id, out var view))
         {

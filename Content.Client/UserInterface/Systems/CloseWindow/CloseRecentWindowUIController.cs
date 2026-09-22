@@ -42,12 +42,13 @@ public sealed partial class CloseRecentWindowUIController : UIController
         for (int i=recentlyInteractedWindows.Count-1; i>=0; i--)
         {
             var window = recentlyInteractedWindows[i];
-            recentlyInteractedWindows.RemoveAt(i); // Should always be removed as either the reference is stale or we're closing it
+            // Orbitra-Edit - затухающее окно остаётся в списке до штатного удаления из дерева.
             if (window.IsOpen)
             {
-                window.Close();
+                Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose(window); // Orbitra-Edit - пользовательское закрытие с затуханием
                 return;
             }
+            recentlyInteractedWindows.RemoveAt(i);
             // continue going down the list, hoping to find a still-open window
         }
     }

@@ -7,21 +7,121 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.Graphics;
 using Robust.Shared.Configuration;
 using Robust.Shared.Timing;
+using Robust.Shared.Log;
 
 namespace Content.Client._Orbitra.Lobby;
 
 /// <summary>Entry-UI transitions, owned by the UI root rather than a static collection of windows.</summary>
 internal sealed class OrbitraMotion : Control
 {
-    internal const float ScreenDuration = 0.20f;
+    internal const float ScreenDuration = 0.24f;
     internal const float WindowDuration = 0.18f;
+    internal const float WindowCloseDuration = 0.10f;
     internal const float SectionDuration = 0.14f;
-    internal const float MenuDuration = 0.10f;
+    internal const float MenuDuration = 0.12f;
+    internal const float MenuCloseDuration = 0.09f;
+    internal static void BindPopup(Control popup, Control owner, Action? hidden = null)
+    {
+        foreach (var child in popup.Children)
+        {
+            if (child is PopupOwner link)
+            {
+                link.Owner = owner;
+                return;
+            }
+        }
+        var linkControl = new PopupOwner(owner) { MouseFilter = MouseFilterMode.Ignore };
+        popup.AddChild(linkControl);
+        if (popup is Popup menu)
+            linkControl.Presentation = new OrbitraPopupPresentation(menu, owner, linkControl, hidden);
+    }
+
+    internal static void FinishPopup(Popup popup)
+    {
+        foreach (var child in popup.Children)
+        {
+            if (child is PopupOwner link)
+            {
+                link.Presentation?.Restore();
+                return;
+            }
+        }
+    }
+
+    internal static bool CanAnimate(Control target)
+    {
+        for (Control? current = target; current != null; current = current.Parent)
+        {
+            if (current.HasStyleClass("OrbitraEntryWindow"))
+                return current.VisibleInTree && !current.Disposed;
+            if (current is Robust.Client.UserInterface.CustomControls.BaseWindow)
+                return false;
+            if (current is Popup)
+            {
+                foreach (var child in current.Children)
+                {
+                    if (child is PopupOwner link)
+                        return link.Owner.VisibleInTree && !link.Owner.Disposed && CanAnimate(link.Owner);
+                }
+            }
+        }
+        return IsEntryContext();
+    }
+
+    internal static void CloseOwnedPopups(Control owner)
+    {
+        var root = IoCManager.Resolve<IUserInterfaceManager>().ModalRoot;
+        var popups = new List<Popup>();
+        foreach (var child in root.Children)
+        {
+            if (child is not Popup popup)
+                continue;
+            foreach (var marker in popup.Children)
+            {
+                if (marker is not PopupOwner link)
+                    continue;
+                for (Control? current = link.Owner; current != null; current = current.Parent)
+                {
+                    if (current != owner)
+                        continue;
+                    popups.Add(popup);
+                    break;
+                }
+            }
+        }
+        foreach (var popup in popups)
+            popup.Close();
+    }
+
+    private sealed class PopupOwner(Control owner) : Control
+    {
+        internal Control Owner = owner;
+        internal OrbitraPopupPresentation? Presentation;
+
+        protected override Vector2 MeasureOverride(Vector2 availableSize) => Vector2.Zero;
+
+        protected override void Dispose(bool disposing)
+        {
+            Presentation?.Dispose();
+            base.Dispose(disposing);
+        }
+    }
     private readonly IConfigurationManager _configuration = IoCManager.Resolve<IConfigurationManager>();
     private readonly List<Transition> _active = new();
     private readonly List<Surface> _surfaces = new();
 
     internal int ActiveCount => _active.Count + _surfaces.Count;
+
+    public OrbitraMotion()
+    {
+        _configuration.OnValueChanged(CCVars.ReducedMotion, OnReducedMotion);
+    }
+
+    private void OnReducedMotion(bool reduced)
+    {
+        if (reduced)
+            Advance(0, true);
+    }
 
     private static OrbitraMotion GetRunner()
     {
@@ -62,6 +162,8 @@ internal sealed class OrbitraMotion : Control
         {
             if (selected == index)
                 return;
+            if (selected >= 0 && selected < tabs.ChildCount)
+                Finish(tabs.GetChild(selected));
             selected = index;
             if (index >= 0 && index < tabs.ChildCount)
                 Reveal(tabs.GetChild(index), SectionDuration);
@@ -71,6 +173,16 @@ internal sealed class OrbitraMotion : Control
     internal static void Reveal(Control target, float duration)
     {
         var runner = GetRunner();
+        foreach (var active in runner._active)
+        {
+            if (!active.Running)
+                continue;
+            for (var parent = target.Parent; parent != null; parent = parent.Parent)
+            {
+                if (active.Target == parent)
+                    return;
+            }
+        }
         foreach (var transition in runner._active)
         {
             if (transition.Target != target || !transition.Running)
@@ -78,12 +190,36 @@ internal sealed class OrbitraMotion : Control
             transition.Reveal(duration);
             return;
         }
+        for (var i = runner._active.Count - 1; i >= 0; i--)
+        {
+            for (var parent = runner._active[i].Target.Parent; parent != null; parent = parent.Parent)
+            {
+                if (parent != target)
+                    continue;
+                runner._active[i].Finish();
+                runner._active.RemoveAt(i);
+                break;
+            }
+        }
         new Transition(target).Reveal(duration);
     }
 
-    internal static void Finish(Control target)
+    internal static void Hide(Control target, float duration, Action completed)
     {
-        foreach (var child in IoCManager.Resolve<IUserInterfaceManager>().RootControl.Children)
+        var runner = GetRunner();
+        foreach (var transition in runner._active)
+        {
+            if (transition.Target != target || !transition.Running)
+                continue;
+            transition.Hide(duration, completed: completed);
+            return;
+        }
+        new Transition(target).Hide(duration, completed: completed);
+    }
+
+    internal static void Finish(Control target, IUserInterfaceManager? ui = null)
+    {
+        foreach (var child in (ui ?? IoCManager.Resolve<IUserInterfaceManager>()).RootControl.Children)
         {
             if (child is OrbitraMotion runner)
                 runner.Cancel(target);
@@ -133,7 +269,7 @@ internal sealed class OrbitraMotion : Control
         var surface = new Surface(button);
         void Schedule()
         {
-            if (!IsEntryContext())
+            if (!CanAnimate(button))
                 return;
             var runner = GetRunner();
             surface.Restart();
@@ -149,6 +285,11 @@ internal sealed class OrbitraMotion : Control
 
     private void Start(Transition transition)
     {
+        if (_configuration.GetCVar(CCVars.ReducedMotion) || !CanAnimate(transition.Target))
+        {
+            transition.Finish();
+            return;
+        }
         for (var i = _active.Count - 1; i >= 0; i--)
         {
             if (_active[i] == transition)
@@ -159,10 +300,7 @@ internal sealed class OrbitraMotion : Control
                 _active.RemoveAt(i);
             }
         }
-        if (_configuration.GetCVar(CCVars.ReducedMotion) || !IsEntryContext())
-            transition.Finish();
-        else
-            _active.Add(transition);
+        _active.Add(transition);
     }
 
     protected override void FrameUpdate(FrameEventArgs args)
@@ -170,7 +308,20 @@ internal sealed class OrbitraMotion : Control
         base.FrameUpdate(args);
         if (ActiveCount == 0)
             return;
-        Advance(args.DeltaSeconds, _configuration.GetCVar(CCVars.ReducedMotion) || !IsEntryContext());
+        Advance(args.DeltaSeconds, _configuration.GetCVar(CCVars.ReducedMotion));
+    }
+
+    protected override void Draw(DrawingHandleScreen handle)
+    {
+        base.Draw(handle);
+        Presented();
+    }
+
+    /// <summary>Records a rendered UI frame separately from layout and simulation time.</summary>
+    internal void Presented()
+    {
+        foreach (var transition in _active)
+            transition.Presented();
     }
 
     internal void Advance(float seconds, bool reducedMotion)
@@ -191,6 +342,7 @@ internal sealed class OrbitraMotion : Control
 
     protected override void Dispose(bool disposing)
     {
+        _configuration.UnsubValueChanged(CCVars.ReducedMotion, OnReducedMotion);
         foreach (var transition in _active)
             transition.Finish();
         _active.Clear();
@@ -212,13 +364,17 @@ internal sealed class OrbitraMotion : Control
         private Vector2 _offset;
         private Vector2 _fromOffset;
         private Vector2 _targetOffset;
-        private Vector2 _size;
-        private Vector2 _position;
         private Vector2 _rootSize;
+        private Control? _screen;
         private float _scale;
         private bool _prepared;
+        private bool _presented;
+        private float _prepareElapsed;
         private bool _hide;
         private bool _pulse;
+        private Action? _completed;
+        internal enum Phase { Hidden, Preparing, Appearing, Shown, Disappearing }
+        internal Phase State { get; private set; } = Phase.Hidden;
         internal bool Running { get; private set; }
         internal float Value { get; private set; } = 1;
 
@@ -232,6 +388,12 @@ internal sealed class OrbitraMotion : Control
         {
             if (Target.Disposed)
                 return;
+            if (Running && !_hide && !_pulse)
+            {
+                GetRunner().Start(this);
+                return;
+            }
+            _completed = null;
             _hide = _pulse = false;
             _from = Running ? Value : 0;
             _fromOffset = Running ? _offset : offset;
@@ -240,8 +402,11 @@ internal sealed class OrbitraMotion : Control
             Start(duration);
         }
 
-        internal void Hide(float duration, Vector2 offset)
+        internal void Hide(float duration, Vector2 offset = default, Action? completed = null)
         {
+            if (Running && _hide)
+                return;
+            _completed = completed;
             _hide = true;
             _pulse = false;
             _from = Value;
@@ -264,7 +429,13 @@ internal sealed class OrbitraMotion : Control
         {
             _duration = duration;
             _elapsed = 0;
-            _prepared = false;
+            _prepared = _hide;
+            _presented = false;
+            _rootSize = Target.Root?.Size ?? Vector2.Zero;
+            _scale = Target.UIScale;
+            _prepareElapsed = 0;
+            _screen = IoCManager.Resolve<IUserInterfaceManager>().ActiveScreen;
+            State = _hide ? Phase.Disappearing : Phase.Preparing;
             Running = true;
             GetRunner().Start(this);
             if (Running && !_pulse)
@@ -275,35 +446,35 @@ internal sealed class OrbitraMotion : Control
         {
             if (!Running)
                 return;
-            if (Target.Disposed || !Target.VisibleInTree || reducedMotion)
+            if (Target.Disposed || !Target.VisibleInTree || reducedMotion || !CanAnimate(Target) ||
+                _screen != IoCManager.Resolve<IUserInterfaceManager>().ActiveScreen)
             {
                 Finish();
                 return;
             }
-            // Первый кадр даёт штатной раскладке закончить измерение нового содержимого.
+            // Подготовка не расходует длительность эффекта. Перераскладка содержимого
+            // после подготовки не является пользовательским изменением размера окна.
             if (!_prepared)
             {
-                // Некоторые динамические списки инвалидируют Measure каждый кадр: не ждём «вечной» валидности.
-                if (Target.Size == Vector2.Zero)
+                _prepareElapsed += seconds;
+                if (!_presented)
                 {
-                    _elapsed += seconds;
-                    if (_elapsed >= _duration)
+                    if (_prepareElapsed >= 0.5f)
+                    {
+                        Logger.DebugS("orbitra.ui.motion", $"Skipped reveal for {Target.GetType().Name}: layout preparation exceeded 500 ms.");
                         Finish();
+                    }
                     return;
                 }
-                _size = Target.Size;
-                _position = Target.GlobalPosition;
-                _rootSize = Target.Root?.Size ?? Vector2.Zero;
-                _scale = Target.UIScale;
                 _prepared = true;
-                return;
+                State = _hide ? Phase.Disappearing : Phase.Appearing;
             }
-            if (_size != Target.Size || _position != Target.GlobalPosition || _scale != Target.UIScale || _rootSize != Target.Root?.Size)
+            if (_scale != Target.UIScale || _rootSize != Target.Root?.Size)
             {
                 Finish();
                 return;
             }
-            _elapsed = Math.Min(_duration, _elapsed + seconds);
+            _elapsed = Math.Min(_duration, _elapsed + Math.Clamp(seconds, 0, 0.05f));
             var t = Ease(_elapsed / _duration);
             if (_pulse)
             {
@@ -314,6 +485,15 @@ internal sealed class OrbitraMotion : Control
                 Apply(_from + (_to - _from) * t, Vector2.Lerp(_fromOffset, _targetOffset, t));
             if (_elapsed >= _duration)
                 Finish();
+        }
+
+        internal void Presented()
+        {
+            if (!Running || _prepared || !Target.VisibleInTree || Target.Width <= 0 || Target.Height <= 0)
+                return;
+            _rootSize = Target.Root?.Size ?? Vector2.Zero;
+            _scale = Target.UIScale;
+            _presented = true;
         }
 
         internal static float Ease(float value)
@@ -333,7 +513,10 @@ internal sealed class OrbitraMotion : Control
 
         internal void Finish()
         {
+            var completed = _completed;
+            _completed = null;
             Running = false;
+            State = _hide ? Phase.Hidden : Phase.Shown;
             Value = _hide ? 0 : 1;
             _offset = Vector2.Zero;
             if (Target.Disposed)
@@ -344,6 +527,7 @@ internal sealed class OrbitraMotion : Control
                 host.SetVisualOffset(Vector2.Zero);
                 host.CompleteMotion(_hide);
             }
+            completed?.Invoke();
         }
     }
 
@@ -369,7 +553,7 @@ internal sealed class OrbitraMotion : Control
 
         internal bool Advance(float seconds, bool reducedMotion)
         {
-            if (button.Disposed || !button.VisibleInTree || reducedMotion)
+            if (button.Disposed || !button.VisibleInTree || reducedMotion || !CanAnimate(button))
                 return Finish();
             if (_mode != button.DrawMode)
                 Restart();

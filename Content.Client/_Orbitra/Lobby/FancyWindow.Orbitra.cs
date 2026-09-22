@@ -12,6 +12,11 @@ public partial class FancyWindow
         if (HasStyleClass("OrbitraWindowChrome"))
             return;
         AddStyleClass("OrbitraWindowChrome");
+        OnKeyBindDown += args =>
+        {
+            if (args.Function == Robust.Shared.Input.EngineKeyFunctions.UIClick && GetDragModeFor(args.RelativePosition) != DragMode.None)
+                OrbitraMotion.Finish(this);
+        };
         foreach (var child in Children)
         {
             if (child is PanelContainer panel)
@@ -31,7 +36,7 @@ public partial class FancyWindow
             row.Margin = new Thickness(16, 6, 8, 6);
             row.SeparationOverride = 8;
             var close = new OrbitraWindowCloseButton();
-            close.OnPressed += _ => Close();
+            close.OnPressed += _ => OrbitraEntryWindow.RequestClose(this);
             row.AddChild(close);
             CloseButton.Visible = false;
         }

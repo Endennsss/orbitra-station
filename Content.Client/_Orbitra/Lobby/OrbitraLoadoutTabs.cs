@@ -50,6 +50,8 @@ public sealed class OrbitraLoadoutTabs : BoxContainer
     private void Select(int index)
     {
         var changed = _selected != index;
+        if (changed && _selected < _contents.ChildCount)
+            OrbitraMotion.Finish(_contents.GetChild(_selected));
         _selected = index;
         _selector.SelectId(index);
         for (var i = 0; i < _categories.Count; i++)

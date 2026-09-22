@@ -30,9 +30,9 @@ public sealed class ChangelogUIController : UIController
     {
         EnsureWindow();
 
-        if (_changeLogWindow.IsOpen)
+        if (_changeLogWindow.IsOpen && !Content.Client._Orbitra.Lobby.OrbitraEntryWindow.IsClosing(_changeLogWindow)) // Orbitra-Edit
         {
-            _changeLogWindow.Close();
+            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose(_changeLogWindow); // Orbitra-Edit
         }
         else
         {

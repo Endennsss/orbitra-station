@@ -125,10 +125,10 @@ public sealed partial class GuidebookUIController : UIController, IOnStateEntere
         if (_guideWindow == null)
             return;
 
-        if (_guideWindow.IsOpen)
+        if (_guideWindow.IsOpen && !Content.Client._Orbitra.Lobby.OrbitraEntryWindow.IsClosing(_guideWindow)) // Orbitra-Edit
         {
             UIManager.ClickSound();
-            _guideWindow.Close();
+            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose(_guideWindow); // Orbitra-Edit
         }
         else
         {

@@ -57,9 +57,9 @@ public sealed partial class OptionsUIController : UIController
     {
         EnsureWindow();
 
-        if (_optionsWindow.IsOpen)
+        if (_optionsWindow.IsOpen && !Content.Client._Orbitra.Lobby.OrbitraEntryWindow.IsClosing(_optionsWindow)) // Orbitra-Edit
         {
-            _optionsWindow.Close();
+            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose(_optionsWindow); // Orbitra-Edit
         }
         else
         {

@@ -14,9 +14,15 @@ public sealed partial class GraphicsTab
             new OptionDropDownCVar<string>.ValueOption("Medium", Loc.GetString("orbitra-options-particles-medium")),
             new OptionDropDownCVar<string>.ValueOption("High", Loc.GetString("orbitra-options-particles-high")),
         ]);
-        quality.ImmediateValueChanged += value => _entityManager.System<OrbitraParticleSystem>().PreviewQuality(value);
+        quality.ImmediateValueChanged += PreviewOrbitraParticles;
+    }
+
+    private void PreviewOrbitraParticles(string quality)
+    {
+        if (_entityManager.TrySystem<OrbitraParticleSystem>(out var particles))
+            particles.PreviewQuality(quality);
     }
 
     private void RestoreOrbitraParticleOptions() =>
-        _entityManager.System<OrbitraParticleSystem>().PreviewQuality(_cfg.GetCVar(OrbitraParticleCVars.Quality));
+        PreviewOrbitraParticles(_cfg.GetCVar(OrbitraParticleCVars.Quality));
 }

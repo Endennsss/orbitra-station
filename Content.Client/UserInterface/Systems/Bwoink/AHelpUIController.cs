@@ -519,9 +519,9 @@ public sealed class UserAHelpUIHandler : IAHelpUIHandler
     public void ToggleWindow()
     {
         var createdWindow = EnsureInit(_discordRelayActive);
-        if (!createdWindow && _window!.IsOpen)
+        if (!createdWindow && _window!.IsOpen && !Content.Client._Orbitra.Lobby.OrbitraEntryWindow.IsClosing(_window)) // Orbitra-Edit
         {
-            _window.Close();
+            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose(_window); // Orbitra-Edit
         }
         else
         {

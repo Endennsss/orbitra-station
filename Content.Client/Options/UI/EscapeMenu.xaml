@@ -4,10 +4,13 @@
                 xmlns:ui1="clr-namespace:Content.Client.Options.UI"
                 xmlns:system="clr-namespace:System;assembly=System.Runtime"
                 Title="{Loc 'ui-escape-title'}"
-                Resizable="False">
+                Resizable="False" SetWidth="320">
 
-    <BoxContainer Orientation="Vertical" SeparationOverride="4" MinWidth="150">
+    <!-- Orbitra-Edit - меню остаётся доступным при малой высоте окна. -->
+    <ScrollContainer HScrollEnabled="False" VerticalExpand="True" ReturnMeasure="True">
+    <BoxContainer Orientation="Vertical" SeparationOverride="8" MinWidth="224">
         <ui:VoteCallMenuButton />
+        <Label Text="{Loc 'orbitra-menu-reference'}" StyleClasses="OrbitraLobbyMuted" /> <!-- Orbitra-Edit -->
         <PanelContainer StyleClasses="LowDivider" Margin="0 2.5 0 2.5" />
         <Button Access="Public" Name="RulesButton" Text="{Loc 'ui-escape-rules'}" StyleClasses="OpenLeft" />
         <Button Access="Public" Name="GuidebookButton" Text="{Loc 'ui-escape-guidebook'}" StyleClasses="OpenBoth" />
@@ -18,8 +21,10 @@
         <Button Access="Public" Name="AdminRemarksButton" Text="{Loc 'ui-escape-remarks'}" StyleClasses="OpenRight"/>
         <PanelContainer StyleClasses="LowDivider" Margin="0 2.5 0 2.5" />
         <Button Access="Public" Name="OptionsButton" Text="{Loc 'ui-escape-options'}" />
+        <Label Text="{Loc 'orbitra-menu-exit'}" StyleClasses="OrbitraLobbyMuted" /> <!-- Orbitra-Edit -->
         <PanelContainer StyleClasses="LowDivider" Margin="0 2.5 0 2.5" />
-        <Button Access="Public" Name="DisconnectButton" Text="{Loc 'ui-escape-disconnect'}" StyleClasses="negative OpenLeft" />
-        <Button Access="Public" Name="QuitButton" Text="{Loc 'ui-escape-quit'}" StyleClasses="negative OpenRight" />
+        <Button Access="Public" Name="DisconnectButton" Text="{Loc 'ui-escape-disconnect'}" StyleClasses="OrbitraDangerButton" />
+        <Button Access="Public" Name="QuitButton" Text="{Loc 'ui-escape-quit'}" StyleClasses="OrbitraDangerButton" />
     </BoxContainer>
+    </ScrollContainer>
 </ui1:EscapeMenu>

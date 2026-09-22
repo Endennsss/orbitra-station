@@ -11,10 +11,15 @@ public sealed partial class LobbyGui
     private bool _orbitraInfoOpen;
     private bool _orbitraChatOpen;
     private LobbyGuiState _orbitraState;
+    private OrbitraVisibility _orbitraMoreMotion = default!;
+    private OrbitraVisibility _orbitraInfoMotion = default!;
+    private OrbitraVisibility _orbitraDockChatMotion = default!;
 
     private void InitializeOrbitraLayout()
     {
-        OrbitraMotion.AttachReveal(MorePanel, OrbitraMotion.MenuDuration);
+        _orbitraMoreMotion = new OrbitraVisibility(MorePanel);
+        _orbitraInfoMotion = new OrbitraVisibility(ServerInfo);
+        _orbitraDockChatMotion = new OrbitraVisibility(RightSide);
         SetAnchorPreset(OrbitraScrim, LayoutPreset.Wide);
         // Сохраняем штатные кнопки ссылок и их подписки, меняем только ориентацию.
         foreach (var banner in new BoxContainer[] { LinkBanner, DevInfoBanner })
@@ -48,8 +53,8 @@ public sealed partial class LobbyGui
             _orbitraChatOpen = false;
             UpdateOrbitraLayout();
         };
-        AboutButton.OnToggled += args => ServerInfo.Visible = args.Pressed;
-        MoreButton.OnToggled += args => MorePanel.Visible = args.Pressed;
+        AboutButton.OnToggled += args => _orbitraInfoMotion.SetShown(args.Pressed);
+        MoreButton.OnToggled += args => _orbitraMoreMotion.SetShown(args.Pressed);
         OnResized += UpdateOrbitraLayout;
         UpdateOrbitraLayout();
     }
@@ -88,7 +93,7 @@ public sealed partial class LobbyGui
         CharacterSetupState.Visible = state == LobbyGuiState.CharacterSetup;
         _orbitraInfoOpen = _orbitraChatOpen = false;
         MoreButton.Pressed = false;
-        MorePanel.Visible = false;
+        _orbitraMoreMotion.SetShown(false, true);
         UpdateOrbitraLayout();
         if (state == LobbyGuiState.CharacterSetup)
         {
@@ -121,7 +126,7 @@ public sealed partial class LobbyGui
         ChatDock.Visible = dockChat;
         InfoDrawer.SetShown(!editing && !dockInfo && _orbitraInfoOpen, new System.Numerics.Vector2(-16, 0), editing || dockInfo);
         ChatDrawer.SetShown(!editing && !dockChat && _orbitraChatOpen, new System.Numerics.Vector2(16, 0), editing || dockChat);
-        RightSide.Visible = !editing && (dockChat ? _orbitraChatVisible : ChatDrawer.Visible);
+        _orbitraDockChatMotion.SetShown(!editing && (dockChat ? _orbitraChatVisible : ChatDrawer.Visible), editing || !dockChat);
         RightSide.SetWidth = Math.Min(_orbitraChatWidth, Math.Max(280, width - 48));
         InfoToggle.Visible = !editing && !dockInfo;
         ChatToggle.Visible = !editing && (!dockChat || !_orbitraChatVisible);

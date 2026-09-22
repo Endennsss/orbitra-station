@@ -15,7 +15,7 @@ public sealed partial class CharacterSetupGuiSavePanel : Content.Client.UserInte
 
         CancelButton.OnPressed += _ =>
         {
-            Close();
+            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose(this); // Orbitra-Edit - отмена закрывает окно с затуханием
         };
 
         CloseButton.Visible = false;

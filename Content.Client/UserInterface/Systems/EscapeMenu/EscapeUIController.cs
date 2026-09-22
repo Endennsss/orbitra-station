@@ -171,9 +171,9 @@ public sealed partial class EscapeUIController : UIController, IOnStateEntered<G
         if (_escapeWindow == null)
             return;
 
-        if (_escapeWindow.IsOpen)
+        if (_escapeWindow.IsOpen && !Content.Client._Orbitra.Lobby.OrbitraEntryWindow.IsClosing(_escapeWindow)) // Orbitra-Edit
         {
-            CloseEscapeWindow();
+            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose(_escapeWindow); // Orbitra-Edit
             EscapeButton!.Pressed = false;
         }
         else
