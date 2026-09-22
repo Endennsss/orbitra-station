@@ -5,6 +5,8 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.ContentPack;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.Info
 {
     public sealed partial class RulesAndInfoWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
@@ -14,7 +16,7 @@ namespace Content.Client.Info
         public RulesAndInfoWindow()
         {
             IoCManager.InjectDependencies(this);
-            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
 
             Title = Loc.GetString("ui-info-title");
 

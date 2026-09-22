@@ -8,6 +8,8 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Console;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.Changelog;
 
 [GenerateTypedNameReferences]
@@ -19,7 +21,7 @@ public sealed partial class ChangelogWindow : FancyWindow
     public ChangelogWindow()
     {
         RobustXamlLoader.Load(this);
-        Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         InitializeOrbitraJournal(); // Orbitra-Edit: представление и загрузка вынесены в модуль форка.
     }
 

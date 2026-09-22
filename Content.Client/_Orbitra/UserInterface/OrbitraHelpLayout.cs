@@ -3,7 +3,9 @@ using Content.Client.Administration.UI.Bwoink;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 
-namespace Content.Client._Orbitra.Lobby;
+using Content.Client._Orbitra.Lobby;
+
+namespace Content.Client._Orbitra.UserInterface;
 
 /// <summary>Wraps entry-screen AHelp actions without modifying the in-round administration layout.</summary>
 internal static class OrbitraHelpLayout

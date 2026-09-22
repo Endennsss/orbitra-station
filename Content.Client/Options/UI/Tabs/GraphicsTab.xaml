@@ -1,24 +1,27 @@
 <tabs:GraphicsTab xmlns="https://spacestation14.io"
           xmlns:tabs="clr-namespace:Content.Client.Options.UI.Tabs"
-          xmlns:ui="clr-namespace:Content.Client.Options.UI">
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:ui="clr-namespace:Content.Client.Options.UI"
+          xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface">
     <BoxContainer Orientation="Vertical">
         <!-- Orbitra-Edit - измеряем содержимое по ширине вкладки, а не бесконечной горизонтальной области -->
         <ScrollContainer VerticalExpand="True" HScrollEnabled="False" ReserveScrollbarSpace="True">
-            <BoxContainer Orientation="Vertical" Margin="8 8 8 8">
+            <kit:OrbitraSettingsForm Orientation="Vertical" Margin="8 8 8 8" MaxWidth="{x:Static kit:OrbitraUiMetrics.FormWidth}" HorizontalAlignment="Center" HorizontalExpand="True"> <!-- Orbitra-Edit: центрированная форма настроек. -->
                 <!-- Display -->
                 <Label Text="{Loc 'ui-options-display-label'}" StyleClasses="LabelKeyText"/>
                 <CheckBox Name="FullscreenCheckBox" Text="{Loc 'ui-options-fullscreen'}" />
                 <CheckBox Name="VSyncCheckBox" Text="{Loc 'ui-options-vsync'}" />
-                <BoxContainer Name="MaxFpsContainer"
-                              Orientation="Vertical"
+                <kit:OrbitraFormRow Name="MaxFpsContainer"
                               ToolTip="{Loc 'ui-options-max-fps-tooltip'}">
                     <!-- Orbitra-Edit - элементы ограничения FPS не вытесняют друг друга за край -->
-                    <Label Text="{Loc 'ui-options-max-fps'}" ClipText="True" />
+                    <RichTextLabel Text="{Loc 'ui-options-max-fps'}" />
+                    <BoxContainer Orientation="Vertical" HorizontalExpand="True"> <!-- Orbitra-Edit -->
                     <ui:OptionIntInput Name="MaxFpsInput" HorizontalExpand="True" />
                     <Button Name="MaxFpsDisplayRateButton"
                             Text="{Loc 'ui-options-max-fps-display-rate'}"
                             Margin="0 4 0 0" />
-                </BoxContainer>
+                    </BoxContainer>
+                </kit:OrbitraFormRow>
 
                 <!-- Quality -->
                 <Label Text="{Loc 'ui-options-quality-label'}" StyleClasses="LabelKeyText"/>
@@ -52,7 +55,7 @@
                 <!-- Misc -->
                 <Label Text="{Loc 'ui-options-misc-label'}" StyleClasses="LabelKeyText"/>
                 <CheckBox Name="FpsCounterCheckBox" Text="{Loc 'ui-options-fps-counter'}" />
-            </BoxContainer>
+            </kit:OrbitraSettingsForm>
         </ScrollContainer>
         <ui:OptionsTabControlRow Name="Control" Access="Public" />
     </BoxContainer>

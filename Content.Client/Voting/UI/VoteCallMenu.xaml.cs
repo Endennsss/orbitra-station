@@ -19,6 +19,8 @@ using Robust.Shared.Console;
 using Robust.Shared.Network;
 using Robust.Shared.Timing;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.Voting.UI
 {
     [GenerateTypedNameReferences]
@@ -62,7 +64,7 @@ namespace Content.Client.Voting.UI
         {
             IoCManager.InjectDependencies(this);
             RobustXamlLoader.Load(this);
-            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
             _votingSystem = _entityManager.System<VotingSystem>();
 
             Stylesheet = IoCManager.Resolve<IStylesheetManager>().SheetSystem;

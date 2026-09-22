@@ -3,6 +3,8 @@ using JetBrains.Annotations;
 using Robust.Client.State;
 using Robust.Client.UserInterface.Controllers;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.UserInterface.Systems.EscapeMenu;
 
 [UsedImplicitly]
@@ -30,9 +32,9 @@ public sealed class ChangelogUIController : UIController
     {
         EnsureWindow();
 
-        if (_changeLogWindow.IsOpen && !Content.Client._Orbitra.Lobby.OrbitraEntryWindow.IsClosing(_changeLogWindow)) // Orbitra-Edit
+        if (_changeLogWindow.IsOpen && !Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.IsClosing(_changeLogWindow)) // Orbitra-Edit
         {
-            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose(_changeLogWindow); // Orbitra-Edit
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.RequestClose(_changeLogWindow); // Orbitra-Edit
         }
         else
         {

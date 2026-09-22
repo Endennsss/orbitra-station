@@ -14,6 +14,8 @@ using Robust.Shared.Input.Binding;
 using Robust.Shared.Utility;
 using static Robust.Client.UserInterface.Controls.BaseButton;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.UserInterface.Systems.EscapeMenu;
 
 [UsedImplicitly]
@@ -171,9 +173,9 @@ public sealed partial class EscapeUIController : UIController, IOnStateEntered<G
         if (_escapeWindow == null)
             return;
 
-        if (_escapeWindow.IsOpen && !Content.Client._Orbitra.Lobby.OrbitraEntryWindow.IsClosing(_escapeWindow)) // Orbitra-Edit
+        if (_escapeWindow.IsOpen && !Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.IsClosing(_escapeWindow)) // Orbitra-Edit
         {
-            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose(_escapeWindow); // Orbitra-Edit
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.RequestClose(_escapeWindow); // Orbitra-Edit
             EscapeButton!.Pressed = false;
         }
         else

@@ -10,6 +10,8 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.Lobby.UI
 {
     /// <summary>
@@ -49,9 +51,9 @@ namespace Content.Client.Lobby.UI
 
             CharEditor.AddChild(profileEditor);
             InitializeOrbitraSetup(profileEditor); // Orbitra-Edit
-            RulesButton.OnPressed += _ => Content.Client._Orbitra.Lobby.OrbitraEditorStyles.OpenWindow(new RulesAndInfoWindow()); // Orbitra-Edit
+            RulesButton.OnPressed += _ => Content.Client._Orbitra.UserInterface.OrbitraEditorStyles.OpenWindow(new RulesAndInfoWindow()); // Orbitra-Edit
 
-            StatsButton.OnPressed += _ => Content.Client._Orbitra.Lobby.OrbitraEditorStyles.OpenWindow(new PlaytimeStatsWindow()); // Orbitra-Edit
+            StatsButton.OnPressed += _ => Content.Client._Orbitra.UserInterface.OrbitraEditorStyles.OpenWindow(new PlaytimeStatsWindow()); // Orbitra-Edit
 
             _cfg.OnValueChanged(CCVars.SeeOwnNotes, p => AdminRemarksButton.Visible = p, true);
             _cfg.OnValueChanged(CCVars.GameMaxCharacterSlots, _ => ReloadCharacterPickers());

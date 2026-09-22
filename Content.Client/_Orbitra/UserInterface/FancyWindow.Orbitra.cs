@@ -1,6 +1,7 @@
-using Content.Client._Orbitra.Lobby;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
+
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
 
 namespace Content.Client.UserInterface.Controls;
 
@@ -28,20 +29,20 @@ public partial class FancyWindow
         WindowHeader.StyleClasses.Clear();
         WindowHeader.AddStyleClass("OrbitraWindowHeader");
         if (WindowHeader.Parent is { } heading)
-            heading.SetHeight = 44;
+            heading.SetHeight = OrbitraUiMetrics.HeaderHeight;
         WindowTitle.RemoveStyleClass("LabelHeading");
         WindowTitle.AddStyleClass("OrbitraWindowTitle");
         if (WindowTitle.Parent is BoxContainer row)
         {
-            row.Margin = new Thickness(16, 6, 8, 6);
-            row.SeparationOverride = 8;
+            row.Margin = new Thickness(OrbitraUiMetrics.WindowPadding, 6, OrbitraUiMetrics.Small, 6);
+            row.SeparationOverride = OrbitraUiMetrics.Small;
             var close = new OrbitraWindowCloseButton();
             close.OnPressed += _ => OrbitraEntryWindow.RequestClose(this);
             row.AddChild(close);
             CloseButton.Visible = false;
         }
         ContentsContainer.RemoveStyleClass("WindowContentsContainer");
-        ContentsContainer.Margin = new Thickness(16);
+        ContentsContainer.Margin = new Thickness(OrbitraUiMetrics.WindowPadding);
         if (ContentsContainer.Parent is BoxContainer layout)
         {
             layout.SeparationOverride = 0;

@@ -3,7 +3,9 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
 
-namespace Content.Client._Orbitra.Lobby;
+using Content.Client._Orbitra.Lobby;
+
+namespace Content.Client._Orbitra.UserInterface;
 
 /// <summary>Applies editor-local presentation without altering shared controls elsewhere.</summary>
 internal static class OrbitraEditorStyles
@@ -19,7 +21,7 @@ internal static class OrbitraEditorStyles
     public static void FitWindow(BaseWindow window, bool center = false)
     {
         var screen = IoCManager.Resolve<IUserInterfaceManager>().RootControl.Size;
-        var available = Vector2.Max(new Vector2(200, 128), screen - new Vector2(32));
+        var available = Vector2.Max(new Vector2(200, 128), screen - new Vector2(OrbitraUiMetrics.ScreenMargin * 2));
         window.MaxSize = available;
         window.MinSize = Vector2.Min(window.MinSize, available);
         if (float.IsFinite(window.SetWidth))
@@ -31,7 +33,8 @@ internal static class OrbitraEditorStyles
         {
             var size = Vector2.Min(window.DesiredSize, available);
             var position = center ? (screen - size) / 2 : window.Position;
-            LayoutContainer.SetPosition(window, Vector2.Clamp(position, new Vector2(16), Vector2.Max(new Vector2(16), screen - size - new Vector2(16))));
+            var margin = new Vector2(OrbitraUiMetrics.ScreenMargin);
+            LayoutContainer.SetPosition(window, Vector2.Clamp(position, margin, Vector2.Max(margin, screen - size - margin)));
         }
     }
 
@@ -80,7 +83,7 @@ internal static class OrbitraEditorStyles
         if (root is Content.Client.Lobby.UI.Roles.TraitPreferenceSelector trait)
             trait.Checkbox.HorizontalExpand = true;
         if (root is BoxContainer { Orientation: BoxContainer.LayoutOrientation.Vertical } box)
-            box.SeparationOverride ??= 8;
+                box.SeparationOverride ??= OrbitraUiMetrics.Small;
         if (root is Content.Client.Lobby.UI.Roles.RequirementsSelector selector)
             selector.ApplyOrbitraLayout();
         if (root is Button or OptionButton && root is not OrbitraWindowCloseButton && root is not CheckBox)
@@ -90,7 +93,9 @@ internal static class OrbitraEditorStyles
             foreach (var legacy in new[] { "OpenLeft", "OpenRight", "OpenBoth", "negative" })
                 root.RemoveStyleClass(legacy);
             root.AddStyleClass(ContainerButton.StyleClassButton);
-            if (!root.HasStyleClass("OrbitraLobbyPrimary") && !root.HasStyleClass("OrbitraDangerButton"))
+            if (!root.HasStyleClass("OrbitraLobbyPrimary") && !root.HasStyleClass("OrbitraDangerButton") &&
+                !root.HasStyleClass(OrbitraButtonStyles.Primary) && !root.HasStyleClass(OrbitraButtonStyles.Danger) &&
+                !root.HasStyleClass(OrbitraButtonStyles.Ghost) && !root.HasStyleClass(OrbitraButtonStyles.Secondary))
                 root.AddStyleClass("OrbitraLobbyButton");
         }
         if (root is Button button)
@@ -104,7 +109,7 @@ internal static class OrbitraEditorStyles
         if (root is CheckBox check)
         {
             check.RemoveStyleClass("OrbitraLobbyButton");
-            check.MinHeight = 36;
+            check.MinHeight = OrbitraUiMetrics.ElementHeight;
             check.HorizontalExpand = true;
             check.Label.HorizontalExpand = true;
             check.ClipText = true;
@@ -120,7 +125,7 @@ internal static class OrbitraEditorStyles
                 ClipOptionLabels(child);
         }
         if (root is LineEdit or OptionButton)
-            root.MinHeight = 36;
+            root.MinHeight = OrbitraUiMetrics.ElementHeight;
         foreach (var child in root.Children)
             Apply(child);
         // Динамические маркировки и предметы получают стиль при добавлении, без обхода дерева каждый кадр.

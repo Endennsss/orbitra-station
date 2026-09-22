@@ -131,7 +131,7 @@ public sealed class GhostWarpsRequestEvent : EntityEventArgs
 /// This is used as part of <see cref="GhostWarpsResponseEvent"/>
 /// </summary>
 [Serializable, NetSerializable]
-public struct GhostWarp
+public partial struct GhostWarp // Orbitra-Edit - метаданные профессии для меню наблюдения.
 {
     public GhostWarp(NetEntity entity, string displayName, bool isWarpPoint)
     {

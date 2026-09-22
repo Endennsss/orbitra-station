@@ -1,9 +1,10 @@
 <Control xmlns="https://spacestation14.io"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
          xmlns:ui="clr-namespace:Content.Client.Options.UI">
     <BoxContainer Orientation="Vertical">
         <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
-            <BoxContainer Orientation="Vertical" Margin="8">
+            <kit:OrbitraSettingsForm Orientation="Vertical" Margin="8" MaxWidth="{x:Static kit:OrbitraUiMetrics.FormWidth}" HorizontalAlignment="Center" HorizontalExpand="True"> <!-- Orbitra-Edit: центрированная форма настроек. -->
                 <Label Text="{Loc 'ui-options-admin-player-panel'}"
                        StyleClasses="LabelKeyText"/>
                 <ui:OptionDropDown Name="DropDownPlayerTabSymbolSetting" Title="{Loc 'ui-options-admin-player-tab-symbol-setting'}" />
@@ -21,7 +22,7 @@
                 <Label Text="{Loc 'ui-options-admin-strip-overlay-title'}"
                        StyleClasses="LabelKeyText"/>
                 <CheckBox Name="EnableAdminStripOverlayDefault" Text="{Loc 'ui-options-admin-strip-overlay-setting'}" />
-            </BoxContainer>
+            </kit:OrbitraSettingsForm>
         </ScrollContainer>
         <ui:OptionsTabControlRow Name="Control" Access="Public" />
     </BoxContainer>

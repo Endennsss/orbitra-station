@@ -2,7 +2,9 @@ using System.Numerics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 
-namespace Content.Client._Orbitra.Lobby;
+using Content.Client._Orbitra.Lobby;
+
+namespace Content.Client._Orbitra.UserInterface;
 
 /// <summary>Variable-height journal rows with cached measurements and a viewport-sized live window.</summary>
 public sealed class OrbitraVirtualList : Control

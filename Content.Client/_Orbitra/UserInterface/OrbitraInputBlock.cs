@@ -1,6 +1,8 @@
 using Robust.Client.UserInterface;
 
-namespace Content.Client._Orbitra.Lobby;
+using Content.Client._Orbitra.Lobby;
+
+namespace Content.Client._Orbitra.UserInterface;
 
 /// <summary>Temporarily removes input from a fading subtree, including newly added children.</summary>
 internal sealed class OrbitraInputBlock

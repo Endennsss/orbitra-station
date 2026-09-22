@@ -57,6 +57,7 @@ namespace Content.Client.Ghost
         public override void Initialize()
         {
             base.Initialize();
+            InitializeOrbitraRoundState(); // Orbitra-Edit
 
             SubscribeLocalEvent<GhostComponent, ComponentStartup>(OnStartup);
             SubscribeLocalEvent<GhostComponent, ComponentRemove>(OnGhostRemove);

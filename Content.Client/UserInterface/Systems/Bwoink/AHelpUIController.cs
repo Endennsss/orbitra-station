@@ -28,6 +28,8 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.UserInterface.Systems.Bwoink;
 
 [UsedImplicitly]
@@ -519,9 +521,9 @@ public sealed class UserAHelpUIHandler : IAHelpUIHandler
     public void ToggleWindow()
     {
         var createdWindow = EnsureInit(_discordRelayActive);
-        if (!createdWindow && _window!.IsOpen && !Content.Client._Orbitra.Lobby.OrbitraEntryWindow.IsClosing(_window)) // Orbitra-Edit
+        if (!createdWindow && _window!.IsOpen && !Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.IsClosing(_window)) // Orbitra-Edit
         {
-            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose(_window); // Orbitra-Edit
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.RequestClose(_window); // Orbitra-Edit
         }
         else
         {

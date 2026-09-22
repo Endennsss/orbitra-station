@@ -1,10 +1,11 @@
 ﻿<tabs:MiscTab xmlns="https://spacestation14.io"
               xmlns:tabs="clr-namespace:Content.Client.Options.UI.Tabs"
               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
               xmlns:ui="clr-namespace:Content.Client.Options.UI">
     <BoxContainer Orientation="Vertical">
         <ScrollContainer VerticalExpand="True" HorizontalExpand="True">
-            <BoxContainer Orientation="Vertical" Margin="8 8 8 8" VerticalExpand="True">
+            <kit:OrbitraSettingsForm Orientation="Vertical" Margin="8 8 8 8" VerticalExpand="True" MaxWidth="{x:Static kit:OrbitraUiMetrics.FormWidth}" HorizontalAlignment="Center" HorizontalExpand="True"> <!-- Orbitra-Edit: центрированная форма настроек. -->
                 <Label Text="{Loc 'ui-options-general-ui-style'}"
                        StyleClasses="LabelKeyText"/>
                 <ui:OptionDropDown Name="DropDownHudTheme" Title="{Loc 'ui-options-hud-theme'}" />
@@ -28,7 +29,7 @@
                 <CheckBox Name="OpaqueStorageWindowCheckBox" Text="{Loc 'ui-options-opaque-storage-window'}" />
                 <CheckBox Name="StaticStorageUI" Text="{Loc 'ui-options-static-storage-ui'}" />
                 <!-- <CheckBox Name="ToggleWalk" Text="{Loc 'ui-options-hotkey-toggle-walk'}" /> -->
-            </BoxContainer>
+            </kit:OrbitraSettingsForm>
         </ScrollContainer>
         <ui:OptionsTabControlRow Name="Control" Access="Public" />
     </BoxContainer>

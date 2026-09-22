@@ -1,6 +1,8 @@
 using System.Numerics;
 using Content.Client._Orbitra.Lobby;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.Lobby.UI.Loadouts;
 
 public sealed partial class LoadoutWindow

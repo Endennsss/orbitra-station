@@ -3,7 +3,9 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Timing;
 
-namespace Content.Client._Orbitra.Lobby;
+using Content.Client._Orbitra.Lobby;
+
+namespace Content.Client._Orbitra.UserInterface;
 
 /// <summary>Fades the existing popup content after native modality has already been released.</summary>
 internal sealed class OrbitraPopupPresentation : IDisposable

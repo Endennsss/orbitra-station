@@ -1,7 +1,9 @@
 using System.Numerics;
 using Robust.Client.UserInterface;
 
-namespace Content.Client._Orbitra.Lobby;
+using Content.Client._Orbitra.Lobby;
+
+namespace Content.Client._Orbitra.UserInterface;
 
 /// <summary>Moves content inside its final layout slot without changing the slot's measurement.</summary>
 public sealed class OrbitraMotionHost : Control

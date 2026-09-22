@@ -1,10 +1,10 @@
-<BoxContainer xmlns="https://spacestation14.io" xmlns:humanoid="clr-namespace:Content.Client.Humanoid" xmlns:ui="clr-namespace:Content.Client.Lobby.UI" xmlns:profile="clr-namespace:Content.Client.Lobby.UI.ProfileEditorControls" xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Lobby" Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="12">
+<BoxContainer xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface" xmlns="https://spacestation14.io" xmlns:humanoid="clr-namespace:Content.Client.Humanoid" xmlns:ui="clr-namespace:Content.Client.Lobby.UI" xmlns:profile="clr-namespace:Content.Client.Lobby.UI.ProfileEditorControls" xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Lobby" Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="12">
   <!-- Orbitra edit start - разделы, постоянное превью и закреплённое сохранение. -->
   <BoxContainer Name="OrbitraEditorBody" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="16">
     <BoxContainer Name="OrbitraNavigation" Orientation="Vertical" SetWidth="176" SeparationOverride="8" />
     <BoxContainer Name="OrbitraForm" Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="12">
       <OptionButton Name="OrbitraSectionSelect" Visible="False" />
-      <orbitra:OrbitraEditorTabContainer Name="TabContainer" VerticalExpand="True" TabsVisible="False">
+      <kit:OrbitraEditorTabContainer Name="TabContainer" VerticalExpand="True" TabsVisible="False">
         <BoxContainer Orientation="Vertical">
           <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
             <!-- appearanceList -->
@@ -27,42 +27,42 @@
                   <orbitra:OrbitraLobbyButton Name="RandomizeUnlockedButton" Text="{Loc 'humanoid-profile-editor-randomize-unlocked-button'}" StyleClasses="OrbitraLobbyButton" />
                 </BoxContainer>
                 <!-- Species -->
-                <orbitra:OrbitraFormRow HorizontalExpand="True">
+                <kit:OrbitraFormRow HorizontalExpand="True">
                   <Label Text="{Loc 'humanoid-profile-editor-species-label'}" />
                   <Control HorizontalExpand="True" />
                   <TextureButton Name="SpeciesInfoButton" Scale="0.3 0.3" VerticalAlignment="Center" ToolTip="{Loc 'humanoid-profile-editor-guidebook-button-tooltip'}" />
                   <OptionButton Name="SpeciesButton" HorizontalAlignment="Right" />
-                </orbitra:OrbitraFormRow>
+                </kit:OrbitraFormRow>
                 <!-- Age -->
-                <orbitra:OrbitraFormRow HorizontalExpand="True">
+                <kit:OrbitraFormRow HorizontalExpand="True">
                   <Label Text="{Loc 'humanoid-profile-editor-age-label'}" />
                   <Control HorizontalExpand="True" />
                   <LineEdit Name="AgeEdit" MinSize="40 0" HorizontalAlignment="Right" />
-                </orbitra:OrbitraFormRow>
+                </kit:OrbitraFormRow>
                 <!-- Sex -->
-                <orbitra:OrbitraFormRow HorizontalExpand="True">
+                <kit:OrbitraFormRow HorizontalExpand="True">
                   <Label Text="{Loc 'humanoid-profile-editor-sex-label'}" />
                   <Control HorizontalExpand="True" />
                   <OptionButton Name="SexButton" HorizontalAlignment="Right" />
-                </orbitra:OrbitraFormRow>
+                </kit:OrbitraFormRow>
                 <!-- Voice -->
-                <orbitra:OrbitraFormRow HorizontalExpand="True">
+                <kit:OrbitraFormRow HorizontalExpand="True">
                   <Label Text="{Loc 'humanoid-profile-editor-voice-label'}" />
                   <Control HorizontalExpand="True" />
                   <OptionButton Name="VoiceButton" HorizontalAlignment="Right" />
-                </orbitra:OrbitraFormRow>
+                </kit:OrbitraFormRow>
                 <!-- Pronouns -->
-                <orbitra:OrbitraFormRow HorizontalExpand="True">
+                <kit:OrbitraFormRow HorizontalExpand="True">
                   <Label Text="{Loc 'humanoid-profile-editor-pronouns-label'}" />
                   <Control HorizontalExpand="True" />
                   <OptionButton Name="PronounsButton" HorizontalAlignment="Right" />
-                </orbitra:OrbitraFormRow>
+                </kit:OrbitraFormRow>
                 <!-- Spawn Priority -->
-                <orbitra:OrbitraFormRow HorizontalExpand="True">
+                <kit:OrbitraFormRow HorizontalExpand="True">
                   <Label Text="{Loc 'humanoid-profile-editor-spawn-priority-label'}" />
                   <Control HorizontalExpand="True" />
                   <OptionButton Name="SpawnPriorityButton" HorizontalAlignment="Right" />
-                </orbitra:OrbitraFormRow>
+                </kit:OrbitraFormRow>
               </BoxContainer>
               <!-- Skin -->
               <BoxContainer Margin="10" HorizontalExpand="True" Orientation="Vertical">
@@ -102,7 +102,7 @@
           <!-- Markings -->
           <humanoid:MarkingPicker Name="Markings" HorizontalExpand="True" VerticalExpand="True" />
         </BoxContainer>
-      </orbitra:OrbitraEditorTabContainer>
+      </kit:OrbitraEditorTabContainer>
     </BoxContainer>
     <PanelContainer Name="OrbitraPreviewPanel" StyleClasses="OrbitraLobbyPanel" SetWidth="320">
       <BoxContainer Name="OrbitraPreviewContent" Orientation="Vertical" SeparationOverride="8" VerticalAlignment="Center">

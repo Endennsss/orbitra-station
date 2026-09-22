@@ -1,6 +1,8 @@
 using Robust.Client.UserInterface;
 
-namespace Content.Client._Orbitra.Lobby;
+using Content.Client._Orbitra.Lobby;
+
+namespace Content.Client._Orbitra.UserInterface;
 
 /// <summary>Reversible visibility for existing panels without replacing or measuring their contents.</summary>
 internal sealed class OrbitraVisibility(Control target)

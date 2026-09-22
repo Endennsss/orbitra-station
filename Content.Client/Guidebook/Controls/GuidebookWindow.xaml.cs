@@ -12,6 +12,8 @@ using Robust.Client.UserInterface.XAML;
 using Robust.Shared.ContentPack;
 using Robust.Shared.Prototypes;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.Guidebook.Controls;
 
 [GenerateTypedNameReferences]
@@ -30,7 +32,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
     public GuidebookWindow()
     {
         RobustXamlLoader.Load(this);
-            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         IoCManager.InjectDependencies(this);
         InitializeOrbitraNavigation(); // Orbitra-Edit
         _sawmill = Logger.GetSawmill("guidebook");
@@ -96,13 +98,16 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         {
             // do nothing if the guide is the same as the currently selected one
             if (entry.Id == Selected)
+            {
+                UpdateOrbitraBreadcrumbs(); // Orbitra-Edit: статья та же, но путь выбранного узла может отличаться.
                 return;
+            }
 
             ShowGuide(entry);
 
             var isRulesEntry = entry.RuleEntry;
             ReturnContainer.Visible = isRulesEntry;
-            HomeButton.OnPressed += _ => ShowGuide(entry);
+            // Orbitra-Edit - единственная подписка HomeButton находится в InitializeOrbitraSearch.
         }
         else
             ClearSelectedGuide();
@@ -131,6 +136,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         EntryContainer.RemoveAllChildren();
 
         Selected = null;
+        UpdateOrbitraBreadcrumbs(); // Orbitra-Edit
     }
 
     private void ShowGuide(GuideEntry entry)
@@ -152,8 +158,9 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         }
 
         if (Selected != entry.Id) // Orbitra-Edit - только выбор другой статьи, не прокрутка оглавления.
-            Content.Client._Orbitra.Lobby.OrbitraMotion.Reveal(EntryContainer, Content.Client._Orbitra.Lobby.OrbitraMotion.SectionDuration);
+            Content.Client._Orbitra.UserInterface.OrbitraMotion.Reveal(EntryContainer, Content.Client._Orbitra.UserInterface.OrbitraMotion.SectionDuration);
         Selected = entry.Id;
+        UpdateOrbitraBreadcrumbs(); // Orbitra-Edit
 
         var (linkableControls, linkControls) = GetLinkableControlsAndLinks(EntryContainer);
 
@@ -299,6 +306,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         }
 
         Tree.SetAllExpanded(true);
+        RebuildOrbitraGuideIndex(); // Orbitra-Edit
     }
 
     private TreeItem? AddEntry(ProtoId<GuideEntryPrototype> id,
@@ -308,11 +316,11 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         if (!_entries.TryGetValue(id, out var entry))
             return null;
 
-        if (!addedEntries.Add(id))
+        if (HasOrbitraAncestor(parent, id)) // Orbitra-Edit: допускаем разных родителей, но не циклы.
         {
             // TODO GUIDEBOOK Maybe allow duplicate entries?
             // E.g., for adding medicine under both chemicals & the chemist job
-            _sawmill.Error($"Adding duplicate guide entry: {id}");
+            _sawmill.Warning($"Ignoring cyclic guide entry: {id}"); // Orbitra-Edit
             return null;
         }
 

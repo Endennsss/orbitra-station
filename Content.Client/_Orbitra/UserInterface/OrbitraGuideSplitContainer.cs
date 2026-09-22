@@ -1,7 +1,9 @@
 using System.Numerics;
 using Robust.Client.UserInterface.Controls;
 
-namespace Content.Client._Orbitra.Lobby;
+using Content.Client._Orbitra.Lobby;
+
+namespace Content.Client._Orbitra.UserInterface;
 
 /// <summary>Chooses guide navigation mode before measuring either pane.</summary>
 public sealed class OrbitraGuideSplitContainer : SplitContainer

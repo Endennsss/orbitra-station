@@ -3,6 +3,8 @@ using JetBrains.Annotations;
 using Robust.Client.UserInterface.Controllers;
 using Robust.Shared.Console;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.UserInterface.Systems.EscapeMenu;
 
 [UsedImplicitly]
@@ -57,9 +59,9 @@ public sealed partial class OptionsUIController : UIController
     {
         EnsureWindow();
 
-        if (_optionsWindow.IsOpen && !Content.Client._Orbitra.Lobby.OrbitraEntryWindow.IsClosing(_optionsWindow)) // Orbitra-Edit
+        if (_optionsWindow.IsOpen && !Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.IsClosing(_optionsWindow)) // Orbitra-Edit
         {
-            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose(_optionsWindow); // Orbitra-Edit
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.RequestClose(_optionsWindow); // Orbitra-Edit
         }
         else
         {

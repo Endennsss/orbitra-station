@@ -6,6 +6,8 @@ using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.Lobby.UI;
 
 public sealed partial class HumanoidProfileEditor

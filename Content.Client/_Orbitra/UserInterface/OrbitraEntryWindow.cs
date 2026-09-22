@@ -1,7 +1,9 @@
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.CustomControls;
 
-namespace Content.Client._Orbitra.Lobby;
+using Content.Client._Orbitra.Lobby;
+
+namespace Content.Client._Orbitra.UserInterface;
 
 /// <summary>Opt-in presentation for common windows in both the lobby and the round.</summary>
 internal static class OrbitraEntryWindow

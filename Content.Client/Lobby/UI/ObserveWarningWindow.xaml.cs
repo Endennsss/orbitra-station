@@ -5,6 +5,8 @@ using Robust.Client.Player;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Client.UserInterface.XAML;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.Lobby.UI;
 
 [GenerateTypedNameReferences]
@@ -18,7 +20,7 @@ public sealed partial class ObserveWarningWindow : Content.Client.UserInterface.
     {
         Title = Loc.GetString("observe-warning-window-title");
         RobustXamlLoader.Load(this);
-        Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         IoCManager.InjectDependencies(this);
         var player = _playerManager.LocalSession;
 
@@ -30,6 +32,6 @@ public sealed partial class ObserveWarningWindow : Content.Client.UserInterface.
         }
 
         ObserveButton.OnPressed += _ => { this.Close(); };
-        NevermindButton.OnPressed += _ => Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose(this); // Orbitra-Edit
+        NevermindButton.OnPressed += _ => Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.RequestClose(this); // Orbitra-Edit
     }
 }

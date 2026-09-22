@@ -1,11 +1,13 @@
 using Robust.Client.UserInterface.Controls;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.Lobby.UI;
 
 public sealed partial class CharacterSetupGui
 {
-    private Content.Client._Orbitra.Lobby.OrbitraVisibility _orbitraProfilesMotion = default!;
-    private Content.Client._Orbitra.Lobby.OrbitraVisibility _orbitraToolsMotion = default!;
+    private Content.Client._Orbitra.UserInterface.OrbitraVisibility _orbitraProfilesMotion = default!;
+    private Content.Client._Orbitra.UserInterface.OrbitraVisibility _orbitraToolsMotion = default!;
     public event Action? OrbitraExitRequested;
 
     /// <summary>Closes a local menu first, otherwise requests the normal guarded editor exit.</summary>
@@ -76,6 +78,6 @@ public sealed partial class CharacterSetupGui
             ("name", string.IsNullOrWhiteSpace(name) ? Loc.GetString("orbitra-lobby-unnamed") : name));
         OrbitraCharacterToggle.ToolTip = OrbitraCharacterToggle.Text;
         CloseOrbitraMenus();
-        Content.Client._Orbitra.Lobby.OrbitraEditorStyles.Apply(Characters);
+        Content.Client._Orbitra.UserInterface.OrbitraEditorStyles.Apply(Characters);
     }
 }

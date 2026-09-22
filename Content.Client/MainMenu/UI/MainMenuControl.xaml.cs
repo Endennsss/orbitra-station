@@ -9,6 +9,8 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.MainMenu.UI;
 
 [GenerateTypedNameReferences]
@@ -43,7 +45,7 @@ public sealed partial class MainMenuControl : Control
 
         LayoutContainer.SetAnchorPreset(this, LayoutContainer.LayoutPreset.Wide);
 
-        Content.Client._Orbitra.Lobby.OrbitraEditorStyles.Apply(this); // Orbitra-Edit
+        Content.Client._Orbitra.UserInterface.OrbitraEditorStyles.Apply(this); // Orbitra-Edit
 
         // I don't just enumerate them all as there's some hideous parallaxes, and it's easier
         // to update an allowlist than to randomly get an ugly one to fix a blocklist.

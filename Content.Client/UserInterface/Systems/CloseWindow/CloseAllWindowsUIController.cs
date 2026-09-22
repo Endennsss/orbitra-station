@@ -7,6 +7,8 @@ using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.Input;
 using Robust.Shared.Input.Binding;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.UserInterface.Systems.Info;
 
 public sealed partial class CloseAllWindowsUIController : UIController
@@ -26,7 +28,7 @@ public sealed partial class CloseAllWindowsUIController : UIController
         {
             if (childControl is BaseWindow)
             {
-                Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose((BaseWindow) childControl); // Orbitra-Edit
+                Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.RequestClose((BaseWindow) childControl); // Orbitra-Edit
             }
         }
     }

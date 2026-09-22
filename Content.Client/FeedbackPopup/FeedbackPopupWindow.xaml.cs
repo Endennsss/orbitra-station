@@ -6,6 +6,8 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Prototypes;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.FeedbackPopup;
 
 [GenerateTypedNameReferences]
@@ -19,7 +21,7 @@ public sealed partial class FeedbackPopupWindow : FancyWindow
         _proto = proto;
         _uri = uri;
         RobustXamlLoader.Load(this);
-        Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         DisplayNoEntryLabel();
     }
 

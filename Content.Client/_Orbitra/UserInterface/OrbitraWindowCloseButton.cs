@@ -2,14 +2,16 @@ using System.Numerics;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface.Controls;
 
-namespace Content.Client._Orbitra.Lobby;
+using Content.Client._Orbitra.Lobby;
+
+namespace Content.Client._Orbitra.UserInterface;
 
 /// <summary>Compact neutral close icon for entry-flow windows.</summary>
 internal sealed class OrbitraWindowCloseButton : Button
 {
     public OrbitraWindowCloseButton()
     {
-        SetSize = new Vector2(32);
+        SetSize = new Vector2(OrbitraUiMetrics.CloseSize);
         AddStyleClass("OrbitraWindowClose");
     }
 

@@ -3,7 +3,9 @@ using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 
-namespace Content.Client._Orbitra.Lobby;
+using Content.Client._Orbitra.Lobby;
+
+namespace Content.Client._Orbitra.UserInterface;
 
 /// <summary>Presentation adapter for the stock option popup; selection and modal input remain native.</summary>
 internal static class OrbitraOptionPopup

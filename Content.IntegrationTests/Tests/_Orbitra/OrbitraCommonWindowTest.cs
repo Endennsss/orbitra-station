@@ -12,6 +12,8 @@ using Robust.Shared.Maths;
 using Robust.Shared.Prototypes;
 using Content.Shared.Guidebook;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.IntegrationTests.Tests._Orbitra;
 
 [TestFixture]

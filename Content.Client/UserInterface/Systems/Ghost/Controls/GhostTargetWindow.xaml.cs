@@ -9,7 +9,7 @@ using Robust.Client.UserInterface.XAML;
 namespace Content.Client.UserInterface.Systems.Ghost.Controls
 {
     [GenerateTypedNameReferences]
-    public sealed partial class GhostTargetWindow : DefaultWindow
+    public sealed partial class GhostTargetWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
     {
         private List<(string, NetEntity)> _warps = new();
         private string _searchText = string.Empty;
@@ -22,6 +22,7 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls
         public GhostTargetWindow()
         {
             RobustXamlLoader.Load(this);
+            InitializeOrbitraTargets(); // Orbitra-Edit
             SearchBar.OnTextChanged += OnSearchTextChanged;
 
             GhostnadoButton.OnPressed += _ => OnGhostnadoClicked?.Invoke();
@@ -31,6 +32,8 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls
 
         public void UpdateWarps(IEnumerable<GhostWarp> warps)
         {
+            UpdateOrbitraTargets(warps); // Orbitra-Edit
+            /* Orbitra edit start - структурированные цели обновляются без пересоздания строк.
             // Server COULD send these sorted but how about we just use the client to do it instead
             _warps = warps
                 .OrderBy(w => w.IsWarpPoint)
@@ -45,12 +48,12 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls
                     return (name, w.Entity);
                 })
                 .ToList();
+            Orbitra edit end */
         }
 
         public void Populate()
         {
-            ButtonContainer.RemoveAllChildren();
-            AddButtons();
+            FilterOrbitraTargets(); // Orbitra-Edit
         }
 
         private void AddButtons()
@@ -93,7 +96,7 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls
         {
             _searchText = args.Text;
 
-            UpdateVisibleButtons();
+            FilterOrbitraTargets(); // Orbitra-Edit
             // Reset scroll bar so they can see the relevant results.
             GhostScroll.SetScrollValue(Vector2.Zero);
         }

@@ -19,6 +19,8 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using static Robust.Client.UserInterface.Controls.BoxContainer;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.LateJoin
 {
     public sealed partial class LateJoinGui : FancyWindow // Orbitra-Edit
@@ -47,7 +49,7 @@ namespace Content.Client.LateJoin
         public LateJoinGui()
         {
             MinSize = SetSize = new Vector2(360, 560);
-            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
             IoCManager.InjectDependencies(this);
             _sprites = _entitySystem.GetEntitySystem<SpriteSystem>();
             _crewManifest = _entitySystem.GetEntitySystem<CrewManifestSystem>();

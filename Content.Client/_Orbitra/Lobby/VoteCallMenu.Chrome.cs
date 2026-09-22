@@ -2,6 +2,8 @@ using Content.Client._Orbitra.Lobby;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.Voting.UI;
 
 public sealed partial class VoteCallMenu

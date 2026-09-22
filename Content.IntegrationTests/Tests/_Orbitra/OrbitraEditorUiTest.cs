@@ -12,6 +12,8 @@ using Robust.Shared.Input;
 using Robust.Shared.Map;
 using Robust.Shared.Maths;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.IntegrationTests.Tests._Orbitra;
 
 [TestFixture]

@@ -20,6 +20,8 @@ using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 using Direction = Robust.Shared.Maths.Direction;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.Lobby.UI
 {
     [GenerateTypedNameReferences]
@@ -397,7 +399,7 @@ namespace Content.Client.Lobby.UI
             RefreshSpecies();
             RefreshTraits();
             RefreshFlavorText();
-            Content.Client._Orbitra.Lobby.OrbitraEditorStyles.Apply(TraitsList); // Orbitra-Edit
+            Content.Client._Orbitra.UserInterface.OrbitraEditorStyles.Apply(TraitsList); // Orbitra-Edit
             ReloadPreview();
 
             if (Profile != null)

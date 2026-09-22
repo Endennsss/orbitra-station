@@ -1,7 +1,8 @@
 using System.Numerics;
-using Content.Client._Orbitra.Lobby;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
+
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
 
 namespace Content.Client.Guidebook.Controls;
 
@@ -16,6 +17,7 @@ public sealed partial class GuidebookWindow
         _orbitraSectionsPanel.AddStyleClass("OrbitraWindowSurface");
         _orbitraSectionsPopup.AddChild(_orbitraSectionsPanel);
         OrbitraMotion.BindPopup(_orbitraSectionsPopup, this, RestoreOrbitraTree);
+        InitializeOrbitraSearch();
         Split.AvailableWidthChanged += UpdateOrbitraNavigation;
         Split.OnSplitCenterChanging += args =>
         {
@@ -29,8 +31,8 @@ public sealed partial class GuidebookWindow
                 _orbitraSectionsPopup.Close();
                 return;
             }
-            Tree.Orphan();
-            _orbitraSectionsPanel.AddChild(Tree);
+            OrbitraNavigation.Orphan();
+            _orbitraSectionsPanel.AddChild(OrbitraNavigation);
             UserInterfaceManager.ModalRoot.AddChild(_orbitraSectionsPopup);
             var available = Root!.Size - new Vector2(32);
             var size = Vector2.Min(new Vector2(320, Math.Max(120, Split.Height)), available);
@@ -51,9 +53,9 @@ public sealed partial class GuidebookWindow
     {
         if (Disposed || Tree.Disposed)
             return;
-        Tree.Orphan();
-        TreeBox.AddChild(Tree);
-        Tree.SetPositionInParent(0);
+        OrbitraNavigation.Orphan();
+        TreeBox.AddChild(OrbitraNavigation);
+        OrbitraNavigation.SetPositionInParent(0);
     }
 
     private void UpdateOrbitraNavigation()

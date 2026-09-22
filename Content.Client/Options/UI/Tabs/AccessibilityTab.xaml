@@ -1,17 +1,17 @@
-<Control xmlns="https://spacestation14.io"
+<Control xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface" xmlns="https://spacestation14.io"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Lobby"
          xmlns:ui="clr-namespace:Content.Client.Options.UI">
     <BoxContainer Orientation="Vertical">
         <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
-            <BoxContainer Orientation="Vertical" Margin="8">
+            <kit:OrbitraSettingsForm Orientation="Vertical" Margin="8" MaxWidth="{x:Static kit:OrbitraUiMetrics.FormWidth}" HorizontalAlignment="Center" HorizontalExpand="True"> <!-- Orbitra-Edit: центрированная форма настроек. -->
                 <Label Text="{Loc 'ui-options-accessibility-header-reduced-motion'}"
                        StyleClasses="LabelKeyText"/>
                 <CheckBox Name="ReducedMotionCheckBox"
                     Text="{Loc 'ui-options-reduced-motion'}"
                     ToolTip="{Loc 'ui-options-reduced-motion-tooltip'}" />
                 <!-- Orbitra-Edit: перенос настроек по ширине содержимого. -->
-                <orbitra:OrbitraResponsiveGrid HorizontalExpand="True" Margin="8">
+                <kit:OrbitraResponsiveGrid HorizontalExpand="True" Margin="8">
                     <CheckBox Name="DisableAiStaticCheckBox"
                         Text="{Loc 'ui-options-disable-ai-static'}"
                         ToolTip="{Loc 'ui-options-disable-ai-static-tooltip'}" />
@@ -36,7 +36,7 @@
                     <CheckBox Name="DisableSinguloWarpCheckBox"
                         Text="{Loc 'ui-options-disable-singulo-warp'}"
                         ToolTip="{Loc 'ui-options-disable-singulo-warp-tooltip'}" />
-                </orbitra:OrbitraResponsiveGrid>
+                </kit:OrbitraResponsiveGrid>
                 <Label Text="{Loc 'ui-options-accessibility-header-visuals'}"
                        StyleClasses="LabelKeyText"/>
                 <CheckBox Name="EnableColorNameCheckBox" Text="{Loc 'ui-options-enable-color-name'}" />
@@ -53,7 +53,7 @@
                 <Label Text="{Loc 'ui-options-accessibility-header-content'}"
                        StyleClasses="LabelKeyText"/>
                 <CheckBox Name="CensorNudityCheckBox" Text="{Loc 'ui-options-censor-nudity'}" />
-            </BoxContainer>
+            </kit:OrbitraSettingsForm>
         </ScrollContainer>
         <ui:OptionsTabControlRow Name="Control" Access="Public" />
     </BoxContainer>

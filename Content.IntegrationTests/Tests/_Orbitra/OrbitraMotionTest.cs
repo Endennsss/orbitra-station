@@ -8,6 +8,8 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Configuration;
 using Robust.Shared.Maths;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.IntegrationTests.Tests._Orbitra;
 
 [TestFixture]

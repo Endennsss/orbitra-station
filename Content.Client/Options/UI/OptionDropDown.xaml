@@ -1,7 +1,7 @@
-<Control xmlns="https://spacestation14.io">
+<Control xmlns="https://spacestation14.io" xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface">
     <!-- Orbitra-Edit - настройка помещается в узкую вкладку без фиксированной ширины подписи -->
-    <BoxContainer Orientation="Vertical">
-        <Label Name="NameLabel" ClipText="True" HorizontalExpand="True" />
+    <kit:OrbitraFormRow> <!-- Orbitra-Edit -->
+        <RichTextLabel Name="NameLabel" VerticalAlignment="Center" />
         <OptionButton Name="Button" Access="Public" HorizontalExpand="True" />
-    </BoxContainer>
+    </kit:OrbitraFormRow>
 </Control>

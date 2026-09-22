@@ -1,4 +1,4 @@
-<Control xmlns="https://spacestation14.io" xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Lobby">
+<Control xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface" xmlns="https://spacestation14.io" xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Lobby">
     <!-- Orbitra-Edit - скрытые вкладки не оставляют пустой заголовок. -->
-    <orbitra:OrbitraEditorTabContainer Name="LayerTabs" />
+    <kit:OrbitraEditorTabContainer Name="LayerTabs" />
 </Control>

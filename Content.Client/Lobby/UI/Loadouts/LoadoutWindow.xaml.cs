@@ -12,6 +12,8 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.Lobby.UI.Loadouts;
 
 [GenerateTypedNameReferences]
@@ -31,7 +33,7 @@ public sealed partial class LoadoutWindow : FancyWindow
     public LoadoutWindow(HumanoidCharacterProfile profile, RoleLoadout loadout, RoleLoadoutPrototype proto, ICommonSession session, IDependencyCollection collection)
     {
         RobustXamlLoader.Load(this);
-            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         InitializeOrbitraLoadout(); // Orbitra-Edit
         Profile = profile;
         var protoManager = collection.Resolve<IPrototypeManager>();

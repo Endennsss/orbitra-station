@@ -7,7 +7,9 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using static Content.Client.Stylesheets.StylesheetHelpers;
 
-namespace Content.Client._Orbitra.Lobby;
+using Content.Client._Orbitra.Lobby;
+
+namespace Content.Client._Orbitra.UserInterface;
 
 /// <summary>Local lobby styles; does not replace in-round controls or global palettes.</summary>
 [CommonSheetlet]
@@ -15,20 +17,21 @@ public sealed class OrbitraLobbySheetlet : Sheetlet<PalettedStylesheet>
 {
     public override StyleRule[] GetRules(PalettedStylesheet sheet, object config)
     {
-        var panel = Box(OrbitraPalettes.PanelInset.WithAlpha(0.96f), 16);
-        var normal = Box(OrbitraPalettes.PanelBackground, 12);
-        var hover = Box(OrbitraPalettes.PanelHighlight, 12);
-        var pressed = Box(OrbitraPalettes.PanelBorder, 12);
-        var primary = Box(OrbitraPalettes.Primary.Element, 16);
+        var panel = Box(OrbitraPalettes.PanelInset.WithAlpha(0.96f), OrbitraUiMetrics.WindowPadding);
+        var normal = Box(OrbitraPalettes.PanelBackground, OrbitraUiMetrics.Medium);
+        var hover = Box(OrbitraPalettes.PanelHighlight, OrbitraUiMetrics.Medium);
+        var pressed = Box(OrbitraPalettes.PanelBorder, OrbitraUiMetrics.Medium);
+        var primary = Box(OrbitraPalettes.Primary.Element, OrbitraUiMetrics.Large);
         var option = new StyleBoxFlat(OrbitraPalettes.PanelBackground);
-        option.SetContentMarginOverride(StyleBox.Margin.Horizontal, 12);
+        option.SetContentMarginOverride(StyleBox.Margin.Horizontal, OrbitraUiMetrics.Medium);
         option.SetContentMarginOverride(StyleBox.Margin.Vertical, 2);
         var optionHover = new StyleBoxFlat(option) { BackgroundColor = OrbitraPalettes.PanelHighlight };
         var journalTab = new StyleBoxFlat(Color.Transparent);
-        journalTab.SetContentMarginOverride(StyleBox.Margin.Horizontal, 12);
+        journalTab.SetContentMarginOverride(StyleBox.Margin.Horizontal, OrbitraUiMetrics.Medium);
         var journalSelected = new StyleBoxFlat(journalTab) { BorderColor = OrbitraPalettes.Highlight.Text, BorderThickness = new Thickness(0, 0, 0, 2) };
         var rules = new List<StyleRule>
         {
+            E<Button>().Class("OrbitraGroupHeader").ParentOf(E<Label>()).Prop(Label.StylePropertyAlignMode, Label.AlignMode.Left),
             E<Content.Client.UserInterface.Controls.StripeBack>().Class("OrbitraEditorControl")
                 .Prop(Content.Client.UserInterface.Controls.StripeBack.StylePropertyBackground, new StyleBoxFlat(Color.Transparent)),
             E<ContainerButton>().Class("OrbitraTreeRow").Box(new StyleBoxFlat(Color.Transparent)),
@@ -80,14 +83,18 @@ public sealed class OrbitraLobbySheetlet : Sheetlet<PalettedStylesheet>
             E<Label>().Class("OrbitraLobbyMuted").Font(sheet.BaseFont.GetFont(12)).FontColor(OrbitraPalettes.IconNormal),
             E<RichTextLabel>().Class("OrbitraLobbyMuted").Font(sheet.BaseFont.GetFont(11)).FontColor(OrbitraPalettes.IconNormal),
         };
-        foreach (var style in new[] { "OrbitraLobbyButton", "OrbitraLobbyPrimary", "OrbitraDangerButton", "OrbitraNavigationButton" })
+        foreach (var style in new[] { "OrbitraLobbyButton", "OrbitraLobbyPrimary", "OrbitraDangerButton", "OrbitraNavigationButton",
+                     OrbitraButtonStyles.Primary, OrbitraButtonStyles.Secondary, OrbitraButtonStyles.Ghost, OrbitraButtonStyles.Danger })
         {
+            var isPrimary = style is "OrbitraLobbyPrimary" or OrbitraButtonStyles.Primary;
+            var isGhost = style == OrbitraButtonStyles.Ghost;
+            var background = isGhost ? new StyleBoxFlat(normal) { BackgroundColor = Color.Transparent, BorderColor = Color.Transparent } : isPrimary ? primary : normal;
             rules.AddRange([
-                E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).Box(style == "OrbitraLobbyPrimary" ? primary : normal).MinHeight(style == "OrbitraLobbyPrimary" ? 44 : 36).Modulate(Color.White),
-                E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).PseudoNormal().Box(style == "OrbitraLobbyPrimary" ? primary : normal).Modulate(Color.White),
+                E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).Box(background).MinHeight(isPrimary ? OrbitraUiMetrics.ActionHeight : OrbitraUiMetrics.ElementHeight).Modulate(Color.White),
+                E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).PseudoNormal().Box(background).Modulate(Color.White),
                 E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).PseudoHovered().Box(hover).Modulate(Color.White),
                 E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).PseudoPressed().Box(pressed).Modulate(Color.White),
-                E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).PseudoDisabled().Box(normal).Modulate(Color.White.WithAlpha(0.45f)),
+                E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).PseudoDisabled().Box(background).Modulate(Color.White.WithAlpha(0.45f)),
                 E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).ParentOf(E<Label>()).Font(sheet.BaseFont.GetFont(13))
                     .FontColor(OrbitraPalettes.Highlight.Text),
             ]);
@@ -97,6 +104,7 @@ public sealed class OrbitraLobbySheetlet : Sheetlet<PalettedStylesheet>
         selected.BorderColor = OrbitraPalettes.Highlight.Element;
         rules.Add(E<ContainerButton>().Class("OrbitraNavigationButton").PseudoPressed().Box(selected));
         rules.Add(E<ContainerButton>().Class("OrbitraDangerButton").ParentOf(E<Label>()).FontColor(sheet.NegativePalette.Text));
+        rules.Add(E<ContainerButton>().Class(OrbitraButtonStyles.Danger).ParentOf(E<Label>()).FontColor(sheet.NegativePalette.Text));
         return rules.ToArray();
     }
 

@@ -7,6 +7,8 @@ using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.Input;
 using Robust.Shared.Input.Binding;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.UserInterface.Systems.Info;
 
 public sealed partial class CloseRecentWindowUIController : UIController
@@ -45,7 +47,7 @@ public sealed partial class CloseRecentWindowUIController : UIController
             // Orbitra-Edit - затухающее окно остаётся в списке до штатного удаления из дерева.
             if (window.IsOpen)
             {
-                Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose(window); // Orbitra-Edit - пользовательское закрытие с затуханием
+                Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.RequestClose(window); // Orbitra-Edit - пользовательское закрытие с затуханием
                 return;
             }
             recentlyInteractedWindows.RemoveAt(i);

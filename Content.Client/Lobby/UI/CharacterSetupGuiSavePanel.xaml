@@ -4,8 +4,8 @@
 
     <!-- Orbitra-Edit - единое оформление и вертикальные действия без переполнения узкого окна. -->
     <BoxContainer Orientation="Vertical" SeparationOverride="8" MinSize="280 40" Margin="12">
-        <Button Name="SaveButton" Access="Public" Text="{Loc 'character-setup-gui-save-panel-save'}" StyleClasses="OrbitraLobbyPrimary"/>
-        <Button Name="NoSaveButton" Access="Public" Text="{Loc 'character-setup-gui-save-panel-nosave'}" StyleClasses="OrbitraLobbyButton"/>
-        <Button Name="CancelButton" Access="Public" Text="{Loc 'character-setup-gui-save-panel-cancel'}" StyleClasses="OrbitraLobbyButton"/>
+        <Button Name="SaveButton" Access="Public" Text="{Loc 'character-setup-gui-save-panel-save'}" StyleClasses="OrbitraButtonPrimary"/>
+        <Button Name="NoSaveButton" Access="Public" Text="{Loc 'character-setup-gui-save-panel-nosave'}" StyleClasses="OrbitraButtonSecondary"/>
+        <Button Name="CancelButton" Access="Public" Text="{Loc 'character-setup-gui-save-panel-cancel'}" StyleClasses="OrbitraButtonSecondary"/>
     </BoxContainer>
 </ui:FancyWindow>

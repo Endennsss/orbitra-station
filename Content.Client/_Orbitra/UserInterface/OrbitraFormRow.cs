@@ -1,18 +1,20 @@
 using System.Numerics;
 using Robust.Client.UserInterface.Controls;
 
-namespace Content.Client._Orbitra.Lobby;
+using Content.Client._Orbitra.Lobby;
+
+namespace Content.Client._Orbitra.UserInterface;
 
 /// <summary>Changes label placement using the width allocated to this row, not the window.</summary>
 public sealed class OrbitraFormRow : BoxContainer
 {
     protected override Vector2 MeasureOverride(Vector2 availableSize)
     {
-        var compact = availableSize.X < 560;
+        var compact = availableSize.X < OrbitraUiMetrics.FormBreakpoint;
         Orientation = compact ? LayoutOrientation.Vertical : LayoutOrientation.Horizontal;
-        SeparationOverride = 8;
+        SeparationOverride = OrbitraUiMetrics.Small;
         if (ChildCount > 0)
-            GetChild(0).SetWidth = compact ? float.NaN : 176;
+            GetChild(0).SetWidth = compact ? float.NaN : OrbitraUiMetrics.LabelWidth;
         return base.MeasureOverride(availableSize);
     }
 }

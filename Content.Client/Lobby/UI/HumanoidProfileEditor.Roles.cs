@@ -11,6 +11,8 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Prototypes;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.Lobby.UI;
 
 public sealed partial class HumanoidProfileEditor
@@ -296,7 +298,7 @@ public sealed partial class HumanoidProfileEditor
 
         UpdateJobPriorities();
         FilterOrbitraJobs(); // Orbitra-Edit
-        Content.Client._Orbitra.Lobby.OrbitraEditorStyles.Apply(JobList); // Orbitra-Edit
+        Content.Client._Orbitra.UserInterface.OrbitraEditorStyles.Apply(JobList); // Orbitra-Edit
     }
 
     public void RefreshAntags()
@@ -361,6 +363,6 @@ public sealed partial class HumanoidProfileEditor
 
             AntagList.AddChild(antagContainer);
         }
-        Content.Client._Orbitra.Lobby.OrbitraEditorStyles.Apply(AntagList); // Orbitra-Edit
+        Content.Client._Orbitra.UserInterface.OrbitraEditorStyles.Apply(AntagList); // Orbitra-Edit
     }
 }

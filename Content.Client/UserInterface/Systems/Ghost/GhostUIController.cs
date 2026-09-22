@@ -155,6 +155,11 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
         Gui.ReturnToBodyPressed -= ReturnToBody;
         Gui.GhostRolesPressed -= GhostRolesPressed;
         Gui.TargetWindow.WarpClicked -= OnWarpClicked;
+        // Orbitra added start - симметричная очистка при выгрузке экрана.
+        Gui.TargetWindow.OnGhostnadoClicked -= OnGhostnadoClicked;
+        Gui.TargetWindow.OnWarpToRandomFollowedClicked -= OnWarpToRandomFollowedClicked;
+        Gui.TargetWindow.OnWarpToRandomClicked -= OnWarpToRandomClicked;
+        // Orbitra added end
 
         Gui.Hide();
     }

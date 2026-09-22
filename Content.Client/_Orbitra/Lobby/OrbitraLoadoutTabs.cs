@@ -2,6 +2,8 @@ using System.Numerics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client._Orbitra.Lobby;
 
 /// <summary>Responsive loadout categories sharing one content tree and one selection.</summary>

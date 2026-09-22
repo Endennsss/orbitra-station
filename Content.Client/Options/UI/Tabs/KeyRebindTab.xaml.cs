@@ -15,6 +15,8 @@ using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using static Robust.Client.UserInterface.Controls.BoxContainer;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.Options.UI.Tabs
 {
     [GenerateTypedNameReferences]
@@ -534,32 +536,29 @@ namespace Content.Client.Options.UI.Tabs
             public KeyControl(KeyRebindTab parent, BoundKeyFunction function)
             {
                 Function = function;
-                var name = new Label
+                var name = new RichTextLabel // Orbitra-Edit - длинная подпись переносится.
                 {
                     Text = Loc.GetString(
                         $"ui-options-function-{CaseConversion.PascalToKebab(function.FunctionName)}"),
-                    HorizontalExpand = true,
-                    HorizontalAlignment = HAlignment.Left
+                    VerticalAlignment = VAlignment.Center
                 };
 
                 BindButton1 = new BindButton(parent, this, StyleClass.ButtonOpenRight);
                 BindButton2 = new BindButton(parent, this, StyleClass.ButtonOpenLeft);
                 ResetButton = new Button { Text = Loc.GetString("ui-options-bind-reset"), StyleClasses = { StyleClass.Negative } };
 
-                var hBox = new Content.Client._Orbitra.Lobby.OrbitraAdaptiveRow // Orbitra-Edit - привязки не выходят за узкую вкладку.
+                var bindings = new Content.Client._Orbitra.UserInterface.OrbitraAdaptiveRow // Orbitra-Edit
                 {
-                    Breakpoint = 720,
-                    Orientation = LayoutOrientation.Horizontal,
+                    Breakpoint = 400,
+                    HorizontalExpand = true,
                     Children =
                     {
-                        new Control {MinSize = new Vector2(5, 0)},
-                        name,
                         BindButton1,
                         BindButton2,
-                        new Control {MinSize = new Vector2(10, 0)},
                         ResetButton
                     }
                 };
+                var hBox = new Content.Client._Orbitra.UserInterface.OrbitraFormRow { Children = { name, bindings } }; // Orbitra-Edit
 
                 ResetButton.OnPressed += args =>
                 {

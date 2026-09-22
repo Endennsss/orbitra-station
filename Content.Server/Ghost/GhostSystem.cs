@@ -405,7 +405,7 @@ namespace Content.Server.Ghost
                 var playerInfo = $"{Comp<MetaDataComponent>(attached).EntityName} ({jobName})";
 
                 if (_mobState.IsAlive(attached) || _mobState.IsCritical(attached))
-                    yield return new GhostWarp(GetNetEntity(attached), playerInfo, false);
+                    yield return CreateOrbitraPlayerWarp(attached, mind?.Mind, playerInfo); // Orbitra-Edit
             }
         }
 

@@ -17,6 +17,8 @@ using Robust.Shared.Input.Binding;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
+
 namespace Content.Client.UserInterface.Systems.Guidebook;
 
 public sealed partial class GuidebookUIController : UIController, IOnStateEntered<LobbyState>, IOnStateEntered<GameplayState>, IOnStateExited<LobbyState>, IOnStateExited<GameplayState>, IOnSystemChanged<GuidebookSystem>
@@ -125,10 +127,10 @@ public sealed partial class GuidebookUIController : UIController, IOnStateEntere
         if (_guideWindow == null)
             return;
 
-        if (_guideWindow.IsOpen && !Content.Client._Orbitra.Lobby.OrbitraEntryWindow.IsClosing(_guideWindow)) // Orbitra-Edit
+        if (_guideWindow.IsOpen && !Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.IsClosing(_guideWindow)) // Orbitra-Edit
         {
             UIManager.ClickSound();
-            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.RequestClose(_guideWindow); // Orbitra-Edit
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.RequestClose(_guideWindow); // Orbitra-Edit
         }
         else
         {

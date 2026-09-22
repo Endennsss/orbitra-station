@@ -1,7 +1,9 @@
-<Control xmlns="https://spacestation14.io">
-    <BoxContainer Orientation="Vertical">
-        <Label Name="TitleLabel" Access="Public" />
+<Control xmlns="https://spacestation14.io" xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface">
+    <kit:OrbitraFormRow> <!-- Orbitra-Edit -->
+        <RichTextLabel Name="TitleLabel" Access="Public" />
+        <BoxContainer Orientation="Vertical" HorizontalExpand="True">
         <Label Name="ExampleLabel" Access="Public" />
         <ColorSelectorSliders Name="Slider" Access="Public" HorizontalExpand="True" />
-    </BoxContainer>
+        </BoxContainer>
+    </kit:OrbitraFormRow>
 </Control>

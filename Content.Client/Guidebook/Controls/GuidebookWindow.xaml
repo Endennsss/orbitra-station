@@ -1,4 +1,4 @@
-<controls:FancyWindow xmlns="https://spacestation14.io"
+<controls:FancyWindow xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface" xmlns="https://spacestation14.io"
                 xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
                 xmlns:fancyTree="clr-namespace:Content.Client.UserInterface.Controls.FancyTree"
                 xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
@@ -9,14 +9,21 @@
                 Title="{Loc 'guidebook-window-title'}">
     <!-- Orbitra-Edit - компактная навигация не сжимает статью. -->
     <BoxContainer Orientation="Vertical" SeparationOverride="8">
-    <Button Name="OrbitraSections" Text="{Loc 'orbitra-guide-sections'}" Visible="False" />
-    <orbitra:OrbitraGuideSplitContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True" Name="Split"> <!-- Orbitra-Edit -->
+    <Button Name="OrbitraSections" Text="{Loc 'orbitra-guide-sections'}" StyleClasses="OrbitraButtonGhost" Visible="False" />
+    <kit:OrbitraGuideSplitContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True" Name="Split"> <!-- Orbitra-Edit -->
         <!-- Guide select -->
         <BoxContainer Orientation="Horizontal" Name="TreeBox">
+            <BoxContainer Name="OrbitraNavigation" Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="8"> <!-- Orbitra-Edit -->
+            <LineEdit Name="OrbitraArticleSearch" PlaceHolder="{Loc 'orbitra-guide-search-articles'}" HorizontalExpand="True" />
             <fancyTree:FancyTree Name="Tree" VerticalExpand="True" HorizontalExpand="True" Access="Public"/>
+            <ScrollContainer Name="OrbitraResultsScroll" Visible="False" HScrollEnabled="False" VerticalExpand="True">
+                <BoxContainer Name="OrbitraSearchResults" Orientation="Vertical" SeparationOverride="4" />
+            </ScrollContainer>
+            </BoxContainer>
             <cc:VSeparator StyleClasses="LowDivider" Margin="0 -2"/>
         </BoxContainer>
         <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True">
+            <WrapContainer Name="OrbitraBreadcrumbs" SeparationOverride="4" CrossSeparationOverride="4" /> <!-- Orbitra-Edit -->
             <fancyTree:FancyTree Name="TableOfContents" HorizontalExpand="True"/>
             <BoxContainer Name="SearchContainer" Visible="False" HorizontalExpand="True">
                 <LineEdit
@@ -40,6 +47,6 @@
                 </Control>
             </ScrollContainer>
         </BoxContainer>
-    </orbitra:OrbitraGuideSplitContainer>
+    </kit:OrbitraGuideSplitContainer>
     </BoxContainer>
 </controls:FancyWindow>

@@ -1,4 +1,4 @@
-<lobbyUi:LobbyGui xmlns="https://spacestation14.io"
+<lobbyUi:LobbyGui xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface" xmlns="https://spacestation14.io"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
     xmlns:vote="clr-namespace:Content.Client.Voting.UI"
@@ -26,7 +26,7 @@
             </BoxContainer>
         </PanelContainer>
         <Control Name="Body" VerticalExpand="True">
-            <orbitra:OrbitraMotionHost Name="DefaultMotion">
+            <kit:OrbitraMotionHost Name="DefaultMotion">
             <orbitra:OrbitraLobbyBody Name="DefaultState" Orientation="Horizontal" SeparationOverride="16">
                 <BoxContainer Name="InfoDock" Orientation="Vertical">
                     <PanelContainer Name="InfoPanel" SetWidth="260" StyleClasses="OrbitraLobbyPanel" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -51,9 +51,9 @@
                             <Label Name="ReadyStatus" Visible="False" Text="{Loc 'orbitra-lobby-ready-status'}" Align="Center" StyleClasses="OrbitraLobbyMuted" />
                             <BoxContainer Name="RoundActions" SeparationOverride="8">
                               <orbitra:OrbitraLobbyButton Name="ReadyButton" Access="Public" ToggleMode="True" Text="{Loc 'orbitra-lobby-ready'}"
-                                    StyleClasses="OrbitraLobbyPrimary" SetHeight="44" HorizontalExpand="True" />
+                                    StyleClasses="OrbitraButtonPrimary" SetHeight="44" HorizontalExpand="True" />
                               <cc:UICommandButton Name="ObserveButton" Access="Public" Command="observe" SetHeight="44" HorizontalExpand="True"
-                                Text="{Loc 'ui-lobby-observe-button'}" StyleClasses="OrbitraLobbyButton"
+                                Text="{Loc 'ui-lobby-observe-button'}" StyleClasses="OrbitraButtonSecondary"
                                 WindowType="{x:Type lobbyUi:ObserveWarningWindow}" />
                             </BoxContainer>
                             <RichTextLabel Name="PlaytimeComment" Access="Public" Visible="False" />
@@ -72,14 +72,14 @@
                     </PanelContainer>
                 </BoxContainer>
             </orbitra:OrbitraLobbyBody>
-            </orbitra:OrbitraMotionHost>
-            <orbitra:OrbitraMotionHost Name="CharacterSetupState" Access="Public" Visible="False" />
-            <orbitra:OrbitraMotionHost Name="InfoDrawer" HorizontalAlignment="Left" Visible="False" />
-            <orbitra:OrbitraMotionHost Name="ChatDrawer" HorizontalAlignment="Right" Visible="False" />
+            </kit:OrbitraMotionHost>
+            <kit:OrbitraMotionHost Name="CharacterSetupState" Access="Public" Visible="False" />
+            <kit:OrbitraMotionHost Name="InfoDrawer" HorizontalAlignment="Left" Visible="False" />
+            <kit:OrbitraMotionHost Name="ChatDrawer" HorizontalAlignment="Right" Visible="False" />
             <PanelContainer Name="MorePanel" StyleClasses="OrbitraLobbyPanel" HorizontalAlignment="Right" VerticalAlignment="Top" Visible="False">
                 <BoxContainer Name="MoreContents" Orientation="Vertical" SeparationOverride="8">
                     <vote:VoteCallMenuButton Name="CallVoteButton" StyleClasses="OrbitraLobbyButton" />
-                    <orbitra:OrbitraLobbyButton Name="LeaveButton" Access="Public" Text="{Loc 'ui-lobby-leave-button'}" StyleClasses="OrbitraLobbyButton" />
+                    <orbitra:OrbitraLobbyButton Name="LeaveButton" Access="Public" Text="{Loc 'ui-lobby-leave-button'}" StyleClasses="OrbitraButtonDanger" />
                 </BoxContainer>
             </PanelContainer>
         </Control>
