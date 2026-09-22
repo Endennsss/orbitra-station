@@ -34,6 +34,7 @@ internal sealed partial class OrbitraMotion : Control
         }
         var linkControl = new PopupOwner(owner) { MouseFilter = MouseFilterMode.Ignore };
         popup.AddChild(linkControl);
+        OrbitraKeyboardNavigation.Attach(popup);
         if (popup is Popup menu)
             linkControl.Presentation = new OrbitraPopupPresentation(menu, owner, linkControl, hidden);
     }
@@ -269,7 +270,7 @@ internal sealed partial class OrbitraMotion : Control
             return;
         button.AddStyleClass("OrbitraSurfaceAttached");
         button.CanKeyboardFocus = true;
-        button.AddChild(new OrbitraFocusRing());
+        OrbitraFocusRing.Attach(button);
         var surface = new Surface(button);
         void Schedule()
         {

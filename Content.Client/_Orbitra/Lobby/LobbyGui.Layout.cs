@@ -19,6 +19,7 @@ public sealed partial class LobbyGui
 
     private void InitializeOrbitraLayout()
     {
+        OrbitraKeyboardNavigation.Attach(this);
         _orbitraMoreMotion = new OrbitraVisibility(MorePanel);
         _orbitraInfoMotion = new OrbitraVisibility(ServerInfo);
         _orbitraDockChatMotion = new OrbitraVisibility(RightSide);

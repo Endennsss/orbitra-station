@@ -33,6 +33,7 @@ namespace Content.Client.Options.UI.Tabs
         [Dependency] private IConfigurationManager _cfg = default!;
 
         private BindButton? _currentlyRebinding;
+        private Keyboard.Key? _orbitraIgnoreRelease; // Orbitra-Edit - отпускание клавиши открытия не назначает новую привязку.
 
         private readonly Dictionary<BoundKeyFunction, KeyControl> _keyControls =
             new();
@@ -140,7 +141,7 @@ namespace Content.Client.Options.UI.Tabs
 
             void AddCheckBox(string checkBoxName, bool currentState, Action<BaseButton.ButtonToggledEventArgs>? callBackOnClick)
             {
-                CheckBox newCheckBox = new CheckBox() { Text = Loc.GetString(checkBoxName) };
+                CheckBox newCheckBox = new OrbitraCheckBox { Text = Loc.GetString(checkBoxName) }; // Orbitra-Edit
                 newCheckBox.Pressed = currentState;
                 newCheckBox.OnToggled += callBackOnClick;
 
@@ -149,7 +150,7 @@ namespace Content.Client.Options.UI.Tabs
 
             void AddToggleCvarCheckBox(string checkBoxName, CVarDef<bool> cvar)
             {
-                CheckBox newCheckBox = new CheckBox() { Text = Loc.GetString(checkBoxName) };
+                CheckBox newCheckBox = new OrbitraCheckBox { Text = Loc.GetString(checkBoxName) }; // Orbitra-Edit
                 newCheckBox.Pressed = _cfg.GetCVar(cvar);
                 newCheckBox.OnToggled += (e) =>
                 {
@@ -375,6 +376,7 @@ namespace Content.Client.Options.UI.Tabs
 
         protected override void ExitedTree()
         {
+            OrbitraKeyboardNavigation.Rebinding = false; // Orbitra-Edit - не оставляем перехват после закрытия.
             base.ExitedTree();
 
             _inputManager.FirstChanceOnKeyEvent -= InputManagerOnFirstChanceOnKeyEvent;
@@ -423,6 +425,12 @@ namespace Content.Client.Options.UI.Tabs
             }
 
             keyEvent.Handle();
+            if (type == KeyEventType.Up && _orbitraIgnoreRelease == keyEvent.Key) // Orbitra-Edit
+            {
+                _orbitraIgnoreRelease = null;
+                return;
+            }
+            OrbitraKeyboardNavigation.Rebinding = type != KeyEventType.Up; // Orbitra-Edit
 
             if (type != KeyEventType.Up)
             {
@@ -496,6 +504,8 @@ namespace Content.Client.Options.UI.Tabs
             }
 
             _currentlyRebinding = button;
+            _orbitraIgnoreRelease = OrbitraKeyboardNavigation.ActivationKey; // Orbitra-Edit
+            OrbitraKeyboardNavigation.Rebinding = true; // Orbitra-Edit
             _currentlyRebinding.Button.Text = Loc.GetString("ui-options-key-prompt");
 
             if (button.Binding != null)
@@ -545,7 +555,7 @@ namespace Content.Client.Options.UI.Tabs
 
                 BindButton1 = new BindButton(parent, this, StyleClass.ButtonOpenRight);
                 BindButton2 = new BindButton(parent, this, StyleClass.ButtonOpenLeft);
-                ResetButton = new Button { Text = Loc.GetString("ui-options-bind-reset"), StyleClasses = { StyleClass.Negative } };
+                ResetButton = new OrbitraButton { Text = Loc.GetString("ui-options-bind-reset"), StyleClasses = { StyleClass.Negative } }; // Orbitra-Edit
 
                 var bindings = new Content.Client._Orbitra.UserInterface.OrbitraAdaptiveRow // Orbitra-Edit
                 {
@@ -584,7 +594,7 @@ namespace Content.Client.Options.UI.Tabs
             {
                 _tab = tab;
                 KeyControl = keyControl;
-                Button = new Button { StyleClasses = { styleClass } };
+                Button = new OrbitraButton { StyleClasses = { styleClass } }; // Orbitra-Edit
                 UpdateText();
                 AddChild(Button);
 

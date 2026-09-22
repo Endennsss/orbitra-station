@@ -1,21 +1,22 @@
 <Control xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface" xmlns="https://spacestation14.io"
          xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
          xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Lobby">
+    <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
     <controls:StripeBack HasBottomEdge="False">
         <!-- Orbitra-Edit - длинная кнопка применения находится в отдельной строке -->
         <BoxContainer Orientation="Vertical" Margin="2" SeparationOverride="4">
             <kit:OrbitraAdaptiveRow SeparationOverride="8"> <!-- Orbitra-Edit -->
-            <Button Name="DefaultButton"
+            <kit:OrbitraButton Name="DefaultButton"
                     Text="{Loc 'ui-options-default'}"
                     TextAlign="Center"
                     StyleClasses="OrbitraButtonDanger"
                     HorizontalExpand="True" />
 
-            <Button Name="ResetButton"
+            <kit:OrbitraButton Name="ResetButton"
                     Text="{Loc 'ui-options-reset-all'}"
                     StyleClasses="OrbitraButtonSecondary" HorizontalExpand="True" /> <!-- Orbitra-Edit -->
             </kit:OrbitraAdaptiveRow>
-            <Button Name="ApplyButton"
+            <kit:OrbitraButton Name="ApplyButton"
                     StyleClasses="OrbitraButtonPrimary"
                     Text="{Loc 'ui-options-apply'}"
                     HorizontalExpand="True" />

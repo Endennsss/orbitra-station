@@ -1,17 +1,18 @@
 <ui:FancyWindow xmlns="https://spacestation14.io" xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls" xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface" Title="{Loc 'ghost-target-window-title'}" MinSize="300 200"
                SetSize="450 500">
+    <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
     <BoxContainer Orientation="Vertical" HorizontalExpand="True" SizeFlagsStretchRatio="0.4">
         <BoxContainer Orientation="Vertical" Margin="0 4 0 4">
             <RichTextLabel Text="{Loc 'ghost-target-window-warp-to-title'}" HorizontalAlignment="Center" />
             <PanelContainer StyleClasses="LowDivider" Margin="0 5" />
             <kit:OrbitraAdaptiveRow SeparationOverride="8"> <!-- Orbitra-Edit -->
-                <Button Name="GhostnadoButton" Text="{Loc 'ghost-target-window-warp-to-most-followed'}"
+                <kit:OrbitraButton Name="GhostnadoButton" Text="{Loc 'ghost-target-window-warp-to-most-followed'}"
                         ToolTip="{Loc 'ghost-target-window-warp-to-most-followed-tooltip'}"
                         HorizontalAlignment="Center" StyleClasses="OpenRight" />
-                <Button Name="WarpToRandomFollowedButton" Text="{Loc 'ghost-target-window-warp-to-random-followed'}"
+                <kit:OrbitraButton Name="WarpToRandomFollowedButton" Text="{Loc 'ghost-target-window-warp-to-random-followed'}"
                         ToolTip="{Loc 'ghost-target-window-warp-to-random-followed-tooltip'}"
                         HorizontalAlignment="Center" StyleClasses="OpenBoth" />
-                <Button Name="WarpToRandomButton" Text="{Loc 'ghost-target-window-warp-to-random'}"
+                <kit:OrbitraButton Name="WarpToRandomButton" Text="{Loc 'ghost-target-window-warp-to-random'}"
                         ToolTip="{Loc 'ghost-target-window-warp-to-random-tooltip'}" HorizontalAlignment="Center"
                         StyleClasses="OpenLeft" />
             </kit:OrbitraAdaptiveRow>

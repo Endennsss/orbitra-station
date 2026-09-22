@@ -32,6 +32,7 @@ public sealed partial class CharacterSetupGui
 
     private void InitializeOrbitraSetup(HumanoidProfileEditor editor)
     {
+        OrbitraKeyboardNavigation.Attach(this);
         _orbitraProfilesMotion = new(OrbitraCharacterPanel);
         _orbitraToolsMotion = new(OrbitraToolsPanel);
         editor.AttachOrbitraSetupControls(CloseButton, OrbitraToolsContents);

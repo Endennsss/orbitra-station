@@ -9,8 +9,8 @@ public sealed class OrbitraJournalTabs : BoxContainer
 {
     private readonly BoxContainer _items = new() { SeparationOverride = 4 };
     private readonly ScrollContainer _scroll;
-    private readonly Button _previous = new() { Text = "‹", SetSize = new Vector2(32, 36) };
-    private readonly Button _next = new() { Text = "›", SetSize = new Vector2(32, 36) };
+    private readonly Button _previous = new Content.Client._Orbitra.UserInterface.OrbitraButton { Text = "‹", SetSize = new Vector2(32, 36) };
+    private readonly Button _next = new Content.Client._Orbitra.UserInterface.OrbitraButton { Text = "›", SetSize = new Vector2(32, 36) };
     private readonly Dictionary<string, Button> _buttons = new();
     public event Action<string>? Selected;
 
@@ -31,7 +31,7 @@ public sealed class OrbitraJournalTabs : BoxContainer
 
     public void AddSection(string id, string title)
     {
-        var button = new Button { Text = title, ToggleMode = true, SetHeight = 36 };
+        var button = new Content.Client._Orbitra.UserInterface.OrbitraButton { Text = title, ToggleMode = true, SetHeight = 36 };
         button.AddStyleClass("OrbitraJournalTab");
         button.OnPressed += _ => Selected?.Invoke(id);
         _buttons.Add(id, button);

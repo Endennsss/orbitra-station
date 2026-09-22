@@ -46,7 +46,7 @@ public sealed partial class ChangelogWindow
                 return;
             Logger.Error($"Failed to load the Orbitra journal: {exception}");
             OrbitraJournalHost.RemoveAllChildren();
-            var retry = new Button { Text = Loc.GetString("orbitra-journal-retry"), VerticalAlignment = VAlignment.Top };
+            var retry = new Content.Client._Orbitra.UserInterface.OrbitraButton { Text = Loc.GetString("orbitra-journal-retry"), VerticalAlignment = VAlignment.Top };
             retry.OnPressed += _ => LoadOrbitraJournal();
             OrbitraJournalHost.AddChild(retry);
         }

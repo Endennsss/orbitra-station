@@ -158,21 +158,21 @@ namespace Content.Client.Lobby.UI
 
             #region Sex
 
-            SexButton.OnItemSelected += args =>
+            Content.Client._Orbitra.UserInterface.OrbitraOptionButton.BindSelection(SexButton, args => // Orbitra-Edit - общий обработчик мыши и клавиатуры.
             {
                 SexButton.SelectId(args.Id);
                 SetSex((Sex)args.Id);
-            };
+            });
 
             #endregion Sex
 
             #region Voice
 
-            VoiceButton.OnItemSelected += args =>
+            Content.Client._Orbitra.UserInterface.OrbitraOptionButton.BindSelection(VoiceButton, args => // Orbitra-Edit - общий обработчик мыши и клавиатуры.
             {
                 VoiceButton.SelectId(args.Id);
                 SetVoice(_voices[args.Id]);
-            };
+            });
 
             #endregion
 
@@ -195,22 +195,22 @@ namespace Content.Client.Lobby.UI
             PronounsButton.AddItem(Loc.GetString("humanoid-profile-editor-pronouns-epicene-text"), (int)Gender.Epicene);
             PronounsButton.AddItem(Loc.GetString("humanoid-profile-editor-pronouns-neuter-text"), (int)Gender.Neuter);
 
-            PronounsButton.OnItemSelected += args =>
+            Content.Client._Orbitra.UserInterface.OrbitraOptionButton.BindSelection(PronounsButton, args => // Orbitra-Edit - общий обработчик мыши и клавиатуры.
             {
                 PronounsButton.SelectId(args.Id);
                 SetGender((Gender)args.Id);
-            };
+            });
 
             #endregion Gender
 
             RefreshSpecies();
 
-            SpeciesButton.OnItemSelected += args =>
+            Content.Client._Orbitra.UserInterface.OrbitraOptionButton.BindSelection(SpeciesButton, args => // Orbitra-Edit - общий обработчик мыши и клавиатуры.
             {
                 SpeciesButton.SelectId(args.Id);
                 SetSpecies(_species[args.Id].ID);
                 OnSkinColorOnValueChanged();
-            };
+            });
 
             #region Skin
 
@@ -235,11 +235,11 @@ namespace Content.Client.Lobby.UI
                 SpawnPriorityButton.AddItem(Loc.GetString($"humanoid-profile-editor-preference-spawn-priority-{value.ToString().ToLower()}"), (int)value);
             }
 
-            SpawnPriorityButton.OnItemSelected += args =>
+            Content.Client._Orbitra.UserInterface.OrbitraOptionButton.BindSelection(SpawnPriorityButton, args => // Orbitra-Edit - общий обработчик мыши и клавиатуры.
             {
                 SpawnPriorityButton.SelectId(args.Id);
                 SetSpawnPriority((SpawnPriorityPreference)args.Id);
-            };
+            });
 
             #endregion SpawnPriority
 
@@ -271,12 +271,12 @@ namespace Content.Client.Lobby.UI
                               ("overflowJob", Loc.GetString(SharedGameTicker.FallbackOverflowJobName))),
                 (int)PreferenceUnavailableMode.SpawnAsOverflow);
 
-            PreferenceUnavailableButton.OnItemSelected += args =>
+            Content.Client._Orbitra.UserInterface.OrbitraOptionButton.BindSelection(PreferenceUnavailableButton, args => // Orbitra-Edit - общий обработчик мыши и клавиатуры.
             {
                 PreferenceUnavailableButton.SelectId(args.Id);
                 Profile = Profile?.WithPreferenceUnavailable((PreferenceUnavailableMode)args.Id);
                 SetDirty();
-            };
+            });
 
             _jobCategories = new Dictionary<string, BoxContainer>();
 

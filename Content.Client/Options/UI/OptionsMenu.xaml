@@ -3,9 +3,10 @@
             xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Lobby"
             Title="{Loc 'ui-options-title'}"
             SetSize="960 720" MinSize="320 200">
+    <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
     <!-- Orbitra-Edit - компактный выбор раздела настроек. -->
     <BoxContainer Orientation="Vertical" SeparationOverride="12" Margin="12">
-    <OptionButton Name="OrbitraTabSelect" />
+    <kit:OrbitraOptionButton Name="OrbitraTabSelect" />
     <kit:OrbitraEditorTabContainer Name="Tabs" Access="Public" VerticalExpand="True" TabsVisible="False">
         <tabs:MiscTab Name="MiscTab" />
         <tabs:GraphicsTab Name="GraphicsTab" />

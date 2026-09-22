@@ -1,7 +1,8 @@
-<Control xmlns="https://spacestation14.io"
+<Control xmlns:orbitraKeyboard="clr-namespace:Content.Client._Orbitra.UserInterface" xmlns="https://spacestation14.io"
          xmlns:pllax="clr-namespace:Content.Client.Parallax"
          xmlns:clog="clr-namespace:Content.Client.Changelog"
          xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
     <pllax:ParallaxControl
         Name="BackgroundParallax"
         SpeedX="5"
@@ -42,13 +43,13 @@
                               PlaceHolder="server address:port"
                               HorizontalExpand="True" />
                 </BoxContainer>
-                <Button Name="DirectConnectButton"
+                <orbitraKeyboard:OrbitraButton Name="DirectConnectButton"
                         Access="Public"
                         Text="{Loc 'main-menu-direct-connect-button'}"
                         TextAlign="Center"
                         StyleClasses="OrbitraLobbyPrimary" />
                 <!-- Orbitra added start - отдельный локальный запуск с лобби. -->
-                <Button Name="OrbitraDevLobbyButton"
+                <orbitraKeyboard:OrbitraButton Name="OrbitraDevLobbyButton"
                         Access="Public"
                         Visible="False"
                         Text="{Loc 'orbitra-dev-lobby-connect'}"
@@ -60,12 +61,12 @@
                     Name="ChangelogButton"
                     StyleClasses="OrbitraLobbyButton"
                     Access="Public" />
-                <Button Name="OptionsButton"
+                <orbitraKeyboard:OrbitraButton Name="OptionsButton"
                         Access="Public"
                         Text="{Loc 'main-menu-options-button'}"
                         TextAlign="Center"
                         StyleClasses="OrbitraLobbyButton" />
-                <Button Name="QuitButton"
+                <orbitraKeyboard:OrbitraButton Name="QuitButton"
                         Access="Public"
                         Text="{Loc 'main-menu-quit-button'}"
                         TextAlign="Center"

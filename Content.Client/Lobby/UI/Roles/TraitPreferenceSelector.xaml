@@ -1,7 +1,8 @@
-<Control xmlns="https://spacestation14.io"
+<Control xmlns:orbitraKeyboard="clr-namespace:Content.Client._Orbitra.UserInterface" xmlns="https://spacestation14.io"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
         <BoxContainer Name="Container"
                       Orientation="Horizontal">
-            <CheckBox Name="Checkbox" Access="Public"/>
+            <orbitraKeyboard:OrbitraCheckBox Name="Checkbox" Access="Public"/>
         </BoxContainer>
 </Control>

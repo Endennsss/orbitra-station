@@ -64,7 +64,7 @@ public sealed partial class HumanoidProfileEditor
         OrbitraEditorFooter.AddChild(_orbitraSaveActions);
         TabContainer.PanelStyleBoxOverride = new StyleBoxFlat(Color.Transparent);
         RandomizeToggle.OnToggled += args => RandomizePanel.Visible = args.Pressed;
-        OrbitraSectionSelect.OnItemSelected += args => TabContainer.CurrentTab = args.Id;
+        Content.Client._Orbitra.UserInterface.OrbitraOptionButton.BindSelection(OrbitraSectionSelect, args => TabContainer.CurrentTab = args.Id);
         TabContainer.OnTabChanged += _ => UpdateOrbitraSectionSelection();
         OrbitraJobSearch.OnTextChanged += _ => FilterOrbitraJobs();
         RefreshOrbitraSections();

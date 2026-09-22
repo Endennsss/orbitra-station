@@ -9,6 +9,7 @@ public sealed partial class MainMenuControl
     protected override void EnteredTree()
     {
         base.EnteredTree();
+        OrbitraKeyboardNavigation.Attach(this);
         UserInterfaceManager.DeferAction(() =>
         {
             if (!Disposed && VisibleInTree)

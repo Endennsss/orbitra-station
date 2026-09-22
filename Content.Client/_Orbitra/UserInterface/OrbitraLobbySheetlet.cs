@@ -94,7 +94,7 @@ public sealed class OrbitraLobbySheetlet : Sheetlet<PalettedStylesheet>
                 E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).PseudoNormal().Box(background).Modulate(Color.White),
                 E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).PseudoHovered().Box(hover).Modulate(Color.White),
                 E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).PseudoPressed().Box(pressed).Modulate(Color.White),
-                E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).PseudoDisabled().Box(background).Modulate(Color.White.WithAlpha(0.45f)),
+                E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).PseudoDisabled().Box(background).Modulate(Color.White.WithAlpha(0.65f)),
                 E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).ParentOf(E<Label>()).Font(sheet.BaseFont.GetFont(13))
                     .FontColor(OrbitraPalettes.Highlight.Text),
             ]);

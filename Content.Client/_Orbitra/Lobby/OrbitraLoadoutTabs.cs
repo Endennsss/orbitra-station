@@ -9,7 +9,7 @@ namespace Content.Client._Orbitra.Lobby;
 /// <summary>Responsive loadout categories sharing one content tree and one selection.</summary>
 public sealed class OrbitraLoadoutTabs : BoxContainer
 {
-    private readonly OptionButton _selector = new() { Visible = false };
+    private readonly OptionButton _selector = new OrbitraOptionButton { Visible = false };
     private readonly BoxContainer _buttons = new() { Orientation = LayoutOrientation.Vertical, SeparationOverride = 4 };
     private readonly BoxContainer _contents = new() { Orientation = LayoutOrientation.Vertical, HorizontalExpand = true };
     private readonly ScrollContainer _navigation;
@@ -26,7 +26,7 @@ public sealed class OrbitraLoadoutTabs : BoxContainer
         body.AddChild(_navigation);
         body.AddChild(new ScrollContainer { HScrollEnabled = false, HorizontalExpand = true, Children = { _contents } });
         AddChild(body);
-        _selector.OnItemSelected += args => Select(args.Id);
+        Content.Client._Orbitra.UserInterface.OrbitraOptionButton.BindSelection(_selector, args => Select(args.Id));
     }
 
     /// <summary>Adds existing loadout controls without changing equipment or restrictions.</summary>

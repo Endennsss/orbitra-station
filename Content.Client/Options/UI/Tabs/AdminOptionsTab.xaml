@@ -2,6 +2,7 @@
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
          xmlns:ui="clr-namespace:Content.Client.Options.UI">
+    <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
     <BoxContainer Orientation="Vertical">
         <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
             <kit:OrbitraSettingsForm Orientation="Vertical" Margin="8" MaxWidth="{x:Static kit:OrbitraUiMetrics.FormWidth}" HorizontalAlignment="Center" HorizontalExpand="True"> <!-- Orbitra-Edit: центрированная форма настроек. -->
@@ -14,14 +15,14 @@
                        StyleClasses="LabelKeyText"/>
                 <ui:OptionDropDown Name="DropDownOverlayAntagFormat" Title="{Loc 'ui-options-admin-overlay-antag-format'}" />
                 <ui:OptionDropDown Name="DropDownOverlayAntagSymbol" Title="{Loc 'ui-options-admin-overlay-antag-symbol'}" />
-                <CheckBox Name="EnableOverlayPlaytimeCheckBox" Text="{Loc 'ui-options-admin-enable-overlay-playtime'}" />
-                <CheckBox Name="EnableOverlayStartingJobCheckBox" Text="{Loc 'ui-options-admin-enable-overlay-starting-job'}" />
+                <kit:OrbitraCheckBox Name="EnableOverlayPlaytimeCheckBox" Text="{Loc 'ui-options-admin-enable-overlay-playtime'}" />
+                <kit:OrbitraCheckBox Name="EnableOverlayStartingJobCheckBox" Text="{Loc 'ui-options-admin-enable-overlay-starting-job'}" />
                 <ui:OptionSlider Name="OverlayMergeDistanceSlider"  Title="{Loc 'ui-options-admin-overlay-merge-distance'}"/>
                 <ui:OptionSlider Name="OverlayGhostFadeSlider"  Title="{Loc 'ui-options-admin-overlay-ghost-fade-distance'}"/>
                 <ui:OptionSlider Name="OverlayGhostHideSlider"  Title="{Loc 'ui-options-admin-overlay-ghost-hide-distance'}"/>
                 <Label Text="{Loc 'ui-options-admin-strip-overlay-title'}"
                        StyleClasses="LabelKeyText"/>
-                <CheckBox Name="EnableAdminStripOverlayDefault" Text="{Loc 'ui-options-admin-strip-overlay-setting'}" />
+                <kit:OrbitraCheckBox Name="EnableAdminStripOverlayDefault" Text="{Loc 'ui-options-admin-strip-overlay-setting'}" />
             </kit:OrbitraSettingsForm>
         </ScrollContainer>
         <ui:OptionsTabControlRow Name="Control" Access="Public" />

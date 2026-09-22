@@ -37,6 +37,7 @@ internal static class OrbitraEntryWindow
         if (window.HasStyleClass("OrbitraEntryWindow"))
             return;
         window.AddStyleClass("OrbitraEntryWindow");
+        var keyboard = OrbitraKeyboardNavigation.Attach(window);
         var ui = IoCManager.Resolve<IUserInterfaceManager>();
         var firstOpen = true;
         System.Numerics.Vector2? lastPosition = null;
@@ -74,7 +75,9 @@ internal static class OrbitraEntryWindow
                 });
                 return;
             }
+            var reversing = lifetime.Closing;
             lifetime.CancelClose();
+            keyboard.Opening(reversing);
             // Повторный Open уже открытого окна не дублирует подписки.
             window.OnResized -= QueueFit;
             ui.RootControl.OnResized -= QueueFit;
@@ -98,6 +101,7 @@ internal static class OrbitraEntryWindow
         };
         void Cleanup()
         {
+            keyboard.Closing();
             lifetime.CancelClose();
             OrbitraMotion.Finish(window, ui);
             if (active)
@@ -128,6 +132,7 @@ internal static class OrbitraEntryWindow
             Closing = true;
             var generation = ++_generation;
             OrbitraMotion.CloseOwnedPopups(window);
+            OrbitraKeyboardNavigation.Attach(window).Closing();
             _input.Block(window);
             OrbitraMotion.Hide(window, OrbitraMotion.WindowCloseDuration, () =>
             {

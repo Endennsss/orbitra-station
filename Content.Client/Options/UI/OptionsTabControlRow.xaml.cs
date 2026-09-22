@@ -703,11 +703,11 @@ public sealed class OptionDropDownCVar<T> : BaseOptionCVar<T> where T : notnull
             i += 1;
         }
 
-        dropDown.Button.OnItemSelected += args =>
+        Content.Client._Orbitra.UserInterface.OrbitraOptionButton.BindSelection(dropDown.Button, args => // Orbitra-Edit - общий обработчик мыши и клавиатуры.
         {
             dropDown.Button.SelectId(args.Id);
             ValueChanged();
-        };
+        });
     }
 
     private int FindValueId(T value)

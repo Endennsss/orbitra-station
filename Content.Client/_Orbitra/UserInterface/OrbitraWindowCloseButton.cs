@@ -7,7 +7,7 @@ using Content.Client._Orbitra.Lobby;
 namespace Content.Client._Orbitra.UserInterface;
 
 /// <summary>Compact neutral close icon for entry-flow windows.</summary>
-internal sealed class OrbitraWindowCloseButton : Button
+internal sealed class OrbitraWindowCloseButton : OrbitraButton
 {
     public OrbitraWindowCloseButton()
     {

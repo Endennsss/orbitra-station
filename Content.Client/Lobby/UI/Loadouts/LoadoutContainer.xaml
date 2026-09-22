@@ -1,11 +1,12 @@
-<BoxContainer Name="Container" xmlns="https://spacestation14.io"
+<BoxContainer xmlns:orbitraKeyboard="clr-namespace:Content.Client._Orbitra.UserInterface" Name="Container" xmlns="https://spacestation14.io"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          Orientation="Horizontal"
          HorizontalExpand="True"
          MouseFilter="Ignore"
          Margin="0 0 0 5">
+    <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
     <!-- Orbitra-Edit - единый стиль строк экипировки. -->
-    <Button Name="SelectButton" ToggleMode="True" Margin="0 0 8 0" HorizontalExpand="True" StyleClasses="OrbitraLobbyButton" MinHeight="48"/>
+    <orbitraKeyboard:OrbitraButton Name="SelectButton" ToggleMode="True" Margin="0 0 8 0" HorizontalExpand="True" StyleClasses="OrbitraLobbyButton" MinHeight="48"/>
     <PanelContainer SetSize="64 64" HorizontalAlignment="Right" StyleClasses="PanelDeep">
         <SpriteView Name="Sprite" Scale="4 4" MouseFilter="Stop"/>
     </PanelContainer>

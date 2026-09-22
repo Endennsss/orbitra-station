@@ -25,6 +25,7 @@ public sealed partial class GhostTargetWindow
     {
         _orbitraPrototypes = IoCManager.Resolve<IPrototypeManager>();
         OrbitraEntryWindow.Attach(this);
+        InitializeOrbitraKeyboard();
         foreach (var button in new[] { GhostnadoButton, WarpToRandomFollowedButton, WarpToRandomButton })
         {
             button.HorizontalExpand = true;
@@ -37,6 +38,9 @@ public sealed partial class GhostTargetWindow
     /// <summary>Uses server metadata only; no target entity needs to be present in the client's PVS.</summary>
     private void UpdateOrbitraTargets(IEnumerable<GhostWarp> warps)
     {
+        var oldFocus = UserInterfaceManager.KeyboardFocused;
+        var focusedIndex = GetOrbitraTargetStops(false).IndexOf(oldFocus!);
+        var oldHeader = _orbitraOrdered.FirstOrDefault(row => row.Button == oldFocus)?.Group.Header;
         // GhostGui создаётся ещё до запуска ECS; системы нужны только при получении целей.
         var entities = IoCManager.Resolve<IEntityManager>();
         _orbitraSprites = entities.System<SpriteSystem>();
@@ -80,6 +84,8 @@ public sealed partial class GhostTargetWindow
                 group = new TargetGroup(groupId, groupName, department);
                 group.Header.OnPressed += _ =>
                 {
+                    if (_searchText.Trim().Length > 0)
+                        return;
                     group.Collapsed = !group.Collapsed;
                     FilterOrbitraTargets();
                 };
@@ -125,6 +131,27 @@ public sealed partial class GhostTargetWindow
         for (var i = 0; i < orderedGroups.Count; i++)
             orderedGroups[i].Root.SetPositionInParent(i);
         FilterOrbitraTargets();
+        if (focusedIndex >= 0 && (oldFocus == null || !OrbitraKeyboardNavigation.Available(oldFocus) ||
+                                 UserInterfaceManager.KeyboardFocused != oldFocus))
+        {
+            if (oldFocus != null && OrbitraKeyboardNavigation.Available(oldFocus))
+                OrbitraKeyboardNavigation.Focus(oldFocus);
+            else
+                RestoreOrbitraTargetFocus(focusedIndex, oldHeader);
+        }
+    }
+
+    private void RestoreOrbitraTargetFocus(int index, Control? oldHeader)
+    {
+        var remaining = GetOrbitraTargetStops(false);
+        if (remaining.Count > 0)
+            OrbitraKeyboardNavigation.Focus(remaining[Math.Min(index, remaining.Count - 1)]);
+        else if (oldHeader != null && OrbitraKeyboardNavigation.Available(oldHeader))
+            OrbitraKeyboardNavigation.Focus(oldHeader);
+        else
+        {
+            OrbitraKeyboardNavigation.Focus(SearchBar);
+        }
     }
 
     private void FilterOrbitraTargets()
@@ -148,6 +175,7 @@ public sealed partial class GhostTargetWindow
             group.Rows.Visible = expanded;
             group.Header.Text = $"{(expanded ? "▼" : "▶")} {group.Name} · {group.Count}";
         }
+        UpdateOrbitraSummary();
     }
 
     private sealed class TargetGroup
@@ -156,7 +184,7 @@ public sealed partial class GhostTargetWindow
         public readonly string Name;
         public readonly DepartmentPrototype? Department;
         public readonly BoxContainer Root = new() { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = OrbitraUiMetrics.Small };
-        public readonly Button Header = new() { HorizontalExpand = true, TextAlign = Label.AlignMode.Left, CanKeyboardFocus = true };
+        public readonly Button Header = new OrbitraButton { HorizontalExpand = true, TextAlign = Label.AlignMode.Left, CanKeyboardFocus = true };
         public readonly BoxContainer Rows = new() { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 4 };
         public bool Collapsed;
         public int Count;
@@ -178,7 +206,7 @@ public sealed partial class GhostTargetWindow
     private sealed class TargetRow
     {
         public readonly NetEntity Entity;
-        public readonly ContainerButton Button = new() { HorizontalExpand = true, CanKeyboardFocus = true, MinHeight = OrbitraUiMetrics.ElementHeight };
+        public readonly ContainerButton Button = new OrbitraContainerButton { HorizontalExpand = true, CanKeyboardFocus = true, MinHeight = OrbitraUiMetrics.ElementHeight };
         public readonly TextureRect Icon = new() { SetSize = new Vector2(20), VerticalAlignment = VAlignment.Center, Stretch = TextureRect.StretchMode.KeepAspectCentered };
         public readonly RichTextLabel NameLabel = new() { HorizontalExpand = true };
         public readonly Label JobLabel = new() { HorizontalExpand = true, ClipText = true };

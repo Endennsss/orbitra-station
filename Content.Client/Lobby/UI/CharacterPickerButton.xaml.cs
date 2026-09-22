@@ -19,7 +19,7 @@ namespace Content.Client.Lobby.UI;
 /// Holds character data on the side of the setup GUI.
 /// </summary>
 [GenerateTypedNameReferences]
-public sealed partial class CharacterPickerButton : ContainerButton
+public sealed partial class CharacterPickerButton : Content.Client._Orbitra.UserInterface.OrbitraContainerButton // Orbitra-Edit
 {
     /// <summary>
     /// Invoked if we should delete the attached character

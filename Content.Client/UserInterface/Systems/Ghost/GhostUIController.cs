@@ -96,6 +96,8 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
     {
         if (Gui?.TargetWindow is not { } window)
             return;
+        if (!window.AcceptOrbitraResponse()) // Orbitra-Edit - закрытое окно не принимает поздний ответ.
+            return;
 
         window.UpdateWarps(msg.Warps);
         window.Populate();
@@ -139,6 +141,7 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
         Gui.ReturnToBodyPressed += ReturnToBody;
         Gui.GhostRolesPressed += GhostRolesPressed;
         Gui.TargetWindow.WarpClicked += OnWarpClicked;
+        Gui.TargetWindow.OrbitraRetryRequested += RequestWarps; // Orbitra-Edit
         Gui.TargetWindow.OnGhostnadoClicked += OnGhostnadoClicked;
         Gui.TargetWindow.OnWarpToRandomFollowedClicked += OnWarpToRandomFollowedClicked;
         Gui.TargetWindow.OnWarpToRandomClicked += OnWarpToRandomClicked;
@@ -155,6 +158,7 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
         Gui.ReturnToBodyPressed -= ReturnToBody;
         Gui.GhostRolesPressed -= GhostRolesPressed;
         Gui.TargetWindow.WarpClicked -= OnWarpClicked;
+        Gui.TargetWindow.OrbitraRetryRequested -= RequestWarps; // Orbitra-Edit
         // Orbitra added start - симметричная очистка при выгрузке экрана.
         Gui.TargetWindow.OnGhostnadoClicked -= OnGhostnadoClicked;
         Gui.TargetWindow.OnWarpToRandomFollowedClicked -= OnWarpToRandomFollowedClicked;
@@ -171,9 +175,14 @@ public sealed partial class GhostUIController : UIController, IOnSystemChanged<G
 
     private void RequestWarps()
     {
-        _system?.RequestWarps();
-        Gui?.TargetWindow.Populate();
-        Gui?.TargetWindow.OpenCentered();
+        // Orbitra edit start - одно ожидание; повтор использует прежний сетевой запрос.
+        if (Gui?.TargetWindow is not { } window)
+            return;
+        if (!window.IsOpen || Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.IsClosing(window))
+            window.OpenCentered();
+        if (window.BeginOrbitraRequest())
+            _system?.RequestWarps();
+        // Orbitra edit end
     }
 
     private void GhostRolesPressed()

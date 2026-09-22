@@ -1,9 +1,10 @@
 <BoxContainer xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface" xmlns="https://spacestation14.io" xmlns:humanoid="clr-namespace:Content.Client.Humanoid" xmlns:ui="clr-namespace:Content.Client.Lobby.UI" xmlns:profile="clr-namespace:Content.Client.Lobby.UI.ProfileEditorControls" xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Lobby" Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="12">
+    <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
   <!-- Orbitra edit start - разделы, постоянное превью и закреплённое сохранение. -->
   <BoxContainer Name="OrbitraEditorBody" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="16">
     <BoxContainer Name="OrbitraNavigation" Orientation="Vertical" SetWidth="176" SeparationOverride="8" />
     <BoxContainer Name="OrbitraForm" Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="12">
-      <OptionButton Name="OrbitraSectionSelect" Visible="False" />
+      <kit:OrbitraOptionButton Name="OrbitraSectionSelect" Visible="False" />
       <kit:OrbitraEditorTabContainer Name="TabContainer" VerticalExpand="True" TabsVisible="False">
         <BoxContainer Orientation="Vertical">
           <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
@@ -30,8 +31,8 @@
                 <kit:OrbitraFormRow HorizontalExpand="True">
                   <Label Text="{Loc 'humanoid-profile-editor-species-label'}" />
                   <Control HorizontalExpand="True" />
-                  <TextureButton Name="SpeciesInfoButton" Scale="0.3 0.3" VerticalAlignment="Center" ToolTip="{Loc 'humanoid-profile-editor-guidebook-button-tooltip'}" />
-                  <OptionButton Name="SpeciesButton" HorizontalAlignment="Right" />
+                  <kit:OrbitraTextureButton Name="SpeciesInfoButton" Scale="0.3 0.3" VerticalAlignment="Center" ToolTip="{Loc 'humanoid-profile-editor-guidebook-button-tooltip'}" />
+                  <kit:OrbitraOptionButton Name="SpeciesButton" HorizontalAlignment="Right" />
                 </kit:OrbitraFormRow>
                 <!-- Age -->
                 <kit:OrbitraFormRow HorizontalExpand="True">
@@ -43,25 +44,25 @@
                 <kit:OrbitraFormRow HorizontalExpand="True">
                   <Label Text="{Loc 'humanoid-profile-editor-sex-label'}" />
                   <Control HorizontalExpand="True" />
-                  <OptionButton Name="SexButton" HorizontalAlignment="Right" />
+                  <kit:OrbitraOptionButton Name="SexButton" HorizontalAlignment="Right" />
                 </kit:OrbitraFormRow>
                 <!-- Voice -->
                 <kit:OrbitraFormRow HorizontalExpand="True">
                   <Label Text="{Loc 'humanoid-profile-editor-voice-label'}" />
                   <Control HorizontalExpand="True" />
-                  <OptionButton Name="VoiceButton" HorizontalAlignment="Right" />
+                  <kit:OrbitraOptionButton Name="VoiceButton" HorizontalAlignment="Right" />
                 </kit:OrbitraFormRow>
                 <!-- Pronouns -->
                 <kit:OrbitraFormRow HorizontalExpand="True">
                   <Label Text="{Loc 'humanoid-profile-editor-pronouns-label'}" />
                   <Control HorizontalExpand="True" />
-                  <OptionButton Name="PronounsButton" HorizontalAlignment="Right" />
+                  <kit:OrbitraOptionButton Name="PronounsButton" HorizontalAlignment="Right" />
                 </kit:OrbitraFormRow>
                 <!-- Spawn Priority -->
                 <kit:OrbitraFormRow HorizontalExpand="True">
                   <Label Text="{Loc 'humanoid-profile-editor-spawn-priority-label'}" />
                   <Control HorizontalExpand="True" />
-                  <OptionButton Name="SpawnPriorityButton" HorizontalAlignment="Right" />
+                  <kit:OrbitraOptionButton Name="SpawnPriorityButton" HorizontalAlignment="Right" />
                 </kit:OrbitraFormRow>
               </BoxContainer>
               <!-- Skin -->
@@ -81,7 +82,7 @@
         <BoxContainer Orientation="Vertical">
           <!-- Jobs -->
           <LineEdit Name="OrbitraJobSearch" PlaceHolder="{Loc 'orbitra-editor-job-search'}" />
-          <OptionButton Name="PreferenceUnavailableButton" />
+          <kit:OrbitraOptionButton Name="PreferenceUnavailableButton" />
           <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
             <BoxContainer Name="JobList" Orientation="Vertical" />
           </ScrollContainer>

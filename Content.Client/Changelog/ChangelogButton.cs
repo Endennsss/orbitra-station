@@ -3,7 +3,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client.Changelog
 {
-    public sealed partial class ChangelogButton : Button
+    public sealed partial class ChangelogButton : Content.Client._Orbitra.UserInterface.OrbitraButton // Orbitra-Edit - штатная активация с клавиатуры.
     {
         [Dependency] private ChangelogManager _changelogManager = default!;
 

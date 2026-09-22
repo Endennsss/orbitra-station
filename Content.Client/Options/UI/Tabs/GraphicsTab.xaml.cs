@@ -151,7 +151,7 @@ public sealed partial class GraphicsTab : Control
             button.AddItem(Loc.GetString("ui-options-lighting-low"), QualityLow);
             button.AddItem(Loc.GetString("ui-options-lighting-medium"), QualityMedium);
             button.AddItem(Loc.GetString("ui-options-lighting-high"), QualityHigh);
-            button.OnItemSelected += OnOptionSelected;
+            Content.Client._Orbitra.UserInterface.OrbitraOptionButton.BindSelection(button, OnOptionSelected); // Orbitra-Edit - общий обработчик мыши и клавиатуры.
         }
 
         private void OnOptionSelected(OptionButton.ItemSelectedEventArgs obj)

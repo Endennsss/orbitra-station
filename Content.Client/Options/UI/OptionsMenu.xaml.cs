@@ -26,7 +26,7 @@ namespace Content.Client.Options.UI
             Tabs.SetTabTitle(5, Loc.GetString("ui-options-tab-admin"));
 
             UpdateTabs();
-            OrbitraTabSelect.OnItemSelected += args => Tabs.CurrentTab = args.Id; // Orbitra-Edit
+            Content.Client._Orbitra.UserInterface.OrbitraOptionButton.BindSelection(OrbitraTabSelect, args => Tabs.CurrentTab = args.Id); // Orbitra-Edit
             Tabs.OnTabChanged += index => OrbitraTabSelect.SelectId(index); // Orbitra-Edit: синхронизация при открытии вкладки командой.
         }
 

@@ -12,9 +12,13 @@ public sealed partial class GuidebookWindow
 {
     private readonly List<GuideSearchEntry> _orbitraGuideIndex = new();
     private string? _orbitraIndexCulture;
+    private readonly List<(ContainerButton Button, GuideSearchEntry Entry)> _orbitraResults = new();
 
     private void InitializeOrbitraSearch()
     {
+        OrbitraKeyboardNavigation.Attach(this).HandleKey = HandleOrbitraSearchKey;
+        OrbitraKeyboardNavigation.Attach(_orbitraSectionsPopup).HandleKey = HandleOrbitraSearchKey;
+        Scroll.CanKeyboardFocus = true;
         OrbitraArticleSearch.OnTextChanged += _ => FilterOrbitraGuides();
         HomeButton.OnPressed += _ =>
         {
@@ -69,22 +73,29 @@ public sealed partial class GuidebookWindow
     {
         EnsureOrbitraGuideCulture();
         var words = OrbitraArticleSearch.Text.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        var oldIndex = _orbitraResults.FindIndex(row => row.Button == UserInterfaceManager.KeyboardFocused);
+        var oldItem = oldIndex >= 0 ? _orbitraResults[oldIndex].Entry.Item : null;
         Tree.Visible = words.Length == 0;
         OrbitraResultsScroll.Visible = words.Length != 0;
         ClearOrbitraControls(OrbitraSearchResults);
+        _orbitraResults.Clear();
         if (words.Length == 0)
+        {
+            if (oldIndex >= 0)
+                OrbitraKeyboardNavigation.Focus(OrbitraArticleSearch);
             return;
+        }
         var matches = _orbitraGuideIndex.Where(e => words.All(w => e.Path.Contains(w, StringComparison.CurrentCultureIgnoreCase)))
             .OrderByDescending(e => words.All(w => e.Title.Contains(w, StringComparison.CurrentCultureIgnoreCase)));
         foreach (var entry in matches)
         {
-            var button = new ContainerButton { HorizontalExpand = true, CanKeyboardFocus = true, ToolTip = entry.Path };
+            var button = new OrbitraContainerButton { HorizontalExpand = true, CanKeyboardFocus = true, ToolTip = entry.Path };
             button.AddStyleClass(ContainerButton.StyleClassButton);
             button.AddStyleClass(OrbitraButtonStyles.Ghost);
             OrbitraMotion.AttachButton(button);
             var labels = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 0 };
             var title = new RichTextLabel();
-            title.SetMessage(entry.Title);
+            title.SetMessage(HighlightOrbitraTitle(entry.Title, words));
             var path = new RichTextLabel();
             path.SetMessage(entry.Path);
             path.AddStyleClass("OrbitraLobbyMuted");
@@ -93,12 +104,19 @@ public sealed partial class GuidebookWindow
             button.AddChild(labels);
             button.OnPressed += _ => SelectOrbitraGuide(entry.Item);
             OrbitraSearchResults.AddChild(button);
+            _orbitraResults.Add((button, entry));
         }
         if (OrbitraSearchResults.ChildCount == 0)
         {
-            var empty = new RichTextLabel();
-            empty.SetMessage(Loc.GetString("orbitra-guide-no-results"));
+            var empty = new OrbitraStatusPanel();
+            empty.SetStatus(Loc.GetString("orbitra-guide-no-results"));
             OrbitraSearchResults.AddChild(empty);
+        }
+        if (oldIndex >= 0)
+        {
+            var index = _orbitraResults.FindIndex(row => row.Entry.Item == oldItem);
+            OrbitraKeyboardNavigation.Focus(_orbitraResults.Count == 0 ? OrbitraArticleSearch :
+                _orbitraResults[index >= 0 ? index : Math.Min(oldIndex, _orbitraResults.Count - 1)].Button);
         }
     }
 
@@ -107,6 +125,7 @@ public sealed partial class GuidebookWindow
         Tree.ExpandParentEntries(item.Index);
         Tree.SetSelectedIndex(item.Index);
         _orbitraSectionsPopup.Close();
+        OrbitraKeyboardNavigation.Focus(Scroll);
     }
 
     private void UpdateOrbitraBreadcrumbs()
@@ -133,7 +152,7 @@ public sealed partial class GuidebookWindow
             }
             else
             {
-                var button = new Button { Text = title, MaxWidth = 220, ClipText = true, ToolTip = title, CanKeyboardFocus = true };
+                var button = new OrbitraButton { Text = title, MaxWidth = 220, ClipText = true, ToolTip = title, CanKeyboardFocus = true };
                 button.AddStyleClass(OrbitraButtonStyles.Ghost);
                 button.OnPressed += _ => SelectOrbitraGuide(item);
                 OrbitraBreadcrumbs.AddChild(button);

@@ -8,7 +8,7 @@ namespace Content.Client._Orbitra.Lobby;
 internal sealed class OrbitraMarkingNavigation : BoxContainer
 {
     private readonly TabContainer _tabs;
-    private readonly OptionButton _selector = new();
+    private readonly OptionButton _selector = new Content.Client._Orbitra.UserInterface.OrbitraOptionButton();
     private readonly List<string> _titles = new();
 
     private OrbitraMarkingNavigation(TabContainer tabs, string label)
@@ -22,11 +22,11 @@ internal sealed class OrbitraMarkingNavigation : BoxContainer
         _tabs.VerticalExpand = true;
         AddChild(_selector);
         AddChild(_tabs);
-        _selector.OnItemSelected += args =>
+        Content.Client._Orbitra.UserInterface.OrbitraOptionButton.BindSelection(_selector, args =>
         {
             if (args.Id >= 0 && args.Id < _tabs.ChildCount)
                 _tabs.CurrentTab = args.Id;
-        };
+        });
         _tabs.OnTabChanged += _ => SelectCurrent();
     }
 

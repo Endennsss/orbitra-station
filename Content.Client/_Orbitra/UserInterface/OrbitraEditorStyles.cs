@@ -47,6 +47,11 @@ internal static class OrbitraEditorStyles
         if (root.HasStyleClass("OrbitraOptionRow"))
             return;
         root.AddStyleClass("OrbitraEditorControl");
+        if (root is LineEdit or Slider)
+        {
+            root.CanKeyboardFocus = true;
+            OrbitraFocusRing.Attach(root);
+        }
         if (root is Content.Client.UserInterface.Controls.StripeBack stripe)
             stripe.HasTopEdge = stripe.HasBottomEdge = stripe.HasMargins = false;
         if (root is Content.Client.LateJoin.JobButton job)

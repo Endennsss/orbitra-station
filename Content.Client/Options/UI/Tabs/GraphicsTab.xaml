@@ -3,21 +3,22 @@
           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
           xmlns:ui="clr-namespace:Content.Client.Options.UI"
           xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface">
+    <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
     <BoxContainer Orientation="Vertical">
         <!-- Orbitra-Edit - измеряем содержимое по ширине вкладки, а не бесконечной горизонтальной области -->
         <ScrollContainer VerticalExpand="True" HScrollEnabled="False" ReserveScrollbarSpace="True">
             <kit:OrbitraSettingsForm Orientation="Vertical" Margin="8 8 8 8" MaxWidth="{x:Static kit:OrbitraUiMetrics.FormWidth}" HorizontalAlignment="Center" HorizontalExpand="True"> <!-- Orbitra-Edit: центрированная форма настроек. -->
                 <!-- Display -->
                 <Label Text="{Loc 'ui-options-display-label'}" StyleClasses="LabelKeyText"/>
-                <CheckBox Name="FullscreenCheckBox" Text="{Loc 'ui-options-fullscreen'}" />
-                <CheckBox Name="VSyncCheckBox" Text="{Loc 'ui-options-vsync'}" />
+                <kit:OrbitraCheckBox Name="FullscreenCheckBox" Text="{Loc 'ui-options-fullscreen'}" />
+                <kit:OrbitraCheckBox Name="VSyncCheckBox" Text="{Loc 'ui-options-vsync'}" />
                 <kit:OrbitraFormRow Name="MaxFpsContainer"
                               ToolTip="{Loc 'ui-options-max-fps-tooltip'}">
                     <!-- Orbitra-Edit - элементы ограничения FPS не вытесняют друг друга за край -->
                     <RichTextLabel Text="{Loc 'ui-options-max-fps'}" />
                     <BoxContainer Orientation="Vertical" HorizontalExpand="True"> <!-- Orbitra-Edit -->
                     <ui:OptionIntInput Name="MaxFpsInput" HorizontalExpand="True" />
-                    <Button Name="MaxFpsDisplayRateButton"
+                    <kit:OrbitraButton Name="MaxFpsDisplayRateButton"
                             Text="{Loc 'ui-options-max-fps-display-rate'}"
                             Margin="0 4 0 0" />
                     </BoxContainer>
@@ -27,34 +28,34 @@
                 <Label Text="{Loc 'ui-options-quality-label'}" StyleClasses="LabelKeyText"/>
                 <ui:OptionDropDown Name="DropDownLightingQuality" Title="{Loc 'ui-options-lighting-label'}" />
                 <!-- Orbitra added start - параметры нового Bloom карты света -->
-                <CheckBox Name="OrbitraBloomEnabledCheckBox" Text="{Loc 'orbitra-options-bloom-enabled'}" />
+                <kit:OrbitraCheckBox Name="OrbitraBloomEnabledCheckBox" Text="{Loc 'orbitra-options-bloom-enabled'}" />
                 <ui:OptionSlider Name="OrbitraBloomStrengthSlider" Title="{Loc 'orbitra-options-bloom-strength'}" />
                 <ui:OptionDropDown Name="OrbitraBloomQualityDropDown" Title="{Loc 'orbitra-options-bloom-quality'}" />
                 <!-- Orbitra-Edit - плотность косметических частиц. -->
                 <ui:OptionDropDown Name="OrbitraParticleQualityDropDown" Title="{Loc 'orbitra-options-particles-quality'}" />
                 <!-- Orbitra added end -->
-                <CheckBox Name="ViewportLowResCheckBox" Text="{Loc 'ui-options-vp-low-res'}" />
-                <CheckBox Name="ParallaxLowQualityCheckBox" Text="{Loc 'ui-options-parallax-low-quality'}" />
-                <CheckBox Name="AmbientOcclusionCheckBox" Text="{Loc 'ui-options-ambient-occlusion'}" />
+                <kit:OrbitraCheckBox Name="ViewportLowResCheckBox" Text="{Loc 'ui-options-vp-low-res'}" />
+                <kit:OrbitraCheckBox Name="ParallaxLowQualityCheckBox" Text="{Loc 'ui-options-parallax-low-quality'}" />
+                <kit:OrbitraCheckBox Name="AmbientOcclusionCheckBox" Text="{Loc 'ui-options-ambient-occlusion'}" />
                 <ui:OptionSlider Name="SharpnessSlider" Title="{Loc 'ui-options-sharpness'}" />
 
                 <!-- Interface -->
                 <Label Text="{Loc 'ui-options-interface-label'}" StyleClasses="LabelKeyText"/>
                 <ui:OptionDropDown Name="DropDownUIScale" Title="{Loc 'ui-options-scale-label'}" />
-                <CheckBox Name="ViewportStretchCheckBox" Text="{Loc 'ui-options-vp-stretch'}" />
+                <kit:OrbitraCheckBox Name="ViewportStretchCheckBox" Text="{Loc 'ui-options-vp-stretch'}" />
                 <ui:OptionSlider Name="ViewportScaleSlider" Title="{Loc ui-options-vp-scale}" />
                 <ui:OptionSlider Name="ViewportWidthSlider" Title="{Loc ui-options-vp-width}" />
-                <CheckBox Name="IntegerScalingCheckBox"
+                <kit:OrbitraCheckBox Name="IntegerScalingCheckBox"
                           Text="{Loc 'ui-options-vp-integer-scaling'}"
                           ToolTip="{Loc 'ui-options-vp-integer-scaling-tooltip'}" />
                 <ui:OptionDropDown Name="DropDownFilterMode" Title="{Loc 'ui-options-filter-label'}" />
-                <CheckBox Name="ViewportVerticalFitCheckBox"
+                <kit:OrbitraCheckBox Name="ViewportVerticalFitCheckBox"
                           Text="{Loc 'ui-options-vp-vertical-fit'}"
                           ToolTip="{Loc 'ui-options-vp-vertical-fit-tooltip'}" />
 
                 <!-- Misc -->
                 <Label Text="{Loc 'ui-options-misc-label'}" StyleClasses="LabelKeyText"/>
-                <CheckBox Name="FpsCounterCheckBox" Text="{Loc 'ui-options-fps-counter'}" />
+                <kit:OrbitraCheckBox Name="FpsCounterCheckBox" Text="{Loc 'ui-options-fps-counter'}" />
             </kit:OrbitraSettingsForm>
         </ScrollContainer>
         <ui:OptionsTabControlRow Name="Control" Access="Public" />

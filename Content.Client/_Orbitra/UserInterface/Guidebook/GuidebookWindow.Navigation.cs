@@ -31,15 +31,7 @@ public sealed partial class GuidebookWindow
                 _orbitraSectionsPopup.Close();
                 return;
             }
-            OrbitraNavigation.Orphan();
-            _orbitraSectionsPanel.AddChild(OrbitraNavigation);
-            UserInterfaceManager.ModalRoot.AddChild(_orbitraSectionsPopup);
-            var available = Root!.Size - new Vector2(32);
-            var size = Vector2.Min(new Vector2(320, Math.Max(120, Split.Height)), available);
-            _orbitraSectionsPopup.SetSize = _orbitraSectionsPopup.MaxSize = size;
-            var origin = Vector2.Clamp(Split.GlobalPosition, new Vector2(16), Vector2.Max(new Vector2(16), Root.Size - size - new Vector2(16)));
-            _orbitraSectionsPopup.Open(UIBox2.FromDimensions(origin, size));
-            OrbitraMotion.Reveal(_orbitraSectionsPopup, OrbitraMotion.MenuDuration);
+            OpenOrbitraSections();
         };
         _orbitraSectionsPopup.OnPopupHide += () =>
         {
@@ -47,6 +39,21 @@ public sealed partial class GuidebookWindow
         };
         Tree.OnSelectedItemChanged += _ => _orbitraSectionsPopup.Close();
         OnClose += () => _orbitraSectionsPopup.Close();
+    }
+
+    private void OpenOrbitraSections()
+    {
+        if (_orbitraSectionsPopup.Visible)
+            return;
+        OrbitraNavigation.Orphan();
+        _orbitraSectionsPanel.AddChild(OrbitraNavigation);
+        UserInterfaceManager.ModalRoot.AddChild(_orbitraSectionsPopup);
+        var available = Root!.Size - new Vector2(32);
+        var size = Vector2.Min(new Vector2(320, Math.Max(120, Split.Height)), available);
+        _orbitraSectionsPopup.SetSize = _orbitraSectionsPopup.MaxSize = size;
+        var origin = Vector2.Clamp(Split.GlobalPosition, new Vector2(16), Vector2.Max(new Vector2(16), Root.Size - size - new Vector2(16)));
+        _orbitraSectionsPopup.Open(UIBox2.FromDimensions(origin, size));
+        OrbitraMotion.Reveal(_orbitraSectionsPopup, OrbitraMotion.MenuDuration);
     }
 
     private void RestoreOrbitraTree()
@@ -65,6 +72,8 @@ public sealed partial class GuidebookWindow
 
     private void UpdateOrbitraNavigation(float width)
     {
+        var focused = UserInterfaceManager.KeyboardFocused;
+        var navigationFocused = OrbitraKeyboardNavigation.Contains(OrbitraNavigation, focused);
         _orbitraSectionsPopup.Close();
         OrbitraMotion.FinishPopup(_orbitraSectionsPopup);
         var compact = width < 720;
@@ -82,6 +91,9 @@ public sealed partial class GuidebookWindow
             var treeWidth = wide ? Math.Clamp(_orbitraTreeWidth, 220, width - 410) : 0;
             Split.SetSplitFractionOnNextArrange((treeWidth + Split.SplitWidth / 2) / width);
         }
+        if (navigationFocused)
+            OrbitraKeyboardNavigation.Focus(focused != null && focused.VisibleInTree ? focused :
+                OrbitraSections.Visible ? OrbitraSections : Scroll);
     }
 
     protected override void Dispose(bool disposing)

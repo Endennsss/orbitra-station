@@ -2,6 +2,14 @@ Name: OrbitraUpdates
 AdminOnly: false
 Order: -1
 Entries:
+- id: 41
+  author: Endennsss
+  time: '2026-09-23T00:00:00+02:00'
+  changes:
+  - type: Add
+    message: В интерфейс Orbitra добавлены обход элементов клавишей Tab, управление ползунками и клавиатурный поиск руководства и целей призрака.
+  - type: Tweak
+    message: Меню телепорта показывает сводку целей, отсутствие результатов и состояние загрузки с повторной попыткой.
 - id: 40
   author: Endennsss
   time: '2026-09-22T23:00:00+02:00'

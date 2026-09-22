@@ -31,15 +31,15 @@ public sealed partial class RequirementsSelector
         OptionsContainer.Orientation = LayoutOrientation.Vertical;
         _options.MaxWidth = 440;
         _options.HorizontalAlignment = HAlignment.Left;
-        _orbitraCompact = new OptionButton { Name = "OrbitraCompactPriority", Visible = false, MaxWidth = 440 };
+        _orbitraCompact = new Content.Client._Orbitra.UserInterface.OrbitraOptionButton { Name = "OrbitraCompactPriority", Visible = false, MaxWidth = 440 };
         foreach (var (text, id) in _orbitraItems)
             _orbitraCompact.AddItem(Loc.GetString(text), id);
         _orbitraCompact.SelectId(_options.SelectedId);
-        _orbitraCompact.OnItemSelected += args =>
+        Content.Client._Orbitra.UserInterface.OrbitraOptionButton.BindSelection(_orbitraCompact, args =>
         {
             Select(args.Id);
             OnSelected?.Invoke(args.Id);
-        };
+        });
         OptionsContainer.AddChild(_orbitraCompact);
         _orbitraReason = new RichTextLabel { Visible = _orbitraLocked, HorizontalExpand = true };
         if (_orbitraRequirements != null)

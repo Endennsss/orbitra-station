@@ -8,7 +8,7 @@ namespace Content.Client.Voting.UI
     ///     LITERALLY just a button that opens the vote call menu.
     ///     Automatically disables itself if the client cannot call votes.
     /// </summary>
-    public sealed partial class VoteCallMenuButton : Button
+    public sealed partial class VoteCallMenuButton : Content.Client._Orbitra.UserInterface.OrbitraButton // Orbitra-Edit - штатная активация с клавиатуры.
     {
         [Dependency] private IVoteManager _voteManager = default!;
 
@@ -51,7 +51,7 @@ namespace Content.Client.Voting.UI
             if (_voteCallMenu is { IsOpen: true })
                 _voteCallMenu.Close();
 
-            _voteManager.CanCallVoteChanged += UpdateCanCall;
+            _voteManager.CanCallVoteChanged -= UpdateCanCall; // Orbitra-Edit - симметричная очистка подписки.
         }
 
         private void UpdateCanCall(bool canCall)
