@@ -1,6 +1,6 @@
-# Lime Station Repository Agent Instructions
+# Orbitra Repository Agent Instructions
 
-This repository is the **Lime Station** fork of Space Station 14. Treat the checkout folder and the currently configured Git remote as transport details; they do not change the product identity.
+This repository is the **Orbitra** fork of Space Station 14. Treat the checkout folder and the currently configured Git remote as transport details; they do not change the product identity.
 
 The canonical agent guidance lives here:
 
@@ -10,13 +10,13 @@ The canonical agent guidance lives here:
 
 At the start of a new dialogue, after context compaction, or when the task changes subsystem or file type, read the always-on rules in `.agents/rules` and select the relevant skills from `.agents/skills`. Bridge files only point to canonical files under `.agents`; the canonical files win if guidance differs.
 
-Always apply these Lime Station conventions:
+Always apply these Orbitra conventions:
 
-- Product name: `Lime Station`
-- Code and prototype prefix: `Lime`
-- Fork-owned project folder: `_Lime`
-- Single-line marker: `Lime-Edit`
-- Block markers: `Lime edit start/end` and `Lime added start/end`
+- Product name: `Orbitra`
+- Code and prototype prefix: `Orbitra`
+- Fork-owned project folder: `_Orbitra`
+- Single-line marker: `Orbitra-Edit`
+- Block markers: `Orbitra edit start/end` and `Orbitra added start/end`
 - Explanatory inline comments and marker reasons: Russian
 - Identifiers, API names, localization keys, C# symbols, and canonical marker tokens: English/original spelling
 

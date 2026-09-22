@@ -16,9 +16,9 @@ public sealed partial class MenuButton : ContainerButton
     // public const string StyleClassRedTopButton = "topButtonLabel";
 
     // TODO: KIIIIIILLLLLLLLLLLLLLLLLLLLLLLLLLL --kaylie.
-    private static readonly Color ColorNormal = Content.Client._Lime.Stylesheets.LimePalettes.IconNormal; // primary color[0] + 0.24 L // Lime-Edit - общий серый стиль
-    private static readonly Color ColorHovered = Content.Client._Lime.Stylesheets.LimePalettes.IconHovered; // primary color[0] + 0.30 L // Lime-Edit - общий серый стиль
-    private static readonly Color ColorPressed = Content.Client._Lime.Stylesheets.LimePalettes.IconPressed; // primary color[0] + 0.12 L // Lime-Edit - общий серый стиль
+    private static readonly Color ColorNormal = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.IconNormal; // primary color[0] + 0.24 L // Orbitra-Edit - общий серый стиль
+    private static readonly Color ColorHovered = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.IconHovered; // primary color[0] + 0.30 L // Orbitra-Edit - общий серый стиль
+    private static readonly Color ColorPressed = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.IconPressed; // primary color[0] + 0.12 L // Orbitra-Edit - общий серый стиль
 
     private const float VertPad = 4f;
 

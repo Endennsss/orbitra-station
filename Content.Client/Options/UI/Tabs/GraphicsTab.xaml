@@ -1,8 +1,8 @@
-﻿<tabs:GraphicsTab xmlns="https://spacestation14.io"
+<tabs:GraphicsTab xmlns="https://spacestation14.io"
           xmlns:tabs="clr-namespace:Content.Client.Options.UI.Tabs"
           xmlns:ui="clr-namespace:Content.Client.Options.UI">
     <BoxContainer Orientation="Vertical">
-        <!-- Lime-Edit - измеряем содержимое по ширине вкладки, а не бесконечной горизонтальной области -->
+        <!-- Orbitra-Edit - измеряем содержимое по ширине вкладки, а не бесконечной горизонтальной области -->
         <ScrollContainer VerticalExpand="True" HScrollEnabled="False" ReserveScrollbarSpace="True">
             <BoxContainer Orientation="Vertical" Margin="8 8 8 8">
                 <!-- Display -->
@@ -12,7 +12,7 @@
                 <BoxContainer Name="MaxFpsContainer"
                               Orientation="Vertical"
                               ToolTip="{Loc 'ui-options-max-fps-tooltip'}">
-                    <!-- Lime-Edit - элементы ограничения FPS не вытесняют друг друга за край -->
+                    <!-- Orbitra-Edit - элементы ограничения FPS не вытесняют друг друга за край -->
                     <Label Text="{Loc 'ui-options-max-fps'}" ClipText="True" />
                     <ui:OptionIntInput Name="MaxFpsInput" HorizontalExpand="True" />
                     <Button Name="MaxFpsDisplayRateButton"
@@ -23,11 +23,13 @@
                 <!-- Quality -->
                 <Label Text="{Loc 'ui-options-quality-label'}" StyleClasses="LabelKeyText"/>
                 <ui:OptionDropDown Name="DropDownLightingQuality" Title="{Loc 'ui-options-lighting-label'}" />
-                <!-- Lime added start - параметры нового Bloom карты света -->
-                <CheckBox Name="LimeBloomEnabledCheckBox" Text="{Loc 'lime-options-bloom-enabled'}" />
-                <ui:OptionSlider Name="LimeBloomStrengthSlider" Title="{Loc 'lime-options-bloom-strength'}" />
-                <ui:OptionDropDown Name="LimeBloomQualityDropDown" Title="{Loc 'lime-options-bloom-quality'}" />
-                <!-- Lime added end -->
+                <!-- Orbitra added start - параметры нового Bloom карты света -->
+                <CheckBox Name="OrbitraBloomEnabledCheckBox" Text="{Loc 'orbitra-options-bloom-enabled'}" />
+                <ui:OptionSlider Name="OrbitraBloomStrengthSlider" Title="{Loc 'orbitra-options-bloom-strength'}" />
+                <ui:OptionDropDown Name="OrbitraBloomQualityDropDown" Title="{Loc 'orbitra-options-bloom-quality'}" />
+                <!-- Orbitra-Edit - плотность косметических частиц. -->
+                <ui:OptionDropDown Name="OrbitraParticleQualityDropDown" Title="{Loc 'orbitra-options-particles-quality'}" />
+                <!-- Orbitra added end -->
                 <CheckBox Name="ViewportLowResCheckBox" Text="{Loc 'ui-options-vp-low-res'}" />
                 <CheckBox Name="ParallaxLowQualityCheckBox" Text="{Loc 'ui-options-parallax-low-quality'}" />
                 <CheckBox Name="AmbientOcclusionCheckBox" Text="{Loc 'ui-options-ambient-occlusion'}" />

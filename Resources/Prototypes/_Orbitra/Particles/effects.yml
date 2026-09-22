@@ -1,0 +1,130 @@
+# Мягкий выдох использует обычное освещение и низкий приоритет дыма.
+- type: orbitraParticleEffect
+  id: OrbitraParticleBreath
+  color: "#D8DFDF70"
+  endColor: "#D8DFDF00"
+  smoke: true
+  size: 0.045
+  speed: 0.2
+  spawnRadius: 0.0125
+  drag: 0.7
+  lifetime: 0.8
+  count: 3
+
+- type: shader
+  id: OrbitraParticleLit
+  kind: source
+  path: /Textures/_Orbitra/Shaders/particle_lit.swsl
+
+- type: shader
+  id: OrbitraParticleGlow
+  kind: source
+  path: /Textures/_Orbitra/Shaders/particle_glow.swsl
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleWelding
+  shape: 1
+  color: "#FFFFCFFF"
+  endColor: "#EF570CFF"
+  emissive: true
+  size: 0.055
+  speed: 2.8
+  lifetime: 0.5
+  rate: 24
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleEmber
+  color: "#FFBF38FF"
+  endColor: "#A52A08FF"
+  emissive: true
+  size: 0.045
+  speed: 1.4
+  drag: 0.7
+  spawnRadius: 0.18
+  spread: 1.4
+  lifetime: 1.0
+  rate: 8
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleSmoke
+  color: "#77777760"
+  endColor: "#55555520"
+  smoke: true
+  size: 0.16
+  speed: 0.8
+  drag: 0.7
+  spawnRadius: 0.12
+  spread: 1.0
+  lifetime: 1.0
+  rate: 2
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleDust
+  color: "#B5AAAACC"
+  endColor: "#817A7A80"
+  size: 0.07
+  lifetime: 0.65
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleMetal
+  shape: 2
+  color: "#CBD0D6FF"
+  endColor: "#73798299"
+  size: 0.045
+  lifetime: 0.4
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleStone
+  color: "#B2A997DD"
+  endColor: "#7C786888"
+  size: 0.07
+  lifetime: 0.65
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleWood
+  shape: 2
+  color: "#C59159FF"
+  endColor: "#72523C99"
+  size: 0.06
+  lifetime: 0.5
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleGlass
+  shape: 2
+  color: "#ACDBDBDD"
+  endColor: "#76A2AB88"
+  size: 0.05
+  lifetime: 0.45
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleElectrical
+  shape: 1
+  color: "#E3F8FFFF"
+  endColor: "#649CDDFF"
+  emissive: true
+  size: 0.055
+  speed: 2.2
+  spread: 6.283
+  lifetime: 0.45
+  count: 16
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleCuttingSpark
+  shape: 1
+  color: "#FFDD82FF"
+  endColor: "#C9531699"
+  emissive: true
+  size: 0.06
+  speed: 2.0
+  lifetime: 0.35
+  rate: 3
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleBlood
+  color: "#B51B20FF"
+  endColor: "#4A080AFF"
+  size: 0.045
+  speed: 2.0
+  spread: 2.0
+  lifetime: 0.45
+  count: 8

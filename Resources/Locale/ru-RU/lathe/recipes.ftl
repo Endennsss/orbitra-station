@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 lathe-recipe-Medkit-name = аптечка первой помощи (пусто)
 

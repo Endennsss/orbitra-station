@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 barozine-effect-skin-burning = Вы чувствуете, как ваша кожа горит!
 

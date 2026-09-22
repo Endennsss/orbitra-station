@@ -107,7 +107,7 @@ namespace Content.Client.Kitchen.UI
             }
             else
             {
-                _menu.IngredientsPanel.PanelOverride = new StyleBoxFlat { BackgroundColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelInset }; // Lime-Edit
+                _menu.IngredientsPanel.PanelOverride = new StyleBoxFlat { BackgroundColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelInset }; // Orbitra-Edit
             }
         }
 

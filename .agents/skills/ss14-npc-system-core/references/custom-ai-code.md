@@ -26,7 +26,7 @@ add `UtilityQuery`/`UtilityConsideration`/`UtilityCurve`.
 4. We need heavy runtime logic that ticks separately:
 add/expand the system + runtime component, and use the operator as a “gateway”.
 5. Fork specifics are needed:
-add code to the fork segment (`Content.Server/_Lime/...`) and connect via YAML.
+add code to the fork segment (`Content.Server/_Orbitra/...`) and connect via YAML.
 
 ## Where to write code
 
@@ -39,7 +39,7 @@ add code to the fork segment (`Content.Server/_Lime/...`) and connect via YAML.
 4. NPC runtime systems:
 `Content.Server/NPC/Systems/**`
 5. Fork extensions (example):
-`Content.Server/_Lime/NPC/HTN/**`
+`Content.Server/_Orbitra/NPC/HTN/**`
 
 ## HTNOperator contract
 

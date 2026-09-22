@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 advertisement-chefdrobe-1 = Наша одежда гарантированно защитит вас от пятен от еды!
 

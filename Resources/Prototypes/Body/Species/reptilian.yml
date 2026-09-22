@@ -57,6 +57,13 @@
   categories: [ HideSpawnMenu ]
   name: reptilian appearance
   components:
+  # Orbitra added start - выдох у края морды
+  - type: OrbitraColdBreathVisuals
+    south: -0.015625, 0.234375
+    north: 0, 0.25
+    east: 0.15625, 0.234375
+    west: -0.1875, 0.234375
+  # Orbitra added end
   - type: Inventory
     speciesId: reptilian
     femaleDisplacements:

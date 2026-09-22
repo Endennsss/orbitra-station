@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 firelock-component-is-holding-pressure-message = Порыв воздуха дует вам в лицо... Возможно, вам стоит передумать.
 

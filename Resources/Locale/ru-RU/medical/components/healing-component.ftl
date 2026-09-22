@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 medical-item-finished-using = Вы закончили лечить при помощи { $item }.
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 traitor-round-end-codewords = Кодовыми словами были: [color=White]{ $codewords }[/color].
 

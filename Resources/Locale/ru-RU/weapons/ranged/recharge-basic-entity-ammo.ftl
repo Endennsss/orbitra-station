@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 recharge-basic-entity-ammo-can-recharge = Боезапас перезарядится через [color=yellow]{ $seconds } { $seconds ->
     [one] секунду

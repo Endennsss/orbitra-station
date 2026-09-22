@@ -1,0 +1,49 @@
+- type: entity
+  id: OrbitraAmbientDustZone
+  parent: MarkerBase
+  name: "Orbitra: dust zone"
+  components:
+  - type: Sprite
+    noRot: true
+    layers:
+    - texture: Interface/tilebuildoverlay.png
+      color: "#9CE0FFFF"
+      shader: unshaded
+  - type: OrbitraAmbientDustZone
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleAmbientDust
+  ambient: true
+  shape: 3
+  color: "#D6CFBD99"
+  endColor: "#D6CFBD99"
+  drag: 0
+  speed: 0.04
+  lifetime: 5
+  size: 0.012
+  rate: 0.3333
+  count: 1
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleImpactDust
+  smoke: true
+  color: "#AAA49A73"
+  endColor: "#AAA49A00"
+  size: 0.055
+  speed: 0.7
+  drag: 1.5
+  spread: 6.283185
+  lifetime: 0.8
+  count: 5
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleDestructionDust
+  smoke: true
+  color: "#AAA49A73"
+  endColor: "#AAA49A00"
+  size: 0.065
+  speed: 0.7
+  drag: 1.5
+  spread: 6.283185
+  lifetime: 0.8
+  count: 10

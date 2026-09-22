@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 construction-graph-component-any-computer-circuit-board = любая консольная плата
 

@@ -62,6 +62,7 @@ namespace Content.Client.Voting.UI
         {
             IoCManager.InjectDependencies(this);
             RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
             _votingSystem = _entityManager.System<VotingSystem>();
 
             Stylesheet = IoCManager.Resolve<IStylesheetManager>().SheetSystem;

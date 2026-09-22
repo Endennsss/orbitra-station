@@ -383,8 +383,8 @@ namespace Content.Client.Chemistry.UI
         private Control BuildReagentRow(Color reagentColor, int rowCount, string name, ReagentId reagent, FixedPoint2 quantity, bool isBuffer, bool addReagentButtons)
         {
             //Colors rows and sets fallback for reagentcolor to the same as background, this will hide colorPanel for entities hopefully
-            var rowColor1 = Content.Client._Lime.Stylesheets.LimePalettes.PanelInset; // Lime-Edit
-            var rowColor2 = Content.Client._Lime.Stylesheets.LimePalettes.PanelBackground; // Lime-Edit
+            var rowColor1 = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelInset; // Orbitra-Edit
+            var rowColor2 = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground; // Orbitra-Edit
             var currentRowColor = (rowCount % 2 == 1) ? rowColor1 : rowColor2;
             if ((reagentColor == default(Color))|(!addReagentButtons))
             {

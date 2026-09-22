@@ -1,13 +1,18 @@
-<DefaultWindow xmlns="https://spacestation14.io"
+<ui:FancyWindow xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls" xmlns="https://spacestation14.io"
             xmlns:tabs="clr-namespace:Content.Client.Options.UI.Tabs"
+            xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Lobby"
             Title="{Loc 'ui-options-title'}"
-            MinSize="800 450">
-    <TabContainer Name="Tabs" Access="Public">
+            SetSize="960 720" MinSize="320 200">
+    <!-- Orbitra-Edit - компактный выбор раздела настроек. -->
+    <BoxContainer Orientation="Vertical" SeparationOverride="12" Margin="12">
+    <OptionButton Name="OrbitraTabSelect" />
+    <orbitra:OrbitraEditorTabContainer Name="Tabs" Access="Public" VerticalExpand="True" TabsVisible="False">
         <tabs:MiscTab Name="MiscTab" />
         <tabs:GraphicsTab Name="GraphicsTab" />
         <tabs:KeyRebindTab Name="KeyRebindTab" />
         <tabs:AudioTab Name="AudioTab" />
         <tabs:AccessibilityTab Name="AccessibilityTab" />
         <tabs:AdminOptionsTab Name="AdminOptionsTab" />
-    </TabContainer>
-</DefaultWindow>
+    </orbitra:OrbitraEditorTabContainer>
+    </BoxContainer>
+</ui:FancyWindow>

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 metabolism-component-is-comfortable = Вы чувствуете себя комфортно
 

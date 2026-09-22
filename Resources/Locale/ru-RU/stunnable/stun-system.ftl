@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 stunned-component-disarm-success = Вы толкаете { $target } на пол!
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 command-description-xenoartifact-list =
     Выводит Uid список всех существующих ксеноартефактов.

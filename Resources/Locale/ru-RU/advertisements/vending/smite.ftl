@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 advertisement-smite-1 = СМАЙТ! Забань жажду!
 

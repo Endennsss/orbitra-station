@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 toilet-component-on-examine-found-hidden-item = Внутри бачка что-то есть!
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 action-speech-spell-forcewall = TARCOL MINTI ZHERI
 

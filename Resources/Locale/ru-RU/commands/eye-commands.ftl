@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 parse-bool-fail = Невозможно спарсить { $arg } как bool
 

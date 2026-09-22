@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 marking-GauzeLefteyePatch-gauze_lefteye_2 = Бинт, Перевязь глаза (Левый)
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 construction-presenter-to-craft = Чтобы создать этот предмет, вам необходимо:
 

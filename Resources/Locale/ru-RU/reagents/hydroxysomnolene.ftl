@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 hydroxysomnolene-effect-flavor = Вы испытываете потребность в шипучем розовом вкусе.
 

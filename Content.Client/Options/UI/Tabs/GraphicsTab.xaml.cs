@@ -82,9 +82,10 @@ public sealed partial class GraphicsTab : Control
         Control.AddOptionCheckBox(CCVars.ParallaxLowQuality, ParallaxLowQualityCheckBox);
         Control.AddOptionCheckBox(CCVars.HudFpsCounterVisible, FpsCounterCheckBox);
 
-        InitializeLimeBloomOptions(); // Lime-Edit - подключаем настройки нового Bloom.
+        InitializeOrbitraBloomOptions(); // Orbitra-Edit - подключаем настройки нового Bloom.
+        InitializeOrbitraParticleOptions(); // Orbitra-Edit - настройка косметических частиц.
         Control.Initialize();
-        UpdateLimeBloomVisibility(); // Lime-Edit
+        UpdateOrbitraBloomVisibility(); // Orbitra-Edit
 
         _cfg.OnValueChanged(CCVars.ViewportMinimumWidth, _ => UpdateViewportWidthRange());
         _cfg.OnValueChanged(CCVars.ViewportMaximumWidth, _ => UpdateViewportWidthRange());

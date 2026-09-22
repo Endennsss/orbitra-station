@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 verb-system-null-server-response = Сущность не в поле зрения. Вы не должны видеть этого.
 

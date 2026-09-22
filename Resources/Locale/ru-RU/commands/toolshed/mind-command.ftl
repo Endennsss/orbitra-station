@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 command-description-mind-get = Извлекает разум из сущности, если таковой имеется.
 

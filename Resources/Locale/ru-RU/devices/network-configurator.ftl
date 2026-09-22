@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 network-configurator-device-saved = Успешно сохранено сетевое устройство { $device } с адресом { $address }!
 

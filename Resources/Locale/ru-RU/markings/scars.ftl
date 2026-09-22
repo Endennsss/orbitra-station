@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 marking-ScarEyeRight-scar_eye_right = Шрам на глазу (Правый)
 

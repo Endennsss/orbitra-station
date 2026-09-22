@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 construction-step-condition-no-unstackable-in-tile = Вы не можете расположить несколько устройств стопкой.
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cable-multitool-system-internal-error-no-power-node = Ваш мультитул выдаёт сообщение: "ВНУТРЕННЯЯ ОШИБКА: НЕ КАБЕЛЬ ПИТАНИЯ".
 

@@ -252,11 +252,13 @@ public sealed class ImpactEffectEvent : EntityEventArgs
 {
     public string Prototype;
     public NetCoordinates Coordinates;
+    public bool OrbitraMaterialImpact; // Orbitra-Edit - штатный эффект остаётся запасным при отключённых частицах.
 
-    public ImpactEffectEvent(string prototype, NetCoordinates coordinates)
+    public ImpactEffectEvent(string prototype, NetCoordinates coordinates, bool orbitraMaterialImpact = false) // Orbitra-Edit
     {
         Prototype = prototype;
         Coordinates = coordinates;
+        OrbitraMaterialImpact = orbitraMaterialImpact; // Orbitra-Edit
     }
 }
 

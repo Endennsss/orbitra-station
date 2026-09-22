@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cargoproduct-description-emergencyinflatablewall = Три стопки надувных стен на случай, если металлические стены станции перестанут удерживать атмосферу.
 

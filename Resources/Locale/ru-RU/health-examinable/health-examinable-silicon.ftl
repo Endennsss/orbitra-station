@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 health-examinable-silicon-none = Видимые повреждения корпуса отсутствуют.
 

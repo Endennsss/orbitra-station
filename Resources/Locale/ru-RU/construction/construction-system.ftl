@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 construction-system-construct-cannot-start-another-construction = Сейчас вы не можете начать новое строительство!
 

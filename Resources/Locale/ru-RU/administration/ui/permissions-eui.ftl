@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 permissions-eui-do-not-have-required-flags-to-edit-admin-tooltip = У вас нет необходимых флагов для редактирования этого администратора.
 

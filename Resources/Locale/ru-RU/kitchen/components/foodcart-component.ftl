@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 foodcart-slot-component-slot-name-coldsauce = Холодящий соус
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 puddle-component-examine-is-slippery-text = Выглядит [color=#169C9C]скользко[/color].
 

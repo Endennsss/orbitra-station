@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cmd-hidemechanisms-desc = Отменяет эффекты команды { $showMechanismsCommand }
 

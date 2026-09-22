@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 loadout-group-species-restriction = Этот предмет недоступен для вашего текущего вида.
 

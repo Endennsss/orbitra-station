@@ -1,3 +1,3 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 frost-oil-effect-light-cold = Вы чувствуете лёгкое холодное покалывание в горле...

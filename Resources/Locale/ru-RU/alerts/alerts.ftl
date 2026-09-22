@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 alerts-low-oxygen-name = [color=red]Низкий уровень кислорода[/color]
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 advertisement-hydrobe-1 = Вы любите землю? Тогда покупайте нашу одежду!
 

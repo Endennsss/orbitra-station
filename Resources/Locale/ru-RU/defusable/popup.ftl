@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 defusable-popup-begun = { CAPITALIZE($name) } подаёт звуковой сигнал, индикатор горит!
 

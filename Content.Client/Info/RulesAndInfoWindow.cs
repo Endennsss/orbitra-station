@@ -7,7 +7,7 @@ using Robust.Shared.ContentPack;
 
 namespace Content.Client.Info
 {
-    public sealed partial class RulesAndInfoWindow : DefaultWindow
+    public sealed partial class RulesAndInfoWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
     {
         [Dependency] private IResourceManager _resourceManager = default!;
 

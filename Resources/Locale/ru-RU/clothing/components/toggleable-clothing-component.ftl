@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 toggle-clothing-verb-text = Переключить { CAPITALIZE($entity) }
 

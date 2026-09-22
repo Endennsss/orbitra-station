@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 defusable-examine-defused = { CAPITALIZE($name) } [color=lime]обезврежена[/color].
 

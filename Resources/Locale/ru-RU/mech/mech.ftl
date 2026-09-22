@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 mech-equipment-begin-install = { CAPITALIZE($item) } устанавливается...
 

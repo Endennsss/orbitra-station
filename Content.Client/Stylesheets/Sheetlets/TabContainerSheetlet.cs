@@ -1,4 +1,4 @@
-﻿using Content.Client.Stylesheets.SheetletConfigs;
+using Content.Client.Stylesheets.SheetletConfigs;
 using Content.Client.Stylesheets.Stylesheets;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
@@ -14,7 +14,7 @@ public sealed class TabContainerSheetlet<T> : Sheetlet<T> where T: PalettedStyle
     {
         ITabContainerConfig tabCfg = sheet;
 
-        var tabContainerPanel = new StyleBoxFlat(sheet.SecondaryPalette.Background) // Lime-Edit - вкладки без цветного фона PNG
+        var tabContainerPanel = new StyleBoxFlat(sheet.SecondaryPalette.Background) // Orbitra-Edit - вкладки без цветного фона PNG
         {
             BorderColor = sheet.PrimaryPalette.Background,
             BorderThickness = new Thickness(2),

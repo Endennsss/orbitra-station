@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 teleport-action-popup-cant-see = Вы не можете увидеть точку прибытия.
 

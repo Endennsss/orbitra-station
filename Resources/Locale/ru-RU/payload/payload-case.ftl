@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 payload-case-not-close-enough = Вам нужно подойти ближе, чтобы определить, содержит ли { $ent } заряд.
 

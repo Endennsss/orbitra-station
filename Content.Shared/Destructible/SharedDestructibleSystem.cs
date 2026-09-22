@@ -39,6 +39,10 @@ public abstract partial class SharedDestructibleSystem : EntitySystem
     /// </summary>
     public void BreakEntity(EntityUid owner)
     {
+        // Orbitra added start - косметика считывает питание до обработки поломки.
+        var particles = new Content.Shared._Orbitra.Particles.OrbitraParticleBeforeBreakEvent();
+        RaiseLocalEvent(owner, ref particles);
+        // Orbitra added end
         var eventArgs = new BreakageEventArgs();
         RaiseLocalEvent(owner, eventArgs);
     }

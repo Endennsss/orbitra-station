@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 comp-kitchen-spike-begin-hook-self = Вы начинаете насаживать себя на { $hook }!
 

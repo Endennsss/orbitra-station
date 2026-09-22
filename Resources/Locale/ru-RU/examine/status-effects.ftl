@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 status-effect-examine-adrenaline = [color=red]Каждая часть {POSS-ADJ($target)} тела выглядит напряженной.[/color]
 

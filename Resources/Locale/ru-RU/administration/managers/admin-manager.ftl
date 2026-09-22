@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 admin-manager-self-de-admin-message = { $exAdminName } снимает с себя права админа.
 

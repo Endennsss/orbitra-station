@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 ninja-katana-recalled = Ваша энергокатана телепортируется вам в руку!
 

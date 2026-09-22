@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 chat-manager-max-message-length = Ваше сообщение превышает лимит в { $maxMessageLength } символов
 

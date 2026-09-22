@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 construction-examine-condition-unlock = Сначала [color=limegreen]откройте[/color] это.
 

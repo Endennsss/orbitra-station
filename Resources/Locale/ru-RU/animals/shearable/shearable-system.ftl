@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 shearable-system-success = Вы состригаете немного { $product } у { THE($target) }.
 

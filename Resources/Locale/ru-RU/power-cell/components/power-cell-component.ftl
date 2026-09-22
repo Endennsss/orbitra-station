@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 power-cell-component-examine-details = Индикатор заряда показывает [color=#5E7C16]{ $currentCharge }[/color]%.
 

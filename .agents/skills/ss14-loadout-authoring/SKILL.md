@@ -1,6 +1,6 @@
 ---
 name: ss14-loadout-authoring
-description: Creation, copying, renaming, migration and review of SS14 loadout prototypes (`roleLoadout`, `loadoutGroup`, `loadout`) in the Lime Station `_Lime` folder: naming, isolation from vanilla, transfer of mandatory equipment from `startingGear`, `startingGear` synchronization and processing of hidden jobs/departments. Use when changing job prototypes and any loadout system files.
+description: Creation, copying, renaming, migration and review of SS14 loadout prototypes (`roleLoadout`, `loadoutGroup`, `loadout`) in the Orbitra `_Orbitra` folder: naming, isolation from vanilla, transfer of mandatory equipment from `startingGear`, `startingGear` synchronization and processing of hidden jobs/departments. Use when changing job prototypes and any loadout system files.
 ---
 
 # SS14 Loadout Authoring
@@ -73,7 +73,7 @@ Goal: keep role equipment in one predictable graph `job -> roleLoadout -> loadou
 
 1. File names are `snake_case`.
 2. The local path must mirror the original path inside the fork folder.
-3. Don't put copies in technical dumps like `Imports/_Lime` if you can put them in a normal mirror path.
+3. Don't put copies in technical dumps like `Imports/_Orbitra` if you can put them in a normal mirror path.
 4. If the file refers to a specific role or fork department, use the name of the role and fork department, not the vanilla name.
 
 ## Workflow

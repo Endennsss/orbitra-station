@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 handheld-light-component-on-examine-is-on-message = Сейчас свет [color=darkgreen]включён[/color].
 

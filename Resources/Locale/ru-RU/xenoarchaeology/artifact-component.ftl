@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 artifact-verb-make-always-active = Сделать артефакт постоянно активным
 

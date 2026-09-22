@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 comp-gas-tank-examine = Давление: [color=orange]{ PRESSURE($pressure) }[/color].
 

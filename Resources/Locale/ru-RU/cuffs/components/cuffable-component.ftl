@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cuffable-component-cannot-interact-message = Вы не можете этого сделать!
 

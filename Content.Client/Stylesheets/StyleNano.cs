@@ -91,31 +91,31 @@ namespace Content.Client.Stylesheets
         public const string StyleClassPopupMessageLarge = "PopupMessageLarge";
         public const string StyleClassPopupMessageLargeCaution = "PopupMessageLargeCaution";
 
-        public static readonly Color PanelDark = Content.Client._Lime.Stylesheets.LimePalettes.PanelInset; // Lime-Edit - общий серый стиль
+        public static readonly Color PanelDark = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelInset; // Orbitra-Edit - общий серый стиль
 
-        public static readonly Color NanoGold = Content.Client._Lime.Stylesheets.LimePalettes.IconNormal; // Lime-Edit - общий серый стиль
+        public static readonly Color NanoGold = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.IconNormal; // Orbitra-Edit - общий серый стиль
         public static readonly Color GoodGreenFore = Color.FromHex("#31843E");
         public static readonly Color ConcerningOrangeFore = Color.FromHex("#A5762F");
         public static readonly Color DangerousRedFore = Color.FromHex("#BB3232");
         public static readonly Color DisabledFore = Color.FromHex("#5A5A5A");
 
-        public static readonly Color ButtonColorDefault = Content.Client._Lime.Stylesheets.LimePalettes.Primary.Element; // Lime-Edit - общий серый стиль
+        public static readonly Color ButtonColorDefault = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.Element; // Orbitra-Edit - общий серый стиль
         public static readonly Color ButtonColorDefaultRed = Color.FromHex("#D43B3B");
-        public static readonly Color ButtonColorHovered = Content.Client._Lime.Stylesheets.LimePalettes.Primary.HoveredElement; // Lime-Edit - общий серый стиль
+        public static readonly Color ButtonColorHovered = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.HoveredElement; // Orbitra-Edit - общий серый стиль
         public static readonly Color ButtonColorHoveredRed = Color.FromHex("#DF6B6B");
-        public static readonly Color ButtonColorPressed = Content.Client._Lime.Stylesheets.LimePalettes.Primary.PressedElement; // Lime-Edit - общий серый стиль
-        public static readonly Color ButtonColorDisabled = Content.Client._Lime.Stylesheets.LimePalettes.Primary.DisabledElement; // Lime-Edit - общий серый стиль
+        public static readonly Color ButtonColorPressed = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.PressedElement; // Orbitra-Edit - общий серый стиль
+        public static readonly Color ButtonColorDisabled = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.DisabledElement; // Orbitra-Edit - общий серый стиль
 
         public static readonly Color ButtonColorCautionDefault = Color.FromHex("#ab3232");
         public static readonly Color ButtonColorCautionHovered = Color.FromHex("#cf2f2f");
-        public static readonly Color ButtonColorCautionPressed = Content.Client.Stylesheets.Palette.Palettes.Red.PressedElement; // Lime-Edit - общий серый стиль
+        public static readonly Color ButtonColorCautionPressed = Content.Client.Stylesheets.Palette.Palettes.Red.PressedElement; // Orbitra-Edit - общий серый стиль
         public static readonly Color ButtonColorCautionDisabled = Color.FromHex("#602a2a");
 
-        // Lime edit start - нейтральные кнопки подтверждения; цвет статусов сохраняется
-        public static readonly Color ButtonColorGoodDefault = Content.Client._Lime.Stylesheets.LimePalettes.Primary.Element;
-        public static readonly Color ButtonColorGoodHovered = Content.Client._Lime.Stylesheets.LimePalettes.Primary.HoveredElement;
-        public static readonly Color ButtonColorGoodDisabled = Content.Client._Lime.Stylesheets.LimePalettes.Primary.DisabledElement;
-        // Lime edit end
+        // Orbitra edit start - нейтральные кнопки подтверждения; цвет статусов сохраняется
+        public static readonly Color ButtonColorGoodDefault = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.Element;
+        public static readonly Color ButtonColorGoodHovered = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.HoveredElement;
+        public static readonly Color ButtonColorGoodDisabled = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.DisabledElement;
+        // Orbitra edit end
 
         //NavMap
         public static readonly Color PointRed = Color.FromHex("#B02E26");
@@ -124,20 +124,20 @@ namespace Content.Client.Stylesheets
 
         // Context menu button colors
         public static readonly Color ButtonColorContext = Color.FromHex("#1119");
-        public static readonly Color ButtonColorContextHover = Content.Client._Lime.Stylesheets.LimePalettes.PanelHighlight; // Lime-Edit
-        public static readonly Color ButtonColorContextPressed = Content.Client._Lime.Stylesheets.LimePalettes.Primary.PressedElement; // Lime-Edit
+        public static readonly Color ButtonColorContextHover = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelHighlight; // Orbitra-Edit
+        public static readonly Color ButtonColorContextPressed = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.PressedElement; // Orbitra-Edit
         public static readonly Color ButtonColorContextDisabled = Color.Black;
 
         // Examine button colors
         public static readonly Color ExamineButtonColorContext = Color.Transparent;
-        public static readonly Color ExamineButtonColorContextHover = Content.Client._Lime.Stylesheets.LimePalettes.PanelHighlight; // Lime-Edit
-        public static readonly Color ExamineButtonColorContextPressed = Content.Client._Lime.Stylesheets.LimePalettes.Primary.PressedElement; // Lime-Edit
+        public static readonly Color ExamineButtonColorContextHover = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelHighlight; // Orbitra-Edit
+        public static readonly Color ExamineButtonColorContextPressed = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.PressedElement; // Orbitra-Edit
         public static readonly Color ExamineButtonColorContextDisabled = Color.FromHex("#5A5A5A");
 
         // Fancy Tree elements
-        public static readonly Color FancyTreeEvenRowColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelBackground; // Lime-Edit - общий серый стиль
+        public static readonly Color FancyTreeEvenRowColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground; // Orbitra-Edit - общий серый стиль
         public static readonly Color FancyTreeOddRowColor = FancyTreeEvenRowColor * new Color(0.8f, 0.8f, 0.8f);
-        public static readonly Color FancyTreeSelectedRowColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelHighlight; // Lime-Edit - общий серый стиль
+        public static readonly Color FancyTreeSelectedRowColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelHighlight; // Orbitra-Edit - общий серый стиль
 
         //Used by the APC and SMES menus
         public const string StyleClassPowerStateNone = "PowerStateNone";
@@ -156,7 +156,7 @@ namespace Content.Client.Stylesheets
         public const string StyleClassButtonColorRed = "ButtonColorRed";
         public const string StyleClassButtonColorGreen = "ButtonColorGreen";
 
-        public static readonly Color ChatBackgroundColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelBackground.WithAlpha(221f / 255f); // Lime-Edit - общий серый стиль
+        public static readonly Color ChatBackgroundColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground.WithAlpha(221f / 255f); // Orbitra-Edit - общий серый стиль
 
         // i'm not sure what the missing symbols were referencing, and this is getting obseleted anyway so:
         public const string ButtonOpenRight = "OpenRight";
@@ -417,7 +417,7 @@ namespace Content.Client.Stylesheets
 
             var progressBarForeground = new StyleBoxFlat
             {
-                BackgroundColor = Content.Client._Lime.Stylesheets.LimePalettes.IconNormal // Lime-Edit - нейтральная шкала
+                BackgroundColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.IconNormal // Orbitra-Edit - нейтральная шкала
             };
             progressBarForeground.SetContentMarginOverride(StyleBox.Margin.Vertical, 14.5f);
 
@@ -450,13 +450,13 @@ namespace Content.Client.Stylesheets
             placeholder.SetExpandMargin(StyleBox.Margin.All, -5);
             placeholder.Mode = StyleBoxTexture.StretchMode.Tile;
 
-            var itemListBackgroundSelected = new StyleBoxFlat { BackgroundColor = Content.Client._Lime.Stylesheets.LimePalettes.Primary.HoveredElement }; // Lime-Edit - общий серый стиль
+            var itemListBackgroundSelected = new StyleBoxFlat { BackgroundColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.HoveredElement }; // Orbitra-Edit - общий серый стиль
             itemListBackgroundSelected.SetContentMarginOverride(StyleBox.Margin.Vertical, 2);
             itemListBackgroundSelected.SetContentMarginOverride(StyleBox.Margin.Horizontal, 4);
             var itemListItemBackgroundDisabled = new StyleBoxFlat { BackgroundColor = new Color(10, 10, 12) };
             itemListItemBackgroundDisabled.SetContentMarginOverride(StyleBox.Margin.Vertical, 2);
             itemListItemBackgroundDisabled.SetContentMarginOverride(StyleBox.Margin.Horizontal, 4);
-            var itemListItemBackground = new StyleBoxFlat { BackgroundColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelHighlight }; // Lime-Edit - общий серый стиль
+            var itemListItemBackground = new StyleBoxFlat { BackgroundColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelHighlight }; // Orbitra-Edit - общий серый стиль
             itemListItemBackground.SetContentMarginOverride(StyleBox.Margin.Vertical, 2);
             itemListItemBackground.SetContentMarginOverride(StyleBox.Margin.Horizontal, 4);
             var itemListItemBackgroundTransparent = new StyleBoxFlat { BackgroundColor = Color.Transparent };
@@ -498,7 +498,7 @@ namespace Content.Client.Stylesheets
             var sliderFillBox = new StyleBoxTexture
             {
                 Texture = sliderFillTex,
-                Modulate = Content.Client._Lime.Stylesheets.LimePalettes.Primary.PressedElement // Lime-Edit - общий серый стиль
+                Modulate = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.PressedElement // Orbitra-Edit - общий серый стиль
             };
 
             var sliderBackBox = new StyleBoxTexture
@@ -812,15 +812,15 @@ namespace Content.Client.Stylesheets
 
                 Element<ContainerButton>().Class(ListContainer.StyleClassListContainerButton)
                     .Pseudo(ContainerButton.StylePseudoClassNormal)
-                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Lime.Stylesheets.LimePalettes.PanelHighlight), // Lime-Edit - общий серый стиль
+                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelHighlight), // Orbitra-Edit - общий серый стиль
 
                 Element<ContainerButton>().Class(ListContainer.StyleClassListContainerButton)
                     .Pseudo(ContainerButton.StylePseudoClassHover)
-                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Lime.Stylesheets.LimePalettes.Primary.HoveredElement), // Lime-Edit - общий серый стиль
+                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.HoveredElement), // Orbitra-Edit - общий серый стиль
 
                 Element<ContainerButton>().Class(ListContainer.StyleClassListContainerButton)
                     .Pseudo(ContainerButton.StylePseudoClassPressed)
-                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Lime.Stylesheets.LimePalettes.Primary.HoveredElement), // Lime-Edit - общий серый стиль
+                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.HoveredElement), // Orbitra-Edit - общий серый стиль
 
                 Element<ContainerButton>().Class(ListContainer.StyleClassListContainerButton)
                     .Pseudo(ContainerButton.StylePseudoClassDisabled)
@@ -1025,7 +1025,7 @@ namespace Content.Client.Stylesheets
                 new StyleRule(new SelectorElement(typeof(ItemList), null, null, null), new[]
                 {
                     new StyleProperty(ItemList.StylePropertyBackground,
-                        new StyleBoxFlat {BackgroundColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelInset}), // Lime-Edit - общий серый стиль
+                        new StyleBoxFlat {BackgroundColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelInset}), // Orbitra-Edit - общий серый стиль
                     new StyleProperty(ItemList.StylePropertyItemBackground,
                         itemListItemBackground),
                     new StyleProperty(ItemList.StylePropertyDisabledItemBackground,
@@ -1062,10 +1062,10 @@ namespace Content.Client.Stylesheets
                 new StyleRule(new SelectorElement(typeof(Tree), null, null, null), new[]
                 {
                     new StyleProperty(Tree.StylePropertyBackground,
-                        new StyleBoxFlat {BackgroundColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelInset}), // Lime-Edit - общий серый стиль
+                        new StyleBoxFlat {BackgroundColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelInset}), // Orbitra-Edit - общий серый стиль
                     new StyleProperty(Tree.StylePropertyItemBoxSelected, new StyleBoxFlat
                     {
-                        BackgroundColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelHighlight, // Lime-Edit - общий серый стиль
+                        BackgroundColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelHighlight, // Orbitra-Edit - общий серый стиль
                         ContentMarginLeftOverride = 4
                     })
                 }),
@@ -1334,7 +1334,7 @@ namespace Content.Client.Stylesheets
                 }),
 
                 Element<PanelContainer>().Class(OptionButton.StyleClassOptionsBackground)
-                    .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat(Content.Client._Lime.Stylesheets.LimePalettes.PanelBackground)), // Lime-Edit - общий серый стиль
+                    .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat(Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground)), // Orbitra-Edit - общий серый стиль
 
                 new StyleRule(new SelectorElement(typeof(PanelContainer), new []{ ClassHighDivider}, null, null), new []
                 {
@@ -1351,15 +1351,15 @@ namespace Content.Client.Stylesheets
                 // Different Background shapes ---
                 Element<PanelContainer>().Class(ClassAngleRect)
                     .Prop(PanelContainer.StylePropertyPanel, BaseAngleRect)
-                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Lime.Stylesheets.LimePalettes.PanelBackground), // Lime-Edit - общий серый стиль
+                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground), // Orbitra-Edit - общий серый стиль
 
                 Element<PanelContainer>().Class("BackgroundOpenRight")
                     .Prop(PanelContainer.StylePropertyPanel, BaseButtonOpenRight)
-                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Lime.Stylesheets.LimePalettes.PanelBackground), // Lime-Edit - общий серый стиль
+                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground), // Orbitra-Edit - общий серый стиль
 
                 Element<PanelContainer>().Class("BackgroundOpenLeft")
                     .Prop(PanelContainer.StylePropertyPanel, BaseButtonOpenLeft)
-                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Lime.Stylesheets.LimePalettes.PanelBackground), // Lime-Edit - общий серый стиль
+                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground), // Orbitra-Edit - общий серый стиль
                 // ---
 
                 // Dividers
@@ -1378,7 +1378,7 @@ namespace Content.Client.Stylesheets
 
                 Element<PanelContainer>().Class("WindowHeadingBackground")
                     .Prop("panel", new StyleBoxTexture(BaseButtonOpenLeft) { Padding = default })
-                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Lime.Stylesheets.LimePalettes.PanelInset), // Lime-Edit - нейтральный старый стиль
+                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelInset), // Orbitra-Edit - нейтральный старый стиль
 
                 Element<PanelContainer>().Class("WindowHeadingBackgroundLight")
                     .Prop("panel", new StyleBoxTexture(BaseButtonOpenLeft) { Padding = default }),
@@ -1386,7 +1386,7 @@ namespace Content.Client.Stylesheets
                 // Window Header Help Button
                 Element<TextureButton>().Class(FancyWindow.StyleClassWindowHelpButton)
                     .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Nano/help.png"))
-                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Lime.Stylesheets.LimePalettes.IconNormal), // Lime-Edit - нейтральный старый стиль
+                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.IconNormal), // Orbitra-Edit - нейтральный старый стиль
 
                 Element<TextureButton>().Class(FancyWindow.StyleClassWindowHelpButton).Pseudo(ContainerButton.StylePseudoClassHover)
                     .Prop(Control.StylePropertyModulateSelf, Color.FromHex("#7F3636")),
@@ -1397,11 +1397,11 @@ namespace Content.Client.Stylesheets
                 //The lengths you have to go through to change a background color smh
                 Element<PanelContainer>().Class("PanelBackgroundBaseDark")
                     .Prop("panel", new StyleBoxTexture(BaseButtonOpenBoth) { Padding = default })
-                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Lime.Stylesheets.LimePalettes.PanelInset), // Lime-Edit - нейтральный старый стиль
+                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelInset), // Orbitra-Edit - нейтральный старый стиль
 
                 Element<PanelContainer>().Class("PanelBackgroundLight")
                     .Prop("panel", new StyleBoxTexture(BaseButtonOpenBoth) { Padding = default })
-                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Lime.Stylesheets.LimePalettes.PanelHighlight), // Lime-Edit - нейтральный старый стиль
+                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelHighlight), // Orbitra-Edit - нейтральный старый стиль
 
                 // Window Footer
                 Element<TextureRect>().Class("NTLogoDark")
@@ -1529,7 +1529,7 @@ namespace Content.Client.Stylesheets
                 //PDA - Backgrounds
                 Element<PanelContainer>().Class("PdaContentBackground")
                     .Prop(PanelContainer.StylePropertyPanel, BaseButtonOpenBoth)
-                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Lime.Stylesheets.LimePalettes.PanelBackground), // Lime-Edit - общий серый стиль
+                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground), // Orbitra-Edit - общий серый стиль
 
                 Element<PanelContainer>().Class("PdaBackground")
                     .Prop(PanelContainer.StylePropertyPanel, BaseButtonOpenBoth)
@@ -1537,13 +1537,13 @@ namespace Content.Client.Stylesheets
 
                 Element<PanelContainer>().Class("PdaBackgroundRect")
                     .Prop(PanelContainer.StylePropertyPanel, BaseAngleRect)
-                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Lime.Stylesheets.LimePalettes.Primary.Element), // Lime-Edit - нейтральный старый стиль
+                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.Element), // Orbitra-Edit - нейтральный старый стиль
 
                 Element<PanelContainer>().Class("PdaBorderRect")
                     .Prop(PanelContainer.StylePropertyPanel, AngleBorderRect),
 
                 Element<PanelContainer>().Class("BackgroundDark")
-                    .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat(Content.Client._Lime.Stylesheets.LimePalettes.PanelBackground)), // Lime-Edit - общий серый стиль
+                    .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat(Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground)), // Orbitra-Edit - общий серый стиль
 
                 //PDA - Buttons
                 Element<PdaSettingsButton>().Pseudo(ContainerButton.StylePseudoClassNormal)
@@ -1613,14 +1613,14 @@ namespace Content.Client.Stylesheets
                 Element<PanelContainer>().Class("InsetBackground")
                     .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat
                     {
-                        BackgroundColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelInset, // Lime-Edit - общий серый стиль
+                        BackgroundColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelInset, // Orbitra-Edit - общий серый стиль
                     }),
 
                 // Default fancy window border styles
                 Element<PanelContainer>().Class("DefaultBorderBottom")
                     .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat
                     {
-                        BorderColor= Content.Client._Lime.Stylesheets.LimePalettes.PanelBorder, // Lime-Edit - общий серый стиль
+                        BorderColor= Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBorder, // Orbitra-Edit - общий серый стиль
                         BorderThickness= new Thickness(0, 0, 0, 1),
                     }),
 
@@ -1628,7 +1628,7 @@ namespace Content.Client.Stylesheets
                 Element<PanelContainer>().Class("DefaultBorderTop")
                     .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat
                     {
-                        BorderColor= Content.Client._Lime.Stylesheets.LimePalettes.PanelBorder, // Lime-Edit - общий серый стиль
+                        BorderColor= Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBorder, // Orbitra-Edit - общий серый стиль
                         BorderThickness= new Thickness(0, 1, 0, 0),
                     }),
 

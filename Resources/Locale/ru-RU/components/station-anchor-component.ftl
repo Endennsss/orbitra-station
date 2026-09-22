@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 station-anchor-unanchoring-failed = Невозможно открепить активный станционный якорь.
 

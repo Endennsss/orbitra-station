@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cmd-addbodypart-desc = Добавляет указанную сущность в тело.
 

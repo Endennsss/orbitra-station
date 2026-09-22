@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 department-Cargo-description = Получайте и доставляйте полезные припасы для всей станции.
 

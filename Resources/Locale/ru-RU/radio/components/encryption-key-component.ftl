@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 encryption-key-successfully-installed = Вы вставляете ключ внутрь.
 

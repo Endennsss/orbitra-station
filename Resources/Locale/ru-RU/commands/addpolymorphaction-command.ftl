@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cmd-addpolymorphaction-desc = Принимает сущность и выдаёт ей выбранный полиморф.
 

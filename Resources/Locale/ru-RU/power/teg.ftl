@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 teg-generator-examine-power = Он поставляет [color=yellow]{ POWERWATTS($power) }[/color].
 

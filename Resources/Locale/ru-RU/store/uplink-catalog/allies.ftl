@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 uplink-holopara-kit-name = Набор "Голопаразит"
 

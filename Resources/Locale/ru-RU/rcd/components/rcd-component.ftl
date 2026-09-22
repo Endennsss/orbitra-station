@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 rcd-component-examine-mode-details = Выбран режим: '{ $mode }'.
 

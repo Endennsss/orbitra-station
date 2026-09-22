@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cmd-toggledisallowlatejoin-desc = Разрешает или запрещает позднее подключение в середине игры.
 

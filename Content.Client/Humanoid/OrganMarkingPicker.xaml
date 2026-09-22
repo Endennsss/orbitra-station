@@ -1,3 +1,4 @@
-<Control xmlns="https://spacestation14.io">
-    <TabContainer Name="LayerTabs" />
+<Control xmlns="https://spacestation14.io" xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Lobby">
+    <!-- Orbitra-Edit - скрытые вкладки не оставляют пустой заголовок. -->
+    <orbitra:OrbitraEditorTabContainer Name="LayerTabs" />
 </Control>

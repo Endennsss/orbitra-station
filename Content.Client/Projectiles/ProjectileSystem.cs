@@ -19,6 +19,8 @@ public sealed partial class ProjectileSystem : SharedProjectileSystem
 
     private void OnProjectileImpact(ImpactEffectEvent ev)
     {
+        if (SkipOrbitraMaterialImpact(ev)) // Orbitra-Edit - не дублируем материальные частицы штатной вспышкой.
+            return;
         var coords = GetCoordinates(ev.Coordinates);
 
         if (Deleted(coords.EntityId))

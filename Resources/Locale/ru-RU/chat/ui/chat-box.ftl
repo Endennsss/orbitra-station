@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 hud-chatbox-info = { $talk-key } чтобы говорить, { $cycle-key } для переключения каналов.
 

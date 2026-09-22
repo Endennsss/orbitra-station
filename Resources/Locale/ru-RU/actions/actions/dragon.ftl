@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 devour-action-popup-message-structure = Ваши челюсти впиваются в твёрдый материал...
 

@@ -126,13 +126,13 @@ namespace Content.Client.UserInterface.Controls
             MinSize = new Vector2(DefaultButtonSize, DefaultButtonSize);
             AddChild(ButtonRect = new TextureRect
             {
-                StyleClasses = { Content.Client._Lime.Stylesheets.LimeHudSheetlet.BackgroundStyleClass }, // Lime-Edit - серый фон, цвет предмета не меняем
+                StyleClasses = { Content.Client._Orbitra.Stylesheets.OrbitraHudSheetlet.BackgroundStyleClass }, // Orbitra-Edit - серый фон, цвет предмета не меняем
                 TextureScale = new Vector2(2, 2),
                 MouseFilter = MouseFilterMode.Stop
             });
             AddChild(HighlightRect = new TextureRect
             {
-                StyleClasses = { Content.Client._Lime.Stylesheets.LimeHudSheetlet.BackgroundStyleClass }, // Lime-Edit - нейтральное выделение ячейки
+                StyleClasses = { Content.Client._Orbitra.Stylesheets.OrbitraHudSheetlet.BackgroundStyleClass }, // Orbitra-Edit - нейтральное выделение ячейки
                 Visible = false,
                 TextureScale = new Vector2(2, 2),
                 MouseFilter = MouseFilterMode.Ignore
@@ -162,7 +162,7 @@ namespace Content.Client.UserInterface.Controls
                 OverrideDirection = Direction.South
             });
 
-            AddChild(StorageButton = new Content.Client._Lime.Stylesheets.LimeGrayTextureButton // Lime-Edit - нейтральная кнопка хранилища
+            AddChild(StorageButton = new Content.Client._Orbitra.Stylesheets.OrbitraGrayTextureButton // Orbitra-Edit - нейтральная кнопка хранилища
             {
                 Scale = new Vector2(0.75f, 0.75f),
                 HorizontalAlignment = HAlignment.Right,

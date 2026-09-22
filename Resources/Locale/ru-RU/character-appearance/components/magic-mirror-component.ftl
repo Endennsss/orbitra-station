@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 magic-mirror-component-activate-user-has-no-hair = У вас не может быть волос!
 

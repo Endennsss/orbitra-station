@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 drain-component-empty-verb-using-is-empty-message = В { $object } пусто!
 

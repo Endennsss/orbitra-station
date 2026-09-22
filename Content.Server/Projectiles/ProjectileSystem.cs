@@ -59,8 +59,11 @@ public sealed partial class ProjectileSystem : SharedProjectileSystem
             damageRequired = FixedPoint2.Max(damageRequired, FixedPoint2.Zero);
         }
 
+        var orbitraImpact = _orbitraParticles.CaptureBulletImpact(target, uid, component.ImpactEffect == "BulletImpactEffect", args.PointCount > 0 ? args.WorldPoints[0] : null); // Orbitra-Edit - сохраняем контакт до разрушения.
+        var orbitraMaterialImpact = false; // Orbitra-Edit
         if (_damageableSystem.TryChangeDamage((target, damageableComponent), ev.Damage, out var damage, component.IgnoreResistances, origin: component.Shooter))
         {
+            orbitraMaterialImpact = _orbitraParticles.TryBulletImpact(orbitraImpact, damage) && orbitraImpact?.Effect != "OrbitraParticleBlood"; // Orbitra-Edit - косметика только после подтверждённого урона.
             if (!Deleted(target))
             {
                 _color.RaiseEffect(Color.Red, new List<EntityUid> { target }, Filter.Pvs(target, entityManager: EntityManager));
@@ -95,7 +98,7 @@ public sealed partial class ProjectileSystem : SharedProjectileSystem
 
         if (component.ImpactEffect != null && TryComp(uid, out TransformComponent? xform))
         {
-            RaiseNetworkEvent(new ImpactEffectEvent(component.ImpactEffect, GetNetCoordinates(xform.Coordinates)), Filter.Pvs(xform.Coordinates, entityMan: EntityManager));
+            RaiseNetworkEvent(new ImpactEffectEvent(component.ImpactEffect, GetNetCoordinates(xform.Coordinates), orbitraMaterialImpact), Filter.Pvs(xform.Coordinates, entityMan: EntityManager)); // Orbitra-Edit
         }
     }
 

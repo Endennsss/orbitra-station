@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 chameleon-projector-inside-container = Нет места чтобы просканировать это!
 

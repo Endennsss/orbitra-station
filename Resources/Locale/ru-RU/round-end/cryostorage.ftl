@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cryostorage-insert-message-permanent = [color=white]Вы внутри [bold][color=cyan]капсулы криогенного сна[/color][/bold]. Если вы [bold]отключитесь[/bold], [bold]уйдёте в призраки[/bold], или [bold]прождёте { $time } минут[/bold], [color=red]ваше тело будет удалено[/color] и слот вашей должности будет открыт. Чтобы этого не произошло, вы можете в любой момент покинуть капсулу.[/color]
 

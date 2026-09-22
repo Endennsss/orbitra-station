@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 construction-examine-condition-wire-panel-open = Сначала откройте техническую панель.
 

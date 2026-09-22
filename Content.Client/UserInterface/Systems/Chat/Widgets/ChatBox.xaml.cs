@@ -32,8 +32,8 @@ public partial class ChatBox : UIWidget
     public ChatBox()
     {
         RobustXamlLoader.Load(this);
-        Contents.AddStyleClass(Content.Client._Lime.Stylesheets.LimeChatSheetlet.ChatText); // Lime-Edit - единый читаемый шрифт чата.
-        ChatInput.Input.AddStyleClass(Content.Client._Lime.Stylesheets.LimeChatSheetlet.ChatText); // Lime-Edit - шрифт ввода соответствует сообщениям.
+        Contents.AddStyleClass(Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.ChatText); // Orbitra-Edit - единый читаемый шрифт чата.
+        ChatInput.Input.AddStyleClass(Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.ChatText); // Orbitra-Edit - шрифт ввода соответствует сообщениям.
         _sawmill = _log.GetSawmill("chat");
 
         ChatInput.Input.OnTextEntered += OnTextEntered;
@@ -117,7 +117,7 @@ public partial class ChatBox : UIWidget
     {
         var formatted = new FormattedMessage(3);
         formatted.PushColor(color);
-        formatted.AddMarkupOrThrow(Content.Client._Lime.Stylesheets.LimeChatSheetlet.FormatChatMarkup(message)); // Lime-Edit - курсив эмоций использует шрифт чата.
+        formatted.AddMarkupOrThrow(Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.FormatChatMarkup(message)); // Orbitra-Edit - курсив эмоций использует шрифт чата.
         formatted.Pop();
         Contents.AddMessage(formatted, tagsAllowed: null);
     }

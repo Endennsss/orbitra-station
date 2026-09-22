@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 examine-system-entity-does-not-exist = Этой сущности не существует
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 timer-trigger-verb-set = { $time } { $time ->
     [one] секунда

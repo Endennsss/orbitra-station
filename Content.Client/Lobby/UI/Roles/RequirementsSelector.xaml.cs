@@ -41,7 +41,7 @@ public sealed partial class RequirementsSelector : BoxContainer
 
         _options.OnItemSelected += args =>
         {
-            _options.Select(args.Id);
+            Select(args.Id); // Orbitra-Edit: синхронизируем компактное представление.
             OnSelected?.Invoke(args.Id);
         };
 
@@ -83,6 +83,7 @@ public sealed partial class RequirementsSelector : BoxContainer
         TextureRect? icon = null,
         List<ProtoId<GuideEntryPrototype>>? guides = null)
     {
+        _orbitraItems = items; // Orbitra-Edit: те же ID в компактном списке.
         foreach (var (text, value) in items)
         {
             _options.AddItem(Loc.GetString(text), value);
@@ -107,6 +108,7 @@ public sealed partial class RequirementsSelector : BoxContainer
 
     public void LockRequirements(FormattedMessage requirements)
     {
+        SetOrbitraRequirements(requirements); // Orbitra-Edit
         var tooltip = new Tooltip();
         tooltip.SetMessage(requirements);
         _lockStripe.TooltipSupplier = _ => tooltip;
@@ -116,6 +118,7 @@ public sealed partial class RequirementsSelector : BoxContainer
 
     public void UnlockRequirements()
     {
+        SetOrbitraRequirements(null); // Orbitra-Edit
         _lockStripe.Visible = false;
         _options.Visible = true;
     }
@@ -133,5 +136,6 @@ public sealed partial class RequirementsSelector : BoxContainer
     public void Select(int id)
     {
         _options.Select(id);
+        _orbitraCompact?.SelectId(id); // Orbitra-Edit
     }
 }

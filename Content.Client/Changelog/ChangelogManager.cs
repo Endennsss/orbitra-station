@@ -19,7 +19,7 @@ namespace Content.Client.Changelog
         [Dependency] private IConfigurationManager _configManager = default!;
 
         private const string SawmillName = "changelog";
-        public const string MainChangelogName = "LimeUpdates"; // Lime-Edit - уведомления о собственных обновлениях станции
+        public const string MainChangelogName = "OrbitraUpdates"; // Orbitra-Edit - уведомления о собственных обновлениях станции
 
         private ISawmill _sawmill = default!;
 
@@ -42,7 +42,7 @@ namespace Content.Client.Changelog
             NewChangelogEntries = false;
             NewChangelogEntriesChanged?.Invoke();
 
-            using var sw = _resource.UserData.OpenWriteText(new ($"/lime_changelog_last_seen_{_configManager.GetCVar(CCVars.ServerId)}")); // Lime-Edit - независимый счётчик от апстрима
+            using var sw = _resource.UserData.OpenWriteText(new ($"/lime_changelog_last_seen_{_configManager.GetCVar(CCVars.ServerId)}")); // Orbitra-Edit - независимый счётчик от апстрима
 
             sw.Write(MaxId.ToString());
         }
@@ -69,7 +69,7 @@ namespace Content.Client.Changelog
                 return;
             }
 
-            var changelog = mainChangelogs[0]; // Lime-Edit - порядок вкладок не определяет главный журнал
+            var changelog = mainChangelogs[0]; // Orbitra-Edit - порядок вкладок не определяет главный журнал
             if (mainChangelogs.Length > 1)
             {
                 _sawmill.Error($"More than one file found in Resource/Changelog with name {MainChangelogName}");
@@ -87,8 +87,8 @@ namespace Content.Client.Changelog
 
         private void CheckLastSeenEntry()
         {
-            var path = new ResPath($"/lime_changelog_last_seen_{_configManager.GetCVar(CCVars.ServerId)}"); // Lime-Edit - независимый счётчик от апстрима
-            LastReadId = 0; // Lime-Edit - не переносим прочитанные записи между серверами
+            var path = new ResPath($"/lime_changelog_last_seen_{_configManager.GetCVar(CCVars.ServerId)}"); // Orbitra-Edit - независимый счётчик от апстрима
+            LastReadId = 0; // Orbitra-Edit - не переносим прочитанные записи между серверами
             if (_resource.UserData.TryReadAllText(path, out var lastReadIdText) && int.TryParse(lastReadIdText, out var lastReadId))
             {
                 LastReadId = Math.Max(0, lastReadId);
@@ -112,7 +112,7 @@ namespace Content.Client.Changelog
                 var directory = new ResPath("/Changelog");
                 foreach (var file in _resource.ContentFindFiles(new ResPath("/Changelog/")))
                 {
-                    if ((file.Directory != directory && file.Directory != new ResPath("/Changelog/_Lime")) || file.Extension != "yml") // Lime-Edit - собственные журналы в папке Lime
+                    if ((file.Directory != directory && file.Directory != new ResPath("/Changelog/_Orbitra")) || file.Extension != "yml") // Orbitra-Edit - собственные журналы в папке Lime
                         continue;
 
                     var yamlData = _resource.ContentFileReadYaml(file);

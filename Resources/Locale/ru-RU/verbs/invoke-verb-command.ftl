@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 invoke-verb-command-description = Вызывает verb с заданным именем на сущности, с сущностью игрока
 

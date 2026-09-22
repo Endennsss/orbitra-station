@@ -6,6 +6,19 @@
     <WarningsAsErrors>RA0032;nullable;CS8785</WarningsAsErrors>
   </PropertyGroup>
   <Import Project="../MSBuild/Content.props" />
+  <!-- Orbitra added start - отдельный dev-хост запускает сервер вне песочницы игрового кода. -->
+  <ItemGroup Condition="'$(FullRelease)' != 'True'">
+    <ProjectReference Include="../Tools/_Orbitra/DevHost/Orbitra.DevHost.csproj" ReferenceOutputAssembly="false" GlobalPropertiesToRemove="OutputPath" />
+  </ItemGroup>
+  <Target Name="OrbitraInstallDevHost" AfterTargets="Build" Condition="'$(FullRelease)' != 'True'">
+    <ItemGroup>
+      <OrbitraHostFiles Include="../bin/Orbitra.DevHost/Orbitra.DevHost.dll;../bin/Orbitra.DevHost/Orbitra.DevHost.deps.json;../bin/Orbitra.DevHost/Orbitra.DevHost.runtimeconfig.json" />
+    </ItemGroup>
+    <Copy SourceFiles="@(OrbitraHostFiles)" DestinationFolder="$(TargetDir)" />
+    <Copy SourceFiles="../bin/Orbitra.DevHost/Orbitra.DevHost.exe" DestinationFiles="$(TargetDir)Content.Client.exe" Condition="'$(OS)' == 'Windows_NT'" />
+    <Copy SourceFiles="../bin/Orbitra.DevHost/Orbitra.DevHost" DestinationFiles="$(TargetDir)Content.Client" Condition="'$(OS)' != 'Windows_NT'" />
+  </Target>
+  <!-- Orbitra added end -->
   <ItemGroup>
     <PackageReference Include="Nett" />
     <PackageReference Include="JetBrains.Annotations" PrivateAssets="All" />

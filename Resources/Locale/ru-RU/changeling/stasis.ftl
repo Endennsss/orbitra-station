@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 changeling-stasis-active-name = [color=red]Выйти из стазиса[/color]
 

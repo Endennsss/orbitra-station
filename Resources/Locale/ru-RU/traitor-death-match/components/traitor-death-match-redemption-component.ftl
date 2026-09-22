@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 traitor-death-match-redemption-component-interact-using-main-message = Машина жужжит и показывает: { $secondMessage }
 

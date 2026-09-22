@@ -12,7 +12,7 @@ using Robust.Shared.Containers;
 
 namespace Content.Client.DoAfter;
 
-public sealed partial class DoAfterOverlay : Overlay // Lime-Edit - анимация появления в отдельном файле
+public sealed partial class DoAfterOverlay : Overlay // Orbitra-Edit - анимация появления в отдельном файле
 {
     private static readonly ProtoId<ShaderPrototype> UnshadedShader = "unshaded";
 
@@ -76,7 +76,7 @@ public sealed partial class DoAfterOverlay : Overlay // Lime-Edit - анимац
         var rotationMatrix = Matrix3Helpers.CreateRotation(-rotation);
 
         var curTime = _timing.CurTime;
-        BeginEntranceFrame(); // Lime-Edit - очищаем список активных анимаций
+        BeginEntranceFrame(); // Orbitra-Edit - очищаем список активных анимаций
 
         var bounds = args.WorldAABB.Enlarged(5f);
         var localEnt = _player.LocalSession?.AttachedEntity;
@@ -85,7 +85,7 @@ public sealed partial class DoAfterOverlay : Overlay // Lime-Edit - анимац
         var enumerator = _entManager.AllEntityQueryEnumerator<ActiveDoAfterComponent, DoAfterComponent, SpriteComponent, TransformComponent>();
         while (enumerator.MoveNext(out var uid, out _, out var comp, out var sprite, out var xform))
         {
-            TrackActiveDoAfters(comp); // Lime-Edit - учитываем индикаторы вне экрана при очистке кэша
+            TrackActiveDoAfters(comp); // Orbitra-Edit - учитываем индикаторы вне экрана при очистке кэша
             if (xform.MapID != args.MapId)
                 continue;
 
@@ -133,8 +133,8 @@ public sealed partial class DoAfterOverlay : Overlay // Lime-Edit - анимац
 
                 var elapsed = time - doAfter.StartTime;
 
-                var entranceProgress = GetEntranceProgress(doAfter.Id, time); // Lime-Edit
-                var alpha = maxAlpha * entranceProgress; // Lime-Edit - появление с момента получения клиентом
+                var entranceProgress = GetEntranceProgress(doAfter.Id, time); // Orbitra-Edit
+                var alpha = maxAlpha * entranceProgress; // Orbitra-Edit - появление с момента получения клиентом
                 // fade out if doafter finished
                 if (elapsed >= doAfter.Args.Delay)
                     alpha = MathHelper.Lerp(maxAlpha, 0f, (float)Math.Clamp((elapsed - doAfter.Args.Delay) / FadeoutAlphaTime, 0.0, 1.0));
@@ -144,14 +144,14 @@ public sealed partial class DoAfterOverlay : Overlay // Lime-Edit - анимац
                 var spriteBounds = _sprite.GetLocalBounds((uid, sprite));
                 var yFinished = spriteBounds.Height / 2f + 0.05f;
                 var yStart = yFinished / 6f;
-                var yOffset = yFinished; // Lime-Edit - смещение задаёт единая анимация появления
+                var yOffset = yFinished; // Orbitra-Edit - смещение задаёт единая анимация появления
 
                 // Position above the entity (we've already applied the matrix transform to the entity itself)
                 // Offset by the texture size for every do_after we have.
                 var position = new Vector2(-_barTexture.Width / 2f / EyeManager.PixelsPerMeter,
                     yOffset / scale + offset / EyeManager.PixelsPerMeter * scale);
 
-                position = GetEntrancePosition(position, entranceProgress); // Lime-Edit - плавное движение вверх
+                position = GetEntrancePosition(position, entranceProgress); // Orbitra-Edit - плавное движение вверх
 
                 // Draw the underlying bar texture
                 handle.DrawTexture(_barTexture, position, Color.White.WithAlpha(alpha));
@@ -182,7 +182,7 @@ public sealed partial class DoAfterOverlay : Overlay // Lime-Edit - анимац
             }
         }
 
-        EndEntranceFrame(); // Lime-Edit - убираем завершённые анимации
+        EndEntranceFrame(); // Orbitra-Edit - убираем завершённые анимации
         handle.UseShader(null);
         handle.SetTransform(Matrix3x2.Identity);
     }

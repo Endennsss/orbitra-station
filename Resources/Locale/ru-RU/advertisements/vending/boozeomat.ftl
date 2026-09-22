@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 advertisement-boozeomat-1 = Надеюсь, никто не попросит у меня чёртову чашку чая...
 

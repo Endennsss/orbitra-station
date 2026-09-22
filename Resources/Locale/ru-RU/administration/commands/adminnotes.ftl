@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cmd-adminnotes-desc = Открыть панель админ заметок игрока.
 

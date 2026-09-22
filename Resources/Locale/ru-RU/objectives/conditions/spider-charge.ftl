@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 objective-condition-spider-charge-title-no-target = Взорвите бомбу клана Паука (нет цели)
 

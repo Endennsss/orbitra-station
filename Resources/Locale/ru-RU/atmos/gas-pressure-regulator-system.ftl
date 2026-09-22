@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 gas-pressure-regulator-system-examined = Вентиль [color={ $statusColor }]{ $open ->
     [true] открыт

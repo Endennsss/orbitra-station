@@ -1,9 +1,0 @@
-- type: shader
-  id: LimeNightVision
-  kind: source
-  path: /Textures/_Lime/Shaders/night_vision.swsl
-
-- type: shader
-  id: LimeNightVisionExposure
-  kind: source
-  path: /Textures/_Lime/Shaders/night_exposure.swsl

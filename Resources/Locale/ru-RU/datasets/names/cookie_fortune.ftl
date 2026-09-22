@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 descriptions-cookie-fortune-dataset-1 = Конец близок... и это всё ТВОЯ вина.
 

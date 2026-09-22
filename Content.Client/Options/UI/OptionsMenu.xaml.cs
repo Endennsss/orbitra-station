@@ -6,13 +6,14 @@ using Robust.Client.UserInterface.XAML;
 namespace Content.Client.Options.UI
 {
     [GenerateTypedNameReferences]
-    public sealed partial class OptionsMenu : DefaultWindow
+    public sealed partial class OptionsMenu : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
     {
         [Dependency] private IClientAdminManager _adminManager = default!;
 
         public OptionsMenu()
         {
             RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
             IoCManager.InjectDependencies(this);
 
             Tabs.SetTabTitle(0, Loc.GetString("ui-options-tab-misc"));
@@ -23,12 +24,23 @@ namespace Content.Client.Options.UI
             Tabs.SetTabTitle(5, Loc.GetString("ui-options-tab-admin"));
 
             UpdateTabs();
+            OrbitraTabSelect.OnItemSelected += args => Tabs.CurrentTab = args.Id; // Orbitra-Edit
+            Tabs.OnTabChanged += index => OrbitraTabSelect.SelectId(index); // Orbitra-Edit: синхронизация при открытии вкладки командой.
         }
 
         public void UpdateTabs()
         {
             var isAdmin = _adminManager.IsAdmin(true);
             Tabs.SetTabVisible(5, isAdmin);
+            // Orbitra added start - все разделы доступны без переполнения заголовков.
+            OrbitraTabSelect.Clear();
+            for (var i = 0; i < Tabs.ChildCount; i++)
+                if (Tabs.GetTabVisible(i))
+                    OrbitraTabSelect.AddItem(Tabs.GetActualTabTitle(i), i);
+            if (Tabs.CurrentTab == 5 && !isAdmin)
+                Tabs.CurrentTab = 0;
+            OrbitraTabSelect.SelectId(Tabs.CurrentTab);
+            // Orbitra added end
 
             GraphicsTab.Control.ReloadValues();
             MiscTab.Control.ReloadValues();

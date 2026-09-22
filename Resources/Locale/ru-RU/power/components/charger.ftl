@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 charger-examine = Заряжает [color={ $color }]{ $chargeRate }Вт[/color] в секунду.
 

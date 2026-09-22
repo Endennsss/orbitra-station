@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 advertisement-medidrobe-1 = Заставьте эти кровавые пятна выглядеть модно!!
 

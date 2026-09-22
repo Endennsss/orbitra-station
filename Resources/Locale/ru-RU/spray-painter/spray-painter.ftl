@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 spray-painter-ammo-on-examine = Содержит { $charges } { $charge ->
     [1] заряд

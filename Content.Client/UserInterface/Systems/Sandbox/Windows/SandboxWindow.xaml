@@ -17,6 +17,8 @@
         <Button Name="ToggleSubfloorButton" Access="Public" Text="{Loc sandbox-window-toggle-subfloor-button}" ToggleMode="True"/>
         <Button Name="AiOverlayButton" Access="Public" Text="{Loc sandbox-window-ai-overlay-button}" ToggleMode="True"/>
         <Button Name="ShowMarkersButton" Access="Public" Text="{Loc sandbox-window-show-spawns-button}" ToggleMode="True"/>
+        <!-- Orbitra-Edit - локальное отображение полей косметических зон -->
+        <Button Name="OrbitraShowFieldsButton" Access="Public" Text="{Loc orbitra-sandbox-show-fields}" ToggleMode="True"/>
         <Button Name="ShowBbButton" Access="Public" Text="{Loc sandbox-window-show-bb-button}" ToggleMode="True"/>
 
         <Label Text="{Loc sandbox-window-your-character-label}"/>

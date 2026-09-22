@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 ghost-command-description = Завязать с жизнью и стать призраком.
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cmd-setoutfit-desc = Устанавливает наряд указанной сущности. Сущность должна иметь { $requiredComponent }
 

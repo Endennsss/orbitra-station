@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 logic-gate-examine = Сейчас установлена логическая операция { $gate }.
 

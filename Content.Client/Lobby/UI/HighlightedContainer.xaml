@@ -1,8 +1,8 @@
 <PanelContainer
-    xmlns="https://spacestation14.io" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:lime="clr-namespace:Content.Client._Lime.Stylesheets"
+    xmlns="https://spacestation14.io" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Stylesheets"
     xmlns:graphics="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client">
     <PanelContainer.PanelOverride>
-        <graphics:StyleBoxFlat BackgroundColor="{x:Static lime:LimePalettes.PanelHighlight}"
+        <graphics:StyleBoxFlat BackgroundColor="{x:Static orbitra:OrbitraPalettes.PanelHighlight}"
                                ContentMarginTopOverride="10"
                                ContentMarginBottomOverride="10"
                                ContentMarginLeftOverride="10"

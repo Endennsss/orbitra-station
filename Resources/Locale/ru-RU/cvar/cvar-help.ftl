@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 changecvar-simple-debug_test_cvar = Ничего не делает.
 

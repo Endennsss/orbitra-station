@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 clumsy-vaulting-fail-forced-message = { CAPITALIZE($bonker) } стукает { $victim } головой об { $bonkable }!
 

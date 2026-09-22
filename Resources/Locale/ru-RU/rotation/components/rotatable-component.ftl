@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 rotatable-component-try-rotate-stuck = Оно застряло.
 

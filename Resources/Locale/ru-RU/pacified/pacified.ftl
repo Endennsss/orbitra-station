@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 pacified-cannot-throw = Я не могу заставить себя бросить { $projectile }, это может кого-то покалечить!
 # With embedding projectiles:

@@ -1,42 +1,32 @@
-<Control xmlns="https://spacestation14.io"
-         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-         xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
-         xmlns:style="clr-namespace:Content.Client.Stylesheets"
-         xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
-         VerticalExpand="True">
-    <Control>
-        <PanelContainer Name="BackgroundPanel" />
-        <BoxContainer Orientation="Vertical" SeparationOverride="0">
-            <BoxContainer Orientation="Horizontal" MinSize="0 40">
-                <Label Text="{Loc 'character-setup-gui-character-setup-label'}"
-                       Margin="8 0 0 0" VAlign="Center"
-                       StyleClasses="LabelHeadingBigger" />
-
-                <Button Name="StatsButton" HorizontalExpand="True"
-                        Text="{Loc 'character-setup-gui-character-setup-stats-button'}"
-                        StyleClasses="ButtonBig"
-                        HorizontalAlignment="Right" />
-                <cc:CommandButton Name="AdminRemarksButton"
-                                  Command="adminremarks"
-                                  Text="{Loc 'character-setup-gui-character-setup-adminremarks-button'}"
-                                  StyleClasses="ButtonBig" />
-                <Button Name="RulesButton"
-                        Text="{Loc 'character-setup-gui-character-setup-rules-button'}"
-                        StyleClasses="ButtonBig"/>
-                <Button Name="CloseButton"
-                        Access="Public"
-                        Text="{Loc 'character-setup-gui-character-setup-close-button'}"
-                        StyleClasses="ButtonBig"/>
-            </BoxContainer>
-            <PanelContainer StyleClasses="highlight" MinHeight="2" />
-            <BoxContainer Orientation="Horizontal" VerticalExpand="True" SeparationOverride="0">
-                <ScrollContainer MinSize="325 0" Margin="5 5 0 0">
-                    <BoxContainer Name="Characters" Orientation="Vertical" />
-                </ScrollContainer>
-                <PanelContainer MinSize="2 0" StyleClasses="highlight">
-                </PanelContainer>
-                <BoxContainer Name="CharEditor" HorizontalExpand="True" />
-            </BoxContainer>
-        </BoxContainer>
-    </Control>
+<Control xmlns="https://spacestation14.io" xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls" xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Lobby" VerticalExpand="True">
+  <!-- Orbitra edit start - компактный выбор профиля и единая рабочая область. -->
+  <PanelContainer Name="BackgroundPanel" StyleClasses="OrbitraEditorSurface" MaxWidth="1440">
+    <BoxContainer Orientation="Vertical" SeparationOverride="8" Margin="12">
+      <BoxContainer Name="OrbitraSetupHeader" SeparationOverride="12">
+        <Label Name="OrbitraSetupTitle" Text="{Loc 'orbitra-editor-title'}" StyleClasses="OrbitraLobbyTitle" VerticalAlignment="Center" />
+        <orbitra:OrbitraLobbyButton Name="OrbitraCharacterToggle" Text="{Loc 'orbitra-editor-characters'}" ToggleMode="True" HorizontalExpand="True" ClipText="True" StyleClasses="OrbitraLobbyButton" />
+        <orbitra:OrbitraLobbyButton Name="OrbitraToolsToggle" Text="{Loc 'orbitra-editor-tools'}" ToggleMode="True" StyleClasses="OrbitraLobbyButton" />
+      </BoxContainer>
+      <Control VerticalExpand="True">
+        <BoxContainer Name="CharEditor" HorizontalExpand="True" VerticalExpand="True" />
+        <Control Name="OrbitraMenuDismiss" Visible="False" MouseFilter="Stop" /> <!-- Orbitra-Edit -->
+        <PanelContainer Name="OrbitraCharacterPanel" Visible="False" StyleClasses="OrbitraLobbyPanel" HorizontalAlignment="Left" VerticalAlignment="Top" SetWidth="340">
+          <ScrollContainer HScrollEnabled="False" ReturnMeasure="True">
+            <BoxContainer Name="Characters" Orientation="Vertical" SeparationOverride="8" />
+          </ScrollContainer>
+        </PanelContainer>
+        <PanelContainer Name="OrbitraToolsPanel" Visible="False" StyleClasses="OrbitraLobbyPanel" HorizontalAlignment="Right" VerticalAlignment="Top" SetWidth="320">
+          <ScrollContainer HScrollEnabled="False" ReturnMeasure="True">
+          <BoxContainer Name="OrbitraToolsContents" Orientation="Vertical" SeparationOverride="8">
+            <orbitra:OrbitraLobbyButton Name="StatsButton" Text="{Loc 'character-setup-gui-character-setup-stats-button'}" StyleClasses="OrbitraLobbyButton" />
+            <cc:CommandButton Name="AdminRemarksButton" Command="adminremarks" Text="{Loc 'character-setup-gui-character-setup-adminremarks-button'}" StyleClasses="OrbitraLobbyButton" />
+            <orbitra:OrbitraLobbyButton Name="RulesButton" Text="{Loc 'character-setup-gui-character-setup-rules-button'}" StyleClasses="OrbitraLobbyButton" />
+          </BoxContainer>
+          </ScrollContainer>
+        </PanelContainer>
+      </Control>
+      <orbitra:OrbitraLobbyButton Name="CloseButton" Access="Public" Text="{Loc 'orbitra-editor-back'}" StyleClasses="OrbitraLobbyButton" />
+    </BoxContainer>
+  </PanelContainer>
+  <!-- Orbitra edit end -->
 </Control>

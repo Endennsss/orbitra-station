@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 health-analyzer-window-no-patient-data-text = Нет данных о пациенте.
 

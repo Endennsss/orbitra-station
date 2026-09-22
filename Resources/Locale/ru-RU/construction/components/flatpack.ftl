@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 flatpack-unpack-no-room = Недостаточно места чтобы распаковать!
 

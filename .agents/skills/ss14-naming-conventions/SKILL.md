@@ -108,7 +108,7 @@ Use it as a guideline: if new code/content doesn't follow the rules below, it's 
 4. Selecting a dependency alias?
    Remove `System/Manager` -> reduce to canonical form (`_timing`, `_random`, `_transform`, `_player`, `_whitelist`).
 5. Are you creating a fork-only or fork copy of vanilla?
-   Add a fork prefix to the ID (`Scp*`, `Lime*`).
+   Add a fork prefix to the ID (`Scp*`, `Orbitra*`).
 6. Are you creating a localization key?
    Entity: `ent-MyEntity`; regular string: `kebab-case`.
 
@@ -122,7 +122,7 @@ Use it as a guideline: if new code/content doesn't follow the rules below, it's 
 6. Alias ​​`IPlayerManager` as `_player`.
 7. Alias ​​`EntityWhitelistSystem` as `_whitelist`.
 8. ID in the style `Scp096CryOut` with a clear domain prefix.
-9. Fork ID with the prefix `Lime*` for unique fork content.
+9. Fork ID with the prefix `Orbitra*` for unique fork content.
 10. `ent-BasePart = body part` as a short external name of the entity.
 11. `armable-examine-armed` is like a regular `kebab-case` non-entity string key.
 12. Private component field `scp096Rage` according to the basic part of the type.
@@ -215,7 +215,7 @@ Comment: YAML uses the base part of the component name.
 
 Comment: `Scp` prefix and `CamelCase` are respected; action name in English.
 
-### Example 7: Lime prefix in fork content
+### Example 7: Orbitra prefix in fork content
 
 ```yaml
 - type: guideEntry

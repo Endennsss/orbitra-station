@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 harvestable-solution-success = Вы наполнили { $target } {$amount} ед. из { $source }.
 

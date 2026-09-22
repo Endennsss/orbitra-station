@@ -192,7 +192,7 @@
         damage:
           types:
             Cold: 0.5 # liquid nitrogen is cold
-    # Lime-Edit: Пустая стадия утилизирует вдыхаемый азот в лёгких, не пропуская его в кровь.
+    # Orbitra-Edit: Пустая стадия утилизирует вдыхаемый азот в лёгких, не пропуская его в кровь.
     Respiration:
       effects: []
 

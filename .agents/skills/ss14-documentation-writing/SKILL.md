@@ -91,7 +91,7 @@ Goal: leave only useful documentation that speeds up reviews and reduces the ris
 3. Obvious comments that simply duplicate a line of code.
 4. Using `TODO/HACK/FIXME` as "documentation of behavior" instead of a correction or normal explanation.
 5. Multi-line explanations in YAML where one phrase is enough.
-6. Edit markers (`Lime-Start/End`, `Fire added start/end`) instead of behavioral description.
+6. Edit markers (`Orbitra-Start/End`, `Fire added start/end`) instead of behavioral description.
 7. FTL headers without space after `##` (`##bombs`).
 8. Frequent or decorative FTL separators (`##########`) that do not help navigation.
 

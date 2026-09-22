@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 emergency-light-component-on-examine = Индикатор батареи показывает: { $batteryStateText }.
 

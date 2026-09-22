@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 upgradeable-gun-popup-already-present = Улучшение уже установлено!
 

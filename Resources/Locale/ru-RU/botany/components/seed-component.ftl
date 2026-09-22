@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 seed-component-description = На этикетке имеется изображение — [color=yellow]{ $seedName }[/color].
 

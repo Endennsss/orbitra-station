@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 paper-ui-blank-page-message = Данная страница оставлена пустой специально
 

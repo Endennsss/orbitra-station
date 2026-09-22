@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 stunnable-component-disarm-success-others = { CAPITALIZE($source) } толкает { $target }!
 

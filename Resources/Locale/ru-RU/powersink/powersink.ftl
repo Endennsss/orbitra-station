@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 powersink-examine-drain-amount = Поглотитель энергии вытягивает [color={ $markupDrainColor }]{ $amount } кВт[/color].
 

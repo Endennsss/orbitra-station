@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 immovable-rod-collided-rod-not-good = Ох чёрт, это не к добру.
 

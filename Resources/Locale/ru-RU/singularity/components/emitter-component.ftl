@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 comp-emitter-access-locked = Доступ к { $target } заблокирован!
 

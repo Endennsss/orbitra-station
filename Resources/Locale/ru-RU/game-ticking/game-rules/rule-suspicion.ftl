@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 rule-suspicion-added-announcement = На станции есть предатели! Найдите их и убейте!
 

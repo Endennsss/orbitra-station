@@ -168,6 +168,7 @@ public abstract partial class SharedToolSystem : EntitySystem
             examineText = Loc.GetString("tool-component-doafter-examine", ("quality", qualitiesText));
 
         var toolEvent = new ToolDoAfterEvent(fuel, doAfterEv, GetNetEntity(target));
+        ConfigureOrbitraParticles(toolEvent, tool, toolQualitiesNeeded); // Orbitra-Edit - описание косметики фактической операции.
         var doAfterArgs = new DoAfterArgs(EntityManager, user, delay / toolComponent.SpeedModifier, toolEvent, tool, target: target, used: tool)
         {
             BreakOnDamage = true,
@@ -336,7 +337,14 @@ public abstract partial class SharedToolSystem : EntitySystem
             if (evClone == WrappedEvent)
                 return this;
 
-            return new ToolDoAfterEvent(Fuel, evClone, OriginalTarget);
+            // Orbitra edit start - сохраняем визуальное описание при клонировании DoAfter.
+            return new ToolDoAfterEvent(Fuel, evClone, OriginalTarget)
+            {
+                orbitraParticleEffect = orbitraParticleEffect,
+                OrbitraParticleRate = OrbitraParticleRate,
+                OrbitraParticleCoordinates = OrbitraParticleCoordinates,
+            };
+            // Orbitra edit end
         }
 
         public override bool IsDuplicate(DoAfterEvent other)

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 machine-frame-component-on-examine-label = [color=white]Установленная печатная плата:[/color] [color=cyan]{ $board }[/color]
 

@@ -26,7 +26,7 @@ Use this file when you need to assemble or rework NPC behavior at the YAML level
 `Resources/Prototypes/NPCs/utility_queries.yml`
 4. Connecting behavior to entities:
 `Resources/Prototypes/Entities/Mobs/NPCs/*.yml`
-and forked packages in `Resources/Prototypes/_Lime/**`
+and forked packages in `Resources/Prototypes/_Orbitra/**`
 
 ## Skeleton behavior: root compound
 

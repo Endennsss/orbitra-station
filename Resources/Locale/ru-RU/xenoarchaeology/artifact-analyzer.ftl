@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 analysis-console-menu-title = Аналитическая консоль широкого спектра модель 3
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 changeling-role-greeting =
     Вы — генокрад, чрезвычайно умный хищник.

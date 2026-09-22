@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 item-toggle-examined-on = Устройство [color=darkgreen]включено[/color].
 

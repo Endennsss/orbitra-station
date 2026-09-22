@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 gas-pipe-sensor-distribution-loop = Распределительный контур
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 welder-component-welder-not-lit-message = { CAPITALIZE ($owner) } выключен!
 

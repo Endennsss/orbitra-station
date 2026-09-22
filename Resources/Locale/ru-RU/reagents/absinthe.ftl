@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 absinthe-effect-hear-voice = Вы слышите писклявый голос. "Ти хи хи!"
 

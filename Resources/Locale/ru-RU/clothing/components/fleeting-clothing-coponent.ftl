@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 fleeting-clothing-component-default-popup = { CAPITALIZE(THE($item)) } рассыпается в пыль.
 

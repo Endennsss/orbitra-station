@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 action-mask-pull-up-popup-message = Вы натягиваете { $mask } на лицо.
 

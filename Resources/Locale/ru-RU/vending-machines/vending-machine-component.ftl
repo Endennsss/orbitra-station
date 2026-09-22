@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 vending-machine-component-try-eject-invalid-item = Несуществующий предмет
 

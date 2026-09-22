@@ -44,7 +44,7 @@ public sealed partial class PlayerListControl : BoxContainer
         PopulateList(_adminSystem.PlayerList);
         FilterLineEdit.OnTextChanged += _ => FilterList();
         _adminSystem.PlayerListChanged += PopulateList;
-        BackgroundPanel.PanelOverride = new StyleBoxFlat { BackgroundColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelInset }; // Lime-Edit - общий серый стиль
+        BackgroundPanel.PanelOverride = new StyleBoxFlat { BackgroundColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelInset }; // Orbitra-Edit - общий серый стиль
     }
 
     public IReadOnlyList<PlayerInfo> PlayerInfo => _playerList;

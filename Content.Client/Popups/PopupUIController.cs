@@ -26,9 +26,9 @@ public sealed class PopupUIController : UIController, IOnStateEntered<GameplaySt
         base.Initialize();
         var cache = IoCManager.Resolve<IResourceCache>();
 
-        _smallFont = new VectorFont(cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Italic.ttf"), 10); // Lime-Edit - единый шрифт сообщений
-        _mediumFont = new VectorFont(cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Italic.ttf"), 12); // Lime-Edit - единый шрифт сообщений
-        _largeFont = new VectorFont(cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-BoldItalic.ttf"), 14); // Lime-Edit - единый шрифт сообщений
+        _smallFont = new VectorFont(cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Italic.ttf"), 10); // Orbitra-Edit - единый шрифт сообщений
+        _mediumFont = new VectorFont(cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-Italic.ttf"), 12); // Orbitra-Edit - единый шрифт сообщений
+        _largeFont = new VectorFont(cache.GetResource<FontResource>("/Fonts/NotoSansDisplay/NotoSansDisplay-BoldItalic.ttf"), 14); // Orbitra-Edit - единый шрифт сообщений
     }
 
     public void OnStateEntered(GameplayState state)
@@ -83,7 +83,7 @@ public sealed class PopupUIController : UIController, IOnStateEntered<GameplaySt
 
         var dimensions = handle.GetDimensions(font, popup.Text, scale);
         var drawPosition = updatedPosition - dimensions / 2f;
-        handle.DrawString(font, drawPosition, popup.Text, scale, color.WithAlpha(alpha)); // Lime-Edit - без обводки у экранных и мировых сообщений
+        handle.DrawString(font, drawPosition, popup.Text, scale, color.WithAlpha(alpha)); // Orbitra-Edit - без обводки у экранных и мировых сообщений
     }
 
     /// <summary>

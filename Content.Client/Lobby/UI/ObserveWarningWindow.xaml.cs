@@ -9,7 +9,7 @@ namespace Content.Client.Lobby.UI;
 
 [GenerateTypedNameReferences]
 [UsedImplicitly]
-public sealed partial class ObserveWarningWindow : DefaultWindow
+public sealed partial class ObserveWarningWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
 {
     [Dependency] private ISharedAdminManager _adminManager = default!;
     [Dependency] private IPlayerManager _playerManager = default!;
@@ -18,6 +18,7 @@ public sealed partial class ObserveWarningWindow : DefaultWindow
     {
         Title = Loc.GetString("observe-warning-window-title");
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         IoCManager.InjectDependencies(this);
         var player = _playerManager.LocalSession;
 

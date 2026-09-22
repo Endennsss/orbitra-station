@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 inventory-component-can-equip-cannot = Вы не можете экипировать это!
 

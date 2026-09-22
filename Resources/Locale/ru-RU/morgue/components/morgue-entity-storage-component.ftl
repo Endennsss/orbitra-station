@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 morgue-entity-storage-component-on-examine-details-body-has-soul = Индикатор содержимого [color=green]зелёный[/color], это тело ещё может быть спасено!
 

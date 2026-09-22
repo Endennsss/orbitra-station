@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 salvage-job-rank-title-0 = [color=gray]Мусорщик[/color]
 

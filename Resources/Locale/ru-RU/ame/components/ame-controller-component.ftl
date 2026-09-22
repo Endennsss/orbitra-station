@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 ame-controller-component-fuel-slot-fail-whitelist = Это нельзя поместить в контроллер...
 

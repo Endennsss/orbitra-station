@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 resist-locker-component-start-resisting = Вы начинаете выбивать дверь!
 

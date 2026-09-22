@@ -1,0 +1,2 @@
+light_mode unshaded;
+#include "/Textures/_Orbitra/Shaders/particle_shared.swsl"

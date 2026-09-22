@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 radio-jammer-component-on-use = Глушитель связи { $state }.
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 signal-linker-component-saved = Успешно связано с устройством { $machine }!
 

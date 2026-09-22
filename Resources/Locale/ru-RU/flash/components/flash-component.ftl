@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 flash-component-user-blinds-you = { $user } ослепляет вас вспышкой!
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 goodfeeling-artifact-1 = Вы чувствуете себя хорошо.
 

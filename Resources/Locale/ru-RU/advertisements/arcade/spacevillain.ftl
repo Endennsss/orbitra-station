@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 advertisement-space-villain-1 = Достаточно ли вы круты, чтобы пройти эту игру?
 

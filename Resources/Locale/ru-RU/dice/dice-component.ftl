@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 dice-component-on-examine-message-part-1 = { CAPITALIZE($name) } c [color=lightgray]{ $sidesAmount }[/color] сторонами.
 

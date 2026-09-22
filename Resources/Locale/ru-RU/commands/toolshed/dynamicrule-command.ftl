@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 command-description-dynamicrule-list =
     Перечисляет все сейчас активные динамические правила, обычно это только одно.

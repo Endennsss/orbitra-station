@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 rcd-ammo-component-on-examine = Содержит { $charges } { $charges ->
     [one] заряд

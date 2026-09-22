@@ -1,5 +1,5 @@
 <Control xmlns="https://spacestation14.io">
-    <!-- Lime-Edit - подпись над ползунком не отнимает фиксированные 400 пикселей -->
+    <!-- Orbitra-Edit - подпись над ползунком не отнимает фиксированные 400 пикселей -->
     <BoxContainer Orientation="Vertical">
         <Label Name="NameLabel" ClipText="True" HorizontalExpand="True" />
         <BoxContainer Orientation="Horizontal">

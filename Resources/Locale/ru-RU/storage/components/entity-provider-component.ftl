@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 comp-entity-provider-cannot-receive = { CAPITALIZE($refillTarget) } не может быть пополнен!
 

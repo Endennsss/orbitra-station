@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 objective-condition-kill-person-title = Убейте или не дайте покинуть станцию { $targetName }, должность: { CAPITALIZE($job) }.
 

@@ -16,7 +16,7 @@ namespace Content.Client.Lobby.UI
         {
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
-            SetAnchorPreset(MainContainer, LayoutPreset.Wide);
+            SetAnchorPreset(LobbyFrame, LayoutPreset.Wide); // Orbitra-Edit - авторство вне центральной области.
             SetAnchorPreset(Background, LayoutPreset.Wide);
 
             LobbySong.SetMarkup(Loc.GetString("lobby-state-song-no-song-text"));
@@ -24,42 +24,12 @@ namespace Content.Client.Lobby.UI
             LeaveButton.OnPressed += _ => _consoleHost.ExecuteCommand("disconnect");
             OptionsButton.OnPressed += _ => UserInterfaceManager.GetUIController<OptionsUIController>().ToggleWindow();
 
-            CollapseButton.OnPressed += _ => TogglePanel(false);
-            ExpandButton.OnPressed += _ => TogglePanel(true);
+            InitializeOrbitraLayout(); // Orbitra-Edit - компоновка и боковые панели.
         }
 
         public void SwitchState(LobbyGuiState state)
         {
-            DefaultState.Visible = false;
-            CharacterSetupState.Visible = false;
-
-            switch (state)
-            {
-                case LobbyGuiState.Default:
-                    DefaultState.Visible = true;
-                    RightSide.Visible = true;
-                    break;
-                case LobbyGuiState.CharacterSetup:
-                    CharacterSetupState.Visible = true;
-
-                    var actualWidth = (float) UserInterfaceManager.RootControl.PixelWidth;
-                    var setupWidth = (float) LeftSide.PixelWidth;
-
-                    if (1 - (setupWidth / actualWidth) > 0.30)
-                    {
-                        RightSide.Visible = false;
-                    }
-
-                    UserInterfaceManager.GetUIController<LobbyUIController>().ReloadCharacterSetup();
-
-                    break;
-            }
-        }
-
-        private void TogglePanel(bool value)
-        {
-            RightSide.Visible = value;
-            ExpandPanel.Visible = !value;
+            SwitchOrbitraState(state); // Orbitra-Edit - редактор использует всю область, без второго превью.
         }
 
         public enum LobbyGuiState : byte

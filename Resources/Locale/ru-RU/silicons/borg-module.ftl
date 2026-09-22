@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 borg-module-fit = Этот модуль можно установить в { $types }.
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 paradox-clone-round-end-agent-name = парадоксальный клон
 

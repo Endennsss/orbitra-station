@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 list-verbs-command-description = Перечисляет все verbs, которые игрок может использовать на данной сущности.
 

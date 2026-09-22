@@ -18,6 +18,7 @@ public sealed partial class LobbyCharacterPreviewPanel : Control
     {
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
+        InitializeOrbitraPreview(); // Orbitra-Edit - выбор профиля и поворот.
     }
 
     public void SetLoaded(bool value)

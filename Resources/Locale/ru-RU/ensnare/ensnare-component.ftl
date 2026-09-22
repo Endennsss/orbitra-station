@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 ensnare-component-try-free = Вы пытаетесь освободить свои ноги от { $ensnare }!
 

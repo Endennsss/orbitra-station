@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 shared-interaction-system-in-range-unobstructed-cannot-reach = Вы не можете туда достать!
 

@@ -172,9 +172,9 @@ Regular `IRobustRandom` is **not deterministic** between prediction runs. Each t
 
 ### Solutions
 
-#### Lime Station note
+#### Orbitra note
 
-Do not assume that Lime Station provides a fork-specific `RandomPredictedSystem`. No such Lime-owned API exists in the current repository. Before adding predicted randomness, inspect the current RobustToolbox and content APIs and prefer an existing deterministic primitive. If a reusable helper is genuinely needed, implement it under `Content.Shared/_Lime` and document its seed contract and prediction behavior.
+Do not assume that Orbitra provides a fork-specific `RandomPredictedSystem`. No such Orbitra-owned API exists in the current repository. Before adding predicted randomness, inspect the current RobustToolbox and content APIs and prefer an existing deterministic primitive. If a reusable helper is genuinely needed, implement it under `Content.Shared/_Orbitra` and document its seed contract and prediction behavior.
 
 #### Vanilla approach: manual creation of Random
 

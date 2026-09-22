@@ -5,11 +5,13 @@ using Robust.Client.UserInterface.XAML;
 namespace Content.Client.Lobby.UI;
 
 [GenerateTypedNameReferences]
-public sealed partial class CharacterSetupGuiSavePanel : DefaultWindow
+public sealed partial class CharacterSetupGuiSavePanel : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
 {
     public CharacterSetupGuiSavePanel()
     {
         RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
+        Content.Client._Orbitra.Lobby.OrbitraEditorStyles.Apply(this); // Orbitra-Edit
 
         CancelButton.OnPressed += _ =>
         {

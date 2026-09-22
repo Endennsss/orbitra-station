@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 comp-gas-filter-ui-filter-transfer-rate = Скорость подачи (л/с):
 

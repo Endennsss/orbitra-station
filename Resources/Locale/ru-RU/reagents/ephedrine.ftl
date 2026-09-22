@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 ephedrine-effect-tight-pain = Вы чувствуете тугую боль в груди.
 

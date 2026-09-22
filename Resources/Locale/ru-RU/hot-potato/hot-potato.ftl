@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 hot-potato-passed = { $from } передал горячую картошку { $to }!
 

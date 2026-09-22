@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 instrument-component-finger-cramps-light-message = Ваши пальцы начинает немного сводить судорогой!
 

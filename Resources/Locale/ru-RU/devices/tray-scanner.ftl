@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 tray-scanner-examine-mode-all = [color=green]Все[/color]
 

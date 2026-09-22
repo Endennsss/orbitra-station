@@ -137,6 +137,8 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
 
     public void OnStateExited(LobbyState state)
     {
+        _savePanel?.Close(); // Orbitra-Edit - диалог не переживает уход из лобби.
+        _savePanel = null;
         PreviewPanel?.SetLoaded(false);
         _profileEditor?.Dispose();
         _characterSetup?.Dispose();
@@ -151,6 +153,9 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
     public void ReloadCharacterSetup()
     {
         RefreshLobbyPreview();
+        // Orbitra-Edit: скрытый редактор обновится при открытии, а не во время анимации лобби.
+        if (_stateManager.CurrentState is LobbyState { Lobby: { } activeLobby } && !activeLobby.CharacterSetupState.Visible)
+            return;
         var (characterGui, profileEditor) = EnsureGui();
         characterGui.ReloadCharacterPickers();
         profileEditor.SetProfile(
@@ -171,13 +176,14 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
 
         if (character is not HumanoidCharacterProfile humanoid)
         {
-            PreviewPanel.ProfilePreviewSpriteView.ClearPreview();
+            PreviewPanel.ClearOrbitraPreview(); // Orbitra-Edit: очищаем оба превью перехода.
             PreviewPanel.SetSummaryText(string.Empty);
             return;
         }
 
-        PreviewPanel.ProfilePreviewSpriteView.LoadPreview(humanoid);
-        PreviewPanel.SetSummaryText(humanoid.Summary);
+        // Orbitra-Edit: загрузкой превью управляет переход между слотами ниже.
+        // Orbitra-Edit: подпись вида и возраста обновляется вместе с карточкой, без перезаписи штатным Summary.
+        PreviewPanel.RefreshOrbitraProfile(humanoid, _preferencesManager.Preferences); // Orbitra-Edit
     }
 
     private void RefreshProfileEditor()
@@ -201,6 +207,7 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
 
         _preferencesManager.UpdateCharacter(EditedProfile, EditedSlot.Value);
         ReloadCharacterSetup();
+        _profileEditor?.ShowOrbitraSaved(); // Orbitra-Edit - отклик после штатного сохранения.
     }
 
     private void CloseProfileEditor()
@@ -217,12 +224,13 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
         }
     }
 
-    private void OpenSavePanel()
+    private void OpenSavePanel(Action continuation) // Orbitra-Edit - общий диалог выхода и смены профиля.
     {
         if (_savePanel is { IsOpen: true })
             return;
 
         _savePanel = new CharacterSetupGuiSavePanel();
+        _savePanel.OnClose += () => _characterSetup?.ReloadCharacterPickers(); // Orbitra-Edit - отмена восстанавливает выбор слота.
 
         _savePanel.SaveButton.OnPressed += _ =>
         {
@@ -230,14 +238,14 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
 
             _savePanel.Close();
 
-            CloseProfileEditor();
+            continuation(); // Orbitra-Edit
         };
 
         _savePanel.NoSaveButton.OnPressed += _ =>
         {
             _savePanel.Close();
 
-            CloseProfileEditor();
+            continuation(); // Orbitra-Edit
         };
 
         _savePanel.OpenCentered();
@@ -267,13 +275,14 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
         _profileEditor.OnOpenGuidebook += _guide.OpenHelp;
 
         _characterSetup = new CharacterSetupGui(_profileEditor);
+        _characterSetup.OrbitraExitRequested += () => RequestOrbitraProfileTransition(CloseProfileEditor); // Orbitra-Edit
 
         _characterSetup.CloseButton.OnPressed += _ =>
         {
             // Open the save panel if we have unsaved changes.
             if (_profileEditor.Profile != null && _profileEditor.IsDirty)
             {
-                OpenSavePanel();
+                OpenSavePanel(CloseProfileEditor); // Orbitra-Edit
 
                 return;
             }
@@ -286,9 +295,17 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
 
         _characterSetup.SelectCharacter += args =>
         {
-            _preferencesManager.SelectCharacter(args);
-            ReloadCharacterSetup();
+            // Orbitra edit start - не теряем черновик при переключении слота.
+            if (args == EditedSlot)
+                return;
+            RequestOrbitraProfileTransition(() =>
+            {
+                _preferencesManager.SelectCharacter(args);
+                ReloadCharacterSetup();
+            });
+            // Orbitra edit end
         };
+        _characterSetup.CreateCharacter += OnOrbitraCreateCharacter; // Orbitra-Edit
 
         _characterSetup.DeleteCharacter += args =>
         {

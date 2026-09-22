@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 handheld-grinder-cannot-juice = Вы не можете выжать {$item}!
 

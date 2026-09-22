@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 action-popup-blocking-user = Вы поднимаете свой { $shield }!
 

@@ -30,6 +30,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
     public GuidebookWindow()
     {
         RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         IoCManager.InjectDependencies(this);
         _sawmill = Logger.GetSawmill("guidebook");
 

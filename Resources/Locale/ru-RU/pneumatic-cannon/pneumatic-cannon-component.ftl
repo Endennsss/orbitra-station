@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 pneumatic-cannon-component-itemslot-name = Газовый баллон
 

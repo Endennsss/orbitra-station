@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 gun-selected-mode-examine = Выбран режим огня [color={ $color }]{ $mode }[/color].
 

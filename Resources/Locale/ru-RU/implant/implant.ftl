@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 implanter-component-implanting-target = {CAPITALIZE(THE({ $user }))} пытается что-то в вас имплантировать!
 

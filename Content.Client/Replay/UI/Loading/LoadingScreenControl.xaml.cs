@@ -31,7 +31,7 @@ public sealed partial class LoadingScreenControl : Control
 
         Background.PanelOverride = new StyleBoxFlat()
         {
-            BackgroundColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelBackground, // Lime-Edit
+            BackgroundColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground, // Orbitra-Edit
             BorderColor = Color.FromHex("#5a5a5a"),
             BorderThickness = new Thickness(4)
         };

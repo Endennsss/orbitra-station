@@ -1,4 +1,4 @@
-﻿using Content.Client.Markers;
+using Content.Client.Markers;
 using Content.Client.SubFloor;
 using Content.Client.Stylesheets;
 using Content.Shared.Silicons.StationAi;
@@ -41,6 +41,7 @@ public sealed partial class SandboxWindow : DefaultWindow
         ToggleFovButton.Pressed = !_eyeManager.CurrentEye.DrawFov;
         ToggleShadowsButton.Pressed = !_lightManager.DrawShadows;
         ShowMarkersButton.Pressed = _markerSystem.MarkersVisible;
+        OrbitraShowFieldsButton.Pressed = _entManager.System<Content.Client._Orbitra.Particles.OrbitraAmbientDustZoneSystem>().FieldsVisible; // Orbitra-Edit - состояние полей
         ShowBbButton.Pressed = (_debugPhysicsSystem.Flags & PhysicsDebugFlags.Shapes) != 0x0;
         AiOverlayButton.Pressed = _playerManager.LocalEntity is { } player && _entManager.HasComponent<StationAiOverlayComponent>(player);
     }

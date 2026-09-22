@@ -1968,6 +1968,13 @@
   id: MobMouse
   description: Squeak!
   components:
+  # Orbitra added start - точка выдоха семейства мышей
+  - type: OrbitraColdBreathVisuals
+    south: 0, -0.06
+    north: 0, 0.06
+    east: 0.12, -0.05
+    west: -0.12, -0.05
+  # Orbitra added end
   - type: GhostRole
     makeSentient: true
     allowSpeech: true
@@ -3144,6 +3151,13 @@
   name: corgi
   description: Finally, a space corgi!
   components:
+  # Orbitra added start - точка выдоха семейства корги
+  - type: OrbitraColdBreathVisuals
+    south: 0, -0.12
+    north: 0, 0.12
+    east: 0.25, -0.02
+    west: -0.25, -0.02
+  # Orbitra added end
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Pets/corgi.rsi
@@ -3325,6 +3339,13 @@
   id: MobCat
   description: Feline pet, very funny.
   components:
+  # Orbitra added start - точка выдоха семейства кошек
+  - type: OrbitraColdBreathVisuals
+    south: 0, -0.1
+    north: 0, 0.12
+    east: 0.2, -0.02
+    west: -0.2, -0.02
+  # Orbitra added end
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Pets/cat.rsi

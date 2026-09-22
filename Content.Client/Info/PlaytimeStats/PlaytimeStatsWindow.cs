@@ -13,8 +13,8 @@ public sealed partial class PlaytimeStatsWindow : FancyWindow
 {
     [Dependency] private JobRequirementsManager _jobRequirementsManager = default!;
     private ISawmill _sawmill = Logger.GetSawmill("PlaytimeStatsWindow");
-    private readonly Color _altColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelInset; // Lime-Edit
-    private readonly Color _defaultColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelBackground; // Lime-Edit
+    private readonly Color _altColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelInset; // Orbitra-Edit
+    private readonly Color _defaultColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground; // Orbitra-Edit
     private bool _useAltColor;
 
     public PlaytimeStatsWindow()

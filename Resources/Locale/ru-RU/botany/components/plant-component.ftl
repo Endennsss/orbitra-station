@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 plant-component-plant-success-popup = Вы сажаете {$seedName} {$seedNoun}.
 

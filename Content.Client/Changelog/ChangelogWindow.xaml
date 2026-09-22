@@ -1,13 +1,14 @@
 ﻿<ui:ChangelogWindow xmlns="https://spacestation14.io"
                     xmlns:ui="clr-namespace:Content.Client.Changelog"
+                    xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Lobby"
                     Title="{Loc 'changelog-window-title'}"
-                    MinSize="500 400"
-                    SetSize="500 400"
+                    MinSize="360 280"
+                    SetSize="760 640"
                     Stylesheet="Nanotrasen">
-    <PanelContainer StyleClasses="BackgroundPanel" />
     <BoxContainer Orientation="Vertical">
-        <TabContainer Name="Tabs" Access="Public" HorizontalExpand="True" VerticalExpand="True" />
-        <PanelContainer StyleClasses="LowDivider" />
+        <!-- Orbitra-Edit: закреплённая навигация и отдельная виртуальная лента. -->
+        <orbitra:OrbitraJournalTabs Name="OrbitraSections" />
+        <Control Name="OrbitraJournalHost" VerticalExpand="True" Margin="0 12 0 8" RectClipContent="True" />
         <Label Name="VersionLabel" Access="Public" HorizontalAlignment="Right" StyleClasses="LabelSubText" Margin="4 0" />
     </BoxContainer>
 </ui:ChangelogWindow>

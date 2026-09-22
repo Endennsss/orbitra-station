@@ -1,0 +1,19 @@
+- type: shader
+  id: OrbitraWorldBloomExtract
+  kind: source
+  path: /Textures/_Orbitra/Shaders/world_bloom_extract.swsl
+
+- type: shader
+  id: OrbitraBloomDownsample
+  kind: source
+  path: /Textures/_Orbitra/Shaders/bloom_downsample.swsl
+
+- type: shader
+  id: OrbitraBloomBlur
+  kind: source
+  path: /Textures/_Orbitra/Shaders/bloom_blur.swsl
+
+- type: shader
+  id: OrbitraBloomComposite
+  kind: source
+  path: /Textures/_Orbitra/Shaders/emissive_bloom.swsl

@@ -71,7 +71,7 @@ public sealed class ActionButton : Control, IEntityControl
         MouseFilter = MouseFilterMode.Pass;
         Button = new TextureRect
         {
-            StyleClasses = { Content.Client._Lime.Stylesheets.LimeHudSheetlet.BackgroundStyleClass }, // Lime-Edit - серый фон ячейки действия
+            StyleClasses = { Content.Client._Orbitra.Stylesheets.OrbitraHudSheetlet.BackgroundStyleClass }, // Orbitra-Edit - серый фон ячейки действия
             Name = "Button",
             TextureScale = new Vector2(2, 2)
         };

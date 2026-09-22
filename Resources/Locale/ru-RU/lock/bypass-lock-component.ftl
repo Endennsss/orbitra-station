@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 bypass-lock-verb = Силой открыть блокирующий замок.
 

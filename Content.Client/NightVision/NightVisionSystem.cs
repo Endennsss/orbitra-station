@@ -22,13 +22,13 @@ public sealed partial class NightVisionSystem : SharedNightVisionSystem
         base.Initialize();
 
         _overlay = new NightVisionOverlay();
-        InitializeLimeNightVision(); // Lime-Edit - отдельное оформление приборов.
+        InitializeOrbitraNightVision(); // Orbitra-Edit - отдельное оформление приборов.
     }
 
     [SubscribeLocalEvent]
     private void OnPlayerAttached(LocalPlayerAttachedEvent args)
     {
-        HideLimeNightVision(); // Lime-Edit - не переносим прогрев на другого наблюдателя.
+        HideOrbitraNightVision(); // Orbitra-Edit - не переносим прогрев на другого наблюдателя.
         RefreshOverlay(args.Entity);
     }
 
@@ -41,10 +41,10 @@ public sealed partial class NightVisionSystem : SharedNightVisionSystem
     [SubscribeLocalEvent]
     private void OnHandleState(Entity<NightVisionComponent> ent, ref AfterAutoHandleStateEvent args)
     {
-        // Lime edit start - обновление прибора приходит на предмет, а не на владельца.
+        // Orbitra edit start - обновление прибора приходит на предмет, а не на владельца.
         if (_player.LocalEntity is { } viewer)
             RefreshOverlay(viewer);
-        // Lime edit end
+        // Orbitra edit end
     }
 
     [SubscribeLocalEvent]
@@ -68,7 +68,7 @@ public sealed partial class NightVisionSystem : SharedNightVisionSystem
     [SubscribeNetworkEvent]
     private void OnRoundRestart(RoundRestartCleanupEvent args)
     {
-        HideLimeNightVision(); // Lime-Edit - сброс даже без прикреплённой сущности.
+        HideOrbitraNightVision(); // Orbitra-Edit - сброс даже без прикреплённой сущности.
         var localPlayer = _player.LocalSession?.AttachedEntity;
         if (localPlayer != null)
             Deactivate(localPlayer.Value);
@@ -79,10 +79,10 @@ public sealed partial class NightVisionSystem : SharedNightVisionSystem
         if (entity != _player.LocalSession?.AttachedEntity)
             return;
 
-        // Lime edit start - прежний выбор выделен для тестирования; сохраняем UID источника.
-        var selected = Content.Client._Lime.NightVision.LimeNightVisionPresentation.SelectSource(entity, entities);
+        // Orbitra edit start - прежний выбор выделен для тестирования; сохраняем UID источника.
+        var selected = Content.Client._Orbitra.NightVision.OrbitraNightVisionPresentation.SelectSource(entity, entities);
         var nvision = selected?.Comp;
-        // Lime edit end
+        // Orbitra edit end
 
         // There is no active night vision components, so we disable the overlay.
         if (nvision == null)
@@ -91,10 +91,10 @@ public sealed partial class NightVisionSystem : SharedNightVisionSystem
             return;
         }
 
-        // Lime added start - новый эффект только у выбранного прибора с маркером.
-        if (TryShowLimeNightVision(entity, selected!.Value))
+        // Orbitra added start - новый эффект только у выбранного прибора с маркером.
+        if (TryShowOrbitraNightVision(entity, selected!.Value))
             return;
-        // Lime added end
+        // Orbitra added end
 
         _overlay.SetParameters(nvision.OverlayColor, nvision.LightingColor, nvision.NoiseAmount, nvision.NoiseMultiplier);
 
@@ -108,7 +108,7 @@ public sealed partial class NightVisionSystem : SharedNightVisionSystem
             return;
 
         _overlayMan.RemoveOverlay(_overlay);
-        HideLimeNightVision(); // Lime-Edit - выключаем оба прохода прибора без задержки.
+        HideOrbitraNightVision(); // Orbitra-Edit - выключаем оба прохода прибора без задержки.
     }
 
     protected override void RefreshOverlay(EntityUid target)

@@ -55,6 +55,13 @@
   categories: [ HideSpawnMenu ]
   name: human appearance
   components:
+  # Orbitra added start - рот в локальных координатах слоя головы
+  - type: OrbitraColdBreathVisuals
+    south: -0.015625, 0.234375
+    north: 0, 0.25
+    east: 0.125, 0.234375
+    west: -0.15625, 0.234375
+  # Orbitra added end
   - type: Inventory
     femaleDisplacements:
       jumpsuit:

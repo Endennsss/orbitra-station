@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 limited-charges-charges-remaining = Имеется { $charges } { $charges ->
     [one] заряд

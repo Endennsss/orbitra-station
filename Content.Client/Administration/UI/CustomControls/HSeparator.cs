@@ -1,4 +1,4 @@
-﻿using Robust.Client.Graphics;
+using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Maths;
@@ -7,7 +7,7 @@ namespace Content.Client.Administration.UI.CustomControls;
 
 public sealed class HSeparator : Control
 {
-    private static readonly Color SeparatorColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelBorder; // Lime-Edit
+    private static readonly Color SeparatorColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBorder; // Orbitra-Edit
 
     public HSeparator(Color color)
     {

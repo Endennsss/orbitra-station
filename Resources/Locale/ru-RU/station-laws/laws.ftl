@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 laws-number-wrapper = [bold]Закон { $lawnumber }:[/bold] { $lawstring }
 

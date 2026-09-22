@@ -25,8 +25,8 @@ public sealed partial class PlayerTab : Control
 
     private const string ArrowUp = "↑";
     private const string ArrowDown = "↓";
-    private readonly Color _altColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelInset; // Lime-Edit
-    private readonly Color _defaultColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelBackground; // Lime-Edit
+    private readonly Color _altColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelInset; // Orbitra-Edit
+    private readonly Color _defaultColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground; // Orbitra-Edit
     private readonly AdminSystem _adminSystem;
     private IReadOnlyList<PlayerInfo> _players = new List<PlayerInfo>();
 

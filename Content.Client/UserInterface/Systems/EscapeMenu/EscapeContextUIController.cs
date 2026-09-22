@@ -31,6 +31,17 @@ public sealed partial class EscapeContextUIController : UIController
         }
         else
         {
+            // Orbitra added start - выход из редактора проходит через проверку сохранения.
+            if (UIManager.ActiveScreen is Content.Client.Lobby.UI.LobbyGui lobby && lobby.CharacterSetupState.Visible)
+            {
+                foreach (var child in lobby.CharacterSetupState.Children)
+                    if (child is Content.Client.Lobby.UI.CharacterSetupGui setup)
+                    {
+                        setup.HandleOrbitraEscape();
+                        return;
+                    }
+            }
+            // Orbitra added end
             _escapeUIController.ToggleWindow();
         }
     }

@@ -191,7 +191,7 @@ namespace Content.Client.Chat.UI
             var msg = new FormattedMessage();
             if (fontColor != null)
                 msg.PushColor(fontColor.Value);
-            msg.AddMarkupOrThrow(Content.Client._Lime.Stylesheets.LimeChatSheetlet.FormatSpeechMarkup(message)); // Lime-Edit - внешнее начертание задаётся стилем пузыря.
+            msg.AddMarkupOrThrow(Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.FormatSpeechMarkup(message)); // Orbitra-Edit - внешнее начертание задаётся стилем пузыря.
             return msg;
         }
 
@@ -215,14 +215,14 @@ namespace Content.Client.Chat.UI
             {
                 MaxWidth = SpeechMaxWidth,
                 OutlineThicknessOverride = 0f,
-                StyleClasses = { Content.Client._Lime.Stylesheets.LimeChatSheetlet.SpeechText }, // Lime-Edit - шрифт и отсутствие обводки задаются стилем.
+                StyleClasses = { Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.SpeechText }, // Orbitra-Edit - шрифт и отсутствие обводки задаются стилем.
             };
 
             label.SetMessage(FormatSpeech(message.WrappedMessage, fontColor));
 
             var panel = new PanelContainer
             {
-                StyleClasses = { "speechBox", speechStyleClass, Content.Client._Lime.Stylesheets.LimeChatSheetlet.SpeechBox },
+                StyleClasses = { "speechBox", speechStyleClass, Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.SpeechBox },
                 Children = { label },
                 ModulateSelfOverride = Color.White.WithAlpha(ConfigManager.GetCVar(CCVars.SpeechBubbleBackgroundOpacity))
             };
@@ -247,14 +247,14 @@ namespace Content.Client.Chat.UI
                 {
                     MaxWidth = SpeechMaxWidth,
                     OutlineThicknessOverride = 0f,
-                    StyleClasses = { Content.Client._Lime.Stylesheets.LimeChatSheetlet.SpeechText }, // Lime-Edit - шрифт и отсутствие обводки задаются стилем.
+                    StyleClasses = { Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.SpeechText }, // Orbitra-Edit - шрифт и отсутствие обводки задаются стилем.
                 };
 
                 label.SetMessage(ExtractAndFormatSpeechSubstring(message, "BubbleContent", fontColor));
 
                 var unfanciedPanel = new PanelContainer
                 {
-                    StyleClasses = { "speechBox", speechStyleClass, Content.Client._Lime.Stylesheets.LimeChatSheetlet.SpeechBox },
+                    StyleClasses = { "speechBox", speechStyleClass, Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.SpeechBox },
                     Children = { label },
                     ModulateSelfOverride = Color.White.WithAlpha(ConfigManager.GetCVar(CCVars.SpeechBubbleBackgroundOpacity)),
                 };
@@ -266,7 +266,7 @@ namespace Content.Client.Chat.UI
                 ModulateSelfOverride = Color.White.WithAlpha(ConfigManager.GetCVar(CCVars.SpeechBubbleSpeakerOpacity)),
                 Margin = new Thickness(2, 0, 2, 0),
                 OutlineThicknessOverride = 0f,
-                StyleClasses = { Content.Client._Lime.Stylesheets.LimeChatSheetlet.SpeechText }, // Lime-Edit - единая типографика заголовка сообщения.
+                StyleClasses = { Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.SpeechText }, // Orbitra-Edit - единая типографика заголовка сообщения.
             };
 
             var bubbleContent = new RichTextLabel
@@ -275,7 +275,7 @@ namespace Content.Client.Chat.UI
                 MaxWidth = SpeechMaxWidth,
                 Margin = new Thickness(2, 0, 2, 0),
                 OutlineThicknessOverride = 0f,
-                StyleClasses = { "bubbleContent", Content.Client._Lime.Stylesheets.LimeChatSheetlet.SpeechText }, // Lime-Edit - читаемый текст без обводки.
+                StyleClasses = { "bubbleContent", Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.SpeechText }, // Orbitra-Edit - читаемый текст без обводки.
             };
 
             //We'll be honest. *Yes* this is hacky. Doing this in a cleaner way would require a bottom-up refactor of how saycode handles sending chat messages. -Myr
@@ -285,7 +285,7 @@ namespace Content.Client.Chat.UI
             //As for below: Some day this could probably be converted to xaml. But that is not today. -Myr
             var mainPanel = new PanelContainer
             {
-                StyleClasses = { "speechBox", speechStyleClass, Content.Client._Lime.Stylesheets.LimeChatSheetlet.SpeechBox },
+                StyleClasses = { "speechBox", speechStyleClass, Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.SpeechBox },
                 Children = { bubbleContent },
                 ModulateSelfOverride = Color.White.WithAlpha(ConfigManager.GetCVar(CCVars.SpeechBubbleBackgroundOpacity)),
                 HorizontalAlignment = HAlignment.Center,
@@ -295,7 +295,7 @@ namespace Content.Client.Chat.UI
 
             var headerPanel = new PanelContainer
             {
-                StyleClasses = { "speechBox", speechStyleClass, Content.Client._Lime.Stylesheets.LimeChatSheetlet.SpeechBox },
+                StyleClasses = { "speechBox", speechStyleClass, Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.SpeechBox },
                 Children = { bubbleHeader },
                 ModulateSelfOverride = Color.White.WithAlpha(ConfigManager.GetCVar(CCVars.ChatFancyNameBackground) ? ConfigManager.GetCVar(CCVars.SpeechBubbleBackgroundOpacity) : 0f),
                 HorizontalAlignment = HAlignment.Center,

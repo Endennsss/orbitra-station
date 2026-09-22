@@ -1,28 +1,32 @@
-<Control
-    xmlns="https://spacestation14.io"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
-    xmlns:profile="clr-namespace:Content.Client.Lobby.UI.ProfileEditorControls">
-    <BoxContainer Name="VBox" Orientation="Vertical">
-        <controls:NanoHeading Name="Header" Text="{Loc 'lobby-character-preview-panel-header'}">
-
-        </controls:NanoHeading>
-        <BoxContainer Name="Loaded" Orientation="Vertical"
-                      Visible="False">
-            <Label Name="Summary" HorizontalAlignment="Center" Margin="3 3"/>
-            <BoxContainer Name="ViewBox" Orientation="Horizontal" HorizontalAlignment="Center">
-                <profile:ProfilePreviewSpriteView Name="ProfilePreviewSpriteView"
-                                                  OverrideDirection="South"
-                                                  Scale="4 4"
-                                                  MaxSize="112 112"
-                                                  Stretch="Fill"
-                                                  Access="Public" />
+<Control xmlns="https://spacestation14.io"
+    xmlns:profile="clr-namespace:Content.Client.Lobby.UI.ProfileEditorControls"
+    xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Lobby">
+    <!-- Orbitra edit start - центральная карточка выбранного профиля. -->
+    <PanelContainer Name="CrewCard" StyleClasses="OrbitraCrewCard" MaxWidth="480" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalExpand="True">
+    <BoxContainer Name="VBox" Orientation="Vertical" SeparationOverride="12">
+        <BoxContainer Name="Loaded" Orientation="Vertical" SeparationOverride="8" Visible="False">
+            <Label Name="CharacterName" Align="Center" ClipText="True" MaxWidth="380" StyleClasses="OrbitraLobbyTitle" />
+            <BoxContainer Name="ViewBox" Orientation="Horizontal" HorizontalAlignment="Center" SeparationOverride="16">
+                <orbitra:OrbitraLobbyButton Name="PreviousProfile" Text="‹" VerticalAlignment="Center" SetSize="52 52"
+                        ToolTip="{Loc 'orbitra-lobby-previous'}" StyleClasses="OrbitraLobbyButton" />
+                <orbitra:OrbitraPreviewStage Name="PreviewStage" SetSize="224 224">
+                    <orbitra:OrbitraLobbyShadow Name="GroundShadow" MouseFilter="Ignore" />
+                    <profile:ProfilePreviewSpriteView Name="OutgoingPreview" Visible="False" OverrideDirection="South" Stretch="Fit" />
+                    <profile:ProfilePreviewSpriteView Name="ProfilePreviewSpriteView" Access="Public"
+                        OverrideDirection="South" Scale="7 7" Stretch="Fit" />
+                </orbitra:OrbitraPreviewStage>
+                <orbitra:OrbitraLobbyButton Name="NextProfile" Text="›" VerticalAlignment="Center" SetSize="52 52"
+                        ToolTip="{Loc 'orbitra-lobby-next'}" StyleClasses="OrbitraLobbyButton" />
             </BoxContainer>
-            <controls:VSpacer/>
-            <Button Name="CharacterSetup" Text="{Loc 'lobby-character-preview-panel-character-setup-button'}"
-                    HorizontalAlignment="Center"
-                    Margin="0 5 0 0"/>
+            <Label Name="Summary" Align="Center" ClipText="True" MaxWidth="380" StyleClasses="OrbitraLobbyMuted" />
+            <Label Name="ProfileCounter" Align="Center" StyleClasses="OrbitraLobbyMuted" />
+            <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center" SeparationOverride="8">
+                <orbitra:OrbitraLobbyButton Name="CharacterSetup" Text="{Loc 'orbitra-lobby-customize'}" StyleClasses="OrbitraLobbyPrimary" MinWidth="200" MinHeight="44" />
+                <orbitra:OrbitraLobbyButton Name="RotateProfile" Text="{Loc 'orbitra-lobby-turn'}" ToolTip="{Loc 'orbitra-lobby-rotate'}" StyleClasses="OrbitraLobbyButton" MinWidth="70" MinHeight="44" />
+            </BoxContainer>
         </BoxContainer>
-        <Label Name="Unloaded" Text="{Loc 'lobby-character-preview-panel-unloaded-preferences-label'}"/>
+        <Label Name="Unloaded" Text="{Loc 'lobby-character-preview-panel-unloaded-preferences-label'}" />
     </BoxContainer>
+    </PanelContainer>
+    <!-- Orbitra edit end -->
 </Control>

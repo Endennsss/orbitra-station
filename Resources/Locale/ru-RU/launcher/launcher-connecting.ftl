@@ -1,6 +1,6 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
-connecting-title = Lime Station
+connecting-title = Orbitra
 
 connecting-exit = Выйти
 

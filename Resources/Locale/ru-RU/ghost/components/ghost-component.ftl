@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 ghost-component-on-examine-death-time-info-minutes = { $minutes } минут назад
 

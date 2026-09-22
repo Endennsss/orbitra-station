@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cmd-showambient-desc = Показывает все AmbientSoundComponent в области просмотра.
 

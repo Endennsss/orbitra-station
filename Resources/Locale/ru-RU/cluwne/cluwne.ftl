@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cluwne-transform = { CAPITALIZE($target) } превратился в клувеня!
 

@@ -1,0 +1,17 @@
+# Только админ-спавн: в лодауты и каталоги прибор не добавлен.
+- type: entity
+  parent: ClothingEyesBase
+  id: OrbitraClothingEyesNightVision
+  name: night vision goggles
+  description: An optical device with green phosphor lenses.
+  suffix: Testing
+  components:
+  - type: Sprite
+    sprite: Clothing/Eyes/Glasses/meson.rsi
+  - type: Clothing
+    sprite: Clothing/Eyes/Glasses/meson.rsi
+  - type: NightVision
+    enabled: false
+    relayOverlay: true
+    action: ActionToggleNightVision
+  - type: OrbitraNightVisionDevice

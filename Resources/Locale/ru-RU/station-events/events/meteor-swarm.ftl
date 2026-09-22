@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 station-event-meteor-swarm-start-announcement = Обнаружен рой метеоритов прямо по курсу станции.
 

@@ -372,7 +372,7 @@ namespace Content.Client.Arcade
             var back = new StyleBoxTexture
             {
                 Texture = panelTex,
-                Modulate = Content.Client._Lime.Stylesheets.LimePalettes.PanelBorder, // Lime-Edit - нейтральная рамка
+                Modulate = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBorder, // Orbitra-Edit - нейтральная рамка
             };
             back.SetPatchMargin(StyleBox.Margin.All, 10);
 
@@ -384,7 +384,7 @@ namespace Content.Client.Arcade
             };
             var backgroundPanel = new PanelContainer
             {
-                PanelOverride = new StyleBoxFlat { BackgroundColor = Content.Client._Lime.Stylesheets.LimePalettes.IconPressed } // Lime-Edit
+                PanelOverride = new StyleBoxFlat { BackgroundColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.IconPressed } // Orbitra-Edit
             };
             backgroundPanel.AddChild(_gameGrid);
             gamePanel.AddChild(backgroundPanel);

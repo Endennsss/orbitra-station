@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 parse-minutes-fail = Не удалось спарсить '{ $minutes }' как минуты
 

@@ -145,7 +145,8 @@ namespace Content.Client.Lobby.UI
             NameEdit.OnTextChanged += args => { SetName(args.Text); };
             NameEdit.IsValid = args => args.Length <= _maxNameLength;
             RandomizeUnlockedButton.OnPressed += args => { RandomizeProfile(); };
-            WarningLabel.SetMarkup($"[color=red]{Loc.GetString("humanoid-profile-editor-naming-rules-warning")}[/color]");
+            WarningLabel.SetMarkup(Loc.GetString("humanoid-profile-editor-naming-rules-warning")); // Orbitra-Edit: сохраняем экранирование скобок без красной заливки.
+            WarningLabel.AddStyleClass("OrbitraLobbyMuted"); // Orbitra-Edit
 
             #endregion Name
 
@@ -322,11 +323,13 @@ namespace Content.Client.Lobby.UI
             SpeciesInfoButton.OnPressed += OnSpeciesInfoButtonPressed;
 
             UpdateSpeciesGuidebookIcon();
+            InitializeOrbitraEditor(); // Orbitra-Edit
             IsDirty = false;
         }
 
         private void SetDirty()
         {
+            UpdateOrbitraEditorLabels(); // Orbitra-Edit
             // If it equals default then reset the button.
             if (Profile == null || _preferencesManager.Preferences?.SelectedCharacter.MemberwiseEquals(Profile) == true)
             {
@@ -346,6 +349,7 @@ namespace Content.Client.Lobby.UI
         /// </remarks>
         private void ReloadPreview()
         {
+            UpdateOrbitraEditorLabels(); // Orbitra-Edit
             if (Profile == null)
                 return;
 
@@ -393,6 +397,7 @@ namespace Content.Client.Lobby.UI
             RefreshSpecies();
             RefreshTraits();
             RefreshFlavorText();
+            Content.Client._Orbitra.Lobby.OrbitraEditorStyles.Apply(TraitsList); // Orbitra-Edit
             ReloadPreview();
 
             if (Profile != null)
@@ -435,6 +440,7 @@ namespace Content.Client.Lobby.UI
         {
             SaveButton.Disabled = Profile is null || !IsDirty;
             ResetButton.Disabled = Profile is null || !IsDirty;
+            UpdateOrbitraEditorLabels(); // Orbitra-Edit
         }
 
         private void SetPreviewRotation(Direction direction)

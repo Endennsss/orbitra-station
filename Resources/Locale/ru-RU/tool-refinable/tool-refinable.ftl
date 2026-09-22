@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 refined-butchered-success = Вы разрезаете { $target } используя { $tool }.
 

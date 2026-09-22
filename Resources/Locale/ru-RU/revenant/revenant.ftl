@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 revenant-essence-amount = У вас [color=plum]{ $current } эссенции[/color]. Ваш максимум — [color=plum]{ $max } эссенции[/color].
 

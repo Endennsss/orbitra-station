@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 ui-mailing-unit-window-title-tagged = Почтовый блок { $tag }
 

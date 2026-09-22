@@ -9,6 +9,10 @@
     snap:
     - Window
   components:
+  # Orbitra added start - материал косметических осколков.
+  - type: OrbitraParticleMaterial
+    material: Glass
+  # Orbitra added end
   - type: Anchorable
     flags:
     - Anchorable

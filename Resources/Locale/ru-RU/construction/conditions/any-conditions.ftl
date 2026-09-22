@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 construction-examine-condition-any-conditions = Любое из этих условий должно быть истинным::
 

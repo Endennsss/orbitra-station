@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 access-id-card-component-owner-name-job-title-text = ID карта { $jobSuffix }
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 advertisement-robodrobe-1 = Ты делаешь меня истинным, используй определения!
 

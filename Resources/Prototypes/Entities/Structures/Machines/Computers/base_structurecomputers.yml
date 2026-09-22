@@ -5,6 +5,10 @@
   placement:
     mode: SnapgridCenter
   components:
+  # Orbitra added start - материал корпуса для косметических частиц.
+  - type: OrbitraParticleMaterial
+    material: Metal
+  # Orbitra added end
   - type: Animateable
   - type: MeleeSound
     soundGroups:

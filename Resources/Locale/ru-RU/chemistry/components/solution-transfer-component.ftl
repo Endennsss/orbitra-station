@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 comp-solution-transfer-fill-normal = Вы перемещаете { $amount } ед. из { $owner } в { $target }.
 

@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Content.Client.Resources;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
@@ -13,14 +13,14 @@ namespace Content.Client.Stylesheets
     {
         public static readonly Color SpaceRed = Color.FromHex("#9b2236");
 
-        public static readonly Color ButtonColorDefault = Content.Client._Lime.Stylesheets.LimePalettes.Primary.Element; // Lime-Edit - общий серый стиль
-        public static readonly Color ButtonColorHovered = Content.Client._Lime.Stylesheets.LimePalettes.Primary.HoveredElement; // Lime-Edit - общий серый стиль
-        public static readonly Color ButtonColorPressed = Content.Client._Lime.Stylesheets.LimePalettes.Primary.PressedElement; // Lime-Edit - общий серый стиль
-        public static readonly Color ButtonColorDisabled = Content.Client._Lime.Stylesheets.LimePalettes.Primary.DisabledElement; // Lime-Edit - общий серый стиль
+        public static readonly Color ButtonColorDefault = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.Element; // Orbitra-Edit - общий серый стиль
+        public static readonly Color ButtonColorHovered = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.HoveredElement; // Orbitra-Edit - общий серый стиль
+        public static readonly Color ButtonColorPressed = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.PressedElement; // Orbitra-Edit - общий серый стиль
+        public static readonly Color ButtonColorDisabled = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.DisabledElement; // Orbitra-Edit - общий серый стиль
 
         public static readonly Color ButtonColorCautionDefault = Color.FromHex("#ab3232");
         public static readonly Color ButtonColorCautionHovered = Color.FromHex("#cf2f2f");
-        public static readonly Color ButtonColorCautionPressed = Content.Client.Stylesheets.Palette.Palettes.Red.PressedElement; // Lime-Edit - общий серый стиль
+        public static readonly Color ButtonColorCautionPressed = Content.Client.Stylesheets.Palette.Palettes.Red.PressedElement; // Orbitra-Edit - общий серый стиль
         public static readonly Color ButtonColorCautionDisabled = Color.FromHex("#602a2a");
 
         public override Stylesheet Stylesheet { get; }
@@ -56,7 +56,7 @@ namespace Content.Client.Stylesheets
 
             var progressBarForeground = new StyleBoxFlat
             {
-                BackgroundColor = Content.Client._Lime.Stylesheets.LimePalettes.IconNormal // Lime-Edit
+                BackgroundColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.IconNormal // Orbitra-Edit
             };
             progressBarForeground.SetContentMarginOverride(StyleBox.Margin.Vertical, 14.5f);
 
@@ -154,7 +154,7 @@ namespace Content.Client.Stylesheets
 
                 Element<PanelContainer>().Class(StyleClass.BackgroundPanel)
                     .Prop(PanelContainer.StylePropertyPanel, BaseAngleRect)
-                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Lime.Stylesheets.LimePalettes.PanelInset), // Lime-Edit - нейтральный старый стиль
+                    .Prop(Control.StylePropertyModulateSelf, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelInset), // Orbitra-Edit - нейтральный старый стиль
 
                 Child()
                     .Parent(Element<Button>().Class(ContainerButton.StylePseudoClassDisabled))

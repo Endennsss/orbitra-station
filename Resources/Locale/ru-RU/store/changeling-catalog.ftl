@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 changeling-catalog-arm-blade-name = Выдвижной клинок-рука
 

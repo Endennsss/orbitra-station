@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 comp-generator-failsafe = { CAPITALIZE($target) } содрогается, когда срабатывает предохранительная система!
 

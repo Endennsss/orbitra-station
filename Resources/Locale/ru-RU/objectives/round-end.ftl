@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 objectives-round-end-result = { $count ->
     [one] Был один { $agent }.

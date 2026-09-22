@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 uplink-pistol-magazine-name = Пистолетный магазин (.35 авто)
 

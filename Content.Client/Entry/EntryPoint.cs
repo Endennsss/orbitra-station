@@ -96,6 +96,7 @@ namespace Content.Client.Entry
         {
             Dependencies.BuildGraph();
             Dependencies.InjectDependencies(this);
+            Content.Shared._Orbitra.Compatibility.OrbitraLegacySettings.Import(_configManager); // Orbitra-Edit
 
             _contentLoc.Initialize();
             _componentFactory.DoAutoRegistrations();

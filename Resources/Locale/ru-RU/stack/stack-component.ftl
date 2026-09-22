@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 comp-stack-examine-detail-count = В стопке [color={ $markupCountColor }]{ $count }[/color] { $count ->
     [one] предмет

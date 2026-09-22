@@ -278,7 +278,7 @@ public sealed partial class ChatUIController : UIController
                  && style is StyleBoxFlat propStyleBoxFlat)
             color = propStyleBoxFlat.BackgroundColor;
         else
-            color = Content.Client._Lime.Stylesheets.LimePalettes.PanelBackground.WithAlpha(221f / 255f); // Lime-Edit - общий серый стиль
+            color = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground.WithAlpha(221f / 255f); // Orbitra-Edit - общий серый стиль
 
         panel.PanelOverride = new StyleBoxFlat
         {

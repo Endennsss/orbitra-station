@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 roles-antag-survivor-name = Выживший
 # It's a Halo reference

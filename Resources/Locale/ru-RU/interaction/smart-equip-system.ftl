@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 smart-equip-missing-equipment-slot = У вас нет слота { $slotName }, с которым можно взаимодействовать!
 

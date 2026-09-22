@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 names-cargo-shuttle-dataset-1 = Шаттл не произойдёт
 

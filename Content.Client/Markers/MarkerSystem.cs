@@ -35,7 +35,7 @@ public sealed partial class MarkerSystem : EntitySystem
     {
         if (TryComp(uid, out SpriteComponent? sprite))
         {
-            _sprite.SetVisible((uid, sprite), MarkersVisible);
+            _sprite.SetVisible((uid, sprite), MarkersVisible || EntityManager.System<Content.Client._Orbitra.Particles.OrbitraAmbientDustZoneSystem>().ShouldShowMarker(uid)); // Orbitra-Edit - предпросмотр и поля зон пыли
         }
     }
 

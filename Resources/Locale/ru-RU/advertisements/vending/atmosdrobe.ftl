@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 advertisement-atmosdrobe-1 = Получите свою огнестойкую одежду прямо здесь!!!
 

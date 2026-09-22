@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 ingestion-you-need-to-hold-utensil = Вам нужна { $utensil }, чтобы есть это!
 

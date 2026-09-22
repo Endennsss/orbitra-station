@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 plant-hoe-component-already-seeded-popup = Вы пропалываете { $name } от сорняков.
 

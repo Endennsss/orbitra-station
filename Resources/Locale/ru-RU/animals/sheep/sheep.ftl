@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 sheep-shearable-examine-markup = У неё очень пушистая шерсть. Используя инструмент с возможностью [color=yellow]{ $toolQuality }[/color], вы могли бы состричь её.
 # Appears in the description box when the sheep has NO wool to shear.

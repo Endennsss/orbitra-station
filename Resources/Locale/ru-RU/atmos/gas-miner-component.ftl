@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 gas-miner-mines-text = Он добывает [color=lightgray]{ $gas }[/color] когда активен.
 

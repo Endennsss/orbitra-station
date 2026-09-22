@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 research-client-server-selection-menu-title = Выбор сервера РнД
 

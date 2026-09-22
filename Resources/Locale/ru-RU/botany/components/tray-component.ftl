@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 tray-component-nothing-planted-message = Здесь ничего не посажено..
 

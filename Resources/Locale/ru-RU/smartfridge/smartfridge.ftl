@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 smart-fridge-component-try-eject-unknown-entry = Неверный выбор!
 

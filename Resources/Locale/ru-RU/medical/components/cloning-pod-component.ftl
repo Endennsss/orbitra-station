@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cloning-pod-biomass = Содержит [color=red]{ $number }[/color] единиц биомассы.
 

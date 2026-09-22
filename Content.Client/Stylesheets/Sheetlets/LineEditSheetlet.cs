@@ -1,4 +1,4 @@
-﻿using Content.Client.Stylesheets.SheetletConfigs;
+using Content.Client.Stylesheets.SheetletConfigs;
 using Content.Client.Stylesheets.Stylesheets;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
@@ -14,7 +14,7 @@ public sealed class LineEditSheetlet<T> : Sheetlet<T> where T : PalettedStyleshe
     {
         ILineEditConfig lineEditCfg = sheet;
 
-        var lineEditStylebox = new Content.Client._Lime.Stylesheets.LimeGrayStyleBoxTexture // Lime-Edit - обесцвечиваем рамку, не текст ввода
+        var lineEditStylebox = new Content.Client._Orbitra.Stylesheets.OrbitraGrayStyleBoxTexture // Orbitra-Edit - обесцвечиваем рамку, не текст ввода
         {
             Texture = sheet.GetTextureOr(lineEditCfg.LineEditPath, NanotrasenStylesheet.TextureRoot),
         };

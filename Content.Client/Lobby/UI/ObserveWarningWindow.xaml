@@ -1,5 +1,6 @@
-<DefaultWindow
+<controls:FancyWindow
     xmlns="https://spacestation14.io"
+    xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
     xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls">
     <BoxContainer Orientation="Vertical">
         <Label Text="{Loc 'observe-warning-1'}"/>
@@ -11,4 +12,4 @@
             <cc:CommandButton Command="observe admin" Name="ObserveAsAdminButton" Text="{Loc 'observe-as-admin'}" SizeFlagsStretchRatio="1" Visible="False"/>
         </BoxContainer>
     </BoxContainer>
-</DefaultWindow>
+</controls:FancyWindow>

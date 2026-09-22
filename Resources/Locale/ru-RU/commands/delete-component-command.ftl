@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cmd-deletecomponent-desc = Удаляет все случаи указаного компонента.
 

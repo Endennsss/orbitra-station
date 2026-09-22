@@ -1,5 +1,6 @@
 <Control xmlns="https://spacestation14.io"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Lobby"
          xmlns:ui="clr-namespace:Content.Client.Options.UI">
     <BoxContainer Orientation="Vertical">
         <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
@@ -9,7 +10,8 @@
                 <CheckBox Name="ReducedMotionCheckBox"
                     Text="{Loc 'ui-options-reduced-motion'}"
                     ToolTip="{Loc 'ui-options-reduced-motion-tooltip'}" />
-                <GridContainer Columns="2" HorizontalExpand="True" Margin="8 8 8 8">
+                <!-- Orbitra-Edit: перенос настроек по ширине содержимого. -->
+                <orbitra:OrbitraResponsiveGrid HorizontalExpand="True" Margin="8">
                     <CheckBox Name="DisableAiStaticCheckBox"
                         Text="{Loc 'ui-options-disable-ai-static'}"
                         ToolTip="{Loc 'ui-options-disable-ai-static-tooltip'}" />
@@ -34,7 +36,7 @@
                     <CheckBox Name="DisableSinguloWarpCheckBox"
                         Text="{Loc 'ui-options-disable-singulo-warp'}"
                         ToolTip="{Loc 'ui-options-disable-singulo-warp-tooltip'}" />
-                </GridContainer>
+                </orbitra:OrbitraResponsiveGrid>
                 <Label Text="{Loc 'ui-options-accessibility-header-visuals'}"
                        StyleClasses="LabelKeyText"/>
                 <CheckBox Name="EnableColorNameCheckBox" Text="{Loc 'ui-options-enable-color-name'}" />

@@ -22,7 +22,7 @@
   - type: InteractionOutline
   - type: Sprite
     drawdepth: WallMountedItems
-    offset: 0, 0 # Lime-Edit - направленные спрайты Forge без сдвига на соседний тайл
+    offset: 0, 0 # Orbitra-Edit - направленные спрайты Forge без сдвига на соседний тайл
     layers:
     - map: ["enum.PoweredLightLayers.Base"]
       state: base

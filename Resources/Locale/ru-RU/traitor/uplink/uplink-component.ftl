@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 uplink-bound-user-interface-insufficient-funds-popup = Недостаточно средств!
 

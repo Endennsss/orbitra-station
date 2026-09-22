@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 generic-reagent-effect-burning-insides = Вы чувствуете, как горят ваши внутренности!
 

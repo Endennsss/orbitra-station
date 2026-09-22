@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 traitor-corporations-dataset-1 = "КиберСан Индастриз"
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 bible-heal-success-self = Вы ударяете { $target } с помощью { $bible }, и его раны закрываются во вспышке святого света!
 

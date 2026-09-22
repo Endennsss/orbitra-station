@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 crew-monitoring-ui-title = Консоль мониторинга экипажа
 

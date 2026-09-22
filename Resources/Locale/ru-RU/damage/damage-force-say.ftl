@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 damage-force-say-message-wrap = { $message }-{ $suffix }
 

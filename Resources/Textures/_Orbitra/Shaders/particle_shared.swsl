@@ -1,0 +1,26 @@
+// Отсекаем также источник: искры за стеной не должны выдавать скрытое действие.
+const highp float g_MinVariance = 0.0;
+#include "/Shaders/Internal/shadow_cast_shared.swsl"
+uniform sampler2D FOV_TEXTURE;
+uniform bool use_fov;
+uniform highp vec2 source_eye;
+uniform lowp vec4 particle_color;
+uniform bool smoke;
+uniform lowp int shape;
+
+void fragment() {
+    if (use_fov && doesOcclude(source_eye, FOV_TEXTURE, 0.75, -0.75 / 32.0))
+        discard;
+    highp vec2 offset = UV2 * 2.0 - 1.0;
+    if (shape == 1)
+        offset.y *= 2.5;
+    highp float radius = length(offset);
+    highp float alpha = smoke ? pow(max(0.0, 1.0 - radius), 2.0) :
+        (1.0 - smoothstep(0.0, 0.35, radius)) + 0.2 * pow(max(0.0, 1.0 - radius), 2.0);
+    if (shape == 2)
+        alpha = (1.0 - smoothstep(0.4, 0.6, abs(offset.x))) * (1.0 - smoothstep(0.2, 0.35, abs(offset.y)));
+    // Пылинке нужна полная мягкая точка, а не субпиксельное ядро искры.
+    if (shape == 3)
+        alpha = 1.0 - smoothstep(0.25, 1.0, radius);
+    COLOR = vec4(particle_color.rgb, particle_color.a * clamp(alpha, 0.0, 1.0));
+}

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 electrocuted-component-mob-shocked-by-source-popup-others = { CAPITALIZE($source) } шокирует { $mob }!
 

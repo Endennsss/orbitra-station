@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 polymorph-self-action-name = Полиморфировать ({ CAPITALIZE($target) })
 

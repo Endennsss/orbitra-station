@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 tool-component-qualities = Этот предмет можно использовать чтобы совершать [color=yellow]{ $qualities }[/color].
 

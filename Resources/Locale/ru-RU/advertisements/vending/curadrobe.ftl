@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 advertisement-curadrobe-1 = Очки — для глаз, книги — для души, в Библиодробе есть всё!
 

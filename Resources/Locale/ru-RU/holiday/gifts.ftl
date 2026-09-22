@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 gift-packin-contains = Похоже, в этом подарке лежит { $name }.
 

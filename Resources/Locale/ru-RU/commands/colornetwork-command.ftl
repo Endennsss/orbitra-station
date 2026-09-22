@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cmd-colornetwork-desc = Окрашивает атмос-устройства в заданный цвет
 

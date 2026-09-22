@@ -8,11 +8,12 @@ namespace Content.Client.Administration.UI.Bwoink
     /// This window connects to a BwoinkSystem channel. BwoinkSystem manages the rest.
     /// </summary>
     [GenerateTypedNameReferences]
-    public sealed partial class BwoinkWindow : DefaultWindow
+    public sealed partial class BwoinkWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
     {
         public BwoinkWindow()
         {
             RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
 
             Bwoink.ChannelSelector.OnSelectionChanged += sel =>
             {

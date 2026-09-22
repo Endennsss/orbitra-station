@@ -28,7 +28,7 @@ public sealed class PdaSheetlet : Sheetlet<NanotrasenStylesheet>
             E<PanelContainer>()
                 .Class("PdaContentBackground")
                 .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.SquareStyleBox(sheet))
-                .Prop(Control.StylePropertyModulateSelf, Content.Client._Lime.Stylesheets.LimePalettes.PanelBackground), // Lime-Edit - общий серый стиль
+                .Prop(Control.StylePropertyModulateSelf, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground), // Orbitra-Edit - общий серый стиль
 
             E<PanelContainer>()
                 .Class("PdaBackground")
@@ -38,7 +38,7 @@ public sealed class PdaSheetlet : Sheetlet<NanotrasenStylesheet>
             E<PanelContainer>()
                 .Class("PdaBackgroundRect")
                 .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.BaseStyleBox((sheet)))
-                .Prop(Control.StylePropertyModulateSelf, sheet.PrimaryPalette.Element), // Lime-Edit - корпус КПК без оливкового оттенка
+                .Prop(Control.StylePropertyModulateSelf, sheet.PrimaryPalette.Element), // Orbitra-Edit - корпус КПК без оливкового оттенка
 
             E<PanelContainer>()
                 .Class("PdaBorderRect")
@@ -86,7 +86,7 @@ public sealed class PdaSheetlet : Sheetlet<NanotrasenStylesheet>
             E<Label>()
                 .Class("PdaWindowFooterText")
                 .Prop(Label.StylePropertyFont, sheet.BaseFont.GetFont(10))
-                .Prop(Label.StylePropertyFontColor, sheet.SecondaryPalette.TextDark), // Lime-Edit - читаемый нейтральный текст
+                .Prop(Label.StylePropertyFontColor, sheet.SecondaryPalette.TextDark), // Orbitra-Edit - читаемый нейтральный текст
         ];
     }
 }

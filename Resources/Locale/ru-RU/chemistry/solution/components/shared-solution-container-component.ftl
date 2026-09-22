@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 shared-solution-container-component-on-examine-main-text = Содержит [color={ $color }]{ $colorName } { $desc }[/color] { $chemCount ->
     [1] вещество.

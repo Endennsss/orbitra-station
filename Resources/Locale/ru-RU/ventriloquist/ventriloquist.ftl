@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 ventriloquist-puppet-insert-hand = Вы вставляете свою руку в куклу.
 

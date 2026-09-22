@@ -48,6 +48,7 @@ namespace Content.Client.MainMenu
             _mainMenuControl.DirectConnectButton.OnPressed += DirectConnectButtonPressed;
             _mainMenuControl.AddressBox.OnTextEntered += AddressBoxEntered;
             _mainMenuControl.ChangelogButton.OnPressed += ChangelogButtonPressed;
+            InitializeOrbitraDevLobby(); // Orbitra-Edit - кнопка только для локальной dev-сборки.
 
             _client.RunLevelChanged += RunLevelChanged;
         }
@@ -55,6 +56,7 @@ namespace Content.Client.MainMenu
         /// <inheritdoc />
         protected override void Shutdown()
         {
+            ShutdownOrbitraDevLobby(); // Orbitra-Edit
             _client.RunLevelChanged -= RunLevelChanged;
             _netManager.ConnectFailed -= _onConnectFailed;
 
@@ -94,6 +96,7 @@ namespace Content.Client.MainMenu
 
         private void TryConnect(string address)
         {
+            address = address.Trim(); // Orbitra-Edit: пробелы из вставленного адреса не являются частью хоста.
             var inputName = _mainMenuControl.UsernameBox.Text.Trim();
             if (!UsernameHelpers.IsNameValid(inputName, out var reason))
             {
@@ -190,6 +193,7 @@ namespace Content.Client.MainMenu
         {
             _isConnecting = state;
             _mainMenuControl.DirectConnectButton.Disabled = state;
+            _mainMenuControl.OrbitraDevLobbyButton.Disabled = state; // Orbitra-Edit
         }
     }
 }

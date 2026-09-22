@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 fake-mindshield-enabled = Ваш имплант защиты разума включается.
 

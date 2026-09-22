@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 uplink-storage-implanter-name = Имплантер "Хранилище"
 

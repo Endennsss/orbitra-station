@@ -1,5 +1,5 @@
 using Content.Shared.Input;
-using Content.Shared._Lime.Input; // Lime-Edit
+using Content.Shared._Orbitra.Input; // Orbitra-Edit
 using Robust.Shared.Input;
 
 namespace Content.Client.Input
@@ -58,10 +58,10 @@ namespace Content.Client.Input
             human.AddFunction(EngineKeyFunctions.MoveLeft);
             human.AddFunction(EngineKeyFunctions.MoveRight);
             human.AddFunction(EngineKeyFunctions.Walk);
-            // Lime added start - отдельное управление положением лёжа и прыжком
-            human.AddFunction(LimeKeyFunctions.ToggleProne);
-            human.AddFunction(LimeKeyFunctions.Jump);
-            // Lime added end
+            // Orbitra added start - отдельное управление положением лёжа и прыжком
+            human.AddFunction(OrbitraKeyFunctions.ToggleProne);
+            human.AddFunction(OrbitraKeyFunctions.Jump);
+            // Orbitra added end
             human.AddFunction(ContentKeyFunctions.SwapHands);
             human.AddFunction(ContentKeyFunctions.SwapHandsReverse);
             human.AddFunction(ContentKeyFunctions.Drop);

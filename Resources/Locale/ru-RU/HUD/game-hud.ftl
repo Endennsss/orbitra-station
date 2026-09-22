@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 game-hud-open-escape-menu-button-tooltip = Открыть меню паузы.
 

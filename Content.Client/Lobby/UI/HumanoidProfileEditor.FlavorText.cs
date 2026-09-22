@@ -26,18 +26,22 @@ public sealed partial class HumanoidProfileEditor
             _flavorTextEdit = _flavorText.CFlavorTextInput;
 
             _flavorText.OnFlavorTextChanged += OnFlavorTextChange;
+            RefreshOrbitraSections(); // Orbitra-Edit
         }
         else
         {
             if (_flavorText == null)
                 return;
 
+            if (TabContainer.CurrentTab == TabContainer.ChildCount - 1)
+                TabContainer.CurrentTab = 0; // Orbitra-Edit
             TabContainer.RemoveChild(_flavorText);
             _flavorText.OnFlavorTextChanged -= OnFlavorTextChange;
             _flavorText.Dispose();
             _flavorTextEdit?.Dispose();
             _flavorTextEdit = null;
             _flavorText = null;
+            RefreshOrbitraSections(); // Orbitra-Edit
         }
     }
 

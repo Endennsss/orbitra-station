@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 game-ticker-restart-round = Перезапуск раунда...
 
@@ -18,16 +18,16 @@ game-ticker-pause-start = Начало раунда было приостано�
 
 game-ticker-pause-start-resumed = Отсчёт начала раунда возобновлён.
 
-game-ticker-player-join-game-message = Добро пожаловать на Lime Station! Если вы играете впервые, обязательно нажмите ESC на клавиатуре и прочитайте правила игры, а также не бойтесь просить помощи в "Админ помощь".
+game-ticker-player-join-game-message = Добро пожаловать на Orbitra! Если вы играете впервые, обязательно нажмите ESC на клавиатуре и прочитайте правила игры, а также не бойтесь просить помощи в "Админ помощь".
 
-game-ticker-get-info-text = Привет и добро пожаловать на [color=white]Lime Station![/color]
+game-ticker-get-info-text = Привет и добро пожаловать на [color=white]Orbitra![/color]
                             Текущий раунд: [color=white]#{ $roundId }[/color]
                             Текущее количество игроков: [color=white]{ $playerCount }[/color]
                             Текущая карта: [color=white]{ $mapName }[/color]
                             Текущий режим игры: [color=white]{ $gmTitle }[/color]
                             >[color=yellow]{ $desc }[/color]
 
-game-ticker-get-info-preround-text = Привет и добро пожаловать на [color=white]Lime Station![/color]
+game-ticker-get-info-preround-text = Привет и добро пожаловать на [color=white]Orbitra![/color]
     Текущий раунд: [color=white]#{ $roundId }[/color]
     Текущее количество игроков: [color=white]{ $playerCount }[/color] ([color=white]{ $readyCount }[/color] { $readyCount ->
     [one] готов

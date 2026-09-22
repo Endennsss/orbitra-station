@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cream-pied-component-on-hit-by-message =  Вас КРЕМировали с помощью { $thrown }!
 

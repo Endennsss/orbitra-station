@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 advertisement-lawdrobe-1 = ПРОТЕСТ! Добейтесь верховенства закона для себя!
 

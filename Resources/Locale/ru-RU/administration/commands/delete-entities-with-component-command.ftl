@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 delete-entities-with-component-command-description = Удаляет сущности с указанными компонентами.
 

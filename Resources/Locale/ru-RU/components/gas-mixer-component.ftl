@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 comp-gas-mixer-ui-mixer-output-pressure = Выходное давление (кПа):
 

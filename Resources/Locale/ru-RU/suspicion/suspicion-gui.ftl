@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 suspicion-ally-count-display = { $allyCount ->
     *[zero] Вы сами по себе.

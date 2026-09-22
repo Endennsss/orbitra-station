@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 advertisement-cargodrobe-1 = Улучшенный стиль ассистента! Выбери свой сегодня!
 

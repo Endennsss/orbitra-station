@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 photograph-name-text = Это фотография { PROPER($entity) ->
     *[false] { INDEFINITE($entity) } { $entity }

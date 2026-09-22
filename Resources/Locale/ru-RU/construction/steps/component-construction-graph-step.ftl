@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 construction-insert-entity-with-component = Далее, вставьте объект, содержащий компонент: { $componentName }.
 

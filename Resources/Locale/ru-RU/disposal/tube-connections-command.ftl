@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 tube-connections-command-description = Показывает все направления, в которых может соединяться труба.
 

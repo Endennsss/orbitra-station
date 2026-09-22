@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 add-gamerule-admin = Добавлено правило игры ({ $rule }) — { $admin }
 

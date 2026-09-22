@@ -1,4 +1,4 @@
-﻿version: 1 # Not used right now, whatever.
+version: 1 # Not used right now, whatever.
 binds:
 - function: UIClick
   type: State
@@ -545,10 +545,10 @@ binds:
 - function: Arcade3
   type: State
   key: Z
-- function: LimeToggleProne # Lime-Edit
+- function: OrbitraToggleProne # Orbitra-Edit
   type: State
   key: R
-- function: LimeJump # Lime added - свободный прыжок
+- function: OrbitraJump # Orbitra added - свободный прыжок
   type: State
   key: Space
 - function: OpenAbilitiesMenu

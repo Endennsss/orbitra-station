@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 node-container-component-on-examine-details-hvpower = Оснащён разъёмом для [color=orange]ВВ кабеля[/color].
 

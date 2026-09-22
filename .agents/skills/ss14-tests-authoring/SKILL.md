@@ -26,7 +26,7 @@ The internals of `PoolManager/TestPair` are discussed in detail in `ss14-tests-p
 - No: server-only integration may be simpler and faster.
 
 3. Does the test change the global state, which does not survive reuse well?
-- Yes: `Dirty = true` or dotted `Pool = false` for isolation.
+- Yes: `Dirty = true` for cleanup before reuse. Use `Fresh = true` when a new pair is required, and `Destructive = true` when the pair cannot be reused afterwards. `PoolSettings` has no `Pool` property; `Pool = false` applies only to direct `ServerIntegrationOptions`/`ClientIntegrationOptions` below.
 - No: leave reuse, it greatly speeds up the wound.
 
 ## Basic workflow of the author 🧪

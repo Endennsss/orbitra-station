@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 carpetium-effect-blood-fibrous = Ваша кровь кажется странно волокнистой сегодня.
 

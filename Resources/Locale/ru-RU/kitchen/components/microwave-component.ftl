@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 microwave-component-interact-using-no-power = У неё нет электричества!
 

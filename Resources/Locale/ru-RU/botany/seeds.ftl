@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 botany-plant-seedsrestored = Вы можете услышать слабый звук шуршащих листьев.
 

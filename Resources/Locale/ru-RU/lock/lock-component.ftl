@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 lock-comp-on-examined-is-locked = Похоже, { $entityName } [color=darkred]заблокирован[/color].
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cursed-mask-examine-Neutral = Она изображает совершенно непримечательную фигуру.
 

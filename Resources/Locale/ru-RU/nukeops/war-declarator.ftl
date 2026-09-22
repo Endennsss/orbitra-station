@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 war-declarator-not-working = Устройство пищит, но ничего не происходит...
 

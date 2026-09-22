@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 gas-vent-pump-uvlo = В состоянии [color=red]отключения из-за низкого давления[/color].
 

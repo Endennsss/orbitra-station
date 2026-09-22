@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 upgradeaction-command-help = Использование: upgradeaction <entityUid> [level]
 

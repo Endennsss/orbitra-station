@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 placeholders-criminal-records-wanted-reason-1 = Съел вкуснейший валид салат
 

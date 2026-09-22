@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 grave-start-digging-others = { CAPITALIZE($user) } начинает копать { $grave } при помощи { $tool }.
 

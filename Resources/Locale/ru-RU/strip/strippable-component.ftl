@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 strippable-component-not-holding-anything = Вы ничего не держите!
 

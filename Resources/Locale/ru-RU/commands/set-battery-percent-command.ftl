@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cmd-setbatterypercent-desc = Разряжает или заряжает батарею по UID сущности и проценту, например: forall with Battery do setbatterypercent $ID 0
 

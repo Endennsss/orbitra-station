@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 command-description-clone-humanoidappearance =
     Клонирует человекообразный внешний вид указанной сущности на все входные сущности.

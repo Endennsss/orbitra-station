@@ -105,7 +105,7 @@
     sprite: Objects/Tools/wrench.rsi
     state: icon
   - type: Item
-    sprite: Objects/Tools/wrench.rsi # Lime-Edit - согласованный штатный набор ключа
+    sprite: Objects/Tools/wrench.rsi # Orbitra-Edit - согласованный штатный набор ключа
     storedSprite:
       sprite: Objects/Tools/wrench.rsi
       state: storage

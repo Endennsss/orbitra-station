@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 construction-recipe-light-switch-directional = переключатель сети ЛКП (направленный)
 

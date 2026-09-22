@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 multi-handed-item-pick-up-fail = { $number ->
     [one] Вам нужна ещё одна свободная рука, чтобы поднять { $item }.

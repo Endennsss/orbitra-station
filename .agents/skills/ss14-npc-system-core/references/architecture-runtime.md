@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Use this file when you need to quickly remember in your head exactly how NPC runtime works in SS14/Lime.
+Use this file when you need to quickly remember in your head exactly how NPC runtime works in SS14/Orbitra.
 
 ## Layer map
 

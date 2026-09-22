@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 reagent-name-e-z-nutrient = EZ-нутриенты
 

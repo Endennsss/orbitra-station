@@ -47,7 +47,7 @@ public sealed partial class GasTankWindow
         var back = new StyleBoxTexture
         {
             Texture = panelTex,
-            Modulate = Content.Client._Lime.Stylesheets.LimePalettes.PanelBackground, // Lime-Edit - общий серый стиль
+            Modulate = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground, // Orbitra-Edit - общий серый стиль
         };
 
         back.SetPatchMargin(StyleBox.Margin.All, 10);
@@ -119,7 +119,7 @@ public sealed partial class GasTankWindow
 
         var middle = new PanelContainer
         {
-            PanelOverride = new StyleBoxFlat { BackgroundColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelInset }, // Lime-Edit
+            PanelOverride = new StyleBoxFlat { BackgroundColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelInset }, // Orbitra-Edit
             Children =
             {
                 (contentContainer = new BoxContainer

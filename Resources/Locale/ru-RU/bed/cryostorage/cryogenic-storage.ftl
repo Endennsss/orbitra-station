@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 earlyleave-cryo-job-unknown = Должность неизвестна
 # {$entity} available for GENDER function purposes

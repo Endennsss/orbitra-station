@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 fire-extinguisher-component-after-interact-refilled-message = Вы заправили { $owner }
 

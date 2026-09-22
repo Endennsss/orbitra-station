@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 alert-level-announcement = Внимание! Уровень угрозы станции теперь { $name }! { $announcement }
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 buzzochloricbees-effect-oh-god-bees = Над вами роится много-много пчёл.
 

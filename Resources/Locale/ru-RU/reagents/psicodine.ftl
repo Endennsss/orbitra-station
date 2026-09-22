@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 psicodine-effect-fearless = Вы чувствуете себя абсолютно бесстрашно!
 

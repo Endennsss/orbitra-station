@@ -1,5 +1,5 @@
-﻿<Control xmlns="https://spacestation14.io">
-    <!-- Lime-Edit - настройка помещается в узкую вкладку без фиксированной ширины подписи -->
+<Control xmlns="https://spacestation14.io">
+    <!-- Orbitra-Edit - настройка помещается в узкую вкладку без фиксированной ширины подписи -->
     <BoxContainer Orientation="Vertical">
         <Label Name="NameLabel" ClipText="True" HorizontalExpand="True" />
         <OptionButton Name="Button" Access="Public" HorizontalExpand="True" />

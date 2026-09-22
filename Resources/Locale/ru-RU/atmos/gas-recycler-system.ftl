@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 gas-recycler-reacting = Он [color=green]преобразовывает[/color] газы-отходы.
 

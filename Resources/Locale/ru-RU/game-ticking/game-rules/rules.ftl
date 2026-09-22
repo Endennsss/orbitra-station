@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 rule-restarting-in-seconds = Перезапуск через { $seconds } { $seconds ->
     [one] секунду

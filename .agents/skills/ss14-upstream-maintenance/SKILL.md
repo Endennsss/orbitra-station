@@ -1,16 +1,16 @@
 ---
 name: ss14-upstream-maintenance
-description: Guide to working with Space Station 14 forks using the Lime Station `_Lime` project-folder pattern to minimize merge conflicts with the upstream. Use when modifying vanilla code or prototypes.
+description: Guide to working with Space Station 14 forks using the Orbitra `_Orbitra` project-folder pattern to minimize merge conflicts with the upstream. Use when modifying vanilla code or prototypes.
 ---
 
 # 🛡️ Working with Upstream code and minimizing conflicts
 
-This skill describes the Lime Station standards for working with Space Station 14 code inherited from upstream while isolating fork-owned work under `_Lime`.
+This skill describes the Orbitra standards for working with Space Station 14 code inherited from upstream while isolating fork-owned work under `_Orbitra`.
 **Main goal:** Maintain the ability to easily receive updates from the upstream (merge), minimizing manual edits in case of conflicts.
 
 Before making changes, first determine the active codebase prefix, project folder and edit markers using the `ss14-codebase-prefix-detection` rule.
 
-After the active fork is determined, keep all new fork-owned code in that fork's project folder. Do not switch folders because the touched behavior is vanilla, inherited from another fork, or looks "not fork-specific". For Lime Station, the correct folder is always `_Lime`.
+After the active fork is determined, keep all new fork-owned code in that fork's project folder. Do not switch folders because the touched behavior is vanilla, inherited from another fork, or looks "not fork-specific". For Orbitra, the correct folder is always `_Orbitra`.
 
 ## ⚠️ Golden rule
 
@@ -20,7 +20,7 @@ After the active fork is determined, keep all new fork-owned code in that fork's
 
 ## � Folder structure and Project Folder
 
-To clearly separate vanilla code from our modifications, the `_Lime` project folder is used.
+To clearly separate vanilla code from our modifications, the `_Orbitra` project folder is used.
 
 **Why `_`?**
 - The folder is always at the top of the file list and is easy to find.
@@ -31,7 +31,7 @@ To clearly separate vanilla code from our modifications, the `_Lime` project fol
 2. **Partial classes:** Extensions of vanilla classes (see below).
 3. **Assets:** New sprites, sounds, textures.
 
-The selected project folder is a consequence of the active fork, not of the subsystem being touched. For this repository, always write new project code under `_Lime`, regardless of the upstream origin of the touched behavior.
+The selected project folder is a consequence of the active fork, not of the subsystem being touched. For this repository, always write new project code under `_Orbitra`, regardless of the upstream origin of the touched behavior.
 
 > [!TIP]
 > **Isolation principle:**
@@ -55,24 +55,24 @@ Makes it easy to see your changes against the background of vanilla code.
 ```csharp
 // SERVERNAME edit end
 ```
-*Where `SERVERNAME` is the project name (`Lime`).*
+*Where `SERVERNAME` is the project name (`Orbitra`).*
 
 **Example (change value):**
 ```csharp
 component.Field2 = 321;
-// Lime edit start - изменение баланса радиуса
+// Orbitra edit start - изменение баланса радиуса
 component.Field = 123;
-// Lime edit end
+// Orbitra edit end
 ```
 
 **Example (changing logic):**
 ```csharp
-// Lime edit start - fixing double gateways
+// Orbitra edit start - fixing double gateways
 if (TryComp<AirlockComponent>(uid, out var airlock))
 {
     // ...new logic...
 }
-// Lime edit end
+// Orbitra edit end
 ```
 
 ### 2. Pattern `Added Start` / `Added End`
@@ -90,19 +90,19 @@ Used when you add a **new** block of code (eg calling an event, checking) that w
 
 **Example:**
 ```csharp
-// Lime added start - публикуем событие попадания
+// Orbitra added start - публикуем событие попадания
 _eventBus.RaiseLocalEvent(uid, new ProjectileHitEvent(projectile, entity));
-// Lime added end
+// Orbitra added end
 ```
 
 ### 3. Partial Classes
 
 If you need to add a **new field, property or method** to an existing class or system, **DO NOT** write it in a vanilla file.
-Instead, create a `partial` class in your project folder (`_Lime`).
+Instead, create a `partial` class in your project folder (`_Orbitra`).
 
 **Pattern:**
 1. Find the vanilla class (eg `SharedDoorSystem`).
-2. Create a file in your folder: `Content.Shared/_Lime/Doors/Systems/SharedDoorSystem.Abilities.cs`.
+2. Create a file in your folder: `Content.Shared/_Orbitra/Doors/Systems/SharedDoorSystem.Abilities.cs`.
 3. Declare the class as `partial` with the same namespace.
 4. **Important:** Suppress the namespace mismatch warning if necessary.
 
@@ -117,7 +117,7 @@ public abstract partial class SharedDoorSystem : EntitySystem
 }
 ```
 
-*Your file (`Content.Shared/_Lime/Doors/Systems/SharedDoorSystem.Store.cs`):*
+*Your file (`Content.Shared/_Orbitra/Doors/Systems/SharedDoorSystem.Store.cs`):*
 ```csharp
 using Content.Shared.Doors.Systems; // We use vanilla namespace
 
@@ -142,7 +142,7 @@ Instead of editing the original, we create a **replacement heir**.
 
 **Algorithm:**
 1. Find the vanilla entity ID (for example, `AirlockHatchSyndicate`).
-2. Create a **new** YAML file in your project folder (for example, `Resources/Prototypes/_Lime/.../access.yml`).
+2. Create a **new** YAML file in your project folder (for example, `Resources/Prototypes/_Orbitra/.../access.yml`).
 3. Create a new entity:
     - `id`: Add a suffix or prefix (for example, `AirlockHatchSyndicateLocked`).
     - `parent`: Specify a vanilla ID.
@@ -151,13 +151,13 @@ Instead of editing the original, we create a **replacement heir**.
 
 **Implementation example:**
 
-*1. New prototype (`_Lime/Entities/Structures/Doors/Airlocks/access.yml`):*
+*1. New prototype (`_Orbitra/Entities/Structures/Doors/Airlocks/access.yml`):*
 ```yaml
 - type: entity
   parent: AirlockHatchSyndicate  # Inherit from the original
   id: AirlockHatchSyndicateLocked # New ID
   suffix: Syndicate, Locked
-  categories: [ HideSpawnMenu ] # Lime added - скрываем технический прототип из меню спавна
+  categories: [ HideSpawnMenu ] # Orbitra added - скрываем технический прототип из меню спавна
   components:
   - type: AccessReader
     access: [["SyndicateAgent"]] # Add the required changes
@@ -168,7 +168,7 @@ Add an entry to the end of the file or to the appropriate section.
 ```yaml
 # ... existing migrations ...
 
-# Lime-Edit
+# Orbitra-Edit
 AirlockHatchSyndicate: AirlockHatchSyndicateLocked
 ```
 

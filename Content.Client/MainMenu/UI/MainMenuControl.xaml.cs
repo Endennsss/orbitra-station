@@ -43,17 +43,13 @@ public sealed partial class MainMenuControl : Control
 
         LayoutContainer.SetAnchorPreset(this, LayoutContainer.LayoutPreset.Wide);
 
-        LayoutContainer.SetAnchorPreset(VBox, LayoutContainer.LayoutPreset.TopRight);
-        LayoutContainer.SetMarginRight(VBox, -25);
-        LayoutContainer.SetMarginTop(VBox, 30);
-        LayoutContainer.SetGrowHorizontal(VBox, LayoutContainer.GrowDirection.Begin);
+        Content.Client._Orbitra.Lobby.OrbitraEditorStyles.Apply(this); // Orbitra-Edit
 
         // I don't just enumerate them all as there's some hideous parallaxes, and it's easier
         // to update an allowlist than to randomly get an ugly one to fix a blocklist.
         BackgroundParallax.ParallaxPrototype = _random.Pick(Parallaxes).Id;
 
-        var logoTexture = resCache.GetResource<TextureResource>("/Textures/Logo/logo.png");
-        Logo.Texture = logoTexture;
+        // Orbitra-Edit - бренд выводится текстом в XAML.
 
         var currentUserName = configMan.GetCVar(CVars.PlayerName);
         UsernameBox.Text = currentUserName;

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 geiger-item-control-status = [color={ $color }]{ $rads } рад[/color]
 

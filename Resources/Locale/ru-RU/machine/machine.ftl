@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 machine-insert-item = { CAPITALIZE($user) } помещает { $item } в { $machine }.
 

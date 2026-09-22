@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 power-receiver-component-on-examine-main = Похоже, питание { $stateText }.
 

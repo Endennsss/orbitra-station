@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 tool-openable-component-examine-closed = { CAPITALIZE($name) } закрыт.
 

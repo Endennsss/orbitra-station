@@ -5,6 +5,12 @@
   description: A rooty tooty point and shooty.
   abstract: true
   components:
+  # Orbitra added start - косметический профиль огнестрельного оружия.
+  - type: OrbitraGunEffects
+    smoke: true
+    radius: 1.3
+    energy: 2.5
+  # Orbitra added end
   - type: Sprite
     layers:
       - state: base

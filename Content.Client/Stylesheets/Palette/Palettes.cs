@@ -8,12 +8,12 @@ namespace Content.Client.Stylesheets.Palette;
 /// </remarks>
 public static class Palettes
 {
-    // Lime edit start - старые окна также используют общую серую тему
-    public static readonly ColorPalette Navy = _Lime.Stylesheets.LimePalettes.Primary;
-    public static readonly ColorPalette Cyan = _Lime.Stylesheets.LimePalettes.Secondary;
-    public static readonly ColorPalette Slate = _Lime.Stylesheets.LimePalettes.Secondary;
-    public static readonly ColorPalette Neutral = _Lime.Stylesheets.LimePalettes.Primary;
-    // Lime edit end
+    // Orbitra edit start - старые окна также используют общую серую тему
+    public static readonly ColorPalette Navy = _Orbitra.Stylesheets.OrbitraPalettes.Primary;
+    public static readonly ColorPalette Cyan = _Orbitra.Stylesheets.OrbitraPalettes.Secondary;
+    public static readonly ColorPalette Slate = _Orbitra.Stylesheets.OrbitraPalettes.Secondary;
+    public static readonly ColorPalette Neutral = _Orbitra.Stylesheets.OrbitraPalettes.Primary;
+    // Orbitra edit end
 
     // status tones
     public static readonly ColorPalette Red = ColorPalette.FromHexBase("#b62124", chromaShift: 0.02f);
@@ -22,7 +22,7 @@ public static class Palettes
     public static readonly StatusPalette Status = new([Red.Base, Amber.Base, Green.Base]);
 
     // highlight tones
-    public static readonly ColorPalette Gold = _Lime.Stylesheets.LimePalettes.Highlight; // Lime-Edit - нейтральный акцент
+    public static readonly ColorPalette Gold = _Orbitra.Stylesheets.OrbitraPalettes.Highlight; // Orbitra-Edit - нейтральный акцент
     public static readonly ColorPalette Maroon = ColorPalette.FromHexBase("#9b2236");
 
     // Intended to be used with `ModulateSelf` to darken / lighten something

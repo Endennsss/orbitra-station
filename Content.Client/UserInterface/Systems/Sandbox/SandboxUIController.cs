@@ -136,6 +136,7 @@ public sealed partial class SandboxUIController : UIController, IOnStateChanged<
         _window.SuicideButton.OnPressed += _ => _sandbox.Suicide();
         _window.ToggleSubfloorButton.OnPressed += _ => _sandbox.ToggleSubFloor();
         _window.ShowMarkersButton.OnPressed += _ => _sandbox.ShowMarkers();
+        _window.OrbitraShowFieldsButton.OnToggled += args => EntityManager.System<Content.Client._Orbitra.Particles.OrbitraAmbientDustZoneSystem>().SetFieldsVisible(args.Pressed); // Orbitra-Edit - поля зон пыли
         _window.ShowBbButton.OnPressed += _ => _sandbox.ShowBb();
         _window.ToggleThermalVisionButton.OnToggled += _ => _sandbox.ToggleThermalVision();
     }

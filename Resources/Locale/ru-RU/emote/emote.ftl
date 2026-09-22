@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 chat-system-emote-cancelled-generic = Вы не можете { $emote } сейчас!
 

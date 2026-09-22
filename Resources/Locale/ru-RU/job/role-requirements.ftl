@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 role-timer-department-insufficient = Требуется ещё [color=yellow]{ $time }[/color] игрового времени за [color={ $departmentColor }]{ $department }[/color], чтобы разблокировать это.
 

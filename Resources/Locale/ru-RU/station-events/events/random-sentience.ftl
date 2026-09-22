@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 random-sentience-event-data-1 = сканирование сенсорами дальнего действия
 

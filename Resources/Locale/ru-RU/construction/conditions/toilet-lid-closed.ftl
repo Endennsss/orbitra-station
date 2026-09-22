@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 construction-examine-condition-toilet-lid-closed = Используйте [color=yellow]монтировку[/color] чтобы закрыть крышку.
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 job-greet-station-name = Добро пожаловать на борт { $stationName }.
 

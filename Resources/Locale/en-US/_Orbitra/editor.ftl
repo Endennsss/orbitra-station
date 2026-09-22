@@ -1,0 +1,16 @@
+orbitra-editor-title = Personalization
+orbitra-editor-characters = Characters
+orbitra-editor-tools = More
+orbitra-editor-back = Back to lobby
+orbitra-editor-discard = Discard changes
+orbitra-editor-unsaved = Unsaved changes
+orbitra-editor-saved = No unsaved changes
+orbitra-editor-job-search = Search jobs…
+orbitra-editor-clothing = Clothing
+orbitra-editor-jobs = Jobs
+orbitra-editor-traits = Traits
+orbitra-editor-markings = Markings
+orbitra-editor-selected-profile = Character: { $name }
+orbitra-editor-body-part = Body part:
+orbitra-editor-marking-layer = Layer:
+orbitra-editor-save-title = Save changes?

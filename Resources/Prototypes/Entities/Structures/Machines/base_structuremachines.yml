@@ -3,6 +3,10 @@
   parent: BaseStructure
   id: BaseMachine
   components:
+  # Orbitra added start - стружка металлического корпуса при работе инструментом.
+  - type: OrbitraParticleMaterial
+    material: Metal
+  # Orbitra added end
   - type: Animateable
   - type: InteractionOutline
   - type: Anchorable

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 comp-mind-ghosting-prevented = Вы не можете стать призраком в данный момент.
 

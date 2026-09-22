@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 agent-id-new = { CAPITALIZE($card) } { $number ->
     [0] не дала новых доступов

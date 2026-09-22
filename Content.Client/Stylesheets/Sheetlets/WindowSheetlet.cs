@@ -1,4 +1,4 @@
-﻿using Content.Client.Resources;
+using Content.Client.Resources;
 using Content.Client.Stylesheets.Fonts;
 using Content.Client.Stylesheets.Palette;
 using Content.Client.Stylesheets.SheetletConfigs;
@@ -22,7 +22,7 @@ public sealed class WindowSheetlet<T> : Sheetlet<T>
         IWindowConfig windowCfg = sheet;
         IIconConfig iconCfg = sheet;
 
-        var headerStylebox = new Content.Client._Lime.Stylesheets.LimeGrayStyleBoxTexture // Lime-Edit - нейтральный заголовок, включая панель песочницы
+        var headerStylebox = new Content.Client._Orbitra.Stylesheets.OrbitraGrayStyleBoxTexture // Orbitra-Edit - нейтральный заголовок, включая панель песочницы
         {
             Texture = sheet.GetTextureOr(windowCfg.WindowHeaderTexturePath, NanotrasenStylesheet.TextureRoot),
             PatchMarginBottom = 3,
@@ -37,14 +37,14 @@ public sealed class WindowSheetlet<T> : Sheetlet<T>
             ExpandMarginBottom = 3,
             ContentMarginBottomOverride = 0,
         };
-        var backgroundBox = new StyleBoxFlat() // Lime-Edit - фон без встроенного фиолетового оттенка PNG
+        var backgroundBox = new StyleBoxFlat() // Orbitra-Edit - фон без встроенного фиолетового оттенка PNG
         {
             BackgroundColor = sheet.SecondaryPalette.Background,
             BorderColor = sheet.PrimaryPalette.Background,
             BorderThickness = new Thickness(2, 0, 2, 2),
         };
         backgroundBox.SetContentMarginOverride(StyleBox.Margin.Horizontal | StyleBox.Margin.Bottom, 2);
-        var borderedBackgroundBox = new StyleBoxFlat // Lime-Edit - рамка из общей палитры
+        var borderedBackgroundBox = new StyleBoxFlat // Orbitra-Edit - рамка из общей палитры
         {
             BackgroundColor = sheet.SecondaryPalette.Background,
             BorderColor = sheet.PrimaryPalette.Background,

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 comp-secret-stash-action-hide-success = Вы прячете { $item } в { $stashname }.
 

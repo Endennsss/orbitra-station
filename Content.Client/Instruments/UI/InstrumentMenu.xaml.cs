@@ -83,7 +83,7 @@ public sealed partial class InstrumentMenu : FancyWindow
         var formatted = new FormattedMessage();
         var styleBox = new StyleBoxFlat
         {
-            BorderColor = Content.Client._Lime.Stylesheets.LimePalettes.PanelBorder, // Lime-Edit
+            BorderColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBorder, // Orbitra-Edit
             BorderThickness = new Thickness(2),
         };
 
@@ -103,7 +103,7 @@ public sealed partial class InstrumentMenu : FancyWindow
         ctrl.Margin = new Thickness(5);
 
         formatted.AddMarkupOrThrow($"[bold]{name}[/bold]");
-        header.SetMessage(formatted, Content.Client._Lime.Stylesheets.LimePalettes.IconNormal); // Lime-Edit - общий серый стиль
+        header.SetMessage(formatted, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.IconNormal); // Orbitra-Edit - общий серый стиль
 
         panel.AddChild(ctrl);
 

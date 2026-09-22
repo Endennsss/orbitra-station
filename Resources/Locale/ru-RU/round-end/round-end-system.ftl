@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 round-end-system-shuttle-called-announcement = Эвакуационный шаттл был вызван. Он прибудет через: { $time } { $units }.
 

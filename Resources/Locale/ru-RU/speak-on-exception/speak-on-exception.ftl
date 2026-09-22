@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 exception-censored-1 = мяузан `ГВ` мя мяучния `Мяу`
 

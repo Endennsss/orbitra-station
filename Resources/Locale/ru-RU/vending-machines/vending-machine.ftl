@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 vending-machine-thanks-1 = Спасибо что воспользовались { $name }!
 

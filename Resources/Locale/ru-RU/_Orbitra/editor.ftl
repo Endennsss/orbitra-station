@@ -1,0 +1,16 @@
+orbitra-editor-title = Персонализация
+orbitra-editor-characters = Персонажи
+orbitra-editor-tools = Дополнительно
+orbitra-editor-back = Назад в лобби
+orbitra-editor-discard = Отменить изменения
+orbitra-editor-unsaved = Есть несохранённые изменения
+orbitra-editor-saved = Нет несохранённых изменений
+orbitra-editor-job-search = Поиск профессии…
+orbitra-editor-clothing = Одежда
+orbitra-editor-jobs = Профессии
+orbitra-editor-traits = Черты
+orbitra-editor-markings = Маркировки
+orbitra-editor-selected-profile = Персонаж: { $name }
+orbitra-editor-body-part = Часть тела:
+orbitra-editor-marking-layer = Слой:
+orbitra-editor-save-title = Сохранить изменения?

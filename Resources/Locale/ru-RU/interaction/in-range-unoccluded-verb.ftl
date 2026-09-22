@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 in-range-unoccluded-verb-get-data-text = Не в зоне окклюзии
 

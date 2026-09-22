@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 book-text-demonomicon1 = Как Вызвать Демона
           - автор Дж.Дж. Визджеральд

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 capsaicin-effect-light-burn = Вы ощущаете лёгкое жжение в горле...
 

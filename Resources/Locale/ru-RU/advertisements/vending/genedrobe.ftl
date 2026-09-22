@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 advertisement-genedrobe-1 = Идеально для безумного учёного внутри тебя!
 

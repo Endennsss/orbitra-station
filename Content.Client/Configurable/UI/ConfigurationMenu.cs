@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+using System.Numerics;
 using System.Text.RegularExpressions;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -62,7 +62,7 @@ namespace Content.Client.Configurable.UI
             {
                 VerticalExpand = true,
                 HorizontalExpand = true,
-                ModulateSelfOverride = Content.Client._Lime.Stylesheets.LimePalettes.PanelInset // Lime-Edit
+                ModulateSelfOverride = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelInset // Orbitra-Edit
             };
 
             outerColumn.AddChild(Column);

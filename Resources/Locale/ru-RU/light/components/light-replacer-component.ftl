@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 comp-light-replacer-missing-light = Не осталось { $light-name } в { THE($light-replacer) }.
 

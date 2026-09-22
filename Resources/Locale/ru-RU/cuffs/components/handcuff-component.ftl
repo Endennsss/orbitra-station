@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 handcuff-component-target-self = Вы начинаете заковывать себя.
 

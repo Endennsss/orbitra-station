@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 foldable-fold-fail = Вы не можете сложить { $object } тут.
 

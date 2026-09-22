@@ -4,6 +4,13 @@
   categories: [ HideSpawnMenu ]
   name: dwarf appearance
   components:
+  # Orbitra added start - Dwarfism опускает голову на 5 пикселей, без изменения Sprite.Scale
+  - type: OrbitraColdBreathVisuals
+    south: -0.015625, 0.078125
+    north: 0, 0.09375
+    east: 0.125, 0.078125
+    west: -0.15625, 0.078125
+  # Orbitra added end
   - type: Inventory
     femaleDisplacements: { } # Necessary due to MobHuman inheritance for MobDwarf
     displacements:

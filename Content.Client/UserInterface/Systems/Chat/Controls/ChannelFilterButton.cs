@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+using System.Numerics;
 using Content.Client.Resources;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface.Controls;
@@ -7,9 +7,9 @@ namespace Content.Client.UserInterface.Systems.Chat.Controls;
 
 public sealed class ChannelFilterButton : ChatPopupButton<ChannelFilterPopup>
 {
-    private static readonly Color ColorNormal = Content.Client._Lime.Stylesheets.LimePalettes.IconNormal; // Lime-Edit - общий серый стиль
-    private static readonly Color ColorHovered = Content.Client._Lime.Stylesheets.LimePalettes.IconHovered; // Lime-Edit - общий серый стиль
-    private static readonly Color ColorPressed = Content.Client._Lime.Stylesheets.LimePalettes.IconPressed; // Lime-Edit - общий серый стиль
+    private static readonly Color ColorNormal = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.IconNormal; // Orbitra-Edit - общий серый стиль
+    private static readonly Color ColorHovered = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.IconHovered; // Orbitra-Edit - общий серый стиль
+    private static readonly Color ColorPressed = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.IconPressed; // Orbitra-Edit - общий серый стиль
     private readonly TextureRect? _textureRect;
     private readonly ChatUIController _chatUIController;
 

@@ -336,12 +336,12 @@ public sealed partial class GunSystem : SharedGunSystem
             track.Offset = Vector2.UnitX / 2f;
         }
 
-        var lifetime = 0.4f;
-
-        if (TryComp<TimedDespawnComponent>(gunUid, out var despawn))
-        {
-            lifetime = despawn.Lifetime;
-        }
+        // Orbitra edit start - короткий спрайт и независимый импульс света.
+        var lifetime = 0.08f;
+        if (TryComp<TimedDespawnComponent>(ent, out var despawn))
+            despawn.Lifetime = lifetime;
+        _orbitraGunEffects.ObserveShot(gunUid, tracked ?? gunUid, message.Angle, message.Prototype);
+        // Orbitra edit end
 
         var anim = new Animation()
         {
@@ -363,52 +363,7 @@ public sealed partial class GunSystem : SharedGunSystem
         };
 
         _animPlayer.Play(ent, anim, "muzzle-flash");
-        if (!TryComp(gunUid, out PointLightComponent? light))
-        {
-            light = Factory.GetComponent<PointLightComponent>();
-            light.NetSyncEnabled = false;
-            AddComp(gunUid, light);
-        }
-
-        Lights.SetEnabled(gunUid, true, light);
-        Lights.SetRadius(gunUid, 2f, light);
-        Lights.SetColor(gunUid, Color.FromHex("#cc8e2b"), light);
-        Lights.SetEnergy(gunUid, 5f, light);
-
-        var animTwo = new Animation()
-        {
-            Length = TimeSpan.FromSeconds(lifetime),
-            AnimationTracks =
-            {
-                new AnimationTrackComponentProperty
-                {
-                    ComponentType = typeof(PointLightComponent),
-                    Property = nameof(PointLightComponent.Energy),
-                    InterpolationMode = AnimationInterpolationMode.Linear,
-                    KeyFrames =
-                    {
-                        new AnimationTrackProperty.KeyFrame(5f, 0),
-                        new AnimationTrackProperty.KeyFrame(0f, lifetime)
-                    }
-                },
-                new AnimationTrackComponentProperty
-                {
-                    ComponentType = typeof(PointLightComponent),
-                    Property = nameof(PointLightComponent.AnimatedEnable),
-                    InterpolationMode = AnimationInterpolationMode.Linear,
-                    KeyFrames =
-                    {
-                        new AnimationTrackProperty.KeyFrame(true, 0),
-                        new AnimationTrackProperty.KeyFrame(false, lifetime)
-                    }
-                }
-            }
-        };
-
-        var uidPlayer = EnsureComp<AnimationPlayerComponent>(gunUid);
-
-        _animPlayer.Stop(gunUid, uidPlayer, "muzzle-flash-light");
-        _animPlayer.Play((gunUid, uidPlayer), animTwo, "muzzle-flash-light");
+        // Orbitra-Edit - светом управляет OrbitraGunEffectsSystem, постоянные источники не затрагиваются.
     }
 
     /// <remarks>We use our own sorting algorithm separate from the default for smarter configurability.</remarks>

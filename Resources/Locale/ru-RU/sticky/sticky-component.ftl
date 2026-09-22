@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 comp-sticky-start-stick-bomb = Вы начинаете прикреплять бомбу...
 

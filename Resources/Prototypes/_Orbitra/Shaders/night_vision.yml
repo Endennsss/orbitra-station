@@ -1,0 +1,9 @@
+- type: shader
+  id: OrbitraNightVision
+  kind: source
+  path: /Textures/_Orbitra/Shaders/night_vision.swsl
+
+- type: shader
+  id: OrbitraNightVisionExposure
+  kind: source
+  path: /Textures/_Orbitra/Shaders/night_exposure.swsl

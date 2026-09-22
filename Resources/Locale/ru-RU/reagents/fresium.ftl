@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 fresium-effect-freeze-insides = Вы чувствуете, как ваши внутренности замерзают!
 

@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cryo-pod-verb-noun-occupant = Пациент
 # Examine text showing whether there's a beaker in the pod and if it is empty.

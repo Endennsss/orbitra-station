@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 cmd-setafkconfirmationsound-desc = Устанавливает звук проигрываемый при открытии окна АФК проверки.
 

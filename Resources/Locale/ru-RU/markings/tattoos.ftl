@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 marking-TattooHiveChest-tattoo_hive_chest = Татуировка, спина (Улей)
 

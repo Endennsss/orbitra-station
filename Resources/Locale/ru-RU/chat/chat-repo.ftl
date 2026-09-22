@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 command-description-deletechatmessage-id = Удалить конкретное сообщение чата по идентификатору сообщения
 

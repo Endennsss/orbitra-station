@@ -106,6 +106,10 @@
   id: WallBrick
   name: brick wall
   components:
+  # Orbitra added start - материал косметической пыли.
+  - type: OrbitraParticleMaterial
+    material: Stone
+  # Orbitra added end
   - type: Sprite
     sprite: Structures/Walls/brick.rsi
   - type: Icon
@@ -381,6 +385,10 @@
   id: WallReinforced
   name: reinforced wall
   components:
+  # Orbitra added start - материал косметической стружки.
+  - type: OrbitraParticleMaterial
+    material: Metal
+  # Orbitra added end
   - type: Sprite
     sprite: Structures/Walls/solid.rsi
   - type: Icon
@@ -456,6 +464,10 @@
   id: WallReinforcedDiagonal
   name: reinforced wall
   components:
+  # Orbitra added start - материал косметических частиц.
+  - type: OrbitraParticleMaterial
+    material: Metal
+  # Orbitra added end
   - type: Sprite
     drawdepth: Walls
     sprite: Structures/Walls/reinforced-diagonal.rsi
@@ -480,6 +492,10 @@
   id: WallMarble
   name: marble wall
   components:
+  # Orbitra added start - материал косметической пыли.
+  - type: OrbitraParticleMaterial
+    material: Stone
+  # Orbitra added end
   - type: Sprite
     sprite: Structures/Walls/marble.rsi
   - type: Icon
@@ -563,6 +579,10 @@
   id: WallShuttleDiagonal
   name: shuttle wall
   components:
+  # Orbitra added start - материал косметических частиц.
+  - type: OrbitraParticleMaterial
+    material: Metal
+  # Orbitra added end
   - type: Sprite
     drawdepth: Walls
     sprite: Structures/Walls/shuttle-diagonal.rsi
@@ -614,6 +634,10 @@
   id: WallShuttle
   name: shuttle wall
   components:
+  # Orbitra added start - материал косметических частиц.
+  - type: OrbitraParticleMaterial
+    material: Metal
+  # Orbitra added end
   - type: Damageable
     damageModifierSet: PlasteelStaticMod
   - type: Destructible
@@ -669,6 +693,10 @@
   id: WallSolid
   name: solid wall
   components:
+  # Orbitra added start - материал косметической стружки.
+  - type: OrbitraParticleMaterial
+    material: Metal
+  # Orbitra added end
   - type: Sprite
     sprite: Structures/Walls/solid.rsi
   - type: WallReplacementMarker
@@ -703,6 +731,10 @@
   id: WallSolidDiagonal
   name: solid wall
   components:
+  # Orbitra added start - материал косметических частиц.
+  - type: OrbitraParticleMaterial
+    material: Metal
+  # Orbitra added end
   - type: Sprite
     drawdepth: Walls
     sprite: Structures/Walls/solid-diagonal.rsi
@@ -880,6 +912,10 @@
   name: wood wall
   description: The traditional greytide defense.
   components:
+  # Orbitra added start - щепки при работе и попаданиях.
+  - type: OrbitraParticleMaterial
+    material: Wood
+  # Orbitra added end
   - type: Sprite
     sprite: Structures/Walls/wood.rsi
   - type: Icon
@@ -948,6 +984,10 @@
   id: WallMining
   name: mining wall
   components:
+  # Orbitra added start - материал косметических частиц.
+  - type: OrbitraParticleMaterial
+    material: Metal
+  # Orbitra added end
   - type: Sprite
     sprite: Structures/Walls/mining.rsi
   - type: Icon
@@ -970,6 +1010,10 @@
   id: WallMiningDiagonal
   name: mining wall
   components:
+  # Orbitra added start - материал косметических частиц.
+  - type: OrbitraParticleMaterial
+    material: Metal
+  # Orbitra added end
   - type: Sprite
     drawdepth: Walls
     sprite: Structures/Walls/mining-diagonal.rsi
@@ -1041,6 +1085,10 @@
   id: WallConcrete
   name: concrete wall
   components:
+  # Orbitra added start - материал косметической пыли.
+  - type: OrbitraParticleMaterial
+    material: Stone
+  # Orbitra added end
   - type: Sprite
     sprite: Structures/Walls/concrete.rsi
   - type: Icon

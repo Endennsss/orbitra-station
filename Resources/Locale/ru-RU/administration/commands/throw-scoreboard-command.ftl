@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 throw-scoreboard-command-description = Показать окно результатов раунда для всех игроков, но не завершать раунд
 

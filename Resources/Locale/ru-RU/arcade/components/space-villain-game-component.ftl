@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 space-villain-game-player-attack-message = Вы атакуете { $enemyName } на { $attackAmount } урона!
 

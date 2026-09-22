@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 command-description-container-contents =
     Получает все сущности внутри контейнера по его идентификатору.

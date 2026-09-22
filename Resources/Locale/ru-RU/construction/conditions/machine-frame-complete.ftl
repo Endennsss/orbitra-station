@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 construction-condition-machine-container-empty = Извлеките компоненты из каркаса, используя [color=cyan]монтировку[/color].
 

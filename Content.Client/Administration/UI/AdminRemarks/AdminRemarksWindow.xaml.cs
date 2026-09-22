@@ -19,6 +19,7 @@ public sealed partial class AdminRemarksWindow : FancyWindow
     public AdminRemarksWindow()
     {
         RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.Lobby.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         IoCManager.InjectDependencies(this);
         _sprites = _entitySystem.GetEntitySystem<SpriteSystem>();
     }

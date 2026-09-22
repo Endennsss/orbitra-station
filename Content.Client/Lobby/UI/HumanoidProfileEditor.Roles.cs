@@ -67,7 +67,7 @@ public sealed partial class HumanoidProfileEditor
 
         // Refresh the buttons etc.
         _loadoutWindow.RefreshLoadouts(roleLoadout, session, collection);
-        _loadoutWindow.OpenCenteredLeft();
+        _loadoutWindow.OpenCentered(); // Orbitra-Edit - окно экипировки по центру, в том числе на широких мониторах.
 
         _loadoutWindow.OnNameChanged += name =>
         {
@@ -112,6 +112,7 @@ public sealed partial class HumanoidProfileEditor
     /// </summary>
     public void RefreshJobs()
     {
+        _orbitraJobRows.Clear(); // Orbitra-Edit
         JobList.RemoveAllChildren();
         _jobCategories.Clear();
         _jobPriorities.Clear();
@@ -165,7 +166,7 @@ public sealed partial class HumanoidProfileEditor
 
                 category.AddChild(new PanelContainer
                 {
-                    PanelOverride = new StyleBoxFlat { BackgroundColor = Content.Client._Lime.Stylesheets.LimePalettes.Primary.Element }, // Lime-Edit - общий серый стиль
+                    PanelOverride = new StyleBoxFlat { BackgroundColor = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.Element }, // Orbitra-Edit - общий серый стиль
                     Children =
                         {
                             new Label
@@ -287,12 +288,15 @@ public sealed partial class HumanoidProfileEditor
 
                 _jobPriorities.Add((job.ID, selector));
                 jobContainer.AddChild(selector);
-                jobContainer.AddChild(loadoutWindowBtn);
+                selector.AttachOrbitraEquipment(loadoutWindowBtn); // Orbitra-Edit: снаряжение в заголовке профессии.
                 category.AddChild(jobContainer);
+                _orbitraJobRows.Add((job.LocalizedName, jobContainer, category)); // Orbitra-Edit
             }
         }
 
         UpdateJobPriorities();
+        FilterOrbitraJobs(); // Orbitra-Edit
+        Content.Client._Orbitra.Lobby.OrbitraEditorStyles.Apply(JobList); // Orbitra-Edit
     }
 
     public void RefreshAntags()
@@ -357,5 +361,6 @@ public sealed partial class HumanoidProfileEditor
 
             AntagList.AddChild(antagContainer);
         }
+        Content.Client._Orbitra.Lobby.OrbitraEditorStyles.Apply(AntagList); // Orbitra-Edit
     }
 }

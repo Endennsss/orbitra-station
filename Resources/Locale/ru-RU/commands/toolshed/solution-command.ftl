@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 command-description-solution-get = Возвращает раствор, хранящийся в контейнере растворов сущности.
 

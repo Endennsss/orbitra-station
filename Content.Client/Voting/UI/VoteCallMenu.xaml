@@ -12,10 +12,12 @@
         </BoxContainer>
         <controls:HighDivider />
 
-        <BoxContainer Orientation="Vertical" Margin="8 2 8 0" VerticalExpand="True" VerticalAlignment="Top">
+        <!-- Orbitra-Edit: параметры прокручиваются, создание остаётся внизу. -->
+        <ScrollContainer HScrollEnabled="False" VerticalExpand="True">
+        <BoxContainer Orientation="Vertical" Margin="8 2 8 0">
             <BoxContainer Orientation="Vertical">
-                <OptionButton Margin="2 1" Name="VoteTypeButton" HorizontalExpand="False" />
-                <BoxContainer Name="VoteOptionsButtonContainer" HorizontalExpand="False" Orientation="Vertical">
+                <OptionButton Margin="2 1" Name="VoteTypeButton" HorizontalExpand="True" />
+                <BoxContainer Name="VoteOptionsButtonContainer" HorizontalExpand="True" Orientation="Vertical">
                 </BoxContainer>
                 <Button Margin="64 4" Name="FollowButton" Text="{Loc 'ui-vote-follow-button'}" Visible="False" />
                 <Label Margin="2 2" Name="VoteNotTrustedLabel" Text="{Loc 'ui-vote-trusted-users-notice'}" Visible="False" />
@@ -23,8 +25,9 @@
             </BoxContainer>
             <Label Margin="8 2" Name="VoteTypeTimeoutLabel" Visible="False" />
         </BoxContainer>
+        </ScrollContainer>
 
-        <Button Margin="8 32 8 2" Name="CreateButton" Text="{Loc 'ui-vote-create-button'}" />
+        <Button Margin="8 12 8 2" Name="CreateButton" Text="{Loc 'ui-vote-create-button'}" MinHeight="44" />
 
         <PanelContainer StyleClasses="LowDivider" />
         <Label Margin="12 0 0 0" StyleClasses="LabelSubText" Text="{Loc 'ui-vote-fluff'}" />

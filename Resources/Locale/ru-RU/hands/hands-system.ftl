@@ -1,4 +1,4 @@
-# Lime Station: русская локализация актуального upstream.
+# Orbitra: русская локализация актуального upstream.
 
 comp-hands-examine = { CAPITALIZE(SUBJECT($user)) } держит { $items }.
 
