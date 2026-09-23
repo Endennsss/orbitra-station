@@ -26,6 +26,68 @@ public sealed class OrbitraUiKitTest : GameTest
     public override PoolSettings PoolSettings => new() { Connected = true, InLobby = true, Fresh = true, Dirty = true, NoLoadTestPrototypes = true };
 
     [Test]
+    public async Task GuideKeepsLinesAndOnlyBranchesHaveDisclosureIcons()
+    {
+        GuidebookWindow guide = null!;
+        await Client.WaitPost(() =>
+        {
+            guide = new GuidebookWindow();
+            var source = CProtoMan.Index<GuideEntryPrototype>("NewPlayer");
+            guide.UpdateGuides(new Dictionary<ProtoId<GuideEntryPrototype>, GuideEntry>
+            {
+                ["OrbitraParent"] = new() { Id = "OrbitraParent", Name = source.Name, Text = source.Text, Children = ["OrbitraLeaf"] },
+                ["OrbitraLeaf"] = new() { Id = "OrbitraLeaf", Name = source.Name, Text = source.Text },
+            }, rootEntries: ["OrbitraParent"]);
+            guide.OpenCentered();
+            guide.Tree.SetAllExpanded(true);
+        });
+        try
+        {
+            await Pair.RunTicksSync(2);
+            await Client.WaitAssertion(() =>
+            {
+                Assert.That(guide.Tree.DrawLines, Is.True);
+                var branch = guide.Tree.Items.Single(i => i.Body.ChildCount > 0);
+                var leaf = guide.Tree.Items.Single(i => i.Body.ChildCount == 0);
+                Assert.That(branch.Icon.HasStyleClass("OrbitraIcon-chevron_down"), Is.True);
+                Assert.That(leaf.Icon.Texture, Is.Null);
+                Assert.That(leaf.Icon.Width, Is.EqualTo(16));
+                Assert.That(leaf.Icon.GlobalPosition.X, Is.GreaterThan(branch.Icon.GlobalPosition.X + branch.Icon.Width / 2));
+            });
+        }
+        finally { await Client.WaitPost(() => guide.Dispose()); }
+    }
+
+    [Test]
+    public async Task StaticLobbyBackgroundSwitchesWithoutReplacingFallback()
+    {
+        Content.Client.Lobby.UI.LobbyGui lobby = null!;
+        var cfg = Client.Resolve<Robust.Shared.Configuration.IConfigurationManager>();
+        await Client.WaitPost(() =>
+        {
+            cfg.SetCVar(OrbitraMenuCVars.StandardBackground, false);
+            lobby = new Content.Client.Lobby.UI.LobbyGui();
+            Client.Resolve<IUserInterfaceManager>().StateRoot.AddChild(lobby);
+        });
+        try
+        {
+            foreach (var enabled in new[] { true, false, true, false })
+            {
+                await Client.WaitPost(() => cfg.SetCVar(OrbitraMenuCVars.StandardBackground, enabled));
+                await Client.WaitAssertion(() =>
+                {
+                    var background = Descendants(lobby).OfType<OrbitraMenuBackground>().Single();
+                    Assert.That(background.Visible, Is.EqualTo(enabled));
+                    Assert.That(lobby.Background.Visible, Is.EqualTo(!enabled));
+                    Assert.That(background.CanShrink, Is.True);
+                    Assert.That(background.Texture, Is.Not.Null);
+                });
+            }
+        }
+        finally { await Client.WaitPost(() => lobby.Dispose()); }
+    }
+
+    [Test]
     public async Task GhostJobMetadataTravelsOverNetworkAndSelectionWarps()
     {
         var map = await Pair.CreateTestMap();

@@ -15,5 +15,6 @@
         <tabs:AccessibilityTab Name="AccessibilityTab" />
         <tabs:AdminOptionsTab Name="AdminOptionsTab" />
     </kit:OrbitraEditorTabContainer>
+    <kit:OrbitraNotification Name="OrbitraFeedback" /> <!-- Orbitra-Edit - закреплённое место результата действия. -->
     </BoxContainer>
 </ui:FancyWindow>

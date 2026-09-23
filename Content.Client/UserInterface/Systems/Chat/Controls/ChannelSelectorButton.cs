@@ -25,6 +25,8 @@ public sealed class ChannelSelectorButton : ChatPopupButton<ChannelSelectorPopup
 
     protected override UIBox2 GetPopupPosition()
     {
+        if (HasStyleClass("OrbitraChatButton")) // Orbitra-Edit
+            return Content.Client._Orbitra.UserInterface.OrbitraChannelPopup.Place(this);
         var globalLeft = GlobalPosition.X;
         var globalBot = GlobalPosition.Y + Height;
         return UIBox2.FromDimensions(
@@ -71,6 +73,15 @@ public sealed class ChannelSelectorButton : ChatPopupButton<ChannelSelectorPopup
     public void UpdateChannelSelectButton(ChatSelectChannel channel, Shared.Radio.RadioChannelPrototype? radio)
     {
         Text = radio != null ? Loc.GetString(radio.Name) : ChannelSelectorName(channel);
-        Modulate = radio?.Color ?? ChannelSelectColor(channel);
+        // Orbitra edit start - цвет канала не затемняет всю подложку кнопки.
+        if (HasStyleClass("OrbitraChatButton"))
+        {
+            Modulate = Color.White;
+            var color = radio?.Color ?? ChannelSelectColor(channel);
+            Label.FontColorOverride = color == Color.DarkGray ? Content.Client._Orbitra.Stylesheets.OrbitraPalettes.Primary.Text : color;
+        }
+        else
+            Modulate = radio?.Color ?? ChannelSelectColor(channel);
+        // Orbitra edit end
     }
 }

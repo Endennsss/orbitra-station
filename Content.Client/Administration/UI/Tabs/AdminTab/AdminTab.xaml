@@ -1,12 +1,13 @@
 <Control
     xmlns="https://spacestation14.io"
+    xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
     xmlns:at="clr-namespace:Content.Client.Administration.UI.Tabs.AdminTab"
     Margin="4"
     MinSize="50 50">
     <BoxContainer Orientation="Vertical">
-        <GridContainer Columns="3">
+        <kit:OrbitraResponsiveGrid> <!-- Orbitra-Edit -->
             <cc:CommandButton Command="banpanel" Text="{Loc admin-player-actions-window-ban}" />
             <cc:CommandButton Command="aghost" Text="{Loc admin-player-actions-window-admin-ghost}" />
             <cc:CommandButton Command="permissions" Text="{Loc admin-player-actions-window-permissions}" />
@@ -16,6 +17,6 @@
             <cc:CommandButton Command="adminlogs" Text="{Loc admin-player-actions-window-admin-logs}"/>
             <cc:CommandButton Command="faxui" Text="{Loc admin-player-actions-window-admin-fax}"/>
             <cc:CommandButton Command="achatwindow" Text="{Loc admin-player-actions-window-admin-chat}"/>
-        </GridContainer>
+        </kit:OrbitraResponsiveGrid>
     </BoxContainer>
 </Control>

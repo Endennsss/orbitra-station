@@ -166,6 +166,8 @@ public sealed class OrbitraCommonWindowTest : GameTest
                 Assert.That(guide.Tree, Is.SameAs(tree));
                 Assert.That(guide.Selected?.Id, Is.EqualTo("NewPlayer"));
                 Assert.That(guide.Tree.Items.Count, Is.GreaterThan(2));
+                Assert.That(guide.Tree.DrawLines, Is.False, "Guide connectors must not paint over disclosure icons.");
+                Assert.That(guide.FindControl<Content.Client.UserInterface.Controls.FancyTree.FancyTree>("TableOfContents").DrawLines, Is.False);
                 if (wide)
                 {
                     var split = guide.FindControl<SplitContainer>("Split");

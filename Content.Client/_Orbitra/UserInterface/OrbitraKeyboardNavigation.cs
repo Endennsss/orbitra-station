@@ -149,6 +149,7 @@ internal sealed class OrbitraKeyboardNavigation : Control
         if (!Available(control))
             return;
         control.GrabKeyboardFocus();
+        OrbitraTooltips.FocusChanged(control);
         for (var parent = control.Parent; parent != null; parent = parent.Parent)
         {
             if (parent is not ScrollContainer scroll)

@@ -17,13 +17,26 @@ namespace Content.Client.Administration.UI.Tabs.AtmosTab
 {
     [GenerateTypedNameReferences]
     [UsedImplicitly]
-    public sealed partial class FillGasWindow : DefaultWindow
+    public sealed partial class FillGasWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
     {
         private List<NetEntity>? _gridData;
         private IEnumerable<GasPrototype>? _gasData;
 
+        // Orbitra-Edit - явное подключение общей оболочки.
+        public FillGasWindow()
+        {
+            Robust.Client.UserInterface.XAML.RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this);
+            GridOptions.OnItemSelected += eventArgs => GridOptions.SelectId(eventArgs.Id);
+            GasOptions.OnItemSelected += eventArgs => GasOptions.SelectId(eventArgs.Id);
+            SubmitButton.OnPressed += SubmitButtonOnOnPressed;
+        }
+
         protected override void EnteredTree()
         {
+            base.EnteredTree(); // Orbitra-Edit
+            GridOptions.Clear(); // Orbitra-Edit - повторное открытие не дублирует записи.
+            GasOptions.Clear(); // Orbitra-Edit
             // Fill out grids
             var entManager = IoCManager.Resolve<IEntityManager>();
             var playerManager = IoCManager.Resolve<IPlayerManager>();
@@ -40,7 +53,6 @@ namespace Content.Client.Administration.UI.Tabs.AtmosTab
                 _gridData.Add(entManager.GetNetEntity(uid));
             }
 
-            GridOptions.OnItemSelected += eventArgs => GridOptions.SelectId(eventArgs.Id);
 
             // Fill out gases
             _gasData = entManager.System<AtmosphereSystem>().Gases;
@@ -51,9 +63,7 @@ namespace Content.Client.Administration.UI.Tabs.AtmosTab
                 GasOptions.AddItem($"{gasName} ({gas.ID})");
             }
 
-            GasOptions.OnItemSelected += eventArgs => GasOptions.SelectId(eventArgs.Id);
 
-            SubmitButton.OnPressed += SubmitButtonOnOnPressed;
         }
 
         private void SubmitButtonOnOnPressed(BaseButton.ButtonEventArgs obj)

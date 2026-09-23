@@ -15,12 +15,23 @@ namespace Content.Client.Administration.UI.Tabs.AtmosTab
 {
     [GenerateTypedNameReferences]
     [UsedImplicitly]
-    public sealed partial class SetTemperatureWindow : DefaultWindow
+    public sealed partial class SetTemperatureWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
     {
         private List<NetEntity>? _data;
 
+        // Orbitra-Edit - явное подключение общей оболочки.
+        public SetTemperatureWindow()
+        {
+            Robust.Client.UserInterface.XAML.RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this);
+            GridOptions.OnItemSelected += eventArgs => GridOptions.SelectId(eventArgs.Id);
+            SubmitButton.OnPressed += SubmitButtonOnOnPressed;
+        }
+
         protected override void EnteredTree()
         {
+            base.EnteredTree(); // Orbitra-Edit
+            GridOptions.Clear(); // Orbitra-Edit - повторное открытие не дублирует записи.
             var entManager = IoCManager.Resolve<IEntityManager>();
             var playerManager = IoCManager.Resolve<IPlayerManager>();
 
@@ -36,8 +47,6 @@ namespace Content.Client.Administration.UI.Tabs.AtmosTab
                 _data.Add(entManager.GetNetEntity(uid));
             }
 
-            GridOptions.OnItemSelected += eventArgs => GridOptions.SelectId(eventArgs.Id);
-            SubmitButton.OnPressed += SubmitButtonOnOnPressed;
         }
 
         private void SubmitButtonOnOnPressed(BaseButton.ButtonEventArgs obj)

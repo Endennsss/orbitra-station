@@ -9,14 +9,21 @@ public sealed class OrbitraJournalTabs : BoxContainer
 {
     private readonly BoxContainer _items = new() { SeparationOverride = 4 };
     private readonly ScrollContainer _scroll;
-    private readonly Button _previous = new Content.Client._Orbitra.UserInterface.OrbitraButton { Text = "‹", SetSize = new Vector2(32, 36) };
-    private readonly Button _next = new Content.Client._Orbitra.UserInterface.OrbitraButton { Text = "›", SetSize = new Vector2(32, 36) };
+    private readonly Button _previous = new Content.Client._Orbitra.UserInterface.OrbitraButton { SetSize = new Vector2(32, 36) };
+    private readonly Button _next = new Content.Client._Orbitra.UserInterface.OrbitraButton { SetSize = new Vector2(32, 36) };
     private readonly Dictionary<string, Button> _buttons = new();
+    private readonly ButtonGroup _group = new();
     public event Action<string>? Selected;
 
     public OrbitraJournalTabs()
     {
         SetHeight = 36;
+        _previous.AddChild(new Content.Client._Orbitra.UserInterface.OrbitraIcon { Icon = "chevron_left" });
+        _next.AddChild(new Content.Client._Orbitra.UserInterface.OrbitraIcon { Icon = "chevron_right" });
+        _previous.ToolTip = Loc.GetString("orbitra-ui-previous-section");
+        _next.ToolTip = Loc.GetString("orbitra-ui-next-section");
+        Content.Client._Orbitra.UserInterface.OrbitraTooltips.Attach(_previous);
+        Content.Client._Orbitra.UserInterface.OrbitraTooltips.Attach(_next);
         AddStyleClass("OrbitraJournalNavigation");
         SeparationOverride = 4;
         _scroll = new ScrollContainer { HorizontalExpand = true, VScrollEnabled = false, HScrollEnabled = true, HScrollBarHidden = true, Children = { _items } };
@@ -31,7 +38,7 @@ public sealed class OrbitraJournalTabs : BoxContainer
 
     public void AddSection(string id, string title)
     {
-        var button = new Content.Client._Orbitra.UserInterface.OrbitraButton { Text = title, ToggleMode = true, SetHeight = 36 };
+        var button = new Content.Client._Orbitra.UserInterface.OrbitraButton { Text = title, ToggleMode = true, Group = _group, SetHeight = 36 };
         button.AddStyleClass("OrbitraJournalTab");
         button.OnPressed += _ => Selected?.Invoke(id);
         _buttons.Add(id, button);

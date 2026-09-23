@@ -53,7 +53,7 @@ public sealed partial class SandboxUIController : UIController, IOnStateChanged<
             {
                 if (!_admin.CanAdminPlace())
                     return;
-                EntitySpawningController.ToggleWindow();
+                Content.Client._Orbitra.UserInterface.OrbitraEngineMenus.Toggle<Robust.Client.UserInterface.CustomControls.EntitySpawnWindow>(UIManager, EntitySpawningController.ToggleWindow); // Orbitra-Edit
             }));
         _input.SetInputCommand(ContentKeyFunctions.OpenSandboxWindow,
             InputCmdHandler.FromDelegate(_ => ToggleWindow()));
@@ -62,7 +62,7 @@ public sealed partial class SandboxUIController : UIController, IOnStateChanged<
             {
                 if (!_admin.CanAdminPlace())
                     return;
-                TileSpawningController.ToggleWindow();
+                Content.Client._Orbitra.UserInterface.OrbitraEngineMenus.Toggle<Robust.Client.UserInterface.CustomControls.TileSpawnWindow>(UIManager, TileSpawningController.ToggleWindow); // Orbitra-Edit
             }));
         _input.SetInputCommand(ContentKeyFunctions.OpenDecalSpawnWindow,
             InputCmdHandler.FromDelegate(_ =>
@@ -125,8 +125,8 @@ public sealed partial class SandboxUIController : UIController, IOnStateChanged<
                 _console.ExecuteCommand($"rmcomp {pnent.Id} StationAiOverlay");
         };
         _window.RespawnButton.OnPressed += _ => _sandbox.Respawn();
-        _window.SpawnTilesButton.OnPressed += _ => TileSpawningController.ToggleWindow();
-        _window.SpawnEntitiesButton.OnPressed += _ => EntitySpawningController.ToggleWindow();
+        _window.SpawnTilesButton.OnPressed += _ => Content.Client._Orbitra.UserInterface.OrbitraEngineMenus.Toggle<Robust.Client.UserInterface.CustomControls.TileSpawnWindow>(UIManager, TileSpawningController.ToggleWindow); // Orbitra-Edit
+        _window.SpawnEntitiesButton.OnPressed += _ => Content.Client._Orbitra.UserInterface.OrbitraEngineMenus.Toggle<Robust.Client.UserInterface.CustomControls.EntitySpawnWindow>(UIManager, EntitySpawningController.ToggleWindow); // Orbitra-Edit
         _window.SpawnDecalsButton.OnPressed += _ => DecalPlacerController.ToggleWindow();
         _window.GiveFullAccessButton.OnPressed += _ => _sandbox.GiveAdminAccess();
         _window.GiveAghostButton.OnPressed += _ => _sandbox.GiveAGhost();
@@ -195,7 +195,7 @@ public sealed partial class SandboxUIController : UIController, IOnStateChanged<
     {
         if (_window == null)
             return;
-        if (_sandbox.SandboxAllowed && _window.IsOpen != true)
+        if (_sandbox.SandboxAllowed && (!_window.IsOpen || Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.IsClosing(_window))) // Orbitra-Edit
         {
             UIManager.ClickSound();
             _window.Open();
@@ -203,7 +203,7 @@ public sealed partial class SandboxUIController : UIController, IOnStateChanged<
         else
         {
             UIManager.ClickSound();
-            _window.Close();
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.RequestClose(_window); // Orbitra-Edit
         }
     }
 

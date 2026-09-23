@@ -71,12 +71,14 @@ namespace Content.Client.Construction.UI
 
         private bool WindowOpen
         {
-            get => _constructionView.IsOpen;
+            get => _constructionView.IsOpen && !Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.IsClosing((ConstructionMenu) _constructionView); // Orbitra-Edit
             set
             {
                 if (value && CraftingAvailable)
                 {
-                    if (_constructionView.IsOpen)
+                    if (Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.IsClosing((ConstructionMenu) _constructionView)) // Orbitra-Edit
+                        ((ConstructionMenu) _constructionView).Open();
+                    else if (_constructionView.IsOpen)
                         _constructionView.MoveToFront();
                     else
                         _constructionView.OpenCentered();
@@ -85,7 +87,7 @@ namespace Content.Client.Construction.UI
                         PopulateInfo(_selected);
                 }
                 else
-                    _constructionView.Close();
+                    Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.RequestClose((ConstructionMenu) _constructionView); // Orbitra-Edit
             }
         }
 

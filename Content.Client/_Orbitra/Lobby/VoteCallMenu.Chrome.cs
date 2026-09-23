@@ -22,10 +22,10 @@ public sealed partial class VoteCallMenu
             }
         }
         row.Orphan();
-        var heading = new PanelContainer { SetHeight = 44, StyleClasses = { "OrbitraWindowHeader" }, Children = { row } };
+        var heading = new PanelContainer { SetHeight = OrbitraUiMetrics.HeaderHeight, StyleClasses = { "OrbitraWindowHeader" }, Children = { row } };
         layout.AddChild(heading);
         heading.SetPositionInParent(0);
-        row.Margin = new Thickness(16, 6, 8, 6);
+        row.Margin = new Thickness(16, 2, 8, 2);
         foreach (var child in row.Children)
         {
             if (child is Label title)
@@ -33,6 +33,9 @@ public sealed partial class VoteCallMenu
                 title.StyleClasses.Clear();
                 title.AddStyleClass("FancyWindowTitle");
                 title.AddStyleClass("OrbitraWindowTitle");
+                title.ClipText = true;
+                title.HorizontalExpand = true;
+                title.TooltipSupplier = _ => new OrbitraTooltip(title.Text ?? "");
             }
         }
         CloseButton.Visible = false;

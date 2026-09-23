@@ -15,6 +15,7 @@ namespace Content.Client.Lobby.UI
         public LobbyGui()
         {
             RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.UserInterface.OrbitraMenuBackground.Attach(this, Background, LobbyBackground); // Orbitra-Edit
             IoCManager.InjectDependencies(this);
             SetAnchorPreset(LobbyFrame, LayoutPreset.Wide); // Orbitra-Edit - авторство вне центральной области.
             SetAnchorPreset(Background, LayoutPreset.Wide);

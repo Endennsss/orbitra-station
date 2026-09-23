@@ -10,11 +10,12 @@ namespace Content.Client.UserInterface.Controls.FancyTree;
 /// <remarks>
 ///     Ideally this would just be a draw method in <see cref="TreeItem"/>, but sadly the draw override gets called BEFORE children are drawn.
 /// </remarks>
-public sealed class TreeLine : Control
+public sealed partial class TreeLine : Control // Orbitra-Edit
 {
     protected override void Draw(DrawingHandleScreen handle)
     {
         base.Draw(handle);
+        if (DrawOrbitraLines(handle)) return; // Orbitra-Edit - линии не пересекают стрелки.
 
         // This is basically just a shitty hack to call Draw() after children get drawn.
         if (Parent is not TreeItem parent)

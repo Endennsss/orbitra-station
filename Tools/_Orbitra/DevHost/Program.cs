@@ -27,21 +27,32 @@ internal static class Program
         info.ArgumentList.Add("--cvar");
         info.ArgumentList.Add("orbitra.dev_lobby_channel=" + channel);
         using var client = Process.Start(info) ?? throw new InvalidOperationException("Cannot start dev client.");
-        var output = client.StandardOutput.BaseStream.CopyToAsync(Console.OpenStandardOutput());
-        var errors = client.StandardError.BaseStream.CopyToAsync(Console.OpenStandardError());
+        var output = client.StandardOutput.BaseStream.CopyToAsync(Console.OpenStandardOutput(), cancellation.Token);
+        var errors = client.StandardError.BaseStream.CopyToAsync(Console.OpenStandardError(), cancellation.Token);
         var watcher = WatchAsync(request, reply, cancellation.Token);
         try
         {
             await client.WaitForExitAsync();
-            await Task.WhenAll(output, errors);
             return client.ExitCode;
         }
         finally
         {
             cancellation.Cancel();
-            try { await watcher; }
+            // Очистка сервера не зависит от ошибок наблюдателя и незакрытых каналов вывода.
+            try
+            {
+                OrbitraDevLobbyServer.StopOwnedServer();
+                await watcher;
+            }
             catch (OperationCanceledException) { }
-            OrbitraDevLobbyServer.StopOwnedServer();
+            catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+            {
+                Console.Error.WriteLine($"Dev lobby watcher stopped: {e.Message}");
+            }
+            finally { OrbitraDevLobbyServer.StopOwnedServer(); }
+            try { await Task.WhenAll(output, errors); }
+            catch (OperationCanceledException) { }
+            catch (IOException) { }
             File.Delete(request);
             File.Delete(reply);
             File.Delete(reply + ".tmp");

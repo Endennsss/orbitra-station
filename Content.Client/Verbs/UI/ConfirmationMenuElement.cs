@@ -28,5 +28,6 @@ public sealed partial class ConfirmationMenuElement : ContextMenuElement
         Icon.Visible = false;
 
         SetOnlyStyleClass(StyleClassConfirmationContextMenuButton);
+        AddStyleClass("OrbitraContextRow"); // Orbitra-Edit - сохраняем семантику опасного подтверждения.
     }
 }

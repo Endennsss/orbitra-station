@@ -11,4 +11,11 @@ public sealed class OrbitraLobbyButton : OrbitraButton
     {
         OrbitraMotion.AttachButton(this);
     }
+
+    protected override void EnteredTree()
+    {
+        base.EnteredTree();
+        ToolTip ??= Text;
+        OrbitraTooltips.Attach(this);
+    }
 }

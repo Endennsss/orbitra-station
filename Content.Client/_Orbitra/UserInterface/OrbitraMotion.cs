@@ -55,6 +55,8 @@ internal sealed partial class OrbitraMotion : Control
     {
         for (Control? current = target; current != null; current = current.Parent)
         {
+            if (current is OrbitraTooltip { Owner: { } owner })
+                return owner.VisibleInTree && !owner.Disposed && CanAnimate(owner);
             if (current.HasStyleClass("OrbitraEntryWindow"))
                 return current.VisibleInTree && !current.Disposed;
             if (current is Robust.Client.UserInterface.CustomControls.BaseWindow)

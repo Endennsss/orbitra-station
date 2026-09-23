@@ -39,6 +39,8 @@ internal sealed partial class OrbitraMotion
             _elapsed += seconds;
             var duration = button.DrawMode == BaseButton.DrawModeEnum.Pressed ? OrbitraMotionPresets.Press : OrbitraMotionPresets.Hover;
             var t = Transition.Ease(_elapsed / duration);
+            // Выделение не должно наследовать геометрию рамки предыдущего состояния.
+            _surface.BorderThickness = target.BorderThickness;
             _surface.BackgroundColor = Color.InterpolateBetween(_background, target.BackgroundColor, t);
             _surface.BorderColor = Color.InterpolateBetween(_border, target.BorderColor, t);
             button.StyleBoxOverride = _surface;

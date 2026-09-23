@@ -1,5 +1,6 @@
 ﻿<controls:PanicBunkerTab
     xmlns="https://spacestation14.io"
+    xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
     xmlns:controls="clr-namespace:Content.Client.Administration.UI.Tabs.PanicBunkerTab"
     xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
     Margin="4">
@@ -7,7 +8,7 @@
         <cc:CommandButton Name="EnabledButton" Command="panicbunker" ToggleMode="True"
                           Text="{Loc admin-ui-panic-bunker-disabled}"
                           ToolTip="{Loc admin-ui-panic-bunker-tooltip}" />
-        <BoxContainer Orientation="Horizontal">
+        <kit:OrbitraResponsiveGrid> <!-- Orbitra-Edit -->
             <cc:CommandButton Name="DisableAutomaticallyButton" HorizontalExpand="True"
                               Command="panicbunker_disable_with_admins"
                               ToggleMode="True"
@@ -23,7 +24,7 @@
                               ToggleMode="True"
                               Text="{Loc admin-ui-panic-bunker-count-deadminned-admins}"
                               ToolTip="{Loc admin-ui-panic-bunker-count-deadminned-admins-tooltip}" />
-        </BoxContainer>
+        </kit:OrbitraResponsiveGrid>
         <cc:CommandButton Name="ShowReasonButton" Command="panicbunker_show_reason"
                           ToggleMode="True" Text="{Loc admin-ui-panic-bunker-show-reason}"
                           ToolTip="{Loc admin-ui-panic-bunker-show-reason-tooltip}" />

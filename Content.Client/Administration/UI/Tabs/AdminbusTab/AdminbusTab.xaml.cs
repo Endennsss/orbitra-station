@@ -39,6 +39,13 @@ namespace Content.Client.Administration.UI.Tabs.AdminbusTab
             LoadBlueprintsButton.Disabled = !adminManager.CanCommand("loadgrid");
         }
 
+        // Orbitra-Edit - симметричная очистка подписки при уничтожении меню.
+        protected override void Dispose(bool disposing)
+        {
+            IoCManager.Resolve<IClientAdminManager>().AdminStatusUpdated -= OnStatusUpdate;
+            base.Dispose(disposing);
+        }
+
         private void OnStatusUpdate()
         {
             var adminManager = IoCManager.Resolve<IClientAdminManager>();
@@ -53,12 +60,12 @@ namespace Content.Client.Administration.UI.Tabs.AdminbusTab
 
         private void SpawnEntitiesButtonOnPressed(BaseButton.ButtonEventArgs obj)
         {
-            _entitySpawningController.ToggleWindow();
+            Content.Client._Orbitra.UserInterface.OrbitraEngineMenus.Toggle<Robust.Client.UserInterface.CustomControls.EntitySpawnWindow>(UserInterfaceManager, _entitySpawningController.ToggleWindow); // Orbitra-Edit
         }
 
         private void SpawnTilesButtonOnOnPressed(BaseButton.ButtonEventArgs obj)
         {
-            _tileSpawningController.ToggleWindow();
+            Content.Client._Orbitra.UserInterface.OrbitraEngineMenus.Toggle<Robust.Client.UserInterface.CustomControls.TileSpawnWindow>(UserInterfaceManager, _tileSpawningController.ToggleWindow); // Orbitra-Edit
         }
 
         private void SpawnDecalsButtonOnPressed(BaseButton.ButtonEventArgs obj)

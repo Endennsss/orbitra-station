@@ -15,6 +15,7 @@ public sealed partial class AdminEventLogWindow : FancyWindow
     public AdminEventLogWindow()
     {
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         IoCManager.InjectDependencies(this);
 
         RoundSpinBox.IsValid = i => i > 0 && i <= CurrentRound;

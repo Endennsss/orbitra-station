@@ -11,7 +11,7 @@ namespace Content.Client.Administration.UI.Tabs.AtmosTab
 {
     [GenerateTypedNameReferences]
     [UsedImplicitly]
-    public sealed partial class AddAtmosWindow : DefaultWindow
+    public sealed partial class AddAtmosWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
     {
         [Dependency] private IPlayerManager _players = default!;
         [Dependency] private IEntityManager _entities = default!;
@@ -21,11 +21,16 @@ namespace Content.Client.Administration.UI.Tabs.AtmosTab
         public AddAtmosWindow()
         {
             RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
+            GridOptions.OnItemSelected += eventArgs => GridOptions.SelectId(eventArgs.Id);
+            SubmitButton.OnPressed += SubmitButtonOnOnPressed;
             IoCManager.InjectDependencies(this);
         }
 
         protected override void EnteredTree()
         {
+            base.EnteredTree(); // Orbitra-Edit
+            GridOptions.Clear(); // Orbitra-Edit - повторное открытие не дублирует записи.
             _data.Clear();
 
             var player = _players.LocalEntity;
@@ -38,8 +43,6 @@ namespace Content.Client.Administration.UI.Tabs.AtmosTab
                 GridOptions.AddItem($"{uid} {(playerGrid == uid ? Loc.GetString($"admin-ui-atmos-grid-current") : "")}");
             }
 
-            GridOptions.OnItemSelected += eventArgs => GridOptions.SelectId(eventArgs.Id);
-            SubmitButton.OnPressed += SubmitButtonOnOnPressed;
         }
 
         private void SubmitButtonOnOnPressed(BaseButton.ButtonEventArgs obj)

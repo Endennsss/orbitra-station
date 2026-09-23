@@ -5,10 +5,11 @@ using Robust.Client.UserInterface.XAML;
 namespace Content.Client.UserInterface.Systems.Character.Windows;
 
 [GenerateTypedNameReferences]
-public sealed partial class CharacterWindow : DefaultWindow
+public sealed partial class CharacterWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
 {
     public CharacterWindow()
     {
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
     }
 }

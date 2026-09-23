@@ -12,7 +12,7 @@ namespace Content.Client.Administration.UI.Tabs.AdminbusTab
 {
     [GenerateTypedNameReferences]
     [UsedImplicitly]
-    public sealed partial class LoadBlueprintsWindow : DefaultWindow
+    public sealed partial class LoadBlueprintsWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
     {
         [Dependency] private IEntityManager _entityManager = default!;
         [Dependency] private IPlayerManager _playerManager = default!;
@@ -20,6 +20,7 @@ namespace Content.Client.Administration.UI.Tabs.AdminbusTab
         public LoadBlueprintsWindow()
         {
             RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         }
 
         protected override void EnteredTree()

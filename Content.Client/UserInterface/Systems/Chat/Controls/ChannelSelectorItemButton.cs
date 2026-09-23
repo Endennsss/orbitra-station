@@ -17,6 +17,7 @@ public sealed class ChannelSelectorItemButton : Button
     {
         Channel = selector;
         AddStyleClass(StyleClassChatSelectorOptionButton);
+        AddStyleClass("OrbitraChatButton"); // Orbitra-Edit
 
         Text = ChannelSelectorButton.ChannelSelectorName(selector);
 

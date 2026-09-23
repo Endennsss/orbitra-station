@@ -167,9 +167,9 @@ public sealed partial class AdminUIController : UIController,
 
     private void Toggle()
     {
-        if (_window is {IsOpen: true})
+        if (_window is {IsOpen: true} && !Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.IsClosing(_window)) // Orbitra-Edit
         {
-            _window.Close();
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.RequestClose(_window); // Orbitra-Edit
         }
         else if (_conGroups.CanAdminMenu())
         {

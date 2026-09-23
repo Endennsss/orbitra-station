@@ -229,6 +229,7 @@ public sealed partial class OptionsTabControlRow : Control
 
         _cfg.SaveToFile();
         UpdateButtonState();
+        ShowOrbitraFeedback(Content.Client._Orbitra.UserInterface.OrbitraNotificationKind.Success, _loc.GetString("orbitra-feedback-settings-applied")); // Orbitra-Edit
     }
 
     private void ResetButtonPressed(BaseButton.ButtonEventArgs obj)
@@ -239,6 +240,7 @@ public sealed partial class OptionsTabControlRow : Control
         }
 
         UpdateButtonState();
+        ShowOrbitraFeedback(Content.Client._Orbitra.UserInterface.OrbitraNotificationKind.Info, _loc.GetString("orbitra-feedback-settings-discarded")); // Orbitra-Edit
     }
 
     private void DefaultButtonPressed(BaseButton.ButtonEventArgs obj)
@@ -249,6 +251,7 @@ public sealed partial class OptionsTabControlRow : Control
         }
 
         UpdateButtonState();
+        ShowOrbitraFeedback(Content.Client._Orbitra.UserInterface.OrbitraNotificationKind.Warning, _loc.GetString("orbitra-feedback-settings-defaults")); // Orbitra-Edit
     }
 
     private string FormatPercent(OptionSliderFloatCVar slider, float value)

@@ -35,6 +35,7 @@ public sealed partial class PlayerPanel : FancyWindow
     public PlayerPanel(IClientAdminManager adminManager)
     {
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         _adminManager = adminManager;
 
         UsernameCopyButton.OnPressed += _ => OnUsernameCopy?.Invoke(TargetUsername ?? "");

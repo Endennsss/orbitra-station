@@ -134,25 +134,10 @@ public sealed partial class EmotesUIController : UIController, IOnStateChanged<G
 
     private IEnumerable<RadialMenuOptionBase> ConvertToButtons(IEnumerable<EmotePrototype> emotePrototypes)
     {
-        var whitelistSystem = EntitySystemManager.GetEntitySystem<EntityWhitelistSystem>();
-        var player = _playerManager.LocalSession?.AttachedEntity;
-
         Dictionary<EmoteCategory, List<RadialMenuOptionBase>> emotesByCategory = new();
         foreach (var emote in emotePrototypes)
         {
-            if (emote.Category == EmoteCategory.Invalid)
-                continue;
-
-            // only valid emotes that have ways to be triggered by chat and player have access / no restriction on
-            if (emote.Category == EmoteCategory.Invalid
-                || emote.ChatTriggers.Count == 0
-                || !(player.HasValue && whitelistSystem.IsWhitelistPassOrNull(emote.Whitelist, player.Value))
-                || whitelistSystem.IsWhitelistPass(emote.Blacklist, player.Value))
-                continue;
-
-            if (!emote.Available
-                && EntityManager.TryGetComponent<SpeechComponent>(player.Value, out var speech)
-                && !speech.AllowedEmotes.Contains(emote.ID))
+            if (!CanUseEmote(emote)) // Orbitra-Edit - общие правила для меню H и быстрых кнопок.
                 continue;
 
             if (!emotesByCategory.TryGetValue(emote.Category, out var list))

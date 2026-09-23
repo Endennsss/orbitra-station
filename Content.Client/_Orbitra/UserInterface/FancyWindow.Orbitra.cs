@@ -32,9 +32,12 @@ public partial class FancyWindow
             heading.SetHeight = OrbitraUiMetrics.HeaderHeight;
         WindowTitle.RemoveStyleClass("LabelHeading");
         WindowTitle.AddStyleClass("OrbitraWindowTitle");
+        WindowTitle.ClipText = true;
+        WindowTitle.HorizontalExpand = true;
+        WindowTitle.TooltipSupplier = _ => new OrbitraTooltip(WindowTitle.Text ?? "");
         if (WindowTitle.Parent is BoxContainer row)
         {
-            row.Margin = new Thickness(OrbitraUiMetrics.WindowPadding, 6, OrbitraUiMetrics.Small, 6);
+            row.Margin = new Thickness(OrbitraUiMetrics.WindowPadding, 2, OrbitraUiMetrics.Small, 2);
             row.SeparationOverride = OrbitraUiMetrics.Small;
             var close = new OrbitraWindowCloseButton();
             close.OnPressed += _ => OrbitraEntryWindow.RequestClose(this);

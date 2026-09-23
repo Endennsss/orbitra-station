@@ -17,7 +17,7 @@ public sealed partial class GhostTargetWindow
         OrbitraKeyboardNavigation.Attach(this).HandleKey = HandleOrbitraTargetKey;
         OnClose += () => _orbitraAwaiting = false;
         _orbitraStatus.ActionButton.OnPressed += _ => OrbitraRetryRequested?.Invoke();
-        var container = SearchBar.Parent!;
+        var container = GhostScroll.Parent!;
         container.AddChild(_orbitraSummary);
         _orbitraSummary.SetPositionInParent(GhostScroll.GetPositionInParent());
         container.AddChild(_orbitraStatus);

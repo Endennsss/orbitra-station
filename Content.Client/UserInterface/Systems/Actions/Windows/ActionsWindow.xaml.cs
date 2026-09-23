@@ -6,7 +6,7 @@ using Robust.Client.UserInterface.XAML;
 namespace Content.Client.UserInterface.Systems.Actions.Windows;
 
 [GenerateTypedNameReferences]
-public sealed partial class ActionsWindow : DefaultWindow
+public sealed partial class ActionsWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
 {
     public const string StyleClassActionSearchBox = "actionSearchBox";
 
@@ -20,8 +20,9 @@ public sealed partial class ActionsWindow : DefaultWindow
     public ActionsWindow()
     {
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
 
-        SearchContainer.AddChild(FilterButton = new MultiselectOptionButton<Filters>
+        SearchContainer.AddChild(FilterButton = new Content.Client._Orbitra.UserInterface.OrbitraMultiselectButton<Filters> // Orbitra-Edit
         {
             Label = Loc.GetString("ui-actionmenu-filter-button")
         });

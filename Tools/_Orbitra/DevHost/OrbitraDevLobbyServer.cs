@@ -15,6 +15,7 @@ internal static class OrbitraDevLobbyServer
     private const string ServerName = "Orbitra Dev Lobby";
     private static readonly SemaphoreSlim LaunchLock = new(1, 1);
     private static Process? _ownedServer;
+    private static OrbitraProcessJob? _serverJob;
 
     public static async Task<string?> EnsureRunningAsync(CancellationToken cancellation)
     {
@@ -52,9 +53,11 @@ internal static class OrbitraDevLobbyServer
                 previous.Dispose();
                 _ownedServer = null;
             }
+            _serverJob ??= OrbitraProcessJob.Create();
             started = Process.Start(info);
             if (started == null)
                 return "orbitra-dev-lobby-start-failed";
+            _serverJob?.Add(started);
             _ownedServer = started;
             while (!timeout.IsCancellationRequested)
             {
@@ -159,15 +162,20 @@ internal static class OrbitraDevLobbyServer
         StopServer(server);
     }
 
-    private static void StopServer(Process server)
+    internal static void StopServer(Process server)
     {
         try
         {
             if (!server.HasExited)
             {
-                server.StandardInput.WriteLine("shutdown");
+                // Закрытый stdin не должен отменять аварийную остановку процесса.
+                try { server.StandardInput.WriteLine("shutdown"); }
+                catch (Exception e) when (e is IOException or InvalidOperationException) { }
                 if (!server.WaitForExit(2000))
+                {
                     server.Kill(entireProcessTree: true);
+                    server.WaitForExit(2000);
+                }
             }
         }
         catch (Exception e) when (e is InvalidOperationException or IOException or System.ComponentModel.Win32Exception) { }

@@ -5,10 +5,11 @@ using Robust.Client.UserInterface.XAML;
 namespace Content.Client.Administration.UI.Tabs.PanicBunkerTab;
 
 [GenerateTypedNameReferences]
-public sealed partial class PanicBunkerStatusWindow : DefaultWindow
+public sealed partial class PanicBunkerStatusWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
 {
     public PanicBunkerStatusWindow()
     {
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
     }
 }

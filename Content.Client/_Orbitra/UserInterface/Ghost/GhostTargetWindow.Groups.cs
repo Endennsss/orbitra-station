@@ -26,13 +26,20 @@ public sealed partial class GhostTargetWindow
         _orbitraPrototypes = IoCManager.Resolve<IPrototypeManager>();
         OrbitraEntryWindow.Attach(this);
         InitializeOrbitraKeyboard();
-        foreach (var button in new[] { GhostnadoButton, WarpToRandomFollowedButton, WarpToRandomButton })
+        var buttons = new[] { GhostnadoButton, WarpToRandomFollowedButton, WarpToRandomButton };
+        var icons = new[] { "eye_star", "eye", "shuffle" };
+        var names = new[] { "ghost-target-window-warp-to-most-followed", "ghost-target-window-warp-to-random-followed", "ghost-target-window-warp-to-random" };
+        for (var i = 0; i < buttons.Length; i++)
         {
-            button.HorizontalExpand = true;
-            button.HorizontalAlignment = HAlignment.Stretch;
+            var button = buttons[i];
+            button.SetSize = new Vector2(32);
+            button.MinHeight = 32;
+            button.VerticalAlignment = VAlignment.Center;
             button.AddStyleClass(OrbitraButtonStyles.Secondary);
+            button.AddChild(new OrbitraIcon { Icon = icons[i] });
+            button.ToolTip = Loc.GetString(names[i]) + "\n" + button.ToolTip;
         }
-        ButtonContainer.SeparationOverride = OrbitraUiMetrics.Medium;
+        ButtonContainer.SeparationOverride = OrbitraUiMetrics.Small;
     }
 
     /// <summary>Uses server metadata only; no target entity needs to be present in the client's PVS.</summary>
@@ -97,7 +104,8 @@ public sealed partial class GhostTargetWindow
             row.NameLabel.SetMessage(row.Name);
             row.JobLabel.Text = row.Job;
             row.JobLabel.Visible = !warp.IsWarpPoint;
-            row.Button.ToolTip = $"{row.Name}\n{row.Job}";
+            row.Button.MinHeight = warp.IsWarpPoint ? 32 : 44;
+            row.Button.ToolTip = warp.IsWarpPoint ? row.Name : $"{row.Name}\n{row.Job}";
             row.Group = group;
             row.Icon.Visible = !warp.IsWarpPoint;
             if (!warp.IsWarpPoint && _orbitraPrototypes.TryIndex<JobIconPrototype>(job?.Icon ?? "JobIconUnknown", out var icon))
@@ -173,7 +181,8 @@ public sealed partial class GhostTargetWindow
             var expanded = query.Length > 0 || !group.Collapsed;
             group.Root.Visible = group.Count > 0;
             group.Rows.Visible = expanded;
-            group.Header.Text = $"{(expanded ? "▼" : "▶")} {group.Name} · {group.Count}";
+            group.Header.Text = Loc.GetString("orbitra-ghost-group-heading", ("name", group.Name), ("count", group.Count));
+            group.Arrow.Icon = expanded ? "chevron_down" : "chevron_right";
         }
         UpdateOrbitraSummary();
     }
@@ -185,6 +194,7 @@ public sealed partial class GhostTargetWindow
         public readonly DepartmentPrototype? Department;
         public readonly BoxContainer Root = new() { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = OrbitraUiMetrics.Small };
         public readonly Button Header = new OrbitraButton { HorizontalExpand = true, TextAlign = Label.AlignMode.Left, CanKeyboardFocus = true };
+        public readonly OrbitraIcon Arrow = new() { HorizontalAlignment = HAlignment.Left };
         public readonly BoxContainer Rows = new() { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 4 };
         public bool Collapsed;
         public int Count;
@@ -196,6 +206,10 @@ public sealed partial class GhostTargetWindow
             Department = department;
             Header.AddStyleClass(OrbitraButtonStyles.Ghost);
             Header.AddStyleClass("OrbitraGroupHeader");
+            Header.AddStyleClass("OrbitraCompactRow");
+            Header.MinHeight = 32;
+            Header.Label.Margin = new Thickness(24, 0, 0, 0);
+            Header.AddChild(Arrow);
             Header.Label.HorizontalExpand = true;
             Header.Label.HorizontalAlignment = HAlignment.Stretch;
             Root.AddChild(Header);
@@ -219,6 +233,7 @@ public sealed partial class GhostTargetWindow
             Entity = entity;
             Button.AddStyleClass(ContainerButton.StyleClassButton);
             Button.AddStyleClass(OrbitraButtonStyles.Secondary);
+            Button.AddStyleClass("OrbitraCompactRow");
             OrbitraMotion.AttachButton(Button);
             var content = new BoxContainer { SeparationOverride = OrbitraUiMetrics.Small, MouseFilter = Control.MouseFilterMode.Ignore };
             var labels = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, HorizontalExpand = true, SeparationOverride = 0 };

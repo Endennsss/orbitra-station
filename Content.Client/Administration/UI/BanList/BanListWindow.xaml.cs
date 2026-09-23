@@ -6,11 +6,13 @@ using Robust.Client.UserInterface.XAML;
 namespace Content.Client.Administration.UI.BanList;
 
 [GenerateTypedNameReferences]
-public sealed partial class BanListWindow : DefaultWindow
+public sealed partial class BanListWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
 {
     public BanListWindow()
     {
         RobustXamlLoader.Load(this);
+        AddStyleClass("OrbitraPreserveHorizontalScroll"); // Orbitra-Edit
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
 
         TabContainer.SetTabTitle(0, Loc.GetString("ban-list-bans"));
         TabContainer.SetTabTitle(1, Loc.GetString("ban-list-role-bans"));

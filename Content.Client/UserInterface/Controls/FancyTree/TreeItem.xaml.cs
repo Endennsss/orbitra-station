@@ -81,6 +81,7 @@ public sealed partial class TreeItem : PanelContainer
 
     public void UpdateIcon()
     {
+        if (ApplyOrbitraIcon()) return; // Orbitra-Edit
         if (Body.ChildCount == 0)
             Icon.Texture = Tree.IconNoChildren;
         else

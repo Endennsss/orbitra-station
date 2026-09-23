@@ -120,13 +120,16 @@
       </BoxContainer>
     </PanelContainer>
   </BoxContainer>
-  <PanelContainer Name="ProfileHighlight" StyleClasses="OrbitraLobbyPanel">
+  <kit:OrbitraAdaptiveRow Breakpoint="700" SeparationOverride="8"> <!-- Orbitra-Edit - уведомление рядом с действиями сохраняет высоту формы на низком экране. -->
+  <kit:OrbitraNotification Name="OrbitraFeedback" />
+  <PanelContainer Name="ProfileHighlight" StyleClasses="OrbitraLobbyPanel" VerticalAlignment="Center">
     <BoxContainer Name="OrbitraEditorFooter" SeparationOverride="8">
       <Label Name="OrbitraSaveStatus" HorizontalExpand="True" VerticalAlignment="Center" StyleClasses="OrbitraLobbyMuted" />
       <orbitra:OrbitraLobbyButton Name="ResetButton" Disabled="True" Text="{Loc 'orbitra-editor-discard'}" StyleClasses="OrbitraLobbyButton" />
       <orbitra:OrbitraLobbyButton Name="SaveButton" Text="{Loc 'humanoid-profile-editor-save-button'}" StyleClasses="OrbitraLobbyPrimary" />
     </BoxContainer>
   </PanelContainer>
+  </kit:OrbitraAdaptiveRow>
   <BoxContainer Name="OrbitraProfileTools" Orientation="Vertical" Visible="False" SeparationOverride="8">
     <orbitra:OrbitraLobbyButton Name="ImportButton" Text="{Loc 'humanoid-profile-editor-import-button'}" StyleClasses="OrbitraLobbyButton" />
     <orbitra:OrbitraLobbyButton Name="ExportButton" Text="{Loc 'humanoid-profile-editor-export-button'}" StyleClasses="OrbitraLobbyButton" />

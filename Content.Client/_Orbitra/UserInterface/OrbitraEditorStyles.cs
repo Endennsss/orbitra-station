@@ -38,6 +38,16 @@ internal static class OrbitraEditorStyles
         }
     }
 
+    private static bool PreservesHorizontalScroll(Control control)
+    {
+        if (control.HasStyleClass("OrbitraHorizontalScroll"))
+            return true;
+        for (var parent = control.Parent; parent != null; parent = parent.Parent)
+            if (parent.HasStyleClass("OrbitraPreserveHorizontalScroll"))
+                return true;
+        return false;
+    }
+
     public static void Apply(Control root)
     {
         if (root.HasStyleClass("OrbitraJournalNavigation"))
@@ -47,8 +57,17 @@ internal static class OrbitraEditorStyles
         if (root.HasStyleClass("OrbitraOptionRow"))
             return;
         root.AddStyleClass("OrbitraEditorControl");
+        if (root is Content.Client.Administration.UI.Tabs.PlayerTab.PlayerTab or
+            Content.Client.Administration.UI.Tabs.ObjectsTab.ObjectsTab)
+            root.AddChild(new OrbitraTableHeader(root));
+        if (root is Content.Client.Administration.UI.CustomControls.PlayerListEntry playerEntry)
+            playerEntry.ApplyOrbitraPin();
+        OrbitraMenuIcons.Apply(root);
+        OrbitraTooltips.Attach(root);
         if (root is LineEdit or Slider)
         {
+            // Штатная текстурная подложка поиска не должна перекрывать локальный стиль.
+            root.RemoveStyleClass("actionSearchBox");
             root.CanKeyboardFocus = true;
             OrbitraFocusRing.Attach(root);
         }
@@ -63,6 +82,7 @@ internal static class OrbitraEditorStyles
         }
         if (root is Content.Client.UserInterface.Controls.FancyTree.TreeItem item)
         {
+            item.ApplyOrbitraIcon();
             item.Button.StyleIdentifier = null;
             item.Button.AddStyleClass("OrbitraTreeRow");
             item.Button.AddStyleClass(ContainerButton.StyleClassButton);
@@ -79,7 +99,7 @@ internal static class OrbitraEditorStyles
             voteWindow.ApplyOrbitraChrome();
         if (root is Content.Client.Administration.UI.Bwoink.BwoinkControl bwoink)
             OrbitraHelpLayout.Attach(bwoink);
-        if (root is ScrollContainer scroll)
+        if (root is ScrollContainer scroll && !PreservesHorizontalScroll(root))
             scroll.HScrollEnabled = false;
         if (root is Content.Client.Humanoid.MarkingPicker)
             OrbitraMarkingNavigation.Attach(root, "OrganTabs");
@@ -108,17 +128,21 @@ internal static class OrbitraEditorStyles
             OrbitraMotion.AttachButton(button);
             root.MinWidth = 0;
             // Обрезаем только растягиваемые строки: у обычной кнопки текст задаёт её ширину.
-            button.ClipText = button.HorizontalExpand;
+            button.ClipText = button.HorizontalExpand && button.Parent is not WrapContainer;
             button.ToolTip ??= button.Text;
         }
         if (root is CheckBox check)
         {
             check.RemoveStyleClass("OrbitraLobbyButton");
             check.MinHeight = OrbitraUiMetrics.ElementHeight;
-            check.HorizontalExpand = true;
-            check.Label.HorizontalExpand = true;
-            check.ClipText = true;
+            var wrap = check.Parent is WrapContainer;
+            check.HorizontalExpand = !wrap;
+            check.Label.HorizontalExpand = !wrap;
+            check.ClipText = !wrap;
             check.ToolTip ??= check.Text;
+            check.TextureRect.AddStyleClass("OrbitraCheckIcon");
+            check.TextureRect.SetSize = new Vector2(20);
+            check.TextureRect.Stretch = TextureRect.StretchMode.KeepAspectCentered;
         }
         if (root is OptionButton option)
         {
@@ -131,6 +155,23 @@ internal static class OrbitraEditorStyles
         }
         if (root is LineEdit or OptionButton)
             root.MinHeight = OrbitraUiMetrics.ElementHeight;
+        if (root is TextureRect texture && root.HasStyleClass(OptionButton.StyleClassOptionTriangle))
+        {
+            texture.AddStyleClass("OrbitraIcon-chevron_down");
+            texture.SetSize = new Vector2(OrbitraUiMetrics.IconSize);
+            texture.Stretch = TextureRect.StretchMode.KeepAspectCentered;
+        }
+        if (root is Content.Client.UserInterface.Controls.ListContainerButton listRow)
+        {
+            // Белый override штатного списка обходил sheetlet до первого наведения.
+            listRow.StyleBoxOverride = null;
+            listRow.RemoveStyleClass(Content.Client.UserInterface.Controls.ListContainer.StyleClassListContainerButton);
+            listRow.AddStyleClass("OrbitraOptionRow");
+            if (listRow.Parent is Content.Client.UserInterface.Controls.SearchListContainer)
+                listRow.AddStyleClass("OrbitraTableRow");
+            listRow.AddStyleClass(ContainerButton.StyleClassButton);
+            OrbitraMotion.AttachButton(listRow);
+        }
         foreach (var child in root.Children)
             Apply(child);
         // Динамические маркировки и предметы получают стиль при добавлении, без обхода дерева каждый кадр.
@@ -139,6 +180,14 @@ internal static class OrbitraEditorStyles
 
     private static void ClipOptionLabels(Control control)
     {
+        if (control is BoxContainer { Orientation: BoxContainer.LayoutOrientation.Horizontal } box)
+            box.SeparationOverride = OrbitraUiMetrics.Small;
+        if (control is TextureRect && control.HasStyleClass(OptionButton.StyleClassOptionTriangle))
+        {
+            control.AddStyleClass("OrbitraIcon-chevron_down");
+            control.SetSize = new Vector2(OrbitraUiMetrics.IconSize);
+            ((TextureRect) control).Stretch = TextureRect.StretchMode.KeepAspectCentered;
+        }
         if (control is Label label)
             label.ClipText = true;
         foreach (var child in control.Children)

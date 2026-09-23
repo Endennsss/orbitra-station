@@ -50,6 +50,7 @@ namespace Content.Client.ContextMenu.UI
             RobustXamlLoader.Load(this);
             Margin = new Thickness(ElementMargin, ElementMargin, ElementMargin, ElementMargin);
             SetOnlyStyleClass(StyleClassContextMenuButton);
+            AddStyleClass("OrbitraContextRow"); // Orbitra-Edit
 
             if (text != null)
                 Text = text;

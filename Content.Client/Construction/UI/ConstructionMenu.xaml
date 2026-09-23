@@ -1,7 +1,10 @@
-<DefaultWindow xmlns="https://spacestation14.io"
-               xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls">
-    <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
-        <BoxContainer Orientation="Vertical" MinWidth="243" Margin="0 0 5 0">
+<orbitraWindow:FancyWindow xmlns:orbitraWindow="clr-namespace:Content.Client.UserInterface.Controls" xmlns="https://spacestation14.io"
+               xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+               xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface">
+    <!-- Orbitra-Edit - те же контролы в адаптивной компоновке. -->
+    <ScrollContainer HScrollEnabled="False">
+    <kit:OrbitraAdaptiveRow Breakpoint="720" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="16">
+        <BoxContainer Orientation="Vertical" MinWidth="243" MinHeight="240" HorizontalExpand="True">
             <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
                 <LineEdit Name="SearchBar" PlaceHolder="{Loc 'construction-menu-search'}" HorizontalExpand="True"/>
                 <OptionButton Name="OptionCategories" Access="Public" MinSize="130 0"/>
@@ -11,39 +14,28 @@
                     Name="PreviousRecipeInHistoryButton"
                     HorizontalExpand="True"
                     Disabled="True"
-                    StyleClasses="OpenRight">
-                    <Label
-                        StyleIdentifier="RecipeHistoryNavButtonLabel"
-                        Align="Center"
-                        Text="{Loc construction-menu-history-select-previous-recipe}"
-                    />
-                </Button>
+                    Text="{Loc orbitra-ui-previous-recipe}" />
                 <Button
                     Name="NextRecipeInHistoryButton"
                     HorizontalExpand="True"
                     Disabled="True"
-                    StyleClasses="OpenLeft">
-                    <Label
-                        StyleIdentifier="RecipeHistoryNavButtonLabel"
-                        Align="Center"
-                        Text="{Loc construction-menu-history-select-next-recipe}" />
-                </Button>
+                    Text="{Loc orbitra-ui-next-recipe}" />
             </BoxContainer>
             <controls:ListContainer Name="ListViewRecipes" Access="Public" Group="True" Toggle="True" VerticalExpand="True" />
             <ScrollContainer Name="GridViewRecipesScrollContainer" VerticalExpand="True" Access="Public" Visible="False">
                 <GridContainer Name="GridViewRecipes" Columns="5" Access="Public"/>
             </ScrollContainer>
         </BoxContainer>
-        <BoxContainer Orientation="Vertical" HorizontalExpand="True">
-            <BoxContainer Orientation="Horizontal">
+        <BoxContainer Orientation="Vertical" HorizontalExpand="True" MinHeight="240">
+            <kit:OrbitraAdaptiveRow Breakpoint="400" SeparationOverride="8">
                 <Button Name="MenuGridViewButton" ToggleMode="True" Text="{Loc construction-menu-grid-view}"/>
                 <Button Name="FavoriteButton" Visible="false"/>
-            </BoxContainer>
+            </kit:OrbitraAdaptiveRow>
             <Control>
                 <BoxContainer Orientation="Vertical" HorizontalExpand="True" Margin="0 0 0 5">
                     <BoxContainer Orientation="Horizontal" Align="Center">
                         <EntityPrototypeView Name="TargetTexture" HorizontalAlignment="Right" Stretch="Fill" Margin="0 0 10 0"/>
-                        <BoxContainer Orientation="Vertical">
+                        <BoxContainer Orientation="Vertical" HorizontalExpand="True">
                             <RichTextLabel Name="TargetName"/>
                             <RichTextLabel Name="TargetDesc"/>
                         </BoxContainer>
@@ -52,14 +44,14 @@
             </Control>
             <ItemList Name="RecipeStepList" Access="Public" VerticalExpand="True" Margin="0 0 0 5"/>
             <BoxContainer Orientation="Vertical">
-                <Button Name="BuildButton" Disabled="True" ToggleMode="True"
-                        VerticalExpand="True" SizeFlagsStretchRatio="0.5"/>
-                <BoxContainer Orientation="Horizontal" VerticalExpand="True" SizeFlagsStretchRatio="0.5">
+                <Button Name="BuildButton" Disabled="True" ToggleMode="True" StyleClasses="OrbitraButtonPrimary"/>
+                <WrapContainer SeparationOverride="8" CrossSeparationOverride="8">
                     <Button Name="EraseButton" ToggleMode="True"
-                        HorizontalExpand="True" SizeFlagsStretchRatio="0.7"/>
-                    <Button Name="ClearButton" HorizontalExpand="True" SizeFlagsStretchRatio="0.3"/>
-                </BoxContainer>
+                        HorizontalExpand="False"/>
+                    <Button Name="ClearButton" HorizontalExpand="False"/>
+                </WrapContainer>
             </BoxContainer>
         </BoxContainer>
-    </BoxContainer>
-</DefaultWindow>
+    </kit:OrbitraAdaptiveRow>
+    </ScrollContainer>
+</orbitraWindow:FancyWindow> <!-- Orbitra-Edit -->

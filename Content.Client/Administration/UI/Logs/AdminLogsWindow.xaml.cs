@@ -5,10 +5,12 @@ using Robust.Client.UserInterface.XAML;
 namespace Content.Client.Administration.UI.Logs;
 
 [GenerateTypedNameReferences]
-public sealed partial class AdminLogsWindow : DefaultWindow
+public sealed partial class AdminLogsWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
 {
     public AdminLogsWindow()
     {
         RobustXamlLoader.Load(this);
+        AddStyleClass("OrbitraPreserveHorizontalScroll"); // Orbitra-Edit
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
     }
 }

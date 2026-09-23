@@ -29,7 +29,7 @@
             <kit:OrbitraMotionHost Name="DefaultMotion">
             <orbitra:OrbitraLobbyBody Name="DefaultState" Orientation="Horizontal" SeparationOverride="16">
                 <BoxContainer Name="InfoDock" Orientation="Vertical">
-                    <PanelContainer Name="InfoPanel" SetWidth="260" StyleClasses="OrbitraLobbyPanel" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <PanelContainer Name="InfoPanel" SetWidth="300" StyleClasses="OrbitraLobbyPanel" HorizontalAlignment="Left" VerticalExpand="True">
                         <ScrollContainer HScrollEnabled="False" ReturnMeasure="True">
                             <BoxContainer Orientation="Vertical" SeparationOverride="16">
                                 <Label Text="{Loc 'orbitra-lobby-shift'}" StyleClasses="OrbitraLobbyHeading" />

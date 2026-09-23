@@ -1,5 +1,7 @@
 #if !FULL_RELEASE
+using System;
 using System.IO;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +13,68 @@ namespace Content.Tests.Client._Orbitra;
 [TestFixture]
 public sealed class OrbitraDevLobbyTest
 {
+    [TestCase(true)]
+    [TestCase(false)]
+    public void OwnedProcessStopsEvenWhenShutdownInputIsClosed(bool closeInput)
+    {
+        if (!OperatingSystem.IsWindows())
+            Assert.Ignore("Windows process lifecycle regression.");
+        using var process = StartWaitingProcess("Start-Sleep -Seconds 60");
+        using var observed = Process.GetProcessById(process.Id);
+        try
+        {
+            if (closeInput)
+                process.StandardInput.Close();
+            OrbitraDevLobbyServer.StopServer(process);
+            Assert.That(observed.WaitForExit(5000), Is.True);
+        }
+        finally
+        {
+            if (!observed.HasExited)
+            {
+                observed.Kill(entireProcessTree: true);
+                observed.WaitForExit(5000);
+            }
+        }
+    }
+
+    [Test]
+    public void ClosingJobKillsOnlyItsOwnedProcess()
+    {
+        if (!OperatingSystem.IsWindows())
+            Assert.Ignore("Windows Job Object regression.");
+        using var unrelated = StartWaitingProcess("Start-Sleep -Seconds 60");
+        using var owned = StartWaitingProcess("Start-Sleep -Seconds 60");
+        try
+        {
+            using (var job = OrbitraProcessJob.Create())
+                job!.Add(owned);
+            Assert.That(owned.WaitForExit(5000), Is.True);
+            Assert.That(unrelated.HasExited, Is.False);
+        }
+        finally
+        {
+            foreach (var process in new[] { owned, unrelated })
+                if (!process.HasExited)
+                {
+                    process.Kill(entireProcessTree: true);
+                    process.WaitForExit(5000);
+                }
+        }
+    }
+
+    private static Process StartWaitingProcess(string command)
+    {
+        var info = new ProcessStartInfo("powershell.exe")
+        {
+            UseShellExecute = false, CreateNoWindow = true, WindowStyle = ProcessWindowStyle.Hidden,
+            RedirectStandardInput = true,
+        };
+        foreach (var arg in new[] { "-NoProfile", "-NonInteractive", "-Command", command })
+            info.ArgumentList.Add(arg);
+        return Process.Start(info)!;
+    }
+
     [Test]
     public void LaunchIsLoopbackOnlyAndDoesNotUseDefaultServerData()
     {

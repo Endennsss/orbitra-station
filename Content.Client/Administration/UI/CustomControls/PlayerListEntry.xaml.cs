@@ -47,6 +47,8 @@ public sealed partial class PlayerListEntry : BoxContainer
 
     private void UpdatePinButtonTexture(bool isPinned)
     {
+        _orbitraPinned = isPinned; // Orbitra-Edit
+        if (ApplyOrbitraPin()) return; // Orbitra-Edit
         PlayerEntryPinButton.TexturePath = isPinned ? _pinnedResPath.CanonPath : _unPinnedResPath.CanonPath;
     }
 }

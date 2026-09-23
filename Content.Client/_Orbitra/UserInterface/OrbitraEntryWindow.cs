@@ -39,6 +39,7 @@ internal static class OrbitraEntryWindow
         window.AddStyleClass("OrbitraEntryWindow");
         var keyboard = OrbitraKeyboardNavigation.Attach(window);
         var ui = IoCManager.Resolve<IUserInterfaceManager>();
+        OrbitraEngineMenus.Ensure(ui);
         var firstOpen = true;
         System.Numerics.Vector2? lastPosition = null;
         var active = false;
@@ -101,6 +102,8 @@ internal static class OrbitraEntryWindow
         };
         void Cleanup()
         {
+            OrbitraTooltips.ClearOwned(window);
+            OrbitraNotification.ClearOwned(window);
             keyboard.Closing();
             lifetime.CancelClose();
             OrbitraMotion.Finish(window, ui);
@@ -130,6 +133,8 @@ internal static class OrbitraEntryWindow
             if (Closing || !window.IsOpen || window.Disposed)
                 return;
             Closing = true;
+            OrbitraTooltips.ClearOwned(window);
+            OrbitraNotification.ClearOwned(window);
             var generation = ++_generation;
             OrbitraMotion.CloseOwnedPopups(window);
             OrbitraKeyboardNavigation.Attach(window).Closing();

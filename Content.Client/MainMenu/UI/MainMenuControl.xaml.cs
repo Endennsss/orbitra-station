@@ -42,6 +42,7 @@ public sealed partial class MainMenuControl : Control
     {
         IoCManager.InjectDependencies(this);
         RobustXamlLoader.Load(this);
+        OrbitraMenuBackground.Attach(this, BackgroundParallax); // Orbitra-Edit
 
         LayoutContainer.SetAnchorPreset(this, LayoutContainer.LayoutPreset.Wide);
 

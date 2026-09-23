@@ -14,6 +14,8 @@ public sealed partial class GuidebookWindow
 
     private void InitializeOrbitraNavigation()
     {
+        Tree.DrawLines = true;
+        TableOfContents.DrawLines = true;
         _orbitraSectionsPanel.AddStyleClass("OrbitraWindowSurface");
         _orbitraSectionsPopup.AddChild(_orbitraSectionsPanel);
         OrbitraMotion.BindPopup(_orbitraSectionsPopup, this, RestoreOrbitraTree);

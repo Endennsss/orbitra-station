@@ -10,7 +10,7 @@ using Robust.Shared.Utility;
 namespace Content.Client.Fax.AdminUI;
 
 [GenerateTypedNameReferences]
-public sealed partial class AdminFaxWindow : DefaultWindow
+public sealed partial class AdminFaxWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
 {
     private const string StampsRsiPath = "/Textures/Objects/Misc/bureaucracy.rsi";
 
@@ -22,6 +22,7 @@ public sealed partial class AdminFaxWindow : DefaultWindow
     public AdminFaxWindow()
     {
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         IoCManager.InjectDependencies(this);
 
         PopulateStamps();

@@ -1,23 +1,22 @@
-<ui:FancyWindow xmlns="https://spacestation14.io" xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls" xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface" Title="{Loc 'ghost-target-window-title'}" MinSize="300 200"
-               SetSize="450 500">
+<ui:FancyWindow xmlns="https://spacestation14.io" xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls" xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface" Title="{Loc 'ghost-target-window-title'}" MinSize="360 280"
+               SetSize="600 440" Resizable="True">
     <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
-    <BoxContainer Orientation="Vertical" HorizontalExpand="True" SizeFlagsStretchRatio="0.4">
-        <BoxContainer Orientation="Vertical" Margin="0 4 0 4">
-            <RichTextLabel Text="{Loc 'ghost-target-window-warp-to-title'}" HorizontalAlignment="Center" />
-            <PanelContainer StyleClasses="LowDivider" Margin="0 5" />
-            <kit:OrbitraAdaptiveRow SeparationOverride="8"> <!-- Orbitra-Edit -->
-                <kit:OrbitraButton Name="GhostnadoButton" Text="{Loc 'ghost-target-window-warp-to-most-followed'}"
+    <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="8">
+        <!-- Orbitra-Edit - поиск и компактные действия; отделы остаются одним списком. -->
+        <kit:OrbitraAdaptiveRow Breakpoint="328" SeparationOverride="8">
+            <LineEdit Name="SearchBar" PlaceHolder="{Loc 'orbitra-ghost-search-placeholder'}" HorizontalExpand="True" />
+            <BoxContainer SeparationOverride="8">
+                <kit:OrbitraButton Name="GhostnadoButton"
                         ToolTip="{Loc 'ghost-target-window-warp-to-most-followed-tooltip'}"
-                        HorizontalAlignment="Center" StyleClasses="OpenRight" />
-                <kit:OrbitraButton Name="WarpToRandomFollowedButton" Text="{Loc 'ghost-target-window-warp-to-random-followed'}"
+                        StyleClasses="OrbitraIconButton" />
+                <kit:OrbitraButton Name="WarpToRandomFollowedButton"
                         ToolTip="{Loc 'ghost-target-window-warp-to-random-followed-tooltip'}"
-                        HorizontalAlignment="Center" StyleClasses="OpenBoth" />
-                <kit:OrbitraButton Name="WarpToRandomButton" Text="{Loc 'ghost-target-window-warp-to-random'}"
-                        ToolTip="{Loc 'ghost-target-window-warp-to-random-tooltip'}" HorizontalAlignment="Center"
-                        StyleClasses="OpenLeft" />
-            </kit:OrbitraAdaptiveRow>
-        </BoxContainer>
-        <LineEdit Name="SearchBar" PlaceHolder="{Loc 'window-search-bar-placeholder'}" HorizontalExpand="True" Margin="0 4" />
+                        StyleClasses="OrbitraIconButton" />
+                <kit:OrbitraButton Name="WarpToRandomButton"
+                        ToolTip="{Loc 'ghost-target-window-warp-to-random-tooltip'}"
+                        StyleClasses="OrbitraIconButton" />
+            </BoxContainer>
+        </kit:OrbitraAdaptiveRow>
         <ScrollContainer Name="GhostScroll" VerticalExpand="True" HorizontalExpand="True" HScrollEnabled="False">
             <BoxContainer Name="ButtonContainer" Orientation="Vertical" VerticalExpand="True" SeparationOverride="5">
                 <!-- Target buttons get added here by code -->

@@ -22,7 +22,7 @@ using Robust.Shared.Utility;
 namespace Content.Client.Administration.UI.BanPanel;
 
 [GenerateTypedNameReferences]
-public sealed partial class BanPanel : DefaultWindow
+public sealed partial class BanPanel : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
 {
     public event Action<Ban>? BanSubmitted;
     public event Action<string>? PlayerChanged;
@@ -78,6 +78,7 @@ public sealed partial class BanPanel : DefaultWindow
     public BanPanel()
     {
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         IoCManager.InjectDependencies(this);
         _banPanelSawmill = _logManager.GetSawmill("admin.banpanel");
         PlayerList.OnSelectionChanged += OnPlayerSelectionChanged;

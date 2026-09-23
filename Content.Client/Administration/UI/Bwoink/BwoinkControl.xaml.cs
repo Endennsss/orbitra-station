@@ -35,8 +35,6 @@ namespace Content.Client.Administration.UI.Bwoink
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
 
-            var newPlayerThreshold = 0;
-            _cfg.OnValueChanged(CCVars.NewPlayerThreshold, (val) => { newPlayerThreshold = val; }, true);
 
             var uiController = _ui.GetUIController<AHelpUIController>();
             if (uiController.UIHelper is not AdminAHelpUIHandler helper)
@@ -93,6 +91,7 @@ namespace Content.Client.Administration.UI.Bwoink
             // </summary>
             bool IsNewPlayer(PlayerInfo info)
             {
+                var newPlayerThreshold = _cfg.GetCVar(CCVars.NewPlayerThreshold); // Orbitra-Edit - без удерживающей окно подписки.
                 // Don't show every disconnected player as new, don't show 0-minute players as new if threshold is
                 if (newPlayerThreshold <= 0 || info.OverallPlaytime is null && !info.Connected)
                     return false;

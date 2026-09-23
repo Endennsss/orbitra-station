@@ -17,9 +17,11 @@
                ClipText="True"
                Text="{Loc object-tab-entity-id}"
                MouseFilter="Pass"/>
+        <cc:VSeparator/> <!-- Orbitra-Edit - заголовок повторяет сетку колонок строки. -->
         <Label Name="EntityTeleportLabel"
                SizeFlagsStretchRatio="3"
                HorizontalExpand="True"/>
+        <cc:VSeparator/> <!-- Orbitra-Edit -->
         <Label Name="EntityDeleteLabel"
                SizeFlagsStretchRatio="3"
                HorizontalExpand="True"/>

@@ -19,6 +19,9 @@ public sealed partial class LobbyGui
 
     private void InitializeOrbitraLayout()
     {
+        CollapseButton.Text = "";
+        CollapseButton.SetSize = new System.Numerics.Vector2(32);
+        CollapseButton.AddChild(new OrbitraIcon { Icon = "minus" });
         OrbitraKeyboardNavigation.Attach(this);
         _orbitraMoreMotion = new OrbitraVisibility(MorePanel);
         _orbitraInfoMotion = new OrbitraVisibility(ServerInfo);
@@ -37,6 +40,7 @@ public sealed partial class LobbyGui
                 foreach (var button in links.Children)
                 {
                     button.AddStyleClass("OrbitraLobbyButton");
+                    OrbitraTooltips.Attach(button);
                     button.HorizontalExpand = true;
                     button.HorizontalAlignment = HAlignment.Stretch;
                 }
@@ -118,7 +122,7 @@ public sealed partial class LobbyGui
         var compact = Height < 850;
         var margin = editing ? 8 : width < 900 || compact ? 12 : 24;
         var bodyWidth = Math.Min(2200, width - margin * 2);
-        var sideWidth = Math.Max(260, _orbitraChatWidth);
+        var sideWidth = Math.Max(300, _orbitraChatWidth);
         var dockInfo = bodyWidth >= sideWidth * 2 + 560 + 32 && !editing;
         var dockChat = dockInfo;
         DefaultState.SideWidth = sideWidth;

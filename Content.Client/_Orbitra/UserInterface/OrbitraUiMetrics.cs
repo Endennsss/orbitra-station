@@ -9,8 +9,9 @@ public static class OrbitraUiMetrics
     public const int Section = 24;
     public const int ElementHeight = 36;
     public const int ActionHeight = 44;
-    public const int HeaderHeight = 44;
+    public const int HeaderHeight = 36;
     public const int CloseSize = 32;
+    public const int IconSize = 16;
     public const int WindowPadding = 16;
     public const int ScreenMargin = 16;
     public const int FormBreakpoint = 560;

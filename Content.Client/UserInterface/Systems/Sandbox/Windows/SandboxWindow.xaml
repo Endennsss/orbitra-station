@@ -2,8 +2,10 @@
     xmlns="https://spacestation14.io"
     xmlns:windows="clr-namespace:Content.Client.UserInterface.Systems.Sandbox.Windows"
     Title="{Loc sandbox-window-title}"
-    Resizable="False">
-    <BoxContainer Orientation="Vertical" SeparationOverride="4">
+    Resizable="True" SetSize="320 680" MinSize="280 240">
+    <!-- Orbitra-Edit - прокрутка только содержимого. -->
+    <ScrollContainer HScrollEnabled="False">
+    <BoxContainer Orientation="Vertical" SeparationOverride="4" Margin="0 0 8 0"> <!-- Orbitra-Edit - зазор перед полосой прокрутки. -->
         <Label Text="{Loc sandbox-window-map-editing-label}"/>
         <Button Name="SpawnTilesButton" Access="Public" Text="{Loc sandbox-window-spawn-tiles-button}"/>
         <Button Name="SpawnEntitiesButton" Access="Public" Text="{Loc sandbox-window-spawn-entities-button}"/>
@@ -24,7 +26,8 @@
         <Label Text="{Loc sandbox-window-your-character-label}"/>
         <Button Name="GiveAghostButton" Access="Public" Text="{Loc sandbox-window-ghost-button}"/>
         <Button Name="GiveFullAccessButton" Access="Public" Text="{Loc sandbox-window-grant-full-access-button}"/>
-        <Button Name="SuicideButton" Access="Public" Text="{Loc sandbox-window-toggle-suicide-button}"/>
+        <Button Name="SuicideButton" Access="Public" Text="{Loc sandbox-window-toggle-suicide-button}" StyleClasses="OrbitraButtonDanger"/>
         <Button Name="RespawnButton" Access="Public" Text="{Loc sandbox-window-respawn-button}"/>
     </BoxContainer>
+    </ScrollContainer>
 </windows:SandboxWindow>

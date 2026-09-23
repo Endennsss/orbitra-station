@@ -1,6 +1,7 @@
 <windows:CharacterWindow
     xmlns="https://spacestation14.io"
     xmlns:cc="clr-namespace:Content.Client.UserInterface.Controls"
+    xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
     xmlns:windows="clr-namespace:Content.Client.UserInterface.Systems.Character.Windows"
     Title="{Loc 'character-info-title'}"
     MinWidth="400"
@@ -17,7 +18,8 @@
             </BoxContainer>
             <Label Name="ObjectivesLabel" Access="Public" Text="{Loc 'character-info-objectives-label'}" HorizontalAlignment="Center"/>
             <BoxContainer Orientation="Vertical" Name="Objectives" Access="Public"/>
-            <cc:Placeholder Name="RolePlaceholder" Access="Public" PlaceholderText="{Loc 'character-info-roles-antagonist-text'}"/>
+            <!-- Orbitra-Edit - спокойное пустое состояние без декоративной рамки. -->
+            <kit:OrbitraStatusPanel Name="RolePlaceholder" Access="Public" Title="{Loc 'character-info-roles-antagonist-text'}"/>
         </BoxContainer>
     </ScrollContainer>
 </windows:CharacterWindow>

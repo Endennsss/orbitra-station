@@ -10,6 +10,7 @@ namespace Content.Client.UserInterface.Systems.MenuBar.Widgets
         public GameTopMenuBar()
         {
             RobustXamlLoader.Load(this);
+            InitializeOrbitra(); // Orbitra-Edit - единая панель кнопок обоих вариантов HUD.
         }
     }
 }

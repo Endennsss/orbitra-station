@@ -70,7 +70,7 @@ namespace Content.Client.Construction.UI
     }
 
     [GenerateTypedNameReferences]
-    public sealed partial class ConstructionMenu : DefaultWindow, IConstructionMenuView
+    public sealed partial class ConstructionMenu : Content.Client.UserInterface.Controls.FancyWindow, IConstructionMenuView // Orbitra-Edit
     {
         public bool BuildButtonPressed
         {
@@ -94,11 +94,12 @@ namespace Content.Client.Construction.UI
 
         public ConstructionMenu()
         {
-            SetSize = new Vector2(560, 450);
-            MinSize = new Vector2(560, 320);
+            SetSize = new Vector2(820, 560); // Orbitra-Edit
+            MinSize = new Vector2(360, 280); // Orbitra-Edit
 
             IoCManager.InjectDependencies(this);
             RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
 
             Title = Loc.GetString("construction-menu-title");
 
@@ -122,6 +123,8 @@ namespace Content.Client.Construction.UI
                 var label = new Label()
                 {
                     Text = prototype.Name,
+                    ClipText = true, // Orbitra-Edit - длинное название не расширяет колонку.
+                    HorizontalExpand = true,
                     Margin = new(5, 0),
                 };
 
@@ -130,7 +133,7 @@ namespace Content.Client.Construction.UI
                 box.AddChild(label);
 
                 button.AddChild(box);
-                button.ToolTip = prototype.Description;
+                button.ToolTip = prototype.Name + "\n" + prototype.Description; // Orbitra-Edit
                 button.AddStyleClass(ListContainer.StyleClassListContainerButton);
             };
 

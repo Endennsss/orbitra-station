@@ -14,7 +14,7 @@ using static Robust.Client.UserInterface.Controls.BaseButton;
 namespace Content.Client.Decals.UI;
 
 [GenerateTypedNameReferences]
-public sealed partial class DecalPlacerWindow : DefaultWindow
+public sealed partial class DecalPlacerWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
 {
     [Dependency] private IPrototypeManager _prototype = default!;
     [Dependency] private IEntityManager _e = default!;
@@ -40,6 +40,7 @@ public sealed partial class DecalPlacerWindow : DefaultWindow
     public DecalPlacerWindow()
     {
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         IoCManager.InjectDependencies(this);
 
         _decalPlacementSystem = _e.System<DecalPlacementSystem>();

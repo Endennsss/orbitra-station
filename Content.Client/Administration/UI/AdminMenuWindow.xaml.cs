@@ -6,7 +6,7 @@ using Robust.Client.UserInterface.XAML;
 namespace Content.Client.Administration.UI;
 
 [GenerateTypedNameReferences]
-public sealed partial class AdminMenuWindow : DefaultWindow
+public sealed partial class AdminMenuWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
 {
     public event Action? OnDisposed;
 
@@ -15,6 +15,7 @@ public sealed partial class AdminMenuWindow : DefaultWindow
         MinSize = new Vector2(650, 250);
         Title = Loc.GetString("admin-menu-title");
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         MasterTabContainer.SetTabTitle((int) TabIndex.Admin, Loc.GetString("admin-menu-admin-tab"));
         MasterTabContainer.SetTabTitle((int) TabIndex.Adminbus, Loc.GetString("admin-menu-adminbus-tab"));
         MasterTabContainer.SetTabTitle((int) TabIndex.Atmos, Loc.GetString("admin-menu-atmos-tab"));
@@ -24,6 +25,7 @@ public sealed partial class AdminMenuWindow : DefaultWindow
         MasterTabContainer.SetTabTitle((int) TabIndex.Players, Loc.GetString("admin-menu-players-tab"));
         MasterTabContainer.SetTabTitle((int) TabIndex.Objects, Loc.GetString("admin-menu-objects-tab"));
         MasterTabContainer.OnTabChanged += OnTabChanged;
+        InitializeOrbitraMenu(); // Orbitra-Edit
     }
 
     private void OnTabChanged(int tabIndex)

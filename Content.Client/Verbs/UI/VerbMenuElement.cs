@@ -41,6 +41,7 @@ namespace Content.Client.Verbs.UI
                 return tooltip;
             };
             Disabled = verb.Disabled;
+            Content.Client._Orbitra.UserInterface.OrbitraTooltips.Attach(this); // Orbitra-Edit - сохраняем специализированное содержимое подсказки.
             Verb = verb;
 
             Label.SetOnlyStyleClass(verb.TextStyleClass);
@@ -69,22 +70,14 @@ namespace Content.Client.Verbs.UI
                 return;
             }
 
-            Icon.AddChild(new TextureRect()
-            {
-                Texture = verb.Icon != null ? entManager.System<SpriteSystem>().Frame0(verb.Icon) : null,
-                Stretch = TextureRect.StretchMode.KeepAspectCentered
-            });
+            Icon.AddChild(Content.Client._Orbitra.UserInterface.OrbitraHudMenus.VerbIcon(verb.Icon, entManager.System<SpriteSystem>())); // Orbitra-Edit
         }
 
         public VerbMenuElement(VerbCategory category, string styleClass) : base(category.Text)
         {
             Label.SetOnlyStyleClass(styleClass);
 
-            Icon.AddChild(new TextureRect()
-            {
-                Texture = category.Icon != null ? IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<SpriteSystem>().Frame0(category.Icon) : null,
-                Stretch = TextureRect.StretchMode.KeepAspectCentered
-            });
+            Icon.AddChild(Content.Client._Orbitra.UserInterface.OrbitraHudMenus.VerbIcon(category.Icon, IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<SpriteSystem>())); // Orbitra-Edit
         }
     }
 }

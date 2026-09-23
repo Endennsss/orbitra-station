@@ -37,6 +37,8 @@ public sealed class ChannelFilterButton : ChatPopupButton<ChannelFilterPopup>
 
     protected override UIBox2 GetPopupPosition()
     {
+        if (HasStyleClass("OrbitraChatButton")) // Orbitra-Edit
+            return Content.Client._Orbitra.UserInterface.OrbitraChatFilters.Place(this);
         var globalPos = GlobalPosition;
         var (minX, minY) = Popup.MinSize;
         return UIBox2.FromDimensions(

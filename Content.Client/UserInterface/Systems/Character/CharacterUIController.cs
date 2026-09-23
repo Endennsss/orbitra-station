@@ -245,9 +245,9 @@ public sealed partial class CharacterUIController : UIController, IOnStateEntere
 
         CharacterButton?.SetClickPressed(!_window.IsOpen);
 
-        if (_window.IsOpen)
+        if (_window.IsOpen && !Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.IsClosing(_window)) // Orbitra-Edit
         {
-            CloseWindow();
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.RequestClose(_window); // Orbitra-Edit
         }
         else
         {

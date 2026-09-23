@@ -19,6 +19,7 @@ public sealed partial class GraphicsTab : Control
     {
         IoCManager.InjectDependencies(this);
         RobustXamlLoader.Load(this);
+        Control.AddOptionCheckBox(Content.Client._Orbitra.UserInterface.OrbitraMenuCVars.StandardBackground, OrbitraBackgroundCheckBox); // Orbitra-Edit
 
         var vSync = Control.AddOptionCheckBox(CVars.DisplayVSync, VSyncCheckBox);
         Control.AddOption(new OptionSliderIntInput(Control, _cfg, CVars.DisplayMaxFPS, MaxFpsInput, 0, 500));

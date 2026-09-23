@@ -28,6 +28,7 @@ public sealed partial class ChatWindow : FancyWindow
     /// </summary>
     public void ConfigureForAdminChat()
     {
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         Chatbox.ChatInput.ChannelSelector.Select(ChatSelectChannel.Admin);
 
         var filter = Chatbox.ChatInput.FilterButton.Popup;

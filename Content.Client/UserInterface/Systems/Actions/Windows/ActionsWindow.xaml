@@ -1,5 +1,6 @@
 ﻿<windows:ActionsWindow
     xmlns="https://spacestation14.io"
+    xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
     xmlns:windows="clr-namespace:Content.Client.UserInterface.Systems.Actions.Windows"
     Name="ActionsList"
     HorizontalExpand="True"
@@ -10,14 +11,14 @@
     MinWidth="300"
 >
     <BoxContainer Orientation="Vertical">
-        <BoxContainer Name="SearchContainer" Orientation="Horizontal">
+        <BoxContainer Name="SearchContainer" Orientation="Horizontal" SeparationOverride="8"> <!-- Orbitra-Edit -->
             <LineEdit Name="SearchBar" Access="Public" StyleClasses="actionSearchBox" HorizontalExpand="True"
                       PlaceHolder="{Loc ui-actionmenu-search-bar-placeholder-text}"/>
         </BoxContainer>
         <Button Name="ClearButton" Access="Public" Text="{Loc ui-actionmenu-clear-button}"/>
         <Label Name="FilterLabel" Access="Public"/>
         <ScrollContainer VerticalExpand="True" HorizontalExpand="True">
-            <GridContainer Name="ResultsGrid" Access="Public" MaxGridWidth="300"/>
+            <kit:OrbitraFlowGrid Name="ResultsGrid" Access="Public" ExpandBackwards="False"/> <!-- Orbitra-Edit -->
         </ScrollContainer>
     </BoxContainer>
 </windows:ActionsWindow>

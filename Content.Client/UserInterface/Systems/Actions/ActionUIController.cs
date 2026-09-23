@@ -290,9 +290,9 @@ public sealed partial class ActionUIController : UIController, IOnStateChanged<G
         if (_window == null)
             return;
 
-        if (_window.IsOpen)
+        if (_window.IsOpen && !Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.IsClosing(_window)) // Orbitra-Edit
         {
-            _window.Close();
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.RequestClose(_window); // Orbitra-Edit
             return;
         }
 

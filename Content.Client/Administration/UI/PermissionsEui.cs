@@ -294,7 +294,7 @@ namespace Content.Client.Administration.UI
             OpenRankEditWindow(rank);
         }
 
-        private sealed class Menu : DefaultWindow
+        private sealed class Menu : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
         {
             private readonly PermissionsEui _ui;
             public readonly GridContainer AdminsList;
@@ -304,6 +304,7 @@ namespace Content.Client.Administration.UI
 
             public Menu(PermissionsEui ui)
             {
+                Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
                 _ui = ui;
                 Title = Loc.GetString("permissions-eui-menu-title");
 
@@ -345,7 +346,7 @@ namespace Content.Client.Administration.UI
             }
         }
 
-        private sealed class EditAdminWindow : DefaultWindow
+        private sealed class EditAdminWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
         {
             public readonly PermissionsEuiState.AdminData? SourceData;
             public readonly LineEdit? NameEdit;
@@ -360,6 +361,7 @@ namespace Content.Client.Administration.UI
 
             public EditAdminWindow(PermissionsEui ui, PermissionsEuiState.AdminData? data)
             {
+                Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
                 MinSize = new Vector2(600, 400);
                 SourceData = data;
 
@@ -534,7 +536,7 @@ namespace Content.Client.Administration.UI
             }
         }
 
-        private sealed class EditAdminRankWindow : DefaultWindow
+        private sealed class EditAdminRankWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
         {
             public readonly int? SourceId;
             public readonly LineEdit NameEdit;
@@ -544,6 +546,7 @@ namespace Content.Client.Administration.UI
 
             public EditAdminRankWindow(PermissionsEui ui, KeyValuePair<int, PermissionsEuiState.AdminRankData>? data)
             {
+                Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
                 Title = Loc.GetString("permissions-eui-edit-admin-rank-window-title");
                 MinSize = new Vector2(600, 400);
                 SourceId = data?.Key;

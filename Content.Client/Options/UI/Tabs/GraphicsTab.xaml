@@ -41,6 +41,7 @@
 
                 <!-- Interface -->
                 <Label Text="{Loc 'ui-options-interface-label'}" StyleClasses="LabelKeyText"/>
+                <kit:OrbitraCheckBox Name="OrbitraBackgroundCheckBox" Text="{Loc 'orbitra-options-standard-background'}" ToolTip="{Loc 'orbitra-options-standard-background-tooltip'}" /> <!-- Orbitra-Edit -->
                 <ui:OptionDropDown Name="DropDownUIScale" Title="{Loc 'ui-options-scale-label'}" />
                 <kit:OrbitraCheckBox Name="ViewportStretchCheckBox" Text="{Loc 'ui-options-vp-stretch'}" />
                 <ui:OptionSlider Name="ViewportScaleSlider" Title="{Loc ui-options-vp-scale}" />

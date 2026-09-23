@@ -61,6 +61,7 @@ internal static class OrbitraOptionPopup
             button.TextAlign = Label.AlignMode.Left;
             button.Label.Margin = new Thickness(0, 0, 20, 0);
             button.ToolTip ??= button.Text;
+            OrbitraTooltips.Attach(button);
             button.AddChild(new SelectionMark { MouseFilter = Control.MouseFilterMode.Ignore });
             return;
         }
@@ -71,13 +72,19 @@ internal static class OrbitraOptionPopup
 
     private sealed class SelectionMark : Control
     {
+        private readonly OrbitraIcon _icon = new() { Icon = "check", HorizontalAlignment = HAlignment.Right, Margin = new Thickness(0, 0, 4, 0) };
+
+        public SelectionMark() => AddChild(_icon);
+
         protected override void Draw(DrawingHandleScreen handle)
         {
-            if (Parent is not Button { Pressed: true })
-                return;
-            var p = new Vector2(PixelWidth - 12 * UIScale, PixelHeight / 2f);
-            handle.DrawLine(p + new Vector2(-4, 0) * UIScale, p + new Vector2(-1, 3) * UIScale, Color.White);
-            handle.DrawLine(p + new Vector2(-1, 3) * UIScale, p + new Vector2(5, -4) * UIScale, Color.White);
+            _icon.Modulate = Color.White.WithAlpha(Parent is Button { Pressed: true } ? 1 : 0);
+        }
+
+        protected override Vector2 MeasureOverride(Vector2 availableSize)
+        {
+            base.MeasureOverride(availableSize);
+            return Vector2.Zero;
         }
     }
 }

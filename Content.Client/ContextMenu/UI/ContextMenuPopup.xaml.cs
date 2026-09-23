@@ -36,6 +36,8 @@ namespace Content.Client.ContextMenu.UI
         {
             RobustXamlLoader.Load(this);
             MenuPanel.SetOnlyStyleClass(StyleClassContextMenuPopup);
+            MenuPanel.AddStyleClass("OrbitraContextPanel"); // Orbitra-Edit
+            Content.Client._Orbitra.UserInterface.OrbitraHudMenus.StyleScrollbars(Scroll); // Orbitra-Edit
 
             _uiController = uiController;
             ParentElement = parentElement;

@@ -32,6 +32,7 @@ public partial class ChatBox : UIWidget
     public ChatBox()
     {
         RobustXamlLoader.Load(this);
+        InitializeOrbitra(); // Orbitra-Edit - оформление без изменения каналов и истории.
         Contents.AddStyleClass(Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.ChatText); // Orbitra-Edit - единый читаемый шрифт чата.
         ChatInput.Input.AddStyleClass(Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.ChatText); // Orbitra-Edit - шрифт ввода соответствует сообщениям.
         _sawmill = _log.GetSawmill("chat");

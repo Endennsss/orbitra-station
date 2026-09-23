@@ -16,6 +16,7 @@ public sealed partial class SeparatedChatGameScreen : InGameScreen
     public SeparatedChatGameScreen()
     {
         RobustXamlLoader.Load(this);
+        Chat.AddOrbitraQuickEmotes(); // Orbitra-Edit - быстрые эмоции над историей правого чата.
 
         AutoscaleMaxResolution = new Vector2i(1080, 770);
 

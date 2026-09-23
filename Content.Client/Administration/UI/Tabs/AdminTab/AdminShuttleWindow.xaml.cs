@@ -11,11 +11,12 @@ using Robust.Shared.Localization;
 namespace Content.Client.Administration.UI.Tabs.AdminTab
 {
     [GenerateTypedNameReferences]
-    public sealed partial class AdminShuttleWindow : DefaultWindow
+    public sealed partial class AdminShuttleWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
     {
         public AdminShuttleWindow()
         {
             RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
             IoCManager.InjectDependencies(this);
 
             _callShuttleTime.OnTextChanged += CallShuttleTimeOnOnTextChanged;

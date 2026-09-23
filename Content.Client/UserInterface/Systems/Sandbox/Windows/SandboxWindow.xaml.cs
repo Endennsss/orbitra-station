@@ -12,7 +12,7 @@ using Robust.Client.UserInterface.XAML;
 namespace Content.Client.UserInterface.Systems.Sandbox.Windows;
 
 [GenerateTypedNameReferences]
-public sealed partial class SandboxWindow : DefaultWindow
+public sealed partial class SandboxWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
 {
     [Dependency] private IEntityManager _entManager = null!;
     [Dependency] private IEyeManager _eyeManager = null!;
@@ -25,6 +25,7 @@ public sealed partial class SandboxWindow : DefaultWindow
     public SandboxWindow()
     {
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         IoCManager.InjectDependencies(this);
 
         _debugPhysicsSystem = _entManager.System<DebugPhysicsSystem>();

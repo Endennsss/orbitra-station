@@ -9,13 +9,14 @@ using Robust.Shared.Utility;
 namespace Content.Client.Administration.UI
 {
     [GenerateTypedNameReferences]
-    public sealed partial class AdminAnnounceWindow : DefaultWindow
+    public sealed partial class AdminAnnounceWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
     {
         [Dependency] private ILocalizationManager _localization = default!;
 
         public AdminAnnounceWindow()
         {
             RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
             IoCManager.InjectDependencies(this);
 
             Announcement.Placeholder = new Rope.Leaf(_localization.GetString("admin-announce-announcement-placeholder"));

@@ -173,7 +173,7 @@ public sealed partial class HumanoidProfileEditor
         OrbitraSaveStatus.Text = Loc.GetString(IsDirty ? "orbitra-editor-unsaved" : "orbitra-editor-saved");
     }
 
-    internal void ShowOrbitraSaved() => OrbitraMotion.Pulse(OrbitraSaveStatus.VisibleInTree ? OrbitraSaveStatus : SaveButton);
+    internal void ShowOrbitraSaved() => OrbitraFeedback.Show(OrbitraNotificationKind.Info, Loc.GetString("orbitra-feedback-character-sent"));
 
     private void FilterOrbitraJobs()
     {
