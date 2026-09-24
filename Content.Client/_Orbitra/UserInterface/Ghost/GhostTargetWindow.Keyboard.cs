@@ -32,6 +32,8 @@ public sealed partial class GhostTargetWindow
         var shownPlaces = 0;
         foreach (var row in _orbitraTargets.Values)
         {
+            if ((row.Group.Id == "antagonists") != _orbitraAntagonists)
+                continue;
             if (row.Group.Id == "places")
             {
                 places++;
@@ -104,10 +106,21 @@ public sealed partial class GhostTargetWindow
             return false;
         var stops = GetOrbitraTargetStops();
         var index = stops.IndexOf(focus!);
+        var upStep = 1;
+        var downStep = 1;
+        if (target != null)
+        {
+            var cards = target.Group.Rows.Children.Where(c => c.VisibleInTree).ToList();
+            var cardIndex = cards.IndexOf(target.Button);
+            upStep = Math.Min(target.Group.Rows.Columns, cardIndex + 1);
+            downStep = Math.Min(target.Group.Rows.Columns, cards.Count - cardIndex);
+        }
         switch (args.Key)
         {
-            case Keyboard.Key.Up: index--; break;
-            case Keyboard.Key.Down: index++; break;
+            case Keyboard.Key.Up: index -= upStep; break;
+            case Keyboard.Key.Down: index += downStep; break;
+            case Keyboard.Key.Left when target != null: index--; break;
+            case Keyboard.Key.Right when target != null: index++; break;
             case Keyboard.Key.Home: index = 0; break;
             case Keyboard.Key.End: index = stops.Count - 1; break;
             default: return false;

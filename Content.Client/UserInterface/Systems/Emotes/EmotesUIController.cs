@@ -46,6 +46,7 @@ public sealed partial class EmotesUIController : UIController, IOnStateChanged<G
     public void OnStateExited(GameplayState state)
     {
         CommandBinds.Unregister<EmotesUIController>();
+        CloseMenu(); // Orbitra-Edit - закрываем колесо и переходы при выходе из игры.
     }
 
     private void ToggleEmotesMenu(bool centered)
@@ -57,6 +58,7 @@ public sealed partial class EmotesUIController : UIController, IOnStateChanged<G
             var models = ConvertToButtons(prototypes);
 
             _menu = new SimpleRadialMenu();
+            _menu.EnableOrbitraEmotes(); // Orbitra-Edit - явно оформляем только колесо эмоций.
             _menu.SetButtons(models);
 
             _menu.Open();
@@ -128,8 +130,13 @@ public sealed partial class EmotesUIController : UIController, IOnStateChanged<G
         if (_menu == null)
             return;
 
-        _menu.Dispose();
+        // Orbitra edit start - отписываемся до Dispose, который может вызвать OnClose.
+        var menu = _menu;
         _menu = null;
+        menu.OnClose -= OnWindowClosed;
+        menu.OnOpen -= OnWindowOpen;
+        menu.Dispose();
+        // Orbitra edit end
     }
 
     private IEnumerable<RadialMenuOptionBase> ConvertToButtons(IEnumerable<EmotePrototype> emotePrototypes)

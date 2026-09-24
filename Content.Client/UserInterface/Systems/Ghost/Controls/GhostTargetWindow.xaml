@@ -2,7 +2,7 @@
                SetSize="600 440" Resizable="True">
     <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
     <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="8">
-        <!-- Orbitra-Edit - поиск и компактные действия; отделы остаются одним списком. -->
+        <!-- Orbitra-Edit - поиск и компактные действия над группами карточек целей. -->
         <kit:OrbitraAdaptiveRow Breakpoint="328" SeparationOverride="8">
             <LineEdit Name="SearchBar" PlaceHolder="{Loc 'orbitra-ghost-search-placeholder'}" HorizontalExpand="True" />
             <BoxContainer SeparationOverride="8">

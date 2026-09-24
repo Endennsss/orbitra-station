@@ -13,7 +13,7 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls;
 
 public sealed partial class GhostTargetWindow
 {
-    private readonly Dictionary<NetEntity, TargetRow> _orbitraTargets = new();
+    private readonly Dictionary<(NetEntity Entity, bool Antagonist), TargetRow> _orbitraTargets = new();
     private readonly Dictionary<string, TargetGroup> _orbitraGroups = new();
     private readonly List<TargetRow> _orbitraOrdered = new();
     private IPrototypeManager _orbitraPrototypes = default!;
@@ -24,8 +24,10 @@ public sealed partial class GhostTargetWindow
     private void InitializeOrbitraTargets()
     {
         _orbitraPrototypes = IoCManager.Resolve<IPrototypeManager>();
+        SetSize = new Vector2(900, 640);
         OrbitraEntryWindow.Attach(this);
         InitializeOrbitraKeyboard();
+        InitializeOrbitraSections();
         var buttons = new[] { GhostnadoButton, WarpToRandomFollowedButton, WarpToRandomButton };
         var icons = new[] { "eye_star", "eye", "shuffle" };
         var names = new[] { "ghost-target-window-warp-to-most-followed", "ghost-target-window-warp-to-random-followed", "ghost-target-window-warp-to-random" };
@@ -59,25 +61,27 @@ public sealed partial class GhostTargetWindow
                 group.Root.Dispose();
             _orbitraGroups.Clear();
             _orbitraTargets.Clear();
+            ResetOrbitraSections();
             SearchBar.SetText("", true);
             GhostScroll.SetScrollValue(Vector2.Zero);
         }
-        var remaining = new HashSet<NetEntity>(_orbitraTargets.Keys);
-        var seen = new HashSet<NetEntity>();
+        var remaining = new HashSet<(NetEntity Entity, bool Antagonist)>(_orbitraTargets.Keys);
+        var seen = new HashSet<(NetEntity Entity, bool Antagonist)>();
         var departments = _orbitraPrototypes.EnumeratePrototypes<DepartmentPrototype>().ToList();
         departments.Sort(DepartmentUIComparer.Instance);
         _orbitraOrdered.Clear();
-        foreach (var warp in warps)
+        foreach (var (warp, antagonist) in ExpandOrbitraTargets(warps))
         {
-            if (!seen.Add(warp.Entity))
+            var key = (warp.Entity, antagonist);
+            if (!seen.Add(key))
                 continue;
-            if (!_orbitraTargets.TryGetValue(warp.Entity, out var row))
+            if (!_orbitraTargets.TryGetValue(key, out var row))
             {
                 row = new TargetRow(warp.Entity);
                 row.Button.OnPressed += _ => WarpClicked?.Invoke(row.Entity);
-                _orbitraTargets.Add(warp.Entity, row);
+                _orbitraTargets.Add(key, row);
             }
-            remaining.Remove(warp.Entity);
+            remaining.Remove(key);
             JobPrototype? job = null;
             if (warp.Job is { } jobId)
                 _orbitraPrototypes.TryIndex(jobId, out job);
@@ -86,6 +90,12 @@ public sealed partial class GhostTargetWindow
             var groupId = warp.IsWarpPoint ? "places" : department?.ID ?? "unassigned";
             var groupName = warp.IsWarpPoint ? Loc.GetString("orbitra-ghost-places") : department == null
                 ? Loc.GetString("orbitra-ghost-unassigned") : Loc.GetString(department.Name);
+            if (antagonist)
+            {
+                groupId = "antagonists";
+                groupName = Loc.GetString("orbitra-ghost-antagonists");
+                department = null;
+            }
             if (!_orbitraGroups.TryGetValue(groupId, out var group))
             {
                 group = new TargetGroup(groupId, groupName, department);
@@ -104,8 +114,14 @@ public sealed partial class GhostTargetWindow
             row.NameLabel.SetMessage(row.Name);
             row.JobLabel.Text = row.Job;
             row.JobLabel.Visible = !warp.IsWarpPoint;
-            row.Button.MinHeight = warp.IsWarpPoint ? 32 : 44;
+            row.Button.MinHeight = warp.IsWarpPoint ? 44 : 60;
             row.Button.ToolTip = warp.IsWarpPoint ? row.Name : $"{row.Name}\n{row.Job}";
+            if (row.Group != group)
+            {
+                if (row.Group != null)
+                    row.Button.RemoveStyleClass("OrbitraGhostDepartment" + row.Group.Id);
+                row.Button.AddStyleClass("OrbitraGhostDepartment" + group.Id);
+            }
             row.Group = group;
             row.Icon.Visible = !warp.IsWarpPoint;
             if (!warp.IsWarpPoint && _orbitraPrototypes.TryIndex<JobIconPrototype>(job?.Icon ?? "JobIconUnknown", out var icon))
@@ -149,6 +165,17 @@ public sealed partial class GhostTargetWindow
         }
     }
 
+    private static IEnumerable<(GhostWarp Warp, bool Antagonist)> ExpandOrbitraTargets(IEnumerable<GhostWarp> warps)
+    {
+        foreach (var warp in warps)
+        {
+            // Основная карточка всегда остаётся в отделе, антагонистам добавляется отдельная копия.
+            yield return (warp, false);
+            if (!warp.IsWarpPoint && warp.IsAntagonist)
+                yield return (warp, true);
+        }
+    }
+
     private void RestoreOrbitraTargetFocus(int index, Control? oldHeader)
     {
         var remaining = GetOrbitraTargetStops(false);
@@ -169,9 +196,10 @@ public sealed partial class GhostTargetWindow
             group.Count = 0;
         foreach (var row in _orbitraTargets.Values)
         {
-            var match = query.Length == 0 || row.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+            var match = (row.Group.Id == "antagonists") == _orbitraAntagonists &&
+                        (query.Length == 0 || row.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
                         row.Job.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
-                        row.Group.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase);
+                        row.Group.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase));
             row.Button.Visible = match;
             if (match)
                 row.Group.Count++;
@@ -195,7 +223,7 @@ public sealed partial class GhostTargetWindow
         public readonly BoxContainer Root = new() { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = OrbitraUiMetrics.Small };
         public readonly Button Header = new OrbitraButton { HorizontalExpand = true, TextAlign = Label.AlignMode.Left, CanKeyboardFocus = true };
         public readonly OrbitraIcon Arrow = new() { HorizontalAlignment = HAlignment.Left };
-        public readonly BoxContainer Rows = new() { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 4 };
+        public readonly OrbitraGhostCardGrid Rows = new();
         public bool Collapsed;
         public int Count;
 
@@ -207,6 +235,7 @@ public sealed partial class GhostTargetWindow
             Header.AddStyleClass(OrbitraButtonStyles.Ghost);
             Header.AddStyleClass("OrbitraGroupHeader");
             Header.AddStyleClass("OrbitraCompactRow");
+            Header.AddStyleClass("OrbitraGhostDepartment" + id);
             Header.MinHeight = 32;
             Header.Label.Margin = new Thickness(24, 0, 0, 0);
             Header.AddChild(Arrow);
@@ -233,9 +262,9 @@ public sealed partial class GhostTargetWindow
             Entity = entity;
             Button.AddStyleClass(ContainerButton.StyleClassButton);
             Button.AddStyleClass(OrbitraButtonStyles.Secondary);
-            Button.AddStyleClass("OrbitraCompactRow");
+            Button.AddStyleClass("OrbitraGhostCard");
             OrbitraMotion.AttachButton(Button);
-            var content = new BoxContainer { SeparationOverride = OrbitraUiMetrics.Small, MouseFilter = Control.MouseFilterMode.Ignore };
+            var content = new BoxContainer { SeparationOverride = OrbitraUiMetrics.Small, VerticalAlignment = VAlignment.Center, MouseFilter = Control.MouseFilterMode.Ignore };
             var labels = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, HorizontalExpand = true, SeparationOverride = 0 };
             JobLabel.AddStyleClass("OrbitraLobbyMuted");
             labels.AddChild(NameLabel);

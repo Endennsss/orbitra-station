@@ -22,6 +22,10 @@ public sealed partial class EmotesMenuSystem : EntitySystem
         if (!ProtoMan.Resolve(msg.ProtoId, out var proto) || proto.ChatTriggers.Count == 0)
             return;
 
+        // Orbitra added start - единый серверный кулдаун меню H и быстрых эмоций.
+        if (!_chat.AllowedToUseEmote(player.Value, proto) || !_chat.TryConsumeOrbitraEmote(args.SenderSession))
+            return;
+        // Orbitra added end
         _chat.TryEmoteWithChat(player.Value, msg.ProtoId);
     }
 }

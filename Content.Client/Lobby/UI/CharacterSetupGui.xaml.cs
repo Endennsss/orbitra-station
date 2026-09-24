@@ -94,7 +94,7 @@ namespace Content.Client.Lobby.UI
 
                 if (slot >= maxCharactersSlots)
                 {
-                    characterPickerButton.SetOnlyStyleClass(ContainerButton.StylePseudoClassDisabled);
+                    characterPickerButton.AddStyleClass(ContainerButton.StylePseudoClassDisabled); // Orbitra-Edit - сохраняем оформление карточки сверх лимита.
                     characterPickerButton.ToolTip =
                         Loc.GetString("character-setup-gui-create-new-character-button-tooltip",
                                       ("maxCharacters", maxCharactersSlots));

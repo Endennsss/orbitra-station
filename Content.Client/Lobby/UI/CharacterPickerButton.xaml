@@ -3,10 +3,11 @@
          xmlns:profile="clr-namespace:Content.Client.Lobby.UI.ProfileEditorControls"
          xmlns:style="clr-namespace:Content.Client.Stylesheets">
     <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
-    <BoxContainer Orientation="Horizontal"
+    <BoxContainer Orientation="Vertical"
                   HorizontalExpand="True"
-                  SeparationOverride="0"
+                  SeparationOverride="4"
                   Name="InternalHBox">
+      <BoxContainer Orientation="Horizontal" SeparationOverride="8">
         <profile:ProfilePreviewSpriteView Scale="2 2"
                                           Margin="0 4 4 4"
                                           OverrideDirection="South"
@@ -15,12 +16,17 @@
         <Label Name="DescriptionLabel"
                ClipText="True"
                HorizontalExpand="True"/>
+      </BoxContainer>
+      <!-- Orbitra-Edit - действия не перекрывают имя и превью персонажа. -->
+      <BoxContainer Orientation="Horizontal" HorizontalAlignment="Right">
         <orbitraKeyboard:OrbitraButton Name="DeleteButton"
+                SetHeight="32" MinHeight="32"
                 Text="{Loc 'character-setup-gui-character-picker-button-delete-button'}"/>
         <orbitraKeyboard:OrbitraButton Name="ConfirmDeleteButton"
+                SetHeight="32" MinHeight="32"
                 Text="{Loc 'character-setup-gui-character-picker-button-confirm-delete-button'}"
                 Visible="False"
                 StyleClasses="negative"/>
-
+      </BoxContainer>
     </BoxContainer>
 </orbitraKeyboard:OrbitraContainerButton>

@@ -10,4 +10,7 @@ public partial struct GhostWarp
 
     /// <summary>Authoritative mind job; clients can resolve its icon and department outside PVS.</summary>
     public ProtoId<JobPrototype>? Job { get; init; }
+
+    /// <summary>Server-resolved antagonist status, sent only in an authorized ghost warp response.</summary>
+    public bool IsAntagonist { get; init; }
 }

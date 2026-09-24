@@ -57,7 +57,7 @@ internal sealed partial class OrbitraMotion : Control
         {
             if (current is OrbitraTooltip { Owner: { } owner })
                 return owner.VisibleInTree && !owner.Disposed && CanAnimate(owner);
-            if (current.HasStyleClass("OrbitraEntryWindow"))
+            if (current.HasStyleClass("OrbitraEntryWindow") || current.HasStyleClass("OrbitraEmoteWheel"))
                 return current.VisibleInTree && !current.Disposed;
             if (current is Robust.Client.UserInterface.CustomControls.BaseWindow)
                 return false;
@@ -115,7 +115,7 @@ internal sealed partial class OrbitraMotion : Control
     private readonly List<Transition> _active = new();
     private readonly List<Surface> _surfaces = new();
 
-    internal int ActiveCount => _active.Count + _surfaces.Count;
+    internal int ActiveCount => _active.Count + _surfaces.Count + _radialSurfaces.Count;
 
     public OrbitraMotion()
     {
@@ -333,6 +333,7 @@ internal sealed partial class OrbitraMotion : Control
 
     internal void Advance(float seconds, bool reducedMotion)
     {
+        AdvanceRadial(seconds, reducedMotion);
         for (var i = _surfaces.Count - 1; i >= 0; i--)
         {
             if (_surfaces[i].Advance(seconds, reducedMotion))
@@ -356,6 +357,9 @@ internal sealed partial class OrbitraMotion : Control
         foreach (var surface in _surfaces)
             surface.Finish();
         _surfaces.Clear();
+        foreach (var sector in _radialSurfaces)
+            sector.FinishSurface();
+        _radialSurfaces.Clear();
         base.Dispose(disposing);
     }
 

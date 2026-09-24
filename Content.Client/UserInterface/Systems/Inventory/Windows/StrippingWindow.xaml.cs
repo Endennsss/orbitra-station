@@ -10,6 +10,7 @@ public sealed partial class StrippingWindow : UserInterface.Controls.FancyWindow
     public StrippingWindow()
     {
         RobustXamlLoader.Load(this);
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit - та же оболочка для второго варианта инвентаря.
         LayoutContainer.SetAnchorAndMarginPreset(this, LayoutContainer.LayoutPreset.Center);
     }
 }

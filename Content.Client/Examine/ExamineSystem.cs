@@ -83,6 +83,7 @@ namespace Content.Client.Examine
 
         public override void Shutdown()
         {
+            CloseTooltip(); // Orbitra-Edit - подсказки не переживают остановку системы.
             CommandBinds.Unregister<ExamineSystem>();
             base.Shutdown();
         }
@@ -251,7 +252,8 @@ namespace Content.Client.Examine
                 hBox.AddChild(label);
             }
 
-            panel.Measure(Vector2Helpers.Infinity);
+            ConfigureOrbitraExamine(); // Orbitra-Edit - непрозрачная поверхность и перенос заголовка.
+            panel.Measure(new Vector2(_examineTooltipOpen.MaxWidth, float.PositiveInfinity)); // Orbitra-Edit
             var size = Vector2.Max(new Vector2(minWidth, 0), panel.DesiredSize);
 
             _examineTooltipOpen.Open(UIBox2.FromDimensions(_popupPos.Position, size));
@@ -309,6 +311,7 @@ namespace Content.Client.Examine
             }
 
             AddVerbsToTooltip(totalVerbs);
+            ConfigureOrbitraExamine(); // Orbitra-Edit - новые кнопки получают стиль при обновлении ответа.
         }
 
         private void AddVerbsToTooltip(IEnumerable<Verb> verbs)
@@ -439,6 +442,7 @@ namespace Content.Client.Examine
         {
             if (_examineTooltipOpen != null)
             {
+                Content.Client._Orbitra.UserInterface.OrbitraTooltips.ClearOwned(_examineTooltipOpen); // Orbitra-Edit
                 foreach (var control in _examineTooltipOpen.Children)
                 {
                     if (control is ExamineButton button)

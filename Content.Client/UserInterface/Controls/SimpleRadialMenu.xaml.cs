@@ -41,6 +41,7 @@ public sealed partial class SimpleRadialMenu : RadialMenu
 
         var sprites = _entManager.System<SpriteSystem>();
         Fill(models, sprites, Children, settings ?? new SimpleRadialMenuSettings());
+        StyleOrbitraEmoteLayers(); // Orbitra-Edit - только явно подключённое колесо эмоций.
     }
 
     public void OpenOverMouseScreenPosition()
@@ -216,13 +217,15 @@ public sealed partial class SimpleRadialMenu : RadialMenu
         return imageControl;
     }
 
-    private static RadialMenuButtonWithSector ConvertToButtonWithSector(RadialMenuOptionBase model, SimpleRadialMenuSettings settings)
+    private RadialMenuButtonWithSector ConvertToButtonWithSector(RadialMenuOptionBase model, SimpleRadialMenuSettings settings) // Orbitra-Edit
     {
-        var button = new RadialMenuButtonWithSector
-        {
-            DrawBorder = settings.DisplayBorders,
-            DrawBackground = !settings.NoBackground
-        };
+        // Orbitra edit start - штатные радиальные меню сохраняют исходный тип кнопок.
+        var button = _orbitraEmotes
+            ? new Content.Client._Orbitra.UserInterface.OrbitraRadialSector()
+            : new RadialMenuButtonWithSector();
+        button.DrawBorder = settings.DisplayBorders;
+        button.DrawBackground = !settings.NoBackground;
+        // Orbitra edit end
         if (model.BackgroundColor.HasValue)
         {
             button.BackgroundColor = model.BackgroundColor.Value;

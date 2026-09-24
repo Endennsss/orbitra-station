@@ -52,6 +52,7 @@ public sealed partial class CharacterPickerButton : Content.Client._Orbitra.User
         DeleteButton.Visible = !isSelected;
 
         DescriptionLabel.Text = description;
+        ApplyOrbitraPicker(); // Orbitra-Edit - оформление карточки без изменения выбора и подтверждения.
 
         ConfirmDeleteButton.OnPressed += _ =>
         {

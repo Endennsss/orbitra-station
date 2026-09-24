@@ -237,7 +237,7 @@ namespace Content.Client.Inventory
                 (_inventoryDimensions.Y + (_handCount > 0 ? 2 : 1)) *
                 (SlotControl.DefaultButtonSize + ButtonSeparation) + 53);
             verticalMenuSize += 25 * _strippingMenu.ButtonContainer.Children.Count();
-            _strippingMenu.SetSize = new Vector2(horizontalMenuSize, verticalMenuSize);
+            _strippingMenu.ApplyOrbitraLayout(new Vector2(horizontalMenuSize, verticalMenuSize)); // Orbitra-Edit - сохраняем пользовательский размер.
         }
 
         private void AddHandButton(Entity<HandsComponent> ent, string handId, Hand hand)

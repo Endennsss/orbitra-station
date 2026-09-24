@@ -5,7 +5,7 @@ using static Robust.Client.UserInterface.Controls.BoxContainer;
 
 namespace Content.Client.Strip
 {
-    public sealed class StrippingMenu : DefaultWindow
+    public sealed partial class StrippingMenu : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
     {
         public LayoutContainer InventoryContainer = new();
         public LayoutContainer HandsContainer = new();
@@ -21,6 +21,7 @@ namespace Content.Client.Strip
             box.AddChild(ButtonContainer);
             box.AddChild(HandsContainer);
             box.AddChild(InventoryContainer);
+            InitializeOrbitraStripping(box); // Orbitra-Edit - общая оболочка и прокрутка обыска.
         }
 
         public void ClearButtons()

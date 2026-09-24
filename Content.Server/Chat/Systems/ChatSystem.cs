@@ -64,6 +64,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         Subs.CVar(_configurationManager, CCVars.DeadChatEnabled, OnDeadChatEnabledChanged, true);
 
         SubscribeLocalEvent<GameRunLevelChangedEvent>(OnGameChange);
+        InitializeOrbitraEmoteCooldown(); // Orbitra-Edit - очистка общего кулдауна эмоций.
     }
 
     private void OnLoocEnabledChanged(bool val)
@@ -200,7 +201,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         message = SanitizeInGameICMessage(source, message, out var emoteStr, shouldCapitalize, shouldPunctuate, shouldCapitalizeTheWordI);
 
         // Was there an emote in the message? If so, send it.
-        if (player != null && emoteStr != message && emoteStr != null)
+        if (player != null && emoteStr != message && emoteStr != null && TryConsumeOrbitraEmote(player)) // Orbitra-Edit
         {
             SendEntityEmote(source, emoteStr, range, nameOverride, ignoreActionBlocker);
         }
@@ -229,6 +230,10 @@ public sealed partial class ChatSystem : SharedChatSystem
                 SendEntityWhisper(source, message, range, null, nameOverride, hideLog, ignoreActionBlocker);
                 break;
             case InGameICChatType.Emote:
+                // Orbitra added start - текстовые команды используют тот же кулдаун, что меню.
+                if (player != null && !TryConsumeOrbitraEmote(player))
+                    return;
+                // Orbitra added end
                 SendEntityEmote(source, message, range, nameOverride, hideLog: hideLog, ignoreActionBlocker: ignoreActionBlocker);
                 break;
         }
