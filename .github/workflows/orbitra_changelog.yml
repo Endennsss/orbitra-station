@@ -1,0 +1,44 @@
+name: Orbitra Changelog
+
+on:
+  push:
+    branches: [master]
+    paths: [Resources/Changelog/_Orbitra/updates.yml]
+  workflow_dispatch:
+    inputs:
+      entry_id:
+        description: 'ID записи для публикации (обязательно)'
+        required: true
+        type: string
+      dry_run:
+        description: 'Только предпросмотр, без отправки в Discord'
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+    - uses: actions/setup-python@v6
+      with:
+        python-version: '3.12'
+    - name: Install dependencies
+      run: python -m pip install PyYAML==6.0.3 requests==2.32.5
+    - name: Test publisher
+      run: python -B -m unittest discover -s Tools/_Orbitra -p test_discord_changelog.py
+    - name: Publish Orbitra updates
+      run: python -B Tools/_Orbitra/discord_changelog.py
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.ORBITRA_CHANGELOG_WEBHOOK }}
+        CHANGELOG_BEFORE: ${{ github.event.before }}
+        CHANGELOG_ENTRY_ID: ${{ inputs.entry_id }}
+        CHANGELOG_DRY_RUN: ${{ inputs.dry_run }}
