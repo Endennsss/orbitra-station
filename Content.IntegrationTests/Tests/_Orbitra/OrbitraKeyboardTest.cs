@@ -24,6 +24,8 @@ namespace Content.IntegrationTests.Tests._Orbitra;
 [TestFixture]
 public sealed class OrbitraKeyboardTest : GameTest
 {
+    private static readonly ProtoId<GuideEntryPrototype> NewPlayerPrototype = "NewPlayer";
+
     public override PoolSettings PoolSettings => new() { Connected = true, InLobby = true, Fresh = true, Dirty = true, NoLoadTestPrototypes = true };
 
     private void Key(Keyboard.Key key, bool shift = false, bool control = false)
@@ -116,7 +118,7 @@ public sealed class OrbitraKeyboardTest : GameTest
         await Client.WaitPost(() =>
         {
             using var guide = new GuidebookWindow();
-            var entry = CProtoMan.Index<GuideEntryPrototype>("NewPlayer");
+            var entry = CProtoMan.Index(NewPlayerPrototype);
             guide.UpdateGuides(new Dictionary<ProtoId<GuideEntryPrototype>, GuideEntry> { ["NewPlayer"] = entry }, selected: "NewPlayer");
             guide.OpenCentered();
             guide.SetSize = new Vector2(900, 700);

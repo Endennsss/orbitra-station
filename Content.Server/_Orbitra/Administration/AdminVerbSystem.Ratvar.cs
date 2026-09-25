@@ -16,7 +16,7 @@ namespace Content.Server.Administration.Systems;
 
 public sealed partial class AdminVerbSystem
 {
-    [Dependency] private readonly OrbitraRatvarRuleSystem _orbitraRatvarRule = default!;
+    [Dependency] private OrbitraRatvarRuleSystem _orbitraRatvarRule = default!;
 
     private static readonly EntProtoId OrbitraRatvarRuleId = "OrbitraRatvarRule";
     private static readonly ProtoId<AntagSpecifierPrototype> OrbitraRatvarAntagId = "OrbitraRatvarCultist";

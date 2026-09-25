@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace Content.Tests.Client._Orbitra.Graphics;
 
 [TestFixture]
-public sealed class OrbitraDustTest
+public sealed class OrbitraDustTest : OrbitraParticleTestBase
 {
     [TestCase(-100, 100, 1, 32)]
     [TestCase(6, 6, 6, 6)]
@@ -31,7 +31,7 @@ public sealed class OrbitraDustTest
         var pool = new OrbitraParticlePool();
         pool.Configure(capacity);
         for (var i = 0; i < 100; i++)
-            pool.Add(new() { Effect = new() { Ambient = true }, Lifetime = 5 });
+            pool.Add(new() { Effect = Effect("OrbitraTestAmbient"), Lifetime = 5 });
         Assert.That(pool.Count, Is.EqualTo(motes));
         Assert.That(pool.AmbientCount(), Is.EqualTo(motes));
     }
@@ -41,10 +41,10 @@ public sealed class OrbitraDustTest
     {
         var pool = new OrbitraParticlePool();
         pool.Configure(128);
-        pool.Add(new() { Effect = new() { Ambient = true }, Lifetime = 5 });
+        pool.Add(new() { Effect = Effect("OrbitraTestAmbient"), Lifetime = 5 });
         for (var i = 1; i < 128; i++)
-            pool.Add(new() { Effect = new(), Lifetime = 1, Burst = true });
-        Assert.That(pool.Add(new() { Effect = new() { Smoke = true }, Lifetime = 1 }), Is.True);
+            pool.Add(new() { Effect = Effect("OrbitraTestChip"), Lifetime = 1, Burst = true });
+        Assert.That(pool.Add(new() { Effect = Effect("OrbitraTestSmoke"), Lifetime = 1 }), Is.True);
         Assert.That(pool.AmbientCount(), Is.Zero);
         Assert.That(pool.Count, Is.EqualTo(128));
         pool.Configure(0);

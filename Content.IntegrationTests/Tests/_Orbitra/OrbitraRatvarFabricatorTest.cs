@@ -1,3 +1,4 @@
+using Robust.Shared.Prototypes;
 using System.Collections.Generic;
 using System.Numerics;
 using Content.IntegrationTests.Fixtures;
@@ -20,6 +21,9 @@ namespace Content.IntegrationTests.Tests._Orbitra;
 [TestFixture]
 public sealed class OrbitraRatvarFabricatorTest : GameTest
 {
+    private static readonly EntProtoId CultRule = "OrbitraRatvarRule";
+    private static readonly ProtoId<DamageTypePrototype> BluntPrototype = "Blunt";
+
     // Общий набор тестовых прототипов сейчас падает в загрузчике до запуска сценариев.
     public override PoolSettings PoolSettings => new() { Connected = true, Dirty = true, NoLoadTestPrototypes = true };
 
@@ -42,7 +46,7 @@ public sealed class OrbitraRatvarFabricatorTest : GameTest
         await Server.WaitPost(() =>
         {
             AddFloor(map.Grid, map.Tile.Tile);
-            Server.System<GameTicker>().StartGameRule("OrbitraRatvarRule", out rule);
+            Server.System<GameTicker>().StartGameRule(CultRule, out rule);
             cult = SEntMan.GetComponent<OrbitraRatvarRuleComponent>(rule);
             cult.Energy = 400;
             user = SEntMan.SpawnEntity("MobHuman", new EntityCoordinates(map.GridCoords.EntityId, map.GridCoords.Position - Vector2.UnitX));
@@ -76,7 +80,7 @@ public sealed class OrbitraRatvarFabricatorTest : GameTest
                 case "cult-end": Server.System<GameTicker>().EndGameRule(rule); break;
                 case "damage": Damage(user, 10); break;
                 case "foreign":
-                    Server.System<GameTicker>().StartGameRule("OrbitraRatvarRule", out var other);
+                    Server.System<GameTicker>().StartGameRule(CultRule, out var other);
                     SEntMan.AddComponent<OrbitraRatvarStructureComponent>(target).Rule = other;
                     break;
             }
@@ -111,7 +115,7 @@ public sealed class OrbitraRatvarFabricatorTest : GameTest
         await Server.WaitPost(() =>
         {
             AddFloor(map.Grid, map.Tile.Tile);
-            Server.System<GameTicker>().StartGameRule("OrbitraRatvarRule", out var rule);
+            Server.System<GameTicker>().StartGameRule(CultRule, out var rule);
             cult = SEntMan.GetComponent<OrbitraRatvarRuleComponent>(rule);
             cult.Energy = 400;
             var user = SEntMan.SpawnEntity("MobHuman", new EntityCoordinates(map.GridCoords.EntityId, map.GridCoords.Position - Vector2.UnitX));
@@ -144,7 +148,7 @@ public sealed class OrbitraRatvarFabricatorTest : GameTest
         await Server.WaitPost(() =>
         {
             AddFloor(map.Grid, map.Tile.Tile);
-            Server.System<GameTicker>().StartGameRule("OrbitraRatvarRule", out var rule);
+            Server.System<GameTicker>().StartGameRule(CultRule, out var rule);
             cult = SEntMan.GetComponent<OrbitraRatvarRuleComponent>(rule);
             cult.Energy = 200;
             for (var i = 0; i < 2; i++)
@@ -183,7 +187,7 @@ public sealed class OrbitraRatvarFabricatorTest : GameTest
         await Server.WaitPost(() =>
         {
             AddFloor(map.Grid, map.Tile.Tile);
-            Server.System<GameTicker>().StartGameRule("OrbitraRatvarRule", out var rule);
+            Server.System<GameTicker>().StartGameRule(CultRule, out var rule);
             cult = SEntMan.GetComponent<OrbitraRatvarRuleComponent>(rule);
             cult.Energy = scenario == "poor" ? 199 : 400;
             var user = SEntMan.SpawnEntity("MobHuman", new EntityCoordinates(map.GridCoords.EntityId, map.GridCoords.Position - Vector2.UnitX));
@@ -218,7 +222,7 @@ public sealed class OrbitraRatvarFabricatorTest : GameTest
     }
 
     private void Damage(EntityUid target, int amount) => Server.System<DamageableSystem>().TryChangeDamage(
-        target, new DamageSpecifier(SProtoMan.Index<DamageTypePrototype>("Blunt"), amount), ignoreResistances: true);
+        target, new DamageSpecifier(SProtoMan.Index(BluntPrototype), amount), ignoreResistances: true);
 
     private void AddFloor(Entity<MapGridComponent> grid, Tile tile)
     {

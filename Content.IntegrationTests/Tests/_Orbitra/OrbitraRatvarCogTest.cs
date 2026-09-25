@@ -1,3 +1,4 @@
+using Robust.Shared.Prototypes;
 using Content.IntegrationTests.Fixtures;
 using Content.Server._Orbitra.Ratvar;
 using Content.Server.GameTicking;
@@ -18,6 +19,8 @@ namespace Content.IntegrationTests.Tests._Orbitra;
 [TestFixture]
 public sealed class OrbitraRatvarCogTest : GameTest
 {
+    private static readonly EntProtoId CultRule = "OrbitraRatvarRule";
+
     public override PoolSettings PoolSettings => new() { Connected = true, Dirty = true, NoLoadTestPrototypes = true };
 
     [TestCase("normal", true)]
@@ -38,7 +41,7 @@ public sealed class OrbitraRatvarCogTest : GameTest
         var started = false;
         await Server.WaitPost(() =>
         {
-            Server.System<GameTicker>().StartGameRule("OrbitraRatvarRule", out rule);
+            Server.System<GameTicker>().StartGameRule(CultRule, out rule);
             user = SEntMan.SpawnEntity("MobHuman", map.GridCoords);
             apc = SEntMan.SpawnEntity("APCBasic", map.GridCoords);
             cog = SEntMan.SpawnEntity("OrbitraRatvarIntegrationCog", map.GridCoords);
@@ -98,8 +101,8 @@ public sealed class OrbitraRatvarCogTest : GameTest
         await Server.WaitPost(() =>
         {
             var ticker = Server.System<GameTicker>();
-            ticker.StartGameRule("OrbitraRatvarRule", out var rule);
-            ticker.StartGameRule("OrbitraRatvarRule", out var second);
+            ticker.StartGameRule(CultRule, out var rule);
+            ticker.StartGameRule(CultRule, out var second);
             cult = SEntMan.GetComponent<OrbitraRatvarRuleComponent>(rule);
             other = SEntMan.GetComponent<OrbitraRatvarRuleComponent>(second);
             cult.Energy = full ? cult.MaxEnergy : 0;
@@ -180,7 +183,7 @@ public sealed class OrbitraRatvarCogTest : GameTest
         float remaining = 0;
         await Server.WaitPost(() =>
         {
-            Server.System<GameTicker>().StartGameRule("OrbitraRatvarRule", out var rule);
+            Server.System<GameTicker>().StartGameRule(CultRule, out var rule);
             cult = SEntMan.GetComponent<OrbitraRatvarRuleComponent>(rule);
             cult.Energy = 0;
             var apc = SEntMan.SpawnEntity("APCBasic", map.GridCoords);
@@ -284,7 +287,7 @@ public sealed class OrbitraRatvarCogTest : GameTest
 
     private EntityUid CreateCultist(Robust.Shared.Map.EntityCoordinates coordinates, out EntityUid rule)
     {
-        Server.System<GameTicker>().StartGameRule("OrbitraRatvarRule", out rule);
+        Server.System<GameTicker>().StartGameRule(CultRule, out rule);
         var user = SEntMan.SpawnEntity("MobHuman", coordinates);
         var minds = Server.System<MindSystem>();
         var mind = minds.CreateMind(null);
@@ -311,7 +314,7 @@ public sealed class OrbitraRatvarCogTest : GameTest
         var generated = 0;
         await Server.WaitPost(() =>
         {
-            Server.System<GameTicker>().StartGameRule("OrbitraRatvarRule", out rule);
+            Server.System<GameTicker>().StartGameRule(CultRule, out rule);
             cult = SEntMan.GetComponent<OrbitraRatvarRuleComponent>(rule);
             apc = SEntMan.SpawnEntity("APCBasic", map.GridCoords);
             cog = SEntMan.SpawnEntity("OrbitraRatvarIntegrationCog", map.GridCoords);

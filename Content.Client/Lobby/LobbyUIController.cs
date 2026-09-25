@@ -195,6 +195,12 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
 
     private void SaveProfile()
     {
+        SaveOrbitraProfile(true); // Orbitra-Edit - обычное сохранение обновляет текущий редактор.
+    }
+
+    // Orbitra-Edit - при переходе следующий профиль сам обновит редактор.
+    private void SaveOrbitraProfile(bool reloadEditor)
+    {
         DebugTools.Assert(EditedProfile != null);
 
         if (EditedProfile == null || EditedSlot == null)
@@ -206,7 +212,8 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
             return;
 
         _preferencesManager.UpdateCharacter(EditedProfile, EditedSlot.Value);
-        ReloadCharacterSetup();
+        if (reloadEditor)
+            ReloadCharacterSetup();
         _profileEditor?.ShowOrbitraSaved(); // Orbitra-Edit - отклик после штатного сохранения.
     }
 
@@ -234,7 +241,7 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
 
         _savePanel.SaveButton.OnPressed += _ =>
         {
-            SaveProfile();
+            SaveOrbitraProfile(false); // Orbitra-Edit - не строим уходящий профиль повторно перед переходом.
 
             _savePanel.Close();
 

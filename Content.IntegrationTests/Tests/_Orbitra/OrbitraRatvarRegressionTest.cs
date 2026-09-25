@@ -32,6 +32,9 @@ namespace Content.IntegrationTests.Tests._Orbitra;
 [TestFixture]
 public sealed class OrbitraRatvarRegressionTest : GameTest
 {
+    private static readonly EntProtoId CultRule = "OrbitraRatvarRule";
+    private static readonly ProtoId<StartingGearPrototype> OrbitraRatvarGearPrototype = "OrbitraRatvarGear";
+
     public override PoolSettings PoolSettings => new() { Connected = true, Dirty = true, NoLoadTestPrototypes = true };
 
     [Test]
@@ -99,7 +102,7 @@ public sealed class OrbitraRatvarRegressionTest : GameTest
         var map = await Pair.CreateTestMap();
         EntityUid mechanism = default;
         EntityUid user = default;
-        Verb? deconstruct = null;
+        Verb deconstruct = null;
         await Server.WaitPost(() =>
         {
             user = SEntMan.SpawnEntity("MobHuman", map.GridCoords);
@@ -126,7 +129,7 @@ public sealed class OrbitraRatvarRegressionTest : GameTest
         await Server.WaitAssertion(() =>
         {
             var system = Server.System<OrbitraRatvarRuleSystem>();
-            Server.System<GameTicker>().StartGameRule("OrbitraRatvarRule", out var rule);
+            Server.System<GameTicker>().StartGameRule(CultRule, out var rule);
             var cult = SEntMan.GetComponent<OrbitraRatvarRuleComponent>(rule);
             var station = SEntMan.SpawnEntity(null, MapCoordinates.Nullspace);
             SEntMan.AddComponent<StationDataComponent>(station);
@@ -163,7 +166,7 @@ public sealed class OrbitraRatvarRegressionTest : GameTest
                 Assert.That(system.TryCompleteScripture(item, body, scripture.ID), Is.False, "Occupied location must reject another purchase.");
                 SEntMan.DeleteEntity(result);
             }
-            var gear = SProtoMan.Index<StartingGearPrototype>("OrbitraRatvarGear");
+            var gear = SProtoMan.Index(OrbitraRatvarGearPrototype);
             Assert.That(gear.Storage.Values.SelectMany(v => v), Does.Not.Contain("OrbitraRatvarInstructions"));
         });
     }
@@ -179,7 +182,7 @@ public sealed class OrbitraRatvarRegressionTest : GameTest
         OrbitraRatvarRuleComponent cult = null!;
         await Server.WaitPost(() =>
         {
-            Server.System<GameTicker>().StartGameRule("OrbitraRatvarRule", out rule);
+            Server.System<GameTicker>().StartGameRule(CultRule, out rule);
             cult = SEntMan.GetComponent<OrbitraRatvarRuleComponent>(rule);
             var minds = Server.System<MindSystem>();
             sender = SEntMan.SpawnEntity("MobHuman", map.GridCoords);

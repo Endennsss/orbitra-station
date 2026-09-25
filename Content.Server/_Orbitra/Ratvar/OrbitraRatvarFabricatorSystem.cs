@@ -20,17 +20,17 @@ namespace Content.Server._Orbitra.Ratvar;
 /// <summary>Repairs the selected structure with server-side authority and cost revalidation.</summary>
 public sealed partial class OrbitraRatvarFabricatorSystem : EntitySystem
 {
-    [Dependency] private readonly OrbitraRatvarRuleSystem _cult = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly DamageableSystem _damage = default!;
-    [Dependency] private readonly DestructibleSystem _destructible = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
+    [Dependency] private OrbitraRatvarRuleSystem _cult = default!;
+    [Dependency] private SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private SharedInteractionSystem _interaction = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private ActionBlockerSystem _blocker = default!;
+    [Dependency] private MindSystem _mind = default!;
+    [Dependency] private DamageableSystem _damage = default!;
+    [Dependency] private DestructibleSystem _destructible = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private IAdminLogManager _adminLog = default!;
 
     public override void Initialize()
     {

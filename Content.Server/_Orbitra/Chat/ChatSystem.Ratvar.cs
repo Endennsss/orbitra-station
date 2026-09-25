@@ -8,7 +8,7 @@ namespace Content.Server.Chat.Systems;
 
 public sealed partial class ChatSystem
 {
-    [Dependency] private readonly OrbitraRatvarRuleSystem _orbitraRatvarRule = default!;
+    [Dependency] private OrbitraRatvarRuleSystem _orbitraRatvarRule = default!;
 
     private bool TryHandleOrbitraRatvarChat(EntityUid source, string message, InGameICChatType type,
         IConsoleShell? shell, ICommonSession? player)

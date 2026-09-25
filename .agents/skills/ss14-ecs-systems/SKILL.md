@@ -18,7 +18,7 @@ EntitySystem is a singleton class that contains **all the logic and behavior** f
 ## Basic lifecycle
 
 ```csharp
-public sealed class MySystem : EntitySystem
+public sealed partial class MySystem : EntitySystem
 {
     public override void Initialize()
     {
@@ -49,17 +49,21 @@ public sealed class MySystem : EntitySystem
 Systems receive dependencies through the `[Dependency]` attribute. This works for both other systems and IoC managers:
 
 ```csharp
-public sealed class MySystem : EntitySystem
+public sealed partial class MySystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private INetManager _net = default!;
+    [Dependency] private IRobustRandom _random = default!;
 }
 ```
 
 Dependencies are resolved automatically before `Initialize()` is called. Always use `= default!` to suppress compiler warnings.
+
+Объявлять типы с `[Dependency]` и их содержащие типы как `partial` (RA0049/RA0050).
+Не использовать `readonly` у полей `[Dependency]` (RA0051): их заполняет внедрение зависимостей.
+Это не запрещает обычные `readonly`-поля без `[Dependency]`.
 
 ## Order of system members (mandatory)
 
@@ -80,11 +84,11 @@ Don’t mix blocks with each other: don’t raise helpers above event handlers, 
 Example:
 
 ```csharp
-public sealed class ExampleSystem : EntitySystem
+public sealed partial class ExampleSystem : EntitySystem
 {
     // 1) Dependencies
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     // 2) Constants + static readonly
     private const float TimeoutSeconds = 1.0f;
@@ -382,7 +386,7 @@ Example structure:
 // SharedMySystem.cs
 public abstract partial class SharedMySystem : EntitySystem
 {
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
 
     private EntityQuery<MyComponent> _query;
 

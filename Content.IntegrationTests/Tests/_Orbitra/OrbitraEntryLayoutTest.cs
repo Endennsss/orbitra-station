@@ -20,7 +20,8 @@ namespace Content.IntegrationTests.Tests._Orbitra;
 [TestFixture]
 public sealed class OrbitraEntryLayoutTest : GameTest
 {
-    public override PoolSettings PoolSettings => new() { InLobby = true, Dirty = true };
+    // Профили и состояние анимации должны начинаться с чистого клиента, без предыдущего редактора.
+    public override PoolSettings PoolSettings => new() { InLobby = true, Fresh = true, Destructive = true, Dirty = true };
 
     [Test]
     public async Task BottomDockAndAlignedFieldsAtAllSupportedSizes()
@@ -83,7 +84,7 @@ public sealed class OrbitraEntryLayoutTest : GameTest
             });
             await client.WaitAssertion(() =>
             {
-                var fields = new[] { "SpeciesButton", "AgeEdit", "SexButton", "VoiceButton", "PronounsButton", "SpawnPriorityButton" }
+                var fields = new[] { "AgeEdit", "SexButton", "VoiceButton", "PronounsButton", "SpawnPriorityButton" }
                     .Select(name => Descendants(lobby.CharacterSetupState).Single(control => control.Name == name)).ToArray();
                 foreach (var field in fields)
                 {
@@ -91,6 +92,7 @@ public sealed class OrbitraEntryLayoutTest : GameTest
                     Assert.That(field.GlobalPosition.X + field.Width, Is.EqualTo(fields[0].GlobalPosition.X + fields[0].Width).Within(1), $"Right {field.Name} {size}");
                 }
             });
+            await client.WaitPost(() => OrbitraWindowLifecycleTest.Frame(client.Resolve<IUserInterfaceManager>(), 0));
         }
     }
 

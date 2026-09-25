@@ -19,7 +19,8 @@ namespace Content.IntegrationTests.Tests._Orbitra;
 [TestFixture]
 public sealed class OrbitraEditorUiTest : GameTest
 {
-    public override PoolSettings PoolSettings => new() { InLobby = true, Dirty = true };
+    // Сценарий проверяет точные индексы и количество профилей в новом клиенте.
+    public override PoolSettings PoolSettings => new() { InLobby = true, Fresh = true, Destructive = true, Dirty = true };
 
     [Test]
     public async Task ResponsiveEditorAndUnsavedTransitions()
@@ -38,6 +39,7 @@ public sealed class OrbitraEditorUiTest : GameTest
             lobby.SwitchState(LobbyGui.LobbyGuiState.CharacterSetup);
             setup = lobby.CharacterSetupState.Children.OfType<CharacterSetupGui>().Single();
             editor = setup.FindControl<BoxContainer>("CharEditor").Children.OfType<HumanoidProfileEditor>().Single();
+            OrbitraWindowLifecycleTest.Frame(ui, 0);
         });
         await Pair.RunTicksSync(5);
 
@@ -46,6 +48,7 @@ public sealed class OrbitraEditorUiTest : GameTest
             foreach (var species in new[] { "Human", "Dwarf", "Reptilian" })
             {
                 editor.SetProfile(HumanoidCharacterProfile.DefaultWithSpecies(species), 0);
+                OrbitraWindowLifecycleTest.Frame(ui, 0);
                 foreach (var resolution in new[] { new Vector2(1280, 720), new Vector2(1920, 1080), new Vector2(2560, 1080), new Vector2(3440, 1440), new Vector2(5120, 1440) })
                 foreach (var scale in new[] { 1f, 1.25f, 1.5f })
                 {
@@ -69,7 +72,9 @@ public sealed class OrbitraEditorUiTest : GameTest
                         var form = editor.FindControl<BoxContainer>("OrbitraForm");
                         if (tab == 0)
                         {
-                            foreach (var fieldName in new[] { "NameEdit", "SpeciesButton", "AgeEdit", "VoiceButton", "SexButton", "PronounsButton", "SpawnPriorityButton" })
+                            Assert.That(editor.FindControl<OptionButton>("SpeciesButton").VisibleInTree, Is.False);
+                            Assert.That(editor.Profile!.Species, Is.EqualTo("Human"));
+                            foreach (var fieldName in new[] { "NameEdit", "AgeEdit", "VoiceButton", "SexButton", "PronounsButton", "SpawnPriorityButton" })
                             {
                                 var field = editor.FindControl<Control>(fieldName);
                                 Assert.That(field.GlobalPosition.X, Is.GreaterThanOrEqualTo(form.GlobalPosition.X), fieldName);
@@ -85,10 +90,13 @@ public sealed class OrbitraEditorUiTest : GameTest
                         Assert.That(editor.FindControl<PanelContainer>("OrbitraPreviewPanel").Width, Is.LessThanOrEqualTo(size.X));
                         Assert.That(setup.CloseButton.GlobalPosition.X - setup.GlobalPosition.X + setup.CloseButton.Width,
                             Is.LessThanOrEqualTo(size.X + 1), $"Close button: {resolution}/{scale}, tab {tab}");
+                        // Между сценариями обрабатываем очередь UI, как между кадрами настоящего клиента.
+                        OrbitraWindowLifecycleTest.Frame(ui, 0);
                     }
                 }
             }
             ui.GetUIController<LobbyUIController>().ReloadCharacterSetup();
+            OrbitraWindowLifecycleTest.Frame(ui, 0);
             editor.Profile = editor.Profile!.WithName("Lime Unsaved Test");
             editor.IsDirty = true;
         });
@@ -137,7 +145,7 @@ public sealed class OrbitraEditorUiTest : GameTest
         await Click(editor.FindControl<Button>("RandomizeToggle"));
         await client.WaitAssertion(() => Assert.That(editor.FindControl<BoxContainer>("RandomizePanel").Visible, Is.False));
 
-        var speciesOptions = editor.FindControl<OptionButton>("SpeciesButton");
+        var speciesOptions = editor.FindControl<OptionButton>("PronounsButton");
         await Click(speciesOptions);
         await client.WaitPost(() =>
         {

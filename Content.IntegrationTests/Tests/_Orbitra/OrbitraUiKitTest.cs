@@ -23,6 +23,8 @@ namespace Content.IntegrationTests.Tests._Orbitra;
 [TestFixture]
 public sealed class OrbitraUiKitTest : GameTest
 {
+    private static readonly ProtoId<GuideEntryPrototype> NewPlayerPrototype = "NewPlayer";
+
     public override PoolSettings PoolSettings => new() { Connected = true, InLobby = true, Fresh = true, Dirty = true, NoLoadTestPrototypes = true };
 
     [Test]
@@ -32,7 +34,7 @@ public sealed class OrbitraUiKitTest : GameTest
         await Client.WaitPost(() =>
         {
             guide = new GuidebookWindow();
-            var source = CProtoMan.Index<GuideEntryPrototype>("NewPlayer");
+            var source = CProtoMan.Index(NewPlayerPrototype);
             guide.UpdateGuides(new Dictionary<ProtoId<GuideEntryPrototype>, GuideEntry>
             {
                 ["OrbitraParent"] = new() { Id = "OrbitraParent", Name = source.Name, Text = source.Text, Children = ["OrbitraLeaf"] },
@@ -95,7 +97,7 @@ public sealed class OrbitraUiKitTest : GameTest
         EntityUid target = default;
         EntityUid ghost = default;
         NetEntity netTarget = default;
-        GhostWarpsResponseEvent? response = null;
+        GhostWarpsResponseEvent response = null;
         await Server.WaitPost(() =>
         {
             var minds = Server.System<MindSystem>();
@@ -174,7 +176,7 @@ public sealed class OrbitraUiKitTest : GameTest
         await Client.WaitPost(() =>
         {
             using var guide = new GuidebookWindow();
-            var source = CProtoMan.Index<GuideEntryPrototype>("NewPlayer");
+            var source = CProtoMan.Index(NewPlayerPrototype);
             GuideEntry Entry(string id, params string[] children) => new()
             {
                 Id = id, Name = id == "OrbitraTestA" ? "department-Engineering" : id == "OrbitraTestB" ? "department-Command" : source.Name, Text = source.Text,
@@ -207,7 +209,7 @@ public sealed class OrbitraUiKitTest : GameTest
         await Pair.Client.WaitPost(() =>
         {
             guide = new GuidebookWindow();
-            var prototype = Pair.Client.Resolve<IPrototypeManager>().Index<GuideEntryPrototype>("NewPlayer");
+            var prototype = Pair.Client.Resolve<IPrototypeManager>().Index(NewPlayerPrototype);
             guide.UpdateGuides(new Dictionary<ProtoId<GuideEntryPrototype>, GuideEntry> { ["NewPlayer"] = prototype }, selected: "NewPlayer");
             guide.OpenCentered();
             guide.SetSize = new Vector2(900, 600);

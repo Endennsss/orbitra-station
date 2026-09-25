@@ -8,7 +8,7 @@ namespace Content.IntegrationTests.Tests._Orbitra;
 public sealed class OrbitraEmoteTestSystem : EntitySystem
 {
     public NetEntity? Target;
-    public int Count;
+    public int EmoteCount;
 
     public override void Initialize()
     {
@@ -19,6 +19,6 @@ public sealed class OrbitraEmoteTestSystem : EntitySystem
     private void OnEmote(Entity<SpeechComponent> ent, ref EmoteEvent args)
     {
         if (args.Source == Target)
-            Count++;
+            EmoteCount++;
     }
 }

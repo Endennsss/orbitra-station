@@ -1,3 +1,4 @@
+using Robust.Shared.Prototypes;
 using System.Numerics;
 using Content.IntegrationTests.Fixtures;
 using Content.Server._Orbitra.Ratvar;
@@ -20,6 +21,8 @@ namespace Content.IntegrationTests.Tests._Orbitra;
 [TestFixture]
 public sealed class OrbitraRatvarRitualTest : GameTest
 {
+    private static readonly EntProtoId CultRule = "OrbitraRatvarRule";
+
     public override PoolSettings PoolSettings => new() { Connected = true, Dirty = true, NoLoadTestPrototypes = true };
 
     [TestCase("inside", true)]
@@ -44,7 +47,7 @@ public sealed class OrbitraRatvarRitualTest : GameTest
         var started = false;
         await Server.WaitPost(() =>
         {
-            Server.System<GameTicker>().StartGameRule("OrbitraRatvarRule", out var rule);
+            Server.System<GameTicker>().StartGameRule(CultRule, out var rule);
             var cult = SEntMan.GetComponent<OrbitraRatvarRuleComponent>(rule);
             sigil = SEntMan.SpawnEntity("OrbitraRatvarConversionSigil", map.GridCoords);
             SEntMan.GetComponent<OrbitraRatvarStructureComponent>(sigil).Rule = rule;

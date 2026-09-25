@@ -58,6 +58,10 @@ public sealed partial class OrganMarkingPicker : Control
 
     private void OnOrganProfileDataChanged(bool refresh)
     {
+        // Orbitra-Edit - родитель мог заменить вкладку в том же вызове события модели.
+        if (!IsInsideTree)
+            return;
+
         if (refresh)
             UpdateMarkings();
     }

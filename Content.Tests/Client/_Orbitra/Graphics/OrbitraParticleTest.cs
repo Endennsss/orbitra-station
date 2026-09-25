@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace Content.Tests.Client._Orbitra.Graphics;
 
 [TestFixture]
-public sealed class OrbitraParticleTest
+public sealed class OrbitraParticleTest : OrbitraParticleTestBase
 {
     [TestCase("Off", 0, 0f)]
     [TestCase("Low", 128, 0.5f)]
@@ -33,8 +33,8 @@ public sealed class OrbitraParticleTest
     {
         var pool = new OrbitraParticlePool();
         pool.Configure(2);
-        var chip = new OrbitraParticleEffectPrototype();
-        var smoke = new OrbitraParticleEffectPrototype { Smoke = true };
+        var chip = Effect("OrbitraTestChip");
+        var smoke = Effect("OrbitraTestSmoke");
         pool.Add(new() { Effect = chip, Lifetime = 1 });
         pool.Add(new() { Effect = smoke, Lifetime = 1 });
         Assert.That(pool.Add(new() { Effect = smoke, Lifetime = 1 }), Is.False);
@@ -49,8 +49,8 @@ public sealed class OrbitraParticleTest
     {
         var pool = new OrbitraParticlePool();
         pool.Configure(1);
-        var smoke = new OrbitraParticleEffectPrototype { Smoke = true };
-        var spark = new OrbitraParticleEffectPrototype { Emissive = true };
+        var smoke = Effect("OrbitraTestSmoke");
+        var spark = Effect("OrbitraTestSpark");
         pool.Add(new() { Effect = smoke, Lifetime = 1 });
         Assert.That(pool.Add(new() { Effect = spark, Lifetime = 1 }), Is.True);
         Assert.That(pool.Particles[0].Effect, Is.SameAs(spark));
@@ -62,8 +62,8 @@ public sealed class OrbitraParticleTest
     public void RisingParticlesKeepMoreVelocityThanImpactDebris()
     {
         var pool = new OrbitraParticlePool();
-        pool.Add(new() { Effect = new() { Drag = 0.7f }, Lifetime = 1, Velocity = Vector2.UnitY });
-        pool.Add(new() { Effect = new(), Lifetime = 1, Velocity = Vector2.UnitY });
+        pool.Add(new() { Effect = Effect("OrbitraTestRising"), Lifetime = 1, Velocity = Vector2.UnitY });
+        pool.Add(new() { Effect = Effect("OrbitraTestChip"), Lifetime = 1, Velocity = Vector2.UnitY });
         pool.Update(0.25f);
         Assert.That(pool.Particles[0].Velocity.Y, Is.GreaterThan(pool.Particles[1].Velocity.Y));
     }
@@ -74,7 +74,7 @@ public sealed class OrbitraParticleTest
         var pool = new OrbitraParticlePool();
         pool.Add(new()
         {
-            Effect = new(), Lifetime = 0.5f, Position = new Vector2(4, 7),
+            Effect = Effect("OrbitraTestChip"), Lifetime = 0.5f, Position = new Vector2(4, 7),
             Origin = new Vector2(4, 7), Velocity = Vector2.UnitX,
         });
         pool.Update(0.1f);
@@ -88,10 +88,10 @@ public sealed class OrbitraParticleTest
     public void DisablingClearsPoolAndRejectsBursts()
     {
         var pool = new OrbitraParticlePool();
-        pool.Add(new() { Effect = new(), Lifetime = 1 });
+        pool.Add(new() { Effect = Effect("OrbitraTestChip"), Lifetime = 1 });
         pool.Configure(0);
         Assert.That(pool.Count, Is.Zero);
-        Assert.That(pool.Add(new() { Effect = new(), Lifetime = 1, Burst = true }), Is.False);
+        Assert.That(pool.Add(new() { Effect = Effect("OrbitraTestChip"), Lifetime = 1, Burst = true }), Is.False);
     }
 
     [Test]
@@ -99,7 +99,7 @@ public sealed class OrbitraParticleTest
     {
         var pool = new OrbitraParticlePool();
         pool.Configure(128);
-        var effect = new OrbitraParticleEffectPrototype();
+        var effect = Effect("OrbitraTestChip");
         for (var i = 0; i < 10000; i++)
             pool.Add(new() { Effect = effect, Lifetime = 0.5f, Burst = i % 7 == 0 });
         Assert.That(pool.Count, Is.EqualTo(128));

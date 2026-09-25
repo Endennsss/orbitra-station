@@ -25,20 +25,20 @@ namespace Content.Server._Orbitra.Ratvar;
 /// <summary>Installs cogs in APCs and debits real battery charge before crediting a single cult.</summary>
 public sealed partial class OrbitraRatvarIntegrationCogSystem : EntitySystem
 {
-    [Dependency] private readonly OrbitraRatvarRuleSystem _cult = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly SharedContainerSystem _containers = default!;
-    [Dependency] private readonly SharedWiresSystem _wires = default!;
-    [Dependency] private readonly SharedBatterySystem _battery = default!;
-    [Dependency] private readonly SharedToolSystem _tools = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly MindSystem _minds = default!;
-    [Dependency] private readonly GameTicker _ticker = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
+    [Dependency] private OrbitraRatvarRuleSystem _cult = default!;
+    [Dependency] private SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private SharedInteractionSystem _interaction = default!;
+    [Dependency] private SharedContainerSystem _containers = default!;
+    [Dependency] private SharedWiresSystem _wires = default!;
+    [Dependency] private SharedBatterySystem _battery = default!;
+    [Dependency] private SharedToolSystem _tools = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private MindSystem _minds = default!;
+    [Dependency] private GameTicker _ticker = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private ActionBlockerSystem _blocker = default!;
+    [Dependency] private IAdminLogManager _adminLog = default!;
 
     private const string ContainerId = "orbitra-ratvar-cog";
     private static readonly ProtoId<ToolQualityPrototype> PryQuality = "Prying";

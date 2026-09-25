@@ -235,7 +235,7 @@ public sealed class OrbitraGhostEmoteTest : GameTest
             Server.PlayerMan.SetAttachedEntity(session, target);
             var recorder = SEntMan.System<OrbitraEmoteTestSystem>();
             recorder.Target = SEntMan.GetNetEntity(target);
-            recorder.Count = 0;
+            recorder.EmoteCount = 0;
             var menu = SEntMan.System<EmotesMenuSystem>();
             var play = typeof(EmotesMenuSystem).GetMethod("OnPlayEmote", BindingFlags.Instance | BindingFlags.NonPublic)!;
             var message = new PlayEmoteMessage("Sigh");
@@ -246,16 +246,16 @@ public sealed class OrbitraGhostEmoteTest : GameTest
             try
             {
                 play.Invoke(menu, new object[] { message, args });
-                afterMenu = recorder.Count;
+                afterMenu = recorder.EmoteCount;
                 chat.TrySendInGameICMessage(target, trigger, InGameICChatType.Emote, false, player: session);
                 play.Invoke(menu, new object[] { message, args });
-                afterBlockedInputs = recorder.Count;
+                afterBlockedInputs = recorder.EmoteCount;
                 chat.TryEmoteWithChat(target, message.ProtoId);
-                afterAutomatic = recorder.Count;
+                afterAutomatic = recorder.EmoteCount;
                 timers[session] = SGameTiming.RealTime;
                 chat.TrySendInGameICMessage(target, trigger, InGameICChatType.Emote, false, player: session);
                 play.Invoke(menu, new object[] { message, args });
-                afterText = recorder.Count;
+                afterText = recorder.EmoteCount;
             }
             finally
             {
@@ -301,9 +301,9 @@ public sealed class OrbitraGhostEmoteTest : GameTest
             var mind = SEntMan.System<MindSystem>().CreateMind(null, "Test");
             SEntMan.System<MindSystem>().TransferTo(mind, target);
             var create = typeof(GhostSystem).GetMethod("CreateOrbitraPlayerWarp", BindingFlags.Instance | BindingFlags.NonPublic)!;
-            ordinary = (GhostWarp) create.Invoke(ghosts, new object?[] { target, mind.Owner, "Test" })!;
+            ordinary = (GhostWarp) create.Invoke(ghosts, new object[] { target, mind.Owner, "Test" })!;
             SEntMan.System<SharedRoleSystem>().MindAddRole(mind, "MindRoleTraitor", silent: true);
-            antagonist = (GhostWarp) create.Invoke(ghosts, new object?[] { target, mind.Owner, "Test" })!;
+            antagonist = (GhostWarp) create.Invoke(ghosts, new object[] { target, mind.Owner, "Test" })!;
             lobbyCanWarp = ghosts.CanGhostWarp(ServerSession!, out _);
             SEntMan.DeleteEntity(mind);
             SEntMan.DeleteEntity(target);

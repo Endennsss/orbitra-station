@@ -11,11 +11,12 @@ namespace Content.Client._Orbitra.ThermalVision;
 /// <summary>GPU-only exposure history; stores a single gain, never a delayed world image.</summary>
 internal sealed class OrbitraThermalExposure : IDisposable
 {
+    private static readonly ProtoId<ShaderPrototype> ExposureShader = "OrbitraThermalExposure";
     private readonly IClyde _clyde = IoCManager.Resolve<IClyde>();
     private readonly IGameTiming _timing = IoCManager.Resolve<IGameTiming>();
     private readonly IConfigurationManager _configuration = IoCManager.Resolve<IConfigurationManager>();
     private readonly ShaderInstance _shader = IoCManager.Resolve<IPrototypeManager>()
-        .Index<ShaderPrototype>("OrbitraThermalExposure").InstanceUnique();
+        .Index(ExposureShader).InstanceUnique();
     private readonly OverlayResourceCache<History> _history = new();
 
     internal static Vector2 Adaptation(float elapsed, bool reducedMotion) => reducedMotion ? Vector2.One : new(

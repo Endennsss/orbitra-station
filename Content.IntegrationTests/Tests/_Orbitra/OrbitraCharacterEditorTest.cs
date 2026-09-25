@@ -48,11 +48,20 @@ public sealed class OrbitraCharacterEditorTest : GameTest
                 Assert.That(All(picker).OfType<LayerMarkingItem>().Any(i => i.MarkingId.Id.StartsWith("HumanHair")), Is.True);
                 var count = All(picker).OfType<LayerMarkingItem>().Count();
                 var first = All(picker).OfType<OrganMarkingPicker>().First();
+                var oldLayers = first.FindControl<TabContainer>("LayerTabs").Children.ToArray();
+                OrbitraWindowLifecycleTest.Frame(ui, 0);
+                model.OrganProfileData = manager.GetProfileData("Human", Sex.Male, Color.White, Color.Blue);
+                Assert.That(first.IsInsideTree, Is.False);
+                Assert.That(first.FindControl<TabContainer>("LayerTabs").Children, Is.EqualTo(oldLayers),
+                    "A removed tab must not rebuild from the remaining callbacks of the same model event.");
+                first = All(picker).OfType<OrganMarkingPicker>().First();
+                OrbitraWindowLifecycleTest.Frame(ui, 0);
                 picker.Orphan();
                 model.OrganData = manager.GetMarkingData("Human");
                 Assert.That(All(picker).OfType<OrganMarkingPicker>().First(), Is.SameAs(first), "Detached picker must unsubscribe.");
                 ui.StateRoot.AddChild(picker);
                 Assert.That(All(picker).OfType<LayerMarkingItem>().Count(), Is.EqualTo(count));
+                OrbitraWindowLifecycleTest.Frame(ui, 0);
                 var replacement = new MarkingsViewModel
                 {
                     OrganProfileData = manager.GetProfileData("Human", Sex.Male, Color.White, Color.Blue),

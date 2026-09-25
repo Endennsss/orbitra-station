@@ -317,16 +317,22 @@ public EntProtoId SpawnEntity = "DefaultEntity";
 public ProtoId<DamageModifierSetPrototype> DamageModifier = "Default";
 
 // Getting a prototype in the system
-[Dependency] private readonly IPrototypeManager _proto = default!;
+[Dependency] private IPrototypeManager _proto = default!;
 
-var proto = _proto.Index<MyPrototype>("protoId");
-if (_proto.TryIndex<MyPrototype>("protoId", out var proto))
+private static readonly ProtoId<MyPrototype> ExamplePrototype = "ExamplePrototype";
+
+var proto = _proto.Index(ExamplePrototype);
+if (_proto.TryIndex(ExamplePrototype, out var foundPrototype))
 {
     // proto available
 }
 ```
 
 ## Naming and localization (name / description)
+
+Не передавать строковый литерал вместо типизированного ID в API (RA0033).
+Для постоянных ссылок использовать `static readonly ProtoId<T>` или `EntProtoId`,
+чтобы YAML-linter проверял существование прототипа.
 
 ### Localization system via FTL
 

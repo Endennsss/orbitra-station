@@ -1,3 +1,4 @@
+using Robust.Shared.Prototypes;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -27,6 +28,8 @@ namespace Content.IntegrationTests.Tests._Orbitra;
 [TestFixture]
 public sealed class OrbitraGameMenusTest : GameTest
 {
+    private static readonly EntProtoId ChairWoodPrototype = "ChairWood";
+
     public override PoolSettings PoolSettings => new() { InLobby = true, Dirty = true, NoLoadTestPrototypes = true };
     private static readonly Vector2[] Resolutions = [new(1280, 720), new(1920, 1080), new(2560, 1080), new(3440, 1440), new(5120, 1440)];
 
@@ -431,7 +434,7 @@ public sealed class OrbitraGameMenusTest : GameTest
             var prototypes = Client.Resolve<Robust.Shared.Prototypes.IPrototypeManager>();
             using var window = new ConstructionMenu();
             window.OpenCentered();
-            var entity = prototypes.Index<Robust.Shared.Prototypes.EntityPrototype>("ChairWood");
+            var entity = prototypes.Index(ChairWoodPrototype);
             var recipes = prototypes.EnumeratePrototypes<Content.Shared.Construction.Prototypes.ConstructionPrototype>()
                 .Take(30).Select(p => new ConstructionMenu.ConstructionMenuListData(p, entity)).ToArray();
             window.ListViewRecipes.PopulateList(recipes);

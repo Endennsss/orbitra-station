@@ -24,6 +24,6 @@ jobs:
     - uses: PaulRitter/yaml-schema-validator@v1
       with:
         schema: RobustToolbox/Schemas/mapfile.yml
-        path_pattern: .*Resources/Maps/.*
+        path_pattern: '.*Resources/Maps/.*\.ya?ml$' # Orbitra-Edit - проверяем карты, а не документацию рядом с ними
         validators_path: RobustToolbox/Schemas/mapfile_validators.py
         validators_requirements: RobustToolbox/Schemas/mapfile_requirements.txt

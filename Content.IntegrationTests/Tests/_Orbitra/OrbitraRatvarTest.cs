@@ -31,6 +31,9 @@ namespace Content.IntegrationTests.Tests._Orbitra;
 [TestFixture]
 public sealed class OrbitraRatvarTest : GameTest
 {
+    private static readonly EntProtoId CultRule = "OrbitraRatvarRule";
+    private static readonly ProtoId<AntagSpecifierPrototype> OrbitraRatvarCultistPrototype = "OrbitraRatvarCultist";
+
     public override PoolSettings PoolSettings => new() { Connected = true, Dirty = true, NoLoadTestPrototypes = true };
 
     [Test]
@@ -81,7 +84,7 @@ public sealed class OrbitraRatvarTest : GameTest
         var map = await Pair.CreateTestMap();
         await Server.WaitAssertion(() =>
         {
-            Assert.That(Server.System<GameTicker>().StartGameRule("OrbitraRatvarRule", out var rule), Is.True);
+            Assert.That(Server.System<GameTicker>().StartGameRule(CultRule, out var rule), Is.True);
             var cult = SEntMan.GetComponent<OrbitraRatvarRuleComponent>(rule);
             var system = Server.System<OrbitraRatvarRuleSystem>();
             var body = SEntMan.SpawnEntity("MobHuman", map.GridCoords);
@@ -161,7 +164,7 @@ public sealed class OrbitraRatvarTest : GameTest
         await Server.WaitAssertion(() =>
         {
             var system = Server.System<OrbitraRatvarRuleSystem>();
-            Assert.That(Server.System<GameTicker>().StartGameRule("OrbitraRatvarRule", out var rule), Is.True);
+            Assert.That(Server.System<GameTicker>().StartGameRule(CultRule, out var rule), Is.True);
             var cult = SEntMan.GetComponent<OrbitraRatvarRuleComponent>(rule);
             var station = SEntMan.SpawnEntity(null, MapCoordinates.Nullspace);
             SEntMan.AddComponent<StationDataComponent>(station);
@@ -207,7 +210,7 @@ public sealed class OrbitraRatvarTest : GameTest
         {
             var system = Server.System<OrbitraRatvarRuleSystem>();
             var ticker = Server.System<GameTicker>();
-            Assert.That(ticker.StartGameRule("OrbitraRatvarRule", out var rule), Is.True);
+            Assert.That(ticker.StartGameRule(CultRule, out var rule), Is.True);
             var cult = SEntMan.GetComponent<OrbitraRatvarRuleComponent>(rule);
             var minds = Server.System<MindSystem>();
             var roles = Server.System<RoleSystem>();
@@ -268,7 +271,7 @@ public sealed class OrbitraRatvarTest : GameTest
             var prototypes = Server.ResolveDependency<IPrototypeManager>();
             var random = Server.ResolveDependency<IRobustRandom>();
             var selector = new OrbitraRatvarAntagCount();
-            var antag = prototypes.Index<AntagSpecifierPrototype>("OrbitraRatvarCultist");
+            var antag = prototypes.Index(OrbitraRatvarCultistPrototype);
             Assert.That(antag.PrefRoles.Select(id => id.Id), Is.EquivalentTo(new[] { "OrbitraRatvarCultist" }));
             foreach (var preference in antag.PrefRoles)
                 Assert.That(prototypes.Index(preference).SetPreference, Is.True,

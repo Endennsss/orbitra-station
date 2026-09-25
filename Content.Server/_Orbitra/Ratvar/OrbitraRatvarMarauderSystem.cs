@@ -6,17 +6,20 @@ using Content.Shared.Damage;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Server._Orbitra.Ratvar;
 
 /// <summary>Controls innate marauder defence without creating or requiring an antagonist role.</summary>
-public sealed class OrbitraRatvarMarauderSystem : EntitySystem
+public sealed partial class OrbitraRatvarMarauderSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private SharedActionsSystem _actions = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private ActionBlockerSystem _blocker = default!;
+    [Dependency] private IGameTiming _timing = default!;
+
+    private static readonly EntProtoId DefenceAction = "OrbitraActionRatvarDefence";
 
     public override void Initialize()
     {
@@ -27,7 +30,7 @@ public sealed class OrbitraRatvarMarauderSystem : EntitySystem
 
     private void OnInit(Entity<OrbitraRatvarMarauderComponent> ent, ref MapInitEvent args)
     {
-        _actions.AddAction(ent, ref ent.Comp.DefenceAction, "OrbitraActionRatvarDefence");
+        _actions.AddAction(ent, ref ent.Comp.DefenceAction, DefenceAction);
         _appearance.SetData(ent, OrbitraRatvarVisuals.Defending, false);
     }
 

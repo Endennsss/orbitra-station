@@ -73,8 +73,8 @@ Example for a UI element:
 [GenerateTypedNameReferences]
 public partial class FancyWindow : BaseWindow
 {
-    [Dependency] private readonly IEntitySystemManager _sysMan = default!;
-    [Dependency] private readonly IStylesheetManager _styleMan = default!;
+    [Dependency] private IEntitySystemManager _sysMan = default!;
+    [Dependency] private IStylesheetManager _styleMan = default!;
 
     public FancyWindow()
     {
@@ -87,10 +87,10 @@ public partial class FancyWindow : BaseWindow
 Example for `UIController`:
 
 ```csharp
-public sealed class GuidebookUIController : UIController
+public sealed partial class GuidebookUIController : UIController
 {
     [UISystemDependency] private readonly GuidebookSystem _guidebookSystem = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private IPrototypeManager _prototypeManager = default!;
 }
 ```
 

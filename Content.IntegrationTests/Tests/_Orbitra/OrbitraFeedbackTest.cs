@@ -195,7 +195,9 @@ public sealed class OrbitraFeedbackTest : GameTest
             slot.Show(OrbitraNotificationKind.Success, "Saved");
             OrbitraWindowLifecycleTest.Frame(ui, 0);
             OrbitraWindowLifecycleTest.Frame(ui, 0.025f);
-            checks.Add(panel.Modulate.A > 0 && panel.Modulate.A < 1);
+            // Появление со сдвигом анимирует контейнер, а исчезновение - саму панель.
+            var motion = All(slot).OfType<OrbitraMotionHost>().Single();
+            checks.Add(motion.Modulate.A > 0 && motion.Modulate.A < 1);
             for (var i = 0; i < 8; i++) OrbitraWindowLifecycleTest.Frame(ui, 0.025f);
             slot.Dismiss();
             OrbitraWindowLifecycleTest.Frame(ui, 0.025f);

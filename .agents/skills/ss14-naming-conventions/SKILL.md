@@ -152,9 +152,9 @@ public sealed partial class ClickableComponent : Component
 {
 }
 
-public sealed class ClickableSystem : EntitySystem
+public sealed partial class ClickableSystem : EntitySystem
 {
-    [Dependency] private readonly SharedTransformSystem _transforms = default!;
+    [Dependency] private SharedTransformSystem _transforms = default!;
 }
 ```
 
@@ -165,7 +165,7 @@ Comment: the base part `Clickable` is the same for the pair `Component/System`; 
 ```csharp
 public sealed partial class ChangeNameInContainerSystem : EntitySystem
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
+    [Dependency] private EntityWhitelistSystem _whitelist = default!;
 }
 ```
 
@@ -174,9 +174,9 @@ Comment: The short canonical alias `_whitelist` is used, not `_whitelistSystem`.
 ### Example 3: correct dependency alias for transform
 
 ```csharp
-public sealed class EntityPickupAnimationSystem : EntitySystem
+public sealed partial class EntityPickupAnimationSystem : EntitySystem
 {
-    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency] private TransformSystem _transform = default!;
 }
 ```
 
@@ -185,10 +185,10 @@ Comment: the base of type `Transform` is moved to `_transform`.
 ### Example 4: correct dependency alias for random/player
 
 ```csharp
-public sealed class DrugOverlaySystem : EntitySystem
+public sealed partial class DrugOverlaySystem : EntitySystem
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IRobustRandom _random = default!;
 }
 ```
 

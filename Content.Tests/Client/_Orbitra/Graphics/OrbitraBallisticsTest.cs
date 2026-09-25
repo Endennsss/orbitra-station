@@ -7,7 +7,7 @@ using Robust.Shared.GameObjects;
 namespace Content.Tests.Client._Orbitra.Graphics;
 
 [TestFixture]
-public sealed class OrbitraBallisticsTest
+public sealed class OrbitraBallisticsTest : OrbitraParticleTestBase
 {
     [TestCase(OrbitraParticleMaterial.Generic, "OrbitraParticleBulletDust")]
     [TestCase(OrbitraParticleMaterial.Metal, "OrbitraParticleBulletMetal")]
@@ -61,7 +61,7 @@ public sealed class OrbitraBallisticsTest
         var pool = new OrbitraParticlePool();
         pool.Configure(1);
         pool.Add(Mark(1, Vector2.Zero));
-        Assert.That(pool.Add(new() { Effect = new(), Lifetime = 1, Burst = true }), Is.True);
+        Assert.That(pool.Add(new() { Effect = Effect("OrbitraTestChip"), Lifetime = 1, Burst = true }), Is.True);
         Assert.That(pool.Particles[0].Effect.ImpactMark, Is.False);
     }
 
@@ -94,9 +94,9 @@ public sealed class OrbitraBallisticsTest
         Assert.That(window.Consume(8.7), Is.False);
     }
 
-    private static OrbitraParticlePool.Particle Mark(int source, Vector2 position) => new()
+    private OrbitraParticlePool.Particle Mark(int source, Vector2 position) => new()
     {
-        Effect = new() { ImpactMark = true },
+        Effect = Effect("OrbitraTestMark"),
         ImpactSource = new EntityUid(source),
         Position = position,
         Lifetime = 20,
