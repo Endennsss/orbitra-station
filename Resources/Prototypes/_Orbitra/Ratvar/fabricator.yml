@@ -1,0 +1,42 @@
+- type: entity
+  parent: BaseItem
+  id: OrbitraRatvarFabricator
+  name: replica fabricator
+  description: A brass tool whose prongs hum with a steady rhythm.
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/multitool.rsi
+    state: icon
+    color: "#D9B66FFF"
+  - type: Item
+    size: Small
+    inhandVisuals:
+      left:
+      - sprite: Objects/Tools/multitool.rsi
+        state: inhand-left
+        color: "#D9B66FFF"
+      right:
+      - sprite: Objects/Tools/multitool.rsi
+        state: inhand-right
+        color: "#D9B66FFF"
+  - type: OrbitraRatvarFabricator
+    energy: 200
+    delay: 6
+    repairBonus: 15
+    neutralStructures:
+    - WallBrass
+    - OrbitraRatvarWindow
+    - OrbitraRatvarDoor
+    - OrbitraRatvarBarricade
+  - type: GuideHelp
+    guides: [OrbitraRatvar]
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarFabricator
+  name: orbitra-ratvar-scripture-fabricator
+  description: orbitra-ratvar-scripture-fabricator-desc
+  tier: 2
+  energy: 100
+  delay: 4
+  result: OrbitraRatvarFabricator
+  structure: false
