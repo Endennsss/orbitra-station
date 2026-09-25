@@ -20,26 +20,25 @@ public sealed partial class MarkingPicker : Control
 
     public void SetModel(MarkingsViewModel model)
     {
+        UnsubscribeOrbitraModel(); // Orbitra-Edit: симметричная смена модели.
         _markingsModel = model;
-
-        _markingsModel.OrganDataChanged += UpdateMarkings;
-        _markingsModel.EnforcementsChanged += UpdateMarkings;
+        SubscribeOrbitraModel(); // Orbitra-Edit
+        UpdateMarkings(); // Orbitra-Edit: модель может быть заполнена до подключения.
     }
 
     protected override void EnteredTree()
     {
         base.EnteredTree();
 
-        _markingsModel?.OrganDataChanged += UpdateMarkings;
-        _markingsModel?.EnforcementsChanged += UpdateMarkings;
+        SubscribeOrbitraModel(); // Orbitra-Edit
+        UpdateMarkings(); // Orbitra-Edit: обновления вне дерева не теряются.
     }
 
     protected override void ExitedTree()
     {
         base.ExitedTree();
 
-        _markingsModel?.OrganDataChanged -= UpdateMarkings;
-        _markingsModel?.EnforcementsChanged -= UpdateMarkings;
+        UnsubscribeOrbitraModel(); // Orbitra-Edit
     }
 
     private void UpdateMarkings()

@@ -11,6 +11,7 @@ public interface IOrbitraKeyboardButton
     void KeyboardActivate(GUIBoundKeyEventArgs args);
 }
 
+[Virtual]
 public class OrbitraButton : Button, IOrbitraKeyboardButton
 {
     public OrbitraButton()
@@ -39,6 +40,7 @@ public sealed class OrbitraCheckBox : CheckBox, IOrbitraKeyboardButton
     }
 }
 
+[Virtual]
 public class OrbitraContainerButton : ContainerButton, IOrbitraKeyboardButton
 {
     public OrbitraContainerButton()

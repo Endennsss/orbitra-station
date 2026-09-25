@@ -1,7 +1,9 @@
-<DefaultWindow xmlns="https://spacestation14.io"
+<ui:FancyWindow xmlns="https://spacestation14.io"
+            xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
             Title="{Loc 'ghost-roles-window-title'}"
-            MinSize="490 400"
-            SetSize="490 500">
+            MinSize="360 280"
+            SetSize="560 600">
+    <!-- Orbitra-Edit: единая оболочка с прокруткой содержимого. -->
     <Label Name="NoRolesMessage"
            Text="{Loc 'ghost-roles-window-no-roles-available-label'}"
            VerticalAlignment="Top" />
@@ -13,4 +15,4 @@
             <!-- Ghost role entries are added here by code -->
         </BoxContainer>
     </ScrollContainer>
-</DefaultWindow>
+</ui:FancyWindow>

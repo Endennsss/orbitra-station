@@ -114,7 +114,7 @@ public sealed partial class OrbitraParticleBurstSystem
 
     private bool CanDustAt(EntityUid uid)
     {
-        if (!TryComp<TransformComponent>(uid, out var xform) || xform.GridUid is not { } grid ||
+        if (!TryComp(uid, out TransformComponent? xform) || xform.GridUid is not { } grid ||
             _container.IsEntityInContainer(uid) || _gravity.IsWeightless(uid) ||
             !TryComp<MapGridComponent>(grid, out var gridComp))
             return false;

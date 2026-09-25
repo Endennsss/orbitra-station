@@ -151,6 +151,8 @@ public sealed partial class ChatSystem : SharedChatSystem
         bool ignoreActionBlocker = false
         )
     {
+        if (TryHandleOrbitraRatvarChat(source, message, desiredType, shell, player)) return; // Orbitra-Edit - закрытый канал до обычной речи и мёртвого чата
+
         if (HasComp<GhostComponent>(source))
         {
             // Ghosts can only send dead chat messages, so we'll forward it to InGame OOC.

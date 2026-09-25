@@ -1,0 +1,139 @@
+- type: entity
+  parent: BaseItem
+  id: OrbitraRatvarTablet
+  name: clockwork scripture tablet
+  description: A brass tablet that answers only to the servants of Ratvar.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Chapel/ratvartablet.rsi
+    state: icon
+  - type: Item
+    sprite: Objects/Specific/Chapel/ratvartablet.rsi
+    size: Small
+  - type: OrbitraRatvarTablet
+  - type: ActivatableUI
+    key: enum.OrbitraRatvarUiKey.Key
+    inHandsOnly: true
+  - type: UserInterface
+    interfaces:
+      enum.OrbitraRatvarUiKey.Key:
+        type: OrbitraRatvarBoundUserInterface
+  - type: GuideHelp
+    guides: [OrbitraRatvar]
+
+- type: entity
+  parent: Paper
+  id: OrbitraRatvarInstructions
+  name: clockwork cult instructions
+  components:
+  - type: Paper
+    content: orbitra-ratvar-instructions
+
+- type: entity
+  parent: ClockworkShield
+  id: OrbitraRatvarShield
+  name: clockwork shield
+
+- type: entity
+  parent: ClothingOuterArmorBase
+  id: OrbitraRatvarArmor
+  name: clockwork cuirass
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/garb.rsi
+    state: armor
+  - type: Clothing
+    sprite: _Orbitra/Ratvar/armor.rsi
+  - type: Item
+    inhandVisuals:
+      left:
+      - sprite: Clothing/OuterClothing/Armor/security.rsi
+        state: inhand-left
+        color: "#C6A45E"
+      right:
+      - sprite: Clothing/OuterClothing/Armor/security.rsi
+        state: inhand-right
+        color: "#C6A45E"
+
+- type: entity
+  parent: ClothingHeadHelmetArmoredBase
+  id: OrbitraRatvarHelmet
+  name: clockwork helmet
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/garb.rsi
+    state: helmet
+  - type: Clothing
+    sprite: _Orbitra/Ratvar/helmet.rsi
+  - type: Item
+    inhandVisuals:
+      left:
+      - sprite: Clothing/Head/Helmets/security.rsi
+        state: inhand-left
+        color: "#C6A45E"
+      right:
+      - sprite: Clothing/Head/Helmets/security.rsi
+        state: inhand-right
+        color: "#C6A45E"
+
+- type: entity
+  parent: Spear
+  id: OrbitraRatvarSpear
+  name: Ratvarian spear
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/mechanisms.rsi
+    layers:
+    - state: spear
+    - sprite: Objects/Weapons/Melee/spear.rsi
+      state: spear1
+      map: [enum.SolutionContainerLayers.Fill]
+      visible: false
+  - type: Item
+    inhandVisuals:
+      left:
+      - sprite: _Orbitra/Ratvar/spear_left.rsi
+        state: inhand-left
+      right:
+      - sprite: _Orbitra/Ratvar/spear_right.rsi
+        state: inhand-right
+
+- type: entity
+  parent: [BaseMob, MobDamageable]
+  id: OrbitraRatvarMarauder
+  name: clockwork marauder
+  description: A brass construct awaiting a willing servant of Ratvar.
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/marauder.rsi
+    state: alive
+  - type: OrbitraRatvarStructure
+    marauder: true
+  - type: NpcFactionMember
+    factions: [OrbitraRatvar]
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2
+    baseSprintSpeed: 3.5
+  - type: CombatMode
+  - type: MeleeWeapon
+    hidden: true
+    angle: 0
+    animation: WeaponArcPunch
+    damage:
+      types:
+        Blunt: 15
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      200: Dead
+  - type: GhostRole
+    name: orbitra-ratvar-marauder-name
+    description: orbitra-ratvar-marauder-description
+    rules: orbitra-ratvar-marauder-rules
+    makeSentient: true
+    mindRoles: [OrbitraMindRoleRatvarMarauder]
+    raffle:
+      settings: default
+  - type: GhostTakeoverAvailable

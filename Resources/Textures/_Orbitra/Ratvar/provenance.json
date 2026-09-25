@@ -1,0 +1,791 @@
+{
+  "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+  "license_evidence": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/README.md#license",
+  "audit": "Pinned repository asset-license declaration and full selected-file commit histories reviewed. No applicable per-file exception found. Commit contributors are not asserted to be individual sprite authors. DM source is not imported.",
+  "resources": [
+    {
+      "rsi": "mechanisms.rsi",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/obj/clockwork_objects.dmi",
+      "path": "icons/obj/clockwork_objects.dmi",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "states": {
+        "stargazer": "generator",
+        "obelisk": "obelisk",
+        "ocular_warden": "turret",
+        "ratvarian_spear": "spear"
+      },
+      "license": "CC-BY-SA-3.0",
+      "history": [
+        {
+          "commit": "cc43579912d6adc5d7e91afd95cdffa4916d2185",
+          "contributor": "Cenrus",
+          "subject": "Ancient spear nullrod option, plus brass spear resprite (#4123)"
+        },
+        {
+          "commit": "9c29742eb7d8bee30c671eafdeace2f9f1017cc4",
+          "contributor": "Cenrus",
+          "subject": "Clockwork cult gear base fixes (#3908)"
+        },
+        {
+          "commit": "8168ce7f06afc301b3226661703df356c5936599",
+          "contributor": "PowerfulBacon",
+          "subject": "Clock cult v2 - Fully rewritten from the ground up (#2124)"
+        },
+        {
+          "commit": "38254deeebd3d7e81ab282e36174e1713c5ead20",
+          "contributor": "qwerty",
+          "subject": "the great icon compression"
+        },
+        {
+          "commit": "97b2251165a99e2dd778e5fdfc5458aab8e65aed",
+          "contributor": "BordListian",
+          "subject": "- Purges all untruths (#35488)"
+        },
+        {
+          "commit": "32c68a60bf88b5e350f8ef78609ffccc45821483",
+          "contributor": "Ashe Higgs",
+          "subject": "Clockwork Cult Defenses Patch - Leader role, traps and wiring, hulk and mech soft-counters, +more (#32935)"
+        },
+        {
+          "commit": "835530710a76c35d7e371fcccce767bfd9c52a7a",
+          "contributor": "KorPhaeron",
+          "subject": "Heirophant Relay sprites (#32636)"
+        },
+        {
+          "commit": "b7e7779c19b76449c290aaf2150fb93545b1a79a",
+          "contributor": "Ashe Higgs",
+          "subject": "(Ready) Clockwork Cult Rework: Proof-of-concept (#29741)"
+        },
+        {
+          "commit": "c50dde75f08b145266742a321a7701539681825e",
+          "contributor": "Ashe Higgs",
+          "subject": "Charging the clockwork slab now uses overlays (#29285)"
+        },
+        {
+          "commit": "ab300397424834b0c27f89d2f66db19ad492901e",
+          "contributor": "Joan Lung",
+          "subject": "Vanguard Cogwheels have slightly smaller sprites (#29173)"
+        },
+        {
+          "commit": "405fc7b0fef61c396f102791f684d13e4dbb76ec",
+          "contributor": "Joan Lung",
+          "subject": "Adds Prolonging Prism as an application scripture (#28164)"
+        },
+        {
+          "commit": "58840716278be82499f20c9e0993de203bb141fc",
+          "contributor": "Joan Lung",
+          "subject": "Renames Clockwork Proselytizers to Replica Fabricators (#28062)"
+        },
+        {
+          "commit": "c97bfa0e9f9f58d7a10010fba074941d8b609337",
+          "contributor": "Joan Lung",
+          "subject": "Proselytizing alloy shards will now proselytize all the shards in the tile (#27337)"
+        },
+        {
+          "commit": "6983859153b772a901c601f9626b5a8482ff885e",
+          "contributor": "Joan Lung",
+          "subject": "Application structures will always drop a refundable component (#23930)"
+        },
+        {
+          "commit": "9796779ea1d1adf78de739d48e7ba6520d336ac0",
+          "contributor": "Joan Lung",
+          "subject": "Volt Void is now a more useful scripture (#22897)"
+        },
+        {
+          "commit": "5224512d558b2939988c4440877062a4c3774f30",
+          "contributor": "Joan Lung",
+          "subject": "Replaces Servant cyborg emagged modules with some limited scripture and tools (#21632)"
+        },
+        {
+          "commit": "de1c7b074ab8f1fb8db222b2c4031070a77c2599",
+          "contributor": "Joan Lung",
+          "subject": "Servants of Ratvar can now unsecure and move most Clockwork Structures (#21485)"
+        },
+        {
+          "commit": "045c6e643b223a14e27f40115a4a69bc898aae4b",
+          "contributor": "Joan Lung",
+          "subject": "Renames Guvax to Geis (#21445)"
+        },
+        {
+          "commit": "d0f0b749576bec7209c7b37df84b18eaa3191871",
+          "contributor": "Joan Lung",
+          "subject": "Clockwork windows and windoors no longer drop full sheets of brass when destroyed"
+        },
+        {
+          "commit": "663ef769f7383443874f8ebae6fe58aa790beb0c",
+          "contributor": "Joan Lung",
+          "subject": "Reworks Guvax (#21202)"
+        },
+        {
+          "commit": "397911eccc21bce202994ad02a9efe14d6a0b9b8",
+          "contributor": "Joan Lung",
+          "subject": "Tinkerer's Daemons are now a structure"
+        },
+        {
+          "commit": "7a05f7b033cbf359517e3808e8134c7543aef373",
+          "contributor": "Joan Lung",
+          "subject": "Clockwork structures can now drop alloy amounts other than exactly 20 (#19268)"
+        },
+        {
+          "commit": "5d97be336d3b237e7a348ed294e2497807f3c395",
+          "contributor": "Joan Lung",
+          "subject": "Makes Interdiction Lenses less situational"
+        },
+        {
+          "commit": "b941a47a60020f55f9be1928b5be733196caab57",
+          "contributor": "Joan Lung",
+          "subject": "Adds cogscarabs to clock cult (#18685)"
+        },
+        {
+          "commit": "ed73ddcb070b9af134d314439f60790963142670",
+          "contributor": "Joan Lung",
+          "subject": "defrogging"
+        },
+        {
+          "commit": "cd887746f9c9e9ab1ed3bac2ad5bd11b6ae8ff36",
+          "contributor": "Joan Lung",
+          "subject": "dlique no"
+        },
+        {
+          "commit": "f64e687250f028359d811b2c7e9d4974b2e7ffeb",
+          "contributor": "Joan Lung",
+          "subject": "Adds the Clockwork Obelisk, Mania Motor, and Vitality Matrix"
+        },
+        {
+          "commit": "5e658b4323e60f9b968c4d3aeb57b5e0e1603941",
+          "contributor": "Nerd Lord",
+          "subject": "fixes missing sprite"
+        },
+        {
+          "commit": "3793e6187a25aa3edd925f2c8984fd3bc5fa3581",
+          "contributor": "Nerd Lord",
+          "subject": "Addition Ratvar conversion effects and related changes"
+        },
+        {
+          "commit": "685d938481e2d62b60ef5e75548cc569976ed974",
+          "contributor": "Xhuis",
+          "subject": "Some more work or something, idk"
+        },
+        {
+          "commit": "7e93e762f51136d42be061c4067eefa349221f2e",
+          "contributor": "Xhuis",
+          "subject": "Follow-up commit"
+        },
+        {
+          "commit": "59af849fdf1f5c898bc146bc5baa06bb0f7e08dc",
+          "contributor": "Xhuis",
+          "subject": "Clockwork post-merge patch 3"
+        },
+        {
+          "commit": "a28a7680cba9142ab80abc5ed480474ed0310462",
+          "contributor": "Xhuis",
+          "subject": "Clockwork sprites"
+        }
+      ],
+      "changes": "Selected states extracted and renamed; frame order converted to RSI; delays converted from deciseconds to seconds; pixels unchanged."
+    },
+    {
+      "rsi": "sigils.rsi",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/effects/clockwork_effects.dmi",
+      "path": "icons/effects/clockwork_effects.dmi",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "states": {
+        "sigilsubmission": "conversion",
+        "sigiltransgression": "slowing",
+        "clock_shield": "shield"
+      },
+      "license": "CC-BY-SA-3.0",
+      "history": [
+        {
+          "commit": "8168ce7f06afc301b3226661703df356c5936599",
+          "contributor": "PowerfulBacon",
+          "subject": "Clock cult v2 - Fully rewritten from the ground up (#2124)"
+        },
+        {
+          "commit": "32774dcea32e937233dd114687207f70f66639ff",
+          "contributor": "Cenrus",
+          "subject": "Merge pull request #6494 from Readystorm546/Rebe-change (#779)"
+        },
+        {
+          "commit": "38254deeebd3d7e81ab282e36174e1713c5ead20",
+          "contributor": "qwerty",
+          "subject": "the great icon compression"
+        },
+        {
+          "commit": "32c68a60bf88b5e350f8ef78609ffccc45821483",
+          "contributor": "Ashe Higgs",
+          "subject": "Clockwork Cult Defenses Patch - Leader role, traps and wiring, hulk and mech soft-counters, +more (#32935)"
+        },
+        {
+          "commit": "b7e7779c19b76449c290aaf2150fb93545b1a79a",
+          "contributor": "Ashe Higgs",
+          "subject": "(Ready) Clockwork Cult Rework: Proof-of-concept (#29741)"
+        },
+        {
+          "commit": "2729d025a35ced445a1d9f892f5abc22962e597c",
+          "contributor": "Joan Lung",
+          "subject": "Adds an effect to Mending Mantra to show who is chanting it"
+        },
+        {
+          "commit": "9c579f61b339e71303bf8756c474ceb7cc39f577",
+          "contributor": "Joan Lung",
+          "subject": "Tweaks brass window icons (#23670)"
+        },
+        {
+          "commit": "9796779ea1d1adf78de739d48e7ba6520d336ac0",
+          "contributor": "Joan Lung",
+          "subject": "Volt Void is now a more useful scripture (#22897)"
+        },
+        {
+          "commit": "7129681cd7c90695475f94137372b706df6afc7c",
+          "contributor": "Joan Lung",
+          "subject": "You can now actually see what an ocular warden is attacking (#22005)"
+        },
+        {
+          "commit": "045c6e643b223a14e27f40115a4a69bc898aae4b",
+          "contributor": "Joan Lung",
+          "subject": "Renames Guvax to Geis (#21445)"
+        },
+        {
+          "commit": "990942481f47a1c9dd0c7667443b8a644788ee61",
+          "contributor": "Joan Lung",
+          "subject": "You can now proselytize false walls + glow fixes"
+        },
+        {
+          "commit": "663ef769f7383443874f8ebae6fe58aa790beb0c",
+          "contributor": "Joan Lung",
+          "subject": "Reworks Guvax (#21202)"
+        },
+        {
+          "commit": "18c533d636b756036aa9eefd197ef400d27f4a0f",
+          "contributor": "Joan Lung",
+          "subject": "Nerfs the Ark of the Clockwork Justicar summon time"
+        },
+        {
+          "commit": "f11432e8a280c53650b9ee4f3bcfa5e386b43d7e",
+          "contributor": "Joan Lung",
+          "subject": "ratvar's flame has new sprites"
+        },
+        {
+          "commit": "a14f601e95aef6ff9132430a58624d3abc09be6d",
+          "contributor": "Joan Lung",
+          "subject": "fancy pulse"
+        },
+        {
+          "commit": "f64e687250f028359d811b2c7e9d4974b2e7ffeb",
+          "contributor": "Joan Lung",
+          "subject": "Adds the Clockwork Obelisk, Mania Motor, and Vitality Matrix"
+        },
+        {
+          "commit": "3793e6187a25aa3edd925f2c8984fd3bc5fa3581",
+          "contributor": "Nerd Lord",
+          "subject": "Addition Ratvar conversion effects and related changes"
+        },
+        {
+          "commit": "59af849fdf1f5c898bc146bc5baa06bb0f7e08dc",
+          "contributor": "Xhuis",
+          "subject": "Clockwork post-merge patch 3"
+        },
+        {
+          "commit": "a28a7680cba9142ab80abc5ed480474ed0310462",
+          "contributor": "Xhuis",
+          "subject": "Clockwork sprites"
+        }
+      ],
+      "changes": "Selected states extracted and renamed; frame order converted to RSI; delays converted from deciseconds to seconds; pixels unchanged."
+    },
+    {
+      "rsi": "marauder.rsi",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/mob/clockwork_mobs.dmi",
+      "path": "icons/mob/clockwork_mobs.dmi",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "states": {
+        "clockwork_marauder": "alive"
+      },
+      "license": "CC-BY-SA-3.0",
+      "history": [
+        {
+          "commit": "38254deeebd3d7e81ab282e36174e1713c5ead20",
+          "contributor": "qwerty",
+          "subject": "the great icon compression"
+        },
+        {
+          "commit": "423c3130f4d5d3f2524346c1c09c8b61c117212d",
+          "contributor": "Joan Lung",
+          "subject": "Clockwork AIs are cooler"
+        },
+        {
+          "commit": "3cb86a189b967856654b5258f70e650ff6367a42",
+          "contributor": "Joan Lung",
+          "subject": "Marauder tweaks (#23397)"
+        },
+        {
+          "commit": "ada7a3694b9d9e9ae0f3153c6b7d3cc5d7599ff8",
+          "contributor": "Joan Lung",
+          "subject": "Adds a new UI style, Clockwork"
+        },
+        {
+          "commit": "d017a5e4ff8131f8f5f2257887a088e445ed14bb",
+          "contributor": "Joan Lung",
+          "subject": "Clockwork Marauders now have a HUD (#21124)"
+        },
+        {
+          "commit": "ffa72f915019399f7a7efceaaedfc15cfb3ecc5a",
+          "contributor": "Xhuis",
+          "subject": "Makes clockwork reclaimers jump faster"
+        },
+        {
+          "commit": "ab53445f2aacbaf6b470d253a8a75a732bd80288",
+          "contributor": "Xhuis",
+          "subject": "Touchups and polish"
+        },
+        {
+          "commit": "89c4f0a4f4b7a509c543823785ca7bbf4104e2da",
+          "contributor": "Xhuis",
+          "subject": "Removes fun"
+        },
+        {
+          "commit": "59af849fdf1f5c898bc146bc5baa06bb0f7e08dc",
+          "contributor": "Xhuis",
+          "subject": "Clockwork post-merge patch 3"
+        },
+        {
+          "commit": "a28a7680cba9142ab80abc5ed480474ed0310462",
+          "contributor": "Xhuis",
+          "subject": "Clockwork sprites"
+        }
+      ],
+      "changes": "Selected states extracted and renamed; frame order converted to RSI; delays converted from deciseconds to seconds; pixels unchanged."
+    },
+    {
+      "rsi": "garb.rsi",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/obj/clothing/clockwork_garb.dmi",
+      "path": "icons/obj/clothing/clockwork_garb.dmi",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "states": {
+        "clockwork_helmet": "helmet",
+        "clockwork_cuirass": "armor"
+      },
+      "license": "CC-BY-SA-3.0",
+      "history": [
+        {
+          "commit": "055da46965af8feb59a53b64e06ae13ee354db85",
+          "contributor": "PestoVerde322",
+          "subject": "New jackboot icons and replica white jackboots (#12120)"
+        },
+        {
+          "commit": "d2d6073fb04d3fd3f062a911f6136f1ed3746a54",
+          "contributor": "Tsar-Salat",
+          "subject": "clockarmor, bows, ion rifles (#10997)"
+        },
+        {
+          "commit": "8168ce7f06afc301b3226661703df356c5936599",
+          "contributor": "PowerfulBacon",
+          "subject": "Clock cult v2 - Fully rewritten from the ground up (#2124)"
+        },
+        {
+          "commit": "38254deeebd3d7e81ab282e36174e1713c5ead20",
+          "contributor": "qwerty",
+          "subject": "the great icon compression"
+        },
+        {
+          "commit": "b7e7779c19b76449c290aaf2150fb93545b1a79a",
+          "contributor": "Ashe Higgs",
+          "subject": "(Ready) Clockwork Cult Rework: Proof-of-concept (#29741)"
+        },
+        {
+          "commit": "b2fcbabb0b814e673fbd413df591b9debcfafff5",
+          "contributor": "Joan Lung",
+          "subject": "You can now push Wraith Spectacles up (#22188)"
+        },
+        {
+          "commit": "fa03695b639552471ac9281504629e72170d4d8a",
+          "contributor": "Joan Lung",
+          "subject": "Fixes a missing sprite (#18950)"
+        },
+        {
+          "commit": "2ea5deff5e3ccac9771100f5fdbb9effb3988d6d",
+          "contributor": "Joan Lung",
+          "subject": "more gauntletty gauntlets"
+        },
+        {
+          "commit": "6fa0025759179c4e2aac431a09d512a1a06c7059",
+          "contributor": "Joan Lung",
+          "subject": "Fellowship Armory now provides gauntlets and invokes faster for each nearby servant"
+        },
+        {
+          "commit": "59af849fdf1f5c898bc146bc5baa06bb0f7e08dc",
+          "contributor": "Xhuis",
+          "subject": "Clockwork post-merge patch 3"
+        },
+        {
+          "commit": "a28a7680cba9142ab80abc5ed480474ed0310462",
+          "contributor": "Xhuis",
+          "subject": "Clockwork sprites"
+        }
+      ],
+      "changes": "Selected states extracted and renamed; frame order converted to RSI; delays converted from deciseconds to seconds; pixels unchanged."
+    },
+    {
+      "rsi": "armor.rsi",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/mob/clothing/suits/armor.dmi",
+      "path": "icons/mob/clothing/suits/armor.dmi",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "states": {
+        "clockwork_cuirass": "equipped-OUTERCLOTHING"
+      },
+      "license": "CC-BY-SA-3.0",
+      "history": [
+        {
+          "commit": "0202eb2f11a388977f23003e7cf0e30a8d9b76a2",
+          "contributor": "Tsar-Salat",
+          "subject": "HOP Resprite & Head Mantles (#14301)"
+        },
+        {
+          "commit": "c6dd10e95d37ce6b04595ccf30d7a1a86a89105a",
+          "contributor": "TsunamiAnt",
+          "subject": "Vampire touchening (#13457)"
+        },
+        {
+          "commit": "39a3346ae60ad65924a5c9f69a3ca93a535e986f",
+          "contributor": "r1ks-iwnl",
+          "subject": "Updates HECK suit sprite + Adds the GAGS recolorable element (#13885)"
+        },
+        {
+          "commit": "81416778e3ebe657491dee7d4a491dd7adf9dc80",
+          "contributor": "Marshmellow105",
+          "subject": "COPS: Law enforcement gear/uniform updates (#12331)"
+        },
+        {
+          "commit": "3050f5915f4aef410643be227510b9350350f7b2",
+          "contributor": "BarteG44",
+          "subject": "Fixes the cult robes (#11738)"
+        },
+        {
+          "commit": "e3318ff10a345816add5d7a3efcf7d55b96999c9",
+          "contributor": "Tsar-Salat",
+          "subject": "Ports TG centcom outfits (#11097)"
+        },
+        {
+          "commit": "d2d6073fb04d3fd3f062a911f6136f1ed3746a54",
+          "contributor": "Tsar-Salat",
+          "subject": "clockarmor, bows, ion rifles (#10997)"
+        },
+        {
+          "commit": "9106b1d8fc151acc9f113582799e291f762ba912",
+          "contributor": "Tsar-Salat",
+          "subject": "[MDB Ignore]Fix every missing icon. Add icons for every worn item. (#10869)"
+        }
+      ],
+      "changes": "Selected states extracted and renamed; frame order converted to RSI; delays converted from deciseconds to seconds; pixels unchanged."
+    },
+    {
+      "rsi": "helmet.rsi",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/mob/clothing/head/helmet.dmi",
+      "path": "icons/mob/clothing/head/helmet.dmi",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "states": {
+        "clockwork_helmet": "equipped-HELMET"
+      },
+      "license": "CC-BY-SA-3.0",
+      "history": [
+        {
+          "commit": "c6dd10e95d37ce6b04595ccf30d7a1a86a89105a",
+          "contributor": "TsunamiAnt",
+          "subject": "Vampire touchening (#13457)"
+        },
+        {
+          "commit": "39a3346ae60ad65924a5c9f69a3ca93a535e986f",
+          "contributor": "r1ks-iwnl",
+          "subject": "Updates HECK suit sprite + Adds the GAGS recolorable element (#13885)"
+        },
+        {
+          "commit": "81416778e3ebe657491dee7d4a491dd7adf9dc80",
+          "contributor": "Marshmellow105",
+          "subject": "COPS: Law enforcement gear/uniform updates (#12331)"
+        },
+        {
+          "commit": "a6427cbf071f2d465abb989688d434aa495ec34e",
+          "contributor": "Tsar-Salat",
+          "subject": "Fixes Bandanas. Adds GAGS support for Bandanas (#11125)"
+        },
+        {
+          "commit": "cb1a53dd4d674fa413e81ec3297cc1375aeea0ee",
+          "contributor": "ktlwjec",
+          "subject": "helmet of justice (#11797)"
+        },
+        {
+          "commit": "9106b1d8fc151acc9f113582799e291f762ba912",
+          "contributor": "Tsar-Salat",
+          "subject": "[MDB Ignore]Fix every missing icon. Add icons for every worn item. (#10869)"
+        }
+      ],
+      "changes": "Selected states extracted and renamed; frame order converted to RSI; delays converted from deciseconds to seconds; pixels unchanged."
+    },
+    {
+      "rsi": "spear_left.rsi",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/mob/inhands/antag/clockwork_lefthand.dmi",
+      "path": "icons/mob/inhands/antag/clockwork_lefthand.dmi",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "states": {
+        "ratvarian_spear": "inhand-left"
+      },
+      "license": "CC-BY-SA-3.0",
+      "history": [
+        {
+          "commit": "cc43579912d6adc5d7e91afd95cdffa4916d2185",
+          "contributor": "Cenrus",
+          "subject": "Ancient spear nullrod option, plus brass spear resprite (#4123)"
+        },
+        {
+          "commit": "8168ce7f06afc301b3226661703df356c5936599",
+          "contributor": "PowerfulBacon",
+          "subject": "Clock cult v2 - Fully rewritten from the ground up (#2124)"
+        },
+        {
+          "commit": "38254deeebd3d7e81ab282e36174e1713c5ead20",
+          "contributor": "qwerty",
+          "subject": "the great icon compression"
+        },
+        {
+          "commit": "d525b18d8d58639c5466b654bffa81a463741a2a",
+          "contributor": "ShizCalev",
+          "subject": "Completes major inhand split project (#29574)"
+        }
+      ],
+      "changes": "Selected states extracted and renamed; frame order converted to RSI; delays converted from deciseconds to seconds; pixels unchanged."
+    },
+    {
+      "rsi": "spear_right.rsi",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/mob/inhands/antag/clockwork_righthand.dmi",
+      "path": "icons/mob/inhands/antag/clockwork_righthand.dmi",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "states": {
+        "ratvarian_spear": "inhand-right"
+      },
+      "license": "CC-BY-SA-3.0",
+      "history": [
+        {
+          "commit": "cc43579912d6adc5d7e91afd95cdffa4916d2185",
+          "contributor": "Cenrus",
+          "subject": "Ancient spear nullrod option, plus brass spear resprite (#4123)"
+        },
+        {
+          "commit": "8168ce7f06afc301b3226661703df356c5936599",
+          "contributor": "PowerfulBacon",
+          "subject": "Clock cult v2 - Fully rewritten from the ground up (#2124)"
+        },
+        {
+          "commit": "38254deeebd3d7e81ab282e36174e1713c5ead20",
+          "contributor": "qwerty",
+          "subject": "the great icon compression"
+        },
+        {
+          "commit": "d525b18d8d58639c5466b654bffa81a463741a2a",
+          "contributor": "ShizCalev",
+          "subject": "Completes major inhand split project (#29574)"
+        }
+      ],
+      "changes": "Selected states extracted and renamed; frame order converted to RSI; delays converted from deciseconds to seconds; pixels unchanged."
+    },
+    {
+      "rsi": "ark.rsi",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/effects/96x96.dmi",
+      "path": "icons/effects/96x96.dmi",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "states": {
+        "clockwork_gateway_charging": "charging",
+        "clockwork_gateway_active": "active"
+      },
+      "license": "CC-BY-SA-3.0",
+      "history": [
+        {
+          "commit": "191a6f74582a10d5f4ecd6c80a471509286d2589",
+          "contributor": "mrmanlikesbt",
+          "subject": "Speeds up lighting initialization by ~4 seconds and makes the starlight icon less awful (#14212)"
+        },
+        {
+          "commit": "c7cb9bb7ec6aefea2abcd4d3fb804156fa157246",
+          "contributor": "AgentCitrus",
+          "subject": "Supermatter Visual Upgrade (#9438)"
+        },
+        {
+          "commit": "4ddaa333985f438200ba1e68832262edc794fbfc",
+          "contributor": "Lamiales",
+          "subject": "Re-opening of [PORT] Full Heretic Overhaul (#8343)"
+        },
+        {
+          "commit": "5309917772fd7b8a40378c47d631b2222fd71608",
+          "contributor": "Zamso",
+          "subject": "nerfs cluwne rune (#2683)"
+        },
+        {
+          "commit": "cbf27e98e0809be31fe72f8d235a2d5816cdb6f5",
+          "contributor": "zeskorion",
+          "subject": "another random maint expansion: making maint a tad more dangerous (#2273)"
+        },
+        {
+          "commit": "721b26c6ae7221743aa3360f577f9a53115433ef",
+          "contributor": "EdgeLordExe",
+          "subject": "[Ready]Ports Heretic from TGstation. Second attempt boys (#2347)"
+        },
+        {
+          "commit": "23b1326c9c1dc696efb29bc31ca0b63e77feaba4",
+          "contributor": "Cenrus",
+          "subject": "[PORT] BoH bombing rework II (#45174) (#822)"
+        },
+        {
+          "commit": "38254deeebd3d7e81ab282e36174e1713c5ead20",
+          "contributor": "qwerty",
+          "subject": "the great icon compression"
+        },
+        {
+          "commit": "131f348682fc310efc8a62aa929086570c8314d7",
+          "contributor": "Kierany9",
+          "subject": "Added a sprite for Telekinetic Field (#42279)"
+        },
+        {
+          "commit": "c5f7f68d36f60ab914ec037b93eb8bcf0bd17917",
+          "contributor": "WJohn",
+          "subject": "Updates titanium and plastitanium floor sprites. (#39723)"
+        },
+        {
+          "commit": "ce91ec0ace99ddf54e651cac1bf058c395da4e0a",
+          "contributor": "AnturK",
+          "subject": "Restores empty state to 96x96"
+        },
+        {
+          "commit": "ba7f60c8bb21c46be84b63883c8c72a230787a2d",
+          "contributor": "MoreRobustThanYou",
+          "subject": "Holorays! (#35020)"
+        },
+        {
+          "commit": "418a8c0112a48a5197811858e2f47aaeadca9c15",
+          "contributor": "Robustin",
+          "subject": "Cult Update (#33810)"
+        },
+        {
+          "commit": "32c68a60bf88b5e350f8ef78609ffccc45821483",
+          "contributor": "Ashe Higgs",
+          "subject": "Clockwork Cult Defenses Patch - Leader role, traps and wiring, hulk and mech soft-counters, +more (#32935)"
+        },
+        {
+          "commit": "b7e7779c19b76449c290aaf2150fb93545b1a79a",
+          "contributor": "Ashe Higgs",
+          "subject": "(Ready) Clockwork Cult Rework: Proof-of-concept (#29741)"
+        },
+        {
+          "commit": "e58c92cc05316eba879416c8e0e589474cf50745",
+          "contributor": "Joan Lung",
+          "subject": "Makes the Ark of the Clockwork Justicar much more fancy"
+        },
+        {
+          "commit": "b44bb6ffad32eca9e4f8d8e3def22fa6b70d3a85",
+          "contributor": "oranges",
+          "subject": "Revert \"Adds the hivebot invasion event (#28514)\""
+        },
+        {
+          "commit": "78a2e5c4c37900b9c5f2b1e94ddaf65d1387eb6d",
+          "contributor": "Jordan Brown",
+          "subject": "Adds the hivebot invasion event (#28514)"
+        },
+        {
+          "commit": "e9f29620504b45176807dc96d427da8c53300355",
+          "contributor": "Joan Lung",
+          "subject": "Fixes the invisible rune"
+        },
+        {
+          "commit": "ae29f7202236714f7eadcb4faa0cb2cb4498d88d",
+          "contributor": "Ergovisavi",
+          "subject": "Fixing conflicts AGAIN for the leaper"
+        },
+        {
+          "commit": "f6ad5996f30ceed3785384bd11c97e3da1110f84",
+          "contributor": "Joan Lung",
+          "subject": "Rethemes the ash walker nest to match the Necropolis (#28886)"
+        },
+        {
+          "commit": "d165ecc6f2d28d8fdf203d7009428788f9c5fb78",
+          "contributor": "Joan Lung",
+          "subject": "Rethemes the Necropolis (#28857)"
+        },
+        {
+          "commit": "1d22e59fc45b46ca63179358276f1b05af46a7fc",
+          "contributor": "Joan Lung",
+          "subject": "The Ark of the Clockwork Justicar is easier to summon (#24078)"
+        },
+        {
+          "commit": "f663e54dd211f0d13a8468630c958083a80ec64d",
+          "contributor": "RandomMarine",
+          "subject": "Adds Mother Russia Bleeds shuttle"
+        },
+        {
+          "commit": "2c39711ab5b82de4c30ced680d878d6437c8bcfe",
+          "contributor": "Joan Lung",
+          "subject": "New Hierophant sprites (#22404)"
+        },
+        {
+          "commit": "7711fba9bdc247ac40f46a798da7c5db95a39094",
+          "contributor": "Joan Lung",
+          "subject": "The Hierophant (#19921)"
+        },
+        {
+          "commit": "bfb6dd5f943da36ac1d7fd897f530a91b5a566c7",
+          "contributor": "Joan Lung",
+          "subject": "The hyper-kinetic's explosion is now appropriately fast-looking (#19754)"
+        },
+        {
+          "commit": "d818ccee792b47d68578d908528a481e913295ba",
+          "contributor": "Xhuis",
+          "subject": "Necropolis Beautification (#19134)"
+        },
+        {
+          "commit": "faa1cdbf358e82b97cddad21919635811d6dd19a",
+          "contributor": "Joan Lung",
+          "subject": "Judicial Markers explode faster"
+        },
+        {
+          "commit": "9db2f57f360b624b63feb3102234ca6288f874a0",
+          "contributor": "TechnoAlchemist",
+          "subject": "Kills me, fucking, like, blows my brains out or something. (#18231)"
+        },
+        {
+          "commit": "d7a12cb772c4bce0849b597cde96079e9830d1ef",
+          "contributor": "Joan Lung",
+          "subject": "Fixes missing judicial marker and explosion sprites (#18200)"
+        },
+        {
+          "commit": "a28a7680cba9142ab80abc5ed480474ed0310462",
+          "contributor": "Xhuis",
+          "subject": "Clockwork sprites"
+        },
+        {
+          "commit": "05c3b2d07bd6b10dc7c0fa1784353b918c1ca326",
+          "contributor": "KorPhaeron",
+          "subject": "Test"
+        },
+        {
+          "commit": "1178fbe07997510f8c663a1f5113b92dc7384224",
+          "contributor": "Xhuis",
+          "subject": "Major cult changes"
+        },
+        {
+          "commit": "b67262b32b6b3f3ccbbdd4204a1424994645630b",
+          "contributor": "petethegoat@gmail.com",
+          "subject": "Ported over BS12 style cameras, which photograph a 3x3 area. It's fuckin radical."
+        },
+        {
+          "commit": "50f282f8b242687b82db6efdbe898740ee351775",
+          "contributor": "mport2004@gmail.com",
+          "subject": "Engineering got a new machine that spawns/feeds the singularity."
+        },
+        {
+          "commit": "662c08272acd7be79531550919f56f846726eabb",
+          "contributor": "only.lurking",
+          "subject": ""
+        }
+      ],
+      "changes": "Selected states extracted and renamed; frame order converted to RSI; delays converted from deciseconds to seconds; pixels unchanged."
+    }
+  ]
+}

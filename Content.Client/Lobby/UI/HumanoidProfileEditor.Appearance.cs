@@ -212,6 +212,8 @@ public sealed partial class HumanoidProfileEditor
     {
         Profile = Profile?.WithSpecies(newSpecies);
         OnSkinColorOnValueChanged(); // Species may have special color prefs, make sure to update it.
+        if (Profile != null) // Orbitra-Edit: при замене недоступного вида обновляем и данные внешности органов.
+            _markingsModel.OrganProfileData = _markingManager.GetProfileData(newSpecies, Profile.Sex, Profile.Appearance.SkinColor, Profile.Appearance.EyeColor);
         _markingsModel.OrganData = _markingManager.GetMarkingData(newSpecies);
         _markingsModel.ValidateMarkings();
         // In case there's job restrictions for the species

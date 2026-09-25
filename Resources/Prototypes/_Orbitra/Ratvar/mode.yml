@@ -1,0 +1,85 @@
+- type: gamePreset
+  id: OrbitraRatvar
+  alias: [ratvar]
+  name: orbitra-ratvar-title
+  description: orbitra-ratvar-description
+  showInVote: false
+  rules:
+  - OrbitraRatvarRule
+  - BasicStationEventScheduler
+  - SpaceTrafficControlEventScheduler
+  - BasicRoundstartVariation
+
+- type: entity
+  parent: [BaseGameRule, BaseRoundstartAntagRule]
+  id: OrbitraRatvarRule
+  components:
+  - type: GameRule
+    minPlayers: 15
+  - type: OrbitraRatvarRule
+  - type: AntagSelection
+    selectionTime: PrePlayerSpawn
+    antags:
+    - !type:OrbitraRatvarAntagCount
+      proto: OrbitraRatvarCultist
+
+- type: antag
+  id: OrbitraRatvarCultist
+  name: orbitra-ratvar-role-name
+  antagonist: true
+  setPreference: true
+  objective: orbitra-ratvar-objective
+  guides: [OrbitraRatvar]
+  tags: [OnStation, Roundstart]
+
+- type: antagSpecifier
+  parent: [MindshieldRestrictedAntag, CyborgBlacklistedAntag]
+  id: OrbitraRatvarCultist
+  jobBlacklist: [Chaplain]
+  prefRoles: [GenericTeamAntagonist, OrbitraRatvarCultist]
+  allowNonHumans: false
+  mindRoles: [OrbitraMindRoleRatvar]
+  startingGear: OrbitraRatvarGear
+  briefing:
+    text: orbitra-ratvar-briefing
+    color: "#C6A45E"
+
+- type: entity
+  parent: BaseMindRoleAntag
+  id: OrbitraMindRoleRatvar
+  name: Ratvar cultist role
+  components:
+  - type: MindRole
+    antagPrototype: OrbitraRatvarCultist
+    exclusiveAntag: true
+    roleType: TeamAntagonist
+  - type: OrbitraRatvarRole
+
+- type: startingGear
+  id: OrbitraRatvarGear
+  storage:
+    back:
+    - OrbitraRatvarTablet
+    - SheetBrass10
+
+- type: entity
+  parent: OrbitraMindRoleRatvar
+  id: OrbitraMindRoleRatvarMarauder
+  name: Ratvar marauder role
+  components:
+  - type: OrbitraRatvarRole
+    marauder: true
+
+- type: entity
+  parent: MobRatvarBase
+  id: OrbitraRatvarFinale
+  categories: [HideSpawnMenu]
+  components:
+  - type: AnnounceOnSpawn
+    message: orbitra-ratvar-victory
+    sender: orbitra-ratvar-title
+    color: "#C6A45E"
+    sound:
+      path: /Audio/Misc/ratvar_reveal.ogg
+  - type: TimedDespawn
+    lifetime: 8

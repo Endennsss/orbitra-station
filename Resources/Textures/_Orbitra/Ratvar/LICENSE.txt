@@ -1,0 +1,30 @@
+Ratvar sprite subsets from BeeStation-Hornet
+
+These nine RSI sets are licensed under Creative Commons Attribution-ShareAlike
+3.0 Unported (CC BY-SA 3.0), not the code license of Orbitra.
+License and legal terms: https://creativecommons.org/licenses/by-sa/3.0/legalcode
+
+Source repository: https://github.com/BeeStation/BeeStation-Hornet
+Pinned commit: a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4
+Source asset license: README.md, License section, at that commit.
+
+Per-file source URLs, selected original DMI states, contributor histories and
+transformations are recorded in provenance.json and in each RSI meta.json.
+History contributors are not necessarily authors of every individual state.
+Initial clockwork sprite set was committed by Xhuis in
+a28a7680cba9142ab80abc5ed480474ed0310462 ("Clockwork sprites").
+
+Changes: selection, state renaming, DMI-to-RSI packing and time-unit conversion.
+Pixel art has not been redrawn. Derived artwork remains CC BY-SA 3.0.
+No endorsement by the original creators is implied. No DM source is included.
+
+Existing Orbitra resources referenced by prototypes are not relicensed:
+Objects/Specific/Chapel/ratvartablet.rsi: CC-BY-SA-4.0, Davyei.
+Mobs/Demons/ratvar.rsi, Objects/Weapons/Melee/shields.rsi and brass construction
+resources retain their own original meta.json attribution and license.
+Clothing/OuterClothing/Armor/security.rsi and Clothing/Head/Helmets/security.rsi
+are reused for in-hand armor silhouettes with a runtime brass tint. Their
+CC-BY-SA-3.0 attribution to DieselMohawk and Nox38 remains in the source RSI.
+Objects/Weapons/Melee/spear.rsi retains the inherited reagent-fill overlay.
+/Audio/Misc/ratvar_reveal.ogg is reused under CC-BY-SA-3.0; its existing notice
+and pinned TG source are in /Audio/Misc/attributions.yml. No audio was imported.

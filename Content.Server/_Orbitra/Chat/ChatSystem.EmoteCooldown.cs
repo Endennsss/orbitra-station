@@ -7,7 +7,7 @@ namespace Content.Server.Chat.Systems;
 
 public sealed partial class ChatSystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private static readonly TimeSpan OrbitraEmoteCooldown = TimeSpan.FromSeconds(2);
     private readonly Dictionary<ICommonSession, TimeSpan> _orbitraNextEmotes = new();

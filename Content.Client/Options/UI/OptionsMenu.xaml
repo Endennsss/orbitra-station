@@ -5,6 +5,7 @@
             SetSize="960 720" MinSize="320 200">
     <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
     <!-- Orbitra-Edit - компактный выбор раздела настроек. -->
+    <Control> <!-- Orbitra-Edit: уведомление поверх содержимого, без пустого подвала. -->
     <BoxContainer Orientation="Vertical" SeparationOverride="12" Margin="12">
     <kit:OrbitraOptionButton Name="OrbitraTabSelect" />
     <kit:OrbitraEditorTabContainer Name="Tabs" Access="Public" VerticalExpand="True" TabsVisible="False">
@@ -15,6 +16,7 @@
         <tabs:AccessibilityTab Name="AccessibilityTab" />
         <tabs:AdminOptionsTab Name="AdminOptionsTab" />
     </kit:OrbitraEditorTabContainer>
-    <kit:OrbitraNotification Name="OrbitraFeedback" /> <!-- Orbitra-Edit - закреплённое место результата действия. -->
     </BoxContainer>
+    <kit:OrbitraNotification Name="OrbitraFeedback" VerticalAlignment="Bottom" Margin="12 0 12 64" />
+    </Control>
 </ui:FancyWindow>

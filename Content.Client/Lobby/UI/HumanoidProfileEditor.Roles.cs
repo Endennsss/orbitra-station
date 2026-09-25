@@ -290,7 +290,7 @@ public sealed partial class HumanoidProfileEditor
 
                 _jobPriorities.Add((job.ID, selector));
                 jobContainer.AddChild(selector);
-                selector.AttachOrbitraEquipment(loadoutWindowBtn); // Orbitra-Edit: снаряжение в заголовке профессии.
+                selector.AttachOrbitraEquipment(loadoutWindowBtn); // Orbitra-Edit: снаряжение рядом с приоритетами.
                 category.AddChild(jobContainer);
                 _orbitraJobRows.Add((job.LocalizedName, jobContainer, category)); // Orbitra-Edit
             }

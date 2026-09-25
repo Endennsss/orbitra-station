@@ -12,13 +12,13 @@ namespace Content.Client._Orbitra.NightVision;
 /// <summary>
 /// Applies device optics to the world after Bloom and before the engine's FOV mask.
 /// </summary>
-internal sealed class OrbitraNightVisionOverlay : Overlay
+internal sealed partial class OrbitraNightVisionOverlay : Overlay
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
-    [Dependency] private readonly IConfigurationManager _configuration = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IEyeManager _eye = default!;
-    [Dependency] private readonly IClyde _clyde = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
+    [Dependency] private IConfigurationManager _configuration = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IEyeManager _eye = default!;
+    [Dependency] private IClyde _clyde = default!;
 
     private static readonly ProtoId<ShaderPrototype> Shader = "OrbitraNightVision";
     private readonly OrbitraNightVisionPresentation _presentation;

@@ -15,8 +15,8 @@ public static class OrbitraDevLobbyCVars
 
 public sealed partial class MainScreen
 {
-    private ResPath _orbitraLobbyRequest;
-    private ResPath _orbitraLobbyReply;
+    private ResPath _orbitraLobbyRequest = default;
+    private ResPath _orbitraLobbyReply = default;
     private bool _orbitraLobbyPending;
     private float _orbitraLobbyElapsed;
     private float _orbitraLobbyPoll;

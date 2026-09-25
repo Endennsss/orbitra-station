@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "license": "CC-BY-SA-3.0",
+  "copyright": "From https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/effects/clockwork_effects.dmi. File history contributors (not individual state authors): Ashe Higgs, Cenrus, Joan Lung, Nerd Lord, PowerfulBacon, Xhuis, qwerty. Selected states extracted, renamed and repacked from DMI to RSI; no pixel edits. See ../provenance.json.",
+  "states": [
+    {
+      "name": "conversion",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "slowing",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "shield",
+      "directions": 1,
+      "delays": [
+        [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      ]
+    }
+  ]
+}

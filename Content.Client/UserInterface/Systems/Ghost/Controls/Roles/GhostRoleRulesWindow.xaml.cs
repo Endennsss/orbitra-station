@@ -10,7 +10,7 @@ using Robust.Shared.Utility;
 namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
 {
     [GenerateTypedNameReferences]
-    public sealed partial class GhostRoleRulesWindow : DefaultWindow
+    public sealed partial class GhostRoleRulesWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
     {
         [Dependency] private IConfigurationManager _cfg = IoCManager.Resolve<IConfigurationManager>();
         private float _timer;
@@ -18,8 +18,10 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
         public GhostRoleRulesWindow(string rules, Action<BaseButton.ButtonEventArgs> requestAction)
         {
             RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
             var ghostRoleTime = _cfg.GetCVar(CCVars.GhostRoleTime);
             _timer = ghostRoleTime;
+            TopBanner.SetMessage(FormattedMessage.FromMarkupPermissive(rules)); // Orbitra-Edit: правила видны и при нулевом таймере.
 
             if (ghostRoleTime > 0f)
             {

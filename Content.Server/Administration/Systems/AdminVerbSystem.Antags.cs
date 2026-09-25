@@ -50,6 +50,8 @@ public sealed partial class AdminVerbSystem
 
         var targetPlayer = targetActor.PlayerSession;
 
+        AddOrbitraRatvarVerb(args, player); // Orbitra-Edit - выдача роли с привязкой к культу
+
         var traitorName = Loc.GetString("admin-verb-text-make-traitor");
         Verb traitor = new()
         {

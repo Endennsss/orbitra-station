@@ -152,6 +152,8 @@ public sealed class OrbitraLobbySheetlet : Sheetlet<PalettedStylesheet>
         var tooltip = Box(OrbitraPalettes.PanelInset, OrbitraUiMetrics.Medium);
         tooltip.SetContentMarginOverride(StyleBox.Margin.All, OrbitraUiMetrics.Medium);
         rules.Add(E<PanelContainer>().Class("OrbitraTooltip").Panel(tooltip));
+        rules.Add(E<Robust.Client.UserInterface.CustomControls.Tooltip>().Class("OrbitraTooltipContent")
+            .Panel(new StyleBoxFlat(Color.Transparent)));
         rules.Add(E<PanelContainer>().Class("OrbitraNotification").Panel(Box(OrbitraPalettes.PanelBackground, OrbitraUiMetrics.Small)));
         foreach (var (kind, color) in new[] { ("Info", OrbitraPalettes.IconNormal), ("Success", sheet.PositivePalette.Text), ("Warning", sheet.HighlightPalette.Text), ("Error", sheet.NegativePalette.Text) })
             rules.Add(E<PanelContainer>().Class("OrbitraNotification", "OrbitraNotification" + kind)

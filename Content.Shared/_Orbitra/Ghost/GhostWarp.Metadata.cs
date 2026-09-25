@@ -1,8 +1,11 @@
 using Content.Shared.Roles;
+using System.Runtime.InteropServices;
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared.Ghost.Systems;
 
+// Сетевой сериализатор работает с полями, а не с их расположением в памяти между partial-файлами.
+[StructLayout(LayoutKind.Auto)]
 public partial struct GhostWarp
 {
     /// <summary>Unformatted character name, independent of the localized display label.</summary>

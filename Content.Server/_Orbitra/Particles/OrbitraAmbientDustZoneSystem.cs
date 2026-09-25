@@ -43,7 +43,7 @@ public sealed partial class OrbitraAmbientDustZoneSystem : EntitySystem
         _keys.AddRange(_markers.Keys);
         foreach (var uid in _keys)
         {
-            if (!TryComp<OrbitraAmbientDustZoneComponent>(uid, out var zone) || !TryComp<TransformComponent>(uid, out var xform))
+            if (!TryComp<OrbitraAmbientDustZoneComponent>(uid, out var zone) || !TryComp(uid, out TransformComponent? xform))
                 continue;
             var width = Math.Clamp(zone.Width, 1, 32);
             var height = Math.Clamp(zone.Height, 1, 32);

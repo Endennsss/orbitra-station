@@ -18,7 +18,7 @@
                 <BoxContainer Name="RandomizePanel" Orientation="Vertical" Visible="False" SeparationOverride="8">
                   <GridContainer Columns="2" MinWidth="250" HorizontalExpand="True">
                     <ui:RandomizeLockButton For="Name" LabelText="{Loc 'humanoid-profile-editor-randomize-name-button'}" />
-                    <ui:RandomizeLockButton For="Species" LabelText="{Loc 'humanoid-profile-editor-randomize-species-button'}" />
+                    <ui:RandomizeLockButton For="Species" Visible="False" LabelText="{Loc 'humanoid-profile-editor-randomize-species-button'}" /> <!-- Orbitra-Edit: только люди. -->
                     <ui:RandomizeLockButton For="Age" LabelText="{Loc 'humanoid-profile-editor-randomize-age-button'}" />
                     <ui:RandomizeLockButton For="Sex" LabelText="{Loc 'humanoid-profile-editor-randomize-sex-button'}" />
                     <ui:RandomizeLockButton For="Skin" LabelText="{Loc 'humanoid-profile-editor-randomize-skin-button'}" />
@@ -28,7 +28,7 @@
                   <orbitra:OrbitraLobbyButton Name="RandomizeUnlockedButton" Text="{Loc 'humanoid-profile-editor-randomize-unlocked-button'}" StyleClasses="OrbitraLobbyButton" />
                 </BoxContainer>
                 <!-- Species -->
-                <kit:OrbitraFormRow HorizontalExpand="True">
+                <kit:OrbitraFormRow HorizontalExpand="True" Visible="False"> <!-- Orbitra-Edit: только люди. -->
                   <Label Text="{Loc 'humanoid-profile-editor-species-label'}" />
                   <Control HorizontalExpand="True" />
                   <kit:OrbitraTextureButton Name="SpeciesInfoButton" Scale="0.3 0.3" VerticalAlignment="Center" ToolTip="{Loc 'humanoid-profile-editor-guidebook-button-tooltip'}" />

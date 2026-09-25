@@ -1,0 +1,14 @@
+- type: shader
+  id: OrbitraThermalWorld
+  kind: source
+  path: /Textures/_Orbitra/Shaders/thermal_world.swsl
+
+- type: shader
+  id: OrbitraThermalExposure
+  kind: source
+  path: /Textures/_Orbitra/Shaders/thermal_exposure.swsl
+
+- type: shader
+  id: OrbitraThermalContact
+  kind: source
+  path: /Textures/_Orbitra/Shaders/thermal_contact.swsl

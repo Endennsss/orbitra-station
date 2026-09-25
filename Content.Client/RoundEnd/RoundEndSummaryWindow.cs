@@ -13,7 +13,7 @@ namespace Content.Client.RoundEnd;
 /// <summary>
 /// Window displaying round end information including player manifest.
 /// </summary>
-public sealed partial class RoundEndSummaryWindow : DefaultWindow
+public sealed partial class RoundEndSummaryWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
 {
     [Dependency] private IEntityManager _entityManager = default!;
 
@@ -39,7 +39,8 @@ public sealed partial class RoundEndSummaryWindow : DefaultWindow
         IoCManager.InjectDependencies(this);
         _playersInfo = info;
 
-        MinSize = SetSize = new Vector2(720, 580);
+        MinSize = new Vector2(420, 300); // Orbitra-Edit
+        SetSize = new Vector2(900, 620); // Orbitra-Edit
 
         Title = Loc.GetString("round-end-summary-window-title");
 
@@ -55,6 +56,7 @@ public sealed partial class RoundEndSummaryWindow : DefaultWindow
         roundEndTabs.AddChild(MakePlayerManifestTab());
 
         ContentsContainer.AddChild(roundEndTabs);
+        InitializeOrbitraSummary(roundEndTabs); // Orbitra-Edit: единая оболочка и согласованные колонки.
 
         OpenCenteredRight();
         MoveToFront();
@@ -196,7 +198,7 @@ public sealed partial class RoundEndSummaryWindow : DefaultWindow
 
         _playerGrid = new GridContainer
         {
-            Columns = 6, // Player Sprite,IC Name,Role,Player Type,OOC Name
+            Columns = 1, // Orbitra-Edit: каждая строка сама размещает четыре одинаковых колонки.
             HorizontalExpand = true,
         };
 
@@ -249,7 +251,7 @@ public sealed partial class RoundEndSummaryWindow : DefaultWindow
         var sortedPlayers = GetSortedPlayers();
         foreach (var playerInfo in sortedPlayers)
         {
-            AddPlayerRow(playerInfo);
+            AddOrbitraPlayerRow(playerInfo); // Orbitra-Edit
         }
     }
 

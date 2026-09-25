@@ -10,7 +10,8 @@ public sealed partial class RequirementsSelector
     private bool _orbitraLayoutApplied;
     private (string, int)[] _orbitraItems = [];
     private OptionButton? _orbitraCompact;
-    private BoxContainer? _orbitraHeading;
+    private BoxContainer? _orbitraActions;
+    private Button? _orbitraEquipment;
     private RichTextLabel? _orbitraReason;
     private FormattedMessage? _orbitraRequirements;
     private bool _orbitraLocked;
@@ -55,14 +56,19 @@ public sealed partial class RequirementsSelector
         }
         AddChild(heading);
         heading.SetPositionFirst();
-        _orbitraHeading = heading;
+        _orbitraActions = new BoxContainer { HorizontalExpand = true, SeparationOverride = 8 };
+        OptionsContainer.Orphan();
+        _orbitraActions.AddChild(OptionsContainer);
+        AddChild(_orbitraActions);
+        _orbitraActions.SetPositionInParent(1);
     }
 
     internal void AttachOrbitraEquipment(Button button)
     {
         ApplyOrbitraLayout();
         button.Margin = new Thickness(0);
-        _orbitraHeading!.AddChild(button);
+        _orbitraEquipment = button;
+        _orbitraActions!.AddChild(button);
     }
 
     private void SetOrbitraRequirements(FormattedMessage? reason)
@@ -81,10 +87,16 @@ public sealed partial class RequirementsSelector
     {
         if (_orbitraLayoutApplied)
         {
-            var compact = availableSize.X < 520;
+            var priorityWidth = availableSize.X;
+            if (_orbitraEquipment != null)
+            {
+                _orbitraEquipment.Measure(availableSize);
+                priorityWidth = Math.Max(0, priorityWidth - _orbitraEquipment.DesiredSize.X - 8);
+            }
+            var compact = priorityWidth < 520;
             _lockStripe.Visible = false;
             _options.Visible = !compact && !_orbitraLocked;
-            _options.SetWidth = Math.Min(440, availableSize.X);
+            _options.SetWidth = Math.Min(440, priorityWidth);
             _orbitraCompact!.Visible = compact && !_orbitraLocked;
         }
         return base.MeasureOverride(availableSize);

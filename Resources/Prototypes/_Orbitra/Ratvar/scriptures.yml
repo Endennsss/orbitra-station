@@ -1,0 +1,129 @@
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarRepair
+  name: orbitra-ratvar-scripture-repair
+  description: orbitra-ratvar-scripture-repair-desc
+  tier: 2
+  energy: 50
+  delay: 5
+  repair: true
+  repairAmount: 50
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarBrass
+  name: orbitra-ratvar-scripture-brass
+  description: orbitra-ratvar-scripture-brass-desc
+  tier: 1
+  energy: 30
+  delay: 2
+  result: SheetBrass10
+  structure: false
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarConversionSigil
+  name: orbitra-ratvar-scripture-conversionsigil
+  description: orbitra-ratvar-scripture-conversionsigil-desc
+  tier: 1
+  energy: 80
+  delay: 5
+  result: OrbitraRatvarConversionSigil
+  structure: true
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarGenerator
+  name: orbitra-ratvar-scripture-generator
+  description: orbitra-ratvar-scripture-generator-desc
+  tier: 1
+  energy: 100
+  delay: 8
+  result: OrbitraRatvarGenerator
+  structure: true
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarArmor
+  name: orbitra-ratvar-scripture-armor
+  description: orbitra-ratvar-scripture-armor-desc
+  tier: 2
+  energy: 150
+  delay: 5
+  result: OrbitraRatvarArmor
+  structure: false
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarHelmet
+  name: orbitra-ratvar-scripture-helmet
+  description: orbitra-ratvar-scripture-helmet-desc
+  tier: 2
+  energy: 75
+  delay: 3
+  result: OrbitraRatvarHelmet
+  structure: false
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarSpear
+  name: orbitra-ratvar-scripture-spear
+  description: orbitra-ratvar-scripture-spear-desc
+  tier: 2
+  energy: 100
+  delay: 4
+  result: OrbitraRatvarSpear
+  structure: false
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarShield
+  name: orbitra-ratvar-scripture-shield
+  description: orbitra-ratvar-scripture-shield-desc
+  tier: 2
+  energy: 100
+  delay: 4
+  result: OrbitraRatvarShield
+  structure: false
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarSlowingSigil
+  name: orbitra-ratvar-scripture-slowingsigil
+  description: orbitra-ratvar-scripture-slowingsigil-desc
+  tier: 2
+  energy: 100
+  delay: 5
+  result: OrbitraRatvarSlowingSigil
+  structure: true
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarObelisk
+  name: orbitra-ratvar-scripture-obelisk
+  description: orbitra-ratvar-scripture-obelisk-desc
+  tier: 2
+  energy: 200
+  delay: 8
+  result: OrbitraRatvarObelisk
+  structure: true
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarTurret
+  name: orbitra-ratvar-scripture-turret
+  description: orbitra-ratvar-scripture-turret-desc
+  tier: 3
+  energy: 500
+  delay: 10
+  result: OrbitraRatvarTurret
+  structure: true
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarMarauder
+  name: orbitra-ratvar-scripture-marauder
+  description: orbitra-ratvar-scripture-marauder-desc
+  tier: 3
+  energy: 700
+  delay: 15
+  result: OrbitraRatvarMarauder
+  structure: false
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarArk
+  name: orbitra-ratvar-scripture-ark
+  description: orbitra-ratvar-scripture-ark-desc
+  tier: 3
+  energy: 1000
+  delay: 20
+  result: OrbitraRatvarArk
+  structure: true

@@ -23,7 +23,7 @@ public sealed class HumanoidProfileTests : GameTest
     private static readonly EntProtoId BaseSpecies = "MobHuman";
     private static readonly ProtoId<SpeciesPrototype> Reptilian = "Reptilian";
     private static readonly ProtoId<EmoteSoundsPrototype> ReptilianVoice = "FemaleReptilian";
-    private static readonly string[] ExpectedRoundStartSpecies = ["Human", "Dwarf", "Reptilian"];
+    private static readonly string[] ExpectedRoundStartSpecies = ["Human"]; // Orbitra-Edit
 
     private static readonly string[] _species = GameDataScrounger.PrototypesOfKind<SpeciesPrototype>();
 
@@ -68,7 +68,7 @@ public sealed class HumanoidProfileTests : GameTest
 
     [Test]
     [TestOf(typeof(SpeciesPrototype))]
-    [Description("The character editor must offer exactly Human, Dwarf, and Reptilian as round-start species.")]
+    [Description("The character editor must offer only Human as a round-start species.")]
     public async Task RoundStartSpeciesAreRestricted()
     {
         await Server.WaitIdleAsync();

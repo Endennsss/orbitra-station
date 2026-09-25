@@ -7,10 +7,10 @@ namespace Content.Client._Orbitra.NightVision;
 /// <summary>
 /// Reuses the source's lighting lift without requesting a screen copy.
 /// </summary>
-internal sealed class OrbitraNightVisionLightOverlay : Overlay
+internal sealed partial class OrbitraNightVisionLightOverlay : Overlay
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IEyeManager _eye = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private IEyeManager _eye = default!;
     private readonly OrbitraNightVisionPresentation _presentation;
 
     public override OverlaySpace Space => OverlaySpace.BeforeLighting;

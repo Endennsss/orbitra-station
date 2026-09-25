@@ -21,6 +21,9 @@ internal sealed class OrbitraTooltip : PanelContainer
 
     internal OrbitraTooltip(Control content)
     {
+        // Штатная оболочка supplier не должна рисовать вторую рамку внутри подсказки Orbitra.
+        if (content is Robust.Client.UserInterface.CustomControls.Tooltip)
+            content.AddStyleClass("OrbitraTooltipContent");
         MaxWidth = 360;
         MouseFilter = MouseFilterMode.Ignore;
         AddStyleClass("OrbitraTooltip");

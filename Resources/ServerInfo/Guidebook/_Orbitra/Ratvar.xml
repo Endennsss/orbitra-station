@@ -1,0 +1,20 @@
+<Document>
+  # Культ Ратвара / Ratvar Cult
+  <Box><GuideEntityEmbed Entity="OrbitraRatvarTablet" /></Box>
+  Держите табличку в руке для писаний. Генераторы дают общую энергию.
+  Коллективный разум: пишите +р текст в обычный чат. Сообщение видят только участники вашего культа, рация и табличка не нужны. Пауза между сообщениями составляет две секунды.
+  Обращение: примените табличку к живому связанному человеку на печати и не двигайтесь 15 секунд.
+  Защита разума, священник и несовместимая роль препятствуют обращению.
+  Святая вода должна непрерывно присутствовать в организме 30 секунд. После очищения действует защита на две минуты.
+  Вторая ступень: два новых сознания и 600 выработанной энергии. Третья: четыре сознания и 1800 энергии.
+  Ковчег строится только на основной станции. После 20 минут раунда для запуска нужны третья ступень, три живых слуги рядом и 2000 энергии. Защищайте ковчег пять минут. Уничтожение активного ковчега означает поражение.
+
+  ## English
+  Hold the tablet to access scriptures. Generators produce shared energy.
+  Collective mind: type +r text in local chat. Only your cult receives it, without a radio or tablet. Messages have a two-second cooldown.
+  Conversion: use the tablet on a living cuffed human standing on a submission sigil, then remain still for 15 seconds.
+  Mindshields, chaplains and incompatible antagonist roles prevent conversion.
+  Holy water must remain in the body for 30 continuous seconds. Purification grants two minutes of immunity.
+  Tier two requires two unique converted minds and 600 generated energy; tier three requires four minds and 1800 energy.
+  Build the ark on the main station. Activation requires 20 minutes of round time, tier three, three living servants nearby and 2000 energy. Defend it for five minutes. Losing the active ark means defeat.
+</Document>

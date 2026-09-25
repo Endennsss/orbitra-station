@@ -9,7 +9,7 @@ namespace Content.Client.NightVision;
 public sealed partial class NightVisionSystem
 {
     // Оформление приборов после штатного выбора источника ночного зрения.
-    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private IGameTiming _timing = default!;
 
     private readonly OrbitraNightVisionPresentation _orbitraPresentation = new();
     private OrbitraNightVisionLightOverlay _orbitraLight = default!;

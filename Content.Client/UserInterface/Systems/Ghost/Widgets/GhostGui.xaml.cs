@@ -19,6 +19,7 @@ public sealed partial class GhostGui : UIWidget
     public GhostGui()
     {
         RobustXamlLoader.Load(this);
+        InitializeOrbitraGhostBar(); // Orbitra-Edit
 
         TargetWindow = new GhostTargetWindow();
 
@@ -27,7 +28,7 @@ public sealed partial class GhostGui : UIWidget
         GhostWarpButton.OnPressed += _ => RequestWarpsPressed?.Invoke();
         ReturnToBodyButton.OnPressed += _ => ReturnToBodyPressed?.Invoke();
         GhostRolesButton.OnPressed += _ => GhostRolesPressed?.Invoke();
-        GhostRolesButton.OnPressed += _ => GhostRolesButton.StyleClasses.Remove(StyleClass.Negative);
+        GhostRolesButton.OnPressed += _ => GhostRolesButton.RemoveStyleClass("OrbitraGhostRolesAvailable"); // Orbitra-Edit
     }
 
     public void Hide()
@@ -46,7 +47,7 @@ public sealed partial class GhostGui : UIWidget
 
             if (roles > _prevNumberRoles)
             {
-                GhostRolesButton.StyleClasses.Add(StyleClass.Negative);
+                GhostRolesButton.AddStyleClass("OrbitraGhostRolesAvailable"); // Orbitra-Edit
             }
 
             _prevNumberRoles = (int)roles;

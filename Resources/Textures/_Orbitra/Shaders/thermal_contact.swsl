@@ -1,0 +1,29 @@
+light_mode unshaded;
+uniform highp float activation;
+uniform highp float glow_width;
+
+void fragment() {
+    highp vec4 source = zTexture(UV);
+    highp vec2 step = TEXTURE_PIXEL_SIZE * glow_width;
+    highp float near_alpha = 0.0;
+    highp float far_alpha = 0.0;
+    // Свечение повторяет альфа-контур готового спрайта, а не геометрическую заготовку.
+    for (highp int y = -1; y <= 1; y++) {
+        for (highp int x = -1; x <= 1; x++) {
+            highp vec2 offset = vec2(float(x), float(y)) * step;
+            near_alpha += zTexture(UV + offset).a / 9.0;
+            far_alpha += zTexture(UV + offset * 2.5).a / 9.0;
+        }
+    }
+    highp vec3 original = source.rgb / max(source.a, 0.001);
+    highp float detail = clamp(dot(original, vec3(0.2126, 0.7152, 0.0722)), 0.0, 1.0);
+    highp float interior = smoothstep(0.25, 0.95, near_alpha);
+    highp vec3 heat = mix(vec3(1.0, 0.16, 0.015), vec3(1.0, 0.93, 0.045),
+        interior * (0.78 + 0.22 * sqrt(detail)));
+    highp float body = source.a;
+    highp float halo = (near_alpha * 0.28 + far_alpha * 0.12) * (1.0 - body);
+    highp float alpha = clamp(body + halo, 0.0, 1.0) * activation;
+    highp vec3 color = mix(vec3(1.0, 0.09, 0.025), heat, body);
+    // Штатный постпроцессинг спрайтов использует premultiplied alpha.
+    COLOR = vec4(color * alpha, alpha);
+}

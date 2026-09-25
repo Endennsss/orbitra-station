@@ -1,0 +1,125 @@
+- type: npcFaction
+  id: OrbitraRatvar
+  hostile: [NanoTrasen, Syndicate]
+  friendly: [OrbitraRatvar]
+
+- type: entity
+  abstract: true
+  parent: [BaseStructure, StructureHealthMachine]
+  id: OrbitraRatvarStructureBase
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/mechanisms.rsi
+    state: generator
+  - type: InteractionOutline
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: OrbitraRatvarStructure
+
+- type: entity
+  parent: OrbitraRatvarStructureBase
+  id: OrbitraRatvarGenerator
+  name: clockwork generator
+  components:
+  - type: Construction
+    graph: OrbitraRatvarMechanism
+    node: mechanism
+    deconstructionTarget: dismantled
+  - type: OrbitraRatvarStructure
+    energyPerSecond: 2
+
+- type: entity
+  parent: OrbitraRatvarStructureBase
+  id: OrbitraRatvarConversionSigil
+  name: submission sigil
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/sigils.rsi
+    state: conversion
+    drawdepth: FloorTiles
+  - type: Fixtures
+    fixtures: {}
+  - type: OrbitraRatvarStructure
+    conversionSigil: true
+
+- type: entity
+  parent: OrbitraRatvarStructureBase
+  id: OrbitraRatvarObelisk
+  name: clockwork obelisk
+  components:
+  - type: Construction
+    graph: OrbitraRatvarMechanism
+    node: mechanism
+    deconstructionTarget: dismantled
+  - type: Sprite
+    state: obelisk
+  - type: OrbitraRatvarTablet
+    requireHeld: false
+    allowScriptures: false
+  - type: ActivatableUI
+    key: enum.OrbitraRatvarUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.OrbitraRatvarUiKey.Key:
+        type: OrbitraRatvarBoundUserInterface
+
+- type: entity
+  parent: OrbitraRatvarConversionSigil
+  id: OrbitraRatvarSlowingSigil
+  name: transgression sigil
+  components:
+  - type: Sprite
+    state: slowing
+  - type: OrbitraRatvarStructure
+    conversionSigil: false
+    slowing: true
+  - type: Fixtures
+    fixtures:
+      sensor:
+        shape: !type:PhysShapeCircle
+          radius: 0.45
+        hard: false
+        mask: [MobLayer]
+        layer: [MidImpassable]
+
+- type: entity
+  parent: [BaseWeaponBallisticTurret, OrbitraRatvarStructureBase]
+  id: OrbitraRatvarTurret
+  name: ocular warden
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/mechanisms.rsi
+    layers:
+    - state: turret
+  - type: NpcFactionMember
+    factions: [OrbitraRatvar]
+  - type: Gun
+    fireRate: 2
+
+- type: entity
+  parent: OrbitraRatvarStructureBase
+  id: OrbitraRatvarArk
+  name: ark of the Clockwork Justiciar
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/ark.rsi
+    drawdepth: Mobs
+    layers:
+    - state: charging
+      map: [enum.OrbitraRatvarVisuals.Ark]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OrbitraRatvarVisuals.Active:
+        enum.OrbitraRatvarVisuals.Ark:
+          True: { state: active }
+          False: { state: charging }
+  - type: OrbitraRatvarStructure
+    ark: true
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 1200
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [Destruction]

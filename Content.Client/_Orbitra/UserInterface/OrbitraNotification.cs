@@ -1,3 +1,4 @@
+using System.Numerics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Timing;
@@ -10,7 +11,8 @@ public enum OrbitraNotificationKind { Info, Success, Warning, Error }
 /// <summary>A reserved owner-local message slot; replacing a message never queues another one.</summary>
 public sealed class OrbitraNotification : Control
 {
-    private readonly PanelContainer _panel = new() { Visible = false, MaxWidth = 480, HorizontalExpand = true, HorizontalAlignment = HAlignment.Center, RectClipContent = true };
+    private readonly PanelContainer _panel = new() { Visible = false, HorizontalExpand = true, RectClipContent = true };
+    private readonly OrbitraMotionHost _motion = new() { MaxWidth = 480, HorizontalExpand = true, HorizontalAlignment = HAlignment.Left, MouseFilter = MouseFilterMode.Ignore };
     private readonly RichTextLabel _message = new() { HorizontalExpand = true, VerticalAlignment = VAlignment.Center };
     private readonly OrbitraIcon _icon = new();
     private readonly OrbitraWindowCloseButton _close = new();
@@ -25,6 +27,7 @@ public sealed class OrbitraNotification : Control
     {
         SetHeight = MinHeight = MaxHeight = 64;
         HorizontalExpand = true;
+        MouseFilter = MouseFilterMode.Ignore;
         _panel.AddStyleClass("OrbitraNotification");
         var row = new BoxContainer { SeparationOverride = OrbitraUiMetrics.Small };
         row.AddChild(_icon);
@@ -32,7 +35,8 @@ public sealed class OrbitraNotification : Control
         row.AddChild(_close);
         _close.OnPressed += _ => Dismiss();
         _panel.AddChild(row);
-        AddChild(_panel);
+        _motion.AddChild(_panel);
+        AddChild(_motion);
     }
 
     /// <summary>Displays an operation result without moving focus or changing the reserved geometry.</summary>
@@ -41,6 +45,7 @@ public sealed class OrbitraNotification : Control
         var reveal = !_panel.Visible || _hiding;
         _generation++;
         _hiding = false;
+        OrbitraMotion.Finish(_panel, UserInterfaceManager);
         Kind = kind;
         if (UserInterfaceManager.KeyboardFocused != _close)
             _returnFocus = UserInterfaceManager.KeyboardFocused;
@@ -52,9 +57,10 @@ public sealed class OrbitraNotification : Control
         _panel.AddStyleClass("OrbitraNotification" + kind);
         _icon.Icon = kind == OrbitraNotificationKind.Success ? "check" : kind == OrbitraNotificationKind.Info ? "info" : "warning";
         _panel.Visible = true;
+        _panel.Modulate = Color.White;
         _close.Disabled = false;
         if (reveal)
-            OrbitraMotion.Reveal(_panel, OrbitraMotionPresets.Section);
+            _motion.Reveal(OrbitraMotionPresets.Section, new Vector2(-48, 0));
     }
 
     /// <summary>Dismisses the current result, keeping its layout slot reserved.</summary>
@@ -88,6 +94,7 @@ public sealed class OrbitraNotification : Control
         _generation++;
         _hiding = false;
         OrbitraMotion.Finish(_panel, UserInterfaceManager);
+        OrbitraMotion.Finish(_motion, UserInterfaceManager);
         _panel.Visible = false;
         _message.SetMessage("");
         _panel.ToolTip = null;

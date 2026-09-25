@@ -91,7 +91,7 @@ public sealed partial class OrbitraParticleSystem
         grid = default;
         origin = default;
         if (light.Comp.Deleted || !light.Comp.Enabled || light.Comp.Energy <= 0 || light.Comp.ContainerOccluded ||
-            light.Comp.MaskAutoRotate || !TryComp<TransformComponent>(light, out var xform) || !xform.Anchored ||
+            light.Comp.MaskAutoRotate || !TryComp(light, out TransformComponent? xform) || !xform.Anchored ||
             xform.GridUid is not { } gridUid || !TryComp<OrbitraAmbientDustGridComponent>(gridUid, out var zones) ||
             zones.Regions.Count == 0 || !TryComp<SpriteComponent>(light, out var sprite) || !sprite.Visible ||
             sprite.ContainerOccluded || sprite.Color.A <= 0 || (MetaData(light).Flags & MetaDataFlags.Detached) != 0)

@@ -5,7 +5,7 @@ namespace Content.Server.Ghost;
 
 public sealed partial class GhostSystem
 {
-    [Dependency] private readonly SharedRoleSystem _roles = default!;
+    [Dependency] private SharedRoleSystem _roles = default!;
 
     /// <summary>Supplies presentation metadata without changing target eligibility or PVS.</summary>
     private GhostWarp CreateOrbitraPlayerWarp(EntityUid target, EntityUid? mind, string displayName)

@@ -10,11 +10,11 @@ using Robust.Shared.Localization;
 namespace Content.Client._Orbitra.UserInterface;
 
 /// <summary>Chat shortcuts using native emote prototypes and the radial menu controller.</summary>
-public sealed class OrbitraQuickEmotes : PanelContainer
+public sealed partial class OrbitraQuickEmotes : PanelContainer
 {
-    [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IEntityManager _entities = default!;
-    [Dependency] private readonly ILocalizationManager _loc = default!;
+    [Dependency] private IPlayerManager _player = default!;
+    [Dependency] private IEntityManager _entities = default!;
+    [Dependency] private ILocalizationManager _loc = default!;
     private readonly OrbitraFlowGrid _buttons = new() { HSeparationOverride = 4, VSeparationOverride = 4 };
     private readonly List<string> _ids = new();
 

@@ -1,0 +1,25 @@
+- type: entity
+  parent: ClothingEyesBase
+  id: OrbitraClothingEyesThermal
+  name: Orbitra thermal goggles
+  description: Reveals anonymous heat signatures of nearby living creatures through walls. Switch on while worn.
+  components:
+  - type: Sprite
+    sprite: Clothing/Eyes/Glasses/thermal.rsi
+  - type: Clothing
+    sprite: Clothing/Eyes/Glasses/thermal.rsi
+  - type: OrbitraThermalVision
+
+- type: entity
+  parent: BaseAction
+  id: OrbitraActionToggleThermalVision
+  name: Toggle thermal vision
+  description: Switch the thermal imaging mode on or off.
+  components:
+  - type: Action
+    useDelay: 0.3
+  - type: Sprite
+    sprite: Clothing/Eyes/Glasses/thermal.rsi
+    state: icon
+  - type: InstantAction
+    event: !type:OrbitraToggleThermalVisionEvent {}

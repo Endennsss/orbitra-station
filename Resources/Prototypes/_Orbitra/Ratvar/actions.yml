@@ -1,0 +1,17 @@
+- type: entity
+  parent: BaseAction
+  id: OrbitraActionRatvarDefence
+  name: Brass bulwark
+  description: Reduce incoming damage for five seconds.
+  components:
+  - type: Action
+    useDelay: 25
+  - type: Sprite
+    sprite: Objects/Weapons/Melee/shields.rsi
+    state: ratvarian-icon
+  - type: InstantAction
+    event: !type:OrbitraRatvarDefenceEvent
+
+- type: entity
+  parent: StatusEffectSlowdown
+  id: OrbitraRatvarSlowStatus

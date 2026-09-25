@@ -1,0 +1,14 @@
+ent-OrbitraRatvarTablet = табличка писаний Ратвара
+ent-OrbitraRatvarInstructions = наставления культа Ратвара
+ent-OrbitraRatvarShield = латунный щит
+ent-OrbitraRatvarArmor = латунная кираса
+ent-OrbitraRatvarHelmet = латунный шлем
+ent-OrbitraRatvarSpear = копьё Ратвара
+ent-OrbitraRatvarMarauder = марадер Ратвара
+ent-OrbitraRatvarGenerator = латунный генератор
+ent-OrbitraRatvarConversionSigil = печать обращения
+ent-OrbitraRatvarSlowingSigil = печать замедления
+ent-OrbitraRatvarObelisk = обелиск связи
+ent-OrbitraRatvarTurret = окулярный страж
+ent-OrbitraRatvarArk = ковчег Ратвара
+ent-OrbitraActionRatvarDefence = Латунный бастион

@@ -1,0 +1,18 @@
+- type: constructionGraph
+  id: OrbitraRatvarMechanism
+  start: mechanism
+  graph:
+  - node: mechanism
+    edges:
+    - to: dismantled
+      steps:
+      - tool: Welding
+        doAfter: 10
+      - tool: Prying
+        doAfter: 5
+  - node: dismantled
+    actions:
+    - !type:SpawnPrototype
+      prototype: SheetBrass1
+      amount: 3
+    - !type:DestroyEntity {}

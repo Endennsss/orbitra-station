@@ -10,7 +10,7 @@ using Robust.Shared.Utility;
 namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
 {
     [GenerateTypedNameReferences]
-    public sealed partial class GhostRolesWindow : DefaultWindow
+    public sealed partial class GhostRolesWindow : Content.Client.UserInterface.Controls.FancyWindow // Orbitra-Edit
     {
         public event Action<GhostRoleInfo>? OnRoleRequestButtonClicked;
         public event Action<GhostRoleInfo>? OnRoleFollow;
@@ -21,6 +21,7 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
         public GhostRolesWindow()
         {
             RobustXamlLoader.Load(this);
+            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
         }
 
         public void ClearEntries()
@@ -62,13 +63,14 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
             buttons.OnRoleSelected += OnRoleRequestButtonClicked;
             buttons.OnRoleFollow += OnRoleFollow;
 
-            EntryContainer.AddChild(info);
+            var entry = CreateOrbitraRoleCard(info); // Orbitra-Edit
 
             if (rolesCount > 1)
             {
                 var buttonHeading = new CollapsibleHeading(Loc.GetString("ghost-roles-window-available-button", ("rolesCount", rolesCount)));
 
                 buttonHeading.AddStyleClass(ContainerButton.StyleClassButton);
+                buttonHeading.AddStyleClass("OrbitraLobbyButton"); // Orbitra-Edit: тот же стиль у динамических заголовков.
                 buttonHeading.Label.HorizontalAlignment = HAlignment.Center;
                 buttonHeading.Label.HorizontalExpand = true;
                 buttonHeading.Margin = new Thickness(8, 0, 8, 2);
@@ -89,12 +91,12 @@ namespace Content.Client.UserInterface.Systems.Ghost.Controls.Roles
 
                 body.AddChild(buttons);
 
-                EntryContainer.AddChild(collapsible);
+                entry.AddChild(collapsible); // Orbitra-Edit
                 _collapsibleBoxes.Add(key, collapsible);
             }
             else
             {
-                EntryContainer.AddChild(buttons);
+                entry.AddChild(buttons); // Orbitra-Edit
             }
         }
     }
