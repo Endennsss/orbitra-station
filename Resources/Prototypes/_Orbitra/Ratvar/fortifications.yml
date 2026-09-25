@@ -1,0 +1,117 @@
+- type: tile
+  parent: BaseStationTile
+  id: OrbitraRatvarFloor
+  name: orbitra-ratvar-floor
+  sprite: /Textures/Tiles/gold.png
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: OrbitraRatvarFloorTile
+
+- type: stack
+  parent: BaseTileStack
+  id: OrbitraRatvarFloorTile
+  name: orbitra-ratvar-floor-tiles
+  spawn: OrbitraRatvarFloorTile
+
+- type: entity
+  parent: FloorTileItemGold
+  id: OrbitraRatvarFloorTile
+  name: brass tile
+  description: A heavy tile with a warm metallic sheen.
+  components:
+  - type: Sprite
+    state: brass
+  - type: FloorTile
+    outputs:
+    - Plating
+    - OrbitraRatvarFloor
+  - type: Stack
+    stackType: OrbitraRatvarFloorTile
+  - type: Construction
+    graph: OrbitraRatvarFloorTile
+    node: tile
+
+- type: construction
+  parent: BaseTile
+  id: OrbitraRatvarFloorTile
+  graph: OrbitraRatvarFloorTile
+  targetNode: tile
+
+- type: constructionGraph
+  id: OrbitraRatvarFloorTile
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: tile
+      completed:
+      - !type:SetStackCount
+        amount: 1
+      steps:
+      - material: Brass
+        amount: 1
+        doAfter: 2
+  - node: tile
+    entity: OrbitraRatvarFloorTile
+
+- type: entity
+  parent: [BaseBarricade, StructureHealthBarrier]
+  id: OrbitraRatvarBarricade
+  name: brass barricade
+  description: A rigid lattice of heavy brass bars.
+  components:
+  - type: Sprite
+    sprite: Structures/Walls/grille.rsi
+    state: full
+    color: "#D9B66FFF"
+  - type: Damageable
+    damageModifierSet: BrassMod
+  - type: Construction
+    graph: OrbitraRatvarBarricade
+    node: barricade
+    deconstructionTarget: start
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 80
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetBrass1:
+            min: 1
+            max: 2
+
+- type: construction
+  parent: BaseStructureFullTile
+  id: OrbitraRatvarBarricade
+  graph: OrbitraRatvarBarricade
+  targetNode: barricade
+
+- type: constructionGraph
+  id: OrbitraRatvarBarricade
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: barricade
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Brass
+        amount: 4
+        doAfter: 4
+  - node: barricade
+    entity: OrbitraRatvarBarricade
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetBrass1
+        amount: 4
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Cutting
+        doAfter: 3

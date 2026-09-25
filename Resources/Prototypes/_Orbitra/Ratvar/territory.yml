@@ -1,0 +1,124 @@
+- type: construction
+  parent: Girder
+  id: OrbitraRatvarWall
+  targetNode: brassWall
+
+- type: construction
+  parent: BaseWindow
+  id: OrbitraRatvarWindow
+  graph: OrbitraRatvarWindow
+  targetNode: window
+
+- type: construction
+  parent: BaseStructureFullTileDirectional
+  id: OrbitraRatvarDoor
+  graph: OrbitraRatvarDoor
+  targetNode: door
+
+- type: entity
+  parent: ReinforcedWindow
+  id: OrbitraRatvarWindow
+  name: brass window
+  description: Reinforced glass held in a warm brass frame.
+  components:
+  - type: Sprite
+    color: "#D9B66FFF"
+  - type: Construction
+    graph: OrbitraRatvarWindow
+    node: window
+    deconstructionTarget: start
+
+- type: entity
+  parent: [BaseMaterialDoorNavMap, StructureHealthDoorWeak]
+  id: OrbitraRatvarDoor
+  name: brass door
+  description: Heavy brass plates slide apart with a mechanical rumble.
+  components:
+  - type: Sprite
+    sprite: Structures/Doors/MaterialDoors/gold-door.rsi
+    color: "#CFB997FF"
+  - type: Construction
+    graph: OrbitraRatvarDoor
+    node: door
+    deconstructionTarget: start
+  - type: Damageable
+    damageModifierSet: BrassMod
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetBrass1:
+            min: 3
+            max: 5
+
+- type: constructionGraph
+  id: OrbitraRatvarWindow
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: window
+      steps:
+      - material: Brass
+        amount: 2
+        doAfter: 2
+      - material: ReinforcedGlass
+        amount: 2
+        doAfter: 2
+  - node: window
+    entity: OrbitraRatvarWindow
+    edges:
+    - to: start
+      completed:
+      - !type:GivePrototype
+        prototype: SheetBrass1
+        amount: 2
+      - !type:GivePrototype
+        prototype: SheetRGlass1
+        amount: 2
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Welding
+        doAfter: 5
+      - tool: Screwing
+        doAfter: 1
+      - tool: Prying
+        doAfter: 2
+      - tool: Welding
+        doAfter: 5
+      - tool: Screwing
+        doAfter: 1
+      - tool: Anchoring
+        doAfter: 2
+
+- type: constructionGraph
+  id: OrbitraRatvarDoor
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: door
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Brass
+        amount: 10
+        doAfter: 8
+  - node: door
+    entity: OrbitraRatvarDoor
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetBrass1
+        amount: 10
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Anchoring
+        doAfter: 8

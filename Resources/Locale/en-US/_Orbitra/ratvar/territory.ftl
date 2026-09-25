@@ -1,0 +1,10 @@
+ent-OrbitraRatvarWindow = brass window
+    .desc = Reinforced glass held in a warm brass frame.
+ent-OrbitraRatvarDoor = brass door
+    .desc = Heavy brass plates slide apart with a mechanical rumble.
+ent-OrbitraRatvarFloorTile = brass tile
+    .desc = A heavy tile with a warm metallic sheen.
+ent-OrbitraRatvarBarricade = brass barricade
+    .desc = A rigid lattice of heavy brass bars.
+orbitra-ratvar-floor = brass floor
+orbitra-ratvar-floor-tiles = brass tiles

@@ -1,0 +1,10 @@
+ent-OrbitraRatvarWindow = латунное окно
+    .desc = Армированное стекло в тёплой латунной раме.
+ent-OrbitraRatvarDoor = латунная дверь
+    .desc = Тяжёлые латунные пластины раздвигаются с механическим грохотом.
+ent-OrbitraRatvarFloorTile = латунная плитка
+    .desc = Тяжёлая плитка с тёплым металлическим блеском.
+ent-OrbitraRatvarBarricade = латунная баррикада
+    .desc = Жёсткая решётка из массивных латунных прутьев.
+orbitra-ratvar-floor = латунный пол
+orbitra-ratvar-floor-tiles = латунная плитка

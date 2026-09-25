@@ -7,6 +7,8 @@
   Защита разума, священник и несовместимая роль препятствуют обращению.
   Святая вода должна непрерывно присутствовать в организме 30 секунд. После очищения действует защита на две минуты.
   Вторая ступень: два новых сознания и 600 выработанной энергии. Третья: четыре сознания и 1800 энергии.
+  Строительство базы: в меню строительства доступны латунная стена, латунное окно и латунная дверь. Стена требует обычный каркас из двух листов стали, два листа латуни и сварку. Окно требует два листа латуни и два листа армированного стекла. Дверь требует десять листов латуни, не зависит от питания и открывается любым членом экипажа. Это не замок культа. Стол и стул из латуни также доступны в обычном строительстве. Разборка инструментами возвращает строительные материалы; разрушение не заменяет аккуратную разборку.
+  Латунная плитка создаётся в меню строительства из одного листа латуни за 2 секунды. Укладывайте её на обшивку; лом снимает покрытие и возвращает плитку. Пол не лечит и не обладает неуязвимостью. Латунная баррикада строится из четырёх листов за 4 секунды, блокирует проход, но пропускает воздух и не скрывает обзор. Кусачки за 3 секунды возвращают четыре листа; разрушение оставляет только один или два.
   Ковчег строится только на основной станции. После 20 минут раунда для запуска нужны третья ступень, три живых слуги рядом и 2000 энергии. Защищайте ковчег пять минут. Уничтожение активного ковчега означает поражение.
 
   ## English
@@ -16,5 +18,7 @@
   Mindshields, chaplains and incompatible antagonist roles prevent conversion.
   Holy water must remain in the body for 30 continuous seconds. Purification grants two minutes of immunity.
   Tier two requires two unique converted minds and 600 generated energy; tier three requires four minds and 1800 energy.
+  Base construction: the construction menu offers a brass wall, brass window and brass door. The wall requires a regular girder made from two steel sheets, two brass sheets and welding. The window takes two brass and two reinforced glass sheets. The door takes ten brass sheets, needs no power and can be opened by any crew member. It is not a cult lock. Brass tables and chairs are also available through ordinary construction. Tool deconstruction returns the building materials; destruction is not a substitute for careful dismantling.
+  Craft one brass tile from one brass sheet in 2 seconds through the construction menu. Place it on plating; a crowbar removes the covering and returns the tile. The floor does not heal or grant invulnerability. A brass barricade takes four sheets and 4 seconds to build. It blocks passage, but lets air and sight through. Wirecutters recover four sheets in 3 seconds; destruction leaves only one or two.
   Build the ark on the main station. Activation requires 20 minutes of round time, tier three, three living servants nearby and 2000 energy. Defend it for five minutes. Losing the active ark means defeat.
 </Document>
