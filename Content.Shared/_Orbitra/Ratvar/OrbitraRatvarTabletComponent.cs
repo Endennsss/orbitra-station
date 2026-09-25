@@ -1,5 +1,6 @@
 using Content.Shared.DoAfter;
 using Robust.Shared.Serialization;
+using Robust.Shared.Map;
 
 namespace Content.Shared._Orbitra.Ratvar;
 
@@ -15,6 +16,10 @@ public sealed partial class OrbitraRatvarTabletComponent : Component
     public EntityUid? RitualMind;
     public EntityUid? TargetMind;
     public TimeSpan NextMessage;
+    /// <summary>Caster position at ritual start; target movement is checked against its sigil instead.</summary>
+    public EntityCoordinates? RitualOrigin;
+    /// <summary>The original submission sigil must remain valid for the entire conversion.</summary>
+    public EntityUid? RitualSigil;
 }
 
 [Serializable, NetSerializable]

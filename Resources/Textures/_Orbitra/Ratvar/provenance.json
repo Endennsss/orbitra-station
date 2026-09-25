@@ -12,7 +12,8 @@
         "stargazer": "generator",
         "obelisk": "obelisk",
         "ocular_warden": "turret",
-        "ratvarian_spear": "spear"
+        "ratvarian_spear": "spear",
+        "integration_cog": "integration_cog"
       },
       "license": "CC-BY-SA-3.0",
       "history": [

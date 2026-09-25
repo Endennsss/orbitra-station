@@ -7,4 +7,11 @@ public enum OrbitraRatvarVisuals : byte
 {
     Active,
     Ark,
+    Defending,
+}
+
+[Serializable, NetSerializable]
+public enum OrbitraRatvarMarauderLayers : byte
+{
+    Shield,
 }

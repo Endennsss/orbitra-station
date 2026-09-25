@@ -20,6 +20,14 @@ public sealed partial class OrbitraRatvarRuleSystem
 
     private void OnMindAdded(Entity<MindContainerComponent> ent, ref MindAddedMessage args)
     {
+        if (TryComp<OrbitraRatvarShellComponent>(ent, out var shell) && shell.Rule is { } owner &&
+            TryComp<OrbitraRatvarRuleComponent>(owner, out var cult) && !cult.Won && !cult.Lost &&
+            GameTicker.IsGameRuleActive(owner) && HasComp<OrbitraRatvarMarauderComponent>(ent) &&
+            !_roles.MindIsAntagonist(args.Mind.Owner))
+        {
+            _roles.MindAddRole(args.Mind.Owner, "OrbitraMindRoleRatvarMarauder");
+            BindMember((owner, cult), args.Mind.Owner);
+        }
         RefreshBody(ent);
     }
 
@@ -27,8 +35,9 @@ public sealed partial class OrbitraRatvarRuleSystem
     {
         if (!_roles.MindHasRole<OrbitraRatvarRoleComponent>(args.MindId, out var role) ||
             !role.Value.Comp2.Marauder || role.Value.Comp2.Rule != null || args.Mind.OwnedEntity is not { } body) return;
-        if (TryComp<OrbitraRatvarStructureComponent>(body, out var shell) && shell.Marauder &&
-            shell.Rule is { } owner && TryComp<OrbitraRatvarRuleComponent>(owner, out var cult))
+        if (TryComp<OrbitraRatvarShellComponent>(body, out var shell) && HasComp<OrbitraRatvarMarauderComponent>(body) &&
+            shell.Rule is { } owner && TryComp<OrbitraRatvarRuleComponent>(owner, out var cult) &&
+            !cult.Won && !cult.Lost && GameTicker.IsGameRuleActive(owner))
         {
             BindMember((owner, cult), args.MindId);
         }

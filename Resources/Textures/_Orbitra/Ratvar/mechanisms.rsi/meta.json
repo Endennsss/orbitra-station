@@ -86,6 +86,15 @@
           0.1
         ]
       ]
+    },
+    {
+      "name": "integration_cog",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
     }
   ]
 }

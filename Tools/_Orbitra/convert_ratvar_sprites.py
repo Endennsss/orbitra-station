@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[2] / "Resources/Textures/_Orbitra/Ratvar
 SELECTION = {
     "mechanisms": ("icons/obj/clockwork_objects.dmi", {
         "stargazer": "generator", "obelisk": "obelisk", "ocular_warden": "turret", "ratvarian_spear": "spear",
+        "integration_cog": "integration_cog",
     }),
     "sigils": ("icons/effects/clockwork_effects.dmi", {
         "sigilsubmission": "conversion", "sigiltransgression": "slowing", "clock_shield": "shield",

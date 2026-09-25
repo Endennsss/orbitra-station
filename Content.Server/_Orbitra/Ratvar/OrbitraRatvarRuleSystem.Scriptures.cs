@@ -1,4 +1,5 @@
 using Content.Server.Chat.Managers;
+using Content.Server.Ghost.Roles.Components;
 using Content.Shared._Orbitra.Ratvar;
 using System.Linq;
 using Content.Shared.Database;
@@ -108,6 +109,15 @@ public sealed partial class OrbitraRatvarRuleSystem
         // Повторная проверка и списание в одном серверном вызове исключают двойную покупку.
         rule.Comp.Energy -= scripture.Energy;
         var result = Spawn(proto, Transform(user).Coordinates);
+        if (TryComp<OrbitraRatvarShellComponent>(result, out var shell))
+        {
+            shell.Rule = rule.Owner;
+            if (TryComp<GhostRoleComponent>(result, out var ghostRole))
+            {
+                ghostRole.RoleDescription = "orbitra-ratvar-marauder-description";
+                ghostRole.RoleRules = "orbitra-ratvar-marauder-rules";
+            }
+        }
         _adminLog.Add(LogType.Action, LogImpact.Medium, $"Ratvar cult: {ToPrettyString(user)} recited {id}, spent {scripture.Energy}, created {ToPrettyString(result)}.");
         if (TryComp<OrbitraRatvarStructureComponent>(result, out var structure))
         {
@@ -132,23 +142,20 @@ public sealed partial class OrbitraRatvarRuleSystem
         if (found.Result == "OrbitraRatvarMarauder")
         {
             var living = 0;
-            var shells = EntityQueryEnumerator<OrbitraRatvarStructureComponent>();
-            while (shells.MoveNext(out var uid, out var shell))
-                if (shell.Rule == rule.Owner && shell.Marauder && Living(uid)) living++;
+            var shells = EntityQueryEnumerator<OrbitraRatvarShellComponent, OrbitraRatvarMarauderComponent>();
+            while (shells.MoveNext(out var uid, out var shell, out _))
+                if (shell.Rule == rule.Owner && Living(uid)) living++;
             if (living >= rule.Comp.MaxMarauders) return false;
         }
         if (!found.Structure) return true;
         var xform = Transform(user);
         if (xform.GridUid is not { } grid || !TryComp<MapGridComponent>(grid, out var mapGrid) ||
             _map.GetTileRef(grid, mapGrid, xform.Coordinates).Tile.IsEmpty || _containers.IsEntityInContainer(user)) return false;
-        var count = 0;
         var structures = EntityQueryEnumerator<OrbitraRatvarStructureComponent>();
         while (structures.MoveNext(out var uid, out var structure))
         {
             if (Near(uid, user, 0.8f)) return false;
-            if (structure.Rule == rule.Owner && structure.EnergyPerSecond > 0) count++;
         }
-        if (found.Result == "OrbitraRatvarGenerator" && count >= rule.Comp.MaxGenerators) return false;
         return found.Result != "OrbitraRatvarArk" || rule.Comp.Ark == null && ValidArkLocation(user, rule.Comp);
     }
 
@@ -164,7 +171,7 @@ public sealed partial class OrbitraRatvarRuleSystem
         var structures = EntityQueryEnumerator<OrbitraRatvarStructureComponent>();
         while (structures.MoveNext(out var uid, out var structure))
         {
-            if (structure.Rule != rule || structure.Marauder || !Near(user, uid, 1.5f) ||
+            if (structure.Rule != rule || !Near(user, uid, 1.5f) ||
                 !_interaction.InRangeUnobstructed(user, uid) || _damage.GetTotalDamage(uid) <= 0) continue;
             target = uid;
             return true;

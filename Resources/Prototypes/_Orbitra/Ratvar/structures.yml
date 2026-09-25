@@ -19,14 +19,13 @@
 - type: entity
   parent: OrbitraRatvarStructureBase
   id: OrbitraRatvarGenerator
+  categories: [HideSpawnMenu]
   name: clockwork generator
   components:
   - type: Construction
     graph: OrbitraRatvarMechanism
     node: mechanism
     deconstructionTarget: dismantled
-  - type: OrbitraRatvarStructure
-    energyPerSecond: 2
 
 - type: entity
   parent: OrbitraRatvarStructureBase

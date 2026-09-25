@@ -1,5 +1,26 @@
 - type: entity
   parent: BaseItem
+  id: OrbitraRatvarIntegrationCog
+  name: integration cog
+  description: A sharp brass cog that spins of its own accord.
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/mechanisms.rsi
+    state: integration_cog
+  - type: Item
+    size: Small
+  - type: OrbitraRatvarIntegrationCog
+    openDelay: 5
+    installDelay: 4
+    removeDelay: 5
+    interval: 2
+    energyPerInterval: 20
+    joulesPerEnergy: 100
+    minimumChargeFraction: 0.5
+    reserveEnergy: 20
+
+- type: entity
+  parent: BaseItem
   id: OrbitraRatvarTablet
   name: clockwork scripture tablet
   description: A brass tablet that answers only to the servants of Ratvar.
@@ -106,11 +127,23 @@
   components:
   - type: Sprite
     sprite: _Orbitra/Ratvar/marauder.rsi
-    state: alive
-  - type: OrbitraRatvarStructure
-    marauder: true
+    layers:
+    - state: alive
+    - sprite: _Orbitra/Ratvar/sigils.rsi
+      state: shield
+      visible: false
+      map: [enum.OrbitraRatvarMarauderLayers.Shield]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OrbitraRatvarVisuals.Defending:
+        enum.OrbitraRatvarMarauderLayers.Shield:
+          True: { visible: true }
+          False: { visible: false }
+  - type: OrbitraRatvarMarauder
+  - type: OrbitraRatvarShell
   - type: NpcFactionMember
-    factions: [OrbitraRatvar]
+    factions: []
   - type: MovementSpeedModifier
     baseWalkSpeed: 2
     baseSprintSpeed: 3.5
@@ -130,10 +163,10 @@
       200: Dead
   - type: GhostRole
     name: orbitra-ratvar-marauder-name
-    description: orbitra-ratvar-marauder-description
-    rules: orbitra-ratvar-marauder-rules
+    description: orbitra-ratvar-marauder-independent-description
+    rules: orbitra-ratvar-marauder-independent-rules
     makeSentient: true
-    mindRoles: [OrbitraMindRoleRatvarMarauder]
+    mindRoles: []
     raffle:
       settings: default
   - type: GhostTakeoverAvailable

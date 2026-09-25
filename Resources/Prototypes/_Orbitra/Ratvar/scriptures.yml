@@ -29,14 +29,14 @@
   structure: true
 
 - type: orbitraRatvarScripture
-  id: OrbitraRatvarGenerator
-  name: orbitra-ratvar-scripture-generator
-  description: orbitra-ratvar-scripture-generator-desc
+  id: OrbitraRatvarIntegrationCog
+  name: orbitra-ratvar-scripture-cog
+  description: orbitra-ratvar-scripture-cog-desc
   tier: 1
-  energy: 100
-  delay: 8
-  result: OrbitraRatvarGenerator
-  structure: true
+  energy: 0
+  delay: 1
+  result: OrbitraRatvarIntegrationCog
+  structure: false
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarArmor

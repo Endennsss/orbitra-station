@@ -17,6 +17,7 @@
   - type: GameRule
     minPlayers: 15
   - type: OrbitraRatvarRule
+    conversionDelay: 5
   - type: AntagSelection
     selectionTime: PrePlayerSpawn
     antags:
@@ -36,7 +37,7 @@
   parent: [MindshieldRestrictedAntag, CyborgBlacklistedAntag]
   id: OrbitraRatvarCultist
   jobBlacklist: [Chaplain]
-  prefRoles: [GenericTeamAntagonist, OrbitraRatvarCultist]
+  prefRoles: [OrbitraRatvarCultist]
   allowNonHumans: false
   mindRoles: [OrbitraMindRoleRatvar]
   startingGear: OrbitraRatvarGear

@@ -78,19 +78,23 @@ public sealed partial class OrbitraRatvarRuleSystem : GameRuleSystem<OrbitraRatv
         component.Energy = component.StartingEnergy;
     }
 
+    protected override void Ended(EntityUid uid, OrbitraRatvarRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
+    {
+        // Роль сознания остаётся для итогов раунда, но не даёт телу действующую принадлежность.
+        foreach (var mind in component.Members)
+        {
+            if (TryComp<MindComponent>(mind, out var data) && data.OwnedEntity is { } body)
+                RefreshBody(body);
+        }
+        component.HolyWaterSince.Clear();
+    }
+
     protected override void ActiveTick(EntityUid uid, OrbitraRatvarRuleComponent rule, GameRuleComponent gameRule, float frameTime)
     {
         UpdateArk((uid, rule));
         if (rule.NextUpdate > Timing.CurTime || rule.Won || rule.Lost) return;
         rule.NextUpdate = Timing.CurTime + TimeSpan.FromSeconds(1);
         RefreshTablets();
-        var structures = EntityQueryEnumerator<OrbitraRatvarStructureComponent, TransformComponent>();
-        while (structures.MoveNext(out _, out var structure, out var transform))
-        {
-            if (structure.Rule != uid || !transform.Anchored || structure.EnergyPerSecond <= 0) continue;
-            rule.Generated += structure.EnergyPerSecond;
-            rule.Energy = Math.Min(rule.MaxEnergy, rule.Energy + structure.EnergyPerSecond);
-        }
         foreach (var mind in rule.Members)
         {
             if (!TryComp<MindComponent>(mind, out var data) || data.OwnedEntity is not { } body ||

@@ -12,6 +12,8 @@ using Content.Server.Roles;
 using Content.Server.Station.Systems;
 using Content.Shared._Orbitra.Ratvar;
 using Content.Shared.Chat;
+using Content.Shared.Damage;
+using Content.Shared.Damage.Systems;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Roles;
 using Content.Shared.Station.Components;
@@ -31,6 +33,64 @@ namespace Content.IntegrationTests.Tests._Orbitra;
 public sealed class OrbitraRatvarRegressionTest : GameTest
 {
     public override PoolSettings PoolSettings => new() { Connected = true, Dirty = true, NoLoadTestPrototypes = true };
+
+    [Test]
+    public async Task StandaloneMarauderCanDefendWithoutCult()
+    {
+        var map = await Pair.CreateTestMap();
+        EntityUid body = default;
+        var handled = false;
+        await Server.WaitPost(() =>
+        {
+            body = SEntMan.SpawnEntity("OrbitraRatvarMarauder", map.GridCoords);
+            var minds = Server.System<MindSystem>();
+            minds.TransferTo(minds.CreateMind(ServerSession!.UserId), body);
+            var action = new OrbitraRatvarDefenceEvent { Performer = body };
+            SEntMan.EventBus.RaiseLocalEvent(body, action);
+            handled = action.Handled;
+        });
+        await Server.WaitAssertion(() =>
+        {
+            Assert.That(handled, Is.True);
+            Assert.That(Server.System<OrbitraRatvarRuleSystem>().TryGetCult(body, out _), Is.False);
+            Assert.That(SEntMan.EntityQuery<OrbitraRatvarRuleComponent>(), Is.Empty);
+        });
+        await Server.WaitPost(() =>
+        {
+            var repeated = new OrbitraRatvarDefenceEvent { Performer = body };
+            SEntMan.EventBus.RaiseLocalEvent(body, repeated);
+            handled = repeated.Handled;
+        });
+        await Server.WaitAssertion(() => Assert.That(handled, Is.False));
+        await Server.WaitAssertion(() =>
+        {
+            var original = new DamageSpecifier();
+            original.DamageDict.Add("Blunt", 10);
+            original.DamageDict.Add("Heat", -4);
+            var damage = new DamageModifyEvent(original);
+            SEntMan.EventBus.RaiseLocalEvent(body, damage);
+            Assert.That(damage.Damage.DamageDict["Blunt"].Float(), Is.EqualTo(5));
+            Assert.That(damage.Damage.DamageDict["Heat"].Float(), Is.EqualTo(-4));
+            Assert.That(original.DamageDict["Blunt"].Float(), Is.EqualTo(10), "Do not mutate a reusable damage specification.");
+            Assert.That(Server.System<SharedAppearanceSystem>().TryGetData<bool>(body,
+                OrbitraRatvarVisuals.Defending, out var visible), Is.True);
+            Assert.That(visible, Is.True);
+        });
+        await Pair.RunSeconds(6);
+        await Server.WaitAssertion(() =>
+        {
+            var defence = SEntMan.GetComponent<OrbitraRatvarMarauderComponent>(body);
+            Assert.That(SEntMan.HasComponent<ActiveOrbitraRatvarDefenceComponent>(body), Is.False);
+            Assert.That(Server.System<OrbitraRatvarMarauderSystem>().CanDefend((body, defence)), Is.False,
+                "The stance ends before its cooldown.");
+            Server.System<SharedAppearanceSystem>().TryGetData<bool>(body, OrbitraRatvarVisuals.Defending, out var visible);
+            Assert.That(visible, Is.False);
+            var damage = new DamageModifyEvent(new DamageSpecifier());
+            damage.Damage.DamageDict.Add("Blunt", 10);
+            SEntMan.EventBus.RaiseLocalEvent(body, damage);
+            Assert.That(damage.Damage.DamageDict["Blunt"].Float(), Is.EqualTo(10));
+        });
+    }
 
     [TestCase("OrbitraRatvarGenerator")]
     [TestCase("OrbitraRatvarObelisk")]

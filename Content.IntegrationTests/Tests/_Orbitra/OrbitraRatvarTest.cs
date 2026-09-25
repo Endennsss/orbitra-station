@@ -1,12 +1,13 @@
 using Content.IntegrationTests.Fixtures;
 using Content.Server._Orbitra.Ratvar;
 using Content.Shared._Orbitra.Ratvar;
+using Content.Shared.Antag;
+using Content.Shared.Roles;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Content.Server.GameTicking;
 using Content.Server.Mind;
 using Content.Server.Roles;
-using Content.Shared.Cuffs;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
@@ -227,9 +228,7 @@ public sealed class OrbitraRatvarTest : GameTest
             SEntMan.GetComponent<OrbitraRatvarStructureComponent>(sigil).Rule = rule;
             Assert.That(SEntMan.GetComponent<TransformComponent>(sigil).Anchored, Is.True);
             Server.System<SharedTransformSystem>().SetCoordinates(target, SEntMan.GetComponent<TransformComponent>(sigil).Coordinates);
-            Assert.That(system.CanConvert(item, user, target, out _), Is.False, "Unrestrained target must be immune.");
-            var cuffs = SEntMan.SpawnEntity("Handcuffs", map.GridCoords);
-            Assert.That(Server.System<SharedCuffableSystem>().TryAddNewCuffs(target, user, cuffs), Is.True);
+            Assert.That(system.CanConvert(item, user, target, out _), Is.True, "Conversion no longer requires cuffs.");
             Assert.That(system.TryConvert(item, user, target), Is.True);
             Assert.That(system.TryConvert(item, user, target), Is.False, "Already converted minds must not give progress.");
             Assert.That(cult.Converted.Count, Is.EqualTo(1));
@@ -269,6 +268,11 @@ public sealed class OrbitraRatvarTest : GameTest
             var prototypes = Server.ResolveDependency<IPrototypeManager>();
             var random = Server.ResolveDependency<IRobustRandom>();
             var selector = new OrbitraRatvarAntagCount();
+            var antag = prototypes.Index<AntagSpecifierPrototype>("OrbitraRatvarCultist");
+            Assert.That(antag.PrefRoles.Select(id => id.Id), Is.EquivalentTo(new[] { "OrbitraRatvarCultist" }));
+            foreach (var preference in antag.PrefRoles)
+                Assert.That(prototypes.Index(preference).SetPreference, Is.True,
+                    "Hidden role labels are removed during preference validation and cannot opt a player into this mode.");
             Assert.That(selector.GetTargetAntagCount(random, 15), Is.EqualTo(2));
             Assert.That(selector.GetTargetAntagCount(random, 19), Is.EqualTo(2));
             Assert.That(selector.GetTargetAntagCount(random, 20), Is.EqualTo(3));
@@ -282,7 +286,7 @@ public sealed class OrbitraRatvarTest : GameTest
                 component.Converted.Add(SEntMan.SpawnEntity(null, Robust.Shared.Map.MapCoordinates.Nullspace));
             Assert.That(system.GetTier(component), Is.EqualTo(3));
             Assert.That(component.MaxMarauders, Is.EqualTo(2));
-            Assert.That(component.ConversionDelay.TotalSeconds, Is.EqualTo(15));
+            Assert.That(component.ConversionDelay.TotalSeconds, Is.EqualTo(5));
             Assert.That(component.ArkDefence.TotalMinutes, Is.EqualTo(5));
             foreach (var scripture in prototypes.EnumeratePrototypes<OrbitraRatvarScripturePrototype>())
             {
