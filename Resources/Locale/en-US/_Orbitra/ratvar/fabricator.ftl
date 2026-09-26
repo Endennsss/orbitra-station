@@ -1,6 +1,12 @@
 ent-OrbitraRatvarFabricator = replica fabricator
     .desc = A brass tool whose prongs hum with a steady rhythm.
 orbitra-ratvar-scripture-fabricator = Replica fabricator
-orbitra-ratvar-scripture-fabricator-desc = Creates a handheld tool to repair your cult's mechanisms and brass walls, windows, doors and barricades. Each repair takes 6 seconds and costs 200 energy. Material conversion is not available yet.
+orbitra-ratvar-scripture-fabricator-desc = Creates a tool to repair your cult's mechanisms and brass structures in 6 seconds for 200 energy. Lays brass flooring on ordinary or snow plating in 2 seconds for 20 energy. Converts an intact ordinary wall or full-tile reinforced window without contents to brass in 6 seconds for 200 energy. Remove existing flooring with a crowbar first.
 orbitra-ratvar-fabricator-denied = Cannot repair: requires a damaged anchored brass structure or your cult's mechanism, an idle tool in hand and { $energy } energy.
 orbitra-ratvar-fabricator-repaired = The fabricator restored the structure.
+orbitra-ratvar-fabricator-floor-denied = Cannot lay flooring: requires nearby exposed ordinary or snow plating, an idle fabricator in hand and { $energy } cult energy.
+orbitra-ratvar-fabricator-floor-done = The fabricator laid brass flooring.
+orbitra-ratvar-fabricator-wall-denied = Cannot convert: requires an intact anchored ordinary wall without contents, an idle fabricator in hand and { $energy } cult energy.
+orbitra-ratvar-fabricator-wall-done = The fabricator converted the wall to brass.
+orbitra-ratvar-fabricator-window-denied = Cannot convert: requires an intact anchored full-tile reinforced window without contents, an idle fabricator in hand and { $energy } cult energy.
+orbitra-ratvar-fabricator-window-done = The fabricator converted the window to brass.

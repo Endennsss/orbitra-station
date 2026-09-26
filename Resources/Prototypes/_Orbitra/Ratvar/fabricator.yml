@@ -23,6 +23,17 @@
     energy: 200
     delay: 6
     repairBonus: 15
+    floorEnergy: 20
+    floorDelay: 2
+    wallEnergy: 200
+    wallDelay: 6
+    walls: [WallSolid]
+    windowEnergy: 200
+    windowDelay: 6
+    windows: [ReinforcedWindow]
+    floors:
+      Plating: OrbitraRatvarFloor
+      PlatingSnow: OrbitraRatvarFloor
     neutralStructures:
     - WallBrass
     - OrbitraRatvarWindow

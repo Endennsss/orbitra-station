@@ -17,7 +17,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._Orbitra.Ratvar;
 
-/// <summary>Repairs the selected structure with server-side authority and cost revalidation.</summary>
+/// <summary>Repairs and converts whitelisted structures with server-side authority and cost revalidation.</summary>
 public sealed partial class OrbitraRatvarFabricatorSystem : EntitySystem
 {
     [Dependency] private OrbitraRatvarRuleSystem _cult = default!;
@@ -40,13 +40,34 @@ public sealed partial class OrbitraRatvarFabricatorSystem : EntitySystem
         SubscribeLocalEvent<OrbitraRatvarFabricatorComponent, DoAfterAttemptEvent<OrbitraRatvarFabricatorEvent>>(OnAttempt);
         SubscribeLocalEvent<OrbitraRatvarFabricatorComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<OrbitraRatvarRepairTargetComponent, ComponentShutdown>(OnTargetShutdown);
+        InitializeFloors();
+        InitializeWalls();
+        InitializeWindows();
     }
 
     private void OnInteract(Entity<OrbitraRatvarFabricatorComponent> ent, ref AfterInteractEvent args)
     {
-        if (args.Handled || !args.CanReach || args.Target is not { } target)
+        if (args.Handled || !args.CanReach)
             return;
         args.Handled = true;
+        if (args.Target is not { } target)
+        {
+            if (!TryStartFloor(ent, args.User, args.ClickLocation))
+                _popup.PopupEntity(Loc.GetString("orbitra-ratvar-fabricator-floor-denied", ("energy", ent.Comp.FloorEnergy)), ent, args.User);
+            return;
+        }
+        if (Prototype(target) is { } prototype && ent.Comp.Walls.Contains(new EntProtoId(prototype.ID)))
+        {
+            if (!TryStartWall(ent, args.User, target))
+                _popup.PopupEntity(Loc.GetString("orbitra-ratvar-fabricator-wall-denied", ("energy", ent.Comp.WallEnergy)), ent, args.User);
+            return;
+        }
+        if (Prototype(target) is { } window && ent.Comp.Windows.Contains(new EntProtoId(window.ID)))
+        {
+            if (!TryStartWindow(ent, args.User, target))
+                _popup.PopupEntity(Loc.GetString("orbitra-ratvar-fabricator-window-denied", ("energy", ent.Comp.WindowEnergy)), ent, args.User);
+            return;
+        }
         if (!TryStartRepair(ent, args.User, target))
             _popup.PopupEntity(Loc.GetString("orbitra-ratvar-fabricator-denied", ("energy", ent.Comp.Energy)), ent, args.User);
     }
