@@ -20,6 +20,12 @@
         state: inhand-right
         color: "#D9B66FFF"
   - type: OrbitraRatvarFabricator
+    brassPrototype: SheetBrass1
+    brassEnergy: 10
+    brassBatchSize: 50
+    brassCooldown: 1
+    recyclingRatio: 2
+    recyclableSheets: [SheetSteel, SheetSteel10, SheetSteel1, SheetGlass, SheetGlass10, SheetGlass1]
     energy: 200
     delay: 6
     repairBonus: 15
@@ -31,6 +37,12 @@
     windowEnergy: 200
     windowDelay: 6
     windows: [ReinforcedWindow]
+    doorEnergy: 200
+    doorDelay: 6
+    doors:
+      SilverDoor: silverDoor
+      GoldDoor: goldDoor
+      PlasmaDoor: plasmaDoor
     floors:
       Plating: OrbitraRatvarFloor
       PlatingSnow: OrbitraRatvarFloor

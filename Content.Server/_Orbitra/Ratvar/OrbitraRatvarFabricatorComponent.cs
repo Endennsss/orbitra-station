@@ -60,6 +60,45 @@ public sealed partial class OrbitraRatvarFabricatorComponent : Component
     [DataField]
     public TimeSpan WindowDelay = TimeSpan.FromSeconds(6);
 
+    /// <summary>Exact material-door prototypes and their required source construction nodes.</summary>
+    [DataField]
+    public Dictionary<EntProtoId, string> Doors = new();
+
+    /// <summary>Energy charged for a successful material-door conversion.</summary>
+    [DataField]
+    public int DoorEnergy = 200;
+
+    /// <summary>Uninterrupted material-door conversion time.</summary>
+    [DataField]
+    public TimeSpan DoorDelay = TimeSpan.FromSeconds(6);
+
+    /// <summary>Stack entity produced when the tool is activated in hand.</summary>
+    [DataField]
+    public EntProtoId BrassPrototype = "SheetBrass1";
+
+    /// <summary>Shared energy cost per manufactured sheet.</summary>
+    [DataField]
+    public int BrassEnergy = 10;
+
+    /// <summary>Maximum sheets per activation.</summary>
+    [DataField]
+    public int BrassBatchSize = 50;
+
+    /// <summary>Server-side delay between production requests.</summary>
+    [DataField]
+    public TimeSpan BrassCooldown = TimeSpan.FromSeconds(1);
+
+    /// <summary>Earliest time at which another batch can be manufactured.</summary>
+    public TimeSpan NextBrassProduction;
+
+    /// <summary>Exact source sheet prototypes accepted for brass recycling.</summary>
+    [DataField]
+    public HashSet<EntProtoId> RecyclableSheets = new();
+
+    /// <summary>Number of source sheets consumed per brass sheet.</summary>
+    [DataField]
+    public int RecyclingRatio = 2;
+
     /// <summary>Prevents concurrent use of the same tool.</summary>
     public DoAfterId? Pending;
 }

@@ -12,6 +12,7 @@ using Content.Shared.Interaction;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Popups;
+using Content.Shared.Stacks;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 
@@ -43,6 +44,8 @@ public sealed partial class OrbitraRatvarFabricatorSystem : EntitySystem
         InitializeFloors();
         InitializeWalls();
         InitializeWindows();
+        InitializeDoors();
+        InitializeMaterials();
     }
 
     private void OnInteract(Entity<OrbitraRatvarFabricatorComponent> ent, ref AfterInteractEvent args)
@@ -56,6 +59,12 @@ public sealed partial class OrbitraRatvarFabricatorSystem : EntitySystem
                 _popup.PopupEntity(Loc.GetString("orbitra-ratvar-fabricator-floor-denied", ("energy", ent.Comp.FloorEnergy)), ent, args.User);
             return;
         }
+        if (HasComp<StackComponent>(target))
+        {
+            if (!TryRecycleSheets(ent, args.User, target))
+                _popup.PopupEntity(Loc.GetString("orbitra-ratvar-fabricator-recycle-denied", ("ratio", ent.Comp.RecyclingRatio)), ent, args.User);
+            return;
+        }
         if (Prototype(target) is { } prototype && ent.Comp.Walls.Contains(new EntProtoId(prototype.ID)))
         {
             if (!TryStartWall(ent, args.User, target))
@@ -66,6 +75,12 @@ public sealed partial class OrbitraRatvarFabricatorSystem : EntitySystem
         {
             if (!TryStartWindow(ent, args.User, target))
                 _popup.PopupEntity(Loc.GetString("orbitra-ratvar-fabricator-window-denied", ("energy", ent.Comp.WindowEnergy)), ent, args.User);
+            return;
+        }
+        if (Prototype(target) is { } door && ent.Comp.Doors.ContainsKey(new EntProtoId(door.ID)))
+        {
+            if (!TryStartDoor(ent, args.User, target))
+                _popup.PopupEntity(Loc.GetString("orbitra-ratvar-fabricator-door-denied", ("energy", ent.Comp.DoorEnergy)), ent, args.User);
             return;
         }
         if (!TryStartRepair(ent, args.User, target))

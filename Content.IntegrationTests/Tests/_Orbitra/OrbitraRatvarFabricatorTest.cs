@@ -19,7 +19,7 @@ using Robust.Shared.Map.Components;
 namespace Content.IntegrationTests.Tests._Orbitra;
 
 [TestFixture]
-public sealed class OrbitraRatvarFabricatorTest : GameTest
+public sealed partial class OrbitraRatvarFabricatorTest : GameTest
 {
     private static readonly EntProtoId CultRule = "OrbitraRatvarRule";
     private static readonly ProtoId<DamageTypePrototype> BluntPrototype = "Blunt";
