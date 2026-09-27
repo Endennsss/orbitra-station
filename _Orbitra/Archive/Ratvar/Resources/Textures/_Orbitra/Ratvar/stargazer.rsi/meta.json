@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "license": "CC-BY-SA-3.0",
+  "copyright": "From https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/obj/clockwork_objects.dmi. File history contributors (not individual state authors): Ashe Higgs, BordListian, Cenrus, Joan Lung, KorPhaeron, Nerd Lord, PowerfulBacon, Xhuis, qwerty. Selected states extracted, renamed and repacked from DMI to RSI; no pixel edits. See ../provenance.json. Stargazer, light and unwrenched states introduced in b7e7779c19b76449c290aaf2150fb93545b1a79a, Ashe Higgs/Xhuis, tgstation PR 29741. Closed state introduced in 8168ce7f06afc301b3226661703df356c5936599, PowerfulBacon, BeeStation PR 2124. All 33 pinned file revisions checked for these states; introducing PR notices and pinned asset licensing reviewed. No applicable exception found in reviewed notices. Contributors are not asserted to be sole sprite authors. Selected pixels and timings preserved; CC BY-SA 3.0 retained.",
+  "states": [
+    {
+      "name": "active",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "unanchored",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "light",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "idle",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    }
+  ]
+}

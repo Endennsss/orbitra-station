@@ -32,7 +32,7 @@ namespace Content.Server.StationEvents.Events
         {
             base.Started(uid, component, gameRule, args);
 
-            if (!TryGetRandomStation(out var chosenStation))
+            if (!TryGetRandomStation(out var chosenStation)) // Orbitra-Edit - фильтр Eminence отключён вместе с архивным культом
                 return;
 
             component.AffectedStation = chosenStation.Value;

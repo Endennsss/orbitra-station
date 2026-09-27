@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "size": {
+    "x": 512,
+    "y": 512
+  },
+  "license": "CC-BY-SA-3.0",
+  "copyright": "From https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/effects/512x512.dmi. File history contributors (not individual state authors): AgentCitrus, Xhuis, qwerty. Selected states extracted, renamed and repacked from DMI to RSI; no pixel edits. See ../provenance.json. Ratvar artwork introduced by Xhuis in a28a7680cba9142ab80abc5ed480474ed0310462 (Clockwork sprites). All three pinned file revisions reviewed: original artwork, qwerty icon compression 38254deeebd3d7e81ab282e36174e1713c5ead20, unrelated supermatter additions by AgentCitrus/itsmeow in c7cb9bb7ec6aefea2abcd4d3fb804156fa157246. Only ratvar is extracted: 512x512, sixteen 0.1-second frames. No applicable exception found in reviewed notices and pinned README; CC BY-SA 3.0 retained. Existing SS14 kitbashed spawn animation is not imported.",
+  "states": [
+    {
+      "name": "ratvar",
+      "directions": 1,
+      "delays": [
+        [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      ]
+    }
+  ],
+  "metaAtlas": false
+}

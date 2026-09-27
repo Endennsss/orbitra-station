@@ -1,0 +1,327 @@
+{
+  "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+  "evidence": [
+    "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/README.md#license",
+    "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/sound/effects/license.txt",
+    "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/sound/machines/license.txt",
+    "https://github.com/tgstation/tgstation/pull/29741",
+    "https://github.com/tgstation/tgstation/pull/32935",
+    "https://github.com/tgstation/tgstation/pull/43550"
+  ],
+  "audit": "Reviewed full pinned histories, introduction commits, PR author notices, ancestor-directory license exceptions and embedded Vorbis comments. No applicable exception found for the selected sounds. No DM code imported.",
+  "resources": [
+    {
+      "file": "stargazer_activate.ogg",
+      "path": "sound/machines/clockcult/stargazer_activate.ogg",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/sound/machines/clockcult/stargazer_activate.ogg",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "license": "CC-BY-SA-3.0",
+      "credits": "Xhuis (Ashe Higgs), Rob Bailey (actioninja)",
+      "history": [
+        {
+          "commit": "7e569eb99797fa89a22100a758e09bdff5733099",
+          "contributor": "Rob Bailey",
+          "subject": "Converts almost every single sound to mono 44.1khz, recuts some sounds. (#43550)"
+        },
+        {
+          "commit": "b7e7779c19b76449c290aaf2150fb93545b1a79a",
+          "contributor": "Ashe Higgs",
+          "subject": "(Ready) Clockwork Cult Rework: Proof-of-concept (#29741)"
+        }
+      ],
+      "source_sha256": "cfb06b35ea1d66b5ac0504f19686eba10503289352792c8f751519aba395ff6f",
+      "output_sha256": "5674ba0bf6c73b8d887551f343cbd4981e851a00db1bb0b96e0f4cae651b870d",
+      "source_format": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vorbis",
+            "sample_rate": "44100",
+            "channels": 2
+          }
+        ],
+        "format": {
+          "duration": "2.117574"
+        }
+      },
+      "output_format": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vorbis",
+            "sample_rate": "44100",
+            "channels": 1,
+            "tags": {
+              "encoder": "Lavc libvorbis"
+            }
+          }
+        ],
+        "format": {
+          "duration": "2.117574"
+        }
+      },
+      "changes": "Downmixed stereo to mono, 44100 Hz Vorbis quality 5, for SS14 positional playback; no trimming or gain change."
+    },
+    {
+      "file": "ratvar_reveal.ogg",
+      "path": "sound/effects/ratvar_reveal.ogg",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/sound/effects/ratvar_reveal.ogg",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "license": "CC-BY-SA-3.0",
+      "credits": "Xhuis",
+      "history": [
+        {
+          "commit": "76c033cfdc71b75f5e12dc52939aefb21bb81588",
+          "contributor": "Xhuis",
+          "subject": "Several changes to clockcult"
+        }
+      ],
+      "source_sha256": "ec238e9aaf23f09411a2303ea5f12234ae12010308618641326e5399e55a86e5",
+      "output_sha256": "ec238e9aaf23f09411a2303ea5f12234ae12010308618641326e5399e55a86e5",
+      "source_format": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vorbis",
+            "sample_rate": "44100",
+            "channels": 2
+          }
+        ],
+        "format": {
+          "duration": "5.503129"
+        }
+      },
+      "output_format": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vorbis",
+            "sample_rate": "44100",
+            "channels": 2
+          }
+        ],
+        "format": {
+          "duration": "5.503129"
+        }
+      },
+      "changes": "Byte-identical copy from pinned BeeStation."
+    },
+    {
+      "file": "ark_activation.ogg",
+      "path": "sound/magic/clockwork/ark_activation.ogg",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/sound/magic/clockwork/ark_activation.ogg",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "license": "CC-BY-SA-3.0",
+      "credits": "Xhuis (Ashe Higgs), Rob Bailey (actioninja)",
+      "history": [
+        {
+          "commit": "7e569eb99797fa89a22100a758e09bdff5733099",
+          "contributor": "Rob Bailey",
+          "subject": "Converts almost every single sound to mono 44.1khz, recuts some sounds. (#43550)"
+        },
+        {
+          "commit": "b7e7779c19b76449c290aaf2150fb93545b1a79a",
+          "contributor": "Ashe Higgs",
+          "subject": "(Ready) Clockwork Cult Rework: Proof-of-concept (#29741)"
+        }
+      ],
+      "source_sha256": "d979c5fa326508ba78503c8f7f50d0e2f0c4711f93db6dc85242b2c0abdef7b2",
+      "output_sha256": "799b5a90699dbe681382f9247f570a7b75659fbd14fc7d9e32623b983f9e1e63",
+      "source_format": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vorbis",
+            "sample_rate": "44100",
+            "channels": 2
+          }
+        ],
+        "format": {
+          "duration": "11.240385"
+        }
+      },
+      "output_format": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vorbis",
+            "sample_rate": "44100",
+            "channels": 1,
+            "tags": {
+              "encoder": "Lavc libvorbis"
+            }
+          }
+        ],
+        "format": {
+          "duration": "11.240385"
+        }
+      },
+      "changes": "Downmixed stereo to mono, 44100 Hz Vorbis quality 5, for SS14 positional playback; no trimming or gain change."
+    },
+    {
+      "file": "integration_cog_install.ogg",
+      "path": "sound/machines/clockcult/integration_cog_install.ogg",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/sound/machines/clockcult/integration_cog_install.ogg",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "license": "CC-BY-SA-3.0",
+      "credits": "Xhuis (Ashe Higgs), Rob Bailey (actioninja)",
+      "history": [
+        {
+          "commit": "7e569eb99797fa89a22100a758e09bdff5733099",
+          "contributor": "Rob Bailey",
+          "subject": "Converts almost every single sound to mono 44.1khz, recuts some sounds. (#43550)"
+        },
+        {
+          "commit": "b7e7779c19b76449c290aaf2150fb93545b1a79a",
+          "contributor": "Ashe Higgs",
+          "subject": "(Ready) Clockwork Cult Rework: Proof-of-concept (#29741)"
+        }
+      ],
+      "source_sha256": "a215c62a3826a6d74a680f5c347cf06102ee583f978bc3f79dc2484959a70c89",
+      "output_sha256": "a215c62a3826a6d74a680f5c347cf06102ee583f978bc3f79dc2484959a70c89",
+      "source_format": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vorbis",
+            "sample_rate": "44100",
+            "channels": 1
+          }
+        ],
+        "format": {
+          "duration": "0.437755"
+        }
+      },
+      "output_format": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vorbis",
+            "sample_rate": "44100",
+            "channels": 1
+          }
+        ],
+        "format": {
+          "duration": "0.437755"
+        }
+      },
+      "changes": "Byte-identical copy from pinned BeeStation."
+    },
+    {
+      "file": "invoke_general.ogg",
+      "path": "sound/magic/clockwork/invoke_general.ogg",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/sound/magic/clockwork/invoke_general.ogg",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "license": "CC-BY-SA-3.0",
+      "credits": "Xhuis, Rob Bailey (actioninja)",
+      "history": [
+        {
+          "commit": "7e569eb99797fa89a22100a758e09bdff5733099",
+          "contributor": "Rob Bailey",
+          "subject": "Converts almost every single sound to mono 44.1khz, recuts some sounds. (#43550)"
+        },
+        {
+          "commit": "45ef8a5e00c95d8c80f4506f96fb7876ee206f48",
+          "contributor": "Xhuis",
+          "subject": "Ratvar, the Clockwork Justiciar"
+        }
+      ],
+      "source_sha256": "1b180193400c4435b10a687b4dfd339da13740c6447ca8dad4ddb3bc4a54e8a8",
+      "output_sha256": "58f827444f10b0806445b2b00736065d25a72bbaf66d18bb5535f21beb5d9d0f",
+      "source_format": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vorbis",
+            "sample_rate": "44100",
+            "channels": 2
+          }
+        ],
+        "format": {
+          "duration": "5.154195"
+        }
+      },
+      "output_format": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vorbis",
+            "sample_rate": "44100",
+            "channels": 1,
+            "tags": {
+              "encoder": "Lavc libvorbis"
+            }
+          }
+        ],
+        "format": {
+          "duration": "5.154195"
+        }
+      },
+      "changes": "Downmixed stereo to mono, 44100 Hz Vorbis quality 5, for SS14 positional playback; no trimming or gain change."
+    },
+    {
+      "file": "ark_deathrattle.ogg",
+      "path": "sound/machines/clockcult/ark_deathrattle.ogg",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/sound/machines/clockcult/ark_deathrattle.ogg",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "license": "CC-BY-SA-3.0",
+      "credits": "Xhuis (Ashe Higgs), Rob Bailey (actioninja)",
+      "history": [
+        {
+          "commit": "7e569eb99797fa89a22100a758e09bdff5733099",
+          "contributor": "Rob Bailey",
+          "subject": "Converts almost every single sound to mono 44.1khz, recuts some sounds. (#43550)"
+        },
+        {
+          "commit": "32c68a60bf88b5e350f8ef78609ffccc45821483",
+          "contributor": "Ashe Higgs",
+          "subject": "Clockwork Cult Defenses Patch - Leader role, traps and wiring, hulk and mech soft-counters, +more (#32935)"
+        }
+      ],
+      "source_sha256": "e699455959c7438273e96d65b324d6db0d8797d84dfaf06ae3fb7531482f469e",
+      "output_sha256": "02454622f4ce85f618ab1259f68305375193c2c713908f16d17ae463613de586",
+      "source_format": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vorbis",
+            "sample_rate": "44100",
+            "channels": 2
+          }
+        ],
+        "format": {
+          "duration": "5.914490"
+        }
+      },
+      "output_format": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "vorbis",
+            "sample_rate": "44100",
+            "channels": 1,
+            "tags": {
+              "encoder": "Lavc libvorbis"
+            }
+          }
+        ],
+        "format": {
+          "duration": "5.914490"
+        }
+      },
+      "changes": "Downmixed stereo to mono, 44100 Hz Vorbis quality 5, for SS14 positional playback; no trimming or gain change."
+    }
+  ]
+}

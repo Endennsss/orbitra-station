@@ -151,7 +151,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         bool ignoreActionBlocker = false
         )
     {
-        if (TryHandleOrbitraRatvarChat(source, message, desiredType, shell, player)) return; // Orbitra-Edit - закрытый канал до обычной речи и мёртвого чата
+        // Orbitra-Edit - культ отключён; подключение сохранено в _Orbitra/Archive/Ratvar/README.md.
 
         if (HasComp<GhostComponent>(source))
         {

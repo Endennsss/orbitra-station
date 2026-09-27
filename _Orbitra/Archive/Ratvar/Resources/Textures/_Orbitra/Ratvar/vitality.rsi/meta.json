@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "license": "CC-BY-SA-3.0",
+  "copyright": "From https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/effects/clockwork_effects.dmi. File history contributors (not individual state authors): Ashe Higgs, Cenrus, Joan Lung, Nerd Lord, PowerfulBacon, Xhuis, qwerty. Selected states extracted, renamed and repacked from DMI to RSI; no pixel edits. See ../provenance.json. All 19 pinned clockwork_effects.dmi revisions checked by selected-state pixel hashes. sigilvitality first appears in 3793e6187a25aa3edd925f2c8984fd3bc5fa3581, Nerd Lord; compression by qwerty in 38254deeebd3d7e81ab282e36174e1713c5ead20. Introducing commit notice and pinned README license reviewed; no applicable exception found. Contributors are not asserted to be sole sprite authors. Selected pixels, directions and timing retained, CC BY-SA 3.0 retained.",
+  "states": [
+    {
+      "name": "vitality",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    }
+  ]
+}

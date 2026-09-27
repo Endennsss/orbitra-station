@@ -1,0 +1,1997 @@
+[
+  {
+    "path": "Content.Client/_Orbitra/Ratvar/OrbitraRatvarBoundUserInterface.cs",
+    "sha256": "0F89F5963F54DFA7EAF3CE6DE9A2BA1D32B7633E99CE2639E09C639AE73351EA",
+    "bytes": 11831
+  },
+  {
+    "path": "Content.Client/_Orbitra/Ratvar/OrbitraRatvarCacheBoundUserInterface.cs",
+    "sha256": "01A2D7206AF4ED0BB95D24A389DAE943800041734D7E3FDCF3B870CC4B949C63",
+    "bytes": 3536
+  },
+  {
+    "path": "Content.Client/_Orbitra/Ratvar/OrbitraRatvarCrystalBoundUserInterface.cs",
+    "sha256": "20F230B9292D136DA8D158971899644AFB74B9FE1D44F1208BFFB3E6F55AF5CB",
+    "bytes": 833
+  },
+  {
+    "path": "Content.Client/_Orbitra/Ratvar/OrbitraRatvarCrystalWindow.cs",
+    "sha256": "22F28BEA9A515E4F241CD8C670BB9022602CB4302EEF037BC01D15FFC3B6FAF5",
+    "bytes": 3917
+  },
+  {
+    "path": "Content.Client/_Orbitra/Ratvar/OrbitraRatvarEminenceBoundUserInterface.cs",
+    "sha256": "D4ECA2259BA40A0A3FD41C07CFA364A531EA31853378621328AFA0437AC5AF7D",
+    "bytes": 1162
+  },
+  {
+    "path": "Content.Client/_Orbitra/Ratvar/OrbitraRatvarEminenceViewSystem.cs",
+    "sha256": "7B12CAD8824A7B38E837A5B7971CA814D4CEA6D3B56FD52693AB1251ADC94193",
+    "bytes": 1609
+  },
+  {
+    "path": "Content.Client/_Orbitra/Ratvar/OrbitraRatvarEminenceWindow.cs",
+    "sha256": "C784A8C1051904E225F7F41B9301B52776C9B1446FC9FDFC3F4F261C4DFA47F0",
+    "bytes": 9149
+  },
+  {
+    "path": "Content.Client/_Orbitra/Ratvar/OrbitraRatvarMarauderVisualSystem.cs",
+    "sha256": "6A778CA56D9B551E308E47ED71912E04888C0E7B373101E9B39460589C93D385",
+    "bytes": 912
+  },
+  {
+    "path": "Content.Client/_Orbitra/Ratvar/OrbitraRatvarPresenceSystem.cs",
+    "sha256": "A1F4AC2271984AF800D3FA7EDD43CAB9B654B25D7322C42D913D0C2A346514F7",
+    "bytes": 2345
+  },
+  {
+    "path": "Content.Client/_Orbitra/Ratvar/OrbitraRatvarProjectionOverlay.cs",
+    "sha256": "0358D0E3E5BB45DC20F4B2E15FD0FCEA9CEE97AB901E53C5C1BF2D5039D06D2E",
+    "bytes": 3127
+  },
+  {
+    "path": "Content.Client/_Orbitra/Ratvar/OrbitraRatvarProjectionVisualSystem.cs",
+    "sha256": "1E4CAEADF2CAA59EC950D8FBE6926B4621C1234A44E05A8ADF7B6AC2CEFE6627",
+    "bytes": 650
+  },
+  {
+    "path": "Content.Client/_Orbitra/Ratvar/OrbitraRatvarSheetlet.cs",
+    "sha256": "962D51D8194A925B4D4811687656C118FF1391C7316063EC467715CC5E8DFF13",
+    "bytes": 996
+  },
+  {
+    "path": "Content.Client/_Orbitra/Ratvar/OrbitraRatvarTravelBoundUserInterface.cs",
+    "sha256": "264C6F7CCD4B767C645252EF99FC9A30E721CB238CF8762146EF911D3335C830",
+    "bytes": 4864
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/ActiveOrbitraRatvarEmpowermentComponent.cs",
+    "sha256": "98DC8AB277173035DE719E87956559EA72560BD7837C547CAF3346823EC18DD4",
+    "bytes": 810
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarAntagCount.cs",
+    "sha256": "84A4E2AF358115C7665FD6B2503DAF3D7E9FDA8A8C0F55FF900612C53FA6DD90",
+    "bytes": 581
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarBodyComponent.cs",
+    "sha256": "ECBB7760F301CC3556F8694E8122C3E5E2B1ABC3DAFD7DCC05D277D1CE08F570",
+    "bytes": 228
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarCacheComponent.cs",
+    "sha256": "715765A8527F66312D30D996BA700139FC279B93DCD2949F382868003AF0514A",
+    "bytes": 411
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarCacheSystem.cs",
+    "sha256": "20F880B6919A7CC930B20B5529566A8F4C58CDB5ADC4E03D86F051A385E3C54C",
+    "bytes": 5302
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarCogscarabComponent.cs",
+    "sha256": "EC8456E365094A23E7F0F61E736F3F39F23712F45D80692DFCB079607F65FC4C",
+    "bytes": 417
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarCogscarabSystem.cs",
+    "sha256": "41B64063C1107489F7AE58909E36436A4C214ECB6A1AC428D89136E72FCB8F0A",
+    "bytes": 1077
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarCrystalComponent.cs",
+    "sha256": "93B18E8E391C45B7314503E2703E9E4CE56EBF66CE27D163D1BC60DBF2D88620",
+    "bytes": 2477
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarCrystalSystem.Appearance.cs",
+    "sha256": "82C10632E388B50A36ACC96BD96D7A079B0219FD0C5006F7BF6E703403C4F43F",
+    "bytes": 812
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarCrystalSystem.cs",
+    "sha256": "7BC05F3A9A17E5DFA08D41794DEA53670A45CCADBB97C622C06E252ED6A6207A",
+    "bytes": 14069
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarCrystalSystem.Equipment.cs",
+    "sha256": "2673792FB6A57735DD60C95F14186B1E7CCDE0E85615AE4D66B590355E7472C3",
+    "bytes": 5457
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarCrystalSystem.Ui.cs",
+    "sha256": "38331018EE9B077B1E7FA590BB45D129EA6EAD3AB34951A9F6795B21225C1EDA",
+    "bytes": 6055
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarEminenceAvatarComponent.cs",
+    "sha256": "8E0DB385A86AEB1458B34E29636FF93754A4C5198007E753674F4594013152F4",
+    "bytes": 1412
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarEminenceComponent.cs",
+    "sha256": "408F74B7D28B9AD1AC57E0B942B6A0D1ED56836945420A0885F4015691120BBE",
+    "bytes": 1622
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarEminenceInvitationComponent.cs",
+    "sha256": "F859FE91C2D62D61A122D46C9AF88CB7E8D9A318D391C7BC3A887381A43B6FD9",
+    "bytes": 1217
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarEminenceSpireComponent.cs",
+    "sha256": "0DB00493DF008DAC599FC147F1E292AAEBC98220F679442D6E0317E730F45CA4",
+    "bytes": 840
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarEminenceSystem.Abilities.cs",
+    "sha256": "9FEF30F46D5F9B621B1A91E2C0BA3F619B63FBA6F0E63525A8F03AD374E26550",
+    "bytes": 12802
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarEminenceSystem.cs",
+    "sha256": "987F6E3530FCDB748E93952394FC1C921FA9952B67916BA6AED8ACD4A7EBCB73",
+    "bytes": 8352
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarEminenceSystem.Invitations.cs",
+    "sha256": "A63B1B706DFFA01C582C8049AB722DDB3ECBFE605F1C174D59B1D5575D2C30C1",
+    "bytes": 7488
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarEminenceSystem.Reality.cs",
+    "sha256": "9EAAFF4748A67BA3B4EF3D19AB5EB174469D50339B84075736F5113D26BD71C9",
+    "bytes": 3486
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarEminenceSystem.Summoning.cs",
+    "sha256": "4039B2B2FD80968C4D62FCE35866EAC039F1758F8FF4B7F98133246698A2625B",
+    "bytes": 6029
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarEminenceSystem.Ui.cs",
+    "sha256": "3A8BE1404A455CF067EE03525EBF697D11C8AFBB6463C657FFED6A9E5682846D",
+    "bytes": 12185
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarEminenceSystem.View.cs",
+    "sha256": "A45CAE0864B828C768607ED73B7343027DC6695BE09AA72FF651A2E1D7977DD3",
+    "bytes": 4165
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarEquipmentComponent.cs",
+    "sha256": "89F1F5DFC540B5EE988F0A667AF807346245DA62C272D85BCD7D38A36C55483C",
+    "bytes": 1301
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarEquipmentSystem.cs",
+    "sha256": "87817A0B2DA347EA8833B000870150F4B3EF66F79BB5A85575DC2A87D716BD7C",
+    "bytes": 8806
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarEventTargetComponent.cs",
+    "sha256": "4A5A041C0880F8E3A6C688B438C1B5DF1648EB616242BA84214BC4EC40EFA116",
+    "bytes": 365
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarFabricatorComponent.cs",
+    "sha256": "5E6B3F2D3F5197061389950D117A1CC258C7BE7A61B7DD2692286BBF7D74368D",
+    "bytes": 3932
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarFabricatorSystem.cs",
+    "sha256": "7C38EB96210F440E54AD501C3AA37ED6EE1060CFC1238248A048804389CCA4B2",
+    "bytes": 10297
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarFabricatorSystem.Doors.cs",
+    "sha256": "E31E5FDEBDD02763C3DA6F6447E8FCB3DDAAE0E61F26111D50A3AA52558D69D9",
+    "bytes": 7203
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarFabricatorSystem.Floors.cs",
+    "sha256": "EC0752564F69B8D6F04C94ED4AB48BFD6B0383A5A9B1B1429608E85983B3CC6A",
+    "bytes": 6474
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarFabricatorSystem.Materials.cs",
+    "sha256": "D37F3B8F4B5A0CC504A2E7DE099A163D4E713AA69EBA6B229D0331142F3F3104",
+    "bytes": 3133
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarFabricatorSystem.Recycling.cs",
+    "sha256": "C6C4C873F7DE79C29FA4D431080E1D875B1B8C56589B9C072E3642ECA120C7EA",
+    "bytes": 3631
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarFabricatorSystem.Walls.cs",
+    "sha256": "EC7F429042B4D5945F894F62B0A5086746D7481E2C79E617FEC2DEF9A518C228",
+    "bytes": 5937
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarFabricatorSystem.Windows.cs",
+    "sha256": "9677870A23CD2D1A0257C9619E8BA074FF16A4F622EFA92A38BA17AD3F38E2A0",
+    "bytes": 5959
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarIntegrationCogComponent.cs",
+    "sha256": "0C83553EF58E3D0E9EE80B381911D705BAE7E47B47CABE32E33599AAE9B28725",
+    "bytes": 2190
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarIntegrationCogSystem.cs",
+    "sha256": "29A21D5A657AB015D06B007DB37AB4A62EA11297DDF8C7149FDC0AB195C3C542",
+    "bytes": 12854
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarLensComponent.cs",
+    "sha256": "04B15320AEFDFAC70C2A02B36E844CEE77298E00348BE64F5FFD8FC24843AE5A",
+    "bytes": 1424
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarLensSystem.cs",
+    "sha256": "B5DB32D03FAF7B99099712D4BA00DE80920F636F9A36E93B0F8E73F07096B46E",
+    "bytes": 8036
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarManifestationComponent.cs",
+    "sha256": "74ADA4C048F7D35203D4A03BFD226A3755ED6C44C592AFFFF10B511F52FFC90C",
+    "bytes": 2799
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarManifestationSystem.cs",
+    "sha256": "400809BB5C9A5F7A2BE804F9B804E2420A2D08296B130852A2DB8B1EC7C3D986",
+    "bytes": 15141
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarMarauderComponent.cs",
+    "sha256": "474CD920E3C2688E7C545B538B3B392D9DC7AB82297E111102A1AE479DE960F8",
+    "bytes": 1719
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarMarauderSystem.cs",
+    "sha256": "38372A58C1FE3A6BB7DC9C416AC118C034769874F038862FDFD09E4B6AB6AE2B",
+    "bytes": 4343
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarMarauderSystem.Shield.cs",
+    "sha256": "5C5AA5C54CDB9BA4673F9ADD3691CBF805E9F95A610C8EFB40998B2FE8B7740B",
+    "bytes": 6738
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarPoweredComponent.cs",
+    "sha256": "9938A2A2984B37A9BEB5C171AE4EBFD5823C478604FB86FB9D77F87A09CB0CE2",
+    "bytes": 490
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarPowerSystem.cs",
+    "sha256": "7721B7D08EBAD68488CC3C542820E7E11354BCBD048753D96D55069273D48A1B",
+    "bytes": 6793
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarPrismComponent.cs",
+    "sha256": "392ADB00DF1251F7F679312D23C13486CB2A1CC420AB89A49FFB49554EFC6B72",
+    "bytes": 2213
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarPrismSystem.cs",
+    "sha256": "8D180560738B791781F37DA2F94D3DF062148975C6AE89BE002891A8FDF0AB7F",
+    "bytes": 11322
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarProjectionItemComponent.cs",
+    "sha256": "CB4BC4766B11AC4E446DE4270C2C55659E9E0913E65789C265293F65D2C0CF4F",
+    "bytes": 667
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarRepairTargetComponent.cs",
+    "sha256": "FF0A831CFBEBF4AB358031B453E319D5B26E26896EF20185E210BC198467F102",
+    "bytes": 405
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarRuleComponent.cs",
+    "sha256": "02F2B61A3100DA6FB247C3ED4BCBFF9A82110E0203E4E8F0F2CE55A062D6A4B0",
+    "bytes": 3881
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarRuleSystem.Ark.cs",
+    "sha256": "C7033EC9528369AAFD632F721894CF19293FB621EF40F72E19CBBA02303374A4",
+    "bytes": 9239
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarRuleSystem.Bodies.cs",
+    "sha256": "36F2270CCF62EEBF3F04F47E865F79D5CE248D195CC14B2525580619F3B91104",
+    "bytes": 3867
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarRuleSystem.Communication.cs",
+    "sha256": "FD34016BBD50F8758011BF498A3B6F46451EC041178228BA688AB15F7F7325C4",
+    "bytes": 3110
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarRuleSystem.cs",
+    "sha256": "01B735693D14AB4212F76B093BD86F15C536890DBF45173886B6FA84A92182AE",
+    "bytes": 8484
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarRuleSystem.Defences.cs",
+    "sha256": "CE0AC55882973C08E853A677556B633CA8AEA50130A86857BACE8EA454C8C321",
+    "bytes": 1708
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarRuleSystem.Empowerments.cs",
+    "sha256": "4F268E8D189F5DD8978044FB461CBD2826EBAD9D6695F5109F967053819A1BB4",
+    "bytes": 13648
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarRuleSystem.Rituals.cs",
+    "sha256": "98EEF8C5F81AE08F397304A05C56539B31CD9F5F026B90427AC5C95407785095",
+    "bytes": 9472
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarRuleSystem.Scriptures.cs",
+    "sha256": "4DEBC74CA7F0D3DAB27BCCCDD7EB3E008B11038BF19E83A4FAC48D1B8BE4237C",
+    "bytes": 15536
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarRuleSystem.TestMode.cs",
+    "sha256": "A45FB040E0A218B845A5D9812173E7EFBD946462FDBBF1F813CE118447DB7853",
+    "bytes": 1538
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarShellComponent.cs",
+    "sha256": "1444BBAF8953F056CDD238AE93FD4DE784205BC4443D3E042771F80F2D156D39",
+    "bytes": 378
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarStargazerComponent.cs",
+    "sha256": "FEFFBA2C78798191A0F2663A8F55DB070FE4B711DADCC653C7184A8FA5F7F9EE",
+    "bytes": 1559
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarStargazerSystem.cs",
+    "sha256": "EB3EA599B0FD63F6DCFB7D6FB0511EED6390282D9918D77D9B2E60D3639B2E19",
+    "bytes": 12553
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarStructureComponent.cs",
+    "sha256": "9E7662811101CF6CA67585F1272067284151CB70EAC72FFB4A9A081B18C7F050",
+    "bytes": 681
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarSubmissionComponent.cs",
+    "sha256": "2B93330CC501A6277A0DC5785253487F412CBC1B72B15DCF008657D314C5FEF4",
+    "bytes": 368
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarTestCommand.cs",
+    "sha256": "02D7CC6960B9DE49227415EC70D080764513C110B543D9CC0DBA3B06171BF975",
+    "bytes": 3025
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarTransmissionComponent.cs",
+    "sha256": "FC7CC20CC9ECBD474D24345A116ED0D1DB5D9B236E8773C15102CB097196BF88",
+    "bytes": 474
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarTrapComponent.cs",
+    "sha256": "3356F2AAB43BA1F57090531471AA634418B89348369860107715BC4162A21821",
+    "bytes": 2966
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarTrapSystem.cs",
+    "sha256": "DB1CDFD3275C9C5AEEEE5EF049DFC7E7CEB1DA47F4EEF40788F07574378BDFBA",
+    "bytes": 14413
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarTrapSystem.Effects.cs",
+    "sha256": "77D2D474094AA3940729B6EE324EFF9E6776BC1465671A05F2CC863F63283149",
+    "bytes": 7162
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarTravelComponent.cs",
+    "sha256": "2220917B4CFE6EF8A273964CCB9219A7BD959EEC3731DF27FADC2F13439B688F",
+    "bytes": 690
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarTravelSystem.cs",
+    "sha256": "8447825CD775FF92422C9DAA5C7CDF329F0D11072B259BB5FDF68A7EBEED75B9",
+    "bytes": 13288
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarVitalityComponent.cs",
+    "sha256": "BFA3981005E9E7E3A38E12CDBE59730B93512935B7DB6428FC174530A1D68541",
+    "bytes": 2098
+  },
+  {
+    "path": "Content.Server/_Orbitra/Ratvar/OrbitraRatvarVitalitySystem.cs",
+    "sha256": "E011889E391866D11C6AFF476ECE3C3E9AD2D2E0663DA9761EFDDFDAD9F02642",
+    "bytes": 11358
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarCacheUi.cs",
+    "sha256": "B8362548EB943ACADED1A50115C64FA494D48732EB38CE69CDD4762D5241DEEE",
+    "bytes": 616
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarCogEvent.cs",
+    "sha256": "9B27C31970700738898A526EA362BB8FDB5EAE06B1040E0FFAAA2809F91FFF6A",
+    "bytes": 757
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarCrystalUi.cs",
+    "sha256": "B5E659F747EBE2C6EB649C10D3FDB9AE7E642AD467548D6026E79DA82F357110",
+    "bytes": 1085
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarDefenceEvent.cs",
+    "sha256": "4ECACA9FFE5C611815A376D5FEF118BAC762C6A734C754D308EEDE21A4614BAF",
+    "bytes": 221
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarDoorEvent.cs",
+    "sha256": "69911BDE9C89452E3419CDAD2A4C761B380B8CD258D32AB8527BA08F8A5C51F8",
+    "bytes": 504
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarEminenceRecallEvent.cs",
+    "sha256": "DD577E3A2CE230E2C9BB87958CB64C85737F6DFF7E4DBE6213A02E558AC0F31B",
+    "bytes": 461
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarEminenceUi.cs",
+    "sha256": "016F15685A6E6C2E9D497F4C79E05F1737551040C6E60B5E361F6CC6F0777A6A",
+    "bytes": 2908
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarEminenceViewComponent.cs",
+    "sha256": "B08DE7E419836A626C01D3D7B8B0E67879FEA7732D0E8CA0456E1FC7A58B7D92",
+    "bytes": 304
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarEnchantEvent.cs",
+    "sha256": "2795161EA2AD6BC249425D01E1A706822E9B70FED7C297CE8C2CEE8F32CE4E39",
+    "bytes": 424
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarEnchantmentComponent.cs",
+    "sha256": "E53B8F6457C2BF39ECAC685EEF57915C97540F9608298D693EBB8382E5B231E7",
+    "bytes": 1084
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarEnchantmentSystem.cs",
+    "sha256": "C0C28FC3E2FA27D26E4D282E9D760849A19FE5A227883DE6F8E72C8B7A43C0AF",
+    "bytes": 1100
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarFabricatorEvent.cs",
+    "sha256": "C4D1D8B8212DD7BF5A3C528929A9C979065EA06F0D7C276AF141C8F11982E561",
+    "bytes": 458
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarFloorEvent.cs",
+    "sha256": "C7A8DDDDF25A2B1B4C7269F6C67C6D45066B5E672C20CA26E35ECB545F6D462A",
+    "bytes": 593
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarMarauderRepairEvent.cs",
+    "sha256": "1035CE9378E9DB8C8BE9FF253C3AD135457A18CF2A4F8A8260F0465194ACE739",
+    "bytes": 301
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarMarauderVisualComponent.cs",
+    "sha256": "059EF7EB512099E5EE6DAC285C8F78EA9013E70248B827DAA63539E7F0C8E5BE",
+    "bytes": 291
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarPresenceComponent.cs",
+    "sha256": "B08EF84877B9041843E7B04336848C26C647FAD9061B8B4DC329BB81B11B0FCF",
+    "bytes": 292
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarProjectionVisualComponent.cs",
+    "sha256": "D2482261E54CA157E7A01C8E4382CDB19629557B3F222AA88D065DE7BFD96CBD",
+    "bytes": 633
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarRoleComponent.cs",
+    "sha256": "0282E81A2C39B7F976D9541EE490364DAE74EDC7198EDDC25D752D6F5624488F",
+    "bytes": 981
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarScripturePrototype.cs",
+    "sha256": "599B64C9877CDBCC0F6BCD33854B08917747EA2C3259CB700F4D61BE59615BFC",
+    "bytes": 3447
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarSkewerComponent.cs",
+    "sha256": "C38557FFB203CD700E822EC7D12755BDACCD7556F1D0E8FBBEA740B727635B66",
+    "bytes": 287
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarSkewerSystem.cs",
+    "sha256": "CFEB56BAA1495E6C06005B5622E7286BAAD7CE2F308034EA62638193B44A3700",
+    "bytes": 707
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarTabletComponent.cs",
+    "sha256": "2442A2FB43E22674D1A5B484710E68133D21ACA1B103B8E1643EE6E00C63E5F4",
+    "bytes": 1107
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarTargetSpellEvent.cs",
+    "sha256": "4C9D8A40D02DFA41DF1A266C31C43A7A3AD904F9FF0E0C270EFC7976BC918CA1",
+    "bytes": 221
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarTrapEscapeEvent.cs",
+    "sha256": "F9005478E59259E6937C283AA2FE57A9A1CE0ED2ABA520AF6A44A4CF8992D770",
+    "bytes": 252
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarTravelUi.cs",
+    "sha256": "9D7FB0B2C8956F0F5B55FE2FBF408E3368350D009A65CEEFF4886916CC53CAAE",
+    "bytes": 1365
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarVisuals.cs",
+    "sha256": "60EBD5647976E9950FAAAA71A36BE64BDD26764AE4BE4BD5F89EDCBF5482DB4F",
+    "bytes": 442
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarWallEvent.cs",
+    "sha256": "2D54F762CC74BE1A3C94130B8D404823B9C7F32B3564ADFC6F4A417A5E062EA0",
+    "bytes": 495
+  },
+  {
+    "path": "Content.Shared/_Orbitra/Ratvar/OrbitraRatvarWindowEvent.cs",
+    "sha256": "026B14FDC1196906486885CA7644F6825E7A9388594ED2B640BB0DA27A68EB49",
+    "bytes": 501
+  },
+  {
+    "path": "Resources/Audio/_Orbitra/Ratvar/ark_activation.ogg",
+    "sha256": "799B5A90699DBE681382F9247F570A7B75659FBD14FC7D9E32623B983F9E1E63",
+    "bytes": 114840
+  },
+  {
+    "path": "Resources/Audio/_Orbitra/Ratvar/ark_deathrattle.ogg",
+    "sha256": "02454622F4CE85F618AB1259F68305375193C2C713908F16D17AE463613DE586",
+    "bytes": 58650
+  },
+  {
+    "path": "Resources/Audio/_Orbitra/Ratvar/attributions.yml",
+    "sha256": "8BA930614681AAF057AE0F674255FFAC26D69D934A23BD2A2CECE1692C2F1FA3",
+    "bytes": 3062
+  },
+  {
+    "path": "Resources/Audio/_Orbitra/Ratvar/integration_cog_install.ogg",
+    "sha256": "A215C62A3826A6D74A680F5C347CF06102EE583F978BC3F79DC2484959A70C89",
+    "bytes": 8832
+  },
+  {
+    "path": "Resources/Audio/_Orbitra/Ratvar/invoke_general.ogg",
+    "sha256": "58F827444F10B0806445B2B00736065D25A72BBAF66D18BB5535F21BEB5D9D0F",
+    "bytes": 45475
+  },
+  {
+    "path": "Resources/Audio/_Orbitra/Ratvar/LICENSE.txt",
+    "sha256": "BAD1BCEF9CF884DE383F2675E81477EBDB5BCCBB8D2EE3580B5D830BD9CE9626",
+    "bytes": 1516
+  },
+  {
+    "path": "Resources/Audio/_Orbitra/Ratvar/provenance.json",
+    "sha256": "EB1FBB881A539639C1FED11E12A2A436E708498A0C8E4C6E4E476E6EDB2E60D7",
+    "bytes": 11926
+  },
+  {
+    "path": "Resources/Audio/_Orbitra/Ratvar/ratvar_reveal.ogg",
+    "sha256": "EC238E9AAF23F09411A2303EA5F12234AE12010308618641326E5399E55A86E5",
+    "bytes": 52313
+  },
+  {
+    "path": "Resources/Audio/_Orbitra/Ratvar/stargazer_activate.ogg",
+    "sha256": "5674BA0BF6C73B8D887551F343CBD4981E851A00DB1BB0B96E0F4CAE651B870D",
+    "bytes": 24353
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/LICENSE.txt",
+    "sha256": "30EC41CB50691D376E9D2450DE7FE437932BF53C8597668E631FCF1E34FA25DA",
+    "bytes": 6836
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/provenance.json",
+    "sha256": "3B8DFA14E246386132FA192EBBB09097867175B7FD330B4649DEA21D21989F1B",
+    "bytes": 168913
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/ark.rsi/active.png",
+    "sha256": "874DD20A6DF39DEF5CCFB367899D896C6E684F6E63121DD0877C1CA12529BE9B",
+    "bytes": 386683
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/ark.rsi/charging.png",
+    "sha256": "E406544DBA1DD94B11B366CAE37985AE16897D5E1C44C2FCE9D049066B52A76C",
+    "bytes": 175441
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/ark.rsi/meta.json",
+    "sha256": "1E6326A006E982EA97B644C14243847F335F540655AD2CD518551B8C260AF233",
+    "bytes": 1738
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/armor.rsi/equipped-OUTERCLOTHING.png",
+    "sha256": "D2DF81BC3684B47435C1ABABFD27FBD08C7F795E322409900D9CC43DCFD90548",
+    "bytes": 1528
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/armor.rsi/meta.json",
+    "sha256": "5C6D9470AEB2B2587BFF597836584C13FB91E5F2BF3315338114D6E83206224B",
+    "bytes": 755
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/cache.rsi/cache.png",
+    "sha256": "87473755942B5DBA0391427447A969A23FE152A8D4BBB05631461FDF449FBBEE",
+    "bytes": 2519
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/cache.rsi/meta.json",
+    "sha256": "EEF30712E08F10BAB1881C7E6EE0F87AF96F6F217C2D6D3B256D064DCEE2BEA8",
+    "bytes": 1109
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/cache_items.rsi/cloak.png",
+    "sha256": "F1A376EEF8B5BBD720B57270BBA53AD4B53E98E66812FECD04304E4FEF47C189",
+    "bytes": 506
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/cache_items.rsi/meta.json",
+    "sha256": "C335874005CCAF8B0BD73FC7AA5A902EB512FD99459F454FA5AA711B2CE17433",
+    "bytes": 1374
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/cache_items.rsi/robes.png",
+    "sha256": "6C52F2BF4ED3534AAA20925F153ED51A2E938AFC02EBC59F2F417B0F26F110FC",
+    "bytes": 633
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/cache_items.rsi/spectacles.png",
+    "sha256": "22B9D0EDC27C3E904F3F2227261A9DCE653D901962DBF7A0D2946E5D4AC90301",
+    "bytes": 750
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/cloak.rsi/equipped-OUTERCLOTHING.png",
+    "sha256": "DB7134F99957A82C1380F68A975C28D46CDFDE8B9E4299682930D0AEF1775138",
+    "bytes": 1174
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/cloak.rsi/meta.json",
+    "sha256": "6A774FE11C9B8F8BEBE6115B4955BC640B91F810B5F4A04F8337397F5D04CC5A",
+    "bytes": 1260
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/cogscarab.rsi/alive_moving.png",
+    "sha256": "29C24FC61D1A8D9CA45C15EAC95780B17A0397F37EC838B5DF8A56B92338D738",
+    "bytes": 1593
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/cogscarab.rsi/alive.png",
+    "sha256": "3F6E8D1ADA48455DBD441F588890FFB42DBF62A8A57A664A41378994EDD7611E",
+    "bytes": 1113
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/cogscarab.rsi/dead.png",
+    "sha256": "8D37576BFC853DFE6A153135CD2D3DEBA7E2D3C02FD44187845EDAA1E5030110",
+    "bytes": 435
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/cogscarab.rsi/meta.json",
+    "sha256": "0762943AE2CC20D63CB65B3D2F643ECBBCCE56C073B6597C8D268E700A21EFB4",
+    "bytes": 1703
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/cogscarab.rsi/shell.png",
+    "sha256": "A9CD2986742324B65D56DB2D6566C342C62CC0C4CC72BD1882A62F5EB589513D",
+    "bytes": 461
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/doors.rsi/closed.png",
+    "sha256": "7B4208854C12B759966FD56545F167A5479881EAB3342794F4945AF54C8275C6",
+    "bytes": 1303
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/doors.rsi/closing.png",
+    "sha256": "DC3BD7FC76A4C16C371359CA9680EBDB85FED402EBF274B7D87912E5F22BF343",
+    "bytes": 2915
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/doors.rsi/fill_closed.png",
+    "sha256": "F0C82AA2568341998B654EBC3A29F8BCA3A1215577C169E42B5D7577B016AA14",
+    "bytes": 368
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/doors.rsi/fill_left.png",
+    "sha256": "D13A028534B8587F946F1750F6B7DABE9952F325032CC09FD4E01BF16890978D",
+    "bytes": 265
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/doors.rsi/fill_right.png",
+    "sha256": "EEA70AB6844BD3B0F10D9A40EA8D93BB97A9F512F671AAF7D91AC45C825B608E",
+    "bytes": 269
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/doors.rsi/meta.json",
+    "sha256": "8AE3F50024FD4BA16C8E1560113E3356588875053AF2908C92472268D9B4C1BD",
+    "bytes": 2580
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/doors.rsi/open.png",
+    "sha256": "98EFD81DA1CD84B3862698210E55189C74D900110FD45751BA856CD58A8971D2",
+    "bytes": 256
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/doors.rsi/opening.png",
+    "sha256": "3769BE483BFE2710801EE84E0A6545BB9AF68305096C48B8975B0ABA1C9E3566",
+    "bytes": 2967
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/doors.rsi/source_closed.png",
+    "sha256": "17D91AF62FDBC527EFABDDDDB0AA9EB209B0B0114FF283576D422DC192E2F341",
+    "bytes": 1252
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/doors.rsi/source_left.png",
+    "sha256": "A1CB219AB4617D12D7A6525C4E9B7B38408774A6EB7C4EB4D512507A5E884B7C",
+    "bytes": 860
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/doors.rsi/source_right.png",
+    "sha256": "ACEF866523C288B85EF13F03AA045691686978A8AC827B288AD1EF3FFA814DB8",
+    "bytes": 911
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/floors.rsi/floor.png",
+    "sha256": "4B3F840FA1D4184F221841383A28A20E27EE7EA86E9203D7BB7A7C27CF39329D",
+    "bytes": 918
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/floors.rsi/meta.json",
+    "sha256": "54BDA50BD8D832E322710769ACF907D9E90C579372E35D1541FFE73D4932B6A2",
+    "bytes": 1818
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/garb.rsi/armor.png",
+    "sha256": "17C890EB45BD3662A7C6A1D4A209DCEB0E17304EACBD8042841CA7BEAEF175A2",
+    "bytes": 661
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/garb.rsi/helmet.png",
+    "sha256": "3502340704CCF78D770A60F67503255202E18E9534CD4F0BBBED028B350656D0",
+    "bytes": 331
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/garb.rsi/meta.json",
+    "sha256": "D42D311BBA66C30CE96E2AA3227EB76033913D0FC18EE0DCB3CA0B2D45DE2DFD",
+    "bytes": 775
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/grille.rsi/full.png",
+    "sha256": "6361CA33E2E58D4243BEC21B688A687F953496D3BB78AC511888736F6BE10D01",
+    "bytes": 387
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/grille.rsi/meta.json",
+    "sha256": "4F8E71928DAC9320C1EA5AA318AA5E62EB2AF87E90C9CB07539069317810F64C",
+    "bytes": 1351
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/helmet.rsi/equipped-HELMET.png",
+    "sha256": "BBE49B4416A783A6BD159F5AD7191BC31398BE528B88FB48D45BD73C85C4315F",
+    "bytes": 641
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/helmet.rsi/meta.json",
+    "sha256": "F297ECB39010A5A9F405908FD707834CE19252AD5674A685B4386C713C0BF123",
+    "bytes": 747
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/lens.rsi/active.png",
+    "sha256": "2219B19648A48FA5E621CDBAB191E9C134375CCA58148035C258A43C958512D7",
+    "bytes": 1714
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/lens.rsi/inactive.png",
+    "sha256": "E56E2E02729BDBBF84B2AFEB0F967F1F594113C5B512ECCC5C953B6B2DC7D3B6",
+    "bytes": 2209
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/lens.rsi/meta.json",
+    "sha256": "203C4FF85602744B411379067215184F62C46BEF7E95A34ACC22F35918D11FA8",
+    "bytes": 1747
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/lens.rsi/unanchored.png",
+    "sha256": "EC275646412310D99B4C61F0B1C9951A6B83BDCE77CD187F159426409C282F3D",
+    "bytes": 891
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/manacles.rsi/manacles.png",
+    "sha256": "B62060E215FF95A7407693EDBA388315B38C7A17AE115BF8E38BD10F4D12D138",
+    "bytes": 1103
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/manacles.rsi/meta.json",
+    "sha256": "0D678C5AD7E8EA09EA5910B69C36266C5AFDD7CA048E8D24458FA113E39E1C7A",
+    "bytes": 1555
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/marauder.rsi/alive.png",
+    "sha256": "9532F80D5646BE8791A1726285CB7373E7148E8488263F39CE034AFB6377EB07",
+    "bytes": 10062
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/marauder.rsi/meta.json",
+    "sha256": "8CBEB8C46A58D294A72DB61BF834C332BD639D2F1149DD82D9B537CE48269955",
+    "bytes": 1657
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/mechanisms.rsi/fabricator.png",
+    "sha256": "AC9A7C163B2FD489BA0C9809549AC04B8D041963D74FD333FDC2072307F452D5",
+    "bytes": 879
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/mechanisms.rsi/generator.png",
+    "sha256": "F31B4FC5234446429C76F1C160C882EA03565502613D844DE8B805B68A5A6380",
+    "bytes": 723
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/mechanisms.rsi/integration_cog.png",
+    "sha256": "F4D7F1B10D400D1C346D8529F6DB706E47C5B87BE1A34DC03AD0F2F471D09FB3",
+    "bytes": 755
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/mechanisms.rsi/meta.json",
+    "sha256": "AE72E67419FE6B7FF04F601FA6754F496E0FC59E898AF3FFE3967772AB1F8445",
+    "bytes": 2533
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/mechanisms.rsi/obelisk_inactive.png",
+    "sha256": "E45BCE87A77DC097A91F25FC2D36C6D6B838ED889FF619B36FFCF5215679526E",
+    "bytes": 816
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/mechanisms.rsi/obelisk.png",
+    "sha256": "1C42B1BA2F6A7FB7B28C527682E05372D940BE55CC707A37E674818314ABBA48",
+    "bytes": 8359
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/mechanisms.rsi/spear.png",
+    "sha256": "3598FF57C7EB602FB6B2FBFF5267DA6F95D547F4DC4AAE5A7B81ABB3489B640B",
+    "bytes": 402
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/mechanisms.rsi/tablet.png",
+    "sha256": "8F025DEA52C0D00EEF494BD19E076B2BF469099A7850BC9115A35789C0BBA88D",
+    "bytes": 2327
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/mechanisms.rsi/turret.png",
+    "sha256": "B702592BA0446BE7F57358DB51B6397012588A55858D219E04122845C07C4DC0",
+    "bytes": 2185
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/prism.rsi/active.png",
+    "sha256": "A486B91A692147D34A999A9EC30295144B726E9F3A3E23647AC6215ED692BC95",
+    "bytes": 6572
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/prism.rsi/inactive.png",
+    "sha256": "947C888EB25A970763BD0157B41ACF984606227505C3102A00A169FFD205C6FD",
+    "bytes": 801
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/prism.rsi/meta.json",
+    "sha256": "F2EB9E86B06469403B8AFBA0064B35BDD0F42F6C82CA66603C383795B360D64F",
+    "bytes": 2002
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/prism.rsi/unanchored.png",
+    "sha256": "EB4BA8C4C151166CDAEC5249FC6B6FB45CAF696187940CFCDA6D76CFC333D7AA",
+    "bytes": 777
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/ratvar.rsi/meta.json",
+    "sha256": "B4CAE203A601D276F000C48CC2B551EA88762B6C86AB6084CAB1BB7C9122134C",
+    "bytes": 1385
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/ratvar.rsi/ratvar.png",
+    "sha256": "06B1FD05842E7D8615A529B69D25E6843CC13A67CF58CED144ADD63ABB055A0A",
+    "bytes": 432826
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/robes.rsi/equipped-OUTERCLOTHING.png",
+    "sha256": "8D8FA9828D92B226CFD0BEF3BB59CB25DECB21385EC46100B9AE578484D797FD",
+    "bytes": 1460
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/robes.rsi/meta.json",
+    "sha256": "2761F9D243FDF880CA597FB09F921A07CDABFADA71326F3C6FA7D822D4EAE854",
+    "bytes": 1268
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/sigils.rsi/conversion.png",
+    "sha256": "2759B62D71EA944FE358D0E00B6C0239CC359B72B2F9E5429E1CDAF297F4A688",
+    "bytes": 1503
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/sigils.rsi/meta.json",
+    "sha256": "2F2FBD1D242B7DC43E12D39552B82572CD4B7F9AC1AAB5018DB6624AF3D1610F",
+    "bytes": 1980
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/sigils.rsi/shield_break.png",
+    "sha256": "F04B92A68BDDD8D7D6C8FBD08C48B5A9E1F47541113639D07557C213DA0F79F4",
+    "bytes": 1134
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/sigils.rsi/shield_hit.png",
+    "sha256": "51F11BEA78B072ACD1B2D39ECC9332C2C812D1375061B9E9EAEDC4E527C8393C",
+    "bytes": 2200
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/sigils.rsi/shield.png",
+    "sha256": "8334B593D2804E8F2E584973FA399A56DD49B9DB3CED34F0D01D0D8F7A525D14",
+    "bytes": 1881
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/sigils.rsi/slowing.png",
+    "sha256": "832D9483BEBFA1D7942905FF39A9353EB459207BAA2E5399720AEC35F5D6A0D4",
+    "bytes": 1569
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/sigils.rsi/transmission.png",
+    "sha256": "D34C2504AFEE49CD610115B68C0DEBDDEFF8B104F0353FE51B65B428249DC160",
+    "bytes": 1600
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/spear_left.rsi/inhand-left.png",
+    "sha256": "155B82D57AC9427BC55D385B998C7BC580DFD34C987B81B5CCA0DBEC4437CDFE",
+    "bytes": 606
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/spear_left.rsi/meta.json",
+    "sha256": "283649A6C279FDFAE4A5F655BC763FB539A22234858A36C1EEC8C9954E6E0A18",
+    "bytes": 737
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/spear_right.rsi/inhand-right.png",
+    "sha256": "77A1B480C884644E5744796473D5436CE2A731F6A623B532430C071D5FB495FC",
+    "bytes": 716
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/spear_right.rsi/meta.json",
+    "sha256": "B9FEBFF072D923B57B745E01C3ADC7DC498BEA80594F1DB10440C38C8AE00FC1",
+    "bytes": 739
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/spectacles.rsi/equipped-EYES.png",
+    "sha256": "C0B5DA1970B2325479A6DB7768B6D791DE13421A078A698B6C6E97828E8027D0",
+    "bytes": 419
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/spectacles.rsi/meta.json",
+    "sha256": "5E5F2D9AB0B5CC2B1D0BAD1AC93F6523F24B877A9C81474F55EE8346D36A58A1",
+    "bytes": 1154
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/stargazer.rsi/active.png",
+    "sha256": "F31B4FC5234446429C76F1C160C882EA03565502613D844DE8B805B68A5A6380",
+    "bytes": 723
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/stargazer.rsi/idle.png",
+    "sha256": "3261F47E3ECDBCE8400DEC72681FFAC2A548BF55D1ABFE543BFC566F1CEC4A46",
+    "bytes": 160
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/stargazer.rsi/light.png",
+    "sha256": "E1C887A9444A1A533DF0DF241AE5308B85B565279AC04F8A6AF6DB19F133CD56",
+    "bytes": 291
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/stargazer.rsi/meta.json",
+    "sha256": "2BC9AEA5AA5194677CDB74F9B4939795AA7E8417B394BA202CE2479AE0CC5FB4",
+    "bytes": 1568
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/stargazer.rsi/unanchored.png",
+    "sha256": "6504FDA441721C9110F78ACE63BAE6C4427B94C1887F1F2C29ED2A49E15CB2E1",
+    "bytes": 595
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/tools_left.rsi/fabricator.png",
+    "sha256": "8F2D1B7F03D553BDD1A47EB9EFC83BE68A33211BD4ECEE95F3388308AB0B0018",
+    "bytes": 1058
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/tools_left.rsi/meta.json",
+    "sha256": "12C408CA94401B993730C5A2832EC959E17DEB87076A27AA3C10406D6A72D464",
+    "bytes": 1107
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/tools_left.rsi/tablet.png",
+    "sha256": "915CAD70429DDBB6F91E5EE28A4D9CBF22D79104013D0D7B8EC5059EF5521B4D",
+    "bytes": 277
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/tools_right.rsi/fabricator.png",
+    "sha256": "011E556EC7654FE8FA2FA2F9FFC2C4256F1845C2D2246A7AAB18C535ABFBE316",
+    "bytes": 1344
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/tools_right.rsi/meta.json",
+    "sha256": "B3965BFB91736FE6C8493077163B068FD7E0C49F094150DAE2BF1AED80086B90",
+    "bytes": 1108
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/tools_right.rsi/tablet.png",
+    "sha256": "EF386A6F87959980AF1EE9AC390A5F14745409DC26FC4161761D35CE5E502D42",
+    "bytes": 395
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/traps.rsi/delay_active.png",
+    "sha256": "2F25051080689A85483FBCB86854E2FCD2DBEFD66294E1C701D5789FDDBB32DB",
+    "bytes": 468
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/traps.rsi/delay.png",
+    "sha256": "B7BCF11E9AC6B59742A7C4F6DA7910E86585E9AB9CABF7DF516F6F275DCFFFF9",
+    "bytes": 243
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/traps.rsi/flipper.png",
+    "sha256": "1E11999E1C8F1E84305BB5681C5C838BAE6C7872854BBD8041E131C79B34546A",
+    "bytes": 17916
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/traps.rsi/lever.png",
+    "sha256": "0B9A6B302497D94CB3154C2E1A0C3064968FA91965C6A12AE2E423BCEBA70D71",
+    "bytes": 278
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/traps.rsi/meta.json",
+    "sha256": "A9F3E79E5D1C2FCBD89D2CC0589849E8F77832F481E8CE3AEDE119EB6528F908",
+    "bytes": 2853
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/traps.rsi/plate.png",
+    "sha256": "6F631572A7263835B7947D5FB19647385D6FF4768C7EE357A2F41C6A055DF57D",
+    "bytes": 874
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/traps.rsi/skewer_extended.png",
+    "sha256": "0B99A0BBAD1A9EC49E8263286E0EE3E0F8ACF3FD294B2B1873A713881632E1A6",
+    "bytes": 331
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/traps.rsi/skewer_tip.png",
+    "sha256": "B9A4CDF6966F65B78C9517591E5AAC6834A0ADF359F89F350DA4B894948BBC35",
+    "bytes": 288
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/traps.rsi/skewer.png",
+    "sha256": "2A9CBB67552FF8CE5646BFA70CE1B30BF55284ED15DD0B0265E5BFF4CE6A5E27",
+    "bytes": 131
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/vitality.rsi/meta.json",
+    "sha256": "1674ED7AC60380C20AE5F81BD6707901DB9ED4008D6590D95510E96EB58E17BD",
+    "bytes": 1098
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/vitality.rsi/vitality.png",
+    "sha256": "D0E859ADAFD02480CCAE74BB0273B0EC3020EA8EF2EC1B98BAE0F488331F6437",
+    "bytes": 1570
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/full.png",
+    "sha256": "FCDCCEA6BC6E21F29D8D4AD07E91BD16A579C2DA7EFA01827C25505B41299D40",
+    "bytes": 689
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/meta.json",
+    "sha256": "2FBB9AA6E431FA2A779CBBC539AF7D6866F6EC1AE7E1F81450D709B5CE4767DC",
+    "bytes": 7620
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source0.png",
+    "sha256": "FCDCCEA6BC6E21F29D8D4AD07E91BD16A579C2DA7EFA01827C25505B41299D40",
+    "bytes": 689
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source1.png",
+    "sha256": "2D8F9F3F2253470F4B852BB28DB2CAB7EB5AFAD9B86EBFF31FBE45BD33AAC35F",
+    "bytes": 677
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source10.png",
+    "sha256": "ADAE99C9433AFB82007A5D840688F12FCE92A017A397F09C58F8C441CE25282C",
+    "bytes": 710
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source11.png",
+    "sha256": "1BC523DEC84D75ADDA4119BD899B93728FB725933E7B6E4C0A3DAF86C37E2E44",
+    "bytes": 691
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source110.png",
+    "sha256": "252B6B0A9ACC57A81DDCAC7BC9038E4398EE5EBCCC651371924FBFD9A12161D6",
+    "bytes": 693
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source111.png",
+    "sha256": "7E2756425CC0F9F424FFC62CC4CF9D23AD5EF8841D6D8039F1667CCFB45EF389",
+    "bytes": 672
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source12.png",
+    "sha256": "1B9649426EF670EE9BF993773F2A30F71BA268B905B8AA8C7987E47424CFACC9",
+    "bytes": 678
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source127.png",
+    "sha256": "EF7477CEC3FD4E91AD834DBD30CB558CF98AED51CBF4286BA6BDA8544EE2428B",
+    "bytes": 670
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source13.png",
+    "sha256": "252FC10FF74422ED51AADE31F38B658A69B706FFD3D55A8CDBC8D3D7E78C3C12",
+    "bytes": 668
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source137.png",
+    "sha256": "D45699277D79F752D42CEC342E6F4EF9326EF6A5489C0D54BB39E9DC4A88ADA2",
+    "bytes": 698
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source139.png",
+    "sha256": "43A0FACB63C17524454432896E67C67E6582A81B7C4651E1CD8E98F069053172",
+    "bytes": 694
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source14.png",
+    "sha256": "B25CB716730D6D77F7C81E3E8FDDC69762AFCDE8158B789FDFF41CC7F6E2B638",
+    "bytes": 691
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source141.png",
+    "sha256": "F8241A9A178789978F277C2B4AC6AC8634E326C372B4A3E19B6915F947D824AF",
+    "bytes": 678
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source143.png",
+    "sha256": "5CF02B10EA137439C42ECEFBD98B7E07996FDC7ED94FC0E0FDA3F0D9A795D3BB",
+    "bytes": 674
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source15.png",
+    "sha256": "79A6B0C08B406CF5CDFE85DA4CF0EBBA3786FB3731D7FCC3D718651CBDDFF211",
+    "bytes": 669
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source157.png",
+    "sha256": "607C5D24BD9C5C7155535E2C85E7A2C8046114038FE08615927BEF1ADC084EE6",
+    "bytes": 677
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source159.png",
+    "sha256": "C68D816849166A5AF4C44213D769F74E88475EEF237A075FBE91258AE83DF7F2",
+    "bytes": 671
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source175.png",
+    "sha256": "72A31D1F1B807A854FA1B688FC10CBB943CCC5F25208B8CEB2E0962AA19EA7D2",
+    "bytes": 676
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source191.png",
+    "sha256": "760F38CA24BEBD0AF1924D647ADA8E721794158FCD5C57FF85C18DE0CA67B7A0",
+    "bytes": 672
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source2.png",
+    "sha256": "BCEB6848082634B231C0AA2F97F4747D5056750BB93BD6695B5738AAF84AA4FF",
+    "bytes": 699
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source203.png",
+    "sha256": "00C9C5EB886812828A59F93AA1F2C80326B77934CE9C6C0A6B29EC88B8695FA0",
+    "bytes": 694
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source207.png",
+    "sha256": "409738EAC23F7DD4982D2611D3F9ABBAE8F263107B3F5373C03E0BF3768FB48C",
+    "bytes": 674
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source21.png",
+    "sha256": "45710BA547F3EB14938C679192077D264B6EB5287652E18EF40EF9D1FB1F91BD",
+    "bytes": 682
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source223.png",
+    "sha256": "2B63DF92CFAEB4B5647B78E34EC0A0B3C380556BC604BEFBE6238ECD624965BA",
+    "bytes": 669
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source23.png",
+    "sha256": "90941A05F5375E3D0F6AA610F6D208A4E986C9651FB5E52FAB186F19B6645CBC",
+    "bytes": 684
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source239.png",
+    "sha256": "7667D1A5A4100692F447C119E62A626E82605C20F9D9CFD00DE9C33EB90BE894",
+    "bytes": 672
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source255.png",
+    "sha256": "3C86470704F4E5DECA25241335236A723346A33070978B34FD329C4FBA1635EE",
+    "bytes": 666
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source29.png",
+    "sha256": "68CD2C127FDCDC72F178654880FE467AC4BA37BAF96AEA2DFF3D46B5AF8323D6",
+    "bytes": 669
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source3.png",
+    "sha256": "854D444204E765BADFC8303FF8E3795CABF6A20D38524FE31486E9FA83DC863E",
+    "bytes": 681
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source31.png",
+    "sha256": "EA7D7573C7E47FBE57EFDFEBB2B36B7D0C5A4CEB3CEA6B915682D747C4B29C6F",
+    "bytes": 672
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source38.png",
+    "sha256": "6DF7238A71E4DEED62C8C235B9500D87CE3A1F39BFAD956FB5CA92383EE428BF",
+    "bytes": 704
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source39.png",
+    "sha256": "D87DB06EC09D317B64959C0F33E3559337317BCCEDA29E28222AF1D3A6BB1EEB",
+    "bytes": 687
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source4.png",
+    "sha256": "BCECE695DF34529C4BB05E7056568493A28E8098B0AEFF2F3BA0214333077A47",
+    "bytes": 689
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source46.png",
+    "sha256": "0BB22740E017CDF524CF0BD3F8A7CFE3B66EFA956B4211C0AEAA245ED1BB4035",
+    "bytes": 695
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source47.png",
+    "sha256": "36627E51111B5E77FE815140CB1A518D1E84AB2E91082B27D9C9A04E537B46BB",
+    "bytes": 674
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source5.png",
+    "sha256": "3CD37CAB16961E313AE8E6B4F5600A49B87E5EEA5CFAC83968A4E68957DBDBB0",
+    "bytes": 681
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source55.png",
+    "sha256": "CF9CACA0A90996CC9B374E9D20E7ADB6373E552A2377387FA34D148CD71FFD43",
+    "bytes": 685
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source6.png",
+    "sha256": "5044402F8A4F1F9BA7891A03F17B469B15FC9F59285655FF051975FA33DD2443",
+    "bytes": 700
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source63.png",
+    "sha256": "3CCEB9867F19D7645DE2B4FD96A4C51E395AE7FF26207D4CF3DF64F5AB64064A",
+    "bytes": 672
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source7.png",
+    "sha256": "6116166551E1D0A8D685C9CB9E7C2F7AA32C353D4B0160C24DE1C37B48730828",
+    "bytes": 681
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source74.png",
+    "sha256": "0B4B6F23FF2F92E2CE57D9DBE9C201E81364D4C278F24CB3E170AB9EFB033A5D",
+    "bytes": 714
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source75.png",
+    "sha256": "0CD8EC24149FA72BDE2D573E6F48C4DF4FBA23D12EBDD3221A982256D3B33D54",
+    "bytes": 695
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source78.png",
+    "sha256": "0DC7686BE11296C2EE3264EA0889343D1A06963094BC8E41A668713451453CB9",
+    "bytes": 696
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source79.png",
+    "sha256": "EA86FBFE329749138C0570B247767A1EE4720E8E78B755FF0AFBE348169A0557",
+    "bytes": 674
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source8.png",
+    "sha256": "0146EB2CA4395CCEBDE45EB3EF858EAC09D064B1F8B4A672D39C2B906A331E55",
+    "bytes": 698
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source9.png",
+    "sha256": "CD00F8FB4E7CC1D490E7C76E0E83A16CF0E0D401694165499AB28B55884B6F0B",
+    "bytes": 688
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/source95.png",
+    "sha256": "84A54D8B04DCA6E9C4A70B134EA9E9633290627E2BF8FA0FFC098DB24857A071",
+    "bytes": 673
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/window0.png",
+    "sha256": "EC74FCED1E0680C57471CB2CBB561DB6B0CE4770ED18C296238102FF1F303A26",
+    "bytes": 990
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/window1.png",
+    "sha256": "97EED6D2E004B5E855ACAE252E6851EF491F5CF71C9BA289162F38D444F0FADF",
+    "bytes": 961
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/window2.png",
+    "sha256": "EC74FCED1E0680C57471CB2CBB561DB6B0CE4770ED18C296238102FF1F303A26",
+    "bytes": 990
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/window3.png",
+    "sha256": "97EED6D2E004B5E855ACAE252E6851EF491F5CF71C9BA289162F38D444F0FADF",
+    "bytes": 961
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/window4.png",
+    "sha256": "BBA72E9866B8805F9B9BB38D93E64DC703239DAF22C96904DA196C701C68A649",
+    "bytes": 964
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/window5.png",
+    "sha256": "C2FACABD1C808F7F76C0423E0FAF3FF48C46A6E01F7F799C9FFD6581D68066E5",
+    "bytes": 897
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/window6.png",
+    "sha256": "BBA72E9866B8805F9B9BB38D93E64DC703239DAF22C96904DA196C701C68A649",
+    "bytes": 964
+  },
+  {
+    "path": "Resources/Textures/_Orbitra/Ratvar/windows.rsi/window7.png",
+    "sha256": "25326A1B0A7AF0C842D71E42B6573A8FC5C737472CB82BE7C7590E70999BA976",
+    "bytes": 902
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/actions.yml",
+    "sha256": "79FAA1B7322419915658B04BBAB4636A26C8B335A12C72DB153D9AA148AB7C12",
+    "bytes": 428
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/cache.yml",
+    "sha256": "79906AE596268887E2613004882884CA9EEB7A4504C43F4BAF071EBF74621832",
+    "bytes": 2733
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/cogscarab.yml",
+    "sha256": "307F3F0E24FD2CE6B5CDD1E202F39F0D932C9BB1AC0F4101DD8D4BD360BD5BD5",
+    "bytes": 1765
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/construction.yml",
+    "sha256": "3BC181AB2CD80F35E5C3A6761C08A948385C238AA13A3D1D888079F324DDA22A",
+    "bytes": 365
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/crystal.yml",
+    "sha256": "FAD89E4AA93937FF1F4FA215463BDF13779D8A4A6C7EE5F4A3840413C038C8D4",
+    "bytes": 2417
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/eminence.yml",
+    "sha256": "4730DA32F521832525EEEBD0B4A9DCDB114045F6C2299C015471C28E9D7A4DCD",
+    "bytes": 3409
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/empowerments.yml",
+    "sha256": "B3D51F0C6C3971BA254FDF7F4E1635A6F02B53F1276567F09E1A48D53EFA7164",
+    "bytes": 2182
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/fabricator.yml",
+    "sha256": "66FB2CE7092156B48F4F0B56D671D305FCB65BA6722EB875E7FEB58E7BB0E0FD",
+    "bytes": 5950
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/fortifications.yml",
+    "sha256": "585ED70E4BCB47F54998364C353961D94EBAB2C868915FF7EAABAB2B157470B7",
+    "bytes": 2558
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/guide.yml",
+    "sha256": "3150E0581C91B9AB9341B65E97D903340921EE93E619DDE72EC8123C79EC6543",
+    "bytes": 118
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/items.yml",
+    "sha256": "4CCD90F750C8999A2617915AC6805513408695E73854BF47CE6C60BF7A1C1DA7",
+    "bytes": 4962
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/lens.yml",
+    "sha256": "7D1D1328AB38AF895F987AFE1F3E123F53BABA99EFCF29E79981D59E671E129D",
+    "bytes": 1391
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/mode.yml",
+    "sha256": "2110D1646EC2268EE6DC4CD8164FC12849144621F5E7D933B284E04B56E3F4A0",
+    "bytes": 2319
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/preview.yml",
+    "sha256": "931945C6B94755B39B55DA4C610543C9AAA9A93353D01BE7A1BB71CC589F15F6",
+    "bytes": 266
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/prism.yml",
+    "sha256": "2578C40F6D3021DB091972F669D21FCAEBFD6997F16648B9D96302327E876CB7",
+    "bytes": 1373
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/scriptures.yml",
+    "sha256": "A7869BA532B1E295D18C6FEE783395EAFD4B3DC3F16E17BD72A48270336124D3",
+    "bytes": 3733
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/shield_effects.yml",
+    "sha256": "771B1E29AD221E79E615045E873181B38858171E2B46197CAA430F0C3FFE825E",
+    "bytes": 684
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/stargazer.yml",
+    "sha256": "B0085F5559C8AD2AE68329873A9E18ACF3D3DC7D8E17524EC06F44F3A5EC8107",
+    "bytes": 1994
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/structures.yml",
+    "sha256": "9D052581C11ED6DD330151576D504FA3BDA3BB2288A93998D31D64C384EF2790",
+    "bytes": 5142
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/territory.yml",
+    "sha256": "36D537D230016CEE3879A377018CE19B06AAE1F5F2DFEE891453F3A96EBDBF14",
+    "bytes": 3294
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/traps.yml",
+    "sha256": "1ED71798B1AC31F1D23470C510DB5F9EF285FA891EB15D530DFCBD561F7E97BD",
+    "bytes": 6300
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/travel.yml",
+    "sha256": "18A63930657E6AB2B652FCAC52B233ECB56C2A1C3EBAC6CFF4B97856BD93921A",
+    "bytes": 1069
+  },
+  {
+    "path": "Resources/Prototypes/_Orbitra/Ratvar/vitality.yml",
+    "sha256": "BF3E2E5B248765129DA5543F1A69A0F780069E516E6B031462C5D765BC03A2BA",
+    "bytes": 949
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/cache.ftl",
+    "sha256": "55DF0A67FE218B0BA5910FC495AE2AF704E06F5832620891CE59A3C81597A0DE",
+    "bytes": 1467
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/catalogue.ftl",
+    "sha256": "A48730B5853C44AC6D314D4EE831D9A3E3B6988259A225F98886E3AC432BAD6D",
+    "bytes": 1348
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/cogscarab.ftl",
+    "sha256": "7366C50C16188D518110106CFFB17FFE8FA8B378503A33D2D843E5613D2ED2A2",
+    "bytes": 1189
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/crystal.ftl",
+    "sha256": "7C41228C66A37E0007C872F1FF6A2D05716FA83F8AF52BFF932E26A6607B3BD6",
+    "bytes": 2552
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/eminence.ftl",
+    "sha256": "4AFBF21E2C29575AF8088D2B8138B204F5DD5BF04B46A69F39AAAF7ED849725D",
+    "bytes": 6096
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/empowerments.ftl",
+    "sha256": "52981E71653D19750C71502F83E57BEEE70D302ED04E80C64760E4BA1F77AB83",
+    "bytes": 1906
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/fabricator.ftl",
+    "sha256": "F0847FE47D68E2E3764882573EB112F3BE01E5AD61DE63DF47822526F9AD6CE9",
+    "bytes": 2621
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/lens.ftl",
+    "sha256": "E5BD97321FC828F56EA50F4CC3FEDFAF1A5C342630D2AC0D2700929C3C5B6325",
+    "bytes": 476
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/marauder.ftl",
+    "sha256": "6EABA75CE77AB010255839532830CB023A9A10B3338906D9F8E8B1245ADC6E60",
+    "bytes": 581
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/power.ftl",
+    "sha256": "F3DEDDB162FA64A15C5C42834915CB781B6639E7E984F3F248AD1697468C28C7",
+    "bytes": 1632
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/preview.ftl",
+    "sha256": "6F810B02AB8E5BDC4B93AD2199A9F420903349AEC54F48076A7C0B4A822ECE7A",
+    "bytes": 644
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/prism.ftl",
+    "sha256": "907417205FA74E49C2C76B75880C88B7EA818B45F7F8235CCAC8DCD1706B2731",
+    "bytes": 606
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/ratvar.ftl",
+    "sha256": "F5B63CDB4BAF19C6781596969E45CDB22647F0C2F7282E324C674FC3F52D0E00",
+    "bytes": 6898
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/stargazer.ftl",
+    "sha256": "5F824238979F2909268F665C877D8EECE1EA6428B10A0707534E9E4C3BDDDDD1",
+    "bytes": 984
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/territory.ftl",
+    "sha256": "38AAA3E5820F8B167DA89A43E8D2E96894C87490FF2B1414DE9116892432246A",
+    "bytes": 463
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/test_mode.ftl",
+    "sha256": "244C50A0D2A5DFBEFE19FA13811CF7A8589CB4E56D63CCFE2DEC8EABADCCD233",
+    "bytes": 1002
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/traps.ftl",
+    "sha256": "1C6D5A8596E49C6264EB7F84E1FA193FC76883F1D2084E8137B6769945697C15",
+    "bytes": 1940
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/travel.ftl",
+    "sha256": "0FF244922DC75A53D8AD30F9664DB2A6942B7E0826429EC393675F8067F80B33",
+    "bytes": 1439
+  },
+  {
+    "path": "Resources/Locale/en-US/_Orbitra/ratvar/vitality.ftl",
+    "sha256": "660BFEC8EC4AC038344ADE8C4BA92B18F21B033CD282B5F21573F60EB1EBCC4D",
+    "bytes": 591
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/cache.ftl",
+    "sha256": "46656B6EF431AC3632C858FE89C5362E632A686457B46221800A307A80930D85",
+    "bytes": 2287
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/catalogue.ftl",
+    "sha256": "66FF791D48C49D363170192E35E2ED390819870070F11C24F3E2BDAEBE8EB556",
+    "bytes": 2176
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/cogscarab.ftl",
+    "sha256": "99A030D300C482D6CFB1E3BFF5E4A3CCD6DC65EF3C48D726278A0A54D97AF49E",
+    "bytes": 1964
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/crystal.ftl",
+    "sha256": "C06BAF865139217366BB3C681ED0CCB391B96CA49BAA2D8438964B86E2B3C3E2",
+    "bytes": 3963
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/eminence.ftl",
+    "sha256": "5C3C50DDA5DB449D1C7D516629E44FE28C21C46241DBE8A986491E68110ACA78",
+    "bytes": 9122
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/empowerments.ftl",
+    "sha256": "69F2C1AE42F6788BDDBEA1E0806698F3A6CE0B30BC552E0EB4816B1D34311999",
+    "bytes": 3107
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/entities.ftl",
+    "sha256": "5E1B410979EFDB5F4961B0E237A57D61827FE67FF64BD85782FA3EBB1538A121",
+    "bytes": 845
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/fabricator.ftl",
+    "sha256": "4F8BC8BFCB36203E31EB71C002035515FEF9C3BD29F0A8916C6BF3E410912F8A",
+    "bytes": 4397
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/lens.ftl",
+    "sha256": "E3322D331703BD19F5756DA65BBAB393FB22D140F6BC6D0D41AD886BAA34378C",
+    "bytes": 750
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/marauder.ftl",
+    "sha256": "461240868ABE82737288F47A85E57A90C26D89B4289A58EC127C6091F3B72E90",
+    "bytes": 747
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/power.ftl",
+    "sha256": "7E945532287A9C3CD9FCBF26F75E937B789ACE8946DAD52091EA3BE42056552E",
+    "bytes": 2407
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/preview.ftl",
+    "sha256": "352492F3FB6B3B858D2477B2B5B3E66BAE4AA5072C817EA987EBA4E1F9B7E6E2",
+    "bytes": 1023
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/prism.ftl",
+    "sha256": "B63129CADB3CD942CE39B4ED0425DA89A587EBD391C0E8A504B52AA10F87D1F9",
+    "bytes": 931
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/ratvar.ftl",
+    "sha256": "DC87E96CAFE1F7CAA77778BF54087C9A004F6FC500687D0ACEF2EDE86FEB9D9D",
+    "bytes": 10885
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/stargazer.ftl",
+    "sha256": "BE7E01E7E1ABB82D97E8BB3A20630C3E22AFB20B8D840D555450D722EF8B6DB1",
+    "bytes": 1527
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/territory.ftl",
+    "sha256": "F81F107A5334727DCF5EFC5D5DC179969C03D8EEE724F39FB04B7D62E8682400",
+    "bytes": 757
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/test_mode.ftl",
+    "sha256": "CBB2D812230597B716EF235CFBEFFF8BBDEFC762DF907EC6FCF3C77C818E63F6",
+    "bytes": 1612
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/traps.ftl",
+    "sha256": "ECFB422F6B4F3A6A7583FCE31AB5D0D323CE8B5CFC41E617211721695ACD276B",
+    "bytes": 3042
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/travel.ftl",
+    "sha256": "D3130EC1C9D328D1253BA1FC73491862E5598D44655EE363BB2E8AA7FA57857F",
+    "bytes": 2237
+  },
+  {
+    "path": "Resources/Locale/ru-RU/_Orbitra/ratvar/vitality.ftl",
+    "sha256": "0F1F1432E35B41A60CAF7295F811E32C10D706A5AA2299AAB4AF446AF6EA2525",
+    "bytes": 1059
+  },
+  {
+    "path": "Content.Server/_Orbitra/Administration/AdminVerbSystem.Ratvar.cs",
+    "sha256": "0A284FEDAC73FB210BE2011C0E77B5AAD021B3252CA482990BC552E156740AA6",
+    "bytes": 4015
+  },
+  {
+    "path": "Content.Server/_Orbitra/Chat/ChatSystem.Ratvar.cs",
+    "sha256": "C6983ED34E2EDDF5F2A2F84F58FCCCBB3E4DD9DC820E91D3805233787B4EC082",
+    "bytes": 1468
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarAudioTest.cs",
+    "sha256": "A6756CE98FFCE1442CCF57F08E40CD28FE5E70A4CA897AEC6C35DEB8BDF277B9",
+    "bytes": 5028
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarBlocksTest.cs",
+    "sha256": "8A086DC5AD9690A28E0B08DEC93DA3185856F5DDDE239E87D521B4735CF37347",
+    "bytes": 20728
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarBugTest.cs",
+    "sha256": "BB927E5D0FCFFCCD9B246BF6456060D1DB846A9D4BC6799594300ADA328FE151",
+    "bytes": 9587
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarCatalogueTest.cs",
+    "sha256": "57F1449EE132618A492999492C33026B2FDCDF3651B0A3267AC4F4CCD7827171",
+    "bytes": 3636
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarCogTest.cs",
+    "sha256": "66B548006C5AB8D017C788A54DE9504A0D279ADC66DACD6CA7EBFE0E2B70A72B",
+    "bytes": 18338
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarCrystalTest.cs",
+    "sha256": "20A20C1CD864524B117D9DC537EEC1EFD0215B0DF0D8D2F49F38121B8F9DEAED",
+    "bytes": 23160
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarEminenceTest.Abilities.cs",
+    "sha256": "E43B2E785EAC49571EB2AAC6974F89745155D49DFBD51B052197A1318311F5E3",
+    "bytes": 14899
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarEminenceTest.cs",
+    "sha256": "DD2ED4923436BC9F8C134870E691E4452C138C8B00DF03D6EA7EFD34FDF9CBED",
+    "bytes": 10288
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarEminenceTest.Invitations.cs",
+    "sha256": "142ACD2D262BBCBB511A9533E0FED624F52FACE468118416C99BFA2EC4205C76",
+    "bytes": 13990
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarEminenceTest.Ui.cs",
+    "sha256": "FC6AAB470A4667D90F2A5EF78A3DACE3D9F3FA429F7E7898FC7B2D20D4A6CCBD",
+    "bytes": 7324
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarEminenceTest.View.cs",
+    "sha256": "6816D3CD147C64E7ABB711780C3F7751B79080833E53F35A65108ED651EAEF3D",
+    "bytes": 6476
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarEmpowermentTest.cs",
+    "sha256": "5B91EC8AD9AB1C90A1EEEDF96FFBD40BCD50810F0614187EF031F6C5D705A21B",
+    "bytes": 12311
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarFabricatorTest.cs",
+    "sha256": "35E9B9B276C3AAD51FF78ED905F51601917609932BE94747BC0DF79CE5C43DB5",
+    "bytes": 11125
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarFabricatorTest.Materials.cs",
+    "sha256": "634ABCEEDD2F70E53BF45E389423D9DD0E6C60956DFDD1D44371C64ED70E9A95",
+    "bytes": 5569
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarFabricatorTest.Recycling.cs",
+    "sha256": "202C95EA8EEEBE88390126C1B0E3C72A7636F69F37F0FFE8D93F6C7ECE52C46F",
+    "bytes": 8314
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarFeedbackTest.cs",
+    "sha256": "D8EE7786F3B0279F42C6928DC83E3FCAF90ACD181668038CCD3D664577B8550B",
+    "bytes": 4168
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarFireTest.cs",
+    "sha256": "5BB6B69C01BC2ABD7EAA4BE9FE7902450FE72FA62C9FB63185CF0A4050A99CE8",
+    "bytes": 4054
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarFloorTest.cs",
+    "sha256": "061E7E3903AA5DF016A49FB16AA6AC7491244901A327EFEA5CA085371623DFE6",
+    "bytes": 15664
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarFloorTest.Doors.cs",
+    "sha256": "BC505244E73E7C6B41D34567FFF2FEF2E7D0679BCA3B35855019A07C7C79C800",
+    "bytes": 8487
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarFloorTest.Recipes.cs",
+    "sha256": "2FBA138A14B3996108E576F6E58537BD38BC01F499242D2C1F18F8F1CA5AED4D",
+    "bytes": 1685
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarFloorTest.Sigils.cs",
+    "sha256": "4DC41E48717FA803E5044C8433ABD00F7FAB9F411ECF2E45F6D213D45D7C67EF",
+    "bytes": 1620
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarFloorTest.Walls.cs",
+    "sha256": "E3EB5AE5549826641150459FF3B5712FDCA07D08EC8E42B3FFC2BBBE11447F85",
+    "bytes": 8455
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarFortificationTest.cs",
+    "sha256": "C2718FC70AF444EEC2C4E0F001C16BB6C0898245088B5D96AB2EAEA138209B7B",
+    "bytes": 3611
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarLensTest.cs",
+    "sha256": "BC6B1B6C04B765327E4264D19176A50352210B50C48C53DF44215E9AA6ECF32D",
+    "bytes": 11159
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarManifestationTest.cs",
+    "sha256": "9CFD47192450C871F1DB435DD1C2D81AC1252896FB28658A3B2DEB18A4790202",
+    "bytes": 9641
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarMarauderTest.cs",
+    "sha256": "145A4B27DF8CD61CC4F0F621BBADBAE15A7EDCCF9C55B33CC38BC9B911A62E5A",
+    "bytes": 6350
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarPowerTest.cs",
+    "sha256": "8C746322DD2ABD76F96A1D4AA1E270D5CE8D5852DFBD51EFB628966BB2E4793B",
+    "bytes": 11280
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarPreviewTest.cs",
+    "sha256": "F929E815AC2698B95D6BC3453DF90F724D34642589BF981C2E4780724C560101",
+    "bytes": 2836
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarPrismTest.cs",
+    "sha256": "69586403EF7AFDBCD07BAA99EBB85DD85319285397191813206E13F8394DC732",
+    "bytes": 10427
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarRegressionTest.cs",
+    "sha256": "172FD9C3EA4BDECC8C8EA3A300991837CED8B2711ED1BF99921E970F3A82B78B",
+    "bytes": 13162
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarRitualTest.cs",
+    "sha256": "4475438946BC99785B441F5918565B41D3DA3115C93E52886C7B3DD8E0C9D13D",
+    "bytes": 9432
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarSessionTest.cs",
+    "sha256": "CAFFF174CF649E1E3064D7C27277FC6BF5F92E8D32EF8F319475FA74388F02E3",
+    "bytes": 5913
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarShellTest.cs",
+    "sha256": "D41C579F8CD307AE8132AAFE99AAA8AC113F770C75D3AD444271967DCF398603",
+    "bytes": 10719
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarStargazerTest.cs",
+    "sha256": "215C53DE97EC9D92247A44BA10DC10F48C047287077BB2EB9F01B02E8A15D6B0",
+    "bytes": 9614
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarTerritoryTest.cs",
+    "sha256": "FCC1A1B90128F2A8D8B0B5849B45365759D70DED23F37E3D34F5BAC153985BCA",
+    "bytes": 4053
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarTest.cs",
+    "sha256": "85E3614A2F6E2D5F21C48D13E094325F64D7A114249DCFA7CD60EF7D018CB1BB",
+    "bytes": 17152
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarTestModeTest.cs",
+    "sha256": "323564239B95D6B493F1013A3C920A86657FDE3783FD2BEF6C02B445F95D0BC3",
+    "bytes": 6527
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarTrapTest.cs",
+    "sha256": "8DA69906ADF735058242112E5D50B9F9A225572E184B95B81E4D823EC2941D43",
+    "bytes": 12191
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarVitalityTest.cs",
+    "sha256": "728229140ED8ECDCF404E97A5D75F8C262846A820B9E552010B2004452B61EA8",
+    "bytes": 8683
+  },
+  {
+    "path": "Content.IntegrationTests/Tests/_Orbitra/OrbitraRatvarWindowSizeTest.cs",
+    "sha256": "8859ACF1075BED5385E341DE5F42A93E563C2C07424634016654D7A858288279",
+    "bytes": 5871
+  },
+  {
+    "path": "Resources/ServerInfo/Guidebook/_Orbitra/RATVAR_ADMIN_TEST.md",
+    "sha256": "CC3745535F702097FEEA3303AD0838B447DDFFA9A989599949A4F37F4E27175D",
+    "bytes": 4196
+  },
+  {
+    "path": "Resources/ServerInfo/Guidebook/_Orbitra/RATVAR_FEEDBACK.md",
+    "sha256": "3050036B32F34B838448525A48F52E4CDDBE2F24C93F27C46F34D280EF93741C",
+    "bytes": 6741
+  },
+  {
+    "path": "Resources/ServerInfo/Guidebook/_Orbitra/RATVAR_PORT_AUDIT.md",
+    "sha256": "70AC04DCCC284DDB152605E56A39B83856648FDEE9D3E40C7E79FA9962BC5136",
+    "bytes": 226054
+  },
+  {
+    "path": "Resources/ServerInfo/Guidebook/_Orbitra/RATVAR_TESTING.md",
+    "sha256": "6069F5E2F04CDCA3D463BA933E5C0385C33B646BC5CEF2C7193F0C5D18454953",
+    "bytes": 50285
+  },
+  {
+    "path": "Resources/ServerInfo/Guidebook/_Orbitra/Ratvar.xml",
+    "sha256": "B3128250A97F751706874376CF40597BF4B82EB79C6E2144E4CC439319440ED1",
+    "bytes": 52889
+  },
+  {
+    "path": "Tools/_Orbitra/audit_ratvar_blocks.py",
+    "sha256": "8173DD0E184469F017F0E5D5330EDE708C1A80C615D5E084560CD6192CB93FA0",
+    "bytes": 2748
+  },
+  {
+    "path": "Tools/_Orbitra/convert_ratvar_sprites.py",
+    "sha256": "E59F1AE27654BB7C8C2CA0CB74282B57CCC7062439B130F760739DDD11CA5A14",
+    "bytes": 22800
+  },
+  {
+    "path": "Tools/_Orbitra/import_ratvar_audio.py",
+    "sha256": "C250939200DEE257EE979136B9AD0EA10B7B48028D8FD48CBA6AE0E9604D3265",
+    "bytes": 5221
+  },
+  {
+    "path": "Tools/_Orbitra/test_ratvar_blocks_assets.py",
+    "sha256": "792DB5F380A7FBB47FBFAEA1743F86A3B726A37BB7E1F4715027D42F09444C35",
+    "bytes": 2751
+  },
+  {
+    "path": "Tools/_Orbitra/test_ratvar_finale_assets.py",
+    "sha256": "AEF645B23D99FDEA6D31BA5CAA142077F7DF0CB31E5647FE079410D90109D9D7",
+    "bytes": 3095
+  },
+  {
+    "path": "Tools/_Orbitra/test_ratvar_lens_sprites.py",
+    "sha256": "5809CE512C369CE33B3A5C8A15ACCDAC55F09AD63D637B1545FEF95426B5A4E9",
+    "bytes": 1623
+  },
+  {
+    "path": "Tools/_Orbitra/test_ratvar_marauder_sprites.py",
+    "sha256": "AFE71D12695C477CBA99328F72C74A6E05B2C1F480882206CBDAD11458CB6D35",
+    "bytes": 1250
+  },
+  {
+    "path": "Tools/_Orbitra/test_ratvar_prism_sprites.py",
+    "sha256": "4142DD4163AB1918C82BB162681F2411D056B2A0F42A0DA9088ADBE6D932DA82",
+    "bytes": 1346
+  },
+  {
+    "path": "Tools/_Orbitra/test_ratvar_stargazer_sprites.py",
+    "sha256": "8161093B6292B93BC1BB294BEAF04542266203B34AFA000F9856B2FA4E0D531F",
+    "bytes": 1152
+  },
+  {
+    "path": "Tools/_Orbitra/test_ratvar_territory_sprites.py",
+    "sha256": "FD75E6F3C78FA0AE2655C8DB31C58660FE7B2BD3167DFA1C2E67690C041B8684",
+    "bytes": 2911
+  }
+]

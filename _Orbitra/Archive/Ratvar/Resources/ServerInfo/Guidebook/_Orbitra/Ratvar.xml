@@ -1,0 +1,357 @@
+<Document>
+  # Культ Ратвара / Ratvar Cult
+  <Box><GuideEntityEmbed Entity="OrbitraRatvarTablet" /></Box>
+  Держите табличку в руке для писаний. Создайте интеграционную шестерню и примените к ЛКП: 5 секунд на открытие, затем повторное применение для установки за 4 секунды. Шестерня забирает до 2000 джоулей раз в две секунды и даёт до 20 общей энергии. Батарея должна быть заряжена хотя бы наполовину. Экипаж может открыть панель и уничтожить шестерню ломом за 5 секунд. Пассивные генераторы больше не вырабатывают энергию.
+  Коллективный разум: пишите +р текст в обычный чат. Сообщение видят только участники вашего культа, рация и табличка не нужны. Пауза между сообщениями составляет две секунды.
+  Обращение: живой человек с разумом должен оставаться на закреплённой печати пять секунд. Печать запускается сама, если рядом в пределах 1,5 тайла есть живой участник её культа, способный взаимодействовать с целью. Табличка и наручники не нужны. Цель может двигаться внутри радиуса печати 0,65 тайла. Выход за него, смерть, перенос разума из тела цели, уничтожение или открепление печати, смена её владельца либо отсутствие подходящих культистов рядом сбрасывают прогресс. Вернувшаяся цель начинает пять секунд заново. Культист может двигаться рядом, менять руки и использовать писания, включая Авангард. Оглушение цели Воспламенением и связывание Оковами обращению не мешают.
+  Защита разума, священник и несовместимая роль препятствуют обращению.
+  Святая вода должна непрерывно присутствовать в организме 30 секунд. После очищения действует защита на две минуты.
+  Вторая ступень: два новых сознания и 600 выработанной энергии. Третья: четыре сознания и 1800 энергии.
+  Строительство базы: в меню строительства доступны латунная стена, латунное окно и латунная дверь. Стена требует обычный каркас из двух листов стали, два листа латуни и сварку. Окно требует два листа латуни и два листа армированного стекла. Дверь требует десять листов латуни, не зависит от питания и открывается любым членом экипажа. Это не замок культа. Стол и стул из латуни также доступны в обычном строительстве. Разборка инструментами возвращает строительные материалы; разрушение не заменяет аккуратную разборку.
+  Латунная плитка создаётся в меню строительства из одного листа латуни за 2 секунды. Укладывайте её на обшивку; лом снимает покрытие и возвращает плитку. Пол не лечит и не обладает неуязвимостью. Латунная баррикада строится из четырёх листов за 4 секунды, блокирует проход, но пропускает воздух и не скрывает обзор. Кусачки за 3 секунды возвращают четыре листа; разрушение оставляет только один или два.
+  Репликационный фабрикатор вызывается писанием второй ступени за 100 энергии и 4 секунды. Держите его в руке и применяйте к повреждённому механизму своего культа или латунной стене, окну, двери, баррикаде. Ремонт занимает 6 секунд, списывает 200 энергии только при завершении и восстанавливает оставшуюся прочность плюс 15, не превышая максимум. Движение, урон и смена руки прерывают работу. Нельзя ремонтировать чужие культовые механизмы или постройки в контейнерах.
+  Активируйте свободный фабрикатор в руке, чтобы изготовить до 50 листов латуни по 10 энергии за лист. Он выдаст столько, сколько позволяет запас культа, и оставит листы у ваших ног. Между партиями нужна одна секунда. Производство не увеличивает прогресс выработки. Обратного обмена латуни на энергию пока нет.
+  Примените фабрикатор к стопке обычной стали или стекла на полу рядом: каждые два листа превращаются в один латунный, нечётный остаток сохраняется. Переработка не расходует и не выдаёт энергию, не увеличивает прогресс выработки и использует ту же секундную задержку, что производство. За одно применение получается до 50 листов латуни. Другие материалы, бесконечные стопки и предметы в контейнерах не поддерживаются.
+  Примените фабрикатор к основанию пола или обычному стальному, белому, тёмному либо деревянному покрытию: за 2 секунды и 20 энергии появится латунный пол. Предварительно снимать плитку не нужно. Космос и неподдерживаемые покрытия не преобразуются. Лом снимает латунное покрытие с сохранением исходного пола.
+  Целую закреплённую обычную стену, полноразмерное обычное, тонированное или армированное окно, закрытую серебряную, золотую либо плазменную дверь или поддерживаемый станционный шлюз можно преобразовать в латунный вариант за 6 секунд и 200 энергии. Разборка, повреждения и посторонние дочерние объекты мешают преобразованию. Болты шлюза должны быть подняты. Плата и содержимое её штатного отсека сохраняются; у латунной двери они больше не управляют доступом. Кабели и трубы на тайле не удаляются. Латунная дверь открывается любому без электричества, это не культовый замок. Шаттловые, внешние и высокозащищённые шлюзы, направленные и диагональные окна пока не поддерживаются.
+  Ковчег строится только на основной станции. После 20 минут раунда для запуска нужны третья ступень, три живых слуги рядом и 2000 энергии. Защищайте ковчег пять минут. Уничтожение активного ковчега означает поражение.
+
+  Печать передачи стоит 100 энергии и создаётся за 5 секунд при двух живых слугах своего культа рядом. Она питает закреплённые механизмы своего культа в радиусе 6 тайлов на том же гриде. Перекрытие печатей не усиливает питание. Удаление, открепление или смена владельца сразу запрещают новые операции, если рядом нет другой подходящей печати.
+  Глазастый страж требует третью ступень, 400 энергии, 5 секунд и двух слуг. Между стражами должно быть больше 4 тайлов. Страж атакует видимых противников в радиусе 3 тайлов раз в 2 секунды обычным лазерным снарядом с 5 теплового урона; каждый снаряд расходует 5 общей энергии. Нет покрытия или энергии: нет стрельбы. Обелиск связи требует покрытия и ненулевого запаса; коллективный разум от механизмов не зависит.
+  В табличке доступны поиск, фильтр ступени, требования чтения и причины недоступности. Поступление и расход измеряются за последний интервал, а не предсказывают будущую выработку.
+
+  Боевые писания: выберите писание и завершите подготовку с табличкой в руках. Для Воспламенения, Оков и Компромисса окно закроется: нажмите табличкой на подходящую цель до истечения времени. Повторное открытие таблички отменяет подготовку. Неудачный выбор и истечение времени не расходуют энергию; Авангард оплачивается при включении.
+  Воспламенение (первая ступень, 125 энергии): подготовка 3 секунды, затем 15 секунд на выбор видимой цели вне любого культа в радиусе 7 тайлов. Паралич на 15 секунд и немота на 12. Защита разума предотвращает паралич, но не немоту; священник невосприимчив.
+  Ненавистные оковы (первая ступень, 25): подготовка 1,5 секунды, затем в течение 2 секунд начните отдельное трёхсекундное заковывание на расстоянии до 1,5 тайла. Нужен живой гуманоид с двумя руками, без наручников и принадлежности к культу. Уход цели из радиуса прерывает действие. Оковы распадаются при снятии; самостоятельное освобождение занимает 60 секунд. Для обращения они не нужны.
+  Компромисс стража (вторая ступень, 80): подготовка 1 секунда, окно выбора 8 секунд, видимый живой участник своего культа в радиусе 7 тайлов. Лечит 60% физических, тепловых, удушающих и клеточных повреждений. Половину фактического лечения получает применяющий в виде яда, не больше 80. Яд не лечится, мёртвые не оживают.
+  Авангард (вторая ступень, 150): после секунды подготовки даёт видимый щит на 30 секунд от оглушения, сбивания с ног, урона выносливости и замедления из-за ран. Запрещает другие писания, но не работу печати обращения. Обычный урон продолжает действовать. Смена тела или выход из культа прекращают защиту.
+
+  Марадер блокирует четыре попадания снарядов без расхода энергии культа. Пятое попадание наносит обычный урон; ближний бой и окружающая среда не тратят заряды щита. Автоматического восстановления нет. Примените включённую сварку к живому марадеру: за 2,5 секунды ремонта возвращаются один заряд и до 10 единиц общей прочности, расходуется одна единица топлива сварки. Выключение или потеря сварки прерывают ремонт; одновременно тело ремонтирует только один механик. Админское тело имеет эти способности без вступления в культ или создания культа. Отдельная защитная стойка сохранена.
+
+  ## English
+  Marauders block four projectile hits without spending cult energy. The fifth projectile hits normally; melee and environmental damage do not consume shield charges. There is no automatic recharge. Use a lit welder on a living marauder: each 2.5-second repair restores one charge and up to 10 total damage, using one unit of welding fuel. Turning off or dropping the welder interrupts repair; only one repair can run on a body at once. Admin-spawned marauders have these abilities without joining or creating a cult. The separate defensive stance remains available.
+  Four tablet scriptures: choose one and finish its preparation while holding the tablet. Kindle, Manacles and Compromise then close the window: click a valid target with the tablet before the targeting window expires. Reopening the tablet cancels a prepared spell. Failed or expired targeting spends no energy; Vanguard charges on activation.
+  Kindle (tier one, 125 energy): prepare for 3 seconds, choose a visible non-cult target within 7 tiles in the next 15 seconds. Applies 15 seconds of paralysis and 12 seconds of silence. A mindshield prevents paralysis, not silence; chaplains are immune.
+  Hateful Manacles (tier one, 25): prepare for 1.5 seconds, then start a separate 3-second restraint action within 2 seconds, at a range of 1.5 tiles. Requires a living uncuffed humanoid with two hands, outside any cult. Leaving range interrupts the action. Brass cuffs break when removed; escaping takes 60 seconds. They are not needed for conversion.
+  Sentinel's Compromise (tier two, 80): prepare for 1 second and target a living member of your cult within 7 visible tiles in the next 8 seconds. Heals 60% of physical, heat, suffocation and cellular damage. Half the actual healing is inflicted on the caster as poison, capped at 80. It does not heal poison or restore the dead.
+  Vanguard (tier two, 150): after 1 second, gain a visible 30-second shield against stun, knockdown, stamina damage and wound slowdown. Other scriptures are blocked during protection, but submission sigils keep working. Ordinary damage still hurts. Changing bodies or losing cult membership ends protection.
+  Transmission sigils cost 100 energy and take 5 seconds with two living servants of the same cult nearby. They power your cult's anchored mechanisms within 6 tiles on the same grid. Overlapping sigils do not multiply power. Removing, unanchoring or rebinding a sigil immediately prevents new operations unless another valid sigil covers the mechanism.
+  Ocular wardens require tier three, 400 energy, 5 seconds and two servants. Keep them more than 4 tiles apart. They attack visible enemies within 3 tiles once every 2 seconds with a 5-heat laser bolt, costing 5 shared energy per projectile. No energy or coverage means no firing. The communication obelisk requires coverage and a nonempty reserve; the collective mind channel remains independent of machinery.
+  The tablet offers text search, tier filtering, invocation requirements and reasons an entry is unavailable. Income and spending are measured over the last sampling interval, not predicted future rates.
+  Activate an idle fabricator in hand to produce up to 50 brass sheets at 10 cult energy per sheet. Only affordable whole sheets are produced, at your feet, with a one-second cooldown between batches. Production does not advance energy-generation progress. Brass-to-energy exchange is not available yet.
+  Use the fabricator on ordinary steel or glass sheets on the nearby floor to recycle two sheets into one brass sheet. An odd leftover sheet is preserved. Recycling neither spends nor awards energy or generation progress, shares the one-second production cooldown and produces up to 50 brass sheets per use. Other materials, unlimited stacks and items in containers are unsupported.
+  Hold the tablet to access scriptures. Create an integration cog and use it on an APC: opening takes 5 seconds, then use it again to install in 4 seconds. It extracts up to 2000 joules every two seconds for up to 20 shared energy, provided the battery is at least half full. Crew can open the panel and destroy the cog with a crowbar in 5 seconds. Passive generators no longer produce energy.
+  Collective mind: type +r text in local chat. Only your cult receives it, without a radio or tablet. Messages have a two-second cooldown.
+  Conversion: a living human with a mind must remain on an anchored submission sigil for five seconds. The sigil starts automatically with a living member of its cult within 1.5 tiles who can interact with the target. No tablet or cuffs are required. The target may move within its 0.65-tile radius. Leaving, losing or changing minds, destroying/unanchoring/rebinding the sigil or losing all eligible nearby cultists resets progress. Returning starts a fresh five seconds. Cultists may move nearby, switch hands and use scriptures including Vanguard. Kindle's stun and Hateful Manacles do not interrupt conversion.
+  Mindshields, chaplains and incompatible antagonist roles prevent conversion.
+  Holy water must remain in the body for 30 continuous seconds. Purification grants two minutes of immunity.
+  Tier two requires two unique converted minds and 600 generated energy; tier three requires four minds and 1800 energy.
+  Base construction: the construction menu offers a brass wall, brass window and brass door. The wall requires a regular girder made from two steel sheets, two brass sheets and welding. The window takes two brass and two reinforced glass sheets. The door takes ten brass sheets, needs no power and can be opened by any crew member. It is not a cult lock. Brass tables and chairs are also available through ordinary construction. Tool deconstruction returns the building materials; destruction is not a substitute for careful dismantling.
+  Craft one brass tile from one brass sheet in 2 seconds through the construction menu. Place it on plating; a crowbar removes the covering and returns the tile. The floor does not heal or grant invulnerability. A brass barricade takes four sheets and 4 seconds to build. It blocks passage, but lets air and sight through. Wirecutters recover four sheets in 3 seconds; destruction leaves only one or two.
+  Summon a replica fabricator with a tier-two scripture for 100 energy in 4 seconds. Hold it and use it on a damaged mechanism belonging to your cult or a brass wall, window, door or barricade. A repair takes 6 seconds and charges 200 energy only on completion. It restores remaining integrity plus 15, capped at full integrity. Movement, damage and hand changes interrupt it. Foreign cult mechanisms and structures in containers cannot be repaired.
+  Use the fabricator on plating or supported steel, white, dark and wooden flooring to lay brass flooring in 2 seconds for 20 energy. Existing supported flooring need not be removed first. Space and unlisted coverings are unsupported. Pipes, cables and items remain intact; prying up the brass floor restores the original floor. Only successful fabrication spends energy.
+  Use it on an intact anchored ordinary solid wall to convert it to brass in 6 seconds for 200 energy. Reinforced, diagonal and other wall variants are unsupported. Walls with containers, attached child entities or an active deconstruction path cannot be converted. Damage or loss of access interrupts the work without payment. Pipes and cables on the tile are not removed.
+  Intact anchored full-tile ordinary, reinforced and tinted windows can be converted to brass windows in 6 seconds for 200 energy. The same safety restrictions apply. Directional and diagonal windows are unsupported. The result retains its construction and deconstruction rules.
+  Intact closed anchored silver, gold and plasma doors, and explicitly supported station airlocks, can be converted to brass doors in 6 seconds for 200 energy. Airlock bolts must be raised. The electronics container is preserved, but no longer controls access. Other containers and child entities prevent conversion. External, shuttle and high-security airlocks are unsupported. The result is a manual door anyone can open, not a cult lock.
+  Build the ark on the main station. Activation requires 20 minutes of round time, tier three, three living servants nearby and 2000 energy. Defend it for five minutes. Losing the active ark means defeat.
+  <Heading Text="Призма процветания / Prosperity Prism" />
+  Призма второго уровня создаётся за 300 энергии и 8 секунд. Закрепите её в покрытии печати передачи своего культа. Пустая рука включает и выключает механизм; открепление выключает его до ручного запуска.
+  Раз в две секунды призма лечит живых и критических участников своего культа в радиусе четырёх тайлов на том же гриде. Стены не мешают. Каждый раненый требует две энергии при запасе не менее пяти перед лечением. Здоровые, мёртвые и находящиеся в контейнерах не обслуживаются.
+  Один импульс снимает до 100 токсического, 20 теплового и суммарно 20 физического урона. Также восстанавливается обычная выносливость; выход из критического истощения остаётся штатным. Это исходные настройки, ещё не окончательный баланс.
+  При лечении из крови извлекается до 100 единиц каждого реагента группы ядов. Резервуар вмещает 1000 единиц; избыток остаётся в организме. Святая вода и лекарства не удаляются. Разрушение наполненной призмы выпускает химический дым, опасный и для своих. Осмотр показывает заполнение и питание.
+  Tier-two prosperity prisms cost 300 energy and take 8 seconds to create. Anchor one within your cult's transmission coverage. Interact with an empty hand to toggle it; unanchoring switches it off until manually enabled again.
+  Every two seconds it heals injured living or critical cult members within four tiles on the same grid, including through walls. Each patient costs two energy and requires at least five energy before treatment. Healthy patients, corpses and bodies inside containers are excluded.
+  Each pulse removes up to 100 Poison, 20 Heat and 20 total Brute damage, and restores ordinary stamina without bypassing native stamina-critical recovery. These are initial settings, not validated SS14 balance.
+  Treatment captures up to 100 units of each Toxins-group reagent from the bloodstream, preserving holy water and medicines. The reservoir holds 1000 units; excess stays in the patient. Destruction releases the stored chemicals as smoke, including against allies. Examine to see the reservoir and power status.
+  <Heading>Линза подавления / Interdiction lens</Heading>
+  <Text>
+    Третья ступень: 500 энергии, 8 секунд. Включите закреплённую линзу пустой рукой.
+    Ей нужна своя печать передачи. Каждые 2 секунды она замедляет видимых не-культистов
+    в радиусе 5 тайлов и повреждает мехов, включая союзные. Расход: 5 энергии за цель;
+    для начала очередной операции нужно не менее 6. Стены защищают от воздействия.
+    При откреплении линза выключается; после закрепления включите её снова.
+    Она не ослабляет снаряды. Остаточное замедление проходит за 2,6 секунды.
+  </Text>
+  <Text>
+    Tier 3: 500 power, 8 seconds. Toggle the anchored lens with an empty hand.
+    Own-cult transmission coverage is required. Every 2 seconds it slows visible
+    non-cultists within 5 tiles and damages mechs, including friendly ones.
+    Each target costs 5 power; at least 6 must remain before an operation begins.
+    Walls block the effect. Unanchoring switches it off; re-enable it after anchoring.
+    It does not dampen projectiles. Residual slowing expires after 2.6 seconds.
+  </Text>
+  <Heading>Звездочёт / Stargazer</Heading>
+  <Text>
+    Ступень 2: 300 энергии, 8 секунд. Закрепите звездочёт в покрытии своей печати
+    передачи и примените к нему оружие из руки. Ритуал занимает 6 секунд; движение,
+    урон, потеря оружия, сознания или питания отменяют его. После успеха постройка
+    восстанавливается 180 секунд. Один предмет получает только одно благословение.
+    Одежда не подходит. Острота добавляет 2 урона за уровень (1–5), уменьшение
+    делает размер предмета Tiny, похищение жизненной силы (1–3) лечит владельца
+    при ударе по живой цели в сознании. Пламя (1–3) переводит ближний урон в ожоговый,
+    уменьшает предмет и поджигает тела при попадании. Вода и обычное тушение работают.
+    Благословение остаётся на оружии при передаче.
+  </Text>
+  <Text>
+    Tier 2: 300 energy, 8 seconds. Use a held weapon on your anchored, transmission-covered
+    stargazer. The ritual takes 6 seconds; movement, damage, loss of the weapon, mind or
+    power interrupts it. Success starts a 180-second machine cooldown. One permanent
+    blessing per item; clothing is excluded. Sharpness adds 2 damage per level (1–5),
+    Tiny reduces storage size, and Soul Tap (1–3) heals the wielder on conscious living
+    targets. Fire (1–3) converts melee damage to heat, reduces item size and ignites
+    struck bodies. Water and normal extinguishing still work. Blessings stay with
+    the weapon when it changes hands.
+  </Text>
+  <Heading>Проявление Ратвара / Ratvar's manifestation</Heading>
+  <Text>
+    После успешной обороны победа фиксируется. Ратвар появляется на 30 секунд,
+    самостоятельно перемещается по основной станции и притягивает ближайшие тела и предметы.
+    Поддерживаемые полы, стены, окна и закрытые двери в радиусе 12 тайлов постепенно
+    преобразуются в латунные. Кабели, трубы и содержимое не уничтожаются.
+    На 25-й секунде живые некультисты на основной станции вне контейнеров загораются.
+    Обычное тушение продолжает работать. Уничтожение ковчега после появления не отменяет победу.
+  </Text>
+  <Text>
+    A successful defence locks victory. Ratvar manifests for 30 seconds, roams the main
+    station and attracts nearby bodies and objects. Supported floors, walls, windows
+    and closed doors within 12 tiles gradually turn to brass. Infrastructure and contents
+    are preserved. At 25 seconds, living non-servants on the main station outside containers
+    ignite; normal extinguishing remains effective. Destroying the ark after manifestation
+    does not reverse victory.
+  </Text>
+  <Heading>Тайник мастера / Tinkerer's Cache</Heading>
+  <Text>
+    Ступень 3: 700 энергии, 5 секунд. Закреплённый тайник в покрытии передачи
+    выдаёт один предмет на выбор раз в 240 секунд. Нужна хотя бы 1 энергия,
+    сама выдача её не расходует. Облачение ускоряет движение; плащ замедляет,
+    но за 3 секунды делает владельца полупрозрачным. Очки показывают тепловые
+    контакты в радиусе 7 тайлов и призраков в пределах обычной видимости.
+    Они постепенно портят зрение: снимите очки на минуту для восстановления.
+    Снаряжение предназначено для культистов; смена тела и потеря членства отзывают эффекты.
+  </Text>
+  <Text>
+    Tier 3: 700 energy, 5 seconds. An anchored, transmission-covered cache supplies
+    one of three items every 240 seconds. It requires at least 1 energy without spending it.
+    Robes increase movement speed; the cloak slows its wearer but fades over 3 seconds.
+    Spectacles show thermal contacts within 7 tiles and ghosts within normal visibility.
+    They gradually strain the eyes; remove them for a minute to recover. Equipment is
+    restricted to servants. Body changes and loss of membership revoke its effects.
+  </Text>
+  <Heading>Когскараб / Cogscarab</Heading>
+  <Text>
+    Ступень 2: 500 энергии, два чтеца, 12 секунд плюс 6 секунд за каждую существующую
+    оболочку. Когскараб имеет 30 здоровья, фабрикатор и ящик инструментов. Он строит
+    и обслуживает базу, но не обращает людей, не читает писания и не стреляет.
+    Две живые оболочки на культ, включая незанятые. Призрак получает членство при
+    занятии культовой оболочки. Административный когскараб сам по себе не создаёт культ.
+  </Text>
+  <Text>
+    Tier 2: 500 energy, two invokers, 12 seconds plus 6 per existing shell.
+    A cogscarab has 30 health, a fabricator and a toolbox. It builds and repairs,
+    but cannot convert people, recite scriptures or fire guns. Each cult supports
+    two living shells, including vacant ones. Taking a cult shell grants membership;
+    an admin-spawned cogscarab does not create or join a cult automatically.
+  </Text>
+  <Heading>Станционные переходы / Station travel</Heading>
+  <Text>
+    Ступень 2: точка стоит 200 энергии и создаётся за 5 секунд на основной станции.
+    Назовите пункты через их интерфейс. Для перехода обе точки должны быть закреплены,
+    покрыты своей сетью передачи и находиться на крупнейшем гриде той же станции.
+    Переход занимает 2,5 секунды и расходует 5 энергии только после повторной проверки.
+    Движение и урон прерывают переход. Занятый, удалённый или обесточенный пункт
+    недоступен; случайной замены места назначения нет. Перед переходом отстегнитесь
+    и прекратите перетаскивание: связанные физикой тела не переносятся.
+    Недоступные точки своего культа остаются в списке с причиной отказа; удалённые
+    исчезают. Освободите центр печати назначения, в том числе от стоящего на ней игрока.
+  </Text>
+  <Text>
+    Tier 2: a point costs 200 energy and takes 5 seconds to create on the main station.
+    Name endpoints through their interface. Both endpoints must be anchored, powered
+    by their own transmission network and on the station's largest grid. Travel takes
+    2.5 seconds and spends 5 energy only after revalidation. Movement or damage interrupts
+    it. Occupied, deleted or unpowered destinations are unavailable, with no random
+    fallback. Unbuckle and stop pulling or being pulled before travelling.
+    This is Orbitra's station-only adaptation.
+    Disabled endpoints remain listed with a reason; deleted ones disappear.
+    Clear the exact arrival spot, including any player standing on it.
+  </Text>
+  <Heading>Матрица жизненности / Vitality matrix</Heading>
+  <Text>
+    Ступень 2, 300 энергии, пять секунд и два чтеца. Стойте в центре печати:
+    цикл требует двух секунд непрерывного присутствия в радиусе 0,65 тайла.
+    Чужие органические существа отдают жизненность за клеточный урон. До запуска
+    ковчега люди, пригодные для обращения, защищены от истощения. Священник защищён всегда.
+    Свои лечатся за отдельный запас жизненности, показанный в табличке и при осмотре
+    своей печати. Электрическая энергия на лечение не тратится.
+    Возрождение требует своего неразложившегося человеческого тела с принадлежащим ему
+    сознанием и достаточного запаса. Оно не возвращает игрока в тело принудительно,
+    не оживляет конструкты и не обходит запрет воскрешения. Несколько матриц на одном
+    месте не ускоряют воздействие на одно тело.
+  </Text>
+  <Text>
+    Tier 2, 300 energy, five seconds and two invokers. Stand at the centre of the
+    sigil for two uninterrupted seconds within 0.65 tiles. Foreign organic creatures
+    provide vitality through cellular damage. Convertible humans are protected until
+    the ark activates; chaplains are always protected. Members heal using a separate
+    vitality reserve shown in the tablet and when examining their own matrix.
+    Revival requires an unrotted human member's body with its own mind and sufficient
+    vitality. It does not force players back into their bodies, revive constructs or
+    bypass revival restrictions. Overlapping matrices do not multiply effects on a body.
+  </Text>
+  <Heading>Латунь / Brass</Heading>
+  <Text>
+    Писание создаёт десять листов за 100 энергии. Фабрикатор использует тот же курс:
+    10 энергии за лист. Переработка двух листов стали или стекла даёт один лист латуни,
+    но не энергию и не прогресс ступеней. Обратного обмена латуни на энергию нет.
+  </Text>
+  <Text>
+    The scripture creates ten sheets for 100 energy. The fabricator uses the same
+    rate of 10 energy per sheet. Recycling two steel or glass sheets produces one
+    brass sheet without energy or tier progression. Brass cannot be exchanged back
+    into energy.
+  </Text>
+  <Heading>Ловушки / Traps</Heading>
+  <Text>
+    На второй ступени табличка создаёт рычаг, нажимную плиту, таймер, шипы и
+    подбрасыватель. Все устройства требуют покрытия своей печатью передачи.
+    Коснитесь обычной табличкой источника, затем приёмника: так создаётся связь.
+    Повторите пару для удаления связи; повторный выбор источника отменяет привязку.
+    Пока на табличке подготовлено боевое писание, привязка не работает.
+    Можно соединить до восьми выходов на расстоянии до 16 тайлов, без циклов.
+    Таймер передаёт один импульс через полсекунды.
+  </Text>
+  <Text>
+    Рычаг может нажать и член экипажа. Плита не реагирует на свой культ, предметы,
+    мёртвых и летающих существ. Она активирует свои связи и исполнитель на том же
+    тайле. Шипы удерживают и ранят в том числе культистов; освобождение обычной
+    кнопкой отстёгивания занимает пять секунд. Следующий сигнал опускает шипы.
+    Подбрасыватель бросает незакреплённые объекты на шесть тайлов по своему направлению.
+    Шипы восстанавливаются десять секунд, подбрасыватель двадцать. Срабатывание
+    исполнителя стоит одну энергию; сигнал и освобождение бесплатны.
+    Гаечный ключ разбирает механизм за пять секунд без возврата материалов.
+  </Text>
+  <Text>
+    Tier 2 tablets create levers, pressure plates, timers, skewers and flippers.
+    All require their own cult's transmission coverage. Touch a sender and then
+    a receiver with an unempowered tablet to toggle a link. Selecting the same
+    source cancels. Up to eight outputs within 16 tiles; cycles are forbidden.
+    Timers forward one signal after half a second. Anyone can pull a lever.
+    Plates ignore their own cult, items, dead and airborne creatures; they also
+    activate an effector on the same tile. Skewers hurt allies too: unbuckling
+    takes five seconds, another signal retracts them. Flippers throw unanchored
+    objects six tiles forward. Cooldowns: skewer ten seconds, flipper twenty.
+    Each effector activation costs one energy; signals and escape are free.
+    A wrench dismantles a trap in five seconds without a material refund.
+  </Text>
+  <Header>Кристалл абстракции / Abstraction Crystal</Header>
+  <Text>
+    На третьей ступени создайте два кристалла на основном гриде станции, не ближе
+    пяти тайлов друг к другу. Каждый стоит 750 энергии и создаётся за пять секунд.
+    Подойдите к первому, откройте его и выберите второй в окне проекции.
+    Кристаллам можно дать названия; поиск и координаты помогают различать точки.
+    Занятые и незакреплённые точки отмечены как недоступные. Оба кристалла должны
+    принадлежать вашему культу, быть закреплены и стоять на полу. Приёмник может
+    удерживать только одну проекцию.
+    Золотистая связь указывает на принимающий кристалл, не раскрывая скрытое пространство.
+  </Text>
+  <Text>
+    Внешность повторяет тело на момент создания, а снаряжение выдаётся отдельно.
+    Исходное тело остаётся уязвимым. Проекция не дышит и не кровоточит; её зрение,
+    столкновения, руки и взаимодействия обычные, сквозь стены она не ходит.
+    40% фактически полученного урона отражается в тело, 60% в принимающий кристалл.
+    Лечение проекции не лечит ни тело, ни кристалл. Для возврата используйте
+    «Завершить проекцию» в контекстном меню себя или принимающего кристалла.
+    Выход за пять тайлов, критическое состояние, расколдование, удаление одного
+    из кристаллов или отключение игрока также завершают проекцию.
+  </Text>
+  <Text>
+    Инвентарь исходного тела не копируется. Проекция получает временные кирасу,
+    шлем и копьё с характеристиками обычного культового снаряжения. Их можно
+    уронить и снова подобрать своей проекцией, но у другого персонажа они
+    исчезают. При завершении проекции исчезает весь выданный комплект,
+    в том числе оставленный на полу. Его нельзя переработать в материалы.
+    Проекции можно передать обычные вещи. Подобранные предметы
+    остаются на месте при завершении. Админский перенос сознания в другое тело
+    не отменяется возвратом проекции.
+  </Text>
+  <Text>
+    At tier 3, create two crystals on the station's main grid, more than five
+    tiles apart. Each costs 750 energy and takes five seconds to invoke.
+    Stand by one crystal and select a destination in its context menu.
+    Both must be anchored, on a floor and owned by your cult. Each destination
+    supports one visitor. Your body remains vulnerable; the projection cannot
+    pass through walls and must stay within five tiles of the destination.
+    It needs no air and cannot bleed. Forty percent of positive damage goes to
+    your body and sixty percent to the crystal; healing is not reflected.
+    Select End projection on yourself or the crystal to return. Critical state,
+    purification, range loss, either crystal's destruction or disconnection also
+    ends the visit. Inventory is not copied. The projection receives a temporary
+    cuirass, helmet and spear with the usual cult equipment stats. Dropped gear
+    can be reclaimed by its projection, but dissolves if another body takes it,
+    including inside a bag. All issued gear disappears when the visit ends and
+    cannot be recycled into materials. Real items picked up by the projection
+    are dropped safely when it ends.
+  </Text>
+  <Header>Eminence: призыв и способности / Summoning and abilities</Header>
+  <Text>
+    OOC: На третьей ступени создайте «Шпиль Eminence» за 300 энергии.
+    Нажмите пустой рукой: начнётся 60-секундное ожидание. Любой участник культа
+    может отменить его повторным нажатием на шпиль. Затем на 30 секунд появится
+    гостроль. Если никто её не займёт, призыв можно повторить. Шпиль должен
+    оставаться закреплённым на основном гриде своей станции.
+    Для ускоренной проверки администратор с правом Fun может включить
+    orbitra_ratvar_test on, затем выполнить
+    orbitra_ratvar_test eminence в теле живого участника своего культа.
+    Второй клиент-призрак может занять «Eminence» через меню гостролей.
+    Место на культ одно, включая переподключение.
+    Меню состава открывается автоматически; действие «Разум культа»
+    открывает его повторно. Поиск сохраняется при обновлении, недоступные участники
+    показывают причину отказа. Выбор и сброс проверяются сервером.
+    Выбор включает штатный обзор через тело участника без передачи управления.
+    Стены, темнота и размытое зрение сохраняются. Сон, закрытые глаза, слепота,
+    критическое состояние, контейнер, смена тела или выход игрока отключают обзор.
+    Кнопка сброса возвращает пустой обзор. Связь с культом: +р текст.
+    Свободного полёта, доступа к инвентарю и удалённого взаимодействия нет.
+    Возврат наблюдаемого союзника требует 7 секунд неподвижности, стоит 100 энергии
+    и перезаряжается 10 минут. Движение, урон, потеря наблюдения или недоступный
+    переход отменяют попытку без списания. Получатель не должен быть пристёгнут,
+    находиться в контейнере или участвовать в перетаскивании.
+    Массовый сбор доступен один раз на культ: через 3 секунды доступные живые
+    управляемые участники основного грида прибывают на выбранный запитанный переход
+    в пределах 5 тайлов от ковчега. Подтвердите кнопку повторным нажатием.
+    Использование расходуется при запуске даже при последующем срыве.
+    Изменение реальности стоит 500 энергии с перезарядкой 10 минут: на своей
+    станции можно вызвать штатную аномалию или проверку энергосети. Событие запускается
+    со своей обычной задержкой после объявления. Эти цены адаптированы для Orbitra;
+    баланс на полном сервере ещё проверяется.
+    Незанятое приглашение отменяется отключением тестового режима или удалением.
+    Занятое место сохраняется за сознанием; выход игрока не открывает вторую роль.
+  </Text>
+  <Text>
+    OOC: At tier three, build an Eminence spire for 300 energy. Interact empty-handed
+    to start a 60-second objection period; any cult member can cancel by interacting
+    again. Ghosts then have 30 seconds to take the role. Retry if nobody accepts.
+    The beacon must remain anchored on the main station grid. For quick testing,
+    a Fun administrator controlling a living member can run orbitra_ratvar_test on,
+    followed by orbitra_ratvar_test eminence. A second ghost client takes Eminence
+    through the ghost-role menu. There is one slot per cult, including reconnection.
+    The searchable roster opens automatically;
+    use Cult collective to reopen it. Unavailable members show a reason.
+    Selection and clearing are server-validated. Selecting a member enables native
+    vision through their body without possession. Walls, darkness and blurry vision
+    remain. Sleep, closed eyes, blindness, critical condition, containers, body transfer
+    or disconnection stop observation. Clearing returns to an empty view. Use +r text
+    for cult communication. No free flight, inventory access or remote interaction is
+    granted. Linked recall requires the observed ally to stay still for 7 seconds,
+    costs 100 energy and has a 10-minute cooldown. Movement, damage, lost observation
+    or an unavailable waygate cancel without charging. Buckled, pulling, pulled or
+    contained bodies cannot be recalled. Once per cult, mass recall gathers eligible
+    living controlled members on the main grid after 3 seconds, at a powered waygate
+    within 5 tiles of the ark. Confirm with a second click; this one-shot is spent on
+    initiation even if interrupted. Manipulate reality costs 500 energy with a
+    10-minute cooldown: choose a native anomaly or power grid check on your own station.
+    The native event announcement delay remains. Orbitra's adapted prices still need
+    full-server balance testing. Disabling test mode or deleting an unclaimed test
+    invitation cancels it. An acquired slot stays with its mind on disconnect.
+  </Text>
+</Document>

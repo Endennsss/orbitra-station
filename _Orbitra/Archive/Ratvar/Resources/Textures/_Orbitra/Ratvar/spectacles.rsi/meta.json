@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "license": "CC-BY-SA-3.0",
+  "copyright": "From https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/mob/clothing/eyes.dmi. File history contributors (not individual state authors): RDS88-beeman, Tsar-Salat. Selected states extracted, renamed and repacked from DMI to RSI; no pixel edits. See ../provenance.json. Worn Wraith Spectacles pixels match icons/mob/eyes.dmi at original a28a7680cba9142ab80abc5ed480474ed0310462 by Xhuis. All 68 legacy eyes revisions and 2 pinned clothing/eyes revisions checked. Relocated by Tsar-Salat/rkz in 9106b1d8fc151acc9f113582799e291f762ba912, BeeStation PR 10869; broader sprite credits maxymax13, TaG2e, LordVollkorn, Twaticus preserved without claiming state authorship. No applicable exception found; CC BY-SA 3.0 retained.",
+  "states": [
+    {
+      "name": "equipped-EYES",
+      "directions": 4,
+      "delays": [
+        [
+          0.1
+        ],
+        [
+          0.1
+        ],
+        [
+          0.1
+        ],
+        [
+          0.1
+        ]
+      ]
+    }
+  ]
+}

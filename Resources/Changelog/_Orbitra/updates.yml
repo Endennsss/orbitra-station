@@ -2,6 +2,12 @@ Name: OrbitraUpdates
 AdminOnly: false
 Order: -1
 Entries:
+- id: 88
+  author: Endennsss
+  time: '2026-09-28T00:00:00+02:00'
+  changes:
+  - type: Remove
+    message: Культ Ратвара временно отключён. Его режим, роли, писания, механизмы и административные команды перенесены в архив исходников для дальнейшей доработки.
 - id: 82
   author: Endennsss
   time: '2026-09-27T18:02:00+02:00'

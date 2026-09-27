@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "license": "CC-BY-SA-3.0",
+  "copyright": "From https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/obj/clothing/clockwork_garb.dmi. File history contributors (not individual state authors): Ashe Higgs, Joan Lung, PestoVerde322, PowerfulBacon, Tsar-Salat, Xhuis, qwerty. Selected states extracted, renamed and repacked from DMI to RSI; no pixel edits. See ../provenance.json.",
+  "states": [
+    {
+      "name": "helmet",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "armor",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "size": {
+    "x": 96,
+    "y": 96
+  },
+  "license": "CC-BY-SA-3.0",
+  "copyright": "From https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/effects/96x96.dmi. File history contributors (not individual state authors): AgentCitrus, AnturK, Ashe Higgs, Cenrus, EdgeLordExe, Ergovisavi, Joan Lung, Jordan Brown, Kierany9, KorPhaeron, Lamiales, MoreRobustThanYou, RandomMarine, Robustin, TechnoAlchemist, WJohn, Xhuis, Zamso, mport2004@gmail.com, mrmanlikesbt, only.lurking, oranges, petethegoat@gmail.com, qwerty, zeskorion. Selected states extracted, renamed and repacked from DMI to RSI; no pixel edits. See ../provenance.json.",
+  "states": [
+    {
+      "name": "charging",
+      "directions": 1,
+      "delays": [
+        [
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06
+        ]
+      ]
+    },
+    {
+      "name": "active",
+      "directions": 1,
+      "delays": [
+        [
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.06,
+          0.03,
+          0.03
+        ]
+      ]
+    }
+  ]
+}

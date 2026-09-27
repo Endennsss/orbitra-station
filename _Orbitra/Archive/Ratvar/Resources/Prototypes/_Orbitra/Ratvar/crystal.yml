@@ -1,0 +1,87 @@
+- type: entity
+  parent: OrbitraRatvarStructureBase
+  id: OrbitraRatvarCrystal
+  name: abstraction crystal
+  components:
+  - type: Sprite
+    state: obelisk_inactive
+  - type: Fixtures
+    fixtures: {}
+  - type: OrbitraRatvarCrystal
+    equipment:
+      outerClothing: OrbitraRatvarProjectionArmor
+      head: OrbitraRatvarProjectionHelmet
+    handItems: [OrbitraRatvarProjectionSpear]
+  - type: ActivatableUI
+    key: enum.OrbitraRatvarCrystalUiKey.Key
+    verbText: orbitra-ratvar-crystal-title
+  - type: UserInterface
+    interfaces:
+      enum.OrbitraRatvarCrystalUiKey.Key:
+        type: OrbitraRatvarCrystalBoundUserInterface
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [Destruction]
+
+# Временное тело не копирует снаряжение и не создаёт новую культовую роль.
+- type: entity
+  parent: MobHuman
+  id: OrbitraRatvarProjection
+  name: servant projection
+  categories: [HideSpawnMenu]
+  save: false
+  components:
+  - type: Sprite
+    color: "#ffe0a899"
+
+# Вооружение наследует существующие характеристики и атрибутированные спрайты культа.
+- type: entity
+  parent: OrbitraRatvarArmor
+  id: OrbitraRatvarProjectionArmor
+  name: projected cuirass
+  description: Translucent brass plates woven from light.
+  categories: [HideSpawnMenu]
+  save: false
+  components:
+  - type: Sprite
+    color: "#ffe0a8b4"
+
+- type: entity
+  parent: OrbitraRatvarHelmet
+  id: OrbitraRatvarProjectionHelmet
+  name: projected helmet
+  description: A luminous outline of a brass helmet.
+  categories: [HideSpawnMenu]
+  save: false
+  components:
+  - type: Sprite
+    color: "#ffe0a8b4"
+
+- type: entity
+  parent: OrbitraRatvarSpear
+  id: OrbitraRatvarProjectionSpear
+  name: projected spear
+  description: A brass spearhead shimmers within a translucent shaft.
+  categories: [HideSpawnMenu]
+  save: false
+  components:
+  - type: Sprite
+    color: "#ffe0a8b4"
+  - type: OrbitraRatvarProjectionItem
+    breakDamage: 20
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarCrystal
+  category: Structures
+  name: orbitra-ratvar-scripture-crystal
+  description: orbitra-ratvar-scripture-crystal-desc
+  tier: 3
+  energy: 750
+  delay: 5
+  exclusiveRange: 5
+  result: OrbitraRatvarCrystal
+  structure: true

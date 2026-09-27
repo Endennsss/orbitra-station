@@ -50,7 +50,7 @@ public sealed partial class AdminVerbSystem
 
         var targetPlayer = targetActor.PlayerSession;
 
-        AddOrbitraRatvarVerb(args, player); // Orbitra-Edit - выдача роли с привязкой к культу
+        // Orbitra-Edit - культ отключён; подключение сохранено в _Orbitra/Archive/Ratvar/README.md.
 
         var traitorName = Loc.GetString("admin-verb-text-make-traitor");
         Verb traitor = new()

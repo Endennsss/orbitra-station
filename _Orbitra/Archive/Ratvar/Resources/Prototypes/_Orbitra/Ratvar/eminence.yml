@@ -1,0 +1,119 @@
+# Единственный наблюдатель культа и приглашение штатной гостроли.
+- type: entity
+  id: OrbitraRatvarEminenceInvitation
+  name: Eminence invitation
+  description: A brass token flickering with a distant presence.
+  categories: [HideSpawnMenu]
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/mechanisms.rsi
+    state: tablet
+  - type: OrbitraRatvarEminenceInvitation
+    roleComponents:
+    - type: GhostRole
+      name: orbitra-ratvar-eminence-name
+      description: orbitra-ratvar-eminence-description
+      rules: orbitra-ratvar-eminence-rules
+      makeSentient: false
+      reregister: false
+      mindRoles: [OrbitraMindRoleRatvarEminence]
+
+- type: entity
+  id: OrbitraRatvarEminenceAvatar
+  name: Eminence
+  description: A presence within the clockwork collective.
+  categories: [HideSpawnMenu]
+  components:
+  - type: MindContainer
+  - type: MobState
+  - type: Eye
+  - type: OrbitraRatvarEminenceAvatar
+    recallEnergy: 100
+    recallDelay: 7
+    recallCooldown: 600
+    massRecallDelay: 3
+    arkRange: 5
+    realityEnergy: 500
+    realityCooldown: 600
+  - type: Actions
+  - type: ActionGrant
+    actions:
+    - OrbitraActionRatvarEminenceMenu
+  - type: UserInterface
+    interfaces:
+      enum.OrbitraRatvarEminenceUiKey.Key:
+        type: OrbitraRatvarEminenceBoundUserInterface
+
+- type: entity
+  parent: OrbitraMindRoleRatvar
+  id: OrbitraMindRoleRatvarEminence
+  name: Ratvar Eminence role
+  components:
+  - type: OrbitraRatvarRole
+    eminence: true
+
+- type: entity
+  parent: BaseAction
+  id: OrbitraActionRatvarEminenceMenu
+  name: Cult collective
+  description: Open the cult member selection menu.
+  components:
+  - type: Action
+    useDelay: 0.5
+    checkCanInteract: false
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/mechanisms.rsi
+    state: tablet
+  - type: InstantAction
+    event: !type:OrbitraRatvarEminenceMenuEvent
+
+- type: entity
+  parent: OrbitraRatvarStructureBase
+  id: OrbitraRatvarEminenceSpire
+  name: eminence spire
+  description: A brass beacon resonating with a distant collective presence.
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/mechanisms.rsi
+    state: obelisk_inactive
+  - type: OrbitraRatvarEminenceSpire
+    objectionPeriod: 60
+    invitationDuration: 30
+  - type: Construction
+    graph: OrbitraRatvarMechanism
+    node: mechanism
+    deconstructionTarget: dismantled
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarEminenceSpire
+  category: Structures
+  name: orbitra-ratvar-scripture-eminence
+  description: orbitra-ratvar-scripture-eminence-desc
+  tier: 3
+  energy: 300
+  delay: 10
+  result: OrbitraRatvarEminenceSpire
+  structure: true
+
+# Четыре соответствующих Bee вида вместо всего штатного пула аномалий.
+- type: entity
+  parent: AnomalySpawn
+  id: OrbitraRatvarAnomalyEvent
+  name: anomaly event
+  description: A disturbance in reality.
+  categories: [HideSpawnMenu]
+  components:
+  - type: AnomalySpawnRule
+    anomalySpawnerPrototype: OrbitraRatvarAnomalySpawner
+
+- type: entity
+  parent: RandomAnomalySpawner
+  id: OrbitraRatvarAnomalySpawner
+  name: anomaly spawner
+  description: A disturbance in reality.
+  categories: [HideSpawnMenu]
+  components:
+  - type: RandomSpawner
+    prototypes: [AnomalyPyroclastic, AnomalyGravity, AnomalyElectricity, AnomalyBluespace]
+    rareChance: 0
+    rarePrototypes: []
