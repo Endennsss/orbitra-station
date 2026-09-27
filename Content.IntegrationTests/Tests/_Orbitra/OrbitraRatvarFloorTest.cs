@@ -30,6 +30,10 @@ public sealed partial class OrbitraRatvarFloorTest : GameTest
 
     [TestCase("Plating")]
     [TestCase("PlatingSnow")]
+    [TestCase("FloorSteel", Category = "OrbitraRatvarExpansion")]
+    [TestCase("FloorWhite", Category = "OrbitraRatvarExpansion")]
+    [TestCase("FloorDark", Category = "OrbitraRatvarExpansion")]
+    [TestCase("FloorWood", Category = "OrbitraRatvarExpansion")]
     public async Task FabricationPreservesInfrastructureAndBase(string source)
     {
         var map = await Pair.CreateTestMap();

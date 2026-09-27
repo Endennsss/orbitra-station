@@ -97,10 +97,16 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
         return true;
     }
 
-    private bool CanUse(Entity<OrbitraThermalVisionComponent> device, EntityUid wearer) =>
-        device.Comp.Wearer == wearer && _inventory.TryGetSlotEntity(wearer, "eyes", out var eyes) && eyes == device.Owner;
+    private bool CanUse(Entity<OrbitraThermalVisionComponent> device, EntityUid wearer)
+    {
+        if (device.Comp.Wearer != wearer || !_inventory.TryGetSlotEntity(wearer, "eyes", out var eyes) || eyes != device.Owner)
+            return false;
+        var attempt = new OrbitraThermalVisionAttemptEvent(wearer);
+        RaiseLocalEvent(device, ref attempt);
+        return !attempt.Cancelled;
+    }
 
-    private void Disable(Entity<OrbitraThermalVisionComponent> device)
+    public void Disable(Entity<OrbitraThermalVisionComponent> device)
     {
         if (_active.Remove(device, out var session) && session.Status != SessionStatus.Disconnected &&
             device.Comp.Wearer is { } wearer)

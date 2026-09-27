@@ -143,6 +143,10 @@ public sealed class OrbitraRatvarRegressionTest : GameTest
             var mind = minds.CreateMind(null);
             minds.TransferTo(mind, body);
             AddMember(mind, rule, cult);
+            var helper = SEntMan.SpawnEntity("MobHuman", map.GridCoords);
+            var helperMind = minds.CreateMind(null);
+            minds.TransferTo(helperMind, helper);
+            AddMember(helperMind, rule, cult);
             var tablet = SEntMan.SpawnEntity("OrbitraRatvarTablet", map.GridCoords);
             Assert.That(Server.System<SharedHandsSystem>().TryPickup(body, tablet), Is.True);
             var item = new Entity<OrbitraRatvarTabletComponent>(tablet, SEntMan.GetComponent<OrbitraRatvarTabletComponent>(tablet));

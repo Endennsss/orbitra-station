@@ -40,7 +40,7 @@ public sealed partial class OrbitraRatvarFabricatorSystem
             TryFinishDoor(ent, args.User, door, args);
     }
 
-    /// <summary>Starts an explicit closed material-door conversion without consuming resources.</summary>
+    /// <summary>Starts an explicitly supported closed door conversion without consuming resources.</summary>
     public bool TryStartDoor(Entity<OrbitraRatvarFabricatorComponent> tool, EntityUid user, EntityUid target)
     {
         if (tool.Comp.Pending != null || !_cult.TryGetCult(user, out var rule) ||
@@ -79,22 +79,40 @@ public sealed partial class OrbitraRatvarFabricatorSystem
             mind != GetEntity(context.Mind) || !TryComp<MobStateComponent>(user, out var mob) || mob.CurrentState != MobState.Alive ||
             !_hands.IsHolding(user, tool) || !_blocker.CanInteract(user, target) ||
             _container.IsEntityInContainer(user) || _container.IsEntityInContainer(target) ||
-            Prototype(target) is not { } prototype || !tool.Comp.Doors.TryGetValue(new EntProtoId(prototype.ID), out var sourceNode))
+            Prototype(target) is not { } prototype)
             return false;
 
-        // Даже вручную добавленная электроника или замок не должны пропасть при замене.
-        if (!TryComp<DoorComponent>(target, out var door) || door.State != DoorState.Closed ||
-            HasComp<AirlockComponent>(target) || HasComp<AccessReaderComponent>(target) ||
-            HasComp<WiresComponent>(target) || HasComp<LockComponent>(target))
+        var airlock = tool.Comp.Airlocks.TryGetValue(new EntProtoId(prototype.ID), out var sourceNode);
+        if (!airlock && !tool.Comp.Doors.TryGetValue(new EntProtoId(prototype.ID), out sourceNode))
+            return false;
+        if (!TryComp<DoorComponent>(target, out var door) || door.State != DoorState.Closed || HasComp<LockComponent>(target))
             return false;
 
         var transform = Transform(target);
-        if (!transform.Anchored || transform.ChildCount != 0 || HasComp<ContainerManagerComponent>(target) ||
+        if (!transform.Anchored ||
             transform.GridUid != GetEntity(context.Grid) || Transform(user).GridUid != transform.GridUid ||
             transform.MapUid != GetEntity(context.Map) || _damage.GetTotalDamage(target) != 0 ||
             !TryComp<ConstructionComponent>(target, out var construction) ||
-            construction.Graph.Id != "DoorGraph" || construction.Node != sourceNode ||
+            construction.Graph.Id != (airlock ? "Airlock" : "DoorGraph") || construction.Node != sourceNode ||
             construction.TargetNode != null || construction.InteractionQueue.Count != 0)
+            return false;
+
+        if (airlock)
+        {
+            // Штатная замена графа переносит плату; произвольные контейнеры и дочерние сущности не допускаются.
+            if (!HasComp<AirlockComponent>(target) ||
+                !_container.TryGetContainer(target, "board", out var board) ||
+                transform.ChildCount != board.ContainedEntities.Count ||
+                TryComp<DoorBoltComponent>(target, out var bolts) && bolts.BoltsDown)
+                return false;
+            foreach (var container in _container.GetAllContainers(target))
+            {
+                if (container.ID != "board")
+                    return false;
+            }
+        }
+        else if (transform.ChildCount != 0 || HasComp<ContainerManagerComponent>(target) ||
+                 HasComp<AirlockComponent>(target) || HasComp<AccessReaderComponent>(target) || HasComp<WiresComponent>(target))
             return false;
         return _interaction.InRangeUnobstructed(user, target);
     }
@@ -104,6 +122,8 @@ public sealed partial class OrbitraRatvarFabricatorSystem
     {
         if (!CanConvertDoor(tool, user, target, context, out var rule))
             return false;
+        if (HasComp<AirlockComponent>(target))
+            _construction.AddContainer(target, "board");
         rule.Comp.Energy -= tool.Comp.DoorEnergy;
         if (!_construction.ChangeGraph(target, user, "OrbitraRatvarDoor", "door", performActions: false))
         {

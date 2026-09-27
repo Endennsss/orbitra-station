@@ -36,7 +36,7 @@ public sealed partial class OrbitraRatvarFabricatorSystem
             TryFinishWindow(ent, args.User, window, args);
     }
 
-    /// <summary>Starts the full-tile reinforced window adapter without consuming resources.</summary>
+    /// <summary>Starts conversion of an explicitly supported full-tile window without consuming resources.</summary>
     public bool TryStartWindow(Entity<OrbitraRatvarFabricatorComponent> tool, EntityUid user, EntityUid target)
     {
         if (tool.Comp.Pending != null || !_cult.TryGetCult(user, out var rule) ||
@@ -75,7 +75,7 @@ public sealed partial class OrbitraRatvarFabricatorSystem
             mind != GetEntity(context.Mind) || !TryComp<MobStateComponent>(user, out var mob) || mob.CurrentState != MobState.Alive ||
             !_hands.IsHolding(user, tool) || !_blocker.CanInteract(user, target) ||
             _container.IsEntityInContainer(user) || _container.IsEntityInContainer(target) ||
-            Prototype(target) is not { } prototype || !tool.Comp.Windows.Contains(new EntProtoId(prototype.ID)))
+            Prototype(target) is not { } prototype || !tool.Comp.Windows.TryGetValue(new EntProtoId(prototype.ID), out var sourceNode))
             return false;
 
         var transform = Transform(target);
@@ -83,7 +83,7 @@ public sealed partial class OrbitraRatvarFabricatorSystem
             transform.GridUid != GetEntity(context.Grid) || Transform(user).GridUid != transform.GridUid ||
             transform.MapUid != GetEntity(context.Map) || _damage.GetTotalDamage(target) != 0 ||
             !TryComp<ConstructionComponent>(target, out var construction) ||
-            construction.Graph.Id != "Window" || construction.Node != "reinforcedWindow" ||
+            construction.Graph.Id != "Window" || construction.Node != sourceNode ||
             construction.TargetNode != null || construction.InteractionQueue.Count != 0)
             return false;
         return _interaction.InRangeUnobstructed(user, target);

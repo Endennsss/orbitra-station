@@ -231,9 +231,10 @@ public sealed class OrbitraRatvarTest : GameTest
             SEntMan.GetComponent<OrbitraRatvarStructureComponent>(sigil).Rule = rule;
             Assert.That(SEntMan.GetComponent<TransformComponent>(sigil).Anchored, Is.True);
             Server.System<SharedTransformSystem>().SetCoordinates(target, SEntMan.GetComponent<TransformComponent>(sigil).Coordinates);
-            Assert.That(system.CanConvert(item, user, target, out _), Is.True, "Conversion no longer requires cuffs.");
-            Assert.That(system.TryConvert(item, user, target), Is.True);
-            Assert.That(system.TryConvert(item, user, target), Is.False, "Already converted minds must not give progress.");
+            var submission = new Entity<OrbitraRatvarSubmissionComponent>(sigil, SEntMan.GetComponent<OrbitraRatvarSubmissionComponent>(sigil));
+            Assert.That(system.CanConvertOnSigil(submission, target, out _), Is.True, "Conversion requires neither cuffs nor a tablet.");
+            Assert.That(system.TryConvertOnSigil(submission, target), Is.True);
+            Assert.That(system.TryConvertOnSigil(submission, target), Is.False, "Already converted minds must not give progress.");
             Assert.That(cult.Converted.Count, Is.EqualTo(1));
             var replacement = SEntMan.SpawnEntity("MobHuman", map.GridCoords);
             minds.TransferTo(targetMind, replacement);
@@ -241,12 +242,12 @@ public sealed class OrbitraRatvarTest : GameTest
             Assert.That(system.TryGetCult(target, out _), Is.False);
             Assert.That(system.TryPurify((rule, cult), targetMind), Is.True);
             minds.TransferTo(targetMind, target);
-            Assert.That(system.CanConvert(item, user, target, out _), Is.False, "Purification grants immunity.");
+            Assert.That(system.CanConvertOnSigil(submission, target, out _), Is.False, "Purification grants immunity.");
             cult.ProtectedUntil.Clear();
             Server.System<MobStateSystem>().ChangeMobState(target, MobState.Dead);
-            Assert.That(system.CanConvert(item, user, target, out _), Is.False);
+            Assert.That(system.CanConvertOnSigil(submission, target, out _), Is.False);
             Server.System<MobStateSystem>().ChangeMobState(target, MobState.Critical);
-            Assert.That(system.TryConvert(item, user, target), Is.True);
+            Assert.That(system.TryConvertOnSigil(submission, target), Is.True);
             Assert.That(cult.Converted.Count, Is.EqualTo(1), "Reconverting the same mind cannot unlock tiers.");
             cult.Energy = 30;
             Assert.That(system.TryCompleteScripture(item, user, "OrbitraRatvarBrass"), Is.True);
@@ -296,7 +297,9 @@ public sealed class OrbitraRatvarTest : GameTest
                 Assert.That(scripture.Energy, Is.GreaterThanOrEqualTo(0));
                 Assert.That(scripture.Delay, Is.GreaterThan(TimeSpan.Zero));
                 Assert.That(scripture.Tier, Is.InRange(1, 3));
-                Assert.That(scripture.Repair || scripture.Result.HasValue, Is.True);
+                var operations = (scripture.Repair ? 1 : 0) + (scripture.Result.HasValue ? 1 : 0) +
+                    (scripture.Empowerment != OrbitraRatvarEmpowerment.None ? 1 : 0);
+                Assert.That(operations, Is.EqualTo(1), $"{scripture.ID}: exactly one scripture operation is required.");
                 if (scripture.Result is { } result) Assert.That(prototypes.HasIndex(result), Is.True);
             }
         });

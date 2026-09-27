@@ -1,4 +1,5 @@
 using Content.Shared.DoAfter;
+using Robust.Shared.Audio;
 
 namespace Content.Server._Orbitra.Ratvar;
 
@@ -6,6 +7,7 @@ namespace Content.Server._Orbitra.Ratvar;
 [RegisterComponent]
 public sealed partial class OrbitraRatvarIntegrationCogComponent : Component
 {
+    [DataField] public SoundSpecifier? InstallSound;
     /// <summary>Time required to open a closed APC.</summary>
     [DataField] public TimeSpan OpenDelay = TimeSpan.FromSeconds(5);
     /// <summary>Time required to insert the cog into an open APC.</summary>

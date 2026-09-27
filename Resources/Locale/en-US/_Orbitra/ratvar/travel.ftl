@@ -1,0 +1,11 @@
+ent-OrbitraRatvarTravelPoint = brass waygate
+    .desc = A brass sigil traced with interlocking paths.
+orbitra-ratvar-scripture-travel = Brass waygate
+orbitra-ratvar-scripture-travel-desc = Creates a destructible, named travel point. Both endpoints need transmission coverage on the main station grid. Travel takes 2.5 seconds and costs 5 energy.
+orbitra-ratvar-travel-title = Cult pathways
+orbitra-ratvar-travel-attached = Unbuckle and stop pulling or being pulled before travelling.
+orbitra-ratvar-travel-name = Point name
+orbitra-ratvar-travel-rename = Save name
+orbitra-ratvar-travel-ready = Energy: { $energy }. Journey: { $cost }.
+orbitra-ratvar-travel-unavailable = Check transmission coverage, energy, station location and cooldown.
+orbitra-ratvar-travel-empty = No available destinations. Both points need power and a clear arrival tile.

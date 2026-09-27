@@ -1,0 +1,76 @@
+- type: entity
+  parent: OrbitraRatvarStructureBase
+  id: OrbitraRatvarStargazer
+  name: stargazer
+  description: A brass pedestal with a softly glowing lens.
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/stargazer.rsi
+    layers:
+    - state: active
+      map: [enum.OrbitraRatvarMechanismLayers.Base]
+    - state: light
+      shader: unshaded
+      visible: false
+      map: ["enchantment-light"]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OrbitraRatvarVisuals.Enchanting:
+        enum.OrbitraRatvarMechanismLayers.Base:
+          Active: { state: active, color: "#FFFFFF" }
+          Idle: { state: active, color: "#B5A386" }
+          Unanchored: { state: unanchored, color: "#FFFFFF" }
+        enchantment-light:
+          Active: { visible: true }
+          Idle: { visible: false }
+          Unanchored: { visible: false }
+  - type: OrbitraRatvarPowered
+    energyPerUse: 0
+    minimumEnergy: 1
+  - type: OrbitraRatvarStargazer
+    delay: 6
+    cooldown: 180
+    enchantments:
+      Sharpness: 5
+      Tiny: 1
+      SoulTap: 3
+      Burn: 3
+    sharpnessPerLevel: 2
+    soulHealingPerLevel: 0.1
+    fireStacksPerLevel: 1
+    sound:
+      path: /Audio/_Orbitra/Ratvar/stargazer_activate.ogg
+      params:
+        volume: -5
+  - type: Anchorable
+    delay: 2
+  - type: Construction
+    graph: OrbitraRatvarMechanism
+    node: mechanism
+    deconstructionTarget: dismantled
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarStargazer
+  name: orbitra-ratvar-scripture-stargazer
+  description: orbitra-ratvar-scripture-stargazer-desc
+  tier: 2
+  energy: 300
+  delay: 8
+  result: OrbitraRatvarStargazer
+  structure: true
+
+- type: entity
+  id: OrbitraRatvarEnchantEffect
+  name: brass radiance
+  categories: [HideSpawnMenu]
+  save: false
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/stargazer.rsi
+    drawdepth: Effects
+    layers:
+    - state: light
+      shader: unshaded
+  - type: TimedDespawn
+    lifetime: 1

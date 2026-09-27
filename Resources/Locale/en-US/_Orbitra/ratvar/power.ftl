@@ -1,0 +1,17 @@
+ent-OrbitraRatvarTransmissionSigil = transmission sigil
+    .desc = A brass pattern shimmering with a warm amber glow.
+ent-OrbitraRatvarBolt = searing bolt
+    .desc = A streak of searing light.
+orbitra-ratvar-scripture-transmission = Transmission sigil
+orbitra-ratvar-scripture-transmission-desc = Powers mechanisms of its own cult within 6 tiles on the same grid. Requires two living servants nearby, 100 energy and 5 seconds of invocation. Energy is shared; overlapping sigils do not multiply the effect.
+orbitra-ratvar-unavailable-invokers = Not enough living members of your cult nearby.
+orbitra-ratvar-power-unbound = The mechanism is not bound to an active cult.
+orbitra-ratvar-power-unanchored = Power requires a mechanism anchored to a grid, outside containers.
+orbitra-ratvar-power-uncovered = No anchored transmission sigil of this cult is within range.
+orbitra-ratvar-power-empty = The cult's shared reserve has insufficient energy.
+orbitra-ratvar-power-ready = The mechanism receives power from a transmission sigil.
+orbitra-ratvar-power-rates = Last sample: income { NUMBER($income, maximumFractionDigits: 1) }/s · spending { NUMBER($expense, maximumFractionDigits: 1) }/s
+orbitra-ratvar-search = Find a scripture by name or description...
+orbitra-ratvar-tier-all = All tiers
+orbitra-ratvar-tier-filter = Tier { $tier }
+orbitra-ratvar-scripture-requirements = Invocation: { $seconds } s · servants: { $invokers }

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "license": "CC-BY-SA-3.0",
+  "copyright": "From https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/turf/floors.dmi. File history contributors (not individual state authors): AnturK, Aranclanos, Ashe Higgs, Cheridan, ClownMoff, DrDuckedGoose, EdgeLordExe, Firecage, Incoming, Joan Lung, KazeEspada, KorPhaeron, Kortgstation@gmail.com, KubeRoot, LastBattaWolf@hotmail.com, Leo, Lexorion, Lularian, MMMiracles, Mandurrrh, Mark Suckerberg, Mat05usz, Mener, Mervill, Moccha, Nerd Lord, NikNakFlak, PestoVerde322, Pirill, PowerfulBacon, Razharas, Remie Richards, Shadowlight213, ShizCalev, Skiedrake, SmArtKar, Strommer Kilian, Tad Hardesty, Tenebrosity, That0nePerson, The-Moon-Itself, TheVekter, Thomas, Tsar-Salat, WJohn, baloh.matevz, bawhoppen, c0, cagerrin@gmail.com, d_h2005@yahoo.com, daelith.rhedynfre, ericgfwong@hotmail.com, fludd12, giacomand@gmail.com, imsynthex, itsmeow, kevinz000, kortgstation@gmail.com, mport2004@gmail.com, mrmanlikesbt, noisomehollow@lycos.com, only.lurking, petethegoat@gmail.com, phil235, pudl, qwerty, shizcalev, spockye, tkdrg, trubblebass@gmail.com, uporotiy, vuonojenmustaturska, xxalpha. Selected states extracted, renamed and repacked from DMI to RSI; no pixel edits. See ../provenance.json. clockwork_floor: Joan Lung; introduced by fa4ca9877cfeaf18a828581c26824a4bb9a3db03 and revised by 92fe41e4d061b3f0d9ea299cf1a5ee317bd2c97b. Pixel hashes reviewed across all 81 file revisions from the addition to the pinned version; only that revision changes this state's pixels. Other floor states are not imported.",
+  "states": [
+    {
+      "name": "floor",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarKindle
+  name: orbitra-ratvar-scripture-kindle
+  description: orbitra-ratvar-scripture-kindle-desc
+  tier: 1
+  energy: 125
+  delay: 3
+  empowerment: Kindle
+  targetWindow: 15
+  targetRange: 7
+  effectDuration: 15
+  muteDuration: 12
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarManacles
+  name: orbitra-ratvar-scripture-manacles
+  description: orbitra-ratvar-scripture-manacles-desc
+  tier: 1
+  energy: 25
+  delay: 1.5
+  empowerment: Manacles
+  targetWindow: 2
+  targetDelay: 3
+  targetRange: 1.5
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarCompromise
+  name: orbitra-ratvar-scripture-compromise
+  description: orbitra-ratvar-scripture-compromise-desc
+  tier: 2
+  energy: 80
+  delay: 1
+  empowerment: Compromise
+  targetWindow: 8
+  targetRange: 7
+  healingFraction: 0.6
+  backlashFraction: 0.5
+  backlashCap: 80
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarVanguard
+  name: orbitra-ratvar-scripture-vanguard
+  description: orbitra-ratvar-scripture-vanguard-desc
+  tier: 2
+  energy: 150
+  delay: 1
+  empowerment: Vanguard
+  effectDuration: 30
+
+- type: entity
+  parent: Handcuffs
+  id: OrbitraRatvarManacles
+  name: replicant manacles
+  description: Heavy brass restraints covered with tiny moving gears.
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/manacles.rsi
+    state: manacles
+  - type: Item
+    sprite: Objects/Misc/handcuffs.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left
+        color: "#D8AD56"
+      right:
+      - state: inhand-right
+        color: "#D8AD56"
+  - type: Handcuff
+    color: "#D8AD56"
+    breakoutTime: 60
+    breakOnRemove: true
+    brokenPrototype: OrbitraRatvarManacleRemains
+
+- type: entity
+  id: OrbitraRatvarManacleRemains
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: TimedDespawn
+    lifetime: 0.1
+
+- type: entity
+  parent: MobStatusEffectBase
+  id: OrbitraRatvarVanguardStatus
+  name: vanguard
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/sigils.rsi
+    state: shield
+    color: "#FFD98BA0"
+  - type: IgnoreSlowOnDamage

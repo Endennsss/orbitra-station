@@ -6,6 +6,8 @@ using Content.Server.Construction.Components;
 using Content.Shared.Access.Components;
 using Content.Shared.Doors.Components;
 using Content.Shared.Doors.Systems;
+using Content.Shared.Damage;
+using Content.Shared.Damage.Systems;
 using Content.Shared.Interaction;
 using Robust.Shared.Containers;
 using Robust.Shared.GameObjects;
@@ -22,12 +24,18 @@ public sealed partial class OrbitraRatvarFloorTest
     [TestCase("SilverDoor", "contents")]
     [TestCase("SilverDoor", "delete")]
     [TestCase("SilverDoor", "parallel")]
-    [TestCase("Airlock", "unsupported")]
+    [TestCase("Airlock", "success", Category = "OrbitraRatvarExpansion")]
+    [TestCase("AirlockMedicalLocked", "success", Category = "OrbitraRatvarExpansion")]
+    [TestCase("AirlockCommandLocked", "success", Category = "OrbitraRatvarExpansion")]
+    [TestCase("AirlockGlass", "success", Category = "OrbitraRatvarExpansion")]
+    [TestCase("Airlock", "contents", Category = "OrbitraRatvarExpansion")]
+    [TestCase("Airlock", "parallel", Category = "OrbitraRatvarExpansion")]
     [TestCase("WoodDoor", "unsupported")]
     public async Task DoorConversionPreservesInfrastructureAndRestrictions(string prototype, string scenario)
     {
         var map = await Pair.CreateTestMap();
         EntityUid user = default, tool = default, door = default, cable = default, pipe = default, item = default;
+        EntityUid? board = null;
         OrbitraRatvarRuleComponent cult = null!;
         var started = false;
         var secondStarted = false;
@@ -39,6 +47,8 @@ public sealed partial class OrbitraRatvarFloorTest
             cult.Energy = 400;
             tool = EquipTool(user, center);
             door = SEntMan.SpawnEntity(prototype, center);
+            if (Server.System<SharedContainerSystem>().TryGetContainer(door, "board", out var electronics))
+                board = electronics.ContainedEntities.Single();
             cable = SEntMan.SpawnEntity("CableHV", center);
             pipe = SEntMan.SpawnEntity("GasPipeStraight", center);
             item = SEntMan.SpawnEntity("Crowbar", center);
@@ -105,6 +115,15 @@ public sealed partial class OrbitraRatvarFloorTest
                 Assert.That(SEntMan.GetComponent<DoorComponent>(entity).State, Is.EqualTo(DoorState.Closed));
             }
             Assert.That(count, Is.EqualTo(succeeds ? 1 : 0));
+            if (board is { } preservedBoard)
+            {
+                Assert.That(SEntMan.EntityExists(preservedBoard), Is.True, "Conversion must not delete the original electronics.");
+                if (succeeds)
+                {
+                    Assert.That(Server.System<SharedContainerSystem>().TryGetContainer(converted, "board", out var electronics), Is.True);
+                    Assert.That(electronics!.ContainedEntities, Does.Contain(preservedBoard));
+                }
+            }
             if (succeeds)
                 Assert.That(Server.System<AtmosphereSystem>().IsTileAirBlocked(map.Grid, map.Tile.GridIndices), Is.True);
         });
@@ -129,6 +148,17 @@ public sealed partial class OrbitraRatvarFloorTest
             Assert.That(closed, Is.True);
             Assert.That(SEntMan.GetComponent<DoorComponent>(converted).State, Is.EqualTo(DoorState.Closed));
             Assert.That(Server.System<AtmosphereSystem>().IsTileAirBlocked(map.Grid, map.Tile.GridIndices), Is.True);
+        });
+        if (board is not { } originalBoard)
+            return;
+        await Server.WaitPost(() => Server.System<DamageableSystem>().TryChangeDamage(converted,
+            new DamageSpecifier(SProtoMan.Index(WallTestBlunt), 1000), ignoreResistances: true));
+        await Pair.RunTicksSync(5);
+        await Server.WaitAssertion(() =>
+        {
+            Assert.That(SEntMan.EntityExists(originalBoard), Is.True);
+            Assert.That(Server.System<SharedContainerSystem>().IsEntityInContainer(originalBoard), Is.False,
+                "Destroying the converted door must release the preserved electronics.");
         });
     }
 }

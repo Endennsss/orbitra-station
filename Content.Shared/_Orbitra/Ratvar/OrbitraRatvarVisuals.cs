@@ -8,6 +8,17 @@ public enum OrbitraRatvarVisuals : byte
     Active,
     Ark,
     Defending,
+    Powered,
+    Prism,
+    Lens,
+    Enchanting,
+    Trap,
+}
+
+[Serializable, NetSerializable]
+public enum OrbitraRatvarMechanismLayers : byte
+{
+    Base,
 }
 
 [Serializable, NetSerializable]

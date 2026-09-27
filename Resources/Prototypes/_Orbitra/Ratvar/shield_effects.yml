@@ -1,0 +1,29 @@
+- type: entity
+  id: OrbitraRatvarShieldHit
+  name: shield impact
+  description: A brass barrier ripples under an impact.
+  categories: [HideSpawnMenu]
+  save: false
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/sigils.rsi
+    state: shield_hit
+    drawdepth: Effects
+    noRot: true
+  - type: TimedDespawn
+    lifetime: 0.52
+
+- type: entity
+  id: OrbitraRatvarShieldBreak
+  name: shattered shield
+  description: Fragments of a brass barrier fade away.
+  categories: [HideSpawnMenu]
+  save: false
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/sigils.rsi
+    state: shield_break
+    drawdepth: Effects
+    noRot: true
+  - type: TimedDespawn
+    lifetime: 0.5

@@ -13,11 +13,31 @@ public sealed partial class OrbitraRatvarScripturePrototype : IPrototype
     [DataField] public int Tier = 1;
     [DataField] public int Energy;
     [DataField] public TimeSpan Delay = TimeSpan.FromSeconds(3);
+    /// <summary>Extra invocation time per existing bound shell of the same kind.</summary>
+    [DataField] public TimeSpan DelayPerShell;
     [DataField] public EntProtoId? Result;
     [DataField] public bool Structure;
     [DataField] public bool Repair;
     [DataField] public int RepairAmount = 50;
+    /// <summary>Число живых участников своего культа, включая читающего.</summary>
+    [DataField] public int Invokers = 1;
+    /// <summary>Радиус помощи при чтении писания.</summary>
+    [DataField] public float InvokerRange = 1.5f;
+    /// <summary>Minimum spacing between structures created by this scripture.</summary>
+    [DataField] public float ExclusiveRange;
+    /// <summary>Optional tablet empowerment instead of spawning an entity.</summary>
+    [DataField] public OrbitraRatvarEmpowerment Empowerment;
+    [DataField] public TimeSpan TargetWindow = TimeSpan.FromSeconds(8);
+    [DataField] public TimeSpan TargetDelay;
+    [DataField] public float TargetRange = 7f;
+    [DataField] public TimeSpan EffectDuration = TimeSpan.FromSeconds(30);
+    [DataField] public TimeSpan MuteDuration = TimeSpan.FromSeconds(12);
+    [DataField] public float HealingFraction = 0.6f;
+    [DataField] public float BacklashFraction = 0.5f;
+    [DataField] public int BacklashCap = 80;
 }
+
+public enum OrbitraRatvarEmpowerment : byte { None, Kindle, Manacles, Compromise, Vanguard }
 
 [Serializable, NetSerializable]
 public enum OrbitraRatvarUiKey : byte { Key }
@@ -35,11 +55,14 @@ public sealed class OrbitraRatvarCommunicateMessage(string text) : BoundUserInte
 }
 
 [Serializable, NetSerializable]
-public sealed class OrbitraRatvarUiState(int energy, int tier, int converts, bool busy) : BoundUserInterfaceState
+public sealed class OrbitraRatvarUiState(int energy, int tier, int converts, bool busy,
+    float incomeRate = 0, float expenseRate = 0) : BoundUserInterfaceState
 {
     public Dictionary<string, string> Unavailable = [];
     public readonly int Energy = energy;
     public readonly int Tier = tier;
     public readonly int Converts = converts;
     public readonly bool Busy = busy;
+    public readonly float IncomeRate = incomeRate;
+    public readonly float ExpenseRate = expenseRate;
 }

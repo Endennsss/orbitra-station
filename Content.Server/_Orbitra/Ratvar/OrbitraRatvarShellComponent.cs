@@ -5,4 +5,6 @@ namespace Content.Server._Orbitra.Ratvar;
 public sealed partial class OrbitraRatvarShellComponent : Component
 {
     public EntityUid? Rule;
+    /// <summary>Separates builder and combat shell reservations.</summary>
+    [DataField] public bool Builder;
 }

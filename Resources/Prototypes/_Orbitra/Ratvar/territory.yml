@@ -22,7 +22,12 @@
   description: Reinforced glass held in a warm brass frame.
   components:
   - type: Sprite
-    color: "#D9B66FFF"
+    sprite: _Orbitra/Ratvar/windows.rsi
+  - type: Icon
+    sprite: _Orbitra/Ratvar/windows.rsi
+    state: full
+  - type: IconSmooth
+    base: window
   - type: Construction
     graph: OrbitraRatvarWindow
     node: window
@@ -35,19 +40,32 @@
   description: Heavy brass plates slide apart with a mechanical rumble.
   components:
   - type: Sprite
-    sprite: Structures/Doors/MaterialDoors/gold-door.rsi
-    color: "#CFB997FF"
+    sprite: _Orbitra/Ratvar/doors.rsi
+  - type: Door
+    openingAnimationTime: 0.45
+    closingAnimationTime: 0.45
+    openTimeOne: 0.3
+    openTimeTwo: 0.15
+    closeTimeOne: 0.15
+    closeTimeTwo: 0.3
   - type: Construction
     graph: OrbitraRatvarDoor
     node: door
     deconstructionTarget: start
+    containers:
+    - board
+  - type: ContainerContainer
+    containers:
+      board: !type:Container
   - type: Damageable
     damageModifierSet: BrassMod
   - type: Destructible
+    generateOverkillThreshold: false # Сохраняем плату и при сильном ударе, а не удаляем её вместе с дверью.
     thresholds:
     - trigger: !type:DamageTrigger
         damage: 100
       behaviors:
+      - !type:EmptyAllContainersBehaviour
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
@@ -115,6 +133,7 @@
     edges:
     - to: start
       completed:
+      - !type:EmptyAllContainers {}
       - !type:SpawnPrototype
         prototype: SheetBrass1
         amount: 10

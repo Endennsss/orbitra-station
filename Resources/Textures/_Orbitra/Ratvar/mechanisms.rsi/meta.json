@@ -8,6 +8,40 @@
   "copyright": "From https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/obj/clockwork_objects.dmi. File history contributors (not individual state authors): Ashe Higgs, BordListian, Cenrus, Joan Lung, KorPhaeron, Nerd Lord, PowerfulBacon, Xhuis, qwerty. Selected states extracted, renamed and repacked from DMI to RSI; no pixel edits. See ../provenance.json.",
   "states": [
     {
+      "name": "tablet",
+      "directions": 1,
+      "delays": [
+        [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "fabricator",
+      "directions": 1,
+      "delays": [
+        [
+          0.1,
+          0.1,
+          0.1
+        ]
+      ]
+    },
+    {
       "name": "spear",
       "directions": 1,
       "delays": [
@@ -75,6 +109,16 @@
           0.2,
           0.2,
           0.2
+        ]
+      ]
+    },
+    {
+      "name": "obelisk_inactive",
+      "directions": 1,
+      "delays": [
+        [
+          0.6,
+          0.6
         ]
       ]
     },

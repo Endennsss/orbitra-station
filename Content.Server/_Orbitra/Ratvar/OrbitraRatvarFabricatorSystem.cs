@@ -71,13 +71,14 @@ public sealed partial class OrbitraRatvarFabricatorSystem : EntitySystem
                 _popup.PopupEntity(Loc.GetString("orbitra-ratvar-fabricator-wall-denied", ("energy", ent.Comp.WallEnergy)), ent, args.User);
             return;
         }
-        if (Prototype(target) is { } window && ent.Comp.Windows.Contains(new EntProtoId(window.ID)))
+        if (Prototype(target) is { } window && ent.Comp.Windows.ContainsKey(new EntProtoId(window.ID)))
         {
             if (!TryStartWindow(ent, args.User, target))
                 _popup.PopupEntity(Loc.GetString("orbitra-ratvar-fabricator-window-denied", ("energy", ent.Comp.WindowEnergy)), ent, args.User);
             return;
         }
-        if (Prototype(target) is { } door && ent.Comp.Doors.ContainsKey(new EntProtoId(door.ID)))
+        if (Prototype(target) is { } door && (ent.Comp.Doors.ContainsKey(new EntProtoId(door.ID)) ||
+            ent.Comp.Airlocks.ContainsKey(new EntProtoId(door.ID))))
         {
             if (!TryStartDoor(ent, args.User, target))
                 _popup.PopupEntity(Loc.GetString("orbitra-ratvar-fabricator-door-denied", ("energy", ent.Comp.DoorEnergy)), ent, args.User);

@@ -1,0 +1,40 @@
+- type: entity
+  parent: OrbitraRatvarStructureBase
+  id: OrbitraRatvarTravelPoint
+  name: brass waygate
+  description: A brass sigil traced with interlocking paths.
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/sigils.rsi
+    state: transmission
+    drawdepth: FloorTiles
+  - type: Fixtures
+    fixtures: {}
+  - type: OrbitraRatvarTravel
+    delay: 2.5
+    cooldown: 3
+  - type: OrbitraRatvarPowered
+    energyPerUse: 5
+    minimumEnergy: 5
+  - type: ActivatableUI
+    key: enum.OrbitraRatvarTravelUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.OrbitraRatvarTravelUiKey.Key:
+        type: OrbitraRatvarTravelBoundUserInterface
+  - type: Anchorable
+    delay: 2
+  - type: Construction
+    graph: OrbitraRatvarMechanism
+    node: mechanism
+    deconstructionTarget: dismantled
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarTravelPoint
+  name: orbitra-ratvar-scripture-travel
+  description: orbitra-ratvar-scripture-travel-desc
+  tier: 2
+  energy: 200
+  delay: 5
+  result: OrbitraRatvarTravelPoint
+  structure: true

@@ -41,6 +41,7 @@ public sealed partial class OrbitraRatvarRuleSystem : GameRuleSystem<OrbitraRatv
         InitializeArk();
         InitializeBodies();
         InitializeDefences();
+        InitializeEmpowerments();
     }
 
     private void OnSolutionChanged(Entity<OrbitraRatvarBodyComponent> ent, ref SolutionChangedEvent args)
@@ -76,16 +77,16 @@ public sealed partial class OrbitraRatvarRuleSystem : GameRuleSystem<OrbitraRatv
     {
         component.StartedAt = Timing.CurTime;
         component.Energy = component.StartingEnergy;
+        component.SampledEnergy = component.Energy;
+        component.SampledGenerated = component.Generated;
+        component.SampledAt = Timing.CurTime;
     }
 
     protected override void Ended(EntityUid uid, OrbitraRatvarRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
     {
+        CleanupManifestation(component);
         // Роль сознания остаётся для итогов раунда, но не даёт телу действующую принадлежность.
-        foreach (var mind in component.Members)
-        {
-            if (TryComp<MindComponent>(mind, out var data) && data.OwnedEntity is { } body)
-                RefreshBody(body);
-        }
+        RefreshCultBodies(component);
         component.HolyWaterSince.Clear();
     }
 
@@ -94,6 +95,7 @@ public sealed partial class OrbitraRatvarRuleSystem : GameRuleSystem<OrbitraRatv
         UpdateArk((uid, rule));
         if (rule.NextUpdate > Timing.CurTime || rule.Won || rule.Lost) return;
         rule.NextUpdate = Timing.CurTime + TimeSpan.FromSeconds(1);
+        UpdatePowerStatistics(rule);
         RefreshTablets();
         foreach (var mind in rule.Members)
         {
@@ -157,4 +159,17 @@ public sealed partial class OrbitraRatvarRuleSystem : GameRuleSystem<OrbitraRatv
         _roles.MindHasRole<OrbitraRatvarRoleComponent>(mind, out var role) && role.Value.Comp2.Rule == rule.Owner;
 
     private bool Living(EntityUid body) => TryComp<MobStateComponent>(body, out var mob) && mob.CurrentState != MobState.Dead;
+
+    private void UpdatePowerStatistics(OrbitraRatvarRuleComponent rule)
+    {
+        var elapsed = (Timing.CurTime - rule.SampledAt).TotalSeconds;
+        if (elapsed <= 0) return;
+        var received = Math.Max(0L, (long) rule.Generated - rule.SampledGenerated);
+        var spent = Math.Max(0L, rule.SampledEnergy + received - rule.Energy);
+        rule.IncomeRate = (float) (received / elapsed);
+        rule.ExpenseRate = (float) (spent / elapsed);
+        rule.SampledAt = Timing.CurTime;
+        rule.SampledEnergy = rule.Energy;
+        rule.SampledGenerated = rule.Generated;
+    }
 }

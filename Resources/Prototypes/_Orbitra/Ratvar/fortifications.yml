@@ -2,7 +2,7 @@
   parent: BaseStationTile
   id: OrbitraRatvarFloor
   name: orbitra-ratvar-floor
-  sprite: /Textures/Tiles/gold.png
+  sprite: /Textures/_Orbitra/Ratvar/floors.rsi/floor.png
   footstepSounds:
     collection: FootstepTile
   itemDrop: OrbitraRatvarFloorTile
@@ -61,9 +61,8 @@
   description: A rigid lattice of heavy brass bars.
   components:
   - type: Sprite
-    sprite: Structures/Walls/grille.rsi
+    sprite: _Orbitra/Ratvar/grille.rsi
     state: full
-    color: "#D9B66FFF"
   - type: Damageable
     damageModifierSet: BrassMod
   - type: Construction

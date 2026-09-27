@@ -1,6 +1,26 @@
 Ratvar sprite subsets from BeeStation-Hornet
 
-These nine RSI sets are licensed under Creative Commons Attribution-ShareAlike
+Stargazer: four selected states from icons/obj/clockwork_objects.dmi.
+Original stargazer/light/unwrenched art: Ashe Higgs/Xhuis, tgstation PR 29741,
+b7e7779c19b76449c290aaf2150fb93545b1a79a. Closed state: PowerfulBacon,
+BeeStation PR 2124, 8168ce7f06afc301b3226661703df356c5936599.
+All 33 pinned file revisions checked. See stargazer.rsi/meta.json and
+provenance.json for source paths, selected states, histories and conversion.
+CC BY-SA 3.0 retained; contributors are not asserted to be sole authors.
+
+Ratvar itself: icons/effects/512x512.dmi, state ratvar, sixteen 512x512 frames.
+Artwork introduced by Xhuis in a28a7680cba9142ab80abc5ed480474ed0310462.
+All three pinned file revisions reviewed, including qwerty's icon compression
+and unrelated supermatter additions by AgentCitrus/itsmeow. Only Ratvar's
+original animation is imported, not the SS14 kitbashed spawn animation.
+
+Interdiction lens: active/inactive states originate in Xhuis's initial clockwork
+sprites, a28a7680cba9142ab80abc5ed480474ed0310462. The unwrenched state was added
+by Joan Lung, de1c7b074ab8f1fb8db222b2c4031070a77c2599 (tgstation PR 21485,
+credit Joan). Selected states retain CC BY-SA 3.0. Inactive playback is adapted
+to explicit ping-pong frames; original pixels and per-frame timing are retained.
+
+These RSI sets are licensed under Creative Commons Attribution-ShareAlike
 3.0 Unported (CC BY-SA 3.0), not the code license of Orbitra.
 License and legal terms: https://creativecommons.org/licenses/by-sa/3.0/legalcode
 
@@ -14,17 +34,73 @@ History contributors are not necessarily authors of every individual state.
 Initial clockwork sprite set was committed by Xhuis in
 a28a7680cba9142ab80abc5ed480474ed0310462 ("Clockwork sprites").
 
+The station floor state clockwork_floor is by Joan Lung: addition
+fa4ca9877cfeaf18a828581c26824a4bb9a3db03 and revision
+92fe41e4d061b3f0d9ea299cf1a5ee317bd2c97b. Its pixels were traced through all
+81 subsequent file revisions up to the pinned source. No other floor artwork
+from floors.dmi is included. The PNG inside floors.rsi is also used as a tile.
+
+The ratvargrille state is by Nerd Lord, added in
+3793e6187a25aa3edd925f2c8984fd3bc5fa3581 and processed by qwerty's icon
+compression in 38254deeebd3d7e81ab282e36174e1713c5ead20. State pixel hashes
+were checked across all 84 revisions of structures.dmi at the pinned commit.
+Other structure states are not included. Orbitra uses it for its barricade.
+
+The expanded selection includes replica_fabricator and dread_ipad from
+clockwork_objects.dmi, their left/right in-hand states, sigiltransmission,
+and obelisk_inactive. These retain the same source asset license and full
+file contributor histories; the in-hand split is recorded at
+d525b18d8d58639c5466b654bffa81a463741a2a by ShizCalev.
+
 Changes: selection, state renaming, DMI-to-RSI packing and time-unit conversion.
+windows.rsi uses clockwork_window.dmi, with the complete two-revision history.
+Bee PR 8123 credits PestoVerde322 and dwasint for the smoothing/glass changes;
+PR 12909 is by BarteG44. Selected 8-bit adjacency states are cropped into SS14
+corner layers, preserving the artwork without repainting.
+doors.rsi uses pinion_airlock.dmi, with all seven file-history revisions.
+Contributors include Xhuis, Nerd Lord, PopNotes, qwerty, MNarath and
+PestoVerde322 (PigeonVerde322). Bee PR 2987 credits monster860's Yogstation
+PR 8901 for the smooth-door port. Bee PR 10605 reorganized the layers.
+Orbitra composites the pinned fill/outline images and translates the leaves
+into native opening/closing frames. These are derivative assets, not exact
+DMI animation copies. See their meta.json and provenance.json for details.
 Pixel art has not been redrawn. Derived artwork remains CC BY-SA 3.0.
 No endorsement by the original creators is implied. No DM source is included.
 
+manacles.rsi imports only brass_manacles from icons/obj/items_and_weapons.dmi.
+The state was introduced in 32c68a60bf88b5e350f8ef78609ffccc45821483, committed
+by Ashe Higgs; that identifies a source commit, not sole sprite authorship.
+All 69 file-history revisions were checked for this state's pixels. Full
+contributors, source and changes are retained in provenance.json. No separate
+license exception was found in the selected file's metadata or introduction.
+The inherited Bee security in-hand files contain no brass_manacles state.
+Orbitra therefore retains the existing Objects/Misc/handcuffs.rsi hand/body
+overlays with a runtime brass tint, under their original CC-BY-SA-3.0 notice.
+
+Shield hit/break animations in sigils.rsi originate from clock_shield_deflect
+and clock_shield_break, icons/effects/clockwork_effects.dmi at the pinned commit.
+The states first appear in 8168ce7f06afc301b3226661703df356c5936599 by PowerfulBacon
+(BeeStation PR 2124). All 19 file revisions, DMI metadata and PR notices were
+reviewed. No applicable license exception was found. Contributor identification
+does not assert sole authorship. Frames and delays are preserved, renamed and
+repacked as RSI under CC BY-SA 3.0; source and history remain in provenance.json.
+
+Prism artwork is imported from icons/obj/clockwork_objects.dmi at the pinned Bee
+commit: prolonging_prism, prolonging_prism_inactive, prolonging_prism_unwrenched.
+The states first appear in 405fc7b0fef61c396f102791f684d13e4dbb76ec, Joan Lung,
+tgstation PR 28164 (credit Joan). All 33 file-history revisions were checked for
+these states; introduction and Bee PR 3908 notices were reviewed. CC BY-SA 3.0
+is preserved, with source paths, renamed states and full history in provenance.json.
+No pixel edits; directions, frames and delays retained. The old source mechanic
+is not imported. No applicable license exception was found in the reviewed notices.
+
 Existing Orbitra resources referenced by prototypes are not relicensed:
-Objects/Specific/Chapel/ratvartablet.rsi: CC-BY-SA-4.0, Davyei.
 Mobs/Demons/ratvar.rsi, Objects/Weapons/Melee/shields.rsi and brass construction
 resources retain their own original meta.json attribution and license.
 Clothing/OuterClothing/Armor/security.rsi and Clothing/Head/Helmets/security.rsi
 are reused for in-hand armor silhouettes with a runtime brass tint. Their
 CC-BY-SA-3.0 attribution to DieselMohawk and Nox38 remains in the source RSI.
 Objects/Weapons/Melee/spear.rsi retains the inherited reagent-fill overlay.
-/Audio/Misc/ratvar_reveal.ogg is reused under CC-BY-SA-3.0; its existing notice
-and pinned TG source are in /Audio/Misc/attributions.yml. No audio was imported.
+The finale now uses the separately audited Bee audio in /Audio/_Orbitra/Ratvar.
+Its notices, changes and per-file history are in that directory. Existing
+/Audio/Misc/ratvar_reveal.ogg and its TG attribution remain unchanged.

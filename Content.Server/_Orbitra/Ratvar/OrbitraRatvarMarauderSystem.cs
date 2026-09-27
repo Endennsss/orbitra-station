@@ -26,12 +26,14 @@ public sealed partial class OrbitraRatvarMarauderSystem : EntitySystem
         SubscribeLocalEvent<OrbitraRatvarMarauderComponent, MapInitEvent>(OnInit);
         SubscribeLocalEvent<OrbitraRatvarMarauderComponent, OrbitraRatvarDefenceEvent>(OnDefence);
         SubscribeLocalEvent<OrbitraRatvarMarauderComponent, DamageModifyEvent>(OnDamage);
+        InitializeShield();
     }
 
     private void OnInit(Entity<OrbitraRatvarMarauderComponent> ent, ref MapInitEvent args)
     {
         _actions.AddAction(ent, ref ent.Comp.DefenceAction, DefenceAction);
         _appearance.SetData(ent, OrbitraRatvarVisuals.Defending, false);
+        ent.Comp.ShieldCharges = Math.Max(0, ent.Comp.ShieldCapacity);
     }
 
     private void OnDefence(Entity<OrbitraRatvarMarauderComponent> ent, ref OrbitraRatvarDefenceEvent args)

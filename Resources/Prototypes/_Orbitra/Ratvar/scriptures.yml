@@ -39,6 +39,18 @@
   structure: false
 
 - type: orbitraRatvarScripture
+  id: OrbitraRatvarTransmissionSigil
+  name: orbitra-ratvar-scripture-transmission
+  description: orbitra-ratvar-scripture-transmission-desc
+  tier: 1
+  energy: 100
+  delay: 5
+  invokers: 2
+  invokerRange: 1.5
+  result: OrbitraRatvarTransmissionSigil
+  structure: true
+
+- type: orbitraRatvarScripture
   id: OrbitraRatvarArmor
   name: orbitra-ratvar-scripture-armor
   description: orbitra-ratvar-scripture-armor-desc
@@ -103,8 +115,11 @@
   name: orbitra-ratvar-scripture-turret
   description: orbitra-ratvar-scripture-turret-desc
   tier: 3
-  energy: 500
-  delay: 10
+  energy: 400
+  delay: 5
+  invokers: 2
+  invokerRange: 1.5
+  exclusiveRange: 4
   result: OrbitraRatvarTurret
   structure: true
 

@@ -49,7 +49,6 @@ public sealed partial class OrbitraRatvarFloorTest
 
     [TestCase("WallReinforced")]
     [TestCase("WallSolidDiagonal")]
-    [TestCase("Window", true)]
     [TestCase("ReinforcedWindowDiagonal", true)]
     public async Task WallUnsupportedPrototypeCannotStart(string prototype, bool window = false)
     {
@@ -82,12 +81,14 @@ public sealed partial class OrbitraRatvarFloorTest
     [TestCase("delete")]
     [TestCase("drop")]
     [TestCase("success", true)]
+    [TestCase("success", true, "Window", Category = "OrbitraRatvarExpansion")]
+    [TestCase("success", true, "TintedWindow", Category = "OrbitraRatvarExpansion")]
     [TestCase("contents", true)]
     [TestCase("child", true)]
     [TestCase("damage", true)]
     [TestCase("delete", true)]
     [TestCase("drop", true)]
-    public async Task WallConversionPreservesInfrastructureOrCancels(string scenario, bool window = false)
+    public async Task WallConversionPreservesInfrastructureOrCancels(string scenario, bool window = false, string source = null)
     {
         var map = await Pair.CreateTestMap();
         EntityUid user = default, tool = default, wall = default, pipe = default, cable = default, item = default;
@@ -100,7 +101,7 @@ public sealed partial class OrbitraRatvarFloorTest
             user = CreateCultist(center.Offset(-Vector2.UnitX), out cult);
             cult.Energy = 400;
             tool = EquipTool(user, center);
-            wall = SEntMan.SpawnEntity(window ? "ReinforcedWindow" : "WallSolid", center);
+            wall = SEntMan.SpawnEntity(source ?? (window ? "ReinforcedWindow" : "WallSolid"), center);
             pipe = SEntMan.SpawnEntity("GasPipeStraight", center);
             cable = SEntMan.SpawnEntity("CableHV", center);
             item = SEntMan.SpawnEntity("Crowbar", center);

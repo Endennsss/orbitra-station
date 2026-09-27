@@ -10,6 +10,8 @@ public sealed partial class OrbitraRatvarRoleComponent : BaseMindRoleComponent
     public EntityUid? Rule;
     /// <summary>Marauder allegiance cannot acquire scripture or conversion privileges after a body transfer.</summary>
     [DataField] public bool Marauder;
+    /// <summary>Builder allegiance cannot gain conversion privileges by transferring bodies.</summary>
+    [DataField] public bool Builder;
     /// <summary>Shared server-side communication cooldown across bodies and tablets.</summary>
     public TimeSpan NextMessage;
 }

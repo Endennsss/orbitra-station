@@ -1,0 +1,29 @@
+- files: [stargazer_activate.ogg]
+  license: CC-BY-SA-3.0
+  copyright: "Source credits: Xhuis (Ashe Higgs), Rob Bailey (actioninja). Full file history and introducing notices reviewed; contributors are not asserted to be sole sound authors. Downmixed stereo to mono, 44100 Hz Vorbis quality 5, for SS14 positional playback; no trimming or gain change. See provenance.json and LICENSE.txt."
+  source: https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/sound/machines/clockcult/stargazer_activate.ogg
+
+- files: [ratvar_reveal.ogg]
+  license: CC-BY-SA-3.0
+  copyright: "Source credits: Xhuis. Full file history and introducing notices reviewed; contributors are not asserted to be sole sound authors. Byte-identical copy from pinned BeeStation. See provenance.json and LICENSE.txt."
+  source: https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/sound/effects/ratvar_reveal.ogg
+
+- files: [ark_activation.ogg]
+  license: CC-BY-SA-3.0
+  copyright: "Source credits: Xhuis (Ashe Higgs), Rob Bailey (actioninja). Full file history and introducing notices reviewed; contributors are not asserted to be sole sound authors. Downmixed stereo to mono, 44100 Hz Vorbis quality 5, for SS14 positional playback; no trimming or gain change. See provenance.json and LICENSE.txt."
+  source: https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/sound/magic/clockwork/ark_activation.ogg
+
+- files: [integration_cog_install.ogg]
+  license: CC-BY-SA-3.0
+  copyright: "Source credits: Xhuis (Ashe Higgs), Rob Bailey (actioninja). Full file history and introducing notices reviewed; contributors are not asserted to be sole sound authors. Byte-identical copy from pinned BeeStation. See provenance.json and LICENSE.txt."
+  source: https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/sound/machines/clockcult/integration_cog_install.ogg
+
+- files: [invoke_general.ogg]
+  license: CC-BY-SA-3.0
+  copyright: "Source credits: Xhuis, Rob Bailey (actioninja). Full file history and introducing notices reviewed; contributors are not asserted to be sole sound authors. Downmixed stereo to mono, 44100 Hz Vorbis quality 5, for SS14 positional playback; no trimming or gain change. See provenance.json and LICENSE.txt."
+  source: https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/sound/magic/clockwork/invoke_general.ogg
+
+- files: [ark_deathrattle.ogg]
+  license: CC-BY-SA-3.0
+  copyright: "Source credits: Xhuis (Ashe Higgs), Rob Bailey (actioninja). Full file history and introducing notices reviewed; contributors are not asserted to be sole sound authors. Downmixed stereo to mono, 44100 Hz Vorbis quality 5, for SS14 positional playback; no trimming or gain change. See provenance.json and LICENSE.txt."
+  source: https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/sound/machines/clockcult/ark_deathrattle.ogg

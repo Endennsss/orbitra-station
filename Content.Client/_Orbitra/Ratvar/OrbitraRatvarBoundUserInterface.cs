@@ -40,6 +40,10 @@ public sealed class OrbitraRatvarWindow : FancyWindow
     public event Action<string>? Recite;
     public event Action<string>? Communicate;
     private readonly RichTextLabel _status = new();
+    private readonly RichTextLabel _power = new();
+    private readonly LineEdit _search = new() { HorizontalExpand = true };
+    private readonly OptionButton _tier = new();
+    private readonly Dictionary<OrbitraRatvarScripturePrototype, (PanelContainer Panel, RichTextLabel Reason)> _cards = [];
     private readonly BoxContainer _entries = new() { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 6 };
     private readonly Dictionary<OrbitraRatvarScripturePrototype, Button> _buttons = [];
 
@@ -51,6 +55,17 @@ public sealed class OrbitraRatvarWindow : FancyWindow
         OrbitraEntryWindow.Attach(this);
         var root = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 8 };
         root.AddChild(_status);
+        root.AddChild(_power);
+        _search.PlaceHolder = Loc.GetString("orbitra-ratvar-search");
+        _search.OnTextChanged += _ => FilterCards();
+        _tier.AddItem(Loc.GetString("orbitra-ratvar-tier-all"), 0);
+        for (var tier = 1; tier <= 3; tier++)
+            _tier.AddItem(Loc.GetString("orbitra-ratvar-tier-filter", ("tier", tier)), tier);
+        _tier.OnItemSelected += args => { _tier.SelectId(args.Id); FilterCards(); };
+        var filters = new BoxContainer { SeparationOverride = 6 };
+        filters.AddChild(_search);
+        filters.AddChild(_tier);
+        root.AddChild(filters);
         var scroll = new ScrollContainer { VerticalExpand = true };
         scroll.AddChild(_entries);
         root.AddChild(scroll);
@@ -85,15 +100,23 @@ public sealed class OrbitraRatvarWindow : FancyWindow
             description.SetMessage(Loc.GetString(scripture.Description));
             column.AddChild(description);
             column.AddChild(new Label { Text = Loc.GetString("orbitra-ratvar-scripture-cost", ("tier", scripture.Tier), ("energy", scripture.Energy)) });
+            var requirements = new RichTextLabel();
+            requirements.SetMessage(Loc.GetString("orbitra-ratvar-scripture-requirements",
+                ("seconds", scripture.Delay.TotalSeconds), ("invokers", scripture.Invokers)));
+            column.AddChild(requirements);
+            var reason = new RichTextLabel { Visible = false };
+            column.AddChild(reason);
             panel.AddChild(column);
             _entries.AddChild(panel);
             _buttons.Add(scripture, button);
+            _cards.Add(scripture, (panel, reason));
         }
     }
 
     public void UpdateCult(OrbitraRatvarUiState state)
     {
         _status.SetMessage(Loc.GetString("orbitra-ratvar-status", ("energy", state.Energy), ("tier", state.Tier), ("converts", state.Converts)));
+        _power.SetMessage(Loc.GetString("orbitra-ratvar-power-rates", ("income", state.IncomeRate), ("expense", state.ExpenseRate)));
         foreach (var (scripture, button) in _buttons)
         {
             var reason = state.Busy ? "orbitra-ratvar-unavailable-busy" : scripture.Tier > state.Tier ?
@@ -101,6 +124,18 @@ public sealed class OrbitraRatvarWindow : FancyWindow
             if (reason == null) state.Unavailable.TryGetValue(scripture.ID, out reason);
             button.Disabled = reason != null;
             button.ToolTip = reason == null ? null : Loc.GetString(reason);
+            var label = _cards[scripture].Reason;
+            label.Visible = reason != null;
+            if (reason != null) label.SetMessage(Loc.GetString(reason));
         }
+    }
+
+    private void FilterCards()
+    {
+        var search = _search.Text.Trim();
+        foreach (var (scripture, card) in _cards)
+            card.Panel.Visible = (_tier.SelectedId == 0 || _tier.SelectedId == scripture.Tier) &&
+                (Loc.GetString(scripture.Name).Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                 Loc.GetString(scripture.Description).Contains(search, StringComparison.CurrentCultureIgnoreCase));
     }
 }

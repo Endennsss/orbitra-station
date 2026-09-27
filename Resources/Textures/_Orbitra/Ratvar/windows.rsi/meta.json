@@ -1,0 +1,469 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "license": "CC-BY-SA-3.0",
+  "copyright": "From https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/obj/smooth_structures/windows/clockwork_window.dmi. File history contributors (not individual state authors): BarteG44, PestoVerde322. Selected states extracted, renamed and repacked from DMI to RSI; derived layout; see changes below. See ../provenance.json. Clockwork window art and smoothing: BeeStation contributors PestoVerde322 and dwasint (PR 8123, fb90d501cd6f5d948d9698611efe8f59af22a741), BarteG44 (PR 12909). Full two-revision file history and PR author notices reviewed. Window states only; unrelated table artwork is not imported. Bee 8-bit adjacency images cropped into SS14 four-direction corner layers; no repainting. Original source states retained.",
+  "states": [
+    {
+      "name": "source0",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source1",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source2",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source3",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source4",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source5",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source6",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source7",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source8",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source9",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source10",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source11",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source12",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source13",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source14",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source15",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source21",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source23",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source29",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source31",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source38",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source39",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source46",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source47",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source55",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source63",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source74",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source75",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source78",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source79",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source95",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source110",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source111",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source127",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source137",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source139",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source141",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source143",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source157",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source159",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source175",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source191",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source203",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source207",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source223",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source239",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "source255",
+      "directions": 1,
+      "delays": [
+        [
+          0.1
+        ]
+      ]
+    },
+    {
+      "name": "window0",
+      "directions": 4
+    },
+    {
+      "name": "window1",
+      "directions": 4
+    },
+    {
+      "name": "window2",
+      "directions": 4
+    },
+    {
+      "name": "window3",
+      "directions": 4
+    },
+    {
+      "name": "window4",
+      "directions": 4
+    },
+    {
+      "name": "window5",
+      "directions": 4
+    },
+    {
+      "name": "window6",
+      "directions": 4
+    },
+    {
+      "name": "window7",
+      "directions": 4
+    },
+    {
+      "name": "full"
+    }
+  ]
+}

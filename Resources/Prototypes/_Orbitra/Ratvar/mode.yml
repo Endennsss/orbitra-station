@@ -18,6 +18,9 @@
     minPlayers: 15
   - type: OrbitraRatvarRule
     conversionDelay: 5
+    finaleDuration: 30
+    finalePulseDelay: 25
+    finaleFireStacks: 10
   - type: AntagSelection
     selectionTime: PrePlayerSpawn
     antags:
@@ -76,11 +79,18 @@
   id: OrbitraRatvarFinale
   categories: [HideSpawnMenu]
   components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/ratvar.rsi
   - type: AnnounceOnSpawn
     message: orbitra-ratvar-victory
     sender: orbitra-ratvar-title
     color: "#C6A45E"
     sound:
-      path: /Audio/Misc/ratvar_reveal.ogg
-  - type: TimedDespawn
-    lifetime: 8
+      path: /Audio/_Orbitra/Ratvar/ratvar_reveal.ogg
+  - type: OrbitraRatvarManifestation
+    radius: 12
+    tileBudget: 16
+    interval: 0.1
+    moveInterval: 1
+    pullRange: 10
+    pullVelocity: 2

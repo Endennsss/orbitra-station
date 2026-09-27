@@ -48,9 +48,9 @@ public sealed partial class OrbitraRatvarFabricatorComponent : Component
     [DataField]
     public TimeSpan WallDelay = TimeSpan.FromSeconds(6);
 
-    /// <summary>Exact full-tile reinforced windows accepted by the window adapter.</summary>
+    /// <summary>Exact full-tile windows and their required construction nodes.</summary>
     [DataField]
-    public HashSet<EntProtoId> Windows = new();
+    public Dictionary<EntProtoId, string> Windows = new();
 
     /// <summary>Energy charged for a successful window conversion.</summary>
     [DataField]
@@ -63,6 +63,10 @@ public sealed partial class OrbitraRatvarFabricatorComponent : Component
     /// <summary>Exact material-door prototypes and their required source construction nodes.</summary>
     [DataField]
     public Dictionary<EntProtoId, string> Doors = new();
+
+    /// <summary>Exact station airlocks and their required construction nodes; electronics are preserved.</summary>
+    [DataField]
+    public Dictionary<EntProtoId, string> Airlocks = new();
 
     /// <summary>Energy charged for a successful material-door conversion.</summary>
     [DataField]

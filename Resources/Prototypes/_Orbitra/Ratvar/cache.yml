@@ -1,0 +1,107 @@
+- type: entity
+  parent: OrbitraRatvarStructureBase
+  id: OrbitraRatvarCache
+  name: tinker's cache
+  description: A bronze store filled with parts and components.
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/cache.rsi
+    state: cache
+  - type: OrbitraRatvarCache
+    cooldown: 240
+    choices: [OrbitraRatvarRobes, OrbitraRatvarCloak, OrbitraRatvarSpectacles]
+  - type: OrbitraRatvarPowered
+    energyPerUse: 0
+    minimumEnergy: 1
+  - type: ActivatableUI
+    key: enum.OrbitraRatvarCacheUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.OrbitraRatvarCacheUiKey.Key:
+        type: OrbitraRatvarCacheBoundUserInterface
+  - type: Anchorable
+    delay: 2
+  - type: Construction
+    graph: OrbitraRatvarMechanism
+    node: mechanism
+    deconstructionTarget: dismantled
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarCache
+  name: orbitra-ratvar-scripture-cache
+  description: orbitra-ratvar-scripture-cache-desc
+  tier: 3
+  energy: 700
+  delay: 5
+  result: OrbitraRatvarCache
+  structure: true
+
+- type: entity
+  parent: ClothingOuterBaseLarge
+  id: OrbitraRatvarRobes
+  name: divine robes
+  description: Brass robes that pulse with a vibrant energy.
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/cache_items.rsi
+    state: robes
+  - type: Clothing
+    sprite: _Orbitra/Ratvar/robes.rsi
+  - type: ClothingSpeedModifier
+    walkModifier: 1.1
+    sprintModifier: 1.1
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.6
+        Heat: 0.9
+        Shock: 1.2
+  - type: OrbitraRatvarEquipment
+
+- type: entity
+  parent: ClothingOuterBaseLarge
+  id: OrbitraRatvarCloak
+  name: shrouding cloak
+  description: A faltering cloak that bends light around its folds.
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/cache_items.rsi
+    state: cloak
+  - type: Clothing
+    sprite: _Orbitra/Ratvar/cloak.rsi
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.9
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.4
+        Heat: 0.6
+  - type: OrbitraRatvarEquipment
+    cloak: true
+    visibility: 0.55
+    fadeTime: 3
+
+- type: entity
+  parent: ClothingEyesBase
+  id: OrbitraRatvarSpectacles
+  name: wraith spectacles
+  description: Mystical brass glasses filled with a bright, unsettling glow.
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/cache_items.rsi
+    state: spectacles
+  - type: Clothing
+    sprite: _Orbitra/Ratvar/spectacles.rsi
+  - type: OrbitraThermalVision
+    range: 7
+  - type: OrbitraRatvarEquipment
+    slot: eyes
+    spectacles: true
+    eyeDamageInterval: 20
+    eyeDamageCap: 7
+    recoveryDelay: 60

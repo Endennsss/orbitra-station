@@ -7,6 +7,7 @@ using Content.Shared.Damage.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.Mind;
 using Content.Shared.UserInterface;
+using Robust.Server.Audio;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
@@ -16,18 +17,21 @@ namespace Content.Server._Orbitra.Ratvar;
 
 public sealed partial class OrbitraRatvarRuleSystem
 {
+    [Dependency] private AudioSystem _audio = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
     [Dependency] private IPrototypeManager _prototypes = default!;
     [Dependency] private ISharedPlayerManager _players = default!;
     [Dependency] private IChatManager _chat = default!;
     [Dependency] private MapSystem _map = default!;
     [Dependency] private DamageableSystem _damage = default!;
+    [Dependency] private OrbitraRatvarPowerSystem _ratvarPower = default!;
 
     private void InitializeScriptures()
     {
         SubscribeLocalEvent<OrbitraRatvarTabletComponent, ActivatableUIOpenAttemptEvent>(OnTabletOpenAttempt);
         SubscribeLocalEvent<OrbitraRatvarTabletComponent, BeforeActivatableUIOpenEvent>(OnTabletOpen);
         SubscribeLocalEvent<OrbitraRatvarTabletComponent, OrbitraRatvarScriptureEvent>(OnScriptureFinished);
+        SubscribeLocalEvent<OrbitraRatvarTabletComponent, DoAfterAttemptEvent<OrbitraRatvarScriptureEvent>>(OnScriptureAttempt);
         Subs.BuiEvents<OrbitraRatvarTabletComponent>(OrbitraRatvarUiKey.Key, subs =>
         {
             subs.Event<OrbitraRatvarScriptureMessage>(OnScriptureMessage);
@@ -40,8 +44,11 @@ public sealed partial class OrbitraRatvarRuleSystem
         if (!CanUseTablet(ent, args.User, out _)) args.Cancel();
     }
 
-    private void OnTabletOpen(Entity<OrbitraRatvarTabletComponent> ent, ref BeforeActivatableUIOpenEvent args) =>
+    private void OnTabletOpen(Entity<OrbitraRatvarTabletComponent> ent, ref BeforeActivatableUIOpenEvent args)
+    {
+        if (!ent.Comp.Busy) RemComp<ActiveOrbitraRatvarEmpowermentComponent>(ent);
         UpdateTablet(ent, args.User);
+    }
 
     private void OnScriptureMessage(Entity<OrbitraRatvarTabletComponent> ent, ref OrbitraRatvarScriptureMessage args)
     {
@@ -75,29 +82,55 @@ public sealed partial class OrbitraRatvarRuleSystem
         if (args.Handled) return;
         args.Handled = true;
         ent.Comp.Busy = false;
-        if (!args.Cancelled && SameRitualMind(ent.Comp, args.User)) TryCompleteScripture(ent, args.User, args.Scripture);
+        if (!args.Cancelled && SameRitualMind(ent.Comp, args.User) &&
+            TryGetCult(args.User, out var rule) && rule.Owner == ent.Comp.ScriptureRule &&
+            TryCompleteScripture(ent, args.User, args.Scripture))
+            _audio.PlayPvs(ent.Comp.ScriptureSound, args.User);
         ent.Comp.RitualMind = null;
+        ent.Comp.ScriptureRule = null;
         UpdateTablet(ent, args.User);
+    }
+
+    private void OnScriptureAttempt(Entity<OrbitraRatvarTabletComponent> ent, ref DoAfterAttemptEvent<OrbitraRatvarScriptureEvent> args)
+    {
+        var user = args.DoAfter.Args.User;
+        var scripture = (OrbitraRatvarScriptureEvent) args.DoAfter.Args.Event;
+        if (!SameRitualMind(ent.Comp, user) || !_mind.TryGetMind(user, out _, out var mind) || mind.CurrentEntity != user ||
+            !CanRecite(ent, user, scripture.Scripture, out var rule, out _) || rule.Owner != ent.Comp.ScriptureRule)
+            args.Cancel();
     }
 
     public bool TryStartScripture(Entity<OrbitraRatvarTabletComponent> tablet, EntityUid user, string id)
     {
-        if (tablet.Comp.Busy || !CanRecite(tablet, user, id, out _, out var scripture)) return false;
-        var args = new DoAfterArgs(EntityManager, user, scripture.Delay,
+        if (tablet.Comp.Busy || !CanRecite(tablet, user, id, out var rule, out var scripture)) return false;
+        var delay = scripture.Delay;
+        if (scripture.Result is { } result && _prototypes.Index(result).TryGetComponent<OrbitraRatvarShellComponent>(out var shell, Factory))
+            delay += scripture.DelayPerShell * CountShells(rule.Owner, shell.Builder);
+        var args = new DoAfterArgs(EntityManager, user, delay,
             new OrbitraRatvarScriptureEvent { Scripture = id }, tablet, used: tablet)
         {
             BreakOnMove = true, BreakOnDamage = true, BreakOnHandChange = true, NeedHand = true,
+            AttemptFrequency = AttemptFrequency.EveryTick,
         };
-        if (!_doAfter.TryStartDoAfter(args)) return false;
         tablet.Comp.Busy = true;
         _mind.TryGetMind(user, out var mind, out _);
         tablet.Comp.RitualMind = mind;
+        tablet.Comp.ScriptureRule = rule.Owner;
+        if (!_doAfter.TryStartDoAfter(args))
+        {
+            tablet.Comp.Busy = false;
+            tablet.Comp.RitualMind = null;
+            tablet.Comp.ScriptureRule = null;
+            return false;
+        }
         return true;
     }
 
     public bool TryCompleteScripture(Entity<OrbitraRatvarTabletComponent> tablet, EntityUid user, string id)
     {
         if (!CanRecite(tablet, user, id, out var rule, out var scripture)) return false;
+        if (scripture.Empowerment != OrbitraRatvarEmpowerment.None)
+            return TryPrepareEmpowerment(tablet, user, rule, scripture);
         if (scripture.Repair)
         {
             if (!TryGetRepairTarget(rule.Owner, user, out var target)) return false;
@@ -114,14 +147,16 @@ public sealed partial class OrbitraRatvarRuleSystem
             shell.Rule = rule.Owner;
             if (TryComp<GhostRoleComponent>(result, out var ghostRole))
             {
-                ghostRole.RoleDescription = "orbitra-ratvar-marauder-description";
-                ghostRole.RoleRules = "orbitra-ratvar-marauder-rules";
+                ghostRole.RoleDescription = shell.Builder ? "orbitra-ratvar-cogscarab-description" : "orbitra-ratvar-marauder-description";
+                ghostRole.RoleRules = shell.Builder ? "orbitra-ratvar-cogscarab-rules" : "orbitra-ratvar-marauder-rules";
             }
         }
         _adminLog.Add(LogType.Action, LogImpact.Medium, $"Ratvar cult: {ToPrettyString(user)} recited {id}, spent {scripture.Energy}, created {ToPrettyString(result)}.");
         if (TryComp<OrbitraRatvarStructureComponent>(result, out var structure))
         {
             structure.Rule = rule.Owner;
+            if (TryComp<OrbitraRatvarTransmissionComponent>(result, out var transmission))
+                _ratvarPower.BindTransmission((result, transmission), rule.Owner);
             var transform = Transform(result);
             // BaseStructure уже закрепляется при спавне; повторное добавление в snap-grid вызывает assert.
             if (scripture.Structure && !transform.Anchored) _transform.AnchorEntity((result, transform));
@@ -135,17 +170,15 @@ public sealed partial class OrbitraRatvarRuleSystem
     {
         scripture = default!;
         if (!CanUseTablet(tablet, user, out rule) || !tablet.Comp.AllowScriptures || !CanReciteInBody(user) ||
+            HasComp<ActiveOrbitraRatvarEmpowermentComponent>(tablet) || HasActiveVanguard(user) ||
             string.IsNullOrEmpty(id) || !_prototypes.TryIndex<OrbitraRatvarScripturePrototype>(id, out var found) || found.Energy < 0 ||
             found.Tier > GetTier(rule.Comp) || found.Energy > rule.Comp.Energy) return false;
         scripture = found;
+        if (!HasInvokers(rule, user, found)) return false;
         if (found.Repair) return TryGetRepairTarget(rule.Owner, user, out _);
-        if (found.Result == "OrbitraRatvarMarauder")
+        if (found.Result is { } result && _prototypes.Index(result).TryGetComponent<OrbitraRatvarShellComponent>(out var shell, Factory))
         {
-            var living = 0;
-            var shells = EntityQueryEnumerator<OrbitraRatvarShellComponent, OrbitraRatvarMarauderComponent>();
-            while (shells.MoveNext(out var uid, out var shell, out _))
-                if (shell.Rule == rule.Owner && Living(uid)) living++;
-            if (living >= rule.Comp.MaxMarauders) return false;
+            if (CountShells(rule.Owner, shell.Builder) >= (shell.Builder ? rule.Comp.MaxCogscarabs : rule.Comp.MaxMarauders)) return false;
         }
         if (!found.Structure) return true;
         var xform = Transform(user);
@@ -154,16 +187,62 @@ public sealed partial class OrbitraRatvarRuleSystem
         var structures = EntityQueryEnumerator<OrbitraRatvarStructureComponent>();
         while (structures.MoveNext(out var uid, out var structure))
         {
-            if (Near(uid, user, 0.8f)) return false;
+            if (Near(uid, user, 0.8f) && !CanOverlayTrap(uid, structure, found, rule.Owner)) return false;
+            if (found.ExclusiveRange > 0 && MetaData(uid).EntityPrototype?.ID == found.Result &&
+                Near(uid, user, found.ExclusiveRange)) return false;
         }
+        if (found.Result == "OrbitraRatvarTravelPoint") return ValidArkLocation(user, rule.Comp);
         return found.Result != "OrbitraRatvarArk" || rule.Comp.Ark == null && ValidArkLocation(user, rule.Comp);
     }
 
     private bool CanUseTablet(Entity<OrbitraRatvarTabletComponent> tablet, EntityUid user,
         out Entity<OrbitraRatvarRuleComponent> rule) =>
         TryGetCult(user, out rule) && Living(user) && _blocker.CanInteract(user, tablet) &&
+        (!TryComp<OrbitraRatvarPoweredComponent>(tablet, out var powered) ||
+            _ratvarPower.CanUsePower((tablet, powered), out var powerRule, out _) && powerRule.Owner == rule.Owner) &&
         (tablet.Comp.RequireHeld ? _hands.IsHolding(user, tablet) :
             _interaction.InRangeUnobstructed(user, tablet.Owner) && Transform(tablet).Anchored);
+
+    private bool CanOverlayTrap(EntityUid existing, OrbitraRatvarStructureComponent structure,
+        OrbitraRatvarScripturePrototype scripture, EntityUid owner)
+    {
+        if (structure.Rule != owner || !TryComp<OrbitraRatvarTrapComponent>(existing, out var oldTrap) ||
+            scripture.Result is not { } result ||
+            !_prototypes.Index(result).TryGetComponent<OrbitraRatvarTrapComponent>(out var newTrap, Factory)) return false;
+        // На одном тайле допускается только пара «датчик + исполнитель», не стопка ловушек.
+        return oldTrap.Kind == OrbitraRatvarTrapKind.Plate && IsTrapEffector(newTrap.Kind) ||
+            newTrap.Kind == OrbitraRatvarTrapKind.Plate && IsTrapEffector(oldTrap.Kind);
+    }
+
+    private static bool IsTrapEffector(OrbitraRatvarTrapKind kind) =>
+        kind is OrbitraRatvarTrapKind.Skewer or OrbitraRatvarTrapKind.Flipper;
+
+    /// <summary>Counts bodies, not minds: transfers and empty ghost shells cannot duplicate reservations.</summary>
+    public int CountShells(EntityUid rule, bool builder)
+    {
+        var count = 0;
+        var query = EntityQueryEnumerator<OrbitraRatvarShellComponent>();
+        while (query.MoveNext(out var uid, out var shell))
+            if (shell.Rule == rule && shell.Builder == builder && !TerminatingOrDeleted(uid) &&
+                !EntityManager.IsQueuedForDeletion(uid) && Living(uid)) count++;
+        return count;
+    }
+
+    private bool HasInvokers(Entity<OrbitraRatvarRuleComponent> rule, EntityUid user,
+        OrbitraRatvarScripturePrototype scripture)
+    {
+        var count = 1;
+        if (scripture.Invokers <= count) return true;
+        foreach (var mind in rule.Comp.Members)
+        {
+            if (!TryComp<MindComponent>(mind, out var data) || data.OwnedEntity is not { } helper || helper == user ||
+                !TryGetCult(helper, out var helperRule) || helperRule.Owner != rule.Owner || !Living(helper) ||
+                !_blocker.CanInteract(helper, user) || !Near(helper, user, scripture.InvokerRange) ||
+                !_interaction.InRangeUnobstructed(helper, user)) continue;
+            if (++count >= scripture.Invokers) return true;
+        }
+        return false;
+    }
 
     private bool TryGetRepairTarget(EntityUid rule, EntityUid user, out EntityUid target)
     {
@@ -186,11 +265,16 @@ public sealed partial class OrbitraRatvarRuleSystem
             _ui.CloseUi(tablet.Owner, OrbitraRatvarUiKey.Key, user);
             return;
         }
-        var state = new OrbitraRatvarUiState(rule.Comp.Energy, GetTier(rule.Comp), rule.Comp.Converted.Count, tablet.Comp.Busy);
+        var state = new OrbitraRatvarUiState(rule.Comp.Energy, GetTier(rule.Comp), rule.Comp.Converted.Count,
+            tablet.Comp.Busy, rule.Comp.IncomeRate, rule.Comp.ExpenseRate);
         foreach (var scripture in _prototypes.EnumeratePrototypes<OrbitraRatvarScripturePrototype>())
         {
             if (!tablet.Comp.AllowScriptures)
                 state.Unavailable[scripture.ID] = "orbitra-ratvar-unavailable-obelisk";
+            else if (HasActiveVanguard(user))
+                state.Unavailable[scripture.ID] = "orbitra-ratvar-unavailable-vanguard";
+            else if (!HasInvokers(rule, user, scripture))
+                state.Unavailable[scripture.ID] = "orbitra-ratvar-unavailable-invokers";
             else if (scripture.Tier <= state.Tier && scripture.Energy <= state.Energy &&
                      !CanRecite(tablet, user, scripture.ID, out _, out _))
                 state.Unavailable[scripture.ID] = "orbitra-ratvar-unavailable-location";

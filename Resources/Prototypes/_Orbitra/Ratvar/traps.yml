@@ -1,0 +1,258 @@
+# Ловушки создаются табличкой и связываются только внутри своего культа.
+- type: entity
+  abstract: true
+  parent: OrbitraRatvarStructureBase
+  id: OrbitraRatvarTrapBase
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/traps.rsi
+    drawdepth: SmallObjects
+    layers:
+    - state: lever
+      map: [enum.OrbitraRatvarMechanismLayers.Base]
+  - type: Appearance
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.35,0.35,0.35"
+        hard: false
+        layer: [SlipLayer]
+  - type: OrbitraRatvarPowered
+    energyPerUse: 0
+    minimumEnergy: 1
+  - type: OrbitraRatvarTrap
+  - type: Anchorable
+    delay: 5
+  - type: Construction
+    graph: OrbitraRatvarTrap
+    node: trap
+    deconstructionTarget: dismantled
+
+- type: constructionGraph
+  id: OrbitraRatvarTrap
+  start: trap
+  graph:
+  - node: trap
+    edges:
+    - to: dismantled
+      steps:
+      - tool: Anchoring
+        doAfter: 5
+  - node: dismantled
+    actions:
+    - !type:DestroyEntity {}
+
+- type: entity
+  parent: OrbitraRatvarTrapBase
+  id: OrbitraRatvarLever
+  name: brass lever
+  description: A clockwork mechanism with fine brass linkages.
+  components:
+  - type: Sprite
+    layers:
+    - state: lever
+      map: [enum.OrbitraRatvarMechanismLayers.Base]
+  - type: OrbitraRatvarTrap
+    kind: Lever
+    sender: true
+    receiver: false
+    cooldown: 0.5
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 75
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [Destruction]
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarLever
+  name: orbitra-ratvar-scripture-lever
+  description: orbitra-ratvar-scripture-lever-desc
+  tier: 2
+  energy: 10
+  delay: 4
+  result: OrbitraRatvarLever
+  structure: true
+
+- type: entity
+  parent: OrbitraRatvarTrapBase
+  id: OrbitraRatvarPlate
+  name: brass plate
+  description: A clockwork mechanism with fine brass linkages.
+  components:
+  - type: Sprite
+    layers:
+    - state: plate
+      map: [enum.OrbitraRatvarMechanismLayers.Base]
+    color: "#FFFFFF3C"
+  - type: OrbitraRatvarTrap
+    kind: Plate
+    sender: true
+    receiver: false
+    cooldown: 0.5
+  - type: StepTrigger
+    requiredTriggeredSpeed: 0
+    stepOn: true
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 5
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [Destruction]
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarPlate
+  name: orbitra-ratvar-scripture-plate
+  description: orbitra-ratvar-scripture-plate-desc
+  tier: 2
+  energy: 40
+  delay: 4
+  result: OrbitraRatvarPlate
+  structure: true
+
+- type: entity
+  parent: OrbitraRatvarTrapBase
+  id: OrbitraRatvarDelay
+  name: brass delay
+  description: A clockwork mechanism with fine brass linkages.
+  components:
+  - type: Sprite
+    layers:
+    - state: delay
+      map: [enum.OrbitraRatvarMechanismLayers.Base]
+  - type: OrbitraRatvarTrap
+    kind: Delay
+    sender: true
+    receiver: true
+    cooldown: 0.5
+  - type: GenericVisualizer
+    visuals:
+      enum.OrbitraRatvarVisuals.Trap:
+        enum.OrbitraRatvarMechanismLayers.Base:
+          True: { state: delay_active }
+          False: { state: delay }
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 15
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [Destruction]
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarDelay
+  name: orbitra-ratvar-scripture-delay
+  description: orbitra-ratvar-scripture-delay-desc
+  tier: 2
+  energy: 10
+  delay: 4
+  result: OrbitraRatvarDelay
+  structure: true
+
+- type: entity
+  parent: OrbitraRatvarTrapBase
+  id: OrbitraRatvarSkewer
+  name: brass skewer
+  description: A clockwork mechanism with fine brass linkages.
+  components:
+  - type: OrbitraRatvarSkewer
+  - type: Sprite
+    layers:
+    - state: skewer
+      map: [enum.OrbitraRatvarMechanismLayers.Base]
+    - state: skewer_tip
+      map: [tip]
+      visible: false
+  - type: OrbitraRatvarTrap
+    kind: Skewer
+    sender: false
+    receiver: true
+    cooldown: 10
+    damage:
+      types:
+        Blunt: 5
+  - type: Strap
+    enabled: false
+    position: Stand
+    size: 1000
+    buckleOnInteractHand: false
+    modifyBuckleDrawDepth: false
+  - type: OrbitraRatvarPowered
+    energyPerUse: 1
+    minimumEnergy: 1
+  - type: GenericVisualizer
+    visuals:
+      enum.OrbitraRatvarVisuals.Trap:
+        enum.OrbitraRatvarMechanismLayers.Base:
+          True: { state: skewer_extended }
+          False: { state: skewer }
+        tip:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 40
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [Destruction]
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarSkewer
+  name: orbitra-ratvar-scripture-skewer
+  description: orbitra-ratvar-scripture-skewer-desc
+  tier: 2
+  energy: 120
+  delay: 4
+  result: OrbitraRatvarSkewer
+  structure: true
+
+- type: entity
+  parent: OrbitraRatvarTrapBase
+  id: OrbitraRatvarFlipper
+  name: brass flipper
+  description: A clockwork mechanism with fine brass linkages.
+  components:
+  - type: Rotatable
+    rotateWhileAnchored: true
+  - type: Sprite
+    layers:
+    - state: plate
+      map: [enum.OrbitraRatvarMechanismLayers.Base]
+  - type: OrbitraRatvarTrap
+    kind: Flipper
+    sender: false
+    receiver: true
+    cooldown: 20
+    delay: 0.4
+    throwRange: 6
+    throwSpeed: 4
+  - type: OrbitraRatvarPowered
+    energyPerUse: 1
+    minimumEnergy: 1
+  - type: GenericVisualizer
+    visuals:
+      enum.OrbitraRatvarVisuals.Trap:
+        enum.OrbitraRatvarMechanismLayers.Base:
+          True: { state: flipper }
+          False: { state: plate }
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 40
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [Destruction]
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarFlipper
+  name: orbitra-ratvar-scripture-flipper
+  description: orbitra-ratvar-scripture-flipper-desc
+  tier: 2
+  energy: 100
+  delay: 4
+  result: OrbitraRatvarFlipper
+  structure: true

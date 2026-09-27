@@ -10,6 +10,10 @@
   - type: Item
     size: Small
   - type: OrbitraRatvarIntegrationCog
+    installSound:
+      path: /Audio/_Orbitra/Ratvar/integration_cog_install.ogg
+      params:
+        volume: -4
     openDelay: 5
     installDelay: 4
     removeDelay: 5
@@ -26,12 +30,22 @@
   description: A brass tablet that answers only to the servants of Ratvar.
   components:
   - type: Sprite
-    sprite: Objects/Specific/Chapel/ratvartablet.rsi
-    state: icon
+    sprite: _Orbitra/Ratvar/mechanisms.rsi
+    state: tablet
   - type: Item
-    sprite: Objects/Specific/Chapel/ratvartablet.rsi
     size: Small
+    inhandVisuals:
+      left:
+      - sprite: _Orbitra/Ratvar/tools_left.rsi
+        state: tablet
+      right:
+      - sprite: _Orbitra/Ratvar/tools_right.rsi
+        state: tablet
   - type: OrbitraRatvarTablet
+    scriptureSound:
+      path: /Audio/_Orbitra/Ratvar/invoke_general.ogg
+      params:
+        volume: -8
   - type: ActivatableUI
     key: enum.OrbitraRatvarUiKey.Key
     inHandsOnly: true
@@ -141,6 +155,10 @@
           True: { visible: true }
           False: { visible: false }
   - type: OrbitraRatvarMarauder
+    shieldCapacity: 4
+    repairDuration: 2.5
+    repairHealing: 10
+    repairFuel: 1
   - type: OrbitraRatvarShell
   - type: NpcFactionMember
     factions: []

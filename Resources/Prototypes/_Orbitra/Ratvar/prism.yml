@@ -1,0 +1,54 @@
+- type: entity
+  parent: OrbitraRatvarStructureBase
+  id: OrbitraRatvarPrism
+  name: prosperity prism
+  description: A brass prism with a faint light and a sealed reservoir.
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/prism.rsi
+    layers:
+    - state: inactive
+      map: [enum.OrbitraRatvarMechanismLayers.Base]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OrbitraRatvarVisuals.Prism:
+        enum.OrbitraRatvarMechanismLayers.Base:
+          Active: { state: active }
+          Inactive: { state: inactive }
+          Unanchored: { state: unanchored }
+  - type: OrbitraRatvarPowered
+    energyPerUse: 2
+    minimumEnergy: 5
+  - type: OrbitraRatvarPrism
+    interval: 2
+    radius: 4
+    healing:
+      types:
+        Poison: -100
+        Heat: -20
+    bruteHealing: 20
+    staminaHealing: 100
+    extraction: 100
+    capacity: 1000
+    smokeDuration: 10
+    smokeSpread: 9
+  - type: Anchorable
+    delay: 2
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [Destruction]
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarPrism
+  name: orbitra-ratvar-scripture-prism
+  description: orbitra-ratvar-scripture-prism-desc
+  tier: 2
+  energy: 300
+  delay: 8
+  result: OrbitraRatvarPrism
+  structure: true

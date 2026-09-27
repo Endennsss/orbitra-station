@@ -17,3 +17,7 @@ public sealed partial class OrbitraThermalVisionComponent : Component
 }
 
 public sealed partial class OrbitraToggleThermalVisionEvent : InstantActionEvent;
+
+/// <summary>Allows specialized equipment to revoke thermal authorization without expanding PVS.</summary>
+[ByRefEvent]
+public record struct OrbitraThermalVisionAttemptEvent(EntityUid User, bool Cancelled = false);

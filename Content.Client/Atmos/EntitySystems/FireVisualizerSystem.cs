@@ -20,7 +20,7 @@ public sealed partial class FireVisualizerSystem : VisualizerSystem<FireVisualsC
     {
         base.Initialize();
 
-        SubscribeLocalEvent<FireVisualsComponent, ComponentInit>(OnComponentInit);
+        SubscribeLocalEvent<FireVisualsComponent, ComponentStartup>(OnComponentStartup); // Orbitra-Edit: дочерний свет создаётся после инициализации тела.
         SubscribeLocalEvent<FireVisualsComponent, ComponentShutdown>(OnShutdown);
     }
 
@@ -41,7 +41,7 @@ public sealed partial class FireVisualizerSystem : VisualizerSystem<FireVisualsC
         }
     }
 
-    private void OnComponentInit(EntityUid uid, FireVisualsComponent component, ComponentInit args)
+    private void OnComponentStartup(EntityUid uid, FireVisualsComponent component, ComponentStartup args) // Orbitra-Edit
     {
         if (!TryComp<SpriteComponent>(uid, out var sprite) || !TryComp(uid, out AppearanceComponent? appearance))
             return;

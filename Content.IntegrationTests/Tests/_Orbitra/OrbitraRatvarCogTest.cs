@@ -174,6 +174,41 @@ public sealed class OrbitraRatvarCogTest : GameTest
         });
     }
 
+    [TestCase("cog")]
+    [TestCase("apc")]
+    [TestCase("cult")]
+    public async Task QueuedDeletionStopsExtractionBeforeAccounting(string target)
+    {
+        var map = await Pair.CreateTestMap();
+        OrbitraRatvarRuleComponent cult = default!;
+        var extracted = true;
+        var remaining = 0f;
+        await Server.WaitPost(() =>
+        {
+            Server.System<GameTicker>().StartGameRule(CultRule, out var rule);
+            cult = SEntMan.GetComponent<OrbitraRatvarRuleComponent>(rule);
+            cult.Energy = 0;
+            var apc = SEntMan.SpawnEntity("APCBasic", map.GridCoords);
+            var cog = SEntMan.SpawnEntity("OrbitraRatvarIntegrationCog", map.GridCoords);
+            var containers = Server.System<SharedContainerSystem>();
+            containers.Insert(cog, containers.EnsureContainer<ContainerSlot>(apc, "orbitra-ratvar-cog"));
+            var installed = SEntMan.AddComponent<OrbitraRatvarInstalledCogComponent>(apc);
+            installed.Rule = rule;
+            var batteries = Server.System<SharedBatterySystem>();
+            batteries.SetCharge((apc, SEntMan.GetComponent<BatteryComponent>(apc)), 50000);
+            SEntMan.QueueDeleteEntity(target switch { "apc" => apc, "cult" => rule, _ => cog });
+            extracted = Server.System<OrbitraRatvarIntegrationCogSystem>().TryExtract((apc, installed));
+            remaining = batteries.GetCharge(apc).Charge;
+        });
+        await Server.WaitAssertion(() =>
+        {
+            Assert.That(extracted, Is.False);
+            Assert.That(remaining, Is.EqualTo(50000));
+            Assert.That(cult.Energy, Is.Zero);
+            Assert.That(cult.Generated, Is.Zero);
+        });
+    }
+
     [TestCase(false)]
     [TestCase(true)]
     public async Task ExtractionCannotBypassIntervalOrInstalledSettings(bool foreignSettings)

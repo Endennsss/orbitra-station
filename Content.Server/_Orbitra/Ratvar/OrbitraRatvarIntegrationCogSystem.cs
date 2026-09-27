@@ -16,6 +16,7 @@ using Content.Shared.Power.EntitySystems;
 using Content.Shared.Tools;
 using Content.Shared.Tools.Systems;
 using Content.Shared.Wires;
+using Robust.Server.Audio;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
@@ -26,6 +27,7 @@ namespace Content.Server._Orbitra.Ratvar;
 public sealed partial class OrbitraRatvarIntegrationCogSystem : EntitySystem
 {
     [Dependency] private OrbitraRatvarRuleSystem _cult = default!;
+    [Dependency] private AudioSystem _audio = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private SharedInteractionSystem _interaction = default!;
@@ -127,6 +129,7 @@ public sealed partial class OrbitraRatvarIntegrationCogSystem : EntitySystem
         _wires.TogglePanel(apc, panel, false, args.User);
         _adminLog.Add(LogType.Action, LogImpact.Medium, $"Ratvar cult: {ToPrettyString(args.User)} installed {ToPrettyString(ent)} in {ToPrettyString(apc)} for {ToPrettyString(rule)}.");
         _popup.PopupEntity(Loc.GetString("orbitra-ratvar-cog-installed"), apc, args.User);
+        _audio.PlayPvs(ent.Comp.InstallSound, apc);
     }
 
     private EntityUid? GetCog(EntityUid apc) =>
@@ -226,12 +229,13 @@ public sealed partial class OrbitraRatvarIntegrationCogSystem : EntitySystem
         battery = default!;
         rule = default!;
         amount = 0;
-        if (apc.Comp.NextExtraction > _timing.CurTime || TerminatingOrDeleted(apc) ||
-            GetCog(apc) is not { } cog || TerminatingOrDeleted(cog) ||
+        if (apc.Comp.NextExtraction > _timing.CurTime || TerminatingOrDeleted(apc) || EntityManager.IsQueuedForDeletion(apc) ||
+            GetCog(apc) is not { } cog || TerminatingOrDeleted(cog) || EntityManager.IsQueuedForDeletion(cog) ||
             !TryComp<OrbitraRatvarIntegrationCogComponent>(cog, out var cogSettings) || cogSettings.Interval <= TimeSpan.Zero ||
             !HasComp<ApcComponent>(apc) || !Transform(apc).Anchored ||
             !TryComp<BatteryComponent>(apc, out var apcBattery) || cogSettings.JoulesPerEnergy <= 0 ||
-            !TryComp<OrbitraRatvarRuleComponent>(apc.Comp.Rule, out var cult) || TerminatingOrDeleted(apc.Comp.Rule) || cult.Won || cult.Lost ||
+            !TryComp<OrbitraRatvarRuleComponent>(apc.Comp.Rule, out var cult) || TerminatingOrDeleted(apc.Comp.Rule) ||
+            EntityManager.IsQueuedForDeletion(apc.Comp.Rule) || cult.Won || cult.Lost ||
             !_ticker.IsGameRuleActive(apc.Comp.Rule)) return false;
         settings = cogSettings;
         battery = apcBattery;

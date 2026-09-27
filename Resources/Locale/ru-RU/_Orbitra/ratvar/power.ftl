@@ -1,0 +1,17 @@
+ent-OrbitraRatvarTransmissionSigil = печать передачи
+    .desc = Латунный узор, мерцающий тёплым янтарным светом.
+ent-OrbitraRatvarBolt = обжигающий луч
+    .desc = Полоса обжигающего света.
+orbitra-ratvar-scripture-transmission = Печать передачи
+orbitra-ratvar-scripture-transmission-desc = Питает механизмы своего культа в радиусе 6 тайлов на том же гриде. Нужны два живых участника рядом, 100 энергии и 5 секунд чтения. Запас энергии общий; перекрытие печатей не усиливает эффект.
+orbitra-ratvar-unavailable-invokers = Не хватает живых участников своего культа рядом.
+orbitra-ratvar-power-unbound = Механизм не связан с действующим культом.
+orbitra-ratvar-power-unanchored = Для питания механизм должен быть закреплён на гриде, вне контейнера.
+orbitra-ratvar-power-uncovered = Рядом нет закреплённой печати передачи своего культа.
+orbitra-ratvar-power-empty = В общем запасе культа недостаточно энергии.
+orbitra-ratvar-power-ready = Механизм получает питание от печати передачи.
+orbitra-ratvar-power-rates = Последний замер: поступление { NUMBER($income, maximumFractionDigits: 1) }/с · расход { NUMBER($expense, maximumFractionDigits: 1) }/с
+orbitra-ratvar-search = Найти писание по названию или описанию...
+orbitra-ratvar-tier-all = Все ступени
+orbitra-ratvar-tier-filter = Ступень { $tier }
+orbitra-ratvar-scripture-requirements = Чтение: { $seconds } с · участников: { $invokers }

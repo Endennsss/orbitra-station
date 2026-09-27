@@ -1,0 +1,11 @@
+ent-OrbitraRatvarCogscarab = cogscarab
+    .desc = A small brass drone with articulated tools.
+ent-OrbitraMindRoleRatvarCogscarab = cogscarab role
+    .desc = { ent-BaseMindRoleAntag.desc }
+orbitra-ratvar-cogscarab-name = Cogscarab
+orbitra-ratvar-cogscarab-description = Build and maintain your cult's station base. You have tools and a replica fabricator. You cannot convert people, recite scriptures or fire guns.
+orbitra-ratvar-cogscarab-rules = You are a team antagonist. Serve the cult that created your shell. Use +r for the cult's collective mind.
+orbitra-ratvar-cogscarab-independent-description = An independent construction drone. This body does not automatically join or create a cult. Its fabricator requires cult membership to spend energy.
+orbitra-ratvar-cogscarab-independent-rules = You are not automatically an antagonist. Follow the administrator's assigned role and server rules.
+orbitra-ratvar-scripture-cogscarab = Cogscarab shell
+orbitra-ratvar-scripture-cogscarab-desc = Creates a builder shell for a ghost. Requires two invokers; two living or vacant shells per cult. Invocation takes 12 seconds plus 6 per existing builder. Carries tools and a replica fabricator.

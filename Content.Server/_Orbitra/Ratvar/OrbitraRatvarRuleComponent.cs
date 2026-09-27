@@ -24,19 +24,39 @@ public sealed partial class OrbitraRatvarRuleComponent : Component
     [DataField] public float RitualRange = 1.5f;
     [DataField] public float ArkSupportRange = 5f;
     [DataField] public int MaxMarauders = 2;
+    /// <summary>Living builders and unoccupied builder shells reserve the same limit.</summary>
+    [DataField] public int MaxCogscarabs = 2;
     /// <summary>Minimum delay between messages in the cult's collective mind.</summary>
     [DataField] public TimeSpan MessageCooldown = TimeSpan.FromSeconds(2);
     public int Energy;
     public int Generated;
+    /// <summary>Observed income and expenditure per second, not a forecast.</summary>
+    public float IncomeRate;
+    public float ExpenseRate;
+    public int SampledEnergy;
+    public int SampledGenerated;
+    public TimeSpan SampledAt;
     public TimeSpan StartedAt;
     public TimeSpan NextUpdate;
     public TimeSpan? SummonAt;
     public TimeSpan? FinishAt;
+    /// <summary>Duration of the station-local manifestation after victory is irrevocably locked.</summary>
+    [DataField] public TimeSpan FinaleDuration = TimeSpan.FromSeconds(30);
+    /// <summary>Delay before the single final ignition pulse.</summary>
+    [DataField] public TimeSpan FinalePulseDelay = TimeSpan.FromSeconds(25);
+    /// <summary>Finite native fire stacks used instead of Bee's infinite fire value.</summary>
+    [DataField] public float FinaleFireStacks = 10;
+    /// <summary>One-shot pulse deadline; cleared before any gameplay side effects.</summary>
+    public TimeSpan? FinalePulseAt;
+    /// <summary>Unique manifestation spawned by the successful defence.</summary>
+    public EntityUid? Manifestation;
     public EntityUid? Ark;
     public EntityUid? Station;
     public bool Won;
     public bool Lost;
     public readonly HashSet<EntityUid> Members = [];
+    /// <summary>Индекс печатей передачи, не общий список всех построек станции.</summary>
+    public readonly HashSet<EntityUid> TransmissionSigils = [];
     public readonly HashSet<EntityUid> Converted = [];
     public readonly Dictionary<EntityUid, TimeSpan> HolyWaterSince = [];
     public readonly Dictionary<EntityUid, TimeSpan> ProtectedUntil = [];

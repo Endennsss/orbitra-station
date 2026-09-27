@@ -1,0 +1,27 @@
+Ratvar audio subset from BeeStation-Hornet
+
+Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0).
+License and terms: https://creativecommons.org/licenses/by-sa/3.0/legalcode
+These assets and derivatives are NOT licensed under Orbitra's code license.
+
+Source: https://github.com/BeeStation/BeeStation-Hornet
+Revision: a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4
+
+Per-file paths, credits, modifications, hashes and complete file histories are
+in provenance.json and attributions.yml. Introduction commits credit Xhuis
+(also committed as Ashe Higgs); tgstation PRs 29741 and 32935 explicitly credit
+Xhuis. Audio conversion PR 43550 credits actioninja (Rob Bailey). Contributor
+history is not a claim of sole authorship of every sound or underlying sample.
+
+Reviewed the pinned README asset license, sound/effects/license.txt,
+sound/machines/license.txt, all selected-file history entries, introduction
+notices and embedded Vorbis comments. No applicable exception was found for
+this subset. This provenance review is not a legal guarantee.
+
+ratvar_reveal and integration_cog_install are unchanged copies. ark_activation,
+stargazer_activate, invoke_general and ark_deathrattle are downmixed to mono for positional audio,
+without trimming or gain changes. ShareAlike remains in force for these derivatives.
+The global reveal keeps the original stereo channels.
+
+Reproduce with Tools/_Orbitra/import_ratvar_audio.py (ffmpeg and ffprobe).
+No DM code or other BeeStation code is imported by this asset transfer.

@@ -1,0 +1,11 @@
+ent-OrbitraRatvarTravelPoint = латунный переход
+    .desc = Латунная печать с переплетёнными линиями путей.
+orbitra-ratvar-scripture-travel = Латунный переход
+orbitra-ratvar-scripture-travel-desc = Создаёт разрушаемую именованную точку перемещения. Обеим точкам нужно покрытие передачи на основном гриде станции. Переход занимает 2,5 секунды и расходует 5 энергии.
+orbitra-ratvar-travel-title = Пути культа
+orbitra-ratvar-travel-attached = Для перехода отстегнитесь и прекратите перетаскивание.
+orbitra-ratvar-travel-name = Название точки
+orbitra-ratvar-travel-rename = Сохранить имя
+orbitra-ratvar-travel-ready = Энергия: { $energy }. Переход: { $cost }.
+orbitra-ratvar-travel-unavailable = Проверьте покрытие передачи, энергию, расположение на станции и перезарядку.
+orbitra-ratvar-travel-empty = Доступных точек нет. Обоим переходам нужно питание и свободное место прибытия.

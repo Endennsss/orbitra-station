@@ -40,18 +40,31 @@
     fixtures: {}
   - type: OrbitraRatvarStructure
     conversionSigil: true
+  - type: OrbitraRatvarSubmission
 
 - type: entity
   parent: OrbitraRatvarStructureBase
   id: OrbitraRatvarObelisk
   name: clockwork obelisk
   components:
+  - type: OrbitraRatvarPowered
+    energyPerUse: 0
+    minimumEnergy: 1
   - type: Construction
     graph: OrbitraRatvarMechanism
     node: mechanism
     deconstructionTarget: dismantled
   - type: Sprite
-    state: obelisk
+    layers:
+    - state: obelisk_inactive
+      map: [enum.OrbitraRatvarMechanismLayers.Base]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OrbitraRatvarVisuals.Powered:
+        enum.OrbitraRatvarMechanismLayers.Base:
+          True: { state: obelisk }
+          False: { state: obelisk_inactive }
   - type: OrbitraRatvarTablet
     requireHeld: false
     allowScriptures: false
@@ -82,24 +95,77 @@
         layer: [MidImpassable]
 
 - type: entity
-  parent: [BaseWeaponBallisticTurret, OrbitraRatvarStructureBase]
+  parent: [BaseWeaponTurret, OrbitraRatvarStructureBase]
   id: OrbitraRatvarTurret
   name: ocular warden
   components:
+  - type: OrbitraRatvarPowered
+    energyPerUse: 5
+    minimumEnergy: 5
   - type: Sprite
     sprite: _Orbitra/Ratvar/mechanisms.rsi
     layers:
     - state: turret
+      color: "#777777"
+      map: [enum.OrbitraRatvarMechanismLayers.Base]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OrbitraRatvarVisuals.Powered:
+        enum.OrbitraRatvarMechanismLayers.Base:
+          True: { color: "#FFFFFF" }
+          False: { color: "#777777" }
   - type: NpcFactionMember
     factions: [OrbitraRatvar]
+  - type: HTN
+    blackboard:
+      VisionRadius: !type:Single
+        3
+      AggroVisionRadius: !type:Single
+        3
+      RangedRange: !type:Single
+        3
+  - type: BasicEntityAmmoProvider
+    proto: OrbitraRatvarBolt
   - type: Gun
-    fireRate: 2
+    fireRate: 0.5
+    selectedMode: FullAuto
+    availableModes: [FullAuto]
+    soundGunshot: /Audio/Weapons/Guns/Gunshots/laser.ogg
 
 - type: entity
-  parent: OrbitraRatvarStructureBase
+  parent: BulletLaser
+  id: OrbitraRatvarBolt
+  categories: [HideSpawnMenu]
+  name: searing bolt
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Heat: 5
+
+- type: entity
+  parent: OrbitraRatvarConversionSigil
+  id: OrbitraRatvarTransmissionSigil
+  name: transmission sigil
+  description: A brass pattern shimmering with a warm amber glow.
+  components:
+  - type: Sprite
+    state: transmission
+  - type: OrbitraRatvarStructure
+    conversionSigil: false
+  - type: OrbitraRatvarTransmission
+    radius: 6
+
+- type: entity
+  # У ковчега собственная прочность: пороги Destructible родителя складываются, а не заменяются.
+  parent: [BaseStructure, BaseStructureHealth]
   id: OrbitraRatvarArk
   name: ark of the Clockwork Justiciar
   components:
+  - type: InteractionOutline
+  - type: Damageable
+    damageModifierSet: Metallic
   - type: Sprite
     sprite: _Orbitra/Ratvar/ark.rsi
     drawdepth: Mobs
@@ -115,6 +181,14 @@
           False: { state: charging }
   - type: OrbitraRatvarStructure
     ark: true
+    activationSound:
+      path: /Audio/_Orbitra/Ratvar/ark_activation.ogg
+      params:
+        volume: -4
+    destructionSound:
+      path: /Audio/_Orbitra/Ratvar/ark_deathrattle.ogg
+      params:
+        volume: -4
   - type: Destructible
     thresholds:
     - trigger: !type:DamageTrigger

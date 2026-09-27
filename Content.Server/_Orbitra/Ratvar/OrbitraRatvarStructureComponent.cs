@@ -1,3 +1,5 @@
+using Robust.Shared.Audio;
+
 namespace Content.Server._Orbitra.Ratvar;
 
 /// <summary>Cult-owned installation; ownership survives a builder changing bodies.</summary>
@@ -7,6 +9,9 @@ public sealed partial class OrbitraRatvarStructureComponent : Component
     public EntityUid? Rule;
     [DataField] public bool ConversionSigil;
     [DataField] public bool Ark;
+    [DataField] public SoundSpecifier? ActivationSound;
+    [DataField] public SoundSpecifier? DestructionSound;
+    public bool DestructionSoundPlayed;
     [DataField] public bool Slowing;
     [DataField] public float SlowMultiplier = 0.5f;
     [DataField] public TimeSpan SlowDuration = TimeSpan.FromSeconds(3);

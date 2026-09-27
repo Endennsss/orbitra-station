@@ -1,0 +1,55 @@
+- type: entity
+  parent: OrbitraRatvarStructureBase
+  id: OrbitraRatvarLens
+  name: interdiction lens
+  description: A brass lens pulsing with an oddly captivating light.
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/lens.rsi
+    layers:
+    - state: inactive
+      map: [enum.OrbitraRatvarMechanismLayers.Base]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OrbitraRatvarVisuals.Lens:
+        enum.OrbitraRatvarMechanismLayers.Base:
+          Active: { state: active }
+          Inactive: { state: inactive }
+          Unanchored: { state: unanchored }
+  - type: OrbitraRatvarPowered
+    energyPerUse: 5
+    minimumEnergy: 6
+  - type: OrbitraRatvarLens
+    radius: 5
+    interval: 2
+    slowDuration: 2.6
+    speedMultiplier: 0.5
+    mechDamage:
+      types:
+        Blunt: 800
+    empDrain: 1000
+    empDuration: 2
+  - type: Anchorable
+    delay: 2
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [Destruction]
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarLens
+  name: orbitra-ratvar-scripture-lens
+  description: orbitra-ratvar-scripture-lens-desc
+  tier: 3
+  energy: 500
+  delay: 8
+  result: OrbitraRatvarLens
+  structure: true
+
+- type: entity
+  parent: StatusEffectSlowdown
+  id: OrbitraRatvarInterdictionStatus
