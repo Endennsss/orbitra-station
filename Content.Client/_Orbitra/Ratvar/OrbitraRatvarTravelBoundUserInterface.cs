@@ -37,11 +37,13 @@ public sealed class OrbitraRatvarTravelWindow : FancyWindow
     private readonly BoxContainer _points = new() { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 6 };
     private bool _initialName;
     private Dictionary<NetEntity, string>? _lastPoints;
+    private readonly Dictionary<NetEntity, (Button Button, RichTextLabel Reason)> _destinations = [];
 
     public OrbitraRatvarTravelWindow()
     {
         Title = Loc.GetString("orbitra-ratvar-travel-title");
-        MinSize = new Vector2(420, 300);
+        MinSize = new Vector2(420, 280);
+        SetSize = new Vector2(500, 420);
         OrbitraEntryWindow.Attach(this);
         var root = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 8 };
         var row = new BoxContainer { SeparationOverride = 6 };
@@ -52,7 +54,7 @@ public sealed class OrbitraRatvarTravelWindow : FancyWindow
         row.AddChild(save);
         root.AddChild(row);
         root.AddChild(_status);
-        var scroll = new ScrollContainer { VerticalExpand = true };
+        var scroll = new ScrollContainer { VerticalExpand = true, HScrollEnabled = false };
         scroll.AddChild(_points);
         root.AddChild(scroll);
         ContentsContainer.AddChild(root);
@@ -66,20 +68,46 @@ public sealed class OrbitraRatvarTravelWindow : FancyWindow
             _initialName = true;
         }
         _status.SetMessage(Loc.GetString(state.Reason, ("energy", state.Energy), ("cost", state.Cost)));
-        if (SamePoints(state.Destinations)) return;
+        if (SamePoints(state.Destinations))
+        {
+            UpdateAvailability(state);
+            return;
+        }
         _lastPoints = state.Destinations;
+        _destinations.Clear();
         _points.RemoveAllChildren();
         foreach (var (target, name) in state.Destinations)
         {
             var panel = new PanelContainer();
             panel.AddStyleClass("OrbitraRatvarCard");
-            var button = new Button { Text = name };
+            var button = new Button { Text = name, HorizontalExpand = true, ClipText = true, ToolTip = name };
             button.OnPressed += _ => Travel?.Invoke(target);
-            panel.AddChild(button);
+            var column = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 4 };
+            var reason = new RichTextLabel();
+            column.AddChild(button);
+            column.AddChild(reason);
+            panel.AddChild(column);
             _points.AddChild(panel);
+            _destinations.Add(target, (button, reason));
         }
         if (state.Destinations.Count == 0)
-            _points.AddChild(new Label { Text = Loc.GetString("orbitra-ratvar-travel-empty") });
+        {
+            var empty = new RichTextLabel();
+            empty.SetMessage(Loc.GetString("orbitra-ratvar-travel-empty"));
+            _points.AddChild(empty);
+        }
+        UpdateAvailability(state);
+    }
+
+    private void UpdateAvailability(OrbitraRatvarTravelUiState state)
+    {
+        foreach (var (target, controls) in _destinations)
+        {
+            var disabled = state.Unavailable.TryGetValue(target, out var reason);
+            controls.Button.Disabled = disabled;
+            controls.Reason.Visible = disabled;
+            if (disabled) controls.Reason.SetMessage(Loc.GetString(reason!));
+        }
     }
 
     private bool SamePoints(Dictionary<NetEntity, string> points)

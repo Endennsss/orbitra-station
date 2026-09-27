@@ -36,7 +36,8 @@ public sealed class OrbitraRatvarVitalityTest : GameTest
         var map = await Pair.CreateTestMap();
         await Server.WaitPost(() =>
         {
-            _origin = map.GridCoords;
+            // Закреплённая печать находится в центре тайла, а не в его углу.
+            _origin = map.GridCoords.Offset(new Vector2(0.5f));
             Server.System<GameTicker>().StartGameRule("OrbitraRatvarRule", out var rule);
             _cult = (rule, SEntMan.GetComponent<OrbitraRatvarRuleComponent>(rule));
             var sigil = SEntMan.SpawnEntity("OrbitraRatvarVitality", _origin);
@@ -145,6 +146,52 @@ public sealed class OrbitraRatvarVitalityTest : GameTest
         {
             SEntMan.RemoveComponent<UnrevivableComponent>(_body);
             System.TryBegin(_sigil, _body);
+            _sigil.Comp.FinishAt = Server.Resolve<IGameTiming>().CurTime;
+            success = System.TryPulse(_sigil);
+        });
+        await Server.WaitAssertion(() =>
+        {
+            Assert.That(success, Is.False);
+            Assert.That(_cult.Comp.Vitality.Float(), Is.Zero);
+        });
+    }
+
+    [Test]
+    public async Task OverlappingMatricesDoNotMultiplyDrain()
+    {
+        await Prepare();
+        var first = false;
+        var second = true;
+        await Server.WaitPost(() =>
+        {
+            var other = SEntMan.SpawnEntity("OrbitraRatvarVitality", _origin);
+            var component = SEntMan.GetComponent<OrbitraRatvarVitalityComponent>(other);
+            SEntMan.GetComponent<OrbitraRatvarStructureComponent>(other).Rule = _cult.Owner;
+            System.TryBegin(_sigil, _body);
+            System.TryBegin((other, component), _body);
+            _sigil.Comp.FinishAt = component.FinishAt = Server.Resolve<IGameTiming>().CurTime;
+            first = System.TryPulse(_sigil);
+            second = System.TryPulse((other, component));
+        });
+        await Server.WaitAssertion(() =>
+        {
+            Assert.That(first, Is.True);
+            Assert.That(second, Is.False);
+            Assert.That(_cult.Comp.Vitality.Float(), Is.EqualTo(10));
+        });
+    }
+
+    [Test]
+    public async Task ChangedMindCannotCompletePreviousCharge()
+    {
+        await Prepare();
+        var success = true;
+        await Server.WaitPost(() =>
+        {
+            System.TryBegin(_sigil, _body);
+            var mind = Server.System<MindSystem>().CreateMind(null);
+            Server.System<MindSystem>().TransferTo(mind, _body);
+            _cult.Comp.SummonAt = Server.Resolve<IGameTiming>().CurTime + TimeSpan.FromMinutes(5);
             _sigil.Comp.FinishAt = Server.Resolve<IGameTiming>().CurTime;
             success = System.TryPulse(_sigil);
         });

@@ -41,6 +41,7 @@ public sealed class OrbitraRatvarWindow : FancyWindow
     public event Action<string>? Communicate;
     private readonly RichTextLabel _status = new();
     private readonly RichTextLabel _power = new();
+    private readonly RichTextLabel _vitality = new() { Visible = false };
     private readonly LineEdit _search = new() { HorizontalExpand = true };
     private readonly OptionButton _tier = new() { MinWidth = 190, HorizontalExpand = true };
     private readonly OptionButton _category = new() { MinWidth = 230, HorizontalExpand = true };
@@ -58,12 +59,13 @@ public sealed class OrbitraRatvarWindow : FancyWindow
     public OrbitraRatvarWindow()
     {
         Title = Loc.GetString("orbitra-ratvar-tablet-title");
-        MinSize = new Vector2(680, 420);
-        SetSize = new Vector2(800, 620);
+        MinSize = new Vector2(660, 420);
+        SetSize = new Vector2(760, 560);
         OrbitraEntryWindow.Attach(this);
         var root = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 8 };
         root.AddChild(_status);
         root.AddChild(_power);
+        root.AddChild(_vitality);
         _search.PlaceHolder = Loc.GetString("orbitra-ratvar-search");
         _search.OnTextChanged += _ => FilterCards();
         _tier.AddItem(Loc.GetString("orbitra-ratvar-tier-all"), 0);
@@ -80,13 +82,13 @@ public sealed class OrbitraRatvarWindow : FancyWindow
         filters.AddChild(_category);
         root.AddChild(filters);
         var body = new BoxContainer { VerticalExpand = true, SeparationOverride = 10 };
-        var scroll = new ScrollContainer { VerticalExpand = true, MinWidth = 260, MaxWidth = 300 };
+        var scroll = new ScrollContainer { VerticalExpand = true, HScrollEnabled = false, MinWidth = 250, MaxWidth = 280 };
         scroll.AddChild(_entries);
         body.AddChild(scroll);
         var detailPanel = new PanelContainer { HorizontalExpand = true, MinWidth = 270 };
         detailPanel.AddStyleClass("OrbitraRatvarCard");
         var detailColumn = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 10 };
-        var detailScroll = new ScrollContainer { VerticalExpand = true };
+        var detailScroll = new ScrollContainer { VerticalExpand = true, HScrollEnabled = false };
         var detailText = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 12 };
         detailText.AddChild(_details);
         detailText.AddChild(_usage);
@@ -128,7 +130,8 @@ public sealed class OrbitraRatvarWindow : FancyWindow
             var panel = new PanelContainer();
             panel.AddStyleClass("OrbitraRatvarCard");
             var column = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 4 };
-            var button = new Button { Text = Loc.GetString(scripture.Name), ToggleMode = true, TextAlign = Label.AlignMode.Left };
+            var button = new Button { Text = Loc.GetString(scripture.Name), ToggleMode = true,
+                HorizontalExpand = true, ClipText = true, ToolTip = Loc.GetString(scripture.Name), TextAlign = Label.AlignMode.Left };
             button.OnPressed += _ => SelectScripture(scripture);
             column.AddChild(button);
             column.AddChild(new Label { Text = Loc.GetString("orbitra-ratvar-scripture-cost", ("tier", scripture.Tier), ("energy", scripture.Energy)) });
@@ -148,6 +151,8 @@ public sealed class OrbitraRatvarWindow : FancyWindow
         _status.SetMessage(Loc.GetString("orbitra-ratvar-status", ("energy", state.Energy), ("tier", state.Tier), ("converts", state.Converts)));
         _power.SetMessage(Loc.GetString("orbitra-ratvar-power-rates",
             ("income", state.IncomeRate.ToString("0.0")), ("expense", state.ExpenseRate.ToString("0.0"))));
+        _vitality.Visible = state.Tier >= 2 || state.Vitality > 0;
+        _vitality.SetMessage(Loc.GetString("orbitra-ratvar-vitality-stock", ("amount", state.Vitality.ToString("0.0"))));
         foreach (var (scripture, button) in _buttons)
         {
             var reason = state.Busy ? "orbitra-ratvar-unavailable-busy" : scripture.Tier > state.Tier ?

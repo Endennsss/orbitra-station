@@ -161,6 +161,8 @@
     Движение и урон прерывают переход. Занятый, удалённый или обесточенный пункт
     недоступен; случайной замены места назначения нет. Перед переходом отстегнитесь
     и прекратите перетаскивание: связанные физикой тела не переносятся.
+    Недоступные точки своего культа остаются в списке с причиной отказа; удалённые
+    исчезают. Освободите центр печати назначения, в том числе от стоящего на ней игрока.
   </Text>
   <Text>
     Tier 2: a point costs 200 energy and takes 5 seconds to create on the main station.
@@ -170,6 +172,43 @@
     it. Occupied, deleted or unpowered destinations are unavailable, with no random
     fallback. Unbuckle and stop pulling or being pulled before travelling.
     This is Orbitra's station-only adaptation.
+    Disabled endpoints remain listed with a reason; deleted ones disappear.
+    Clear the exact arrival spot, including any player standing on it.
+  </Text>
+  <Heading>Матрица жизненности / Vitality matrix</Heading>
+  <Text>
+    Ступень 2, 300 энергии, пять секунд и два чтеца. Стойте в центре печати:
+    цикл требует двух секунд непрерывного присутствия в радиусе 0,65 тайла.
+    Чужие органические существа отдают жизненность за клеточный урон. До запуска
+    ковчега люди, пригодные для обращения, защищены от истощения. Священник защищён всегда.
+    Свои лечатся за отдельный запас жизненности, показанный в табличке и при осмотре
+    своей печати. Электрическая энергия на лечение не тратится.
+    Возрождение требует своего неразложившегося человеческого тела с принадлежащим ему
+    сознанием и достаточного запаса. Оно не возвращает игрока в тело принудительно,
+    не оживляет конструкты и не обходит запрет воскрешения. Несколько матриц на одном
+    месте не ускоряют воздействие на одно тело.
+  </Text>
+  <Text>
+    Tier 2, 300 energy, five seconds and two invokers. Stand at the centre of the
+    sigil for two uninterrupted seconds within 0.65 tiles. Foreign organic creatures
+    provide vitality through cellular damage. Convertible humans are protected until
+    the ark activates; chaplains are always protected. Members heal using a separate
+    vitality reserve shown in the tablet and when examining their own matrix.
+    Revival requires an unrotted human member's body with its own mind and sufficient
+    vitality. It does not force players back into their bodies, revive constructs or
+    bypass revival restrictions. Overlapping matrices do not multiply effects on a body.
+  </Text>
+  <Heading>Латунь / Brass</Heading>
+  <Text>
+    Писание создаёт десять листов за 100 энергии. Фабрикатор использует тот же курс:
+    10 энергии за лист. Переработка двух листов стали или стекла даёт один лист латуни,
+    но не энергию и не прогресс ступеней. Обратного обмена латуни на энергию нет.
+  </Text>
+  <Text>
+    The scripture creates ten sheets for 100 energy. The fabricator uses the same
+    rate of 10 energy per sheet. Recycling two steel or glass sheets produces one
+    brass sheet without energy or tier progression. Brass cannot be exchanged back
+    into energy.
   </Text>
   <Heading>Ловушки / Traps</Heading>
   <Text>

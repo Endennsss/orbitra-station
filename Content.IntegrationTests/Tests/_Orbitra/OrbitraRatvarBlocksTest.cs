@@ -62,6 +62,14 @@ public sealed class OrbitraRatvarBlocksTest : GameTest
             travel.Update(new OrbitraRatvarTravelUiState("Test", 1995, 5, "orbitra-ratvar-travel-ready", points));
             Assert.That(Descendants(travel).OfType<Button>(), Is.EqualTo(buttons));
             Assert.That(buttons.Any(b => b.Text == "<literal> Station"), Is.True);
+            travel.Update(new OrbitraRatvarTravelUiState("Test", 1995, 5, "orbitra-ratvar-travel-ready", points)
+            {
+                Unavailable = { [new NetEntity(777)] = "orbitra-ratvar-travel-blocked" },
+            });
+            Assert.That(Descendants(travel).OfType<Button>(), Is.EqualTo(buttons));
+            Assert.That(buttons.Single(b => b.Text == "<literal> Station").Disabled, Is.True);
+            travel.Update(new OrbitraRatvarTravelUiState("Test", 1995, 5, "orbitra-ratvar-travel-ready", points));
+            Assert.That(buttons.Single(b => b.Text == "<literal> Station").Disabled, Is.False);
             travel.Update(new OrbitraRatvarTravelUiState("Test", 1995, 5, "orbitra-ratvar-travel-ready", []));
             Assert.That(Descendants(travel).OfType<Button>().Any(b => b.Text == "<literal> Station"), Is.False);
         });
@@ -169,6 +177,11 @@ public sealed class OrbitraRatvarBlocksTest : GameTest
             if (scenario == "deleted") SEntMan.QueueDeleteEntity(target);
             var system = Server.System<OrbitraRatvarTravelSystem>();
             var component = SEntMan.GetComponent<OrbitraRatvarTravelComponent>(source);
+            if (scenario is "occupied" or "wall" or "unanchored")
+            {
+                Assert.That(system.CanTravel((source, component), user, target, out _, out var reason), Is.False);
+                Assert.That(reason, Is.EqualTo(scenario == "unanchored" ? "orbitra-ratvar-power-unanchored" : "orbitra-ratvar-travel-blocked"));
+            }
             success = system.TryTravel((source, component), user, target);
             duplicate = system.TryTravel((source, component), user, target);
         });
@@ -183,8 +196,9 @@ public sealed class OrbitraRatvarBlocksTest : GameTest
         });
     }
 
-    [Test]
-    public async Task DestroyingDestinationDuringRitualDoesNotSpendEnergy()
+    [TestCase(false)]
+    [TestCase(true)]
+    public async Task TravelRitualCompletesOrRejectsDeletedDestination(bool deleteDestination)
     {
         var map = await Pair.CreateTestMap();
         EntityUid user = default, target = default;
@@ -208,12 +222,13 @@ public sealed class OrbitraRatvarBlocksTest : GameTest
         });
         await Server.WaitAssertion(() => Assert.That(started, Is.True));
         await Pair.RunSeconds(0.5f);
-        await Server.WaitPost(() => SEntMan.DeleteEntity(target));
+        if (deleteDestination)
+            await Server.WaitPost(() => SEntMan.DeleteEntity(target));
         await Pair.RunSeconds(3);
         await Server.WaitAssertion(() =>
         {
-            Assert.That(cult.Energy, Is.EqualTo(2000));
-            Assert.That(Transform(user).LocalPosition.X, Is.EqualTo(0.5f).Within(0.1f));
+            Assert.That(cult.Energy, Is.EqualTo(deleteDestination ? 2000 : 1995));
+            Assert.That(Transform(user).LocalPosition.X, Is.EqualTo(deleteDestination ? 0.5f : 4.5f).Within(0.1f));
         });
     }
 

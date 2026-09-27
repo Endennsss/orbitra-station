@@ -60,7 +60,7 @@ public sealed class OrbitraRatvarCommunicateMessage(string text) : BoundUserInte
 
 [Serializable, NetSerializable]
 public sealed class OrbitraRatvarUiState(int energy, int tier, int converts, bool busy,
-    float incomeRate = 0, float expenseRate = 0) : BoundUserInterfaceState
+    float incomeRate = 0, float expenseRate = 0, float vitality = 0) : BoundUserInterfaceState
 {
     public Dictionary<string, string> Unavailable = [];
     public readonly int Energy = energy;
@@ -69,4 +69,6 @@ public sealed class OrbitraRatvarUiState(int energy, int tier, int converts, boo
     public readonly bool Busy = busy;
     public readonly float IncomeRate = incomeRate;
     public readonly float ExpenseRate = expenseRate;
+    /// <summary>Private biological reserve, independent of electrical energy.</summary>
+    public readonly float Vitality = vitality;
 }

@@ -76,7 +76,8 @@ public sealed partial class OrbitraRatvarTravelSystem : EntitySystem
     private void OnOpen(Entity<OrbitraRatvarTravelComponent> ent, ref BeforeActivatableUIOpenEvent args) => UpdateUi(ent, args.User);
     private void OnTravel(Entity<OrbitraRatvarTravelComponent> ent, ref OrbitraRatvarTravelMessage args)
     {
-        TryStartTravel(ent, args.Actor, GetEntity(args.Destination));
+        if (TryGetEntity(args.Destination, out var destination) && destination is { } target)
+            TryStartTravel(ent, args.Actor, target);
         UpdateUi(ent, args.Actor);
     }
     private void OnName(Entity<OrbitraRatvarTravelComponent> ent, ref OrbitraRatvarTravelNameMessage args)
@@ -111,7 +112,12 @@ public sealed partial class OrbitraRatvarTravelSystem : EntitySystem
             _popup.PopupEntity(Loc.GetString("orbitra-ratvar-travel-attached"), user, user);
             return false;
         }
-        if (!CanTravel(source, user, target, out var rule) || !_mind.TryGetMind(user, out var mind, out _)) return false;
+        if (!CanTravel(source, user, target, out var rule, out var reason))
+        {
+            _popup.PopupEntity(Loc.GetString(reason), user, user);
+            return false;
+        }
+        if (!_mind.TryGetMind(user, out var mind, out _)) return false;
         return _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, source.Comp.Delay,
             new OrbitraRatvarTravelEvent { Rule = GetNetEntity(rule), Mind = GetNetEntity(mind), Destination = GetNetEntity(target) }, source)
         {
@@ -138,11 +144,25 @@ public sealed partial class OrbitraRatvarTravelSystem : EntitySystem
     /// <summary>Checks ownership, living controlled body, power, station grid and exact arrival tile.</summary>
     public bool CanTravel(Entity<OrbitraRatvarTravelComponent> source, EntityUid user, EntityUid target,
         out Entity<OrbitraRatvarRuleComponent> rule)
+        => CanTravel(source, user, target, out rule, out _);
+
+    /// <summary>Provides a specific denial without changing resources or hiding owned endpoints.</summary>
+    public bool CanTravel(Entity<OrbitraRatvarTravelComponent> source, EntityUid user, EntityUid target,
+        out Entity<OrbitraRatvarRuleComponent> rule, out string reason)
     {
-        if (!CanAccess(source, user, out rule) || source.Owner == target || source.Comp.NextUse > _timing.CurTime ||
-            !CanUsePoint(source, rule) || !HasComp<OrbitraRatvarTravelComponent>(target) || !CanUsePoint(target, rule)) return false;
+        reason = "orbitra-ratvar-travel-denied";
+        if (!CanAccess(source, user, out rule) || source.Owner == target) return false;
+        reason = "orbitra-ratvar-travel-cooldown";
+        if (source.Comp.NextUse > _timing.CurTime) return false;
+        if (!CanUsePoint(source, rule, out reason)) return false;
+        reason = "orbitra-ratvar-travel-missing";
+        if (!HasComp<OrbitraRatvarTravelComponent>(target)) return false;
+        if (!CanUsePoint(target, rule, out reason)) return false;
         // Никаких случайных соседних тайлов: занятый пункт отклоняется целиком.
-        return !_lookup.AnyEntitiesIntersecting(_transform.GetMapCoordinates(target), LookupFlags.Static | LookupFlags.Dynamic);
+        reason = "orbitra-ratvar-travel-blocked";
+        if (_lookup.AnyEntitiesIntersecting(_transform.GetMapCoordinates(target), LookupFlags.Static | LookupFlags.Dynamic)) return false;
+        reason = "orbitra-ratvar-travel-destination-ready";
+        return true;
     }
 
     private bool CanAccess(EntityUid source, EntityUid user, out Entity<OrbitraRatvarRuleComponent> rule)
@@ -163,14 +183,23 @@ public sealed partial class OrbitraRatvarTravelSystem : EntitySystem
         TryComp<PullableComponent>(user, out var pullable) && pullable.BeingPulled ||
         TryComp<BuckleComponent>(user, out var buckle) && buckle.Buckled;
 
-    private bool CanUsePoint(EntityUid point, Entity<OrbitraRatvarRuleComponent> rule)
+    private bool CanUsePoint(EntityUid point, Entity<OrbitraRatvarRuleComponent> rule, out string reason)
     {
+        reason = "orbitra-ratvar-travel-missing";
         if (TerminatingOrDeleted(point) || EntityManager.IsQueuedForDeletion(point) ||
-            !TryComp<OrbitraRatvarPoweredComponent>(point, out var powered) ||
-            !_power.CanUsePower((point, powered), out var owner, out _) || owner.Owner != rule.Owner ||
-            rule.Comp.Station is not { } station || _station.GetOwningStation(point) != station ||
+            !TryComp<OrbitraRatvarPoweredComponent>(point, out var powered)) return false;
+        if (!_power.CanUsePower((point, powered), out var owner, out var powerReason))
+        {
+            reason = powerReason;
+            return false;
+        }
+        reason = "orbitra-ratvar-travel-denied";
+        if (owner.Owner != rule.Owner) return false;
+        reason = "orbitra-ratvar-travel-station";
+        if (rule.Comp.Station is not { } station || _station.GetOwningStation(point) != station ||
             Transform(point).GridUid is not { } grid || _station.GetLargestGrid(station) != grid ||
             !TryComp<MapGridComponent>(grid, out var mapGrid)) return false;
+        reason = "orbitra-ratvar-travel-floor";
         return !_map.GetTileRef(grid, mapGrid, Transform(point).Coordinates).Tile.IsEmpty;
     }
 
@@ -195,12 +224,25 @@ public sealed partial class OrbitraRatvarTravelSystem : EntitySystem
             return;
         }
         var destinations = new Dictionary<NetEntity, string>();
+        var unavailable = new Dictionary<NetEntity, string>();
         foreach (var point in _points)
-            if (CanTravel(source, user, point, out _) && TryComp<OrbitraRatvarTravelComponent>(point, out var destination))
-                destinations[GetNetEntity(point)] = string.IsNullOrWhiteSpace(destination.Label) ? Name(point) : destination.Label;
-        var ready = CanUsePoint(source, rule) && source.Comp.NextUse <= _timing.CurTime;
-        _ui.SetUiState(source.Owner, OrbitraRatvarTravelUiKey.Key, new OrbitraRatvarTravelUiState(source.Comp.Label,
+        {
+            if (point == source.Owner || TerminatingOrDeleted(point) || EntityManager.IsQueuedForDeletion(point) ||
+                !TryComp<OrbitraRatvarStructureComponent>(point, out var structure) || structure.Rule != rule.Owner ||
+                !TryComp<OrbitraRatvarTravelComponent>(point, out var destination)) continue;
+            var netPoint = GetNetEntity(point);
+            destinations[netPoint] = string.IsNullOrWhiteSpace(destination.Label) ? Name(point) : destination.Label;
+            if (!CanTravel(source, user, point, out _, out var reason)) unavailable[netPoint] = reason;
+        }
+        var ready = CanUsePoint(source, rule, out var status);
+        if (ready && source.Comp.NextUse > _timing.CurTime)
+        {
+            ready = false;
+            status = "orbitra-ratvar-travel-cooldown";
+        }
+        var state = new OrbitraRatvarTravelUiState(source.Comp.Label,
             rule.Comp.Energy, Comp<OrbitraRatvarPoweredComponent>(source).EnergyPerUse,
-            ready ? "orbitra-ratvar-travel-ready" : "orbitra-ratvar-travel-unavailable", destinations));
+            ready ? "orbitra-ratvar-travel-ready" : status, destinations) { Unavailable = unavailable };
+        _ui.SetUiState(source.Owner, OrbitraRatvarTravelUiKey.Key, state);
     }
 }

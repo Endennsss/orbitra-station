@@ -27,6 +27,8 @@ public sealed class OrbitraRatvarTravelUiState(string name, int energy, int cost
     public readonly int Cost = cost;
     public readonly string Reason = reason;
     public readonly Dictionary<NetEntity, string> Destinations = destinations;
+    /// <summary>Disabled destinations remain visible with a server-validated failure reason.</summary>
+    public Dictionary<NetEntity, string> Unavailable = [];
 }
 
 [Serializable, NetSerializable]

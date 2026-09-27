@@ -267,7 +267,7 @@ public sealed partial class OrbitraRatvarRuleSystem
             return;
         }
         var state = new OrbitraRatvarUiState(rule.Comp.Energy, GetTier(rule.Comp), rule.Comp.Converted.Count,
-            tablet.Comp.Busy, rule.Comp.IncomeRate, rule.Comp.ExpenseRate);
+            tablet.Comp.Busy, rule.Comp.IncomeRate, rule.Comp.ExpenseRate, rule.Comp.Vitality.Float());
         foreach (var scripture in _prototypes.EnumeratePrototypes<OrbitraRatvarScripturePrototype>())
         {
             if (!tablet.Comp.AllowScriptures)

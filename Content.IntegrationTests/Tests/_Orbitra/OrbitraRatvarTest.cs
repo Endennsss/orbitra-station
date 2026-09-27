@@ -249,7 +249,7 @@ public sealed class OrbitraRatvarTest : GameTest
             Server.System<MobStateSystem>().ChangeMobState(target, MobState.Critical);
             Assert.That(system.TryConvertOnSigil(submission, target), Is.True);
             Assert.That(cult.Converted.Count, Is.EqualTo(1), "Reconverting the same mind cannot unlock tiers.");
-            cult.Energy = 30;
+            cult.Energy = 100;
             Assert.That(system.TryCompleteScripture(item, user, "OrbitraRatvarBrass"), Is.True);
             Assert.That(cult.Energy, Is.Zero);
             Assert.That(system.TryCompleteScripture(item, user, "OrbitraRatvarBrass"), Is.False);

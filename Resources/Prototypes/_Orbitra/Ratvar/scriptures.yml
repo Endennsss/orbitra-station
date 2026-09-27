@@ -15,7 +15,7 @@
   name: orbitra-ratvar-scripture-brass
   description: orbitra-ratvar-scripture-brass-desc
   tier: 1
-  energy: 30
+  energy: 100
   delay: 2
   result: SheetBrass10
   structure: false

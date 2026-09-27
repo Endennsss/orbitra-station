@@ -35,11 +35,14 @@ public sealed class OrbitraRatvarCacheWindow : FancyWindow
     public OrbitraRatvarCacheWindow()
     {
         Title = Loc.GetString("orbitra-ratvar-cache-title");
-        MinSize = new Vector2(440, 300);
+        MinSize = new Vector2(400, 280);
+        SetSize = new Vector2(500, 420);
         OrbitraEntryWindow.Attach(this);
         var root = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 8 };
         root.AddChild(_status);
-        root.AddChild(_choices);
+        var scroll = new ScrollContainer { VerticalExpand = true, HScrollEnabled = false };
+        scroll.AddChild(_choices);
+        root.AddChild(scroll);
         ContentsContainer.AddChild(root);
     }
     public void Update(OrbitraRatvarCacheUiState state)
@@ -60,7 +63,8 @@ public sealed class OrbitraRatvarCacheWindow : FancyWindow
             var panel = new PanelContainer();
             panel.AddStyleClass("OrbitraRatvarCard");
             var column = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 4 };
-            var button = new Button { Text = Loc.GetString("ent-" + state.Choices[i]), Disabled = disabled };
+            var button = new Button { Text = Loc.GetString("ent-" + state.Choices[i]), Disabled = disabled,
+                HorizontalExpand = true, ClipText = true, ToolTip = Loc.GetString("ent-" + state.Choices[i]) };
             _buttons.Add(button);
             button.OnPressed += _ => Choose?.Invoke(choice);
             column.AddChild(button);
