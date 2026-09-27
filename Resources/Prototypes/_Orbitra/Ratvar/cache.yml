@@ -28,6 +28,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarCache
+  category: Structures
   name: orbitra-ratvar-scripture-cache
   description: orbitra-ratvar-scripture-cache-desc
   tier: 3

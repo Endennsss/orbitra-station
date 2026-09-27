@@ -98,6 +98,7 @@
   - type: Sprite
     sprite: _Orbitra/Ratvar/garb.rsi
     state: helmet
+    scale: 0.7, 0.7
   - type: Clothing
     sprite: _Orbitra/Ratvar/helmet.rsi
   - type: Item
@@ -141,10 +142,12 @@
   components:
   - type: Sprite
     sprite: _Orbitra/Ratvar/marauder.rsi
+    noRot: true
     layers:
     - state: alive
     - sprite: _Orbitra/Ratvar/sigils.rsi
       state: shield
+      renderingStrategy: NoRotation
       visible: false
       map: [enum.OrbitraRatvarMarauderLayers.Shield]
   - type: Appearance
@@ -159,7 +162,12 @@
     repairDuration: 2.5
     repairHealing: 10
     repairFuel: 1
+  - type: OrbitraRatvarMarauderVisual
   - type: OrbitraRatvarShell
+  - type: Prying
+    pryPowered: true
+    force: false
+    speedModifier: 1
   - type: NpcFactionMember
     factions: []
   - type: MovementSpeedModifier

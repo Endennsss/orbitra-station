@@ -52,6 +52,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarStargazer
+  category: Structures
   name: orbitra-ratvar-scripture-stargazer
   description: orbitra-ratvar-scripture-stargazer-desc
   tier: 2

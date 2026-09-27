@@ -65,7 +65,7 @@ public sealed partial class OrbitraRatvarFabricatorSystem : EntitySystem
                 _popup.PopupEntity(Loc.GetString("orbitra-ratvar-fabricator-recycle-denied", ("ratio", ent.Comp.RecyclingRatio)), ent, args.User);
             return;
         }
-        if (Prototype(target) is { } prototype && ent.Comp.Walls.Contains(new EntProtoId(prototype.ID)))
+        if (Prototype(target) is { } prototype && ent.Comp.Walls.ContainsKey(new EntProtoId(prototype.ID)))
         {
             if (!TryStartWall(ent, args.User, target))
                 _popup.PopupEntity(Loc.GetString("orbitra-ratvar-fabricator-wall-denied", ("energy", ent.Comp.WallEnergy)), ent, args.User);

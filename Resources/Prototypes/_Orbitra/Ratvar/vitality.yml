@@ -1,0 +1,43 @@
+- type: entity
+  parent: OrbitraRatvarStructureBase
+  id: OrbitraRatvarVitality
+  name: vitality matrix
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/vitality.rsi
+    state: vitality
+    drawdepth: FloorTiles
+    color: "#83CBE7A0"
+  - type: Fixtures
+    fixtures: {}
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 10
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: OrbitraRatvarVitality
+    radius: 0.65
+    interval: 2
+    drain:
+      types:
+        Cellular: 20
+    mindGain: 40
+    animalGain: 10
+    healing: 5
+    healingCost: 0.3
+    reviveBase: 20
+    reviveCost: 0.6
+
+- type: orbitraRatvarScripture
+  id: OrbitraRatvarVitality
+  category: Structures
+  name: orbitra-ratvar-scripture-vitality
+  description: orbitra-ratvar-scripture-vitality-desc
+  tier: 2
+  energy: 300
+  delay: 5
+  invokers: 2
+  result: OrbitraRatvarVitality
+  structure: true

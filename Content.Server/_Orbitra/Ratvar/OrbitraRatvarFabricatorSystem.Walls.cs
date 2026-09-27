@@ -78,7 +78,7 @@ public sealed partial class OrbitraRatvarFabricatorSystem
             mind != GetEntity(context.Mind) || !TryComp<MobStateComponent>(user, out var mob) || mob.CurrentState != MobState.Alive ||
             !_hands.IsHolding(user, tool) || !_blocker.CanInteract(user, target) ||
             _container.IsEntityInContainer(user) || _container.IsEntityInContainer(target) ||
-            Prototype(target) is not { } prototype || !tool.Comp.Walls.Contains(new EntProtoId(prototype.ID)))
+            Prototype(target) is not { } prototype || !tool.Comp.Walls.TryGetValue(new EntProtoId(prototype.ID), out var sourceNode))
             return false;
 
         var transform = Transform(target);
@@ -86,7 +86,7 @@ public sealed partial class OrbitraRatvarFabricatorSystem
             transform.GridUid != GetEntity(context.Grid) || Transform(user).GridUid != transform.GridUid ||
             transform.MapUid != GetEntity(context.Map) || _damage.GetTotalDamage(target) != 0 ||
             !TryComp<ConstructionComponent>(target, out var construction) ||
-            construction.Graph.Id != "Girder" || construction.Node != "wall" ||
+            construction.Graph.Id != "Girder" || construction.Node != sourceNode ||
             construction.TargetNode != null || construction.InteractionQueue.Count != 0)
             return false;
         return _interaction.InRangeUnobstructed(user, target);

@@ -42,6 +42,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarLens
+  category: Structures
   name: orbitra-ratvar-scripture-lens
   description: orbitra-ratvar-scripture-lens-desc
   tier: 3

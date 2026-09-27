@@ -1,4 +1,6 @@
 using Robust.Shared.Prototypes;
+using Robust.Shared.Audio;
+using System.Numerics;
 
 namespace Content.Server._Orbitra.Ratvar;
 
@@ -15,7 +17,19 @@ public sealed partial class OrbitraRatvarManifestationComponent : Component
     /// <summary>Delay between bounded territory updates.</summary>
     [DataField] public TimeSpan Interval = TimeSpan.FromSeconds(0.1);
     /// <summary>Delay between autonomous roaming steps.</summary>
-    [DataField] public TimeSpan MoveInterval = TimeSpan.FromSeconds(1);
+    [DataField] public TimeSpan MoveInterval = TimeSpan.FromSeconds(0.1);
+    /// <summary>Roaming speed in grid units per second.</summary>
+    [DataField] public float MoveSpeed = 1.5f;
+    /// <summary>Persistent roaming heading, independent of sprite rotation.</summary>
+    public Vector2 Heading;
+    /// <summary>Next autonomous heading choice.</summary>
+    public TimeSpan NextTurn;
+    /// <summary>Gravity pulse deadline, independent of movement frequency.</summary>
+    public TimeSpan NextPull;
+    /// <summary>Existing attributed soundtrack; never imported or relicensed here.</summary>
+    [DataField] public SoundSpecifier Music = new SoundPathSpecifier("/Audio/Lobby/endless_space.ogg");
+    /// <summary>Owned looping audio, stopped when the manifestation is inactive or deleted.</summary>
+    public EntityUid? MusicStream;
     /// <summary>Range of the native gravitational pulse in world metres.</summary>
     [DataField] public float PullRange = 10;
     /// <summary>Native gravitational impulse coefficient per roaming update.</summary>
@@ -32,4 +46,6 @@ public sealed partial class OrbitraRatvarManifestationComponent : Component
     public TimeSpan NextMove;
     /// <summary>Cursor through a finite square around the current position.</summary>
     public int TileCursor;
+    /// <summary>Explicit administrator test deadline, independent of cult victory.</summary>
+    public TimeSpan? PreviewUntil;
 }

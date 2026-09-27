@@ -84,7 +84,8 @@ public sealed partial class OrbitraRatvarRuleSystem : GameRuleSystem<OrbitraRatv
 
     protected override void Ended(EntityUid uid, OrbitraRatvarRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
     {
-        CleanupManifestation(component);
+        if (!component.Won || GameTicker.RunLevel != GameRunLevel.PostRound)
+            CleanupManifestation(component);
         // Роль сознания остаётся для итогов раунда, но не даёт телу действующую принадлежность.
         RefreshCultBodies(component);
         component.HolyWaterSince.Clear();
@@ -127,6 +128,7 @@ public sealed partial class OrbitraRatvarRuleSystem : GameRuleSystem<OrbitraRatv
     /// <summary>Persistent, unique conversions and generated energy unlock scripture tiers.</summary>
     public int GetTier(OrbitraRatvarRuleComponent rule)
     {
+        if (rule.TestTier is { } tier) return tier;
         if (rule.Converted.Count >= rule.TierThreeConverts && rule.Generated >= rule.TierThreeEnergy) return 3;
         if (rule.Converted.Count >= rule.TierTwoConverts && rule.Generated >= rule.TierTwoEnergy) return 2;
         return 1;

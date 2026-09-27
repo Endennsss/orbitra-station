@@ -1,0 +1,11 @@
+- type: entity
+  parent: MobRatvarBase
+  id: OrbitraRatvarPreview
+  name: Ratvar
+  suffix: Orbitra, admin test
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Ratvar/ratvar.rsi
+    noRot: true
+  - type: OrbitraRatvarPresence
+  - type: OrbitraRatvarManifestation

@@ -3823,6 +3823,115 @@
       ],
       "notice": "All 33 pinned clockwork_objects.dmi revisions checked by selected-state pixel hashes. Lever, pressure sensor and skewer states introduced by Ashe Higgs/Xhuis in 32c68a60bf88b5e350f8ef78609ffccc45821483 (tgstation PR 32935, credit Xhuis), compressed by qwerty in 38254deeebd3d7e81ab282e36174e1713c5ead20. Delayer and flipper introduced by PowerfulBacon in 8168ce7f06afc301b3226661703df356c5936599 (BeeStation PR 2124). Both PR notices and pinned README asset licensing reviewed; no applicable exception found. Contributors are not asserted to be sole sprite authors. Directions, frames and timing retained; CC BY-SA 3.0 retained.",
       "changes": "Selected states extracted and renamed; frame order converted to RSI; delays converted from deciseconds to seconds; pixels unchanged."
+    },
+    {
+      "rsi": "vitality.rsi",
+      "source": "https://github.com/BeeStation/BeeStation-Hornet/blob/a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4/icons/effects/clockwork_effects.dmi",
+      "path": "icons/effects/clockwork_effects.dmi",
+      "commit": "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4",
+      "states": {
+        "sigilvitality": "vitality"
+      },
+      "license": "CC-BY-SA-3.0",
+      "history": [
+        {
+          "commit": "8168ce7f06afc301b3226661703df356c5936599",
+          "contributor": "PowerfulBacon",
+          "subject": "Clock cult v2 - Fully rewritten from the ground up (#2124)"
+        },
+        {
+          "commit": "32774dcea32e937233dd114687207f70f66639ff",
+          "contributor": "Cenrus",
+          "subject": "Merge pull request #6494 from Readystorm546/Rebe-change (#779)"
+        },
+        {
+          "commit": "38254deeebd3d7e81ab282e36174e1713c5ead20",
+          "contributor": "qwerty",
+          "subject": "the great icon compression"
+        },
+        {
+          "commit": "32c68a60bf88b5e350f8ef78609ffccc45821483",
+          "contributor": "Ashe Higgs",
+          "subject": "Clockwork Cult Defenses Patch - Leader role, traps and wiring, hulk and mech soft-counters, +more (#32935)"
+        },
+        {
+          "commit": "b7e7779c19b76449c290aaf2150fb93545b1a79a",
+          "contributor": "Ashe Higgs",
+          "subject": "(Ready) Clockwork Cult Rework: Proof-of-concept (#29741)"
+        },
+        {
+          "commit": "2729d025a35ced445a1d9f892f5abc22962e597c",
+          "contributor": "Joan Lung",
+          "subject": "Adds an effect to Mending Mantra to show who is chanting it"
+        },
+        {
+          "commit": "9c579f61b339e71303bf8756c474ceb7cc39f577",
+          "contributor": "Joan Lung",
+          "subject": "Tweaks brass window icons (#23670)"
+        },
+        {
+          "commit": "9796779ea1d1adf78de739d48e7ba6520d336ac0",
+          "contributor": "Joan Lung",
+          "subject": "Volt Void is now a more useful scripture (#22897)"
+        },
+        {
+          "commit": "7129681cd7c90695475f94137372b706df6afc7c",
+          "contributor": "Joan Lung",
+          "subject": "You can now actually see what an ocular warden is attacking (#22005)"
+        },
+        {
+          "commit": "045c6e643b223a14e27f40115a4a69bc898aae4b",
+          "contributor": "Joan Lung",
+          "subject": "Renames Guvax to Geis (#21445)"
+        },
+        {
+          "commit": "990942481f47a1c9dd0c7667443b8a644788ee61",
+          "contributor": "Joan Lung",
+          "subject": "You can now proselytize false walls + glow fixes"
+        },
+        {
+          "commit": "663ef769f7383443874f8ebae6fe58aa790beb0c",
+          "contributor": "Joan Lung",
+          "subject": "Reworks Guvax (#21202)"
+        },
+        {
+          "commit": "18c533d636b756036aa9eefd197ef400d27f4a0f",
+          "contributor": "Joan Lung",
+          "subject": "Nerfs the Ark of the Clockwork Justicar summon time"
+        },
+        {
+          "commit": "f11432e8a280c53650b9ee4f3bcfa5e386b43d7e",
+          "contributor": "Joan Lung",
+          "subject": "ratvar's flame has new sprites"
+        },
+        {
+          "commit": "a14f601e95aef6ff9132430a58624d3abc09be6d",
+          "contributor": "Joan Lung",
+          "subject": "fancy pulse"
+        },
+        {
+          "commit": "f64e687250f028359d811b2c7e9d4974b2e7ffeb",
+          "contributor": "Joan Lung",
+          "subject": "Adds the Clockwork Obelisk, Mania Motor, and Vitality Matrix"
+        },
+        {
+          "commit": "3793e6187a25aa3edd925f2c8984fd3bc5fa3581",
+          "contributor": "Nerd Lord",
+          "subject": "Addition Ratvar conversion effects and related changes"
+        },
+        {
+          "commit": "59af849fdf1f5c898bc146bc5baa06bb0f7e08dc",
+          "contributor": "Xhuis",
+          "subject": "Clockwork post-merge patch 3"
+        },
+        {
+          "commit": "a28a7680cba9142ab80abc5ed480474ed0310462",
+          "contributor": "Xhuis",
+          "subject": "Clockwork sprites"
+        }
+      ],
+      "notice": "All 19 pinned clockwork_effects.dmi revisions checked by selected-state pixel hashes. sigilvitality first appears in 3793e6187a25aa3edd925f2c8984fd3bc5fa3581, Nerd Lord; compression by qwerty in 38254deeebd3d7e81ab282e36174e1713c5ead20. Introducing commit notice and pinned README license reviewed; no applicable exception found. Contributors are not asserted to be sole sprite authors. Selected pixels, directions and timing retained, CC BY-SA 3.0 retained.",
+      "changes": "Selected states extracted and renamed; frame order converted to RSI; delays converted from deciseconds to seconds; pixels unchanged."
     }
   ]
 }

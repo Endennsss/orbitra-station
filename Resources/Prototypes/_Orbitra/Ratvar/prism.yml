@@ -45,6 +45,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarPrism
+  category: Structures
   name: orbitra-ratvar-scripture-prism
   description: orbitra-ratvar-scripture-prism-desc
   tier: 2

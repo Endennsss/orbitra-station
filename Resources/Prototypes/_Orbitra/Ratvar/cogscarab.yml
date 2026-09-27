@@ -59,6 +59,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarCogscarab
+  category: Constructs
   name: orbitra-ratvar-scripture-cogscarab
   description: orbitra-ratvar-scripture-cogscarab-desc
   tier: 2

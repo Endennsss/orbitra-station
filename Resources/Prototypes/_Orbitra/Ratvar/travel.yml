@@ -31,6 +31,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarTravelPoint
+  category: Structures
   name: orbitra-ratvar-scripture-travel
   description: orbitra-ratvar-scripture-travel-desc
   tier: 2

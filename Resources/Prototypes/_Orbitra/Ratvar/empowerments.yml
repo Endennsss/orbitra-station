@@ -1,5 +1,6 @@
 - type: orbitraRatvarScripture
   id: OrbitraRatvarKindle
+  category: Spells
   name: orbitra-ratvar-scripture-kindle
   description: orbitra-ratvar-scripture-kindle-desc
   tier: 1
@@ -13,6 +14,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarManacles
+  category: Spells
   name: orbitra-ratvar-scripture-manacles
   description: orbitra-ratvar-scripture-manacles-desc
   tier: 1
@@ -25,6 +27,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarCompromise
+  category: Spells
   name: orbitra-ratvar-scripture-compromise
   description: orbitra-ratvar-scripture-compromise-desc
   tier: 2
@@ -39,6 +42,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarVanguard
+  category: Spells
   name: orbitra-ratvar-scripture-vanguard
   description: orbitra-ratvar-scripture-vanguard-desc
   tier: 2

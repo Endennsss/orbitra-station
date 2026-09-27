@@ -39,7 +39,7 @@ public sealed partial class OrbitraRatvarRuleSystem
 
     private void OnFinaleRunLevelChanged(GameRunLevelChangedEvent args)
     {
-        if (args.New == GameRunLevel.InRound)
+        if (args.New != GameRunLevel.PreRoundLobby)
             return;
         var query = EntityQueryEnumerator<OrbitraRatvarRuleComponent>();
         while (query.MoveNext(out _, out var rule))
@@ -90,7 +90,7 @@ public sealed partial class OrbitraRatvarRuleSystem
             rule.Comp.Ark != ark.Owner || rule.Comp.SummonAt != null || !Living(user) ||
             !_blocker.CanInteract(user, ark) || !_interaction.InRangeUnobstructed(user, ark.Owner) ||
             !Transform(ark).Anchored || !ValidArkLocation(ark, rule.Comp) ||
-            GetTier(rule.Comp) < 3 || Timing.CurTime - rule.Comp.StartedAt < rule.Comp.EarliestArk ||
+            GetTier(rule.Comp) < 3 || (rule.Comp.TestTier == null && Timing.CurTime - rule.Comp.StartedAt < rule.Comp.EarliestArk) ||
             rule.Comp.Energy < rule.Comp.ArkEnergy) return false;
         var count = 0;
         foreach (var mind in rule.Comp.Members)
@@ -100,7 +100,7 @@ public sealed partial class OrbitraRatvarRuleSystem
                 Living(body) && CanReciteInBody(body) && !_containers.IsEntityInContainer(body) && Near(ark, body, rule.Comp.ArkSupportRange))
                 count++;
         }
-        return count >= rule.Comp.ArkCultists;
+        return count >= (rule.Comp.TestTier != null ? 1 : rule.Comp.ArkCultists);
     }
 
     private bool ValidArkLocation(EntityUid entity, OrbitraRatvarRuleComponent rule)
@@ -123,7 +123,6 @@ public sealed partial class OrbitraRatvarRuleSystem
         if (rule.Comp.FinishAt is { } finish && Timing.CurTime >= finish)
         {
             rule.Comp.FinishAt = null;
-            CleanupManifestation(rule.Comp);
             _roundEnd.EndRound();
         }
         if (rule.Comp.Won || rule.Comp.Lost || rule.Comp.SummonAt is not { } summon) return;

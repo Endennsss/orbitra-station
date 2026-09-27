@@ -81,6 +81,8 @@
   components:
   - type: Sprite
     sprite: _Orbitra/Ratvar/ratvar.rsi
+    noRot: true
+  - type: OrbitraRatvarPresence
   - type: AnnounceOnSpawn
     message: orbitra-ratvar-victory
     sender: orbitra-ratvar-title
@@ -91,6 +93,6 @@
     radius: 12
     tileBudget: 16
     interval: 0.1
-    moveInterval: 1
+    moveInterval: 0.1
     pullRange: 10
     pullVelocity: 2

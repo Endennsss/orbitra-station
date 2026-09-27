@@ -1,0 +1,17 @@
+orbitra-ratvar-category-all = All categories
+orbitra-ratvar-category-equipment = Equipment
+orbitra-ratvar-category-structures = Structures
+orbitra-ratvar-category-spells = Abilities
+orbitra-ratvar-category-power = Power
+orbitra-ratvar-category-constructs = Constructs
+orbitra-ratvar-category-traps = Traps
+orbitra-ratvar-search-empty = Nothing found. Change the search or filters.
+orbitra-ratvar-prepare = Prepare ability
+orbitra-ratvar-recite = Recite scripture
+orbitra-ratvar-ready = Available. Hold the slab and remain still while reciting.
+orbitra-ratvar-waiting = Waiting for cult data...
+orbitra-ratvar-use-target = After reciting, close this menu and click a target within { $range } m with the slab. You have { $seconds } s to choose. Energy is spent on successful use. Reopening the menu cancels preparation.
+orbitra-ratvar-use-self = Applies protection to you after reciting. Other scriptures are unavailable while it lasts.
+orbitra-ratvar-use-repair = Repairs a nearby eligible damaged structure of your cult. Use a fabricator to choose a specific target.
+orbitra-ratvar-use-structure = Creates the structure on your tile. Clear space before reciting; required helpers must remain nearby until completion.
+orbitra-ratvar-use-item = Creates the item or shell on the floor beside you. Required helpers must remain nearby until completion.

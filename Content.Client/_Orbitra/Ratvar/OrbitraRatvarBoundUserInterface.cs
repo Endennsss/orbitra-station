@@ -42,7 +42,15 @@ public sealed class OrbitraRatvarWindow : FancyWindow
     private readonly RichTextLabel _status = new();
     private readonly RichTextLabel _power = new();
     private readonly LineEdit _search = new() { HorizontalExpand = true };
-    private readonly OptionButton _tier = new();
+    private readonly OptionButton _tier = new() { MinWidth = 190, HorizontalExpand = true };
+    private readonly OptionButton _category = new() { MinWidth = 230, HorizontalExpand = true };
+    private readonly RichTextLabel _details = new();
+    private readonly RichTextLabel _usage = new();
+    private readonly RichTextLabel _availability = new();
+    private readonly Button _recite = new() { Disabled = true };
+    private readonly Label _empty = new();
+    private OrbitraRatvarScripturePrototype? _selected;
+    private OrbitraRatvarUiState? _state;
     private readonly Dictionary<OrbitraRatvarScripturePrototype, (PanelContainer Panel, RichTextLabel Reason)> _cards = [];
     private readonly BoxContainer _entries = new() { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 6 };
     private readonly Dictionary<OrbitraRatvarScripturePrototype, Button> _buttons = [];
@@ -50,8 +58,8 @@ public sealed class OrbitraRatvarWindow : FancyWindow
     public OrbitraRatvarWindow()
     {
         Title = Loc.GetString("orbitra-ratvar-tablet-title");
-        MinSize = new Vector2(440, 360);
-        SetSize = new Vector2(580, 640);
+        MinSize = new Vector2(680, 420);
+        SetSize = new Vector2(800, 620);
         OrbitraEntryWindow.Attach(this);
         var root = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 8 };
         root.AddChild(_status);
@@ -62,13 +70,40 @@ public sealed class OrbitraRatvarWindow : FancyWindow
         for (var tier = 1; tier <= 3; tier++)
             _tier.AddItem(Loc.GetString("orbitra-ratvar-tier-filter", ("tier", tier)), tier);
         _tier.OnItemSelected += args => { _tier.SelectId(args.Id); FilterCards(); };
+        _category.AddItem(Loc.GetString("orbitra-ratvar-category-all"), 0);
+        foreach (var category in Enum.GetValues<OrbitraRatvarScriptureCategory>())
+            _category.AddItem(Loc.GetString(CategoryKey(category)), (int) category + 1);
+        _category.OnItemSelected += args => { _category.SelectId(args.Id); FilterCards(); };
         var filters = new BoxContainer { SeparationOverride = 6 };
-        filters.AddChild(_search);
+        root.AddChild(_search);
         filters.AddChild(_tier);
+        filters.AddChild(_category);
         root.AddChild(filters);
-        var scroll = new ScrollContainer { VerticalExpand = true };
+        var body = new BoxContainer { VerticalExpand = true, SeparationOverride = 10 };
+        var scroll = new ScrollContainer { VerticalExpand = true, MinWidth = 260, MaxWidth = 300 };
         scroll.AddChild(_entries);
-        root.AddChild(scroll);
+        body.AddChild(scroll);
+        var detailPanel = new PanelContainer { HorizontalExpand = true, MinWidth = 270 };
+        detailPanel.AddStyleClass("OrbitraRatvarCard");
+        var detailColumn = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 10 };
+        var detailScroll = new ScrollContainer { VerticalExpand = true };
+        var detailText = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 12 };
+        detailText.AddChild(_details);
+        detailText.AddChild(_usage);
+        detailText.AddChild(_availability);
+        detailScroll.AddChild(detailText);
+        detailColumn.AddChild(detailScroll);
+        _recite.OnPressed += _ =>
+        {
+            if (_selected != null && !_recite.Disabled) Recite?.Invoke(_selected.ID);
+        };
+        detailColumn.AddChild(_recite);
+        detailPanel.AddChild(detailColumn);
+        body.AddChild(detailPanel);
+        root.AddChild(body);
+        _empty.Text = Loc.GetString("orbitra-ratvar-search-empty");
+        _empty.Visible = false;
+        root.AddChild(_empty);
         var communication = new BoxContainer { SeparationOverride = 6 };
         var input = new LineEdit { HorizontalExpand = true, PlaceHolder = Loc.GetString("orbitra-ratvar-message-placeholder") };
         var send = new Button { Text = Loc.GetString("orbitra-ratvar-message-send") };
@@ -93,17 +128,10 @@ public sealed class OrbitraRatvarWindow : FancyWindow
             var panel = new PanelContainer();
             panel.AddStyleClass("OrbitraRatvarCard");
             var column = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 4 };
-            var button = new Button { Text = Loc.GetString(scripture.Name), Disabled = true };
-            button.OnPressed += _ => Recite?.Invoke(scripture.ID);
+            var button = new Button { Text = Loc.GetString(scripture.Name), ToggleMode = true, TextAlign = Label.AlignMode.Left };
+            button.OnPressed += _ => SelectScripture(scripture);
             column.AddChild(button);
-            var description = new RichTextLabel();
-            description.SetMessage(Loc.GetString(scripture.Description));
-            column.AddChild(description);
             column.AddChild(new Label { Text = Loc.GetString("orbitra-ratvar-scripture-cost", ("tier", scripture.Tier), ("energy", scripture.Energy)) });
-            var requirements = new RichTextLabel();
-            requirements.SetMessage(Loc.GetString("orbitra-ratvar-scripture-requirements",
-                ("seconds", scripture.Delay.TotalSeconds), ("invokers", scripture.Invokers)));
-            column.AddChild(requirements);
             var reason = new RichTextLabel { Visible = false };
             column.AddChild(reason);
             panel.AddChild(column);
@@ -111,23 +139,63 @@ public sealed class OrbitraRatvarWindow : FancyWindow
             _buttons.Add(scripture, button);
             _cards.Add(scripture, (panel, reason));
         }
+        FilterCards();
     }
 
     public void UpdateCult(OrbitraRatvarUiState state)
     {
+        _state = state;
         _status.SetMessage(Loc.GetString("orbitra-ratvar-status", ("energy", state.Energy), ("tier", state.Tier), ("converts", state.Converts)));
-        _power.SetMessage(Loc.GetString("orbitra-ratvar-power-rates", ("income", state.IncomeRate), ("expense", state.ExpenseRate)));
+        _power.SetMessage(Loc.GetString("orbitra-ratvar-power-rates",
+            ("income", state.IncomeRate.ToString("0.0")), ("expense", state.ExpenseRate.ToString("0.0"))));
         foreach (var (scripture, button) in _buttons)
         {
             var reason = state.Busy ? "orbitra-ratvar-unavailable-busy" : scripture.Tier > state.Tier ?
                 "orbitra-ratvar-unavailable-tier" : scripture.Energy > state.Energy ? "orbitra-ratvar-unavailable-energy" : null;
             if (reason == null) state.Unavailable.TryGetValue(scripture.ID, out reason);
-            button.Disabled = reason != null;
             button.ToolTip = reason == null ? null : Loc.GetString(reason);
             var label = _cards[scripture].Reason;
             label.Visible = reason != null;
             if (reason != null) label.SetMessage(Loc.GetString(reason));
         }
+        UpdateDetails();
+    }
+
+    private static string CategoryKey(OrbitraRatvarScriptureCategory category) =>
+        $"orbitra-ratvar-category-{category.ToString().ToLowerInvariant()}";
+
+    private void SelectScripture(OrbitraRatvarScripturePrototype scripture)
+    {
+        _selected = scripture;
+        foreach (var (entry, button) in _buttons) button.Pressed = entry == scripture;
+        UpdateDetails();
+    }
+
+    private void UpdateDetails()
+    {
+        if (_selected is not { } scripture)
+        {
+            _details.SetMessage(Loc.GetString("orbitra-ratvar-search-empty"));
+            _usage.SetMessage(string.Empty);
+            _availability.SetMessage(string.Empty);
+            _recite.Disabled = true;
+            return;
+        }
+        _details.SetMessage(Loc.GetString(scripture.Name) + "\n\n" + Loc.GetString(scripture.Description) + "\n\n" +
+            Loc.GetString("orbitra-ratvar-scripture-cost", ("tier", scripture.Tier), ("energy", scripture.Energy)) + "\n" +
+            Loc.GetString("orbitra-ratvar-scripture-requirements", ("seconds", scripture.Delay.TotalSeconds), ("invokers", scripture.Invokers)));
+        var aimed = scripture.Empowerment is not OrbitraRatvarEmpowerment.None and not OrbitraRatvarEmpowerment.Vanguard;
+        var hint = aimed ? "target" : scripture.Empowerment == OrbitraRatvarEmpowerment.Vanguard ? "self" :
+            scripture.Repair ? "repair" : scripture.Structure ? "structure" : "item";
+        _usage.SetMessage(Loc.GetString($"orbitra-ratvar-use-{hint}", ("range", scripture.TargetRange),
+            ("seconds", scripture.TargetWindow.TotalSeconds)));
+        _recite.Text = Loc.GetString(aimed ? "orbitra-ratvar-prepare" : "orbitra-ratvar-recite");
+        var reason = _state == null ? "orbitra-ratvar-waiting" : _state.Busy ? "orbitra-ratvar-unavailable-busy" :
+            scripture.Tier > _state.Tier ? "orbitra-ratvar-unavailable-tier" :
+            scripture.Energy > _state.Energy ? "orbitra-ratvar-unavailable-energy" : null;
+        if (reason == null) _state!.Unavailable.TryGetValue(scripture.ID, out reason);
+        _recite.Disabled = reason != null;
+        _availability.SetMessage(Loc.GetString(reason ?? "orbitra-ratvar-ready"));
     }
 
     private void FilterCards()
@@ -135,7 +203,16 @@ public sealed class OrbitraRatvarWindow : FancyWindow
         var search = _search.Text.Trim();
         foreach (var (scripture, card) in _cards)
             card.Panel.Visible = (_tier.SelectedId == 0 || _tier.SelectedId == scripture.Tier) &&
+                (_category.SelectedId == 0 || _category.SelectedId == (int) scripture.Category + 1) &&
                 (Loc.GetString(scripture.Name).Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
                  Loc.GetString(scripture.Description).Contains(search, StringComparison.CurrentCultureIgnoreCase));
+        var first = _cards.FirstOrDefault(pair => pair.Value.Panel.Visible).Key;
+        _empty.Visible = first == null;
+        if (_selected == null || !_cards[_selected].Panel.Visible)
+        {
+            _selected = first;
+            if (first != null) SelectScripture(first);
+            else UpdateDetails();
+        }
     }
 }

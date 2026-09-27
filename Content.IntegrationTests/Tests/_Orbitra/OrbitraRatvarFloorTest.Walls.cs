@@ -47,7 +47,7 @@ public sealed partial class OrbitraRatvarFloorTest
         await Server.WaitAssertion(() => Assert.That(cult.Energy, Is.EqualTo(200)));
     }
 
-    [TestCase("WallReinforced")]
+    [TestCase("WallPlastitaniumIndestructible")]
     [TestCase("WallSolidDiagonal")]
     [TestCase("ReinforcedWindowDiagonal", true)]
     public async Task WallUnsupportedPrototypeCannotStart(string prototype, bool window = false)
@@ -75,6 +75,9 @@ public sealed partial class OrbitraRatvarFloorTest
     }
 
     [TestCase("success")]
+    [TestCase("success", false, "WallReinforced", Category = "OrbitraRatvarFeedback")]
+    [TestCase("success", false, "WallSolidRust", Category = "OrbitraRatvarFeedback")]
+    [TestCase("success", false, "WallShuttle", Category = "OrbitraRatvarFeedback")]
     [TestCase("contents")]
     [TestCase("child")]
     [TestCase("damage")]

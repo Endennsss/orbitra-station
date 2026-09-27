@@ -30,7 +30,17 @@
     floorDelay: 2
     wallEnergy: 200
     wallDelay: 6
-    walls: [WallSolid]
+    walls:
+      WallSolid: wall
+      WallSolidRust: wallrust
+      WallReinforced: reinforcedWall
+      WallReinforcedRust: reinforcedWallRust
+      WallGold: goldWall
+      WallSilver: silverWall
+      WallPlasma: plasmaWall
+      WallUranium: uraniumWall
+      WallWood: woodWall
+      WallShuttle: shuttleWall
     windowEnergy: 200
     windowDelay: 6
     windows:
@@ -150,6 +160,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarFabricator
+  category: Equipment
   name: orbitra-ratvar-scripture-fabricator
   description: orbitra-ratvar-scripture-fabricator-desc
   tier: 2

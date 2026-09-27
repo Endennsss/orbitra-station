@@ -232,6 +232,7 @@ public sealed partial class OrbitraRatvarRuleSystem
         OrbitraRatvarScripturePrototype scripture)
     {
         var count = 1;
+        if (rule.Comp.TestTier != null) return true;
         if (scripture.Invokers <= count) return true;
         foreach (var mind in rule.Comp.Members)
         {

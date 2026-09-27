@@ -38,6 +38,8 @@ public sealed partial class OrbitraRatvarPowerSystem : EntitySystem
         if (!args.IsInDetailsRange) return;
         CanUsePower(ent, out _, out var reason);
         args.PushMarkup(Loc.GetString(reason));
+        args.PushMarkup(Loc.GetString("orbitra-ratvar-power-cost",
+            ("cost", ent.Comp.EnergyPerUse), ("minimum", ent.Comp.MinimumEnergy)));
     }
 
     private void OnShootAttempt(Entity<OrbitraRatvarPoweredComponent> ent, ref AttemptShootEvent args)

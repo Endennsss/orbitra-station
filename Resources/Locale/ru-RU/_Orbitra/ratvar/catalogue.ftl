@@ -1,0 +1,17 @@
+orbitra-ratvar-category-all = Все категории
+orbitra-ratvar-category-equipment = Снаряжение
+orbitra-ratvar-category-structures = Постройки
+orbitra-ratvar-category-spells = Способности
+orbitra-ratvar-category-power = Энергетика
+orbitra-ratvar-category-constructs = Конструкты
+orbitra-ratvar-category-traps = Ловушки
+orbitra-ratvar-search-empty = Ничего не найдено. Измените поиск или фильтры.
+orbitra-ratvar-prepare = Подготовить способность
+orbitra-ratvar-recite = Прочитать писание
+orbitra-ratvar-ready = Доступно. Держите табличку в руке и не двигайтесь во время чтения.
+orbitra-ratvar-waiting = Ожидание данных культа...
+orbitra-ratvar-use-target = После чтения закройте меню и нажмите табличкой на цель в пределах { $range } м. На выбор цели даётся { $seconds } с. Энергия расходуется при успешном применении. Повторное открытие меню отменяет подготовку.
+orbitra-ratvar-use-self = Защита применяется к вам после чтения. Пока она действует, другие писания недоступны.
+orbitra-ratvar-use-repair = Восстанавливает подходящую повреждённую постройку своего культа рядом. Для выбора конкретной цели используйте фабрикатор.
+orbitra-ratvar-use-structure = Постройка появится на вашей клетке. Освободите место до чтения; помощники должны оставаться рядом до его завершения.
+orbitra-ratvar-use-item = Предмет или оболочка появится рядом с вами на полу. Помощники, если они требуются, должны оставаться рядом до завершения чтения.

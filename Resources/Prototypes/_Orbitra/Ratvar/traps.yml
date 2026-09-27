@@ -68,6 +68,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarLever
+  category: Traps
   name: orbitra-ratvar-scripture-lever
   description: orbitra-ratvar-scripture-lever-desc
   tier: 2
@@ -105,6 +106,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarPlate
+  category: Traps
   name: orbitra-ratvar-scripture-plate
   description: orbitra-ratvar-scripture-plate-desc
   tier: 2
@@ -144,6 +146,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarDelay
+  category: Traps
   name: orbitra-ratvar-scripture-delay
   description: orbitra-ratvar-scripture-delay-desc
   tier: 2
@@ -202,6 +205,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarSkewer
+  category: Traps
   name: orbitra-ratvar-scripture-skewer
   description: orbitra-ratvar-scripture-skewer-desc
   tier: 2
@@ -249,6 +253,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarFlipper
+  category: Traps
   name: orbitra-ratvar-scripture-flipper
   description: orbitra-ratvar-scripture-flipper-desc
   tier: 2

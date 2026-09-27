@@ -38,7 +38,7 @@ public sealed partial class OrbitraRatvarFabricatorComponent : Component
 
     /// <summary>Exact wall prototypes accepted by the Girder-to-brass adapter.</summary>
     [DataField]
-    public HashSet<EntProtoId> Walls = new();
+    public Dictionary<EntProtoId, string> Walls = new();
 
     /// <summary>Energy charged for a successful wall conversion.</summary>
     [DataField]

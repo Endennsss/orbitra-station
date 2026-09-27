@@ -15,6 +15,7 @@ COMMIT = "a24fe414a304d3d73e30f4b9d8d3d7ade4a3b2e4"
 REPOSITORY = "BeeStation/BeeStation-Hornet"
 ROOT = Path(__file__).resolve().parents[2] / "Resources/Textures/_Orbitra/Ratvar"
 SELECTION = {
+    "vitality": ("icons/effects/clockwork_effects.dmi", {"sigilvitality": "vitality"}),
     "traps": ("icons/obj/clockwork_objects.dmi", {
         "lever": "lever", "pressure_sensor": "plate", "delayer": "delay",
         "delayer_active": "delay_active", "brass_skewer": "skewer",
@@ -82,6 +83,7 @@ SELECTION = {
     "ark": ("icons/effects/96x96.dmi", {"clockwork_gateway_charging": "charging", "clockwork_gateway_active": "active"}),
 }
 NOTICES = {
+    "vitality": "All 19 pinned clockwork_effects.dmi revisions checked by selected-state pixel hashes. sigilvitality first appears in 3793e6187a25aa3edd925f2c8984fd3bc5fa3581, Nerd Lord; compression by qwerty in 38254deeebd3d7e81ab282e36174e1713c5ead20. Introducing commit notice and pinned README license reviewed; no applicable exception found. Contributors are not asserted to be sole sprite authors. Selected pixels, directions and timing retained, CC BY-SA 3.0 retained.",
     "traps": "All 33 pinned clockwork_objects.dmi revisions checked by selected-state pixel hashes. Lever, pressure sensor and skewer states introduced by Ashe Higgs/Xhuis in 32c68a60bf88b5e350f8ef78609ffccc45821483 (tgstation PR 32935, credit Xhuis), compressed by qwerty in 38254deeebd3d7e81ab282e36174e1713c5ead20. Delayer and flipper introduced by PowerfulBacon in 8168ce7f06afc301b3226661703df356c5936599 (BeeStation PR 2124). Both PR notices and pinned README asset licensing reviewed; no applicable exception found. Contributors are not asserted to be sole sprite authors. Directions, frames and timing retained; CC BY-SA 3.0 retained.",
     "robes": "Worn robes pixels match the original clockwork_cuirass_speed state in icons/mob/suit.dmi at 8168ce7f06afc301b3226661703df356c5936599, PowerfulBacon, BeeStation PR 2124. All 341 legacy suit revisions and 8 pinned armor-file revisions checked. Relocated by Tsar-Salat/rkz in 9106b1d8fc151acc9f113582799e291f762ba912, PR 10869. PR 10869 also credits sprite contributors maxymax13, TaG2e, LordVollkorn, Twaticus for that broad change, not necessarily this state. No applicable exception found; CC BY-SA 3.0 retained.",
     "cloak": "Worn cloak pixels match the original clockwork_cloak state in icons/mob/suit.dmi at 8168ce7f06afc301b3226661703df356c5936599, PowerfulBacon, BeeStation PR 2124. All 341 legacy suit revisions and 8 pinned armor-file revisions checked. Relocated by Tsar-Salat/rkz in 9106b1d8fc151acc9f113582799e291f762ba912, PR 10869. PR 10869 also credits sprite contributors maxymax13, TaG2e, LordVollkorn, Twaticus for that broad change, not necessarily this state. No applicable exception found; CC BY-SA 3.0 retained.",

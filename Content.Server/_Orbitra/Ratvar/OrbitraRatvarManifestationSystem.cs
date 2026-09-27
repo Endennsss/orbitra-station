@@ -1,8 +1,20 @@
 using Content.Server.Construction;
 using Content.Server.Construction.Components;
 using Content.Server.GameTicking;
+using Content.Shared.GameTicking;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
+using Robust.Shared.GameStates;
+using System.Numerics;
 using Content.Server.Singularity.EntitySystems;
 using Content.Server.Wires;
+using Content.Server.Administration.Managers;
+using Content.Shared.Administration;
+using Content.Shared.Administration.Logs;
+using Content.Shared.Database;
+using Content.Shared.Examine;
+using Content.Shared.Verbs;
+using Robust.Shared.Player;
 using Content.Shared.Access.Components;
 using Content.Shared.Doors.Components;
 using Content.Shared.Lock;
@@ -33,9 +45,77 @@ public sealed partial class OrbitraRatvarManifestationSystem : EntitySystem
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private GameTicker _ticker = default!;
     [Dependency] private GravityWellSystem _gravityWell = default!;
+    [Dependency] private IAdminManager _admin = default!;
+    [Dependency] private ISharedAdminLogManager _adminLog = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
+    [Dependency] private SharedPvsOverrideSystem _pvsOverride = default!;
 
     private static readonly Vector2i[] Directions = [new(1, 0), new(0, 1), new(-1, 0), new(0, -1)];
     private readonly List<EntityUid> _anchored = [];
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        SubscribeLocalEvent<OrbitraRatvarManifestationComponent, GetVerbsEvent<Verb>>(OnVerbs);
+        SubscribeLocalEvent<OrbitraRatvarManifestationComponent, ExaminedEvent>(OnExamine);
+        SubscribeLocalEvent<OrbitraRatvarManifestationComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<OrbitraRatvarManifestationComponent, ComponentStartup>(OnStartup);
+    }
+
+    private void OnStartup(Entity<OrbitraRatvarManifestationComponent> ent, ref ComponentStartup args)
+    {
+        _pvsOverride.AddGlobalOverride(ent);
+    }
+
+    private void OnShutdown(Entity<OrbitraRatvarManifestationComponent> ent, ref ComponentShutdown args)
+    {
+        _pvsOverride.RemoveGlobalOverride(ent);
+        ent.Comp.MusicStream = _audio.Stop(ent.Comp.MusicStream);
+    }
+
+    private void OnVerbs(Entity<OrbitraRatvarManifestationComponent> ent, ref GetVerbsEvent<Verb> args)
+    {
+        if (!TryComp<ActorComponent>(args.User, out var actor) || !_admin.HasAdminFlag(actor.PlayerSession, AdminFlags.Fun) || ent.Comp.Rule != null)
+            return;
+        var session = actor.PlayerSession;
+        args.Verbs.Add(new Verb
+        {
+            Text = Loc.GetString(ent.Comp.PreviewUntil > _timing.CurTime ? "orbitra-ratvar-preview-stop" : "orbitra-ratvar-preview-start"),
+            Message = Loc.GetString("orbitra-ratvar-preview-warning"),
+            Category = VerbCategory.Debug,
+            Impact = LogImpact.High,
+            Act = () => TryTogglePreview(ent, session),
+        });
+    }
+
+    private void OnExamine(Entity<OrbitraRatvarManifestationComponent> ent, ref ExaminedEvent args)
+    {
+        if (ent.Comp.Rule == null)
+            args.PushMarkup(Loc.GetString(ent.Comp.PreviewUntil > _timing.CurTime ? "orbitra-ratvar-preview-active" : "orbitra-ratvar-preview-inactive"));
+    }
+
+    /// <summary>Explicitly starts or stops a bounded destructive admin test without creating a cult or ending the round.</summary>
+    public bool TryTogglePreview(Entity<OrbitraRatvarManifestationComponent> god, ICommonSession admin)
+    {
+        if (!_admin.HasAdminFlag(admin, AdminFlags.Fun) || TerminatingOrDeleted(god) || god.Comp.Rule != null)
+            return false;
+        if (god.Comp.PreviewUntil > _timing.CurTime)
+        {
+            god.Comp.PreviewUntil = null;
+            _adminLog.Add(LogType.Action, LogImpact.High, $"{admin.Name} stopped Ratvar preview {ToPrettyString(god)}.");
+            return true;
+        }
+        var xform = Transform(god);
+        if (xform.GridUid is not { } grid || xform.MapUid == null || !HasComp<MapGridComponent>(grid) || _containers.IsEntityInContainer(god))
+            return false;
+        god.Comp.Grid = grid;
+        god.Comp.Map = xform.MapUid;
+        god.Comp.PreviewUntil = _timing.CurTime + TimeSpan.FromSeconds(60);
+        god.Comp.NextMove = _timing.CurTime;
+        god.Comp.NextUpdate = _timing.CurTime;
+        _adminLog.Add(LogType.Action, LogImpact.High, $"{admin.Name} started destructive Ratvar preview {ToPrettyString(god)} on {ToPrettyString(grid)} for 60 seconds.");
+        return true;
+    }
 
     /// <summary>Processes a bounded portion of the god's radius without deleting arbitrary entities.</summary>
     public bool TryTransformTerritory(Entity<OrbitraRatvarManifestationComponent> god)
@@ -78,10 +158,20 @@ public sealed partial class OrbitraRatvarManifestationSystem : EntitySystem
     public bool CanAct(Entity<OrbitraRatvarManifestationComponent> god, out Entity<MapGridComponent> grid)
     {
         grid = default;
+        if (god.Comp.Rule == null && god.Comp.PreviewUntil > _timing.CurTime &&
+            !TerminatingOrDeleted(god) && !EntityManager.IsQueuedForDeletion(god) &&
+            god.Comp.Grid is { } previewGrid && TryComp<MapGridComponent>(previewGrid, out var previewMapGrid) &&
+            !TerminatingOrDeleted(previewGrid) && !EntityManager.IsQueuedForDeletion(previewGrid) &&
+            god.Comp.Map is { } previewMap && !TerminatingOrDeleted(previewMap) && !EntityManager.IsQueuedForDeletion(previewMap) &&
+            Transform(god).GridUid == previewGrid && Transform(god).MapUid == previewMap && !_containers.IsEntityInContainer(god))
+        {
+            grid = (previewGrid, previewMapGrid);
+            return true;
+        }
         if (TerminatingOrDeleted(god) || EntityManager.IsQueuedForDeletion(god) ||
             god.Comp.Rule is not { } owner || !TryComp<OrbitraRatvarRuleComponent>(owner, out var rule) ||
-            !rule.Won || rule.Lost || rule.Manifestation != god.Owner || !_ticker.IsGameRuleActive(owner) ||
-            rule.FinishAt is not { } finish || _timing.CurTime >= finish ||
+            !rule.Won || rule.Lost || rule.Manifestation != god.Owner ||
+            (!_ticker.IsGameRuleActive(owner) && _ticker.RunLevel != GameRunLevel.PostRound) ||
             god.Comp.Grid is not { } gridId || TerminatingOrDeleted(gridId) || EntityManager.IsQueuedForDeletion(gridId) ||
             god.Comp.Map is not { } mapId || TerminatingOrDeleted(mapId) || EntityManager.IsQueuedForDeletion(mapId) ||
             !TryComp<MapGridComponent>(gridId, out var mapGrid) ||
@@ -102,16 +192,42 @@ public sealed partial class OrbitraRatvarManifestationSystem : EntitySystem
             if (_timing.CurTime < comp.NextUpdate && _timing.CurTime < comp.NextMove)
                 continue;
             if (!CanAct((uid, comp), out var grid))
+            {
+                comp.MusicStream = _audio.Stop(comp.MusicStream);
                 continue;
+            }
+            if (comp.MusicStream == null)
+            {
+                var music = _audio.PlayPvs(comp.Music, uid, AudioParams.Default.WithLoop(true).WithVolume(-12));
+                comp.MusicStream = music?.Entity;
+                if (music != null) _audio.SetMapAudio(music);
+            }
             TryTransformTerritory((uid, comp));
             if (_timing.CurTime < comp.NextMove)
                 continue;
             comp.NextMove = _timing.CurTime + comp.MoveInterval;
-            _gravityWell.GravPulse(uid, Math.Clamp(comp.PullRange, 0, 10), 1,
-                baseRadialDeltaV: Math.Clamp(comp.PullVelocity, 0, 6));
-            var target = _transform.GetGridTilePositionOrDefault(uid, grid.Comp) + Directions[_random.Next(Directions.Length)];
-            if (!_map.GetTileRef(grid, grid.Comp, target).Tile.IsEmpty)
-                _transform.SetCoordinates(uid, _map.GridTileToLocal(grid, grid.Comp, target));
+            if (_timing.CurTime >= comp.NextPull)
+            {
+                comp.NextPull = _timing.CurTime + TimeSpan.FromSeconds(1);
+                _gravityWell.GravPulse(uid, Math.Clamp(comp.PullRange, 0, 10), 1,
+                    baseRadialDeltaV: Math.Clamp(comp.PullVelocity, 0, 6));
+            }
+            if (_timing.CurTime >= comp.NextTurn || comp.Heading == Vector2.Zero)
+            {
+                var angle = _random.NextFloat() * MathF.Tau;
+                comp.Heading = new Vector2(MathF.Cos(angle), MathF.Sin(angle));
+                comp.NextTurn = _timing.CurTime + TimeSpan.FromSeconds(3);
+            }
+            var position = Transform(uid).LocalPosition;
+            var distance = Math.Clamp(comp.MoveSpeed, 0, 4) * (float) Math.Clamp(comp.MoveInterval.TotalSeconds, 0.01, 0.25);
+            var destination = position + comp.Heading * distance;
+            if (!grid.Comp.LocalAABB.Contains(destination))
+            {
+                comp.Heading = -comp.Heading;
+                destination = position + comp.Heading * distance;
+            }
+            if (grid.Comp.LocalAABB.Contains(destination))
+                _transform.SetCoordinates(uid, new EntityCoordinates(grid, destination));
         }
     }
 
@@ -158,7 +274,7 @@ public sealed partial class OrbitraRatvarManifestationSystem : EntitySystem
         if (HasComp<ContainerManagerComponent>(target) || Transform(target).ChildCount != 0 ||
             HasComp<AccessReaderComponent>(target) || HasComp<WiresComponent>(target) || HasComp<LockComponent>(target))
             return false;
-        if (recipes.Walls.Contains(id) && construction.Graph.Id == "Girder" && construction.Node == "wall")
+        if (recipes.Walls.TryGetValue(id, out var wallNode) && construction.Graph.Id == "Girder" && construction.Node == wallNode)
         {
             kind = ConversionKind.Wall;
             return true;

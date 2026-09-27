@@ -1,5 +1,6 @@
 - type: orbitraRatvarScripture
   id: OrbitraRatvarRepair
+  category: Structures
   name: orbitra-ratvar-scripture-repair
   description: orbitra-ratvar-scripture-repair-desc
   tier: 2
@@ -10,6 +11,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarBrass
+  category: Equipment
   name: orbitra-ratvar-scripture-brass
   description: orbitra-ratvar-scripture-brass-desc
   tier: 1
@@ -20,6 +22,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarConversionSigil
+  category: Structures
   name: orbitra-ratvar-scripture-conversionsigil
   description: orbitra-ratvar-scripture-conversionsigil-desc
   tier: 1
@@ -30,6 +33,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarIntegrationCog
+  category: Power
   name: orbitra-ratvar-scripture-cog
   description: orbitra-ratvar-scripture-cog-desc
   tier: 1
@@ -40,6 +44,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarTransmissionSigil
+  category: Power
   name: orbitra-ratvar-scripture-transmission
   description: orbitra-ratvar-scripture-transmission-desc
   tier: 1
@@ -52,6 +57,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarArmor
+  category: Equipment
   name: orbitra-ratvar-scripture-armor
   description: orbitra-ratvar-scripture-armor-desc
   tier: 2
@@ -62,6 +68,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarHelmet
+  category: Equipment
   name: orbitra-ratvar-scripture-helmet
   description: orbitra-ratvar-scripture-helmet-desc
   tier: 2
@@ -72,6 +79,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarSpear
+  category: Equipment
   name: orbitra-ratvar-scripture-spear
   description: orbitra-ratvar-scripture-spear-desc
   tier: 2
@@ -82,6 +90,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarShield
+  category: Equipment
   name: orbitra-ratvar-scripture-shield
   description: orbitra-ratvar-scripture-shield-desc
   tier: 2
@@ -92,6 +101,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarSlowingSigil
+  category: Structures
   name: orbitra-ratvar-scripture-slowingsigil
   description: orbitra-ratvar-scripture-slowingsigil-desc
   tier: 2
@@ -102,6 +112,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarObelisk
+  category: Structures
   name: orbitra-ratvar-scripture-obelisk
   description: orbitra-ratvar-scripture-obelisk-desc
   tier: 2
@@ -112,6 +123,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarTurret
+  category: Structures
   name: orbitra-ratvar-scripture-turret
   description: orbitra-ratvar-scripture-turret-desc
   tier: 3
@@ -125,6 +137,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarMarauder
+  category: Constructs
   name: orbitra-ratvar-scripture-marauder
   description: orbitra-ratvar-scripture-marauder-desc
   tier: 3
@@ -135,6 +148,7 @@
 
 - type: orbitraRatvarScripture
   id: OrbitraRatvarArk
+  category: Structures
   name: orbitra-ratvar-scripture-ark
   description: orbitra-ratvar-scripture-ark-desc
   tier: 3

@@ -7,6 +7,12 @@ namespace Content.Server._Orbitra.Ratvar;
 [RegisterComponent]
 public sealed partial class OrbitraRatvarRuleComponent : Component
 {
+    /// <summary>Admin-only tier override; null preserves normal progression and participant requirements.</summary>
+    public int? TestTier;
+    /// <summary>Biological resource shared only by this cult, never convertible into electricity.</summary>
+    public Content.Shared.FixedPoint.FixedPoint2 Vitality;
+    /// <summary>Maximum stored biological resource.</summary>
+    [DataField] public Content.Shared.FixedPoint.FixedPoint2 VitalityCapacity = 10000;
     [DataField] public int StartingEnergy = 200;
     [DataField] public int MaxEnergy = 10000;
     [DataField] public int TierTwoEnergy = 600;

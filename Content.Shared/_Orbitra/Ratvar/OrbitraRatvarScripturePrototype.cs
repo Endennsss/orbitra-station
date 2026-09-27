@@ -11,6 +11,8 @@ public sealed partial class OrbitraRatvarScripturePrototype : IPrototype
     [DataField(required: true)] public LocId Name;
     [DataField(required: true)] public LocId Description;
     [DataField] public int Tier = 1;
+    /// <summary>Catalogue group; does not grant permission to use the scripture.</summary>
+    [DataField] public OrbitraRatvarScriptureCategory Category;
     [DataField] public int Energy;
     [DataField] public TimeSpan Delay = TimeSpan.FromSeconds(3);
     /// <summary>Extra invocation time per existing bound shell of the same kind.</summary>
@@ -38,6 +40,8 @@ public sealed partial class OrbitraRatvarScripturePrototype : IPrototype
 }
 
 public enum OrbitraRatvarEmpowerment : byte { None, Kindle, Manacles, Compromise, Vanguard }
+
+public enum OrbitraRatvarScriptureCategory : byte { Equipment, Structures, Spells, Power, Constructs, Traps }
 
 [Serializable, NetSerializable]
 public enum OrbitraRatvarUiKey : byte { Key }
