@@ -34,17 +34,23 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
     private readonly EntityLookupSystem _lookup;
     private readonly TransformSystem _transform;
     private readonly SharedMapSystem _map;
+    private readonly SpriteSystem _sprite;
     private readonly EntityQuery<TransformComponent> _transformQuery;
     private readonly EntityQuery<MapGridComponent> _gridQuery;
     private readonly HashSet<Entity<SpriteComponent>> _sprites = new();
     private readonly HashSet<Entity<TileEmissionComponent>> _tiles = new();
     private readonly OverlayResourceCache<CachedResources> _resources = new();
+    private readonly OverlayResourceCache<CachedResources> _tileResources = new();
+    private readonly List<BloomSprite> _orderedSprites = new();
+    private readonly List<int> _sourceIndices = new();
+    private readonly List<BloomBatchEntry> _batch = new();
 
     private readonly ShaderInstance _extract;
     private readonly ShaderInstance _downsample;
     private readonly ShaderInstance _blurHorizontal;
     private readonly ShaderInstance _blurVertical;
     private readonly ShaderInstance _composite;
+    private readonly ShaderInstance _occlude;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpaceBelowFOV;
 
@@ -58,6 +64,7 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
         _lookup = entityManager.System<EntityLookupSystem>();
         _transform = entityManager.System<TransformSystem>();
         _map = entityManager.System<SharedMapSystem>();
+        _sprite = entityManager.System<SpriteSystem>();
         _transformQuery = entityManager.GetEntityQuery<TransformComponent>();
         _gridQuery = entityManager.GetEntityQuery<MapGridComponent>();
 
@@ -68,6 +75,7 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
         _blurHorizontal = _prototypeManager.Index(BlurShader).InstanceUnique();
         _blurVertical = _prototypeManager.Index(BlurShader).InstanceUnique();
         _composite = _prototypeManager.Index(CompositeShader).InstanceUnique();
+        _occlude = _prototypeManager.Index(SpriteSystem.UnshadedId).Instance();
 
         ZIndex = 100;
     }
@@ -82,9 +90,18 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
         var bounds = args.WorldAABB.Enlarged(3f);
         _lookup.GetEntitiesIntersecting(args.MapId, bounds, _sprites);
         _lookup.GetEntitiesIntersecting(args.MapId, bounds, _tiles);
-        _sprites.RemoveWhere(static source => !CanDrawSprite(source.Comp) || !HasBloomLayer(source.Comp));
+        _sprites.RemoveWhere(static source => !CanDrawSprite(source.Comp));
         _tiles.RemoveWhere(static source => source.Comp.Deleted || source.Comp.Color.A <= 0f);
-        return _sprites.Count != 0 || _tiles.Count != 0;
+        if (_tiles.Count != 0)
+            return true;
+
+        foreach (var sprite in _sprites)
+        {
+            if (HasBloomLayer(sprite.Comp))
+                return true;
+        }
+
+        return false;
     }
 
     protected override void Draw(in OverlayDrawArgs args)
@@ -98,57 +115,115 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
         var divisor = Quality == OrbitraBloomQuality.High ? 2 : 4;
         var contentSize = Vector2i.ComponentMax(Vector2i.One, viewport.Size / divisor);
         var targetSize = contentSize + new Vector2i(TargetPadding * 2, TargetPadding * 2);
-        EnsureTargets(resources, targetSize, targetSize * divisor);
-
-        var ping = resources.Ping!;
-        var pong = resources.Pong!;
         var handle = args.WorldHandle;
-
         var worldToTarget = GetWorldToTargetMatrix(viewport.GetWorldToLocalMatrix(), viewport.Size, contentSize);
-        var worldToSource = worldToTarget * Matrix3x2.CreateScale(divisor);
-        if (!Matrix3x2.Invert(worldToTarget, out var targetToWorld))
-            return;
-        var screen = args.RenderHandle.DrawingHandleScreen;
         var oldTransform = handle.GetTransform();
         var oldShader = handle.GetShader();
+        var pixelsPerMeter = EyeManager.PixelsPerMeter * viewport.RenderScale / eye.Zoom *
+                             ((Vector2) contentSize / (Vector2) viewport.Size);
+
+        PrepareSprites(eye, viewport, worldToTarget, targetSize);
+        var localSize = Vector2i.One;
+        foreach (var index in _sourceIndices)
+        {
+            localSize = Vector2i.ComponentMax(localSize, GetBloomTargetSize(_orderedSprites[index].Bounds));
+        }
+        localSize = Vector2i.ComponentMin(localSize, targetSize);
+        var atlasGrid = GetAtlasGrid(_sourceIndices.Count, localSize, divisor);
+        var atlasSize = new Vector2i(localSize.X * atlasGrid.X, localSize.Y * atlasGrid.Y);
 
         try
         {
-            // RGB хранит энергию, alpha всегда единица: Clyde Add использует SrcAlpha/DstAlpha.
-            handle.RenderInRenderTarget(resources.Source!, () =>
+            if (_tiles.Count != 0)
             {
-                foreach (var sprite in _sprites)
-                    DrawBloomLayers(handle, sprite, eye, viewport, worldToSource);
-                DrawTileEmission(handle, eye, viewport, worldToSource);
-            }, Color.Black);
+                var tiles = _tileResources.GetForViewport(viewport, static _ => new CachedResources());
+                EnsureTargets(tiles, targetSize, targetSize * divisor);
+                _batch.Clear();
+                AddBatchEntry(-1, worldToTarget, Vector2i.Zero, targetSize);
+                DrawBatch(args.RenderHandle, tiles, eye, viewport, pixelsPerMeter, divisor, Vector2i.One);
+            }
 
-            // Сначала собираем тонкие пиксели, затем усредняем всю площадь, а не один случайный texel.
-            _downsample.SetParameter("sample_step", new Vector2(divisor * 0.25f) / (Vector2) resources.Source!.Size);
-            screen.RenderInRenderTarget(ping, () =>
+            if (_sourceIndices.Count == 0)
+                return;
+
+            EnsureTargets(resources, atlasSize, atlasSize * divisor);
+            var batchCapacity = atlasGrid.X * atlasGrid.Y;
+            for (var start = 0; start < _sourceIndices.Count; start += batchCapacity)
             {
-                screen.SetTransform(Matrix3x2.Identity);
-                screen.UseShader(_downsample);
-                screen.DrawTextureRect(resources.Source.Texture, UIBox2.FromDimensions(Vector2.Zero, targetSize));
-            }, Color.Black);
+                _batch.Clear();
+                var count = Math.Min(batchCapacity, _sourceIndices.Count - start);
+                for (var slot = 0; slot < count; slot++)
+                {
+                    var index = _sourceIndices[start + slot];
+                    var sprite = _orderedSprites[index];
+                    var origin = Vector2.Max(Vector2.Zero, new Vector2(
+                        MathF.Floor(sprite.Bounds.Left) - TargetPadding,
+                        MathF.Floor(sprite.Bounds.Bottom) - TargetPadding));
+                    var atlasOrigin = new Vector2i(slot % atlasGrid.X * localSize.X, slot / atlasGrid.X * localSize.Y);
+                    var matrix = worldToTarget * Matrix3x2.CreateTranslation((Vector2) atlasOrigin - origin);
+                    AddBatchEntry(index, matrix, atlasOrigin, localSize);
+                }
 
-            var pixelsPerMeter = EyeManager.PixelsPerMeter * viewport.RenderScale / eye.Zoom *
-                                 ((Vector2) contentSize / (Vector2) viewport.Size);
-            var texelSize = Vector2.One / (Vector2) targetSize;
-            DrawBlurPass(screen, ping.Texture, pong, _blurHorizontal, texelSize, Vector2.UnitX,
-                CalculateBlurRadius(Quality, pixelsPerMeter.X));
-            DrawBlurPass(screen, pong.Texture, ping, _blurVertical, texelSize, Vector2.UnitY,
-                CalculateBlurRadius(Quality, pixelsPerMeter.Y));
-
-            // Экранный quad преобразуется точной обратной матрицей маски, включая padding и поворот.
-            screen.SetTransform(targetToWorld);
-            _composite.SetParameter("bloom_strength", GetBloomStrength(Strength));
-            screen.UseShader(_composite);
-            screen.DrawTextureRect(ping.Texture, UIBox2.FromDimensions(Vector2.Zero, targetSize));
+                DrawBatch(args.RenderHandle, resources, eye, viewport, pixelsPerMeter, divisor, atlasGrid);
+            }
         }
         finally
         {
             handle.UseShader(oldShader);
             handle.SetTransform(oldTransform);
+        }
+    }
+
+    private void DrawBatch(
+        IRenderHandle render,
+        CachedResources resources,
+        IEye eye,
+        IClydeViewport viewport,
+        Vector2 pixelsPerMeter,
+        int divisor,
+        Vector2i atlasGrid)
+    {
+        var handle = render.DrawingHandleWorld;
+        var screen = render.DrawingHandleScreen;
+        var source = resources.Source!;
+        var occlusion = resources.Occlusion!;
+        var ping = resources.Ping!;
+        var pong = resources.Pong!;
+        var targetSize = ping.Size;
+
+        // Маска пропускания хранится в полном разрешении: края предметов не размываются вместе с ореолом.
+        handle.RenderInRenderTarget(occlusion, () =>
+        {
+            DrawBatchLayers(render, eye, viewport, divisor, false);
+        }, Color.White);
+
+        handle.RenderInRenderTarget(source, () =>
+        {
+            DrawBatchLayers(render, eye, viewport, divisor, true);
+        }, Color.Black);
+
+        // Закрытая часть источника не создаёт ореол; после размытия маска применяется ещё раз.
+        _downsample.SetParameter("sample_step", new Vector2(divisor * 0.25f) / (Vector2) source.Size);
+        screen.RenderInRenderTarget(ping, () =>
+        {
+            screen.SetTransform(Matrix3x2.Identity);
+            screen.UseShader(_downsample);
+            screen.DrawTextureRect(source.Texture, UIBox2.FromDimensions(Vector2.Zero, targetSize));
+        }, Color.Black);
+
+        var texelSize = Vector2.One / (Vector2) targetSize;
+        DrawBlurPass(screen, ping.Texture, pong, _blurHorizontal, texelSize, Vector2.UnitX,
+            CalculateBlurRadius(Quality, pixelsPerMeter.X), atlasGrid);
+        DrawBlurPass(screen, pong.Texture, ping, _blurVertical, texelSize, Vector2.UnitY,
+            CalculateBlurRadius(Quality, pixelsPerMeter.Y), atlasGrid);
+
+        _composite.SetParameter("bloom_strength", GetBloomStrength(Strength));
+        _composite.SetParameter("occlusion_texture", occlusion.Texture);
+        screen.UseShader(_composite);
+        foreach (var entry in _batch)
+        {
+            screen.SetTransform(entry.TargetToWorld);
+            screen.DrawTextureRectRegion(ping.Texture, entry.Region, entry.Region);
         }
     }
 
@@ -159,11 +234,13 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
         ShaderInstance shader,
         Vector2 texelSize,
         Vector2 direction,
-        float radius)
+        float radius,
+        Vector2i atlasGrid)
     {
         shader.SetParameter("texel_size", texelSize);
         shader.SetParameter("blur_direction", direction);
         shader.SetParameter("blur_radius", radius);
+        shader.SetParameter("atlas_grid", (Vector2) atlasGrid);
 
         handle.RenderInRenderTarget(destination, () =>
         {
@@ -203,17 +280,14 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
         return false;
     }
 
-    private void DrawBloomLayers(
+    private void DrawSpriteLayers(
         DrawingHandleWorld handle,
-        Entity<SpriteComponent> source,
-        IEye eye,
-        IClydeViewport viewport,
-        Matrix3x2 worldToTarget)
+        BloomSprite source,
+        Angle eyeRotation,
+        Matrix3x2 worldToTarget,
+        bool emissive)
     {
-        var (worldPosition, worldRotation) = _transform.GetWorldPositionRotation(source);
-        worldPosition += GetGridPixelSnapOffset(source, eye, viewport);
-
-        foreach (var spriteLayer in source.Comp.AllLayers)
+        foreach (var spriteLayer in source.Entity.Comp.AllLayers)
         {
             if (spriteLayer is not SpriteComponent.Layer
                 {
@@ -221,10 +295,10 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
                     Blank: false,
                     ShaderPrototype: var shader,
                     CopyToShaderParameters: null,
-                } layer || shader != SpriteSystem.UnshadedId)
+                } layer || emissive && shader != SpriteSystem.UnshadedId)
                 continue;
 
-            DrawLayer(handle, source.Comp, layer, worldPosition, worldRotation, eye.Rotation, worldToTarget);
+            DrawLayer(handle, source.Entity.Comp, layer, source.WorldPosition, source.WorldRotation, eyeRotation, worldToTarget, emissive);
         }
     }
 
@@ -235,7 +309,8 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
         Vector2 worldPosition,
         Angle worldRotation,
         Angle eyeRotation,
-        Matrix3x2 worldToTarget)
+        Matrix3x2 worldToTarget,
+        bool emissive)
     {
         var angle = (worldRotation + eyeRotation).Reduced().FlipPositive();
         var state = layer.ActualState;
@@ -268,11 +343,14 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
         }
 
         var color = sprite.Color * layer.Color;
-        if (color.A <= 0f || GetBrightness(color) <= 0f)
+        if (color.A <= 0f || emissive && GetBrightness(color) <= 0f)
             return;
 
+        if (!emissive)
+            color = new Color(0f, 0f, 0f, color.A);
+
         // Цвет хранится в вершинах команды, а не в общем изменяемом uniform.
-        handle.UseShader(_extract);
+        handle.UseShader(emissive ? _extract : _occlude);
         handle.SetTransform(GetSourceToTargetMatrix(
             layerMatrix,
             sprite.LocalMatrix,
@@ -375,6 +453,7 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
         var format = new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8Srgb);
         var samples = new TextureSampleParameters { Filter = true };
         resources.Source = _clyde.CreateRenderTarget(sourceSize, format, samples, "orbitra-bloom-source");
+        resources.Occlusion = _clyde.CreateRenderTarget(sourceSize, format, new TextureSampleParameters { Filter = false }, "orbitra-bloom-occlusion");
         resources.Ping = _clyde.CreateRenderTarget(size, format, samples, "orbitra-bloom-ping");
         resources.Pong = _clyde.CreateRenderTarget(size, format, samples, "orbitra-bloom-pong");
     }
@@ -382,6 +461,7 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
     protected override void DisposeBehavior()
     {
         _resources.Dispose();
+        _tileResources.Dispose();
         _extract.Dispose();
         _downsample.Dispose();
         _blurHorizontal.Dispose();
@@ -393,6 +473,7 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
     private sealed class CachedResources : IDisposable
     {
         public IRenderTexture? Source;
+        public IRenderTexture? Occlusion;
         public IRenderTexture? Ping;
         public IRenderTexture? Pong;
 
@@ -400,6 +481,8 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
         {
             Source?.Dispose();
             Source = null;
+            Occlusion?.Dispose();
+            Occlusion = null;
             Ping?.Dispose();
             Pong?.Dispose();
             Ping = null;

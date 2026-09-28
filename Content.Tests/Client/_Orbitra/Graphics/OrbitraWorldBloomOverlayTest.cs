@@ -2,6 +2,7 @@ using System;
 using System.Numerics;
 using Content.Client._Orbitra.Shaders.Bloom;
 using NUnit.Framework;
+using Robust.Shared.GameObjects;
 using Robust.Shared.Maths;
 
 namespace Content.Tests.Client._Orbitra.Graphics;
@@ -10,6 +11,48 @@ namespace Content.Tests.Client._Orbitra.Graphics;
 [TestOf(typeof(OrbitraWorldBloomOverlay))]
 public sealed class OrbitraWorldBloomOverlayTest
 {
+    [TestCase(1, 64, 64, 4, 1, 1)]
+    [TestCase(100, 64, 64, 4, 4, 4)]
+    [TestCase(100, 64, 64, 2, 8, 8)]
+    [TestCase(100, 512, 128, 4, 1, 2)]
+    [TestCase(0, 64, 64, 4, 1, 1)]
+    public void BloomAtlasBatchesSourcesWithinTextureBudget(
+        int count, int width, int height, int divisor, int columns, int rows)
+    {
+        var grid = OrbitraWorldBloomOverlay.GetAtlasGrid(count, new Vector2i(width, height), divisor);
+        Assert.That(grid, Is.EqualTo(new Vector2i(columns, rows)));
+        Assert.That(grid.X * width * divisor, Is.LessThanOrEqualTo(Math.Max(1024, width * divisor)));
+        Assert.That(grid.Y * height * divisor, Is.LessThanOrEqualTo(Math.Max(1024, height * divisor)));
+    }
+
+    [TestCase(2, 0u, 0f, 1, 1, 100u, 100f, 2, 1)]
+    [TestCase(1, 0u, 100f, 2, 1, 1u, 0f, 1, -1)]
+    [TestCase(1, 0u, 20f, 1, 1, 0u, 10f, 2, 1)]
+    [TestCase(1, 0u, 10f, 1, 1, 0u, 10f, 2, -1)]
+    [TestCase(1, 0u, 10f, 1, 1, 0u, 10f, 1, 0)]
+    public void BloomOcclusionFollowsSpriteDrawOrder(
+        int sourceDepth, uint sourceOrder, float sourceY, int sourceUid,
+        int blockerDepth, uint blockerOrder, float blockerY, int blockerUid, int expected)
+    {
+        var comparison = OrbitraWorldBloomOverlay.CompareDrawOrder(
+            sourceDepth, sourceOrder, sourceY, new EntityUid(sourceUid),
+            blockerDepth, blockerOrder, blockerY, new EntityUid(blockerUid));
+        Assert.That(Math.Sign(comparison), Is.EqualTo(expected));
+    }
+
+    [TestCase(8.2f, 9.9f)]
+    [TestCase(63.9f, 32.1f)]
+    public void LocalBloomTargetContainsSourceAndBlurPadding(float width, float height)
+    {
+        var bounds = Box2.FromDimensions(new Vector2(10.9f, 20.1f), new Vector2(width, height));
+        var size = OrbitraWorldBloomOverlay.GetBloomTargetSize(bounds);
+        var padding = OrbitraWorldBloomOverlay.TargetPadding;
+        Assert.That(size.X, Is.GreaterThanOrEqualTo(MathF.Ceiling(width) + 2 * padding));
+        Assert.That(size.Y, Is.GreaterThanOrEqualTo(MathF.Ceiling(height) + 2 * padding));
+        Assert.That(size.X % 16, Is.Zero);
+        Assert.That(size.Y % 16, Is.Zero);
+    }
+
     [Test]
     public void SourceReturnsToSameWorldPositionAfterEmissionMaskRoundTrip()
     {
