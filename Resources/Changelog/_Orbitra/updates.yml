@@ -2,6 +2,12 @@ Name: OrbitraUpdates
 AdminOnly: false
 Order: -1
 Entries:
+- id: 92
+  author: Endennsss
+  time: '2026-09-28T19:48:09Z'
+  changes:
+  - type: Tweak
+    message: 'Тест уведомлений Orbitra: проверяем доставку changelog, эмодзи и серое оформление карточки. Игровых изменений нет.'
 - id: 91
   author: Endennsss
   time: '2026-09-28T19:28:13Z'
