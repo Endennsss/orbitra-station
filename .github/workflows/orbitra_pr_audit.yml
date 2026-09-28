@@ -1,4 +1,4 @@
-name: Orbitra PR Audit
+name: "🔎 Orbitra PR Audit"
 
 on:
   pull_request_target:
@@ -28,7 +28,7 @@ jobs:
       with:
         python-version: '3.12'
     - run: python -m pip install PyYAML==6.0.3 requests==2.32.5
-    - name: Record review changes or merge attribution
+    - name: "🔎 История ревью и авторство"
       run: python -B Tools/_Orbitra/pr_audit.py
       env:
         GITHUB_TOKEN: ${{ github.token }}

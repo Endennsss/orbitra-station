@@ -81,7 +81,8 @@ gh api repos/Endennsss/orbitra-station/rulesets --method POST --input .github/or
 
 `pull_request_target` читает только скрипт из базового SHA. Код PR и его артефакты не запускаются,
 права ограничены чтением содержимого и записью в PR, Discord-секрет этому workflow не передаётся.
-Итоги PR остаются на GitHub; Discord продолжает получать только новые записи игрового ченджлога.
+Итоги ревью и merge остаются на GitHub. Discord получает новые записи игрового ченджлога
+и отдельное уведомление при открытии PR в `master`, включая черновики.
 
 Документация: [GitHub rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets),
 [события снятого ревью](https://docs.github.com/en/rest/using-the-rest-api/issue-event-types#review_dismissed).

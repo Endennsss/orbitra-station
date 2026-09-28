@@ -45,7 +45,7 @@ class DiscordChangelogTest(unittest.TestCase):
     def test_russian_categories_and_author(self):
         messages = publisher.payloads(publisher.load_entries(self.document([self.entry])))
         embed = messages[0]['embeds'][0]
-        self.assertEqual(['✦ Добавлено', '✓ Исправлено'], [field['name'] for field in embed['fields']])
+        self.assertEqual(['✨ Добавлено', '🔧 Исправлено'], [field['name'] for field in embed['fields']])
         self.assertIn('**Авторы:** Endennsss', embed['description'])
         self.assertEqual({'parse': []}, messages[0]['allowed_mentions'])
 
@@ -78,7 +78,7 @@ class DiscordChangelogTest(unittest.TestCase):
     def test_small_items_remain_whole_and_keep_category(self):
         entry = dict(self.entry, changes=[{'type': 'Fix', 'message': str(i) + 'я' * 400} for i in range(30)])
         fields = [field for message in publisher.payloads([entry]) for field in message['embeds'][0]['fields']]
-        self.assertTrue(all(field['name'] == '✓ Исправлено' for field in fields))
+        self.assertTrue(all(field['name'] == '🔧 Исправлено' for field in fields))
         for i in range(30):
             self.assertEqual(1, sum(('• ' + str(i) + 'я' * 400) in field['value'] for field in fields))
 

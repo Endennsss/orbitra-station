@@ -16,7 +16,8 @@ import yaml
 
 CHANGELOG = 'Resources/Changelog/_Orbitra/updates.yml'
 CATEGORIES = {'Add': 'Добавлено', 'Fix': 'Исправлено', 'Tweak': 'Изменено', 'Remove': 'Удалено'}
-CATEGORY_ICONS = {'Add': '✦', 'Fix': '✓', 'Tweak': '↻', 'Remove': '−'}
+CATEGORY_ICONS = {'Add': '✨', 'Fix': '🔧', 'Tweak': '⚙️', 'Remove': '🗑️'}
+EMBED_COLOR = 0x353535
 REPOSITORY_URL = 'https://github.com/Endennsss/orbitra-station'
 
 
@@ -52,6 +53,7 @@ def select_entries(current, previous):
 
 def plain_text(text):
     # Не позволяем тексту записи менять оформление или создавать упоминания.
+    text = text.replace('—', '-').replace('–', '-')
     return re.sub(r'([\\`*_~|<>\[\]])', r'\\\1', text.strip()).replace('@', '@\u200b')
 
 
@@ -120,12 +122,12 @@ def payloads(entries, revision=''):
         for index, fields in enumerate(pages, 1):
             suffix = f' · {index}/{len(pages)}' if len(pages) > 1 else ''
             embed = {
-                'author': {'name': 'ORBITRA • Журнал обновлений', 'url': REPOSITORY_URL},
-                'title': f'Обновление #{entry["id"]}{suffix}',
+                'author': {'name': '🛰️ ORBITRA • Журнал обновлений', 'url': REPOSITORY_URL},
+                'title': f'📦 Обновление #{entry["id"]}{suffix}',
                 'url': url,
-                'description': f'**Авторы:** {authors}\nИзменений в записи: **{len(entry["changes"])}**',
+                'description': f'👤 **Авторы:** {authors}\n📝 Изменений: **{len(entry["changes"])}**',
                 'fields': fields,
-                'color': 0xC7A35C,
+                'color': EMBED_COLOR,
                 'footer': {'text': 'Orbitra • Изменения в репозитории, не статус сервера'},
             }
             if timestamp := entry_timestamp(entry):

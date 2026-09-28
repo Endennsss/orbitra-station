@@ -1,0 +1,32 @@
+name: "🆕 Orbitra New PR"
+
+on:
+  pull_request_target:
+    branches: [master]
+    types: [opened]
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    name: "📨 Уведомление о новом PR"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - name: "📥 Доверенная базовая ревизия"
+      uses: actions/checkout@v7
+      with:
+        # Код PR не выполняется и не получает доступ к секрету Discord.
+        ref: ${{ github.event.pull_request.base.sha }}
+        persist-credentials: false
+    - name: "🐍 Python"
+      uses: actions/setup-python@v6
+      with:
+        python-version: '3.12'
+    - name: "📚 Зависимости"
+      run: python -m pip install PyYAML==6.0.3 requests==2.32.5
+    - name: "📨 Новый PR в Discord"
+      run: python -B Tools/_Orbitra/discord_pr.py
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.ORBITRA_CHANGELOG_WEBHOOK }}

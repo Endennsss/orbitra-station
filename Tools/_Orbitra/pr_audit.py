@@ -15,7 +15,7 @@ SHA = re.compile(r'[0-9a-f]{40}')
 
 
 def clean(text, limit=180):
-    return split_text(plain_text(' '.join(str(text).split())), limit)[0] if str(text).strip() else '—'
+    return split_text(plain_text(' '.join(str(text).split())), limit)[0] if str(text).strip() else '-'
 
 
 def latest_approval(reviews, events):
@@ -37,14 +37,14 @@ def commit_lines(commits):
             continue
         author = (commit.get('author') or {}).get('login') or commit['commit']['author']['name']
         subject = commit['commit']['message'].split('\n', 1)[0]
-        lines.append(f'- `{sha[:12]}` — {clean(author, 80)}: {clean(subject)}')
+        lines.append(f'- `{sha[:12]}` - {clean(author, 80)}: {clean(subject)}')
     return lines
 
 
 def audit_body(repository, number, head, sender, review, comparison):
     base = review['commit_id']
     url = f'https://github.com/{repository}'
-    lines = [f'<!-- orbitra-review-audit:{number}:{head} -->', '### Изменения после одобрения', '',
+    lines = [f'<!-- orbitra-review-audit:{number}:{head} -->', '### 🔎 Изменения после одобрения', '',
              f'Последнее одобрение: **{clean(review["user"]["login"])}**, '
              f'коммит [`{base[:12]}`]({url}/commit/{base}).',
              f'Новые изменения отправил: **{clean(sender)}**. Текущая ревизия: `{head[:12]}`.', '',
@@ -77,7 +77,7 @@ def merged_body(repository, pr, commits, reviews):
     reviewers = sorted(name for name, decision in decisions.items()
                        if decision.get('state', '').upper() == 'APPROVED'
                        and decision.get('commit_id') == pr['head']['sha'])
-    lines = [f'<!-- orbitra-merge-summary:{pr["number"]}:{sha} -->', '### Итог принятого PR', '',
+    lines = [f'<!-- orbitra-merge-summary:{pr["number"]}:{sha} -->', '### ✅ Итог принятого PR', '',
              f'**Изменение:** {clean(pr["title"], 240)}',
              f'**Автор PR:** {clean(pr["user"]["login"])}',
              f'**Принял:** {clean((pr.get("merged_by") or {}).get("login", "Не указан"))}',
