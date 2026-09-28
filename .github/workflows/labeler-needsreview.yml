@@ -1,4 +1,4 @@
-﻿name: "Labels: Review"
+name: "🏷️ Labels: Review"
 
 on:
   pull_request_target:
@@ -10,10 +10,10 @@ jobs:
     steps:
     - uses: actions-ecosystem/action-add-labels@v1
       with:
-        labels: "S: Needs Review"
+        labels: "👀 Нужен обзор"
     - uses: actions-ecosystem/action-remove-labels@v1
       with:
-        labels: "S: Awaiting Changes"
+        labels: "🔧 Нужны правки"
 permissions:
   contents: read
   pull-requests: write

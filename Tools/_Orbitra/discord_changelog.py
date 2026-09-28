@@ -183,8 +183,11 @@ def main():
         if not re.fullmatch(r'[0-9a-f]{40}', before) or before == '0' * 40:
             raise ValueError('Нет предыдущего коммита. Используйте ручной запуск с конкретным ID.')
         # Ошибка чтения истории не должна приводить к публикации всего архива.
-        previous = subprocess.run(['git', 'show', f'{before}:{CHANGELOG}'], check=True,
-                                  capture_output=True, encoding='utf-8').stdout
+        if previous_file := os.environ.get('CHANGELOG_BEFORE_FILE', ''):
+            previous = Path(previous_file).read_text(encoding='utf-8-sig')
+        else:
+            previous = subprocess.run(['git', 'show', f'{before}:{CHANGELOG}'], check=True,
+                                      capture_output=True, encoding='utf-8').stdout
         selected = select_entries(current, load_entries(previous))
     messages = payloads(selected, os.environ.get('GITHUB_SHA', ''))
     if os.environ.get('CHANGELOG_DRY_RUN', '').lower() == 'true':

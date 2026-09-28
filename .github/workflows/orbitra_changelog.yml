@@ -21,12 +21,37 @@ jobs:
   publish:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
     - uses: actions/checkout@v7
       with:
-        fetch-depth: 0
+        fetch-depth: 1
+        sparse-checkout: |
+          Tools/_Orbitra
+          Resources/Changelog/_Orbitra
         persist-credentials: false
+    - name: "📄 Предыдущая версия changelog"
+      if: github.event_name == 'push'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const path = require('path');
+          const before = context.payload.before;
+          if (!/^[0-9a-f]{40}$/.test(before || '') || /^0+$/.test(before)) {
+            throw new Error('Нет предыдущего коммита. Используйте ручной запуск с ID записи.');
+          }
+          const {data} = await github.rest.repos.getContent({
+            ...context.repo,
+            path: 'Resources/Changelog/_Orbitra/updates.yml',
+            ref: before
+          });
+          if (data.type !== 'file' || data.encoding !== 'base64' || !data.content) {
+            throw new Error('Не удалось прочитать предыдущий changelog. Отправка остановлена.');
+          }
+          const filename = path.join(process.env.RUNNER_TEMP, 'orbitra-changelog-before.yml');
+          fs.writeFileSync(filename, Buffer.from(data.content, 'base64'));
+          core.exportVariable('CHANGELOG_BEFORE_FILE', filename);
     - uses: actions/setup-python@v6
       with:
         python-version: '3.12'

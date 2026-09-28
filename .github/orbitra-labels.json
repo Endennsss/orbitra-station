@@ -1,0 +1,220 @@
+[
+  {
+    "name": "💻 C#",
+    "color": "7B61A8",
+    "description": "Изменён код C#"
+  },
+  {
+    "name": "📄 YAML",
+    "color": "D6A347",
+    "description": "Изменены файлы YAML"
+  },
+  {
+    "name": "📝 Без C#",
+    "color": "6B7280",
+    "description": "В PR нет изменений файлов C#"
+  },
+  {
+    "name": "📃 Без YAML",
+    "color": "6B7280",
+    "description": "В PR нет изменений файлов YAML"
+  },
+  {
+    "name": "🧩 Прототипы",
+    "color": "B88A42",
+    "description": "Изменены игровые прототипы"
+  },
+  {
+    "name": "🗺️ Карты",
+    "color": "438C70",
+    "description": "Изменены карты или их прототипы"
+  },
+  {
+    "name": "🎨 Спрайты",
+    "color": "BD7398",
+    "description": "Изменены текстуры, спрайты или метаданные RSI"
+  },
+  {
+    "name": "🖥️ Интерфейс",
+    "color": "568EB5",
+    "description": "Изменены XAML, окна или стили интерфейса"
+  },
+  {
+    "name": "✨ Шейдеры",
+    "color": "9678BA",
+    "description": "Изменены шейдеры SWSL"
+  },
+  {
+    "name": "🔊 Звуки",
+    "color": "BD8759",
+    "description": "Изменены звуки или аудиоресурсы"
+  },
+  {
+    "name": "🌐 Локализация",
+    "color": "559F9A",
+    "description": "Изменены тексты FTL"
+  },
+  {
+    "name": "🧪 Тесты",
+    "color": "699B66",
+    "description": "Изменены автоматические тесты"
+  },
+  {
+    "name": "⚙️ CI",
+    "color": "647A93",
+    "description": "Изменены workflows или правила меток"
+  },
+  {
+    "name": "📚 Документация",
+    "color": "648AA6",
+    "description": "Изменена документация"
+  },
+  {
+    "name": "📣 Changelog",
+    "color": "A89559",
+    "description": "Изменён журнал обновлений"
+  },
+  {
+    "name": "🛠️ Инструменты",
+    "color": "8B8178",
+    "description": "Изменены инструменты или скрипты"
+  },
+  {
+    "name": "👀 Нужен обзор",
+    "color": "C5A253",
+    "description": "Ожидается ревью изменений",
+    "previous_name": "S: Needs Review"
+  },
+  {
+    "name": "🔧 Нужны правки",
+    "color": "C47B51",
+    "description": "Ожидаются исправления по ревью",
+    "previous_name": "S: Awaiting Changes"
+  },
+  {
+    "name": "✅ Одобрено",
+    "color": "56916A",
+    "description": "Изменения одобрены ревьюером",
+    "previous_name": "S: Approved"
+  },
+  {
+    "name": "📥 Не разобрано",
+    "color": "7B8491",
+    "description": "Требуется первичный разбор",
+    "previous_name": "S: Untriaged"
+  },
+  {
+    "name": "⚠️ Конфликт слияния",
+    "color": "B85C5C",
+    "description": "Нужно разрешить конфликты с базовой веткой",
+    "previous_name": "S: Merge Conflict"
+  },
+  {
+    "name": "🛡️ Stable",
+    "color": "5B8D79",
+    "description": "PR направлен в стабильную ветку",
+    "previous_name": "Branch: Stable"
+  },
+  {
+    "name": "🚧 Staging",
+    "color": "B69955",
+    "description": "PR направлен в тестовую ветку",
+    "previous_name": "Branch: Staging"
+  },
+  {
+    "name": "🐛 Ошибка",
+    "color": "B85C5C",
+    "description": "Что-то работает неправильно",
+    "previous_name": "bug"
+  },
+  {
+    "name": "✨ Улучшение",
+    "color": "668EB0",
+    "description": "Новая возможность или улучшение",
+    "previous_name": "enhancement"
+  },
+  {
+    "name": "📖 Описание и помощь",
+    "color": "648AA6",
+    "description": "Улучшение документации или инструкций",
+    "previous_name": "documentation"
+  },
+  {
+    "name": "♿ Доступность",
+    "color": "A17BB6",
+    "description": "Улучшение доступности",
+    "previous_name": "accessibility"
+  },
+  {
+    "name": "♻️ Дубликат",
+    "color": "7E858C",
+    "description": "Повтор существующей задачи",
+    "previous_name": "duplicate"
+  },
+  {
+    "name": "🌱 Для новичков",
+    "color": "709569",
+    "description": "Подходит для первого вклада",
+    "previous_name": "good first issue"
+  },
+  {
+    "name": "🤝 Нужна помощь",
+    "color": "4F948C",
+    "description": "Нужна помощь участников",
+    "previous_name": "help wanted"
+  },
+  {
+    "name": "🚫 Некорректно",
+    "color": "AA925D",
+    "description": "Задача некорректна или требует уточнения",
+    "previous_name": "invalid"
+  },
+  {
+    "name": "❓ Вопрос",
+    "color": "957DA6",
+    "description": "Требуется обсуждение или пояснение",
+    "previous_name": "question"
+  },
+  {
+    "name": "⏸️ Не планируется",
+    "color": "777D85",
+    "description": "Изменение не планируется",
+    "previous_name": "wontfix"
+  },
+  {
+    "name": "🟢 Размер: XS",
+    "color": "64966A",
+    "description": "Менее 10 изменённых строк",
+    "previous_name": "size/XS"
+  },
+  {
+    "name": "🟩 Размер: S",
+    "color": "7A9C69",
+    "description": "От 10 до 99 изменённых строк",
+    "previous_name": "size/S"
+  },
+  {
+    "name": "🟨 Размер: M",
+    "color": "B6A057",
+    "description": "От 100 до 999 изменённых строк",
+    "previous_name": "size/M"
+  },
+  {
+    "name": "🟧 Размер: L",
+    "color": "BE8855",
+    "description": "От 1000 до 4999 изменённых строк",
+    "previous_name": "size/L"
+  },
+  {
+    "name": "🟥 Размер: XL",
+    "color": "B96464",
+    "description": "От 5000 изменённых строк",
+    "previous_name": "size/XL"
+  },
+  {
+    "name": "🤖 Автоматически",
+    "color": "73818C",
+    "description": "Задача создана автоматикой",
+    "previous_name": "autogenerated"
+  }
+]

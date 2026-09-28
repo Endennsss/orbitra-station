@@ -169,6 +169,28 @@ class DiscordChangelogTest(unittest.TestCase):
         self.assertEqual(1, send.call_count)
         self.assertIn('#56', send.call_args.args[1]['embeds'][0]['title'])
 
+    @patch.dict(os.environ, {'CHANGELOG_BEFORE': 'a' * 40, 'CHANGELOG_BEFORE_FILE': 'before.yml',
+                            'DISCORD_WEBHOOK_URL': 'https://discord.com/api/webhooks/123/token'}, clear=True)
+    @patch.object(publisher, 'send_payload')
+    @patch.object(publisher.subprocess, 'run')
+    @patch.object(publisher.Path, 'read_text')
+    def test_push_reads_downloaded_revision_without_git_history(self, read, git, send):
+        read.side_effect = [self.document([self.entry, dict(self.entry, id=55)]),
+                            self.document([dict(self.entry, id=55)])]
+        publisher.main()
+        git.assert_not_called()
+        self.assertEqual(1, send.call_count)
+        self.assertIn('#56', send.call_args.args[1]['embeds'][0]['title'])
+
+    @patch.dict(os.environ, {'CHANGELOG_BEFORE': 'a' * 40, 'CHANGELOG_BEFORE_FILE': 'missing.yml'}, clear=True)
+    @patch.object(publisher, 'send_payload')
+    @patch.object(publisher.Path, 'read_text')
+    def test_missing_download_never_publishes_archive(self, read, send):
+        read.side_effect = [self.document([self.entry]), FileNotFoundError()]
+        with self.assertRaises(FileNotFoundError):
+            publisher.main()
+        send.assert_not_called()
+
     @patch.dict(os.environ, {'CHANGELOG_BEFORE': '0' * 40}, clear=True)
     @patch.object(publisher.Path, 'read_text')
     def test_first_push_cannot_publish_archive(self, read):

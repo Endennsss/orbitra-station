@@ -1,23 +1,35 @@
-name: "Labels: Size"
-on: pull_request_target
+name: "📏 Размер PR"
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review]
+permissions:
+  contents: read
+  pull-requests: write
+concurrency:
+  group: orbitra-size-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 jobs:
   size-label:
     runs-on: ubuntu-latest
     steps:
-      - name: size-label
-        uses: "pascalgn/size-label-action@v0.5.5"
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        with:
-          # Custom size configuration
-          sizes: >
-            {
-              "0": "XS",
-              "10": "S",
-              "100": "M",
-              "1000": "L",
-              "5000": "XL"
+    - name: "📏 Обновление размера"
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const params = {...context.repo, pull_number: context.issue.number};
+          const {data: pr} = await github.rest.pulls.get(params);
+          const size = pr.additions + pr.deletions;
+          const levels = [[5000, '🟥 Размер: XL'], [1000, '🟧 Размер: L'],
+                          [100, '🟨 Размер: M'], [10, '🟩 Размер: S'], [0, '🟢 Размер: XS']];
+          const wanted = levels.find(([limit]) => size >= limit)[1];
+          const owned = new Set(levels.map(([, name]) => name));
+          const issue = {...context.repo, issue_number: context.issue.number};
+          const labels = await github.paginate(github.rest.issues.listLabelsOnIssue, issue);
+          for (const label of labels) {
+            if ((owned.has(label.name) || /^size\/(XS|S|M|L|XL)$/.test(label.name)) && label.name !== wanted) {
+              await github.rest.issues.removeLabel({...issue, name: label.name});
             }
-permissions:
-  contents: read
-  pull-requests: write
+          }
+          if (!labels.some(label => label.name === wanted)) {
+            await github.rest.issues.addLabels({...issue, labels: [wanted]});
+          }

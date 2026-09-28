@@ -1,26 +1,82 @@
-﻿"Changes: Sprites":
-- changed-files:
-  - any-glob-to-any-file: '**/*.rsi/*.png'
-
-"Changes: Map":
+# Orbitra: метки состава PR пересчитываются при изменении файлов.
+💻 C#:
 - changed-files:
   - any-glob-to-any-file:
-    - 'Resources/Maps/**/*.yml'
-    - 'Resources/Prototypes/Maps/**/*.yml'
-
-"Changes: UI":
+    - '**/*.cs'
+📄 YAML:
 - changed-files:
-  - any-glob-to-any-file: '**/*.xaml*'
-
-"Changes: Shaders":
+  - any-glob-to-any-file:
+    - '**/*.yml'
+    - '**/*.yaml'
+📝 Без C#:
 - changed-files:
-  - any-glob-to-any-file: '**/*.swsl'
-
-"Changes: Audio":
+  - all-globs-to-all-files:
+    - '!**/*.cs'
+📃 Без YAML:
 - changed-files:
-  - any-glob-to-any-file: '**/*.ogg'
-
-"Changes: No C#":
+  - all-globs-to-all-files:
+    - '!**/*.yml'
+    - '!**/*.yaml'
+🧩 Прототипы:
 - changed-files:
-  # Equiv to any-glob-to-all as long as this has one matcher. If ALL changed files are not C# files, then apply label.
-  - all-globs-to-all-files: "!**/*.cs"
+  - any-glob-to-any-file:
+    - Resources/Prototypes/**
+🗺️ Карты:
+- changed-files:
+  - any-glob-to-any-file:
+    - Resources/Maps/**
+    - Resources/Prototypes/Maps/**
+    - Resources/Prototypes/_Orbitra/Maps/**
+🎨 Спрайты:
+- changed-files:
+  - any-glob-to-any-file:
+    - Resources/Textures/**
+🖥️ Интерфейс:
+- changed-files:
+  - any-glob-to-any-file:
+    - '**/*.xaml'
+    - '**/*.xaml.cs'
+    - '**/UserInterface/**'
+    - '**/UI/**'
+    - '**/Stylesheets/**'
+✨ Шейдеры:
+- changed-files:
+  - any-glob-to-any-file:
+    - '**/*.swsl'
+🔊 Звуки:
+- changed-files:
+  - any-glob-to-any-file:
+    - Resources/Audio/**
+    - '**/*.ogg'
+    - '**/*.wav'
+🌐 Локализация:
+- changed-files:
+  - any-glob-to-any-file:
+    - '**/*.ftl'
+🧪 Тесты:
+- changed-files:
+  - any-glob-to-any-file:
+    - Content.Tests/**
+    - Content.IntegrationTests/**
+    - Tools/**/test_*.py
+⚙️ CI:
+- changed-files:
+  - any-glob-to-any-file:
+    - .github/workflows/**
+    - .github/labeler.yml
+    - .github/orbitra-labels.json
+📚 Документация:
+- changed-files:
+  - any-glob-to-any-file:
+    - '**/*.md'
+    - '**/*.rst'
+📣 Changelog:
+- changed-files:
+  - any-glob-to-any-file:
+    - Resources/Changelog/**
+🛠️ Инструменты:
+- changed-files:
+  - any-glob-to-any-file:
+    - Tools/**
+    - '**/*.py'
+    - '**/*.ps1'

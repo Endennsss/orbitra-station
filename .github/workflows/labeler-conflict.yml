@@ -1,4 +1,4 @@
-name: Check Merge Conflicts
+name: "⚠️ Проверка конфликтов"
 
 on:
   pull_request_target:
@@ -8,6 +8,10 @@ on:
       - reopened
       - ready_for_review
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   Label:
     if: ( github.event.pull_request.draft == false ) && ( github.actor != 'PJBot' )
@@ -16,6 +20,6 @@ jobs:
       - name: Check for Merge Conflicts
         uses: eps1lon/actions-label-merge-conflict@v3.0.0
         with:
-          dirtyLabel: "S: Merge Conflict"
+          dirtyLabel: "⚠️ Конфликт слияния"
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          commentOnDirty: "This pull request has conflicts, please resolve those before we can evaluate the pull request."
+          commentOnDirty: "⚠️ В PR есть конфликты с базовой веткой. Разрешите их перед слиянием."
