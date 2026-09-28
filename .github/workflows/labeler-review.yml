@@ -21,3 +21,6 @@ jobs:
       uses: actions-ecosystem/action-add-labels@v1
       with:
         labels: "S: Approved"
+permissions:
+  contents: read
+  pull-requests: write
