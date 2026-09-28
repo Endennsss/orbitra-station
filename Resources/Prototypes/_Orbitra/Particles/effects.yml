@@ -1,16 +1,3 @@
-# Мягкий выдох использует обычное освещение и низкий приоритет дыма.
-- type: orbitraParticleEffect
-  id: OrbitraParticleBreath
-  color: "#D8DFDF70"
-  endColor: "#D8DFDF00"
-  smoke: true
-  size: 0.045
-  speed: 0.2
-  spawnRadius: 0.0125
-  drag: 0.7
-  lifetime: 0.8
-  count: 3
-
 - type: shader
   id: OrbitraParticleLit
   kind: source

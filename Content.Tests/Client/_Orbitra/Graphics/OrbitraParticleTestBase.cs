@@ -30,9 +30,6 @@ public abstract class OrbitraParticleTestBase : ContentUnitTest
               id: OrbitraTestRising
               drag: 0.7
             - type: orbitraParticleEffect
-              id: OrbitraTestAmbient
-              ambient: true
-            - type: orbitraParticleEffect
               id: OrbitraTestMark
               impactMark: true
             """);

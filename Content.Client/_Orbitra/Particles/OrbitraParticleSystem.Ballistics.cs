@@ -8,16 +8,6 @@ namespace Content.Client._Orbitra.Particles;
 public sealed partial class OrbitraParticleSystem
 {
     private static readonly ProtoId<OrbitraParticleEffectPrototype> BulletMarkEffect = "OrbitraParticleBulletMark";
-    /// <summary>Emits a low-priority puff at a visible muzzle without catching up missed emissions.</summary>
-    public void TryMuzzleSmoke(EntityUid source, EntityCoordinates point)
-    {
-        if (Pool.Capacity == 0 || !_spriteQuery.TryComp(source, out var sprite) ||
-            !sprite.Visible || sprite.ContainerOccluded || sprite.Color.A <= 0 ||
-            (MetaData(source).Flags & MetaDataFlags.Detached) != 0)
-            return;
-        Emit(point, "OrbitraParticleMuzzleSmoke", (int) MathF.Ceiling(2 * _density), MathF.PI / 2, false);
-    }
-
     private void TryImpactMark(EntityUid source, EntityCoordinates point)
     {
         if (!_transformQuery.TryComp(source, out var xform) || !xform.Anchored || xform.GridUid != point.EntityId ||

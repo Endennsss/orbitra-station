@@ -21,8 +21,6 @@ public sealed partial class OrbitraParticleEffectPrototype : IPrototype
     [DataField] public int Count = 8;
     [DataField] public bool Emissive;
     [DataField] public bool Smoke;
-    /// <summary>Lowest-priority background motes, with a long fade-in.</summary>
-    [DataField] public bool Ambient;
     /// <summary>Stationary temporary impact mark, sharing the particle budget.</summary>
     [DataField] public bool ImpactMark;
     [DataField] public int Shape;

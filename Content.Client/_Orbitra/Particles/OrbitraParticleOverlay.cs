@@ -38,7 +38,6 @@ internal sealed class OrbitraParticleOverlay : Overlay
     {
         if (_system.Pool.Capacity == 0 || args.Viewport.Eye is not { } eye)
             return;
-        _system.CollectAmbient(args);
         _sources.Clear();
         _lookup.GetEntitiesIntersecting(args.MapId, args.WorldAABB, _sources);
         foreach (var source in _sources)
@@ -48,7 +47,6 @@ internal sealed class OrbitraParticleOverlay : Overlay
             if ((_entities.GetComponent<MetaDataComponent>(source.Owner).Flags & MetaDataFlags.Detached) != 0)
                 continue;
             _system.Collect(source.Owner);
-            _system.CollectBreath(source, eye.Rotation);
         }
 
         if (_system.Pool.Count == 0)
@@ -79,7 +77,7 @@ internal sealed class OrbitraParticleOverlay : Overlay
                 SetFov(shader, args.Viewport);
                 var tint = Color.InterpolateBetween(particle.Tint ?? effect.Color,
                     particle.Tint is { } blood ? new Color(blood.R * 0.45f, blood.G * 0.45f, blood.B * 0.45f, blood.A) : effect.EndColor, progress);
-                tint.A *= (particle.Opacity ?? 1f) * (1f - progress) * Math.Min(1f, particle.Age * (effect.Ambient ? 1.5f : 40f));
+                tint.A *= (particle.Opacity ?? 1f) * (1f - progress) * Math.Min(1f, particle.Age * 40f);
                 shader.SetParameter("particle_color", tint);
                 shader.SetParameter("source_eye", origin - eye.Position.Position);
                 shader.SetParameter("smoke", effect.Smoke);

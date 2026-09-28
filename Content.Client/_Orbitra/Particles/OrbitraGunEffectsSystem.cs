@@ -1,41 +1,27 @@
-using System.Numerics;
 using Content.Shared._Orbitra.Particles;
 using Content.Shared.GameTicking;
 using Robust.Client.GameObjects;
-using Robust.Shared.Map;
 using Robust.Shared.Timing;
 using Robust.Shared.Containers;
-using Robust.Shared.Configuration;
 using Robust.Client.Player;
 
 namespace Content.Client._Orbitra.Particles;
 
-/// <summary>Maintains one owned light impulse per weapon and bounded, deferred muzzle smoke.</summary>
+/// <summary>Maintains one owned light impulse per weapon.</summary>
 public sealed partial class OrbitraGunEffectsSystem : EntitySystem
 {
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private PointLightSystem _light = default!;
-    [Dependency] private SharedTransformSystem _transform = default!;
-    [Dependency] private OrbitraParticleSystem _particles = default!;
     [Dependency] private SharedContainerSystem _container = default!;
-    [Dependency] private IConfigurationManager _configuration = default!;
     [Dependency] private IPlayerManager _player = default!;
 
     private readonly Dictionary<EntityUid, ShotState> _shots = new();
     private readonly List<EntityUid> _expired = new();
     private EntityUid? _viewerMap;
-    private bool _smokeEnabled = true;
 
     public override void Initialize()
     {
         SubscribeNetworkEvent<RoundRestartCleanupEvent>(_ => Clear());
-        Subs.CVar(_configuration, OrbitraParticleCVars.Quality, quality =>
-        {
-            _smokeEnabled = quality != "Off";
-            if (!_smokeEnabled)
-                foreach (var shot in _shots.Values)
-                    shot.Smoke.Clear();
-        }, true);
     }
 
     /// <summary>Called once by the existing predicted/remote muzzle-flash path.</summary>
@@ -60,13 +46,8 @@ public sealed partial class OrbitraGunEffectsSystem : EntitySystem
         }
         TryComp<OrbitraGunEffectsComponent>(gun, out var profile);
         var now = _timing.RealTime;
-        if (_smokeEnabled && _particles.Pool.Capacity > 0 && profile is { Smoke: true } && flash == "MuzzleFlashEffect")
-            shot.Smoke.Record(now.TotalSeconds);
-        else
-            shot.Smoke.Clear();
         shot.Last = now;
         shot.Source = source;
-        shot.Angle = angle;
         shot.Energy = Math.Clamp(profile?.Energy ?? 3f, 0, 8);
         if (shot.Light is { Deleted: false } light)
         {
@@ -107,14 +88,7 @@ public sealed partial class OrbitraGunEffectsSystem : EntitySystem
                 _light.SetEnergy(gun, shot.Energy * Math.Max(0, 1f - (float) elapsed / 0.1f), light);
                 _light.SetEnabled(gun, elapsed < 0.1, light);
             }
-            if (!shot.Smoke.Consume(_timing.RealTime.TotalSeconds))
-                continue;
-            if (elapsed > 0.8 || !TryComp(gun, out TransformComponent? xform) || xform.MapUid == null)
-                continue;
-            var source = _container.TryGetContainingContainer(gun, out var container) ? container.Owner : gun;
-            var position = _transform.GetWorldPosition(xform) + shot.Angle.RotateVec(Vector2.UnitX * 0.5f);
-            var point = _transform.ToCoordinates(xform.GridUid ?? xform.MapUid.Value, new MapCoordinates(position, xform.MapID));
-            _particles.TryMuzzleSmoke(source, point);
+
         }
         foreach (var gun in _expired)
         {
@@ -147,9 +121,7 @@ public sealed partial class OrbitraGunEffectsSystem : EntitySystem
     {
         public PointLightComponent? Light;
         public EntityUid Source;
-        public Angle Angle;
         public TimeSpan Last;
-        public readonly OrbitraMuzzleSmokeWindow Smoke = new();
         public float Energy;
     }
 }

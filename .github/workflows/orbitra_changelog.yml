@@ -3,7 +3,6 @@ name: Orbitra Changelog
 on:
   push:
     branches: [master]
-    paths: [Resources/Changelog/_Orbitra/updates.yml]
   workflow_dispatch:
     inputs:
       entry_id:

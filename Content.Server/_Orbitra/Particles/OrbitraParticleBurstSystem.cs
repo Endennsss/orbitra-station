@@ -12,6 +12,7 @@ using Robust.Shared.Prototypes;
 using System.Diagnostics.CodeAnalysis;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
+using Robust.Shared.Physics.Systems;
 
 namespace Content.Server._Orbitra.Particles;
 
@@ -23,13 +24,13 @@ public sealed partial class OrbitraParticleBurstSystem : EntitySystem
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private IPrototypeManager _prototype = default!;
+    [Dependency] private SharedPhysicsSystem _physics = default!;
 
     private readonly HashSet<EntityUid> _electricalBursts = new();
     private TimeSpan _burstTime;
 
     public override void Initialize()
     {
-        InitializeDust();
         SubscribeLocalEvent<WallComponent, OrbitraParticleMeleeHitEvent>(OnHit);
         SubscribeLocalEvent<OrbitraParticleMaterialComponent, OrbitraParticleMeleeHitEvent>(OnMaterialHit);
         SubscribeLocalEvent<ApcPowerReceiverComponent, OrbitraParticleBeforeBreakEvent>(OnBreak);

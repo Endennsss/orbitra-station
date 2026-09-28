@@ -42,7 +42,6 @@ public sealed partial class SandboxWindow : Content.Client.UserInterface.Control
         ToggleFovButton.Pressed = !_eyeManager.CurrentEye.DrawFov;
         ToggleShadowsButton.Pressed = !_lightManager.DrawShadows;
         ShowMarkersButton.Pressed = _markerSystem.MarkersVisible;
-        OrbitraShowFieldsButton.Pressed = _entManager.System<Content.Client._Orbitra.Particles.OrbitraAmbientDustZoneSystem>().FieldsVisible; // Orbitra-Edit - состояние полей
         ShowBbButton.Pressed = (_debugPhysicsSystem.Flags & PhysicsDebugFlags.Shapes) != 0x0;
         AiOverlayButton.Pressed = _playerManager.LocalEntity is { } player && _entManager.HasComponent<StationAiOverlayComponent>(player);
     }

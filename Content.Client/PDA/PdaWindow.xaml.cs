@@ -14,7 +14,7 @@ public partial class PdaWindow : BaseWindow
     {
         get => Background.ActualModulateSelf.ToHex();
 
-        set => Background.ModulateSelfOverride = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBorder; // Orbitra-Edit - цвет предмета не переопределяет серую тему
+        set => Background.ModulateSelfOverride = Color.FromHex(value, Color.White); // Orbitra-Edit - сохраняем цвет корпуса и полос конкретного КПК
     }
 
     public string? AccentHColor
@@ -23,7 +23,7 @@ public partial class PdaWindow : BaseWindow
 
         set
         {
-            AccentH.ModulateSelfOverride = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelHighlight; // Orbitra-Edit - нейтральный акцент
+            AccentH.ModulateSelfOverride = Color.FromHex(value, Color.White); // Orbitra-Edit - сохраняем цвет корпуса и полос конкретного КПК
             AccentH.Visible = value != null;
         }
     }
@@ -34,7 +34,7 @@ public partial class PdaWindow : BaseWindow
 
         set
         {
-            AccentV.ModulateSelfOverride = Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelHighlight; // Orbitra-Edit - нейтральный акцент
+            AccentV.ModulateSelfOverride = Color.FromHex(value, Color.White); // Orbitra-Edit - сохраняем цвет корпуса и полос конкретного КПК
             AccentV.Visible = value != null;
         }
     }

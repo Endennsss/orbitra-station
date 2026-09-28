@@ -65,35 +65,6 @@ public sealed class OrbitraBallisticsTest : OrbitraParticleTestBase
         Assert.That(pool.Particles[0].Effect.ImpactMark, Is.False);
     }
 
-    [Test]
-    public void SmokeNeedsFiveRapidShotsAndAPause()
-    {
-        var window = new OrbitraMuzzleSmokeWindow();
-        for (var i = 0; i < 4; i++)
-            window.Record(i * 0.1);
-        Assert.That(window.Consume(0.6), Is.False);
-        window.Record(0.7);
-        Assert.That(window.Consume(0.8), Is.False);
-        Assert.That(window.Consume(1.0), Is.True);
-        Assert.That(window.Consume(1.1), Is.False);
-    }
-
-    [Test]
-    public void SlowShotsStallsAndOffDoNotProduceSmoke()
-    {
-        var window = new OrbitraMuzzleSmokeWindow();
-        for (var i = 0; i < 5; i++)
-            window.Record(i);
-        Assert.That(window.Consume(4.3), Is.False);
-        for (var i = 0; i < 5; i++)
-            window.Record(5 + i * 0.1);
-        Assert.That(window.Consume(7), Is.False);
-        for (var i = 0; i < 5; i++)
-            window.Record(8 + i * 0.1);
-        window.Clear();
-        Assert.That(window.Consume(8.7), Is.False);
-    }
-
     private OrbitraParticlePool.Particle Mark(int source, Vector2 position) => new()
     {
         Effect = Effect("OrbitraTestMark"),

@@ -51,7 +51,6 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
         _doAfterQuery = GetEntityQuery<DoAfterComponent>();
         _transformQuery = GetEntityQuery<TransformComponent>();
         _spriteQuery = GetEntityQuery<SpriteComponent>();
-        InitializeBreath();
         _overlay = new OrbitraParticleOverlay(EntityManager, this);
         _overlays.AddOverlay(_overlay);
         Subs.CVar(_configuration, OrbitraParticleCVars.Quality, PreviewQuality, true);
@@ -63,10 +62,7 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
     {
         var (capacity, density) = OrbitraParticleCVars.GetBudget(quality);
         if (capacity != Pool.Capacity)
-        {
             _overlay?.ClearCache();
-            ClearAmbient();
-        }
         Pool.Configure(capacity);
         _density = density;
         if (capacity == 0)
@@ -84,8 +80,6 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
         }
         Pool.Update(frameTime);
         PruneImpactMarks();
-        PruneAmbient();
-        PruneBreath();
         _stale.Clear();
         foreach (var (key, emitter) in _emitters)
         {
@@ -168,7 +162,7 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
                 (MetaData(source.Value).Flags & MetaDataFlags.Detached) != 0)
                 return;
         }
-        else if (ev.Effect is not ("OrbitraParticleElectrical" or "OrbitraParticleDestructionDust" or
+        else if (ev.Effect is not ("OrbitraParticleElectrical" or
                      "OrbitraParticleBulletMetal" or "OrbitraParticleBulletStone" or "OrbitraParticleBulletWood" or
                      "OrbitraParticleBulletGlass" or "OrbitraParticleBulletDust"))
             return;
@@ -212,8 +206,6 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
     {
         Pool.Clear();
         _emitters.Clear();
-        _breaths.Clear();
-        ClearAmbient();
     }
 
     public override void Shutdown()

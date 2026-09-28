@@ -47,18 +47,6 @@
   lifetime: 0.4
 
 - type: orbitraParticleEffect
-  id: OrbitraParticleMuzzleSmoke
-  color: "#A0A0A044"
-  endColor: "#88888800"
-  smoke: true
-  count: 2
-  size: 0.06
-  speed: 0.3
-  drag: 0.7
-  spread: 0.8
-  lifetime: 0.7
-
-- type: orbitraParticleEffect
   id: OrbitraParticleBulletMark
   color: "#171514CC"
   endColor: "#24201B00"

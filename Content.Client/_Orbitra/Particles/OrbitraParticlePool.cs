@@ -36,14 +36,7 @@ internal sealed class OrbitraParticlePool
             if (Particles[i].Effect.ImpactMark && ++marks > OrbitraBallistics.MarkBudget(Capacity))
                 RemoveAt(i);
         }
-        var excess = AmbientCount() - OrbitraDust.AmbientBudget(Capacity).Motes;
-        for (var i = Count - 1; i >= 0 && excess > 0; i--)
-        {
-            if (!Particles[i].Effect.Ambient)
-                continue;
-            Particles[i] = Particles[--Count];
-            excess--;
-        }
+
     }
 
     public void Clear() => Count = 0;
@@ -81,15 +74,11 @@ internal sealed class OrbitraParticlePool
             if (total >= OrbitraBallistics.MarkBudget(Capacity) || onSource >= 4 || Count >= Capacity)
                 return false;
         }
-        if (particle.Effect.Ambient && AmbientCount() >= OrbitraDust.AmbientBudget(Capacity).Motes)
-            return false;
         if (Count < Capacity)
         {
             Particles[Count++] = particle;
             return true;
         }
-        if (particle.Effect.Ambient)
-            return false;
         // Следы не должны вытеснять рабочие эффекты, но сами уступают им место.
         for (var i = 0; i < Count; i++)
         {
@@ -98,19 +87,11 @@ internal sealed class OrbitraParticlePool
             Particles[i] = particle;
             return true;
         }
-        // Фоновая пыль уступает место даже дыханию и дыму.
-        for (var i = 0; i < Count; i++)
-        {
-            if (!Particles[i].Effect.Ambient)
-                continue;
-            Particles[i] = particle;
-            return true;
-        }
         if (!particle.Burst)
         {
             if (particle.Effect.Smoke)
                 return false;
-            // Сварка и прочая рабочая косметика важнее дыхания и дыма.
+            // Сварка и прочая рабочая косметика важнее дыма.
             for (var i = 0; i < Count; i++)
             {
                 if (Particles[i].Burst || !Particles[i].Effect.Smoke)
@@ -132,14 +113,6 @@ internal sealed class OrbitraParticlePool
             }
         }
         return false;
-    }
-
-    public int AmbientCount()
-    {
-        var count = 0;
-        for (var i = 0; i < Count; i++)
-            count += Particles[i].Effect.Ambient ? 1 : 0;
-        return count;
     }
 
     public void Update(float dt)

@@ -2,6 +2,14 @@ Name: OrbitraUpdates
 AdminOnly: false
 Order: -1
 Entries:
+- id: 91
+  author: Endennsss
+  time: '2026-09-28T19:28:13Z'
+  changes:
+  - type: Remove
+    message: Убраны дым после выстрелов, пар изо рта на холоде и декоративная пыль.
+  - type: Fix
+    message: Возвращены индивидуальные цвета корпусов КПК и цвета выбранной темы HUD.
 - id: 88
   author: Endennsss
   time: '2026-09-28T00:00:00+02:00'
