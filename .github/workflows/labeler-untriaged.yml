@@ -8,6 +8,11 @@ on:
 
 jobs:
   add_label:
+    # Orbitra added start - право ставить метки Issues и PR
+    permissions:
+      issues: write
+      pull-requests: write
+    # Orbitra added end
     runs-on: ubuntu-latest
     steps:
     - uses: actions-ecosystem/action-add-labels@v1

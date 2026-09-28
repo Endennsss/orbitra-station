@@ -2,6 +2,8 @@
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 * text=auto
+# Orbitra-Edit - текстовый архив должен проходить CRLF Check на всех платформах
+_Orbitra/Archive/** text=auto eol=lf
 
 ###############################################################################
 # Set default behavior for command prompt diff.
