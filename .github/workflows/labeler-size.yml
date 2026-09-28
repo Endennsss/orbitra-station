@@ -18,3 +18,6 @@ jobs:
               "1000": "L",
               "5000": "XL"
             }
+permissions:
+  contents: read
+  pull-requests: write
