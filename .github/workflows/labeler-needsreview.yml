@@ -14,3 +14,6 @@ jobs:
     - uses: actions-ecosystem/action-remove-labels@v1
       with:
         labels: "S: Awaiting Changes"
+permissions:
+  contents: read
+  pull-requests: write
