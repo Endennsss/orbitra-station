@@ -1,0 +1,45 @@
+name: Orbitra Automation Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+    types: [opened, reopened, synchronize, ready_for_review, edited]
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  automation-tests:
+    name: Orbitra Automation Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: false
+    - uses: actions/setup-python@v6
+      with:
+        python-version: '3.12'
+    - run: python -m pip install PyYAML==6.0.3 requests==2.32.5
+    - name: Test notifications and PR audit without network calls
+      run: python -B -m unittest discover -s Tools/_Orbitra -p 'test_*.py'
+
+  pr-policy:
+    name: Orbitra PR Policy
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        # Проверку описания нельзя подменить скриптом из самого PR.
+        ref: ${{ github.event.pull_request.base.sha }}
+        persist-credentials: false
+    - uses: actions/setup-python@v6
+      with:
+        python-version: '3.12'
+    - run: python -B Tools/_Orbitra/pr_policy.py

@@ -6,6 +6,7 @@ import re
 import subprocess
 import sys
 import time
+from datetime import datetime
 from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
@@ -15,6 +16,8 @@ import yaml
 
 CHANGELOG = 'Resources/Changelog/_Orbitra/updates.yml'
 CATEGORIES = {'Add': 'Добавлено', 'Fix': 'Исправлено', 'Tweak': 'Изменено', 'Remove': 'Удалено'}
+CATEGORY_ICONS = {'Add': '✦', 'Fix': '✓', 'Tweak': '↻', 'Remove': '−'}
+REPOSITORY_URL = 'https://github.com/Endennsss/orbitra-station'
 
 
 def load_entries(text):
@@ -26,7 +29,8 @@ def load_entries(text):
         raise ValueError('Entries должен быть списком.')
     seen = set()
     for entry in entries:
-        if not isinstance(entry, dict) or type(entry.get('id')) is not int or entry['id'] in seen:
+        if (not isinstance(entry, dict) or type(entry.get('id')) is not int
+                or not 0 <= entry['id'] <= 2147483647 or entry['id'] in seen):
             raise ValueError('Некорректный или повторяющийся ID записи.')
         seen.add(entry['id'])
         if not isinstance(entry.get('author'), str) or not entry['author'].strip():
@@ -34,7 +38,7 @@ def load_entries(text):
         if not isinstance(entry.get('changes'), list) or not entry['changes']:
             raise ValueError('У записи должны быть изменения.')
         for change in entry['changes']:
-            if not isinstance(change, dict) or change.get('type') not in CATEGORIES:
+            if not isinstance(change, dict) or not isinstance(change.get('type'), str) or change['type'] not in CATEGORIES:
                 raise ValueError('Неизвестный тип изменения.')
             if not isinstance(change.get('message'), str) or not change['message'].strip():
                 raise ValueError('Пустой текст изменения.')
@@ -51,28 +55,85 @@ def plain_text(text):
     return re.sub(r'([\\`*_~|<>\[\]])', r'\\\1', text.strip()).replace('@', '@\u200b')
 
 
-def payloads(entries):
+def text_length(text):
+    return len(text.encode('utf-16-le')) // 2
+
+
+def split_text(text, limit):
+    # Экранированный символ остаётся целым даже на границе частей сообщения.
+    tokens = re.findall(r'\\.|[^\\]|\\$', text, re.DOTALL)
+    chunks = []
+    current = ''
+    length = 0
+    for token in tokens:
+        size = text_length(token)
+        if length + size > limit and current:
+            chunks.append(current)
+            current, length = '', 0
+        current += token
+        length += size
+    if current:
+        chunks.append(current)
+    return chunks
+
+
+def entry_fields(entry):
+    fields = []
+    for kind, label in CATEGORIES.items():
+        messages = [plain_text(change['message']) for change in entry['changes'] if change['type'] == kind]
+        current = ''
+        for message in messages:
+            for part in split_text(message, 990):
+                line = f'• {part}'
+                if current and text_length(current + '\n' + line) > 1024:
+                    fields.append({'name': f'{CATEGORY_ICONS[kind]} {label}', 'value': current, 'inline': False})
+                    current = ''
+                current = current + '\n' + line if current else line
+        if current:
+            fields.append({'name': f'{CATEGORY_ICONS[kind]} {label}', 'value': current, 'inline': False})
+    return fields
+
+
+def entry_timestamp(entry):
+    try:
+        value = datetime.fromisoformat(str(entry.get('time', '')).replace('Z', '+00:00'))
+        return value.isoformat() if value.tzinfo is not None else None
+    except ValueError:
+        return None
+
+
+def payloads(entries, revision=''):
     result = []
+    url = f'{REPOSITORY_URL}/blob/{revision}/{CHANGELOG}' if re.fullmatch(r'[0-9a-f]{40}', revision) else f'{REPOSITORY_URL}/blob/master/{CHANGELOG}'
     for entry in entries:
-        sections = []
-        for kind, label in CATEGORIES.items():
-            messages = [plain_text(change['message']) for change in entry['changes'] if change['type'] == kind]
-            if messages:
-                sections.append(f'**{label}**\n' + '\n'.join(f'• {message}' for message in messages))
-        description = '\n\n'.join(sections)
-        # Консервативный предел также оставляет запас для UTF-16 и заголовка.
-        chunks = [description[offset:offset + 1800] for offset in range(0, len(description), 1800)]
-        for index, chunk in enumerate(chunks, 1):
-            suffix = f' ({index}/{len(chunks)})' if len(chunks) > 1 else ''
+        pages, page, length = [], [], 0
+        for field in entry_fields(entry):
+            size = text_length(field['name']) + text_length(field['value'])
+            if page and (length + size > 4800 or len(page) == 20):
+                pages.append(page)
+                page, length = [], 0
+            page.append(field)
+            length += size
+        if page:
+            pages.append(page)
+        authors = split_text(plain_text(entry['author']), 256)[0]
+        for index, fields in enumerate(pages, 1):
+            suffix = f' · {index}/{len(pages)}' if len(pages) > 1 else ''
+            embed = {
+                'author': {'name': 'ORBITRA • Журнал обновлений', 'url': REPOSITORY_URL},
+                'title': f'Обновление #{entry["id"]}{suffix}',
+                'url': url,
+                'description': f'**Авторы:** {authors}\nИзменений в записи: **{len(entry["changes"])}**',
+                'fields': fields,
+                'color': 0xC7A35C,
+                'footer': {'text': 'Orbitra • Изменения в репозитории, не статус сервера'},
+            }
+            if timestamp := entry_timestamp(entry):
+                embed['timestamp'] = timestamp
             result.append({
                 'username': 'Orbitra • Обновления',
                 'allowed_mentions': {'parse': []},
-                'embeds': [{
-                    'title': f'Обновление Orbitra #{entry["id"]}{suffix}',
-                    'description': chunk,
-                    'color': 0xC7A35C,
-                    'footer': {'text': f'Автор: {entry["author"][:200]}'},
-                }],
+                'embeds': [embed],
             })
     return result
 
@@ -97,7 +158,10 @@ def send_payload(url, payload):
         if response.status_code in (200, 204):
             return
         if response.status_code == 429 and attempt < 4:
-            delay = float(response.json().get('retry_after', 5))
+            try:
+                delay = float(response.json().get('retry_after', 5))
+            except (ValueError, TypeError, AttributeError):
+                raise RuntimeError('Discord вернул некорректный интервал ожидания.') from None
             if not 0 <= delay <= 30:
                 raise RuntimeError('Discord запросил длительное ожидание; отправка остановлена.')
             time.sleep(delay + 0.25)
@@ -120,7 +184,7 @@ def main():
         previous = subprocess.run(['git', 'show', f'{before}:{CHANGELOG}'], check=True,
                                   capture_output=True, encoding='utf-8').stdout
         selected = select_entries(current, load_entries(previous))
-    messages = payloads(selected)
+    messages = payloads(selected, os.environ.get('GITHUB_SHA', ''))
     if os.environ.get('CHANGELOG_DRY_RUN', '').lower() == 'true':
         print(json.dumps(messages, ensure_ascii=False, indent=2))
         return

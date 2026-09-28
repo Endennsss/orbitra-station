@@ -1,0 +1,34 @@
+name: Orbitra PR Audit
+
+on:
+  pull_request_target:
+    branches: [master]
+    types: [synchronize, closed]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: orbitra-pr-audit-${{ github.event.pull_request.number }}-${{ github.event.after || github.event.pull_request.merge_commit_sha }}
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    if: github.event.action == 'synchronize' || github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        # Только доверенная базовая ветка; код и артефакты PR не выполняются.
+        ref: ${{ github.event.pull_request.base.sha }}
+        persist-credentials: false
+    - uses: actions/setup-python@v6
+      with:
+        python-version: '3.12'
+    - run: python -m pip install PyYAML==6.0.3 requests==2.32.5
+    - name: Record review changes or merge attribution
+      run: python -B Tools/_Orbitra/pr_audit.py
+      env:
+        GITHUB_TOKEN: ${{ github.token }}

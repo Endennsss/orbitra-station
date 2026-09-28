@@ -52,10 +52,15 @@ jobs:
         run: dotnet run --project Content.MapRenderer Dev
 
   ci-success:
-    name: Build & Test Debug
+    name: Build & Test Map Renderer # Orbitra-Edit: уникальное имя проверки, без конфликта с игровыми тестами.
+    if: always() # Orbitra-Edit: не скрываем провал сборки за skipped.
     needs:
       - build
     runs-on: ubuntu-latest
     steps:
       - name: CI succeeded
-        run: exit 0
+        # Orbitra edit start - передаём провал зависимой сборки в итоговый статус.
+        env:
+          BUILD_RESULT: ${{ needs.build.result }}
+        run: test "$BUILD_RESULT" = success
+        # Orbitra edit end
