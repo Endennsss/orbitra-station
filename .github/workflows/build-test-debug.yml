@@ -19,6 +19,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
+        shard: [0, 1, 2, 3]
 
     runs-on: ${{ matrix.os }}
     # Интеграционные тесты запускают клиент и сервер; полный набор регулярно
@@ -53,6 +54,7 @@ jobs:
       run: dotnet build --configuration DebugOpt --no-restore /m
 
     - name: Run Content.Tests
+      if: matrix.shard == 0
       shell: pwsh
       run: dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj -- NUnit.ConsoleOut=1 NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
 
@@ -60,6 +62,37 @@ jobs:
       shell: pwsh
       run: |
         $env:DOTNET_gcServer=1
+        $shard = [int]$env:SHARD_INDEX
+        $shardCount = [int]$env:SHARD_COUNT
+        $testRoot = Join-Path (Get-Location) "Content.IntegrationTests/Tests"
+        $groups = @()
+
+        # Распределяем корневые тесты и каталоги по весу файлов. Namespace-фильтр
+        # включает вложенные пространства имён, поэтому каждый тест попадает ровно
+        # в один shard.
+        $rootFiles = @(Get-ChildItem $testRoot -File -Filter *.cs)
+        foreach ($file in $rootFiles) {
+          $classNames = [regex]::Matches((Get-Content $file.FullName -Raw), 'class\s+(\w+)') |
+            ForEach-Object { $_.Groups[1].Value }
+          foreach ($className in $classNames) {
+            $groups += [pscustomobject]@{ Filter = "FullyQualifiedName=Content.IntegrationTests.Tests.$className"; Weight = 1 }
+          }
+        }
+        Get-ChildItem $testRoot -Directory | ForEach-Object {
+          $weight = @(Get-ChildItem $_.FullName -Recurse -File -Filter *.cs).Count
+          $groups += [pscustomobject]@{ Filter = "FullyQualifiedName~Content.IntegrationTests.Tests.$($_.Name)"; Weight = [Math]::Max(1, $weight) }
+        }
+
+        $loads = @(0) * $shardCount
+        $selected = 0..($shardCount - 1) | ForEach-Object { ,@() }
+        foreach ($group in ($groups | Sort-Object Weight -Descending)) {
+          $target = 0..($shardCount - 1) | Sort-Object { $loads[$_] } | Select-Object -First 1
+          $selected[$target] += $group.Filter
+          $loads[$target] += $group.Weight
+        }
+        $filter = $selected[$shard] -join '|'
+        Write-Host "Integration test shard $($shard + 1)/$($shardCount): $($selected[$shard].Count) filters, estimated weight $($loads[$shard])"
+
         # Длинные UI-тесты могут не писать в stdout несколько минут. Запускаем
         # тестовый процесс отдельно и печатаем heartbeat, чтобы GitHub runner
         # не отменял активный job из-за отсутствия вывода.
@@ -68,6 +101,7 @@ jobs:
           "--no-build",
           "--configuration", "DebugOpt",
           "Content.IntegrationTests/Content.IntegrationTests.csproj",
+          "--filter", $filter,
           "--",
           "NUnit.ConsoleOut=2",
           "NUnit.MapWarningTo=Failed",
@@ -83,12 +117,15 @@ jobs:
         if ($testProcess.ExitCode -ne 0) {
           exit $testProcess.ExitCode
         }
+      env:
+        SHARD_INDEX: ${{ matrix.shard }}
+        SHARD_COUNT: 4
 
     - name: Archive NUnit3 test results.
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: nunit3-results-${{ matrix.os }}
+        name: nunit3-results-${{ matrix.os }}-shard-${{ matrix.shard }}
         path: test_results/*
         retention-days: 7
         compression-level: 9
