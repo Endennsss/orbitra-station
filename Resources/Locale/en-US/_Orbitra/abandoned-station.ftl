@@ -1,0 +1,14 @@
+ent-OrbitraAbandonedStation = Abandoned station
+    .desc = Loss of communications with Central Command.
+orbitra-abandoned-station-announcer = Automated station system
+orbitra-abandoned-station-warning = Attention, crew. Communications with Central Command have been interrupted. Remain calm and await further instructions.
+orbitra-abandoned-station-isolated = Attention! Attempts to restore communications with Central Command have failed. Isolation protocols are now in effect. The station must rely on its own resources. Cargo purchases and flights between the station and the spaceport are suspended. Evacuation is unavailable until communications are restored. Conserve resources and follow station command instructions.
+orbitra-alert-level-isolation = Isolation
+orbitra-alert-level-isolation-announcement = Communications with Central Command have been lost. The station must rely on its own resources.
+orbitra-alert-level-isolation-instructions = Conserve resources and follow station command instructions. Cargo purchases, arrivals flights and evacuation are suspended until communications are restored.
+orbitra-abandoned-station-recovered = Communications with Central Command have been restored. Cargo supply, arrivals flights and external communications have resumed. Mandatory evacuation protocols are now in effect. The evacuation shuttle cannot be recalled.
+orbitra-abandoned-station-interrupted = Communications with Central Command have been restored. The previously announced evacuation will continue as scheduled.
+orbitra-abandoned-station-service-unavailable = Communications with Central Command are offline. This service is temporarily unavailable.
+orbitra-abandoned-station-start-unavailable = Abandoned station can only start during a round, at least 10 minutes after the round begins.
+orbitra-abandoned-station-already-started = Abandoned station has already started during this round.
+orbitra-abandoned-station-evacuation-active = Cannot start abandoned station: evacuation has already begun.

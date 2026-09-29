@@ -1,5 +1,8 @@
 name: Publish Testing
 
+permissions:
+  contents: write
+
 concurrency:
   group: publish-testing
   cancel-in-progress: true
@@ -44,7 +47,9 @@ jobs:
         BRANCH: master
         CHANGELOG_REPO_PATH: Resources/Changelog
         EXTRA_CATEGORIES: Admin,Maps,Rules
-        GITHUB_TOKEN: ${{ secrets.CL_ACCESS_TOKEN }}
+        # Используем PAT, если он настроен, и штатный токен GitHub как запасной
+        # вариант, чтобы плановый workflow не падал из-за отсутствующего секрета.
+        GITHUB_TOKEN: ${{ secrets.CL_ACCESS_TOKEN || github.token }}
 
     - name: Build Packaging
       run: dotnet build Content.Packaging --configuration Release --no-restore /m

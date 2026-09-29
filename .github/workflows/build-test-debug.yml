@@ -22,8 +22,8 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     # Интеграционные тесты запускают клиент и сервер; полный набор регулярно
-    # занимает больше 25 минут на ubuntu-latest.
-    timeout-minutes: 60
+    # занимает больше часа на ubuntu-latest.
+    timeout-minutes: 120
 
     steps:
     - name: Checkout Master
