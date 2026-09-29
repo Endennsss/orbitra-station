@@ -1,0 +1,4 @@
+- files: ["code_green.ogg", "code_blue.ogg", "code_yellow.ogg", "code_red.ogg", "code_violet.ogg", "code_delta.ogg", "code_epsilon.ogg", "code_gamma.ogg", "code_isolation.ogg"]
+  license: "Microsoft Services Agreement"
+  copyright: "Russian voice announcements synthesized with Microsoft ru-RU-SvetlanaNeural through edge-tts 7.2.8 at -5% rate and combined with the corresponding station alarm. Reproduction script: Tools/_Orbitra/generate_alert_code_voice.ps1."
+  source: "https://learn.microsoft.com/azure/ai-services/speech-service/language-support"

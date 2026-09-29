@@ -1,0 +1,13 @@
+- type: alertLevel
+  id: OrbitraIsolation
+  name: orbitra-alert-level-isolation
+  announcement: orbitra-alert-level-isolation-announcement
+  instructions: orbitra-alert-level-isolation-instructions
+  # Orbitra-Edit - отдельная сирена и голос изоляции вместо общей сильной тревоги.
+  sound: /Audio/_Orbitra/AlertLevels/code_isolation.ogg
+  selectable: false
+  disableSelection: true
+  color: "#40E0D0"
+  emergencyLightColor: "#40E0D0"
+  forceEnableEmergencyLights: true
+  shuttleTime: 600
