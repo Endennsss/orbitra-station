@@ -10,6 +10,8 @@
   Скрипт читается из базового SHA, чтобы PR не мог заменить собственную проверку.
 - `Orbitra PR Audit`: на push после approval добавляет комментарий с авторами, отправителем,
   коммитами, файлами и ссылкой на diff. После merge добавляет итоговый комментарий.
+- `Orbitra Commit Notify`: на каждом push в `master` отправляет в Discord отдельную карточку
+  для каждого коммита, даже если changelog не изменился.
 
 Для тестирования автоматизации:
 
@@ -81,8 +83,9 @@ gh api repos/Endennsss/orbitra-station/rulesets --method POST --input .github/or
 
 `pull_request_target` читает только скрипт из базового SHA. Код PR и его артефакты не запускаются,
 права ограничены чтением содержимого и записью в PR, Discord-секрет этому workflow не передаётся.
-Итоги ревью и merge остаются на GitHub. Discord получает новые записи игрового ченджлога
-и отдельное уведомление при открытии PR в `master`, включая черновики.
+Итоги ревью и merge остаются на GitHub. Discord получает новые записи игрового ченджлога,
+отдельные уведомления о каждом коммите в `master` и уведомление при открытии PR в `master`,
+включая черновики. Commit notifications не зависят от наличия записи в changelog.
 
 Документация: [GitHub rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets),
 [события снятого ревью](https://docs.github.com/en/rest/using-the-rest-api/issue-event-types#review_dismissed).

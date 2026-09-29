@@ -1,0 +1,31 @@
+name: "🧾 Orbitra Commit Notify"
+
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    name: "📨 Уведомление о коммитах"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        sparse-checkout: |
+          Tools/_Orbitra
+        persist-credentials: false
+    - uses: actions/setup-python@v6
+      with:
+        python-version: '3.12'
+    - name: "📚 Зависимости"
+      run: python -m pip install PyYAML==6.0.3 requests==2.32.5
+    - name: "🧾 Публикация коммитов"
+      run: python -B Tools/_Orbitra/discord_commit.py
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.ORBITRA_CHANGELOG_WEBHOOK }}
+        GITHUB_EVENT_PATH: ${{ github.event_path }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
