@@ -60,7 +60,29 @@ jobs:
       shell: pwsh
       run: |
         $env:DOTNET_gcServer=1
-        dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj -- NUnit.ConsoleOut=2 NUnit.MapWarningTo=Failed NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
+        # Длинные UI-тесты могут не писать в stdout несколько минут. Запускаем
+        # тестовый процесс отдельно и печатаем heartbeat, чтобы GitHub runner
+        # не отменял активный job из-за отсутствия вывода.
+        $arguments = @(
+          "test",
+          "--no-build",
+          "--configuration", "DebugOpt",
+          "Content.IntegrationTests/Content.IntegrationTests.csproj",
+          "--",
+          "NUnit.ConsoleOut=2",
+          "NUnit.MapWarningTo=Failed",
+          "NUnit.TestOutputXml=logs",
+          "NUnit.WorkDirectory=$(pwd)/test_results"
+        )
+        $testProcess = Start-Process dotnet -ArgumentList $arguments -NoNewWindow -PassThru
+        while (-not $testProcess.HasExited) {
+          Write-Host "Content.IntegrationTests still running..."
+          Start-Sleep -Seconds 60
+          $testProcess.Refresh()
+        }
+        if ($testProcess.ExitCode -ne 0) {
+          exit $testProcess.ExitCode
+        }
 
     - name: Archive NUnit3 test results.
       if: always()
