@@ -828,6 +828,8 @@
   - type: Edible
     requiresSpecialDigestion: true
   - type: Solution
+    # Orbitra-Edit - совпадает с именем раствора, который использует Edible.
+    id: food
     solution:
       reagents:
       - ReagentId: Fiber

@@ -17,6 +17,7 @@ jobs:
     name: Build & Test Debug # Orbitra-Edit - имя обязательной проверки в ruleset
     if: github.actor != 'PJBot' && github.event.pull_request.draft == false
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest]
         shard: [0, 1, 2, 3]
