@@ -11,6 +11,7 @@ using Content.Shared.Roles;
 using NUnit.Framework;
 using Robust.Client.UserInterface;
 using Robust.Shared.Configuration;
+using Robust.Shared.Localization;
 using Robust.Shared.Prototypes;
 
 namespace Content.IntegrationTests.Tests.Chat;
@@ -19,6 +20,7 @@ public sealed class ChatHighlightTest : GameTest
 {
     [SidedDependency(Side.Client)] private readonly IConfigurationManager _configManager = null!;
     [SidedDependency(Side.Client)] private readonly IUserInterfaceManager _uiManager = null!;
+    [SidedDependency(Side.Client)] private readonly ILocalizationManager _localization = null!;
     private static readonly ProtoId<JobPrototype> Captain = "Captain";
 
     [Test]
@@ -81,8 +83,7 @@ public sealed class ChatHighlightTest : GameTest
         Assert.That(activeHighlights, Contains.Item("ling"));
         Assert.That(activeHighlights, Contains.Item("rev"));
         // Auto:
-        Assert.That(activeHighlights, Contains.Item("Captain"));
-        Assert.That(activeHighlights, Contains.Item("(?<!\\w)Cap(?!\\w)")); // "Cap" becomes regex-escaped and word-bounded
+        AssertLocalizedCaptainHighlights(activeHighlights);
 
         // 5. Disable auto-fill highlights and verify auto-filled highlights are removed
         _configManager.SetCVar(CCVars.ChatAutoFillHighlights, false);
@@ -155,7 +156,18 @@ public sealed class ChatHighlightTest : GameTest
         activeHighlights = (List<string>)highlightsField.GetValue(chatController)!;
         Assert.That(activeHighlights, Contains.Item("ling"));
         Assert.That(activeHighlights, Contains.Item("rev"));
-        Assert.That(activeHighlights, Contains.Item("Captain"));
-        Assert.That(activeHighlights, Contains.Item("(?<!\\w)Cap(?!\\w)"));
+        AssertLocalizedCaptainHighlights(activeHighlights);
+    }
+
+    private void AssertLocalizedCaptainHighlights(List<string> activeHighlights)
+    {
+        var localized = _localization.GetString("highlights-captain").Split(", ");
+        Assert.That(activeHighlights, Contains.Item(localized[0]));
+
+        foreach (var alias in localized[1..])
+        {
+            var word = alias.Trim('"');
+            Assert.That(activeHighlights, Contains.Item($"(?<!\\w){word}(?!\\w)"));
+        }
     }
 }
