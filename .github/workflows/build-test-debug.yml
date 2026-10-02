@@ -136,7 +136,7 @@ jobs:
         }
       env:
         SHARD_INDEX: ${{ matrix.shard }}
-        SHARD_COUNT: 4
+        SHARD_COUNT: 8
 
     - name: Archive NUnit3 test results.
       if: always()
