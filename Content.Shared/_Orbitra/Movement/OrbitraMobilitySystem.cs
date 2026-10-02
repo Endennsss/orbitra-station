@@ -102,8 +102,7 @@ public sealed partial class OrbitraMobilitySystem : VirtualController
         if (!CanGoProne(entity, false))
             return false;
 
-        DoGoProne(entity);
-        return true;
+        return DoGoProne(entity.Owner);
     }
 
     public bool CanGoProne(Entity<OrbitraMobilityComponent?> entity, bool quiet = true)
@@ -114,13 +113,14 @@ public sealed partial class OrbitraMobilitySystem : VirtualController
         return !HasComp<OrbitraProneComponent>(entity) && !_standing.IsDown(entity.Owner);
     }
 
-    private void DoGoProne(EntityUid uid)
+    private bool DoGoProne(EntityUid uid)
     {
         if (!_standing.Down(uid, dropHeldItems: false))
-            return;
+            return false;
 
         EnsureComp<OrbitraProneComponent>(uid);
         _movement.RefreshMovementSpeedModifiers(uid);
+        return true;
     }
 
     public bool TryStand(Entity<OrbitraMobilityComponent?> entity)
@@ -177,7 +177,9 @@ public sealed partial class OrbitraMobilitySystem : VirtualController
         if (!Resolve(entity, ref entity.Comp, false) || !CanRoll((entity.Owner, entity.Comp), direction, false))
             return false;
 
-        DoGoProne(entity.Owner);
+        if (!DoGoProne(entity.Owner))
+            return false;
+
         DoManeuver((entity.Owner, entity.Comp), OrbitraManeuverType.Roll, direction,
             entity.Comp.RollDistance, entity.Comp.RollDuration, entity.Comp.RollStaminaCost);
         entity.Comp.NextRoll = _timing.CurTime + TimeSpan.FromSeconds(entity.Comp.RollCooldown);
@@ -187,7 +189,7 @@ public sealed partial class OrbitraMobilitySystem : VirtualController
 
     public bool CanRoll(Entity<OrbitraMobilityComponent?> entity, Vector2 direction, bool quiet = true)
     {
-        if (!Resolve(entity, ref entity.Comp, false) || direction == Vector2.Zero || !CanManeuver(entity, quiet))
+        if (!Resolve(entity, ref entity.Comp, false) || !HasDirection(direction) || !CanManeuver(entity, quiet))
             return false;
 
         if (_timing.CurTime < entity.Comp.NextRoll || HasComp<OrbitraProneComponent>(entity))
@@ -207,7 +209,8 @@ public sealed partial class OrbitraMobilitySystem : VirtualController
         if (!CanJump((entity.Owner, entity.Comp), direction, false))
             return false;
 
-        if (direction != Vector2.Zero && TryFindVaultTarget(entity.Owner, direction, entity.Comp.JumpDistance, out var target) &&
+        if (HasDirection(direction) &&
+            TryFindVaultTarget(entity.Owner, direction, SanitizeNonNegative(entity.Comp.JumpDistance), out var target) &&
             _climb.TryOrbitraJumpVault(entity.Owner, target))
         {
             _stamina.TryTakeStamina(entity.Owner, entity.Comp.JumpStaminaCost, visual: false);
@@ -245,6 +248,7 @@ public sealed partial class OrbitraMobilitySystem : VirtualController
                     !_gravity.IsWeightless(uid) &&
                     _blocker.CanMove(uid) &&
                     _mobState.IsAlive(uid) &&
+                    !_standing.IsDown(uid) &&
                     (!TryComp<BuckleComponent>(uid, out var buckle) || !buckle.Buckled) &&
                     (!TryComp<ClimbingComponent>(uid, out var climbing) || !climbing.IsClimbing);
 
@@ -267,13 +271,18 @@ public sealed partial class OrbitraMobilitySystem : VirtualController
     private void DoManeuver(Entity<OrbitraMobilityComponent> entity, OrbitraManeuverType type, Vector2 direction,
         float distance, float duration, float staminaCost)
     {
-        _stamina.TryTakeStamina(entity.Owner, staminaCost, visual: false);
+        var safeDuration = SanitizeDuration(duration);
+        var safeDistance = SanitizeNonNegative(distance);
+        var safeStaminaCost = SanitizeNonNegative(staminaCost);
+
+        _stamina.TryTakeStamina(entity.Owner, safeStaminaCost, visual: false);
         var active = EnsureComp<OrbitraActiveManeuverComponent>(entity.Owner);
         active.Type = type;
-        active.Direction = direction.Normalized();
-        active.Speed = distance / duration;
+        active.Direction = NormalizeDirection(direction);
+        var speed = safeDistance / safeDuration;
+        active.Speed = float.IsFinite(speed) ? speed : 0f;
         active.StartTime = _timing.CurTime;
-        active.EndTime = _timing.CurTime + TimeSpan.FromSeconds(duration);
+        active.EndTime = _timing.CurTime + TimeSpan.FromSeconds(safeDuration);
         Dirty(entity.Owner, active);
         _blocker.UpdateCanMove(entity.Owner);
 
@@ -288,7 +297,7 @@ public sealed partial class OrbitraMobilitySystem : VirtualController
             return false;
 
         direction = _mover.GetWishDir((uid, input));
-        return direction != Vector2.Zero;
+        return HasDirection(direction);
     }
 
     private bool TryFindVaultTarget(EntityUid uid, Vector2 direction, float range, out EntityUid target)
@@ -327,13 +336,24 @@ public sealed partial class OrbitraMobilitySystem : VirtualController
                 continue;
             }
 
+            if (!IsFinite(maneuver.Direction) || !float.IsFinite(maneuver.Speed))
+            {
+                FinishManeuver((uid, maneuver), body);
+                continue;
+            }
+
             var speed = maneuver.Speed;
             if (maneuver.Type == OrbitraManeuverType.Roll && TryComp<OrbitraMobilityComponent>(uid, out var mobility))
             {
-                var duration = Math.Max(mobility.RollDuration, 0.01f);
+                var duration = SanitizeDuration(mobility.RollDuration);
                 var progress = Math.Clamp((float) (_timing.CurTime - maneuver.StartTime).TotalSeconds / duration, 0f, 1f);
-                speed *= mobility.RollDeceleration * MathF.Pow(1f - progress, mobility.RollDeceleration - 1f);
+                var deceleration = SanitizeDeceleration(mobility.RollDeceleration);
+                speed *= deceleration * MathF.Pow(MathF.Max(1f - progress, 0f), deceleration - 1f);
             }
+
+            if (!float.IsFinite(speed))
+                speed = 0f;
+
             _physics.SetLinearVelocity(uid, maneuver.Direction * speed, body: body);
         }
     }
@@ -366,6 +386,59 @@ public sealed partial class OrbitraMobilitySystem : VirtualController
 
     private void OnKnockedDown(Entity<OrbitraMobilityComponent> entity, ref KnockedDownEvent args)
     {
+        CancelManeuver(entity.Owner);
+
+        if (TryComp<OrbitraProneComponent>(entity, out var prone) && prone.StandDoAfter is not null)
+            _doAfter.Cancel(prone.StandDoAfter);
+
         RemComp<OrbitraProneComponent>(entity.Owner);
+    }
+
+    private void CancelManeuver(EntityUid uid)
+    {
+        if (!TryComp<OrbitraActiveManeuverComponent>(uid, out var maneuver))
+            return;
+
+        if (TryComp<PhysicsComponent>(uid, out var body))
+        {
+            _physics.SetLinearVelocity(uid, Vector2.Zero, body: body);
+            if (maneuver.Type == OrbitraManeuverType.Jump && body.BodyStatus == BodyStatus.InAir)
+                _physics.SetBodyStatus(uid, body, BodyStatus.OnGround);
+        }
+
+        RemComp(uid, maneuver);
+        _blocker.UpdateCanMove(uid);
+    }
+
+    private static float SanitizeDuration(float duration)
+    {
+        return float.IsFinite(duration) ? MathF.Max(duration, 0.01f) : 0.01f;
+    }
+
+    private static float SanitizeNonNegative(float value)
+    {
+        return float.IsFinite(value) ? MathF.Max(value, 0f) : 0f;
+    }
+
+    private static float SanitizeDeceleration(float value)
+    {
+        return float.IsFinite(value) ? MathF.Max(value, 1f) : 1f;
+    }
+
+    private static Vector2 NormalizeDirection(Vector2 direction)
+    {
+        return HasDirection(direction)
+            ? Vector2.Normalize(direction)
+            : Vector2.Zero;
+    }
+
+    private static bool HasDirection(Vector2 direction)
+    {
+        return IsFinite(direction) && direction.LengthSquared() > 0.000001f;
+    }
+
+    private static bool IsFinite(Vector2 value)
+    {
+        return float.IsFinite(value.X) && float.IsFinite(value.Y);
     }
 }
