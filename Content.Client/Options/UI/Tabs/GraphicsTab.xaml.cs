@@ -84,9 +84,11 @@ public sealed partial class GraphicsTab : Control
         Control.AddOptionCheckBox(CCVars.HudFpsCounterVisible, FpsCounterCheckBox);
 
         InitializeOrbitraBloomOptions(); // Orbitra-Edit - подключаем настройки нового Bloom.
+        InitializeOrbitraDarkStationOptions(); // Orbitra-Edit - подключаем мрачную цветокоррекцию мира.
         InitializeOrbitraParticleOptions(); // Orbitra-Edit - настройка косметических частиц.
         Control.Initialize();
         UpdateOrbitraBloomVisibility(); // Orbitra-Edit
+        UpdateOrbitraDarkStationVisibility(); // Orbitra-Edit
 
         _cfg.OnValueChanged(CCVars.ViewportMinimumWidth, _ => UpdateViewportWidthRange());
         _cfg.OnValueChanged(CCVars.ViewportMaximumWidth, _ => UpdateViewportWidthRange());

@@ -4,3 +4,5 @@ orbitra-options-bloom-quality = Bloom quality
 orbitra-options-bloom-quality-low = Low
 orbitra-options-bloom-quality-medium = Medium
 orbitra-options-bloom-quality-high = High
+orbitra-options-dark-station-enabled = Dark station atmosphere
+orbitra-options-dark-station-strength = Dark atmosphere intensity

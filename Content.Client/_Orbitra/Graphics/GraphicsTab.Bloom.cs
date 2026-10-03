@@ -66,6 +66,7 @@ public sealed partial class GraphicsTab
         if (disposing)
         {
             RestoreOrbitraParticleOptions();
+            RestoreOrbitraDarkStationOptions();
             PreviewOrbitraBloomEnabled(_cfg.GetCVar(OrbitraBloomCVars.Enabled));
             PreviewOrbitraBloomStrength(_cfg.GetCVar(OrbitraBloomCVars.Strength));
             PreviewOrbitraBloomQuality(_cfg.GetCVar(OrbitraBloomCVars.Quality));

@@ -31,6 +31,9 @@
                 <kit:OrbitraCheckBox Name="OrbitraBloomEnabledCheckBox" Text="{Loc 'orbitra-options-bloom-enabled'}" />
                 <ui:OptionSlider Name="OrbitraBloomStrengthSlider" Title="{Loc 'orbitra-options-bloom-strength'}" />
                 <ui:OptionDropDown Name="OrbitraBloomQualityDropDown" Title="{Loc 'orbitra-options-bloom-quality'}" />
+                <!-- Orbitra-Edit - настройка мрачной цветокоррекции игрового мира. -->
+                <kit:OrbitraCheckBox Name="OrbitraDarkStationEnabledCheckBox" Text="{Loc 'orbitra-options-dark-station-enabled'}" />
+                <ui:OptionSlider Name="OrbitraDarkStationStrengthSlider" Title="{Loc 'orbitra-options-dark-station-strength'}" />
                 <!-- Orbitra-Edit - плотность косметических частиц. -->
                 <ui:OptionDropDown Name="OrbitraParticleQualityDropDown" Title="{Loc 'orbitra-options-particles-quality'}" />
                 <!-- Orbitra added end -->
