@@ -1,0 +1,53 @@
+# Production-образ Orbitra собирается штатным упаковщиком репозитория, чтобы
+# ресурсы RobustToolbox и зависимости Content.Server попали в один пакет.
+FROM mcr.microsoft.com/dotnet/sdk:10.0.100-noble AS builder
+
+ARG ORBITRA_IMAGE_VERSION=local
+WORKDIR /src
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY . .
+
+RUN dotnet run --project Content.Packaging server \
+        --platform linux-x64 --hybrid-acz \
+        --configuration Release \
+    && mkdir -p /out \
+    && unzip -q release/SS14.Server_linux-x64.zip -d /out \
+    && chmod 0755 /out/Robust.Server \
+    && cp Resources/ConfigPresets/server_config.toml /out/config.template.toml \
+    && sed -i \
+        -e 's/^loginlocal = true/loginlocal = false/' \
+        -e 's/^advertise = false/advertise = true/' \
+        /out/config.template.toml \
+    && printf '%s\n' "${ORBITRA_IMAGE_VERSION}" > /out/.orbitra-image-version
+
+FROM mcr.microsoft.com/dotnet/runtime:10.0-noble AS runtime
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        bash \
+        ca-certificates \
+        libfontconfig1 \
+        libfreetype6 \
+        libicu-dev \
+        rsync \
+        tini \
+        tzdata \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --create-home --uid 1001 --shell /bin/bash container
+
+WORKDIR /home/container
+ENV HOME=/home/container \
+    USER=container
+
+COPY --from=builder --chown=container:container /out/ /opt/orbitra/
+COPY --chown=container:container docker/orbitra-entrypoint.sh /usr/local/bin/orbitra-entrypoint.sh
+RUN chmod 0755 /usr/local/bin/orbitra-entrypoint.sh
+
+USER container
+STOPSIGNAL SIGINT
+ENTRYPOINT ["/usr/bin/tini", "-g", "--", "/usr/local/bin/orbitra-entrypoint.sh"]
+CMD ["./Robust.Server", "--config-file", "config.toml", "--data-dir", "data"]

@@ -1,0 +1,15 @@
+# Результаты сборки и тестов
+**/bin/
+**/obj/
+release/
+TestResults/
+.tmp/
+Temp/
+
+# Локальные артефакты
+orbitra-vision-files.zip
+*.user
+*.suo
+
+# Метаданные Git не нужны Docker-сборке; содержимое RobustToolbox сохраняется.
+.git/
