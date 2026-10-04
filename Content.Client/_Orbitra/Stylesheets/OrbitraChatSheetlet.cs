@@ -40,19 +40,16 @@ public sealed class OrbitraChatSheetlet : Sheetlet<PalettedStylesheet>
     {
         var fonts = new NotoFontFamilyStack(ResCache, "Display");
         var speechBox = new StyleBoxEmpty(); // Orbitra-Edit - речь и эмоции без задней подложки
-        var briefingPanel = new StyleBoxFlat(OrbitraPalettes.PanelInset.WithAlpha(0.98f))
-        {
-            BorderColor = sheet.NegativePalette.Element.WithAlpha(0.75f),
-            BorderThickness = new Thickness(1),
-        };
+        var briefingPanel = new StyleBoxFlat(OrbitraPalettes.PanelInset);
         briefingPanel.SetContentMarginOverride(StyleBox.Margin.All, OrbitraUiMetrics.Small);
         return
         [
             E<OutputPanel>().Class(ChatText).Font(fonts.GetFont(13)),
             E<PanelContainer>().Class("OrbitraAntagBriefing").Panel(briefingPanel),
             E<PanelContainer>().Class("OrbitraAntagBriefingAccent").Panel(new StyleBoxFlat(sheet.NegativePalette.Element)),
-            E<Label>().Class("OrbitraAntagBriefingTitle").Font(fonts.GetFont(13, FontKind.Bold)).FontColor(sheet.NegativePalette.Text),
-            E<RichTextLabel>().Class("OrbitraAntagBriefingText").Font(fonts.GetFont(13)).FontColor(OrbitraPalettes.Primary.Text),
+            E<Label>().Class("OrbitraAntagBriefingTitle").Font(fonts.GetFont(13, FontKind.Bold)),
+            E<RichTextLabel>().Class("OrbitraAntagBriefingText").Font(fonts.GetFont(13)).FontColor(OrbitraPalettes.Primary.Text)
+                .Prop(Label.StylePropertyFontOutlineThickness, 0f),
             E<LineEdit>().Class(ChatText).Font(fonts.GetFont(13)),
             E<RichTextLabel>().Class(SpeechText)
                 .Font(fonts.GetFont(13))
