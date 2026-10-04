@@ -53,6 +53,8 @@ namespace Content.Client.Voting.UI
                 var i1 = i;
                 button.OnPressed += _ => _voteManager.SendCastVote(vote.Id, i1);
             }
+
+            ApplyOrbitraChrome(); // Orbitra-Edit - стандартный попап не должен обрезать длинные названия голосований.
         }
 
         public void UpdateData()

@@ -678,6 +678,12 @@ namespace Content.Server.GameTicking
                     _roundStartTime = _gameTiming.CurTime + LobbyDuration;
 
                 SendStatusToAll();
+
+                if (_playerManager.PlayerCount > 0)
+                {
+                    _voteManager.CreateStandardVote(null, Content.Shared.Voting.StandardVoteType.Map); // Orbitra-Edit - голосование карты начинается после перехода в лобби.
+                    _voteManager.CreateStandardVote(null, Content.Shared.Voting.StandardVoteType.Preset); // Orbitra-Edit - режим выбирается в том же лобби до старта раунда.
+                }
                 UpdateInfoText();
 
                 ReqWindowAttentionAll();

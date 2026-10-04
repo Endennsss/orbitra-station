@@ -263,7 +263,14 @@ namespace Content.Server.Voting.Managers
 
         private void CreateMapVote(ICommonSession? initiator)
         {
-            var maps = _gameMapManager.CurrentlyEligibleMaps().ToDictionary(map => map, map => map.MapName);
+            // Orbitra-Edit - после завершения раунда игрокам показываются четыре карты, а не длинный список.
+            var maps = _gameMapManager.CurrentlyEligibleMaps()
+                .OrderBy(_ => _random.Next())
+                .Take(4)
+                .ToDictionary(map => map, map => map.MapName);
+
+            if (maps.Count == 0)
+                return;
 
             var alone = _playerManager.PlayerCount == 1 && initiator != null;
             var options = new VoteOptions

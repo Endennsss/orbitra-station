@@ -87,6 +87,7 @@ namespace Content.Client.Voting
 
         public void ClearPopupContainer()
         {
+            CloseOrbitraMapVote(); // Orbitra-Edit - карта голосования закрывается вместе с лобби-попапами.
             if (_popupContainer == null)
                 return;
 
@@ -165,6 +166,7 @@ namespace Content.Client.Voting
             {
                 // Remove gone vote.
                 _votes.Remove(voteId);
+                CloseOrbitraMapVote(); // Orbitra-Edit - после окончания выбора возвращаем обычное лобби.
                 if (_votePopups.TryGetValue(voteId, out var toRemove))
                 {
 
@@ -192,6 +194,12 @@ namespace Content.Client.Voting
             for (var i = 0; i < message.Options.Length; i++)
             {
                 existingVote.Entries[i].Votes = message.Options[i].votes;
+            }
+
+            if (IsOrbitraMapVote(existingVote))
+            {
+                UpdateOrbitraMapVote(existingVote); // Orbitra-Edit - карта показывается отдельными крупными карточками.
+                return;
             }
 
             if (@new && _popupContainer != null)
