@@ -127,6 +127,8 @@ internal static class OrbitraEditorStyles
         {
             OrbitraMotion.AttachButton(button);
             root.MinWidth = 0;
+            // Orbitra-Edit - у консольных кнопок без собственного размера рамка не должна получать нулевую высоту.
+            button.MinHeight = Math.Max(button.MinHeight, OrbitraUiMetrics.ElementHeight);
             // Обрезаем только растягиваемые строки: у обычной кнопки текст задаёт её ширину.
             button.ClipText = button.HorizontalExpand && button.Parent is not WrapContainer;
             button.ToolTip ??= button.Text;
