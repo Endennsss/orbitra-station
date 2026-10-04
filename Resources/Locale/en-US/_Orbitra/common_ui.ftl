@@ -24,4 +24,7 @@ orbitra-map-vote-select = Select map
 orbitra-map-vote-selected = Vote submitted
 orbitra-map-vote-count = Votes: { $count }
 orbitra-map-vote-back = Return to lobby
+# Orbitra added start - antagonist briefing card.
+orbitra-antag-briefing-title = ANTAGONIST — BRIEFING RECEIVED
+# Orbitra added end
 # Orbitra added end

@@ -24,4 +24,7 @@ orbitra-map-vote-select = Выбрать карту
 orbitra-map-vote-selected = Голос принят
 orbitra-map-vote-count = Голосов: { $count }
 orbitra-map-vote-back = Вернуться в лобби
+# Orbitra added start - карточка приветствия антагониста.
+orbitra-antag-briefing-title = АНТАГОНИСТ — ЗАДАЧА ПОЛУЧЕНА
+# Orbitra added end
 # Orbitra added end

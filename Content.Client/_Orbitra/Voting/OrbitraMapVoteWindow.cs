@@ -5,6 +5,7 @@ using Content.Client._Orbitra.UserInterface;
 using Content.Client.Resources;
 using Content.Client.Stylesheets;
 using Content.Client.Voting;
+using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
@@ -19,6 +20,7 @@ internal sealed class OrbitraMapVoteWindow : BaseWindow
 {
     private readonly IVoteManager _voteManager;
     private readonly IResourceCache _resources;
+    private readonly SpriteSystem _sprites;
     private readonly GridContainer _cards;
     private readonly Label _status;
     private readonly Button _back;
@@ -30,6 +32,7 @@ internal sealed class OrbitraMapVoteWindow : BaseWindow
         IoCManager.InjectDependencies(this);
         _voteManager = IoCManager.Resolve<IVoteManager>();
         _resources = IoCManager.Resolve<IResourceCache>();
+        _sprites = IoCManager.Resolve<IEntitySystemManager>().GetEntitySystem<SpriteSystem>();
         Stylesheet = IoCManager.Resolve<IStylesheetManager>().SheetSystem;
 
         MinSize = SetSize = new Vector2(920, 700);
@@ -210,12 +213,18 @@ internal sealed class OrbitraMapVoteWindow : BaseWindow
         var stationSlug = slug.EndsWith("station", StringComparison.Ordinal)
             ? slug[..^"station".Length]
             : slug;
-        foreach (var candidate in new[] { $"/Textures/Structures/Wallmounts/posters.rsi/{slug}map.png", $"/Textures/Structures/Wallmounts/posters.rsi/{stationSlug}map.png", "/Textures/LobbyScreens/terminalstation.webp" })
+        var rsiPath = new ResPath("/Textures/Structures/Wallmounts/posters.rsi");
+        foreach (var state in new[] { $"{slug}map", $"{stationSlug}map" }.Distinct(StringComparer.Ordinal))
         {
-            if (_resources.TryGetResource<TextureResource>(new ResPath(candidate), out var texture))
-                return texture.Texture;
+            // Orbitra-Edit - читаем состояние RSI, а не packedmap.png, чтобы не загружать сырые кадры.
+            if (_resources.TryGetResource<RSIResource>(rsiPath, out var rsi) &&
+                rsi.RSI.TryGetState(state, out var rsiState))
+                return rsiState.Frame0;
         }
 
-        return default!;
+        if (_resources.TryGetResource<TextureResource>(new ResPath("/Textures/LobbyScreens/terminalstation.webp"), out var fallback))
+            return fallback.Texture;
+
+        return _sprites.GetFallbackState().Frame0;
     }
 }

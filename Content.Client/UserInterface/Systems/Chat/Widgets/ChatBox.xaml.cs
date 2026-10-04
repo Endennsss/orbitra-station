@@ -1,3 +1,5 @@
+using System;
+using System.Text;
 using Content.Client.UserInterface.Systems.Chat.Controls;
 using Content.Shared.Chat;
 using Content.Shared.Input;
@@ -71,6 +73,12 @@ public partial class ChatBox : UIWidget
 
         var color = msg.MessageColorOverride ?? msg.Channel.TextColor();
 
+        if (msg.IsBriefing)
+        {
+            AddBriefingLine(msg.WrappedMessage);
+            return;
+        }
+
         AddLine(msg.WrappedMessage, color);
     }
 
@@ -120,6 +128,15 @@ public partial class ChatBox : UIWidget
         formatted.PushColor(color);
         formatted.AddMarkupOrThrow(Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.FormatChatMarkup(message)); // Orbitra-Edit - курсив эмоций использует шрифт чата.
         formatted.Pop();
+        Contents.AddMessage(formatted, tagsAllowed: null);
+    }
+
+    private void AddBriefingLine(string message)
+    {
+        // Orbitra-Edit - передаём исходную разметку в отдельный rich-text блок без потери форматирования.
+        var payload = Convert.ToBase64String(Encoding.UTF8.GetBytes(
+            Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.FormatChatMarkup(message)));
+        var formatted = FormattedMessage.FromMarkupOrThrow($"\n[orbitra-briefing payload=\"{payload}\"/]\n");
         Contents.AddMessage(formatted, tagsAllowed: null);
     }
 
