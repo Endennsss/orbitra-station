@@ -9,7 +9,7 @@ namespace Content.Tests.Client._Orbitra.Graphics;
 public sealed class OrbitraDarkStationTest
 {
     [Test]
-    public void DefaultsEnableDarkStationWithHorrorStrength()
+    public void DefaultsEnableDarkStationWithSubtleStrength()
     {
         Assert.That(OrbitraDarkStationCVars.Enabled.DefaultValue, Is.True);
         Assert.That(OrbitraDarkStationCVars.Strength.DefaultValue, Is.EqualTo(0.65f));

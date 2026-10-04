@@ -11,31 +11,33 @@ highp float luminance(highp vec3 color) {
 void fragment() {
     lowp vec4 source = zTextureSpec(SCREEN_TEXTURE, UV);
     highp float amount = clamp(strength, 0.0, 1.0);
+    // Ползунок управляет мягкостью тонировки: даже максимум не превращает сцену в фильтр.
+    highp float mood = amount * 0.55;
     highp vec3 original = max(source.rgb, vec3(0.0));
     highp float brightness = luminance(original);
 
-    // Сильнее затемняем тени, но оставляем яркие лампы и аварийные индикаторы читаемыми.
-    highp float shadows = 1.0 - smoothstep(0.08, 0.72, brightness);
-    highp float highlights = smoothstep(0.58, 0.94, brightness);
+    // Затемняем в основном средние и тёмные тона, не меняя белые источники света.
+    highp float shadows = 1.0 - smoothstep(0.12, 0.78, brightness);
+    highp float highlights = smoothstep(0.60, 0.90, brightness);
 
-    // Умеренно поднимаем контраст и уменьшаем экспозицию без дополнительного render target.
-    highp float contrast = 1.0 + 0.34 * amount;
+    // Лёгкий контраст и затемнение сохраняют детали в помещениях без дополнительного render target.
+    highp float contrast = 1.0 + 0.14 * mood;
     highp vec3 graded = (original - vec3(0.5)) * contrast + vec3(0.5);
-    graded *= mix(1.0, 0.72, amount * (0.45 + 0.55 * shadows));
+    graded *= mix(1.0, 0.88, shadows * mood);
 
-    // Холодный оттенок появляется преимущественно в тенях, чтобы сохранить цветные источники.
-    highp vec3 cold = graded * mix(vec3(1.0), vec3(0.78, 0.86, 0.98), shadows * 0.55 * amount);
+    // Холодный серо-синий оттенок появляется только в тенях и остаётся почти незаметным.
+    highp vec3 cold = graded * mix(vec3(1.0), vec3(0.90, 0.95, 1.0), shadows * mood);
     highp float gray = luminance(cold);
-    highp float saturation = 1.0 - 0.24 * amount * (0.35 + 0.65 * shadows);
+    highp float saturation = 1.0 - 0.10 * mood * (0.35 + 0.65 * shadows);
     highp vec3 toned = mix(vec3(gray), cold, clamp(saturation, 0.0, 1.0));
 
-    // Не глушим эмиссивные участки полностью: Bloom и лампы должны оставаться акцентами.
-    toned = mix(toned, original, highlights * 0.35 * amount);
+    // Эмиссивные участки почти сохраняют исходный цвет: Bloom и лампы остаются акцентами.
+    toned = mix(toned, original, highlights * 0.80 * mood);
 
-    // Мягкая виньетка усиливает ощущение закрытого помещения и не требует отдельной текстуры.
+    // Едва заметная виньетка добавляет глубины и не требует отдельной текстуры.
     highp float edge = length((UV - vec2(0.5)) * vec2(1.15, 1.0));
-    highp float vignette = smoothstep(0.42, 0.92, edge);
-    toned *= 1.0 - 0.22 * amount * vignette;
+    highp float vignette = smoothstep(0.48, 0.95, edge);
+    toned *= 1.0 - 0.10 * mood * vignette;
 
     COLOR = vec4(clamp(toned, vec3(0.0), vec3(1.0)), source.a);
 }
