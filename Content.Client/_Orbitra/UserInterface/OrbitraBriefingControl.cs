@@ -35,11 +35,11 @@ public sealed class OrbitraBriefingControl : PanelContainer
         MinHeight = bodyHeight + 64;
         Margin = new Thickness(OrbitraUiMetrics.Small, 0);
         StyleClasses.Add("OrbitraAntagBriefing");
-        // Нейтральный фон карточки не должен наследовать коричневый оттенок панели чата.
-        // Внешняя рамка только ухудшает читаемость в узком окне, поэтому её нет.
+        // Нейтральный фон сохраняет контраст, а тонкая рамка возвращает карточке форму блока.
         PanelOverride = new StyleBoxFlat(OrbitraPalettes.PanelInset)
         {
-            BorderThickness = new Thickness(0),
+            BorderColor = theme.Color.WithAlpha(0.8f),
+            BorderThickness = new Thickness(1),
         };
 
         var column = new BoxContainer
@@ -131,7 +131,7 @@ public sealed class OrbitraBriefingControl : PanelContainer
         if (text.Contains("волшебник") || text.Contains("wizard"))
             return ("orbitra-antag-briefing-wizard", new Color(175, 105, 235));
         if (text.Contains("ниндзя") || text.Contains("ninja"))
-            return ("orbitra-antag-briefing-ninja", new Color(80, 180, 205));
+            return ("orbitra-antag-briefing-ninja", new Color(55, 220, 105));
         if (text.Contains("вор") || text.Contains("thief"))
             return ("orbitra-antag-briefing-thief", new Color(235, 175, 70));
         if (text.Contains("зомби") || text.Contains("инфицирован") || text.Contains("infected"))
