@@ -111,6 +111,7 @@ connectaddress = ""
 
 [infolinks]
 # Links to be displayed in the launcher.
+discord = ""
 forum = ""
 github = ""
 website = ""

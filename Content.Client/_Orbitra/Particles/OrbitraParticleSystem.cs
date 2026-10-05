@@ -108,7 +108,7 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
             var intensity = Math.Clamp(stacks / 3f, 0.5f, 1f);
             var point = _transform.ToCoordinates(xform.GridUid ?? xform.MapUid.Value, _transform.GetMapCoordinates(uid));
             Continuous((uid, -1), point, "OrbitraParticleEmber", Rate("OrbitraParticleEmber") * intensity, MathF.PI / 2);
-            Continuous((uid, -2), point, "OrbitraParticleSmoke", Rate("OrbitraParticleSmoke") * intensity, MathF.PI / 2);
+            Continuous((uid, -2), point, "OrbitraParticleBurningSmoke", Rate("OrbitraParticleBurningSmoke") * intensity, MathF.PI / 2);
         }
         if (actions == null)
             return;

@@ -14,7 +14,7 @@ public sealed partial class VotePopup
         // Orbitra-Edit - варианты голосования идут в один адаптивный столбец,
         // чтобы длинные названия режима не выезжали за границы панели.
         HorizontalExpand = true;
-        MinWidth = 0;
+        MinWidth = 360;
         MaxWidth = 460;
         if (GetChild(0) is PanelContainer panel)
             panel.PanelOverride = new StyleBoxFlat(OrbitraPalettes.PanelBackground)
@@ -23,10 +23,8 @@ public sealed partial class VotePopup
             BorderThickness = new Thickness(1),
         };
         VoteCaller.HorizontalExpand = true;
-        VoteCaller.ClipText = true;
-        VoteCaller.ToolTip = VoteCaller.Text;
+        VoteCaller.ClipText = false;
         VoteTitle.HorizontalExpand = true;
-        VoteTitle.ToolTip = VoteTitle.Text;
         VoteOptionsContainer.Columns = 1;
 
         foreach (var child in VoteOptionsContainer.Children)
@@ -36,8 +34,8 @@ public sealed partial class VotePopup
 
             button.HorizontalExpand = true;
             button.MinWidth = 0;
-            button.ClipText = true;
-            button.ToolTip = button.Text;
+            button.ClipText = false;
+            button.MinHeight = 36;
             button.AddStyleClass(OrbitraButtonStyles.Secondary);
         }
     }

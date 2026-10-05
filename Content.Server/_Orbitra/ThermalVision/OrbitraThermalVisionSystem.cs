@@ -6,6 +6,7 @@ using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
+using Content.Shared.PowerCell;
 using Content.Shared.Temperature.Components;
 using Robust.Shared.Containers;
 using Robust.Shared.Enums;
@@ -22,6 +23,7 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private SharedContainerSystem _containers = default!;
+    [Dependency] private PowerCellSystem _powerCell = default!;
     [Dependency] private IGameTiming _timing = default!;
 
     private readonly Dictionary<EntityUid, ICommonSession> _active = new();
@@ -36,6 +38,7 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
         SubscribeLocalEvent<OrbitraThermalVisionComponent, GotEquippedEvent>(OnEquipped);
         SubscribeLocalEvent<OrbitraThermalVisionComponent, GotUnequippedEvent>(OnUnequipped);
         SubscribeLocalEvent<OrbitraThermalVisionComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<OrbitraThermalVisionComponent, PowerCellSlotEmptyEvent>(OnPowerCellEmpty);
         SubscribeLocalEvent<OrbitraToggleThermalVisionEvent>(OnToggle);
         SubscribeLocalEvent<PlayerDetachedEvent>(OnPlayerDetached);
     }
@@ -78,6 +81,11 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
             Disable((eyes.Value, device));
     }
 
+    private void OnPowerCellEmpty(Entity<OrbitraThermalVisionComponent> ent, ref PowerCellSlotEmptyEvent args)
+    {
+        Disable(ent);
+    }
+
     /// <summary>Toggles only an actual eye-slot device belonging to the performing player.</summary>
     public bool TryToggle(Entity<OrbitraThermalVisionComponent> device, EntityUid performer)
     {
@@ -87,7 +95,11 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
             Disable(device);
         else
         {
+            if (!_powerCell.HasDrawCharge(device.Owner, user: performer))
+                return false;
+
             device.Comp.Enabled = true;
+            _powerCell.SetDrawEnabled(device.Owner, true);
             _active[device] = actor.PlayerSession;
             _actions.SetToggled(device.Comp.ActionEntity, true);
             Dirty(device);
@@ -112,6 +124,7 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
             device.Comp.Wearer is { } wearer)
             RaiseNetworkEvent(new OrbitraThermalContactsEvent(GetNetEntity(device), GetNetEntity(wearer), default, [], false), session);
         device.Comp.Enabled = false;
+        _powerCell.SetDrawEnabled(device.Owner, false);
         _actions.SetToggled(device.Comp.ActionEntity, false);
         Dirty(device);
     }

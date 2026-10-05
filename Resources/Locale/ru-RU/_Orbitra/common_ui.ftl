@@ -17,13 +17,6 @@ orbitra-ghost-load-error = Не удалось получить список ц�
 orbitra-ghost-retry = Повторить
 
 # Orbitra added start - выбор карты после завершения раунда.
-orbitra-map-vote-title = Выбор следующей карты
-orbitra-map-vote-description = Выберите карту для следующего раунда.
-orbitra-map-vote-prompt = Выберите карту
-orbitra-map-vote-select = Выбрать карту
-orbitra-map-vote-selected = Голос принят
-orbitra-map-vote-count = Голосов: { $count }
-orbitra-map-vote-back = Вернуться в лобби
 # Orbitra added start - карточка приветствия антагониста.
 orbitra-antag-briefing-title = АНТАГОНИСТ — ЗАДАЧА ПОЛУЧЕНА
 orbitra-antag-briefing-syndicate = СИНДИКАТ — ЗАДАНИЕ ПОЛУЧЕНО

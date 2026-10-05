@@ -57,6 +57,16 @@
       "user_editable": true,
       "rules": "required|string|max:255",
       "field_type": "text"
+    },
+    {
+      "name": "Discord URL",
+      "description": "Discord invite link displayed by the launcher and /info endpoint. Leave empty to hide it.",
+      "env_variable": "DISCORD_URL",
+      "default_value": "",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "nullable|string|url|max:255",
+      "field_type": "text"
     }
   ]
 }

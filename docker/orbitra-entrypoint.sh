@@ -30,10 +30,16 @@ fi
 
 printf '%s\n' "$image_version" > .orbitra-image-version
 
+discord_url="${DISCORD_URL:-}"
+if [[ -n "$discord_url" && ! "$discord_url" =~ ^https://(discord\.gg|discord\.com)/ ]]; then
+    echo "Invalid DISCORD_URL: expected an https://discord.gg or https://discord.com URL" >&2
+    exit 1
+fi
+
 echo "Orbitra image: ${image_version}"
 echo "Orbitra port: ${SERVER_PORT:-1212}"
 exec ./Robust.Server --config-file config.toml --data-dir data \
     --cvar "net.port=$port" \
     --cvar "game.hostname=${SERVER_NAME:-Orbitra Station}" \
     --cvar "game.desc=${SERVER_DESC:-Русскоязычный сервер Orbitra Station}" \
-    --cvar "infolinks.discord=https://discord.gg/GM4su9jfku"
+    --cvar "infolinks.discord=$discord_url"

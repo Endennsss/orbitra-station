@@ -1,17 +1,19 @@
-# Только админ-спавн: в лодауты и каталоги прибор не добавлен.
+# ПНВ остаётся отдельным игровым предметом и не добавляется в стандартные лодауты.
 - type: entity
-  parent: ClothingEyesBase
+  parent: [ClothingEyesBase, PowerCellSlotSmallItem]
   id: OrbitraClothingEyesNightVision
   name: night vision goggles
-  description: An optical device with green phosphor lenses.
-  suffix: Testing
+  description: A compact pair of goggles with green phosphor lenses. Toggle the device while wearing it to see in the dark.
   components:
   - type: Sprite
-    sprite: Clothing/Eyes/Glasses/meson.rsi
+    sprite: _Orbitra/Clothing/Eyes/Goggles/nightvision.rsi
   - type: Clothing
-    sprite: Clothing/Eyes/Glasses/meson.rsi
+    sprite: _Orbitra/Clothing/Eyes/Goggles/nightvision.rsi
   - type: NightVision
     enabled: false
     relayOverlay: true
     action: ActionToggleNightVision
   - type: OrbitraNightVisionDevice
+  - type: PowerCellDraw
+    enabled: false
+    drawRate: 1

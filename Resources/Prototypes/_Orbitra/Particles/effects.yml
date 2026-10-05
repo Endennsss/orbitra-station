@@ -30,7 +30,7 @@
   spawnRadius: 0.18
   spread: 1.4
   lifetime: 1.0
-  rate: 8
+  rate: 24
 
 - type: orbitraParticleEffect
   id: OrbitraParticleSmoke
@@ -44,6 +44,19 @@
   spread: 1.0
   lifetime: 1.0
   rate: 2
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleBurningSmoke
+  color: "#171717D0"
+  endColor: "#09090900"
+  smoke: true
+  size: 0.18
+  speed: 0.95
+  drag: 0.65
+  spawnRadius: 0.14
+  spread: 1.1
+  lifetime: 1.35
+  rate: 7
 
 - type: orbitraParticleEffect
   id: OrbitraParticleDust

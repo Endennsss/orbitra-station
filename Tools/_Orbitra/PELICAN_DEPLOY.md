@@ -26,7 +26,8 @@ ghcr.io/endennsss/orbitra-station:latest
    ```
 
 6. Оставьте переменные по умолчанию либо измените `SERVER_NAME` и
-   `SERVER_DESC`.
+   `SERVER_DESC`. В `DISCORD_URL` укажите приглашение Discord, например
+   `https://discord.gg/GM4su9jfku`, если ссылка должна отображаться в лаунчере.
 7. Выполните **Reinstall**, затем запустите сервер.
 
 При первом старте image синхронизирует production-файлы в `/home/container`.
@@ -84,6 +85,8 @@ curl http://127.0.0.1:1212/status
 выделение порта в Pelican, Firewall Netcup и системный firewall Debian.
 
 Название, описание и порт из Pelican передаются через `--cvar` и имеют приоритет над конфигом.
+`DISCORD_URL` передаётся тем же способом в `infolinks.discord`; URL не зашит в Docker-образ.
+В `/info` он появляется в массиве `links` с типом `discord`, поэтому его видит лаунчер.
 Entrypoint запускает фиксированную команду; произвольные shell-команды из Startup не исполняются.
 Перед обновлением остановите сервер и создайте резервную копию volume. Откат образа не откатывает базу данных.
 Проверяйте SHA в строке `Orbitra image:` после обновления: если он прежний, выберите явный `sha-...` image.
