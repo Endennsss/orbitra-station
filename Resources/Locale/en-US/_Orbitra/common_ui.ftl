@@ -26,5 +26,14 @@ orbitra-map-vote-count = Votes: { $count }
 orbitra-map-vote-back = Return to lobby
 # Orbitra added start - antagonist briefing card.
 orbitra-antag-briefing-title = ANTAGONIST — BRIEFING RECEIVED
+orbitra-antag-briefing-syndicate = SYNDICATE — MISSION RECEIVED
+orbitra-antag-briefing-revolutionary = REVOLUTIONARY — MISSION RECEIVED
+orbitra-antag-briefing-changeling = CHANGELING — MISSION RECEIVED
+orbitra-antag-briefing-wizard = WIZARD — MISSION RECEIVED
+orbitra-antag-briefing-ninja = NINJA — MISSION RECEIVED
+orbitra-antag-briefing-thief = THIEF — MISSION RECEIVED
+orbitra-antag-briefing-infected = PATIENT ZERO — OUTBREAK BEGINS
+orbitra-antag-briefing-zombie = ZOMBIE — INFECTION COMPLETE
+orbitra-antag-briefing-survivor = SURVIVOR — MISSION RECEIVED
 # Orbitra added end
 # Orbitra added end

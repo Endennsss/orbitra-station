@@ -1,0 +1,9 @@
+- files: ["abandoned_warning.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Contains announce.ogg from tgstation (commit 40d89d11ea4a5cb81d61dc1018b46f4e7d32c62a), cut from the beginning of shuttlerecalled.ogg as credited in Resources/Audio/Announcements/attributions.yml. Adapted for Orbitra: normalized notification, 350 ms pause, original announcement text synthesized with Microsoft ru-RU-SvetlanaNeural via edge-tts 7.2.8 at -5% rate, and 120/260 ms loudspeaker echoes. Reproduction script: Tools/_Orbitra/generate_abandoned_voice.ps1."
+  source: "https://github.com/tgstation/tgstation/blob/40d89d11ea4a5cb81d61dc1018b46f4e7d32c62a/sound/ai/default/shuttlerecalled.ogg"
+
+- files: ["abandoned_isolated.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Contains notice1.ogg from TG station (phil235/-tg-station, commit 462ce9c87771c6fa4a0ac29270ef78ea47364d6a), as credited in Resources/Audio/Misc/attributions.yml. Adapted for Orbitra: normalized alert, 350 ms pause, original announcement text synthesized with Microsoft ru-RU-SvetlanaNeural via edge-tts 7.2.8 at -5% rate, and 120/260 ms loudspeaker echoes. Reproduction script: Tools/_Orbitra/generate_abandoned_voice.ps1."
+  source: "https://github.com/phil235/-tg-station/blob/462ce9c87771c6fa4a0ac29270ef78ea47364d6a/sound/misc/notice1.ogg"

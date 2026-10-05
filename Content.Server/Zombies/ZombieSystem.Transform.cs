@@ -313,7 +313,12 @@ public sealed partial class ZombieSystem
             _role.MindAddRole(mindId, MindRoleZombie, mind: null, silent: true);
 
             //Greeting message for new bebe zombers
-            _chatMan.DispatchServerMessage(session, Loc.GetString("zombie-infection-greeting"));
+            // Orbitra edit start - приветствие заражённого оформляется карточкой роли в чате.
+            var greeting = Loc.GetString("zombie-infection-greeting");
+            var wrappedGreeting = Loc.GetString("chat-manager-server-wrap-message", ("message", greeting));
+            _chatMan.ChatMessageToOne(Content.Shared.Chat.ChatChannel.Server, greeting, wrappedGreeting,
+                default, false, session.Channel, isBriefing: true);
+            // Orbitra edit end
 
             // Notificate player about new role assignment
             _audio.PlayGlobal(zombiecomp.GreetSoundNotification, session);

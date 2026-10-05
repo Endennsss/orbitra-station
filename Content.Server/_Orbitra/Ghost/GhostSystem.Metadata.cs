@@ -16,6 +16,7 @@ public sealed partial class GhostSystem
             CharacterName = Name(target),
             Job = job?.ID,
             IsAntagonist = _roles.MindIsAntagonist(mind),
+            IsGhost = _ghostQuery.HasComp(target),
         };
     }
 }

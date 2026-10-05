@@ -8,8 +8,6 @@ namespace Content.Shared._Orbitra.ThermalVision;
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class OrbitraThermalVisionComponent : Component
 {
-    /// <summary>Maximum detection distance in world units.</summary>
-    [DataField, AutoNetworkedField] public float Range = 10f;
     [DataField, AutoNetworkedField] public bool Enabled;
     [AutoNetworkedField] public EntityUid? Wearer;
     [DataField] public EntProtoId Action = "OrbitraActionToggleThermalVision";

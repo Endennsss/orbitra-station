@@ -6,6 +6,7 @@ using Content.Client.Chat;
 using Content.Client.Chat.Managers;
 using Content.Client.Chat.TypingIndicator;
 using Content.Client.Chat.UI;
+using Content.Client._Orbitra.UserInterface;
 using Content.Client.Examine;
 using Content.Client.Gameplay;
 using Content.Client.Ghost;
@@ -137,6 +138,15 @@ public sealed partial class ChatUIController : UIController
 
     private readonly HashSet<ChatBox> _chats = new();
     public IReadOnlySet<ChatBox> Chats => _chats;
+
+    public void AddExamineCard(EntityUid target, string title, FormattedMessage description)
+    {
+        foreach (var chat in _chats)
+        {
+            if (chat.Main)
+                chat.AddExamineCard(target, title, description);
+        }
+    }
 
     /// <summary>
     ///     The max amount of characters an entity can send in one message

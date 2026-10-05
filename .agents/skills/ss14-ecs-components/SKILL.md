@@ -144,10 +144,10 @@ public TimeSpan? ActivationTime;
 Makes the field visible in the debug View Variables (VV) panel:
 
 ```csharp
-[ViewVariables] // By default, access = (VVAccess.ReadWrite), you do NOT need to register it again!
+[ViewVariables(VVAccess.ReadWrite)] // Explicitly allow editing through VV.
 public float DebugValue;
 
-[ViewVariables(VVAccess.ReadOnly)]
+[ViewVariables] // Defaults to VVAccess.ReadOnly.
 public int ReadOnlyValue;
 ```
 

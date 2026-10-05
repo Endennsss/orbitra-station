@@ -72,13 +72,10 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
             component.Color.A <= 0 || (MetaData(uid).Flags & MetaDataFlags.Detached) != 0 ||
             _containers.IsEntityInContainer(uid) ||
             !TryComp<MobStateComponent>(uid, out var mob) || mob.CurrentState == MobState.Dead ||
-            _players.LocalEntity is not { } wearer ||
-            !_inventory.TryGetSlotEntity(wearer, "eyes", out var eyes) ||
-            !TryComp<OrbitraThermalVisionComponent>(eyes, out var device)) return false;
+            _players.LocalEntity is not { } wearer) return false;
         var origin = _transform.GetMapCoordinates(wearer);
         var position = _transform.GetMapCoordinates(uid);
-        if (origin.MapId != position.MapId ||
-            System.Numerics.Vector2.DistanceSquared(origin.Position, position.Position) > device.Range * device.Range) return false;
+        if (origin.MapId != position.MapId) return false;
         sprite = (uid, component);
         return true;
     }

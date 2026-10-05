@@ -2,7 +2,7 @@
   parent: ClothingEyesBase
   id: OrbitraClothingEyesThermal
   name: Orbitra thermal goggles
-  description: Reveals anonymous heat signatures of nearby living creatures through walls. Switch on while worn.
+  description: Reveals anonymous heat signatures of living creatures through walls without a device-specific range limit. Switch on while worn.
   components:
   - type: Sprite
     sprite: Clothing/Eyes/Glasses/thermal.rsi

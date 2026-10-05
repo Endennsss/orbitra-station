@@ -1,4 +1,8 @@
 using Robust.Client.UserInterface.Controls;
+using Robust.Client.Graphics;
+using Content.Client._Orbitra.Stylesheets;
+using Content.Client._Orbitra.UserInterface;
+using Robust.Shared.Maths;
 
 namespace Content.Client.Voting.UI;
 
@@ -12,6 +16,12 @@ public sealed partial class VotePopup
         HorizontalExpand = true;
         MinWidth = 0;
         MaxWidth = 460;
+        if (GetChild(0) is PanelContainer panel)
+            panel.PanelOverride = new StyleBoxFlat(OrbitraPalettes.PanelBackground)
+        {
+            BorderColor = OrbitraPalettes.PanelBorder,
+            BorderThickness = new Thickness(1),
+        };
         VoteCaller.HorizontalExpand = true;
         VoteCaller.ClipText = true;
         VoteCaller.ToolTip = VoteCaller.Text;
@@ -28,6 +38,7 @@ public sealed partial class VotePopup
             button.MinWidth = 0;
             button.ClipText = true;
             button.ToolTip = button.Text;
+            button.AddStyleClass(OrbitraButtonStyles.Secondary);
         }
     }
 }

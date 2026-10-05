@@ -518,5 +518,11 @@ public sealed partial class AntagSelectionSystem
     public void AssignAntagComponents(EntityUid entity, AntagSpecifierPrototype antag)
     {
         EntityManager.AddComponents(entity, antag.Components);
+        // Orbitra-Edit - админская выдача роли тоже должна отправлять приветствие игроку.
+        if (_mind.TryGetMind(entity, out _, out var mind)
+            && _playerManager.TryGetSessionById(mind.UserId, out var session))
+        {
+            SendBriefing(session, antag.Briefing);
+        }
     }
 }

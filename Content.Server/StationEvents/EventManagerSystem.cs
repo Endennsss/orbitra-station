@@ -317,6 +317,9 @@ public sealed partial class EventManagerSystem : EntitySystem
 
     private bool CanRun(EntityPrototype prototype, StationEventComponent stationEvent, int playerCount, TimeSpan currentTime)
     {
+        if (stationEvent.ManualOnly) // Orbitra-Edit - ручные события исключены из автоматического выбора.
+            return false;
+
         if (GameTicker.IsGameRuleActive(prototype.ID))
             return false;
 

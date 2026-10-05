@@ -11,3 +11,5 @@ Canonical source skill file:
 ../../../.agents/skills/ss14-ecs-components/SKILL.md.
 
 Use that file as the entrypoint and load resources from the same source skill directory.
+
+For VV access defaults, follow the corrected canonical `[ViewVariables]` section (read-only unless explicitly writable).

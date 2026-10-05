@@ -16,4 +16,7 @@ public partial struct GhostWarp
 
     /// <summary>Server-resolved antagonist status, sent only in an authorized ghost warp response.</summary>
     public bool IsAntagonist { get; init; }
+
+    /// <summary>True when the target is another observer, rather than a living character.</summary>
+    public bool IsGhost { get; init; }
 }

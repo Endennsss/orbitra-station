@@ -17,7 +17,7 @@ public sealed partial class DefaultGameScreen : InGameScreen
         SetAnchorPreset(MainViewport, LayoutPreset.Wide);
         SetAnchorPreset(ViewportContainer, LayoutPreset.Wide);
         SetAnchorAndMarginPreset(TopLeft, LayoutPreset.TopLeft, margin: 10);
-        SetAnchorAndMarginPreset(Ghost, LayoutPreset.BottomWide, margin: 80);
+        SetAnchorAndMarginPreset(Ghost, LayoutPreset.BottomWide, margin: 120); // Orbitra-Edit - поднимаем панель госта над хотбаром.
         SetAnchorAndMarginPreset(Inventory, LayoutPreset.BottomLeft, margin: 5);
         SetAnchorAndMarginPreset(Hotbar, LayoutPreset.BottomWide, margin: 5);
         SetAnchorAndMarginPreset(Chat, LayoutPreset.TopRight, margin: 10);

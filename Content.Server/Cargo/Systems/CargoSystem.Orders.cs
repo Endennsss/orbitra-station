@@ -57,6 +57,9 @@ namespace Content.Server.Cargo.Systems
 
         private void OnInteractUsingSlip(Entity<CargoOrderConsoleComponent> ent, ref InteractUsingEvent args, CargoSlipComponent slip)
         {
+            if (!_orbitraAbandonedStation.CanUseService(args.User)) // Orbitra-Edit - запрет закупок до списания ресурсов.
+                return;
+
             if (slip.OrderQuantity <= 0)
                 return;
 
@@ -139,6 +142,9 @@ namespace Content.Server.Cargo.Systems
 
         private void OnApproveOrderMessage(EntityUid uid, CargoOrderConsoleComponent component, CargoConsoleApproveOrderMessage args)
         {
+            if (!_orbitraAbandonedStation.CanUseService(args.Actor)) // Orbitra-Edit - проверяем до списания денег.
+                return;
+
             if (args.Actor is not { Valid: true } player)
                 return;
 
@@ -268,6 +274,9 @@ namespace Content.Server.Cargo.Systems
 
         private EntityUid? TryFulfillOrder(Entity<StationDataComponent> stationData, ProtoId<CargoAccountPrototype> account, CargoOrderData order, StationCargoOrderDatabaseComponent orderDatabase)
         {
+            if (!_orbitraAbandonedStation.CanUseService()) // Orbitra-Edit - торговая станция также теряет связь.
+                return null;
+
             // No slots at the trade station
             _listEnts.Clear();
             GetTradeStations(stationData, ref _listEnts);
@@ -367,6 +376,9 @@ namespace Content.Server.Cargo.Systems
 
         private void OnAddOrderMessage(EntityUid uid, CargoOrderConsoleComponent component, CargoConsoleAddOrderMessage args)
         {
+            if (!_orbitraAbandonedStation.CanUseService(args.Actor)) // Orbitra-Edit - включая печать заявок отделами.
+                return;
+
             if (args.Actor is not { Valid: true } player)
                 return;
 
@@ -536,6 +548,9 @@ namespace Content.Server.Cargo.Systems
             Entity<StationDataComponent> stationData
         )
         {
+            if (!_orbitraAbandonedStation.CanUseService()) // Orbitra-Edit - отказ до создания заказа и записи об одобрении.
+                return false;
+
             // Make an order
             var id = GenerateOrderId(component);
             var order = new CargoOrderData(id, product, qty, sender, description, account);
@@ -555,6 +570,9 @@ namespace Content.Server.Cargo.Systems
 
         private bool TryAddOrder(EntityUid dbUid, ProtoId<CargoAccountPrototype> account, CargoOrderData data, StationCargoOrderDatabaseComponent component)
         {
+            if (!_orbitraAbandonedStation.CanUseService()) // Orbitra-Edit - защита программного добавления заказов.
+                return false;
+
             component.Orders[account].Add(data);
             UpdateOrders(dbUid);
             return true;
@@ -611,6 +629,9 @@ namespace Content.Server.Cargo.Systems
         [PublicAPI]
         private bool FulfillNextOrder(StationCargoOrderDatabaseComponent orderDB, ProtoId<CargoAccountPrototype> account, EntityCoordinates spawn, string? paperProto)
         {
+            if (!_orbitraAbandonedStation.CanUseService()) // Orbitra-Edit - сохраняем заказ в очереди.
+                return false;
+
             if (!PopFrontOrder(orderDB, account, out var order))
                 return false;
 
@@ -622,6 +643,9 @@ namespace Content.Server.Cargo.Systems
         /// </summary>
         private bool FulfillOrder(CargoOrderData order, ProtoId<CargoAccountPrototype> account, EntityCoordinates spawn, string? paperProto)
         {
+            if (!_orbitraAbandonedStation.CanUseService()) // Orbitra-Edit - единая проверка перед созданием груза.
+                return false;
+
             if (!ProtoMan.Resolve(order.Product, out var product))
                 return false;
 

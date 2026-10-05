@@ -2,6 +2,7 @@ using System.Linq;
 using System.Numerics;
 using System.Threading;
 using Content.Client.Verbs;
+using Content.Client.UserInterface.Systems.Chat;
 using Content.Shared.Examine;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Input;
@@ -269,6 +270,9 @@ namespace Content.Client.Examine
             {
                 return;
             }
+
+            _userInterfaceManager.GetUIController<ChatUIController>()
+                .AddExamineCard(target, Identity.Name(target, EntityManager, player), message);
 
             foreach (var msg in message.Nodes)
             {

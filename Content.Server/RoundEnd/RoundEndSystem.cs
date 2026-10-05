@@ -120,6 +120,9 @@ namespace Content.Server.RoundEnd
 
         public bool CanCallOrRecall()
         {
+            if (_orbitraAbandonedStation.IsIsolationActive) // Orbitra-Edit - обновляем доступность консоли связи.
+                return false;
+
             return _cooldownTokenSource == null && !CantRecall;
         }
 
@@ -167,6 +170,9 @@ namespace Content.Server.RoundEnd
         /// <param name="cantRecall">if the station shouldn't be able to recall the shuttle</param>
         public void RequestRoundEnd(TimeSpan countdownTime, EntityUid? requester = null, EntityUid? machine = null, bool checkCooldown = true, string text = "round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement", bool cantRecall = false)
         {
+            if (!_orbitraAbandonedStation.CanUseService(requester)) // Orbitra-Edit - блокируем все обычные пути вызова.
+                return;
+
             if (_gameTicker.RunLevel != GameRunLevel.InRound)
                 return;
 
@@ -373,6 +379,9 @@ namespace Content.Server.RoundEnd
 
         public override void Update(float frameTime)
         {
+            if (_orbitraAbandonedStation.IsIsolationActive) // Orbitra-Edit - не расходуем автоматический вызов при изоляции.
+                return;
+
             // Check if we should auto-call.
             int mins = _autoCalledBefore ? _cfg.GetCVar(CCVars.EmergencyShuttleAutoCallExtensionTime)
                                         : _cfg.GetCVar(CCVars.EmergencyShuttleAutoCallTime);

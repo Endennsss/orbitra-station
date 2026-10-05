@@ -89,8 +89,9 @@ public sealed class OrbitraUiKitTest : GameTest
         finally { await Client.WaitPost(() => lobby.Dispose()); }
     }
 
-    [Test]
-    public async Task GhostJobMetadataTravelsOverNetworkAndSelectionWarps()
+    [TestCase(false)]
+    [TestCase(true)]
+    public async Task GhostJobMetadataTravelsOverNetworkAndSelectionWarps(bool ghostTarget)
     {
         var map = await Pair.CreateTestMap();
         await Server.AddDummySession("OrbitraTarget");
@@ -102,7 +103,7 @@ public sealed class OrbitraUiKitTest : GameTest
         {
             var minds = Server.System<MindSystem>();
             var dummy = Server.PlayerMan.Sessions.Single(s => s.Name == "OrbitraTarget");
-            target = SEntMan.SpawnEntity("MobHuman", new MapCoordinates(500, 500, map.MapId));
+            target = SEntMan.SpawnEntity(ghostTarget ? "MobObserver" : "MobHuman", new MapCoordinates(500, 500, map.MapId));
             SEntMan.System<MetaDataSystem>().SetEntityName(target, "Ada (literal parentheses)");
             var targetMind = minds.CreateMind(dummy.UserId);
             minds.TransferTo(targetMind, target);
@@ -125,6 +126,7 @@ public sealed class OrbitraUiKitTest : GameTest
         var warp = response!.Warps.Single(w => w.Entity == netTarget);
         Assert.That(warp.CharacterName, Is.EqualTo("Ada (literal parentheses)"));
         Assert.That(warp.Job?.Id, Is.EqualTo("ChiefEngineer"));
+        Assert.That(warp.IsGhost, Is.EqualTo(ghostTarget));
         await Client.WaitPost(() =>
         {
             Client.System<Content.Client.Ghost.GhostSystem>().GhostWarpsResponse -= Receive;

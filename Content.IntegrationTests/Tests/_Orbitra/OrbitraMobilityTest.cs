@@ -5,6 +5,7 @@ using Content.Server.Gravity;
 using Content.IntegrationTests.Fixtures;
 using Content.Shared._Orbitra.Movement;
 using Content.Shared.Gravity;
+using Content.Shared.Movement.Components;
 using Content.Shared.Standing;
 using Content.Shared.Stunnable;
 using Robust.Shared.GameObjects;
@@ -112,6 +113,67 @@ public sealed class OrbitraMobilityTest : GameTest
             Assert.That(SEntMan.HasComponent<OrbitraProneComponent>(human), Is.False);
             Assert.That(Server.System<StandingStateSystem>().IsDown(human), Is.True);
             Assert.That(SEntMan.GetComponent<PhysicsComponent>(human).LinearVelocity, Is.EqualTo(Vector2.Zero));
+        });
+    }
+
+    [Test]
+    public async Task StandingUpRestoresSpeedWithoutJump()
+    {
+        var map = await Pair.CreateTestMap();
+        EntityUid human = default;
+        float standingWalkModifier = 1f;
+        float standingSprintModifier = 1f;
+
+        await Server.WaitPost(() =>
+        {
+            var gravity = SEntMan.EnsureComponent<GravityComponent>(map.Grid);
+            Server.System<GravitySystem>().EnableGravity(map.Grid, gravity);
+        });
+
+        await Server.WaitPost(() =>
+        {
+            human = SEntMan.SpawnEntity("MobHuman", map.GridCoords);
+            Server.PlayerMan.SetAttachedEntity(Server.PlayerMan.GetSessionById(Client.Session!.UserId), human);
+
+            var mobility = SEntMan.GetComponent<OrbitraMobilityComponent>(human);
+            mobility.StandDuration = 0.05f;
+            mobility.RollDuration = 0.05f;
+            SEntMan.Dirty(human, mobility);
+
+            var speed = SEntMan.GetComponent<MovementSpeedModifierComponent>(human);
+            standingWalkModifier = speed.WalkSpeedModifier;
+            standingSprintModifier = speed.SprintSpeedModifier;
+        });
+        await Pair.RunTicksSync(20);
+
+        await Server.WaitPost(() =>
+        {
+            var system = Server.System<OrbitraMobilitySystem>();
+            var mobility = SEntMan.GetComponent<OrbitraMobilityComponent>(human);
+            var speed = SEntMan.GetComponent<MovementSpeedModifierComponent>(human);
+
+            Assert.That(system.TryRoll(new Entity<OrbitraMobilityComponent?>(human, mobility), Vector2.UnitX), Is.True);
+            Assert.That(speed.WalkSpeedModifier,
+                Is.EqualTo(standingWalkModifier * mobility.CrawlSpeedModifier).Within(0.001f));
+            Assert.That(speed.SprintSpeedModifier,
+                Is.EqualTo(standingSprintModifier * mobility.CrawlSpeedModifier).Within(0.001f));
+        });
+
+        await Pair.RunTicksSync(5);
+        await Server.WaitPost(() =>
+        {
+            var system = Server.System<OrbitraMobilitySystem>();
+            var mobility = SEntMan.GetComponent<OrbitraMobilityComponent>(human);
+            Assert.That(system.TryStand(new Entity<OrbitraMobilityComponent?>(human, mobility)), Is.True);
+        });
+
+        await Pair.RunTicksSync(10);
+        await Server.WaitAssertion(() =>
+        {
+            Assert.That(SEntMan.HasComponent<OrbitraProneComponent>(human), Is.False);
+            var speed = SEntMan.GetComponent<MovementSpeedModifierComponent>(human);
+            Assert.That(speed.WalkSpeedModifier, Is.EqualTo(standingWalkModifier).Within(0.001f));
+            Assert.That(speed.SprintSpeedModifier, Is.EqualTo(standingSprintModifier).Within(0.001f));
         });
     }
 }

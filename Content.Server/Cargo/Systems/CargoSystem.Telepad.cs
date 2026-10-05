@@ -27,6 +27,9 @@ public sealed partial class CargoSystem
 
     private void OnTelepadFulfillCargoOrder(ref FulfillCargoOrderEvent args)
     {
+        if (!_orbitraAbandonedStation.CanUseService()) // Orbitra-Edit - не принимаем новые доставки при изоляции.
+            return;
+
         var query = EntityQueryEnumerator<CargoTelepadComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var tele, out var xform))
         {
@@ -67,6 +70,9 @@ public sealed partial class CargoSystem
 
     private void UpdateTelepad(float frameTime)
     {
+        if (!_orbitraAbandonedStation.CanUseService()) // Orbitra-Edit - сохраняем очередь и оставшееся время доставки.
+            return;
+
         var query = EntityQueryEnumerator<CargoTelepadComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var comp, out var xform))
         {
@@ -142,6 +148,9 @@ public sealed partial class CargoSystem
 
         if (!TryComp<StationCargoOrderDatabaseComponent>(station, out var db) ||
             !TryComp<StationDataComponent>(station, out var data))
+            return;
+
+        if (OrbitraTrySuspendDelivery(ent, station)) // Orbitra-Edit - сохраняем оплаченные грузы до восстановления связи.
             return;
 
         foreach (var order in ent.Comp.CurrentOrders)

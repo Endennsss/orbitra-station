@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Reflection;
 using Content.Client.Lobby;
+using Content.Client.Voting.UI;
 using Content.Client.RoundEnd;
 using Content.Client.UserInterface.Systems.Ghost.Controls.Roles;
+using Content.Client.UserInterface.Systems.Ghost.Widgets;
 using Content.Client._Orbitra.UserInterface;
 using Content.IntegrationTests.Fixtures;
 using Content.Server.Preferences.Managers;
@@ -28,6 +31,90 @@ public sealed class OrbitraRoundMenusTest : GameTest
         foreach (var child in root.Children)
         foreach (var nested in All(child))
             yield return nested;
+    }
+
+    [Test]
+    public async Task VoteCallMenuKeepsFooterAndControlsInsideWindow()
+    {
+        VoteCallMenu menu = null!;
+        await Client.WaitPost(() =>
+        {
+            menu = new VoteCallMenu();
+            menu.OpenCentered();
+        });
+
+        try
+        {
+            await Pair.RunTicksSync(3);
+            await Client.WaitAssertion(() =>
+            {
+                var footer = All(menu).OfType<Label>().Single(label => label.Text?.Contains("Robust", StringComparison.Ordinal) == true);
+                var selector = menu.FindControl<OptionButton>("VoteTypeButton");
+                var create = menu.FindControl<Button>("CreateButton");
+
+                Assert.That(menu.Width, Is.GreaterThanOrEqualTo(440));
+                Assert.That(menu.Height, Is.GreaterThanOrEqualTo(280));
+                Assert.That(selector.GlobalPixelPosition.Y + selector.PixelHeight,
+                    Is.LessThanOrEqualTo(menu.GlobalPixelPosition.Y + menu.PixelHeight + 1));
+                Assert.That(create.GlobalPixelPosition.Y + create.PixelHeight,
+                    Is.LessThanOrEqualTo(menu.GlobalPixelPosition.Y + menu.PixelHeight + 1));
+                Assert.That(footer.VisibleInTree, Is.True);
+                Assert.That(footer.GlobalPixelPosition.Y + footer.PixelHeight,
+                    Is.LessThanOrEqualTo(menu.GlobalPixelPosition.Y + menu.PixelHeight + 1));
+            });
+        }
+        finally
+        {
+            await Client.WaitPost(() => menu.Dispose());
+        }
+    }
+
+    [Test]
+    public async Task GhostRoleNotificationKeepsButtonAndBarSizeAcrossHover()
+    {
+        GhostGui gui = null!;
+        Button button = null!;
+        Vector2 buttonSize = default, barSize = default;
+        var setState = typeof(Control).GetMethod("SetOnlyStylePseudoClass", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        await Client.WaitPost(() =>
+        {
+            gui = new GhostGui();
+            Client.Resolve<IUserInterfaceManager>().StateRoot.AddChild(gui);
+            gui.Update(1, true);
+            button = All(gui).OfType<Button>().Single(b => b.Name == "GhostRolesButton");
+        });
+        try
+        {
+            await Pair.RunTicksSync(2);
+            await Client.WaitAssertion(() =>
+            {
+                Assert.That(button.HasStyleClass("OrbitraGhostRolesAvailable"), Is.True);
+                buttonSize = button.DesiredSize;
+                barSize = gui.DesiredSize;
+                Assert.That(buttonSize.X, Is.GreaterThan(0));
+            });
+            foreach (var state in new[] { "hover", "pressed", "normal", "hover", "normal" })
+            {
+                await Client.WaitPost(() => setState.Invoke(button, new object[] { state }));
+                await Pair.RunTicksSync(2);
+                await Client.WaitAssertion(() =>
+                {
+                    Assert.That(button.DesiredSize, Is.EqualTo(buttonSize), state);
+                    Assert.That(gui.DesiredSize, Is.EqualTo(barSize), state);
+                });
+            }
+            await Client.WaitPost(() => button.RemoveStyleClass("OrbitraGhostRolesAvailable"));
+            await Pair.RunTicksSync(2);
+            await Client.WaitAssertion(() =>
+            {
+                Assert.That(button.DesiredSize, Is.EqualTo(buttonSize));
+                Assert.That(gui.DesiredSize, Is.EqualTo(barSize));
+            });
+        }
+        finally
+        {
+            await Client.WaitPost(() => gui.Dispose());
+        }
     }
 
     [Test]

@@ -51,7 +51,6 @@ public sealed partial class OrbitraMobilitySystem : VirtualController
         base.Initialize();
 
         SubscribeLocalEvent<OrbitraProneComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshProneSpeed);
-        SubscribeLocalEvent<OrbitraProneComponent, ComponentShutdown>(OnProneShutdown);
         SubscribeLocalEvent<OrbitraActiveManeuverComponent, UpdateCanMoveEvent>(OnManeuverCanMove);
         SubscribeLocalEvent<OrbitraMobilityComponent, KnockedDownEvent>(OnKnockedDown);
         SubscribeLocalEvent<OrbitraProneComponent, OrbitraStandDoAfterEvent>(OnStandDoAfter);
@@ -170,6 +169,9 @@ public sealed partial class OrbitraMobilitySystem : VirtualController
             return;
 
         RemComp<OrbitraProneComponent>(entity);
+        // ComponentShutdown вызывается до удаления компонента и ещё видит штраф
+        // ползания. Пересчитываем скорость после фактического удаления.
+        _movement.RefreshMovementSpeedModifiers(entity.Owner);
     }
 
     public bool TryRoll(Entity<OrbitraMobilityComponent?> entity, Vector2 direction)
@@ -374,11 +376,6 @@ public sealed partial class OrbitraMobilitySystem : VirtualController
             args.ModifySpeed(mobility.CrawlSpeedModifier);
     }
 
-    private void OnProneShutdown(Entity<OrbitraProneComponent> entity, ref ComponentShutdown args)
-    {
-        _movement.RefreshMovementSpeedModifiers(entity.Owner);
-    }
-
     private void OnManeuverCanMove(Entity<OrbitraActiveManeuverComponent> entity, ref UpdateCanMoveEvent args)
     {
         args.Cancel();
@@ -392,6 +389,7 @@ public sealed partial class OrbitraMobilitySystem : VirtualController
             _doAfter.Cancel(prone.StandDoAfter);
 
         RemComp<OrbitraProneComponent>(entity.Owner);
+        _movement.RefreshMovementSpeedModifiers(entity.Owner);
     }
 
     private void CancelManeuver(EntityUid uid)

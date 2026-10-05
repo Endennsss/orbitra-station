@@ -14,5 +14,6 @@ public static class OrbitraGhostPalette
         ["Command"] = Color.FromHex("#507DD0"),
         ["Medical"] = Color.FromHex("#65BCD7"),
         ["antagonists"] = Color.FromHex("#8F3038"),
+        ["ghosts"] = Color.FromHex("#8A8FA8"),
     };
 }

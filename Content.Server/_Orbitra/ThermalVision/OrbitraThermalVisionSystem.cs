@@ -1,4 +1,3 @@
-using System.Numerics;
 using Content.Shared._Orbitra.ThermalVision;
 using Content.Shared.Actions;
 using Content.Shared.Body.Components;
@@ -10,24 +9,24 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Temperature.Components;
 using Robust.Shared.Containers;
 using Robust.Shared.Enums;
+using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
 namespace Content.Server._Orbitra.ThermalVision;
 
-/// <summary>Authorizes nearby biological sprites for thermal rendering without expanding PVS.</summary>
+/// <summary>Authorizes same-map biological sprites for thermal rendering without expanding PVS.</summary>
 public sealed partial class OrbitraThermalVisionSystem : EntitySystem
 {
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
-    [Dependency] private EntityLookupSystem _lookup = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private SharedContainerSystem _containers = default!;
     [Dependency] private IGameTiming _timing = default!;
 
     private readonly Dictionary<EntityUid, ICommonSession> _active = new();
     private readonly List<EntityUid> _stopping = new();
-    private readonly HashSet<Entity<MobStateComponent>> _nearby = new();
+    private readonly List<EntityUid> _candidates = new();
     private readonly List<OrbitraThermalContact> _contacts = new();
     private TimeSpan _nextScan;
 
@@ -92,6 +91,7 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
             _active[device] = actor.PlayerSession;
             _actions.SetToggled(device.Comp.ActionEntity, true);
             Dirty(device);
+            RefreshCandidates();
             SendContacts(device, performer, actor.PlayerSession);
         }
         return true;
@@ -119,8 +119,17 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+        if (_active.Count == 0)
+        {
+            _candidates.Clear();
+            return;
+        }
         var scan = _timing.CurTime >= _nextScan;
-        if (scan) _nextScan = _timing.CurTime + TimeSpan.FromSeconds(0.05);
+        if (scan)
+        {
+            _nextScan = _timing.CurTime + TimeSpan.FromSeconds(0.05);
+            RefreshCandidates();
+        }
         _stopping.Clear();
         foreach (var (uid, session) in _active)
         {
@@ -139,10 +148,11 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
         }
     }
 
-    /// <summary>Checks physiology, containment, map and exact radius, never visual appearance or names.</summary>
-    public bool IsThermalTarget(EntityUid target, EntityUid wearer, float range)
+    /// <summary>Checks physiology, containment and map without a device-specific distance limit.</summary>
+    public bool IsThermalTarget(EntityUid target, EntityUid wearer)
     {
-        if (target == wearer || !TryComp<MobStateComponent>(target, out var mob) || mob.CurrentState == MobState.Dead ||
+        if (target == wearer || TerminatingOrDeleted(target) || EntityManager.IsQueuedForDeletion(target) ||
+            !TryComp<MobStateComponent>(target, out var mob) || mob.CurrentState == MobState.Dead ||
             !HasComp<BloodstreamComponent>(target) || !HasComp<TemperatureComponent>(target) ||
             !TryComp<InjurableComponent>(target, out var damage) ||
             damage.DamageContainer?.Id is not ("Biological" or "StructuralBiological" or "BiologicalMetaphysical") ||
@@ -152,18 +162,28 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
         if (!TryComp<EyeComponent>(wearer, out var eye) || (eye.VisibilityMask & mask) != mask) return false;
         var origin = _transform.GetMapCoordinates(wearer);
         var position = _transform.GetMapCoordinates(target);
-        return origin.MapId == position.MapId && Vector2.DistanceSquared(origin.Position, position.Position) <= range * range;
+        return origin.MapId != MapId.Nullspace && origin.MapId == position.MapId;
+    }
+
+    private void RefreshCandidates()
+    {
+        // Один общий пакет кандидатов на интервал сканирования, не полный обход для каждых очков.
+        _candidates.Clear();
+        var query = EntityQueryEnumerator<BloodstreamComponent, TemperatureComponent, MobStateComponent>();
+        while (query.MoveNext(out var uid, out _, out _, out var mob))
+        {
+            if (mob.CurrentState != MobState.Dead)
+                _candidates.Add(uid);
+        }
     }
 
     private void SendContacts(Entity<OrbitraThermalVisionComponent> device, EntityUid wearer, ICommonSession session)
     {
         _contacts.Clear();
-        _nearby.Clear();
         var origin = _transform.GetMapCoordinates(wearer);
-        _lookup.GetEntitiesInRange(origin, device.Comp.Range, _nearby, LookupFlags.Uncontained);
-        foreach (var candidate in _nearby)
+        foreach (var candidate in _candidates)
         {
-            if (!IsThermalTarget(candidate, wearer, device.Comp.Range)) continue;
+            if (!IsThermalTarget(candidate, wearer)) continue;
             _contacts.Add(new OrbitraThermalContact(GetNetEntity(candidate)));
         }
         RaiseNetworkEvent(new OrbitraThermalContactsEvent(GetNetEntity(device), GetNetEntity(wearer), origin.MapId,
@@ -173,6 +193,9 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
     public override void Shutdown()
     {
         _active.Clear();
+        _candidates.Clear();
+        _contacts.Clear();
+        _stopping.Clear();
         base.Shutdown();
     }
 }

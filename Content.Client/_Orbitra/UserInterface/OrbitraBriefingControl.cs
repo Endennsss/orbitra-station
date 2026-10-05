@@ -26,14 +26,14 @@ public sealed class OrbitraBriefingControl : PanelContainer
         var lineCount = EstimateLineCount(message);
         var bodyHeight = lineCount * 20;
 
-        HorizontalExpand = true;
-        HorizontalAlignment = HAlignment.Center;
+        HorizontalExpand = false;
+        HorizontalAlignment = HAlignment.Left;
         MinWidth = 300;
         MaxWidth = 560;
         // RichTextEntry измеряет inline-контролы до их раскладки. Явная высота не даёт
         // многострочному содержимому вывалиться из рамки карточки.
         MinHeight = bodyHeight + 64;
-        Margin = new Thickness(OrbitraUiMetrics.Small, 0);
+        Margin = new Thickness(OrbitraUiMetrics.Medium, 0, OrbitraUiMetrics.Small, 0);
         StyleClasses.Add("OrbitraAntagBriefing");
         // Нейтральный фон сохраняет контраст, а тонкая рамка возвращает карточке форму блока.
         PanelOverride = new StyleBoxFlat(OrbitraPalettes.PanelInset)
@@ -122,6 +122,11 @@ public sealed class OrbitraBriefingControl : PanelContainer
     private static (LocId Title, Color Color) ResolveTheme(string message)
     {
         var text = message.ToLowerInvariant();
+        if (text.Contains("нулевой пациент") || text.Contains("нулевым пациентом") ||
+            text.Contains("patient zero") || text.Contains("initial infected"))
+            return ("orbitra-antag-briefing-infected", new Color(235, 95, 175));
+        if (text.Contains("вы стали зомби") || text.Contains("you are now a zombie"))
+            return ("orbitra-antag-briefing-zombie", new Color(125, 205, 85));
         if (text.Contains("синдикат") || text.Contains("syndicate"))
             return ("orbitra-antag-briefing-syndicate", new Color(235, 30, 40));
         if (text.Contains("революц") || text.Contains("revolution"))
@@ -130,12 +135,14 @@ public sealed class OrbitraBriefingControl : PanelContainer
             return ("orbitra-antag-briefing-changeling", new Color(80, 205, 145));
         if (text.Contains("волшебник") || text.Contains("wizard"))
             return ("orbitra-antag-briefing-wizard", new Color(175, 105, 235));
-        if (text.Contains("ниндзя") || text.Contains("ninja"))
+        if (text.Contains("ниндзя") || text.Contains("ninja") || text.Contains("клан паука") ||
+            text.Contains("клана паука") || text.Contains("паучьего клана") || text.Contains("spider clan") ||
+            text.Contains("spiderclan"))
             return ("orbitra-antag-briefing-ninja", new Color(55, 220, 105));
         if (text.Contains("вор") || text.Contains("thief"))
             return ("orbitra-antag-briefing-thief", new Color(235, 175, 70));
         if (text.Contains("зомби") || text.Contains("инфицирован") || text.Contains("infected"))
-            return ("orbitra-antag-briefing-infected", new Color(125, 205, 85));
+            return ("orbitra-antag-briefing-zombie", new Color(125, 205, 85));
         if (text.Contains("выживш") || text.Contains("survivor"))
             return ("orbitra-antag-briefing-survivor", new Color(190, 185, 105));
 

@@ -28,7 +28,8 @@ public sealed partial class ContainerSpawnPointSystem : EntitySystem
             return;
 
         // If it's just a spawn pref check if it's for cryo (silly).
-        if (args.HumanoidCharacterProfile?.SpawnPriority != SpawnPriorityPreference.Cryosleep &&
+        if (!_orbitraAbandonedStation.IsIsolationActive && // Orbitra-Edit - при изоляции предпочитаем крио без изменения профиля.
+            args.HumanoidCharacterProfile?.SpawnPriority != SpawnPriorityPreference.Cryosleep &&
             (!ProtoMan.Resolve(args.Job, out var jobProto) || jobProto.JobEntity == null))
         {
             return;

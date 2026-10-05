@@ -87,8 +87,9 @@ public sealed partial class GhostTargetWindow
                 _orbitraPrototypes.TryIndex(jobId, out job);
             var department = departments.FirstOrDefault(d => d.Primary && job != null && d.Roles.Contains(job.ID))
                              ?? departments.FirstOrDefault(d => job != null && d.Roles.Contains(job.ID));
-            var groupId = warp.IsWarpPoint ? "places" : department?.ID ?? "unassigned";
-            var groupName = warp.IsWarpPoint ? Loc.GetString("orbitra-ghost-places") : department == null
+            var groupId = warp.IsWarpPoint ? "places" : warp.IsGhost ? "ghosts" : department?.ID ?? "unassigned";
+            var groupName = warp.IsWarpPoint ? Loc.GetString("orbitra-ghost-places") : warp.IsGhost
+                ? Loc.GetString("orbitra-ghost-ghosts") : department == null
                 ? Loc.GetString("orbitra-ghost-unassigned") : Loc.GetString(department.Name);
             if (antagonist)
             {
@@ -150,7 +151,7 @@ public sealed partial class GhostTargetWindow
             row.Button.SetPositionInParent(position);
             positions[row.Group.Id] = position + 1;
         }
-        var orderedGroups = _orbitraGroups.Values.OrderBy(g => g.Id == "places" ? 2 : g.Department == null ? 1 : 0)
+        var orderedGroups = _orbitraGroups.Values.OrderBy(g => g.Id == "places" ? 3 : g.Id == "ghosts" ? 2 : g.Department == null ? 1 : 0)
             .ThenBy(g => g.Department!, DepartmentUIComparer.Instance).ToList();
         for (var i = 0; i < orderedGroups.Count; i++)
             orderedGroups[i].Root.SetPositionInParent(i);
@@ -171,7 +172,7 @@ public sealed partial class GhostTargetWindow
         {
             // Основная карточка всегда остаётся в отделе, антагонистам добавляется отдельная копия.
             yield return (warp, false);
-            if (!warp.IsWarpPoint && warp.IsAntagonist)
+            if (!warp.IsWarpPoint && !warp.IsGhost && warp.IsAntagonist)
                 yield return (warp, true);
         }
     }

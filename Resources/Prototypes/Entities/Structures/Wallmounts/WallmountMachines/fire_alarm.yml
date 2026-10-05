@@ -58,6 +58,7 @@
       Red: fire_2
       Violet: fire_1
       Yellow: fire_1
+      OrbitraIsolation: fire_1 # Orbitra-Edit - индикация изоляции вместо зелёного кода
       DeltaNuke: fire_3
       # TODO: add missing alarm states
   - type: UserInterface

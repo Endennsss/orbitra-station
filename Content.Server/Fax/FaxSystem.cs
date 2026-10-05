@@ -260,6 +260,9 @@ public sealed partial class FaxSystem : EntitySystem
     [SubscribeLocalEvent]
     private void OnPingPayload(Entity<FaxMachineComponent> ent, ref DeviceNetworkPacketEvent<FaxPingPayload> args)
     {
+        if (!_orbitraAbandonedStation.CanFax(ent, args.SenderAddress)) // Orbitra-Edit - обнаружение только внутри станции.
+            return;
+
         var isForSyndie = _emag.CheckFlag(ent.Owner, EmagType.Interaction) && args.Data.IsSyndicate;
         if (!isForSyndie && !ent.Comp.ResponsePings)
             return;
@@ -275,6 +278,9 @@ public sealed partial class FaxSystem : EntitySystem
     [SubscribeLocalEvent]
     private void OnPongPayload(Entity<FaxMachineComponent> ent, ref DeviceNetworkPacketEvent<FaxPongPayload> args)
     {
+        if (!_orbitraAbandonedStation.CanFax(ent, args.SenderAddress)) // Orbitra-Edit - запоздалые внешние ответы не раскрывают адреса.
+            return;
+
         ent.Comp.KnownFaxes[args.SenderAddress] = args.Data.FaxName;
         UpdateUserInterface(ent.Owner, ent.Comp);
     }
@@ -349,13 +355,14 @@ public sealed partial class FaxSystem : EntitySystem
 
         var isPaperInserted = component.PaperSlot.Item != null;
         var canSend = isPaperInserted &&
+                      _orbitraAbandonedStation.CanFax(uid, component.DestinationFaxAddress) && // Orbitra-Edit - состояние кнопки отправки.
                       component.DestinationFaxAddress != null &&
                       component.SendTimeoutRemaining <= 0 &&
                       component.InsertingTimeRemaining <= 0;
         var canCopy = isPaperInserted &&
                       component.SendTimeoutRemaining <= 0 &&
                       component.InsertingTimeRemaining <= 0;
-        var state = new FaxUiState(component.FaxName, component.KnownFaxes, canSend, canCopy, isPaperInserted, component.DestinationFaxAddress);
+        var state = new FaxUiState(component.FaxName, OrbitraGetKnownFaxes(uid, component), canSend, canCopy, isPaperInserted, component.DestinationFaxAddress); // Orbitra-Edit - скрываем внешние адреса.
         _userInterface.SetUiState(uid, FaxUiKey.Key, state);
     }
 
@@ -366,6 +373,11 @@ public sealed partial class FaxSystem : EntitySystem
     {
         if (!Resolve(uid, ref component))
             return;
+
+        // Orbitra added start - проверяем также старые окна и прямые вызовы.
+        if (!_orbitraAbandonedStation.CanFax(uid, destAddress) || !component.KnownFaxes.ContainsKey(destAddress))
+            return;
+        // Orbitra added end
 
         component.DestinationFaxAddress = destAddress;
         component.DestinationFaxName = component.KnownFaxes[destAddress];
@@ -474,6 +486,14 @@ public sealed partial class FaxSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return;
 
+        // Orbitra added start - внешняя отправка не расходует таймер факса.
+        if (!_orbitraAbandonedStation.CanFax(uid, component.DestinationFaxAddress))
+        {
+            _orbitraAbandonedStation.CanUseService(args.Actor);
+            return;
+        }
+        // Orbitra added end
+
         if (component.SendTimeoutRemaining > 0)
             return;
 
@@ -532,6 +552,9 @@ public sealed partial class FaxSystem : EntitySystem
     /// </summary>
     public void Receive(EntityUid uid, FaxPrintout printout, string? fromAddress = null, FaxMachineComponent? component = null)
     {
+        if (!_orbitraAbandonedStation.CanFax(uid, fromAddress)) // Orbitra-Edit - включая прямую доставку из ЦК.
+            return;
+
         if (!Resolve(uid, ref component))
             return;
 

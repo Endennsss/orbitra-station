@@ -331,6 +331,9 @@ public sealed partial class ArrivalsSystem : EntitySystem
 
     public void HandlePlayerSpawning(PlayerSpawningEvent ev)
     {
+        if (_orbitraAbandonedStation.IsIsolationActive) // Orbitra-Edit - поздний вход остаётся на станции.
+            return;
+
         if (ev.SpawnResult != null)
             return;
 
@@ -464,6 +467,9 @@ public sealed partial class ArrivalsSystem : EntitySystem
 
     public TimeSpan? NextShuttleArrival()
     {
+        if (_orbitraAbandonedStation.IsIsolationActive) // Orbitra-Edit - у отменённых рейсов нет времени прибытия.
+            return null;
+
         var query = EntityQueryEnumerator<ArrivalsShuttleComponent>();
         var time = TimeSpan.MaxValue;
         while (query.MoveNext(out var uid, out var comp))
@@ -479,6 +485,9 @@ public sealed partial class ArrivalsSystem : EntitySystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+
+        if (_orbitraAbandonedStation.IsIsolationActive) // Orbitra-Edit - начатый FTL завершается в системе шаттлов.
+            return;
 
         var query = EntityQueryEnumerator<ArrivalsShuttleComponent, ShuttleComponent, TransformComponent>();
         var curTime = _timing.CurTime;

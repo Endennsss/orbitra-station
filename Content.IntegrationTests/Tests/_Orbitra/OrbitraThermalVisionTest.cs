@@ -33,7 +33,7 @@ public sealed class OrbitraThermalVisionTest : GameTest
     }
 
     [Test]
-    public async Task ContactsRespectBiologyRadiusContainmentAndMap()
+    public async Task ContactsRespectBiologyContainmentAndMapWithoutRadius()
     {
         var map = await Pair.CreateTestMap();
         var otherMap = await Pair.CreateTestMap();
@@ -43,39 +43,82 @@ public sealed class OrbitraThermalVisionTest : GameTest
             var wearer = SEntMan.SpawnEntity("MobHuman", map.GridCoords);
             var target = SEntMan.SpawnEntity("MobHuman", new EntityCoordinates(map.Grid, 4, 0));
             SEntMan.SpawnEntity("WallSolid", new EntityCoordinates(map.Grid, 2, 0));
-            Assert.That(system.IsThermalTarget(target, wearer, 7), Is.True, "Wall must not block heat.");
+            Assert.That(system.IsThermalTarget(target, wearer), Is.True, "Wall must not block heat.");
             Server.System<SharedVisibilitySystem>().AddLayer(target, 32768);
-            Assert.That(system.IsThermalTarget(target, wearer, 7), Is.False, "Hidden visibility layers must remain hidden.");
+            Assert.That(system.IsThermalTarget(target, wearer), Is.False, "Hidden visibility layers must remain hidden.");
             Server.System<SharedVisibilitySystem>().RemoveLayer(target, 32768);
-            Assert.That(system.IsThermalTarget(wearer, wearer, 7), Is.False);
+            Assert.That(system.IsThermalTarget(wearer, wearer), Is.False);
             Server.System<MobStateSystem>().ChangeMobState(target, MobState.Critical);
-            Assert.That(system.IsThermalTarget(target, wearer, 7), Is.True);
+            Assert.That(system.IsThermalTarget(target, wearer), Is.True);
             Server.System<MobStateSystem>().ChangeMobState(target, MobState.Dead);
-            Assert.That(system.IsThermalTarget(target, wearer, 7), Is.False);
+            Assert.That(system.IsThermalTarget(target, wearer), Is.False);
             var animal = SEntMan.SpawnEntity("MobMouse", map.GridCoords);
-            Assert.That(system.IsThermalTarget(animal, wearer, 7), Is.True);
+            Assert.That(system.IsThermalTarget(animal, wearer), Is.True);
             var ghost = SEntMan.SpawnEntity("MobObserver", map.GridCoords);
-            Assert.That(system.IsThermalTarget(ghost, wearer, 7), Is.False);
+            Assert.That(system.IsThermalTarget(ghost, wearer), Is.False);
             var robot = SEntMan.SpawnEntity("BorgChassisSelectable", map.GridCoords);
-            Assert.That(system.IsThermalTarget(robot, wearer, 7), Is.False);
+            Assert.That(system.IsThermalTarget(robot, wearer), Is.False);
             var remote = SEntMan.SpawnEntity("MobHuman", otherMap.GridCoords);
-            Assert.That(system.IsThermalTarget(remote, wearer, 7), Is.False);
+            Assert.That(system.IsThermalTarget(remote, wearer), Is.False);
             var transform = Server.System<SharedTransformSystem>();
             var origin = transform.GetMapCoordinates(wearer);
-            var goggles = SEntMan.SpawnEntity("OrbitraClothingEyesThermal", map.GridCoords);
-            var range = SEntMan.GetComponent<OrbitraThermalVisionComponent>(goggles).Range;
-            Assert.That(range, Is.EqualTo(10f));
             transform.SetMapCoordinates(animal, new MapCoordinates(origin.Position + new Vector2(8, 0), origin.MapId));
-            Assert.That(system.IsThermalTarget(animal, wearer, range), Is.True, "Targets beyond the old radius must be detected.");
-            transform.SetMapCoordinates(animal, new MapCoordinates(origin.Position + new Vector2(range, 0), origin.MapId));
-            Assert.That(system.IsThermalTarget(animal, wearer, range), Is.True);
-            transform.SetMapCoordinates(animal, new MapCoordinates(origin.Position + new Vector2(range + 0.01f, 0), origin.MapId));
-            Assert.That(system.IsThermalTarget(animal, wearer, range), Is.False);
+            Assert.That(system.IsThermalTarget(animal, wearer), Is.True, "Targets beyond the old radius must be detected.");
+            transform.SetMapCoordinates(animal, new MapCoordinates(origin.Position + new Vector2(100, 0), origin.MapId));
+            Assert.That(system.IsThermalTarget(animal, wearer), Is.True);
+            transform.SetMapCoordinates(animal, new MapCoordinates(origin.Position + new Vector2(1000, 0), origin.MapId));
+            Assert.That(system.IsThermalTarget(animal, wearer), Is.True, "Detection must have no device radius.");
             var containers = Server.System<SharedContainerSystem>();
             var box = SEntMan.SpawnEntity(null, map.GridCoords);
             var container = containers.EnsureContainer<Container>(box, "thermal-test");
             Assert.That(containers.Insert(animal, container), Is.True);
-            Assert.That(system.IsThermalTarget(animal, wearer, 7), Is.False);
+            Assert.That(system.IsThermalTarget(animal, wearer), Is.False);
+        });
+    }
+
+    [Test]
+    public async Task UnlimitedContactsDoNotExpandPvsAndRevokeDeadTargets()
+    {
+        var map = await Pair.CreateTestMap();
+        var otherMap = await Pair.CreateTestMap();
+        EntityUid far = default;
+        NetEntity farNet = default;
+        NetEntity remoteNet = default;
+        bool equipped = false;
+        bool toggled = false;
+        await Server.WaitPost(() =>
+        {
+            Server.ResolveDependency<Robust.Shared.Configuration.IConfigurationManager>()
+                .SetCVar(Robust.Shared.CVars.NetPVS, true);
+            var wearer = SEntMan.SpawnEntity("MobHuman", map.GridCoords);
+            far = SEntMan.SpawnEntity("MobHuman", new EntityCoordinates(map.Grid, 1000, 0));
+            var remote = SEntMan.SpawnEntity("MobHuman", otherMap.GridCoords);
+            var goggles = SEntMan.SpawnEntity("OrbitraClothingEyesThermal", map.GridCoords);
+            farNet = SEntMan.GetNetEntity(far);
+            remoteNet = SEntMan.GetNetEntity(remote);
+            Server.PlayerMan.SetAttachedEntity(ServerSession!, wearer);
+            equipped = Server.System<InventorySystem>().TryEquip(wearer, goggles, "eyes", force: true);
+            toggled = Server.System<ServerThermal>().TryToggle((goggles,
+                SEntMan.GetComponent<OrbitraThermalVisionComponent>(goggles)), wearer);
+        });
+        await Pair.RunTicksSync(15);
+        await Client.WaitAssertion(() =>
+        {
+            Assert.That(equipped && toggled, Is.True);
+            var thermal = Client.System<ClientThermal>();
+            Assert.That(thermal.IsActive(), Is.True);
+            Assert.That(Array.Exists(thermal.Contacts!.Contacts, contact => contact.Target == farNet), Is.True);
+            Assert.That(Array.Exists(thermal.Contacts.Contacts, contact => contact.Target == remoteNet), Is.False);
+            Assert.That(thermal.TryGetContactSprite(new OrbitraThermalContact(farNet), out _), Is.False,
+                "Unlimited authorization must not load an out-of-PVS sprite.");
+        });
+        await Server.WaitPost(() => Server.System<MobStateSystem>().ChangeMobState(far, MobState.Dead));
+        await Pair.RunTicksSync(15);
+        await Client.WaitAssertion(() =>
+        {
+            var thermal = Client.System<ClientThermal>();
+            Assert.That(thermal.IsActive(), Is.True);
+            Assert.That(Array.Exists(thermal.Contacts!.Contacts, contact => contact.Target == farNet), Is.False);
         });
     }
 
@@ -115,7 +158,7 @@ public sealed class OrbitraThermalVisionTest : GameTest
                 Assert.That(moved.Comp, Is.SameAs(sprite.Comp));
                 Assert.That(CEntMan.GetComponent<TransformComponent>(moved).LocalPosition, Is.EqualTo(before + new Vector2(0.5f, 0)));
                 transform.SetLocalPosition(sprite.Owner, before + new Vector2(20, 0));
-                Assert.That(system.TryGetContactSprite(contact, out _), Is.False, "Stale contacts cannot render outside radius.");
+                Assert.That(system.TryGetContactSprite(contact, out _), Is.True, "Live PVS sprites must not be clipped by a device radius.");
             }
             finally { transform.SetLocalPosition(sprite.Owner, before); }
         });

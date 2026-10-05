@@ -14,14 +14,20 @@ public sealed class OrbitraRoundMenusSheetlet : Sheetlet<PalettedStylesheet>
     {
         var card = Panel(OrbitraPalettes.PanelBackground, 10);
         var row = Panel(OrbitraPalettes.PanelBackground, 6);
+        // Orbitra-Edit - подсветка новых ролей сохраняет отступы обычной кнопки во всех состояниях.
+        var availableRoles = Panel(OrbitraPalettes.PanelHighlight, OrbitraUiMetrics.Medium);
+        availableRoles.SetContentMarginOverride(StyleBox.Margin.Vertical, 6);
         return
         [
             E<PanelContainer>().Class("OrbitraRoleCard").Panel(card),
             E<PanelContainer>().Class("OrbitraGhostBar").Panel(Panel(OrbitraPalettes.PanelInset, 6)),
             E<PanelContainer>().Class("OrbitraManifestPanel").Panel(row),
             E<RichTextLabel>().Class("OrbitraManifestAntagonist").FontColor(sheet.NegativePalette.Text),
-            E<Button>().Class("OrbitraGhostRolesAvailable", "OrbitraLobbyButton").Box(Panel(OrbitraPalettes.PanelHighlight, 8)),
-            E<Button>().Class("OrbitraGhostRolesAvailable", "OrbitraLobbyButton").PseudoNormal().Box(Panel(OrbitraPalettes.PanelHighlight, 8)),
+            E<Button>().Class("OrbitraGhostRolesAvailable", "OrbitraLobbyButton").Box(availableRoles),
+            E<Button>().Class("OrbitraGhostRolesAvailable", "OrbitraLobbyButton").PseudoNormal().Box(availableRoles),
+            E<Button>().Class("OrbitraGhostRolesAvailable", "OrbitraLobbyButton").PseudoHovered().Box(availableRoles),
+            E<Button>().Class("OrbitraGhostRolesAvailable", "OrbitraLobbyButton").PseudoPressed().Box(availableRoles),
+            E<Button>().Class("OrbitraGhostRolesAvailable", "OrbitraLobbyButton").PseudoDisabled().Box(availableRoles),
         ];
     }
 

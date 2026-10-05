@@ -122,6 +122,7 @@ public sealed class OrbitraGhostEmoteTest : GameTest
         GhostTargetWindow window = null!;
         ContainerButton antagonist = null!;
         ContainerButton stationAntagonist = null!;
+        ContainerButton ghost = null!;
         var warps = new[]
         {
             new GhostWarp(new NetEntity(90001), "Security", false) { CharacterName = "Security", Job = "SecurityOfficer" },
@@ -130,6 +131,7 @@ public sealed class OrbitraGhostEmoteTest : GameTest
             new GhostWarp(new NetEntity(90004), "Command", false) { CharacterName = "Command", Job = "Captain" },
             new GhostWarp(new NetEntity(90005), "Medical", false) { CharacterName = "Medical", Job = "MedicalDoctor" },
             new GhostWarp(new NetEntity(90006), "Antagonist", false) { CharacterName = "Antagonist", Job = "Passenger", IsAntagonist = true },
+            new GhostWarp(new NetEntity(90007), "Ghost", false) { CharacterName = "Ghost", Job = "ChiefEngineer", IsGhost = true, IsAntagonist = true },
         };
         await Client.WaitPost(() =>
         {
@@ -140,6 +142,7 @@ public sealed class OrbitraGhostEmoteTest : GameTest
                 b.ToolTip?.StartsWith("Antagonist\n") == true && b.HasStyleClass("OrbitraGhostDepartmentantagonists"));
             stationAntagonist = Descendants(window).OfType<ContainerButton>().Single(b =>
                 b.ToolTip?.StartsWith("Antagonist\n") == true && !b.HasStyleClass("OrbitraGhostDepartmentantagonists"));
+            ghost = Descendants(window).OfType<ContainerButton>().Single(b => b.ToolTip?.StartsWith("Ghost\n") == true);
         });
         try
         {
@@ -148,6 +151,8 @@ public sealed class OrbitraGhostEmoteTest : GameTest
             {
                 Assert.That(antagonist.VisibleInTree, Is.False);
                 Assert.That(stationAntagonist.VisibleInTree, Is.True);
+                Assert.That(ghost.VisibleInTree, Is.True);
+                Assert.That(ghost.HasStyleClass("OrbitraGhostDepartmentghosts"), Is.True);
                 foreach (var (department, accent) in OrbitraGhostPalette.Departments)
                 {
                     var header = Descendants(window).OfType<Button>().Single(b => b.HasStyleClass("OrbitraGhostDepartment" + department));
@@ -168,6 +173,7 @@ public sealed class OrbitraGhostEmoteTest : GameTest
             {
                 Assert.That(antagonist.VisibleInTree, Is.True);
                 Assert.That(stationAntagonist.VisibleInTree, Is.False);
+                Assert.That(ghost.VisibleInTree, Is.False);
                 Assert.That(tabs[0].Pressed, Is.False);
                 Assert.That(tabs[1].Pressed, Is.True);
             });

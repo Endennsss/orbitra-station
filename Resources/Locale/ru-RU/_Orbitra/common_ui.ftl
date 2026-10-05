@@ -26,5 +26,14 @@ orbitra-map-vote-count = Голосов: { $count }
 orbitra-map-vote-back = Вернуться в лобби
 # Orbitra added start - карточка приветствия антагониста.
 orbitra-antag-briefing-title = АНТАГОНИСТ — ЗАДАЧА ПОЛУЧЕНА
+orbitra-antag-briefing-syndicate = СИНДИКАТ — ЗАДАНИЕ ПОЛУЧЕНО
+orbitra-antag-briefing-revolutionary = РЕВОЛЮЦИОНЕР — ЗАДАНИЕ ПОЛУЧЕНО
+orbitra-antag-briefing-changeling = ЧЕЙНДЖЛИНГ — ЗАДАНИЕ ПОЛУЧЕНО
+orbitra-antag-briefing-wizard = ВОЛШЕБНИК — ЗАДАНИЕ ПОЛУЧЕНО
+orbitra-antag-briefing-ninja = НИНДЗЯ — ЗАДАНИЕ ПОЛУЧЕНО
+orbitra-antag-briefing-thief = ВОР — ЗАДАНИЕ ПОЛУЧЕНО
+orbitra-antag-briefing-infected = НУЛЕВОЙ ПАЦИЕНТ — НАЧАЛО ВСПЫШКИ
+orbitra-antag-briefing-zombie = ЗОМБИ — ЗАРАЖЕНИЕ ЗАВЕРШЕНО
+orbitra-antag-briefing-survivor = ВЫЖИВШИЙ — ЗАДАНИЕ ПОЛУЧЕНО
 # Orbitra added end
 # Orbitra added end

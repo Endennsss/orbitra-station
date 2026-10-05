@@ -1,6 +1,5 @@
-using System;
-using System.Text;
 using Content.Client.UserInterface.Systems.Chat.Controls;
+using Content.Client._Orbitra.UserInterface;
 using Content.Shared.Chat;
 using Content.Shared.Input;
 using Robust.Client.Audio;
@@ -61,7 +60,8 @@ public partial class ChatBox : UIWidget
     private void OnMessageAdded(ChatMessage msg)
     {
         _sawmill.Debug($"{msg.Channel}: {msg.Message}");
-        if (!ChatInput.FilterButton.Popup.IsActive(msg.Channel))
+        // Orbitra-Edit - приветствие роли не зависит от состояния фильтра серверного канала.
+        if (!msg.IsBriefing && !ChatInput.FilterButton.Popup.IsActive(msg.Channel))
         {
             return;
         }
@@ -131,13 +131,15 @@ public partial class ChatBox : UIWidget
         Contents.AddMessage(formatted, tagsAllowed: null);
     }
 
+    public void AddExamineCard(EntityUid target, string title, FormattedMessage description)
+    {
+        Contents.AddExamineCard(target, title, description);
+    }
+
     private void AddBriefingLine(string message)
     {
-        // Orbitra-Edit - передаём исходную разметку в отдельный rich-text блок без потери форматирования.
-        var payload = Convert.ToBase64String(Encoding.UTF8.GetBytes(
-            Content.Client._Orbitra.Stylesheets.OrbitraChatSheetlet.FormatChatMarkup(message)));
-        var formatted = FormattedMessage.FromMarkupOrThrow($"\n[orbitra-briefing payload=\"{payload}\"/]\n");
-        Contents.AddMessage(formatted, tagsAllowed: null);
+        // Orbitra-Edit - briefing является элементом общей вертикальной ленты, а не inline-тегом.
+        Contents.AddBriefing(message);
     }
 
     public void Focus(ChatSelectChannel? channel = null)

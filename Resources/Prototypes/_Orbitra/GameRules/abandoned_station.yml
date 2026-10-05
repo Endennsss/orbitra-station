@@ -1,0 +1,16 @@
+- type: entity
+  parent: BaseGameRule
+  id: OrbitraAbandonedStation
+  name: Abandoned station
+  description: Loss of communications with Central Command.
+  components:
+  - type: StationEvent
+    manualOnly: true
+    earliestStart: 0
+    maxOccurrences: 1
+    weight: 5
+    duration: null
+    occursDuringRoundEnd: false
+  - type: OrbitraAbandonedStationRule
+    warningSound: /Audio/_Orbitra/Announcements/abandoned_warning.ogg
+    isolationSound: /Audio/_Orbitra/Announcements/abandoned_isolated.ogg

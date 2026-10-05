@@ -21,6 +21,7 @@ public sealed partial class GhostGui
         var panel = new PanelContainer();
         panel.AddStyleClass("OrbitraGhostBar");
         panel.AddChild(flow);
+        GhostRolesButton.SetHeight = OrbitraUiMetrics.ElementHeight; // Orbitra-Edit - кнопка ролей не должна менять высоту при hover.
         AddChild(panel);
         OrbitraEditorStyles.Apply(panel);
     }

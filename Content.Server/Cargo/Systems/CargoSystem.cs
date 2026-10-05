@@ -63,6 +63,7 @@ public sealed partial class CargoSystem : SharedCargoSystem
         base.Update(frameTime);
         UpdateConsole();
         UpdateTelepad(frameTime);
+        OrbitraUpdateSuspendedDeliveries(); // Orbitra-Edit - возобновляем оплаченные доставки разрушенных телепортов.
         UpdateBounty();
     }
 }

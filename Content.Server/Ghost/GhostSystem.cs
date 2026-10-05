@@ -275,7 +275,7 @@ namespace Content.Server.Ghost
                 return;
             }
 
-            var response = new GhostWarpsResponseEvent(GetPlayerWarps(entity).Concat(GetLocationWarps()).ToList());
+            var response = new GhostWarpsResponseEvent(GetPlayerWarps(entity, includeGhosts: true).Concat(GetLocationWarps()).ToList()); // Orbitra-Edit - призраки доступны в ручном выборе цели.
             RaiseNetworkEvent(response, args.SenderSession.Channel);
         }
 
@@ -367,7 +367,8 @@ namespace Content.Server.Ghost
         {
             _adminLog.Add(LogType.GhostWarp, $"{ToPrettyString(uid)} ghost warped to {ToPrettyString(target)}");
 
-            if ((TryComp(target, out WarpPointComponent? warp) && warp.Follow) || HasComp<MobStateComponent>(target))
+            if ((TryComp(target, out WarpPointComponent? warp) && warp.Follow) ||
+                HasComp<MobStateComponent>(target) || HasComp<GhostComponent>(target)) // Orbitra-Edit - призрака тоже нужно сопровождать после телепорта.
             {
                 _followerSystem.StartFollowingEntity(uid, target);
                 return;
@@ -390,7 +391,7 @@ namespace Content.Server.Ghost
             }
         }
 
-        private IEnumerable<GhostWarp> GetPlayerWarps(EntityUid? except = null)
+        private IEnumerable<GhostWarp> GetPlayerWarps(EntityUid? except = null, bool includeGhosts = false) // Orbitra-Edit - случайное наблюдение по-прежнему выбирает живых.
         {
             foreach (var player in _player.Sessions)
             {
@@ -404,7 +405,7 @@ namespace Content.Server.Ghost
                 var jobName = _jobs.MindTryGetJobName(mind?.Mind);
                 var playerInfo = $"{Comp<MetaDataComponent>(attached).EntityName} ({jobName})";
 
-                if (_mobState.IsAlive(attached) || _mobState.IsCritical(attached))
+                if ((includeGhosts && _ghostQuery.HasComp(attached)) || _mobState.IsAlive(attached) || _mobState.IsCritical(attached)) // Orbitra-Edit - добавляем призраков в список целей.
                     yield return CreateOrbitraPlayerWarp(attached, mind?.Mind, playerInfo); // Orbitra-Edit
             }
         }
