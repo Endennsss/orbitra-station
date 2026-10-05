@@ -263,8 +263,10 @@ namespace Content.Server.Voting.Managers
 
         private void CreateMapVote(ICommonSession? initiator)
         {
-            // Orbitra-Edit - после завершения раунда игрокам показываются четыре карты, а не длинный список.
-            var maps = _gameMapManager.CurrentlyEligibleMaps()
+            // Orbitra-Edit - голосование показывает карты активного пула независимо от текущего онлайна.
+            // Ограничения minPlayers/maxPlayers нужны для автоматического выбора, но не должны
+            // превращать голосование на небольшом сервере в выбор из одной карты.
+            var maps = _gameMapManager.AllVotableMaps()
                 .OrderBy(_ => _random.Next())
                 .Take(4)
                 .ToDictionary(map => map, map => map.MapName);

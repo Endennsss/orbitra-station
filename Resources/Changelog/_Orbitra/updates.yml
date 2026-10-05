@@ -2,6 +2,14 @@ Name: OrbitraUpdates
 AdminOnly: false
 Order: -1
 Entries:
+- id: 95
+  author: Endennsss
+  time: '2026-10-05T14:00:00Z'
+  changes:
+  - type: Fix
+    message: Голосование карты больше не ограничивается minPlayers и maxPlayers, поэтому на VPS доступны четыре карты из активного пула.
+  - type: Add
+    message: В информации сервера и карточке Hub добавлена кнопка Discord Orbitra.
 - id: 94
   author: Endennsss
   time: '2026-10-05T12:00:00Z'

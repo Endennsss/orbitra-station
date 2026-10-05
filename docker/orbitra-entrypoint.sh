@@ -35,4 +35,5 @@ echo "Orbitra port: ${SERVER_PORT:-1212}"
 exec ./Robust.Server --config-file config.toml --data-dir data \
     --cvar "net.port=$port" \
     --cvar "game.hostname=${SERVER_NAME:-Orbitra Station}" \
-    --cvar "game.desc=${SERVER_DESC:-Русскоязычный сервер Orbitra Station}"
+    --cvar "game.desc=${SERVER_DESC:-Русскоязычный сервер Orbitra Station}" \
+    --cvar "infolinks.discord=https://discord.gg/GM4su9jfku"
