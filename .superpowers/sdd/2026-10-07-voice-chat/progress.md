@@ -15,4 +15,4 @@
 - `dotnet run --project Content.YAMLLinter/Content.YAMLLinter.csproj --no-build` — passed, no errors (80.2 s).
 - Runtime client/server smoke test — passed: server accepted `VoiceA` and `VoiceB`; both clients completed module loading, serializer handshake, and entered `InGame` without sandbox violations or unhandled voice-chat exceptions.
 - Runtime microphone/PTT interaction — not directly exercised because the current computer-use surface exposes no native game-window controls; all runtime processes were stopped after the smoke test.
-- Commit: `c0bfb87f10 feat: add Orbitra proximity voice chat`.
+- Commits: `c0bfb87f10 feat: add Orbitra proximity voice chat`; `f68d9d9542 fix: load voice backend outside content sandbox`.
