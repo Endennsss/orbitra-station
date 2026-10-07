@@ -62,4 +62,4 @@
 - [x] Run YAML validation for edited resources and the narrow affected project builds.
 - [x] Run the focused NUnit test filter and record the result in the progress ledger.
 - [ ] Start a local client/server smoke test only if the build passes; this remains optional because microphone hardware and a display session are not available in this verification run.
-- [ ] Review `git diff`, confirm no changes leaked into master, and report branch/commit/test status.
+- [x] Review `git diff`, confirm no changes leaked into master, and report branch/commit/test status.

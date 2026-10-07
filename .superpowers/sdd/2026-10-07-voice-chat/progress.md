@@ -3,7 +3,7 @@
 - Branch: `features/voice-chat-test`
 - Worktree: `C:\Users\prolo\.codex\worktrees\voice-chat-test\space-station-14`
 - Identity: `2026-10-07-voice-chat`
-- Status: implementation complete; final diff review and commit are pending.
+- Status: implementation, verification, and branch commit complete.
 
 ## Verification ledger
 
@@ -14,3 +14,4 @@
 - `dotnet build Content.YAMLLinter/Content.YAMLLinter.csproj --configuration Debug --no-restore -v:minimal` — passed, 0 errors.
 - `dotnet run --project Content.YAMLLinter/Content.YAMLLinter.csproj --no-build` — passed, no errors (80.2 s).
 - Runtime microphone/client-server smoke test — not run; no runtime process was left running.
+- Commit: `c0bfb87f10 feat: add Orbitra proximity voice chat`.
