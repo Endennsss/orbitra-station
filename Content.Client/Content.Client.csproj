@@ -20,6 +20,10 @@
   </Target>
   <!-- Orbitra added end -->
   <ItemGroup>
+    <!-- Orbitra added start - зависимости захвата и кодирования голоса. -->
+    <PackageReference Include="Concentus" />
+    <PackageReference Include="OpenTK" />
+    <!-- Orbitra added end -->
     <PackageReference Include="Nett" />
     <PackageReference Include="JetBrains.Annotations" PrivateAssets="All" />
     <PackageReference Include="SixLabors.ImageSharp" />

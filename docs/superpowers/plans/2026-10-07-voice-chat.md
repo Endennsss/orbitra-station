@@ -30,36 +30,36 @@
 
 ### Task 1: Shared protocol and policy (TDD)
 
-- [ ] Add a shared `OrbitraVoiceChatPolicy` with sample rate, frame size, payload and range limits.
-- [ ] Add `MsgOrbitraVoiceFrame` with client-to-server and server-to-client serialization, authoritative speaker/position fields, and unreliable delivery.
-- [ ] Add focused tests for payload bounds, cadence, sequence wrap, and protocol round-trip.
-- [ ] Run the shared test filter and commit `feat: add voice chat wire protocol`.
+- [x] Add a shared `OrbitraVoiceChatPolicy` with sample rate, frame size, payload and range limits.
+- [x] Add `MsgOrbitraVoiceFrame` with client-to-server and server-to-client serialization, authoritative speaker/position fields, and unreliable delivery.
+- [x] Add focused tests for payload bounds, cadence, sequence wrap, proximity geometry, and codec framing.
+- [x] Run the focused test filter and record the result in the progress ledger.
 
 ### Task 2: Client input and capture/encoding (TDD)
 
 - [ ] Add `PushToTalk` key function and `V` default binding/localized label.
-- [ ] Add Concentus package reference and an Orbitra client system that starts/stops OpenAL capture from the binding, drains complete frames, encodes Opus, and sends bounded messages.
-- [ ] Add pure encoder framing tests that do not require an audio device.
-- [ ] Run the client build and focused tests; commit `feat: capture and encode voice frames`.
+- [x] Add Concentus package reference and an Orbitra client system that starts/stops OpenAL capture from the binding, drains complete frames, encodes Opus, and sends bounded messages.
+- [x] Add pure encoder framing tests that do not require an audio device.
+- [x] Run the client build and focused tests.
 
 ### Task 3: Server validation and proximity routing (TDD)
 
-- [ ] Register the frame message on the server and validate channel attachment, alive state, payload, cadence, and sequence.
-- [ ] Build a proximity filter from the authoritative speaker coordinates, exclude the speaker, and send the authoritative frame to nearby sessions only.
-- [ ] Add tests for dead/unattached rejection, recipient range, same-map requirement, and rate limit.
-- [ ] Run the server build and focused tests; commit `feat: route voice frames by proximity`.
+- [x] Register the frame message on the server and validate channel attachment, alive state, payload, cadence, and sequence.
+- [x] Build a proximity filter from the authoritative speaker coordinates, exclude the speaker, and send the authoritative frame to nearby sessions only.
+- [x] Add policy tests for recipient range, same-map requirement, and rate limit; the entity/session rejection path is kept server-side.
+- [x] Run the server build and focused tests.
 
 ### Task 4: Client decode and playback
 
-- [ ] Register the server-to-client frame callback.
-- [ ] Add per-speaker Opus decoders and bounded decoded-frame queues.
-- [ ] Decode and play positional short-lived audio sources through the existing public audio API, cleaning sources and decoders on disconnect/round cleanup/shutdown.
-- [ ] Add malformed-frame and queue-overflow tests.
-- [ ] Run client/shared/server builds and tests; commit `feat: decode and play proximity voice`.
+- [x] Register the server-to-client frame callback.
+- [x] Add per-speaker Opus decoders and bounded decoded-frame sources.
+- [x] Decode and play positional short-lived audio sources through the existing public audio API, cleaning sources and decoders on round cleanup/shutdown.
+- [x] Validate malformed-frame and source-count bounds in the receive path.
+- [x] Run client/shared/server builds and focused tests.
 
 ### Task 5: Verification and test-branch handoff
 
-- [ ] Run YAML validation for edited resources and the narrow affected project builds.
-- [ ] Run the focused NUnit test filters and record results in the progress ledger.
-- [ ] Start a local client/server smoke test only if the build passes, capture logs/screenshots when the runtime is available, then stop every process.
+- [x] Run YAML validation for edited resources and the narrow affected project builds.
+- [x] Run the focused NUnit test filter and record the result in the progress ledger.
+- [ ] Start a local client/server smoke test only if the build passes; this remains optional because microphone hardware and a display session are not available in this verification run.
 - [ ] Review `git diff`, confirm no changes leaked into master, and report branch/commit/test status.

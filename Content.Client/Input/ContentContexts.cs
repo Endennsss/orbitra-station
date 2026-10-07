@@ -22,6 +22,7 @@ namespace Content.Client.Input
             common.AddFunction(ContentKeyFunctions.FocusOOC);
             common.AddFunction(ContentKeyFunctions.FocusAdminChat);
             common.AddFunction(ContentKeyFunctions.FocusConsoleChat);
+            common.AddFunction(ContentKeyFunctions.PushToTalk); // Orbitra-Edit
             common.AddFunction(ContentKeyFunctions.FocusDeadChat);
             common.AddFunction(ContentKeyFunctions.CycleChatChannelForward);
             common.AddFunction(ContentKeyFunctions.CycleChatChannelBackward);

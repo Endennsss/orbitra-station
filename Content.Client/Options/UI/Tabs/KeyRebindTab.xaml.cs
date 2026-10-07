@@ -230,6 +230,7 @@ namespace Content.Client.Options.UI.Tabs
             AddButton(ContentKeyFunctions.FocusAdminChat);
             AddButton(ContentKeyFunctions.FocusDeadChat);
             AddButton(ContentKeyFunctions.FocusConsoleChat);
+            AddButton(ContentKeyFunctions.PushToTalk); // Orbitra-Edit
             AddButton(ContentKeyFunctions.CycleChatChannelForward);
             AddButton(ContentKeyFunctions.CycleChatChannelBackward);
             AddButton(ContentKeyFunctions.OpenCharacterMenu);

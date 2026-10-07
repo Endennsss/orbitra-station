@@ -203,6 +203,8 @@ ui-options-function-focus-ooc-window = Focus chat (OOC)
 ui-options-function-focus-admin-chat-window = Focus chat (Admin)
 ui-options-function-focus-dead-chat-window = Focus chat (Dead)
 ui-options-function-focus-console-chat-window = Focus chat (Console)
+# Orbitra-Edit
+ui-options-function-push-to-talk = Push to talk
 ui-options-function-cycle-chat-channel-forward = Cycle channel (Forward)
 ui-options-function-cycle-chat-channel-backward = Cycle channel (Backward)
 ui-options-function-open-character-menu = Open character menu

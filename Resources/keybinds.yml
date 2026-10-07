@@ -132,6 +132,9 @@ binds:
 - function: FocusConsoleChatWindow
   type: State
   key: Slash
+- function: PushToTalk
+  type: State
+  key: V # Orbitra-Edit
 - function: EditorLinePlace
   type: State
   key: MouseLeft
