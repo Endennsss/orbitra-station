@@ -1,7 +1,6 @@
 using System;
-using Concentus;
-using Concentus.Enums;
 using Content.Shared._Orbitra.VoiceChat;
+using Robust.Client.Audio;
 
 namespace Content.Client._Orbitra.VoiceChat;
 
@@ -10,28 +9,26 @@ namespace Content.Client._Orbitra.VoiceChat;
 /// </summary>
 internal sealed class OrbitraVoiceChatEncoder : IDisposable
 {
-    private readonly IOpusEncoder _encoder;
+    private readonly VoiceChatOpusEncoder _encoder;
 
     public OrbitraVoiceChatEncoder()
     {
-        _encoder = OpusCodecFactory.CreateEncoder(
+        _encoder = new VoiceChatOpusEncoder(
             OrbitraVoiceChatPolicy.SampleRate,
-            OrbitraVoiceChatPolicy.Channels,
-            OpusApplication.OPUS_APPLICATION_VOIP);
+            OrbitraVoiceChatPolicy.Channels);
     }
 
     public int Encode(short[] samples, byte[] destination)
     {
         return _encoder.Encode(
-            samples.AsSpan(),
+            samples,
             OrbitraVoiceChatPolicy.SamplesPerFrame,
-            destination.AsSpan(),
-            destination.Length);
+            destination);
     }
 
     public void Dispose()
     {
-        (_encoder as IDisposable)?.Dispose();
+        _encoder.Dispose();
     }
 }
 
@@ -40,26 +37,22 @@ internal sealed class OrbitraVoiceChatEncoder : IDisposable
 /// </summary>
 internal sealed class OrbitraVoiceChatDecoder : IDisposable
 {
-    private readonly IOpusDecoder _decoder;
+    private readonly VoiceChatOpusDecoder _decoder;
 
     public OrbitraVoiceChatDecoder()
     {
-        _decoder = OpusCodecFactory.CreateDecoder(
+        _decoder = new VoiceChatOpusDecoder(
             OrbitraVoiceChatPolicy.SampleRate,
             OrbitraVoiceChatPolicy.Channels);
     }
 
     public int Decode(byte[] data, short[] destination)
     {
-        return _decoder.Decode(
-            data.AsSpan(),
-            destination.AsSpan(),
-            destination.Length,
-            false);
+        return _decoder.Decode(data, destination);
     }
 
     public void Dispose()
     {
-        (_decoder as IDisposable)?.Dispose();
+        _decoder.Dispose();
     }
 }

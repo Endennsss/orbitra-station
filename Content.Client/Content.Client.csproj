@@ -13,16 +13,19 @@
   <Target Name="OrbitraInstallDevHost" AfterTargets="Build" Condition="'$(FullRelease)' != 'True'">
     <ItemGroup>
       <OrbitraHostFiles Include="../bin/Orbitra.DevHost/Orbitra.DevHost.dll;../bin/Orbitra.DevHost/Orbitra.DevHost.deps.json;../bin/Orbitra.DevHost/Orbitra.DevHost.runtimeconfig.json" />
+      <!-- Orbitra added start - доверенный хост загружает голосовой backend до sandboxed content. -->
+      <OrbitraVoiceBackendFiles Include="../bin/Orbitra.VoiceChatBackend/Orbitra.VoiceChatBackend.dll;../bin/Orbitra.VoiceChatBackend/Orbitra.VoiceChatBackend.deps.json" />
+      <!-- Orbitra added end -->
     </ItemGroup>
     <Copy SourceFiles="@(OrbitraHostFiles)" DestinationFolder="$(TargetDir)" />
+    <Copy SourceFiles="@(OrbitraVoiceBackendFiles)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
     <Copy SourceFiles="../bin/Orbitra.DevHost/Orbitra.DevHost.exe" DestinationFiles="$(TargetDir)Content.Client.exe" Condition="'$(OS)' == 'Windows_NT'" />
     <Copy SourceFiles="../bin/Orbitra.DevHost/Orbitra.DevHost" DestinationFiles="$(TargetDir)Content.Client" Condition="'$(OS)' != 'Windows_NT'" />
   </Target>
   <!-- Orbitra added end -->
   <ItemGroup>
-    <!-- Orbitra added start - зависимости захвата и кодирования голоса. -->
-    <PackageReference Include="Concentus" />
-    <PackageReference Include="OpenTK" />
+    <!-- Orbitra added start - доверенный backend скрывает native/audio зависимости от sandboxed content. -->
+    <ProjectReference Include="../Tools/_Orbitra/VoiceChatBackend/Orbitra.VoiceChatBackend.csproj" />
     <!-- Orbitra added end -->
     <PackageReference Include="Nett" />
     <PackageReference Include="JetBrains.Annotations" PrivateAssets="All" />

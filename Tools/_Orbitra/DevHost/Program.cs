@@ -4,8 +4,12 @@ namespace Orbitra.DevHost;
 
 internal static class Program
 {
+    // Orbitra added - якорь оставляет backend в зависимостях host-процесса для sandboxed загрузчика.
+    private static readonly Type VoiceChatBackendAnchor = typeof(Robust.Client.Audio.VoiceChatCapture);
+
     private static async Task<int> Main(string[] args)
     {
+        GC.KeepAlive(VoiceChatBackendAnchor);
         var channel = Guid.NewGuid().ToString("N");
         var data = args.Contains("--self-contained")
             ? Path.Combine(AppContext.BaseDirectory, "user_data")

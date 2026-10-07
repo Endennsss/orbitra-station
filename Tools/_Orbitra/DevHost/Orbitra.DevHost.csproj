@@ -7,5 +7,10 @@
     <OutputPath>../../../bin/Orbitra.DevHost/</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
-  <ItemGroup><InternalsVisibleTo Include="Content.Tests" /></ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Content.Tests" />
+    <!-- Orbitra added start - backend должен быть доступен default ALC до загрузки sandboxed client. -->
+    <ProjectReference Include="../VoiceChatBackend/Orbitra.VoiceChatBackend.csproj" />
+    <!-- Orbitra added end -->
+  </ItemGroup>
 </Project>
