@@ -9,6 +9,9 @@
   <!-- Orbitra added start - отдельный dev-хост запускает сервер вне песочницы игрового кода. -->
   <ItemGroup Condition="'$(FullRelease)' != 'True'">
     <ProjectReference Include="../Tools/_Orbitra/DevHost/Orbitra.DevHost.csproj" ReferenceOutputAssembly="false" GlobalPropertiesToRemove="OutputPath" />
+    <!-- Orbitra added start - native voice backend нужен только локальному dev-хосту. -->
+    <ProjectReference Include="../Tools/_Orbitra/VoiceChatBackend/Orbitra.VoiceChatBackend.csproj" ReferenceOutputAssembly="false" GlobalPropertiesToRemove="OutputPath" />
+    <!-- Orbitra added end -->
   </ItemGroup>
   <Target Name="OrbitraInstallDevHost" AfterTargets="Build" Condition="'$(FullRelease)' != 'True'">
     <ItemGroup>
