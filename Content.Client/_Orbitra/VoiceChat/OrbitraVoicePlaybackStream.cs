@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Numerics;
 using Content.Shared._Orbitra.VoiceChat;
 using Robust.Client.Audio;
@@ -7,53 +8,58 @@ using Robust.Shared.Audio.Sources;
 namespace Content.Client._Orbitra.VoiceChat;
 
 /// <summary>
-/// Feeds one OpenAL streaming source per speaker. OpenAL keeps consuming the
-/// queued PCM while the game thread is rendering a slow frame.
+/// Feeds short PCM chunks to the public audio API. Several frames are grouped
+/// into one source to avoid creating an OpenAL source for every network packet.
 /// </summary>
 internal sealed class OrbitraVoicePlaybackStream : IDisposable
 {
-    private const int BufferCount = 12;
-    private const int StartBufferCount = 4;
-    private const int SamplesPerBuffer = OrbitraVoiceChatPolicy.SamplesPerFrame;
-    // BufferedAudioSource получает моно-PCM через span с двумя половинами:
-    // первая содержит сигнал, вторая резервирует размер второго канала.
-    private const int BufferedSampleCount = SamplesPerBuffer * 2;
+    private const int FramesPerChunk = 4;
+    private const int MaxPendingChunks = 12;
+    private const int SamplesPerChunk = OrbitraVoiceChatPolicy.SamplesPerFrame * FramesPerChunk;
 
-    private readonly IBufferedAudioSource _source;
-    private readonly ushort[][] _pending = new ushort[BufferCount][];
-    private readonly bool[] _queued = new bool[BufferCount];
-    private readonly int[] _processedHandles = new int[BufferCount];
-    private readonly int[] _queueHandle = new int[1];
-    private int _pendingHead;
-    private int _pendingCount;
-    private int _queuedCount;
-    private bool _hasStarted;
+    private readonly IAudioManager _audio;
+    private readonly Queue<short[]> _pending = new();
+    private readonly short[] _chunk = new short[SamplesPerChunk];
+    private int _chunkSamples;
+    private ActiveChunk? _active;
+    private Vector2 _position;
+    private float _gain;
+    private bool _radio;
     private bool _disposed;
+
+    private sealed class ActiveChunk
+    {
+        public required AudioStream Stream;
+        public required IAudioSource Source;
+    }
 
     public OrbitraVoicePlaybackStream(IAudioManager audio, Vector2 position, float gain, bool radio = false)
     {
-        _source = audio.CreateBufferedAudioSource(BufferCount)
-            ?? throw new InvalidOperationException("Unable to create an OpenAL voice stream.");
-
-        for (var i = 0; i < BufferCount; i++)
-            _pending[i] = new ushort[BufferedSampleCount];
-
-        _source.SampleRate = 48_000;
-        _source.Position = position;
-        SetRadioMode(radio);
-        _source.RolloffFactor = 1f;
-        _source.Gain = gain;
+        _audio = audio;
+        _position = position;
+        _gain = gain;
+        _radio = radio;
     }
 
-    public void SetPosition(Vector2 position) => _source.Position = position;
+    public void SetPosition(Vector2 position)
+    {
+        _position = position;
+        if (_active is { } active)
+            active.Source.Position = position;
+    }
 
-    public void SetGain(float gain) => _source.Gain = gain;
+    public void SetGain(float gain)
+    {
+        _gain = gain;
+        if (_active is { } active)
+            active.Source.Gain = gain;
+    }
 
     public void SetRadioMode(bool radio)
     {
-        _source.Global = radio;
-        _source.MaxDistance = radio ? 1f : OrbitraVoiceChatPolicy.ProximityRange;
-        _source.ReferenceDistance = 1f;
+        _radio = radio;
+        if (_active is { } active)
+            ApplySourceSettings(active.Source);
     }
 
     public void Enqueue(ReadOnlySpan<short> samples)
@@ -63,21 +69,16 @@ internal sealed class OrbitraVoicePlaybackStream : IDisposable
 
         while (!samples.IsEmpty)
         {
-            var copyCount = Math.Min(samples.Length, SamplesPerBuffer);
-            if (_pendingCount == BufferCount)
-            {
-                // Keep the newest speech when a connection stalls for longer
-                // than the bounded jitter buffer.
-                _pendingHead = (_pendingHead + 1) % BufferCount;
-                _pendingCount--;
-            }
-
-            var index = (_pendingHead + _pendingCount) % BufferCount;
-            for (var i = 0; i < copyCount; i++)
-                _pending[index][i] = unchecked((ushort) samples[i]);
-            _pending[index].AsSpan(copyCount).Clear();
-            _pendingCount++;
+            var copyCount = Math.Min(samples.Length, _chunk.Length - _chunkSamples);
+            samples[..copyCount].CopyTo(_chunk.AsSpan(_chunkSamples));
+            _chunkSamples += copyCount;
             samples = samples[copyCount..];
+
+            if (_chunkSamples != _chunk.Length)
+                continue;
+
+            QueueChunk(_chunk);
+            _chunkSamples = 0;
         }
 
         Pump();
@@ -88,45 +89,28 @@ internal sealed class OrbitraVoicePlaybackStream : IDisposable
         if (_disposed)
             return;
 
-        var processed = _source.GetNumberOfBuffersProcessed();
-        if (processed > 0)
+        if (_active is { } active && !active.Source.Playing)
         {
-            _source.GetBuffersProcessed(_processedHandles);
-            for (var i = 0; i < processed; i++)
-            {
-                var handle = _processedHandles[i];
-                if (_queued[handle])
-                {
-                    _queued[handle] = false;
-                    _queuedCount--;
-                }
-            }
+            DisposeActive(active);
+            _active = null;
         }
 
-        while (_pendingCount > 0 && _queuedCount < BufferCount)
-        {
-            var handle = FindFreeBuffer();
-            if (handle < 0)
-                break;
+        if (_active != null)
+            return;
 
-            var pending = _pending[_pendingHead];
-            _source.WriteBuffer(handle, pending);
-            _queueHandle[0] = handle;
-            _source.QueueBuffers(_queueHandle);
-            _queued[handle] = true;
-            _queuedCount++;
-            _pendingHead = (_pendingHead + 1) % BufferCount;
-            _pendingCount--;
+        if (_pending.Count > 0)
+        {
+            StartChunk(_pending.Dequeue());
+            return;
         }
 
-        // После сетевой паузы OpenAL может доиграть очередь до нуля. В этом
-        // состоянии ему достаточно одного свежего буфера для повторного
-        // запуска; ожидание четырёх буферов оставляло поток без звука навсегда.
-        var requiredBuffers = _hasStarted ? 1 : StartBufferCount;
-        if (!_source.Playing && _queuedCount >= requiredBuffers)
+        // Flush a short tail after a speaker stops sending frames.
+        if (_chunkSamples > 0)
         {
-            _source.StartPlaying();
-            _hasStarted = true;
+            var tail = new short[_chunkSamples];
+            _chunk.AsSpan(0, _chunkSamples).CopyTo(tail);
+            _chunkSamples = 0;
+            StartChunk(tail);
         }
     }
 
@@ -136,18 +120,64 @@ internal sealed class OrbitraVoicePlaybackStream : IDisposable
             return;
 
         _disposed = true;
-        _source.StopPlaying();
-        _source.Dispose();
+        if (_active is { } active)
+            DisposeActive(active);
+
+        _active = null;
+        _pending.Clear();
+        _chunkSamples = 0;
     }
 
-    private int FindFreeBuffer()
+    private void QueueChunk(ReadOnlySpan<short> samples)
     {
-        for (var i = 0; i < _queued.Length; i++)
-        {
-            if (!_queued[i])
-                return i;
-        }
+        if (_pending.Count == MaxPendingChunks)
+            _pending.Dequeue();
 
-        return -1;
+        var copy = new short[samples.Length];
+        samples.CopyTo(copy);
+        _pending.Enqueue(copy);
+    }
+
+    private void StartChunk(short[] samples)
+    {
+        AudioStream? stream = null;
+        IAudioSource? source = null;
+        try
+        {
+            stream = _audio.LoadAudioRaw(samples, 1, 48_000, "Orbitra voice");
+            source = _audio.CreateAudioSource(stream);
+            if (source == null)
+            {
+                stream.Dispose();
+                return;
+            }
+
+            ApplySourceSettings(source);
+            source.StartPlaying();
+            _active = new ActiveChunk { Stream = stream, Source = source };
+        }
+        catch
+        {
+            source?.Dispose();
+            stream?.Dispose();
+            _active = null;
+        }
+    }
+
+    private void ApplySourceSettings(IAudioSource source)
+    {
+        source.Position = _position;
+        source.Gain = _gain;
+        source.Global = _radio;
+        source.MaxDistance = _radio ? 1f : OrbitraVoiceChatPolicy.ProximityRange;
+        source.ReferenceDistance = 1f;
+        source.RolloffFactor = 1f;
+    }
+
+    private static void DisposeActive(ActiveChunk active)
+    {
+        active.Source.StopPlaying();
+        active.Source.Dispose();
+        active.Stream.Dispose();
     }
 }
