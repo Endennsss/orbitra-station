@@ -4,7 +4,7 @@
     <OutputPath>..\bin\Content.Client\</OutputPath>
     <OutputType Condition="'$(FullRelease)' != 'True'">Exe</OutputType>
     <WarningsAsErrors>RA0032;nullable;CS8785</WarningsAsErrors>
-    <!-- Orbitra-Edit: production packaging needs the managed voice codec assembly. -->
+    <!-- Orbitra-Edit: production-упаковщику нужна сборка managed-кодека голоса. -->
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <Import Project="../MSBuild/Content.props" />
