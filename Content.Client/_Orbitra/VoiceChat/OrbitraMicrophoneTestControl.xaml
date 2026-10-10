@@ -1,0 +1,5 @@
+<BoxContainer xmlns="https://spacestation14.io" Orientation="Vertical" SeparationOverride="4">
+    <Button Name="TestButton" Text="{Loc 'orbitra-voice-test-start'}" />
+    <ProgressBar Name="InputLevel" MinValue="0" MaxValue="1" Value="0" MinHeight="8" />
+    <RichTextLabel Name="StatusLabel" Text="{Loc 'orbitra-voice-test-hint'}" />
+</BoxContainer>

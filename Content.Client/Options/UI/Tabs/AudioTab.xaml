@@ -1,6 +1,7 @@
 <Control xmlns="https://spacestation14.io"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
+         xmlns:voice="clr-namespace:Content.Client._Orbitra.VoiceChat"
          xmlns:ui="clr-namespace:Content.Client.Options.UI">
     <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
     <BoxContainer Orientation="Vertical">
@@ -12,6 +13,16 @@
             <BoxContainer Orientation="Vertical" Margin="0 3 0 0">
                 <ui:OptionDropDown Name="DropDownAudioDevice" Title="{Loc 'ui-options-audio-device'}"
                                    Margin="0 0 0 8" />
+                <!-- Orbitra-Edit - выбор микрофона для голосовой связи. -->
+                <ui:OptionDropDown Name="DropDownVoiceInputDevice" Title="{Loc 'orbitra-voice-chat-input-device'}"
+                                   Margin="0 0 0 8" />
+                <ui:OptionSlider Name="SliderVoiceInputVolume" Title="{Loc 'orbitra-voice-chat-input-volume'}"
+                                 Margin="0 0 0 8" />
+                <voice:OrbitraMicrophoneTestControl Name="MicrophoneTest" Margin="0 0 0 8" />
+                <RichTextLabel Text="{Loc 'orbitra-voice-chat-radio-help'}" Margin="0 0 0 8" />
+                <ui:OptionSlider Name="SliderVoiceVolume" Title="{Loc 'orbitra-voice-chat-volume'}"
+                                 Margin="0 0 0 8" />
+                <kit:OrbitraCheckBox Name="VoiceEnabledCheckBox" Text="{Loc 'orbitra-voice-chat-enabled'}" />
                 <ui:OptionSlider Name="SliderVolumeMaster" Title="{Loc 'ui-options-master-volume'}"
                                  Margin="0 0 0 8" />
                 <ui:OptionSlider Name="SliderVolumeMidi" Title="{Loc 'ui-options-midi-volume'}" />

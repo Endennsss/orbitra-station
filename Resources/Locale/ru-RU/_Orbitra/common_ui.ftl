@@ -30,3 +30,29 @@ orbitra-antag-briefing-zombie = ЗОМБИ — ЗАРАЖЕНИЕ ЗАВЕРШЕ
 orbitra-antag-briefing-survivor = ВЫЖИВШИЙ — ЗАДАНИЕ ПОЛУЧЕНО
 # Orbitra added end
 # Orbitra added end
+
+# Orbitra added start - имя и счётчик активных участников голосового канала.
+orbitra-voice-chat-unknown-speaker = Неизвестный собеседник
+orbitra-voice-chat-you = Вы
+orbitra-voice-chat-more = +{ $count }
+orbitra-voice-chat-input-device = Микрофон для голосовой связи
+orbitra-voice-chat-input-volume = Громкость микрофона
+orbitra-voice-chat-volume = Громкость голосовой связи
+orbitra-voice-chat-enabled = Получать голосовую связь
+orbitra-voice-chat-radio-ptt = Передача по рации
+orbitra-voice-chat-radio-unavailable = Нет доступного радиоканала
+orbitra-voice-chat-radio-transmitting = Передача: { $channel }
+orbitra-voice-chat-radio = РАЦИЯ
+orbitra-voice-chat-radio-channel = Канал: { $channel }
+orbitra-voice-chat-radio-select-short = Рация
+orbitra-voice-chat-radio-select = Выбрать канал рации
+orbitra-voice-chat-radio-locked = Нужен ключ этого радиоканала
+orbitra-voice-chat-radio-help = Кнопка «Рация» рядом с полем чата выбирает отдел для голосовой передачи. После выбора зажмите клавишу «Говорить по рации». Если список пуст, наденьте гарнитуру с ключом нужного отдела.
+# Orbitra added end
+orbitra-voice-test-start = Проверить микрофон
+orbitra-voice-test-stop = Остановить проверку
+orbitra-voice-test-hint = Запишите 3 секунды и послушайте себя. Проверяется устройство из списка ниже, даже до применения настроек. Запись слышна только вам.
+orbitra-voice-test-recording = Говорите: идёт запись 3 секунд…
+orbitra-voice-test-playing = Прослушивание записи…
+orbitra-voice-test-done = Проверка завершена. Можно выбрать другой микрофон и повторить.
+orbitra-voice-test-error = Не удалось проверить микрофон. Проверьте устройство и доступ к нему.

@@ -13,6 +13,7 @@ public static class OrbitraVoiceChatPolicy
     public const int FrameDurationMilliseconds = 20;
     public const int SamplesPerFrame = SampleRate * FrameDurationMilliseconds / 1_000;
     public const int MaxEncodedFrameBytes = 1_500;
+    public const int MaxRadioChannelIdLength = 32;
     public const int MaxFramesPerSecond = 60;
     public const float ProximityRange = 7f;
 
@@ -22,9 +23,40 @@ public static class OrbitraVoiceChatPolicy
     public static bool IsValidPayloadLength(int length) =>
         length is > 0 and <= MaxEncodedFrameBytes;
 
+    public static bool IsKnownTransmissionMode(OrbitraVoiceTransmissionMode mode) =>
+        mode is OrbitraVoiceTransmissionMode.Proximity or OrbitraVoiceTransmissionMode.Radio;
+
+    public static bool IsValidTransmission(OrbitraVoiceTransmissionMode mode, string? radioChannelId)
+    {
+        if (!IsKnownTransmissionMode(mode))
+            return false;
+
+        if (mode == OrbitraVoiceTransmissionMode.Proximity)
+            return string.IsNullOrEmpty(radioChannelId);
+
+        return !string.IsNullOrWhiteSpace(radioChannelId) &&
+               radioChannelId.Length <= MaxRadioChannelIdLength;
+    }
+
     public static bool IsWithinProximity(MapCoordinates speaker, MapCoordinates listener) =>
         speaker.MapId == listener.MapId &&
         (listener.Position - speaker.Position).LengthSquared() < ProximityRange * ProximityRange;
+
+    /// <summary>
+    /// Applies the local microphone gain while keeping PCM samples in the valid range.
+    /// </summary>
+    public static void ApplyInputGain(Span<short> samples, float gain)
+    {
+        gain = Math.Clamp(gain, 0f, 2f);
+        if (gain == 1f)
+            return;
+
+        for (var i = 0; i < samples.Length; i++)
+        {
+            var sample = samples[i] * gain;
+            samples[i] = (short) Math.Clamp(sample, short.MinValue, short.MaxValue);
+        }
+    }
 
     /// <summary>
     /// Checks a modulo-16-bit sequence number, allowing packet loss and wrap-around.
@@ -41,25 +73,43 @@ public static class OrbitraVoiceChatPolicy
 /// </summary>
 public sealed class OrbitraVoiceChatRateLimiter
 {
-    private bool _hasAcceptedFrame;
-    private TimeSpan _lastAccepted;
+    // Короткий запас покрывает пачку кадров, которую получает сервер после
+    // просадки FPS, но средняя скорость остаётся ограниченной 60 кадрами/с.
+    private const double BurstCapacity = 6d;
+    private double _tokens = BurstCapacity;
+    private TimeSpan _lastTimestamp;
+    private bool _initialized;
 
     public bool TryAccept(TimeSpan timestamp)
     {
         if (timestamp < TimeSpan.Zero)
             return false;
 
-        if (_hasAcceptedFrame && timestamp - _lastAccepted < OrbitraVoiceChatPolicy.MinimumFrameInterval)
+        if (_initialized && timestamp < _lastTimestamp)
             return false;
 
-        _lastAccepted = timestamp;
-        _hasAcceptedFrame = true;
+        if (!_initialized)
+        {
+            _initialized = true;
+            _lastTimestamp = timestamp;
+            _tokens -= 1d;
+            return true;
+        }
+
+        var elapsed = (timestamp - _lastTimestamp).TotalSeconds;
+        _tokens = Math.Min(BurstCapacity, _tokens + elapsed * OrbitraVoiceChatPolicy.MaxFramesPerSecond);
+        _lastTimestamp = timestamp;
+        if (_tokens < 1d)
+            return false;
+
+        _tokens -= 1d;
         return true;
     }
 
     public void Reset()
     {
-        _hasAcceptedFrame = false;
-        _lastAccepted = default;
+        _initialized = false;
+        _lastTimestamp = default;
+        _tokens = BurstCapacity;
     }
 }

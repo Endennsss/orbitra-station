@@ -1,4 +1,5 @@
 [submodule "RobustToolbox"]
 	path = RobustToolbox
-	url = https://github.com/space-wizards/RobustToolbox.git
-	branch = master
+	# Orbitra-Edit: голосовой чат использует ветку с публичным PCM-буфером.
+	url = https://github.com/Endennsss/RobustToolbox.git
+	branch = features/orbitra-voice-buffered-audio

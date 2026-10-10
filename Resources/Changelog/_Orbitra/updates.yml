@@ -2,6 +2,22 @@ Name: OrbitraUpdates
 AdminOnly: false
 Order: -1
 Entries:
+# Orbitra added start - голосовой индикатор в мире и выбор микрофона.
+- id: 97
+  author: Ende
+  time: '2026-10-07T20:27:46Z'
+  changes:
+  - type: Add
+    message: Иконка микрофона отображается над говорящим персонажем, а список собеседников находится в правом нижнем углу; устройство ввода выбирается в настройках аудио.
+# Orbitra added end
+# Orbitra added start - индикатор активных участников голосового чата.
+- id: 96
+  author: Ende
+  time: '2026-10-07T19:36:10Z'
+  changes:
+  - type: Add
+    message: В правом верхнем углу отображаются имена собеседников, которые сейчас говорят по голосовой связи, с иконкой микрофона.
+# Orbitra added end
 - id: 95
   author: Endennsss
   time: '2026-10-05T14:00:00Z'

@@ -706,6 +706,8 @@ public sealed partial class ChatUIController : UIController
     {
         var (prefixChannel, _, radioChannel) = SplitInputContents(box.ChatInput.Input.Text.ToLower());
 
+        OrbitraUpdateSelectedRadioChannel(box, prefixChannel, radioChannel); // Orbitra-Edit - общий выбор канала для голосовой рации.
+
         if (prefixChannel == ChatSelectChannel.None)
             box.ChatInput.ChannelSelector.UpdateChannelSelectButton(box.SelectedChannel, null);
         else

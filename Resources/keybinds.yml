@@ -135,6 +135,9 @@ binds:
 - function: PushToTalk
   type: State
   key: V # Orbitra-Edit
+- function: RadioPushToTalk
+  type: State
+  key: N # Orbitra-Edit: не пересекается с админским OpenSandboxWindow на B.
 - function: EditorLinePlace
   type: State
   key: MouseLeft

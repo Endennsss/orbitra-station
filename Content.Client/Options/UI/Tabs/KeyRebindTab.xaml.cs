@@ -231,6 +231,7 @@ namespace Content.Client.Options.UI.Tabs
             AddButton(ContentKeyFunctions.FocusDeadChat);
             AddButton(ContentKeyFunctions.FocusConsoleChat);
             AddButton(ContentKeyFunctions.PushToTalk); // Orbitra-Edit
+            AddButton(ContentKeyFunctions.RadioPushToTalk); // Orbitra-Edit: отдельная настраиваемая клавиша радио-PTT.
             AddButton(ContentKeyFunctions.CycleChatChannelForward);
             AddButton(ContentKeyFunctions.CycleChatChannelBackward);
             AddButton(ContentKeyFunctions.OpenCharacterMenu);

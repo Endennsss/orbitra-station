@@ -50,6 +50,13 @@ public sealed class OrbitraHudMenuSheetlet : Sheetlet<PalettedStylesheet>
             E<PanelContainer>().Class("OrbitraChatSurface").Panel(new StyleBoxFlat(OrbitraPalettes.PanelBackground)),
             E<PanelContainer>().Class("ChatPanel", "OrbitraChatInput").Panel(new StyleBoxEmpty()),
             E<LineEdit>().Class("ChatLineEdit", "OrbitraChatInput").Prop(LineEdit.StylePropertyStyleBox, input),
+            E<Button>().Class("OrbitraRadioChannelRow").Box(row).Modulate(Color.White),
+            E<Button>().Class("OrbitraRadioChannelRow").PseudoNormal().Box(row).Modulate(Color.White),
+            E<Button>().Class("OrbitraRadioChannelRow").PseudoHovered().Box(rowHover).Modulate(Color.White),
+            E<Button>().Class("OrbitraRadioChannelRow").PseudoPressed().Box(rowPressed).Modulate(Color.White),
+            E<Button>().Class("OrbitraRadioChannelRow").PseudoDisabled().Box(row).Modulate(Color.White.WithAlpha(0.45f)),
+            E<Button>().Class("OrbitraRadioChannelRow").ParentOf(E<Label>()).Font(sheet.BaseFont.GetFont(13))
+                .FontColor(OrbitraPalettes.Primary.Text),
         };
         foreach (var native in new[] { ContextMenuElement.StyleClassContextMenuButton, ConfirmationMenuElement.StyleClassConfirmationContextMenuButton })
         {

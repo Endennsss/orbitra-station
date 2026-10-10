@@ -1,5 +1,6 @@
-﻿using Content.Shared.Chat;
+using Content.Shared.Chat;
 using Content.Shared.Input;
+using Content.Client.UserInterface.Systems.Chat;
 using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client.UserInterface.Systems.Chat.Controls;
@@ -12,6 +13,9 @@ public class ChatInputBox : PanelContainer
     public const string StyleClassChatFilterOptionButton = "ChatFilterOptionButton";
 
     public readonly ChannelSelectorButton ChannelSelector;
+    // Orbitra added start - быстрый выбор отдела для голосовой рации.
+    public readonly Content.Client._Orbitra.UserInterface.OrbitraRadioChannelButton RadioChannelSelector;
+    // Orbitra added end
     public readonly HistoryLineEdit Input;
     public readonly ChannelFilterButton FilterButton;
     protected readonly BoxContainer Container;
@@ -34,6 +38,15 @@ public class ChatInputBox : PanelContainer
             MinWidth = 75
         };
         Container.AddChild(ChannelSelector);
+        // Orbitra added start - кнопка канала находится рядом с обычным селектором чата.
+        RadioChannelSelector = new Content.Client._Orbitra.UserInterface.OrbitraRadioChannelButton
+        {
+            Name = "RadioChannelSelector",
+            MinWidth = 32,
+            ToolTip = Loc.GetString("orbitra-voice-chat-radio-select")
+        };
+        Container.AddChild(RadioChannelSelector);
+        // Orbitra added end
         Input = new HistoryLineEdit
         {
             Name = "Input",
@@ -50,6 +63,13 @@ public class ChatInputBox : PanelContainer
         Container.AddChild(FilterButton);
         AddStyleClass(StyleClassChatPanel);
         ChannelSelector.OnChannelSelect += UpdateActiveChannel;
+        // Orbitra added start - выбор радио-канала синхронизирован с радио-PTT.
+        RadioChannelSelector.OnChannelSelect += channel =>
+        {
+            ChannelSelector.Select(ChatSelectChannel.Radio);
+            UserInterfaceManager.GetUIController<ChatUIController>().SetSelectedRadioChannel(channel);
+        };
+        // Orbitra added end
     }
 
     private void UpdateActiveChannel(ChatSelectChannel selectedChannel)

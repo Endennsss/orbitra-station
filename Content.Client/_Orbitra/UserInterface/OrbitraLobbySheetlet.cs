@@ -130,7 +130,7 @@ public sealed class OrbitraLobbySheetlet : Sheetlet<PalettedStylesheet>
         foreach (var icon in new[] { "close", "check", "chevron_down", "chevron_right", "eye", "eye_star", "shuffle", "info", "warning",
                      "search", "list_filter", "list_x", "chevron_left", "chevron_up", "minus", "list", "layout_grid", "star",
                      "external_link", "refresh_cw", "trash", "pin", "pin_off", "circle_question_mark",
-                     "menu", "user_round", "drama", "hammer", "hand", "gavel", "shovel", "bug", "navigation", "zap", "wand_sparkles" })
+                     "menu", "user_round", "drama", "hammer", "hand", "gavel", "shovel", "bug", "navigation", "zap", "wand_sparkles", "microphone" }) // Orbitra-Edit - иконка микрофона для индикатора голосового чата.
             rules.Add(E<TextureRect>().Class("OrbitraIcon-" + icon).Prop(TextureRect.StylePropertyTexture,
                 sheet.GetTextureOr(new Robust.Shared.Utility.ResPath("_Orbitra/Interface/Icons/" + icon + ".svg.192dpi.png"), new Robust.Shared.Utility.ResPath("/Textures"))));
         foreach (var (style, icon) in new[] { ("OrbitraCheckIcon", "checkbox"), ("OrbitraCheckIconChecked", "checkbox_checked") })
