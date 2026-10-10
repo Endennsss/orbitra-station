@@ -83,7 +83,16 @@ public static class ClientPackaging
             inputPass,
             contentDir,
             "Content.Client",
-            new[] { "Content.Client", "Content.Shared", "Content.Shared.Database" },
+            // Orbitra added start - backend и кодек нужны загрузчику sandbox для разрешения ссылок голоса.
+            new[]
+            {
+                "Content.Client",
+                "Content.Shared",
+                "Content.Shared.Database",
+                "Orbitra.VoiceChatBackend",
+                "Concentus",
+            },
+            // Orbitra added end
             cancel: cancel);
 
         await RobustClientPackaging.WriteClientResources(
