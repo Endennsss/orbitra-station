@@ -4,8 +4,6 @@
     <OutputPath>..\bin\Content.Client\</OutputPath>
     <OutputType Condition="'$(FullRelease)' != 'True'">Exe</OutputType>
     <WarningsAsErrors>RA0032;nullable;CS8785</WarningsAsErrors>
-    <!-- Orbitra-Edit: production-упаковщику нужна сборка managed-кодека голоса. -->
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <Import Project="../MSBuild/Content.props" />
   <!-- Orbitra added start - отдельный dev-хост запускает сервер вне песочницы игрового кода. -->
@@ -26,13 +24,7 @@
   </Target>
   <!-- Orbitra added end -->
   <ItemGroup>
-    <!-- Orbitra added start - доверенный backend скрывает native/audio зависимости от sandboxed content. -->
-    <ProjectReference Include="../Tools/_Orbitra/VoiceChatBackend/Orbitra.VoiceChatBackend.csproj" />
-    <!-- Orbitra added end -->
     <PackageReference Include="Nett" />
-    <!-- Orbitra added start - кодек должен попасть в production content pack вместе с backend. -->
-    <PackageReference Include="Concentus" />
-    <!-- Orbitra added end -->
     <PackageReference Include="JetBrains.Annotations" PrivateAssets="All" />
     <PackageReference Include="SixLabors.ImageSharp" />
     <PackageReference Include="Pidgin" />

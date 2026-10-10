@@ -83,14 +83,12 @@ public static class ClientPackaging
             inputPass,
             contentDir,
             "Content.Client",
-            // Orbitra added start - backend и кодек нужны загрузчику sandbox для разрешения ссылок голоса.
+            // Orbitra added start - клиентские content-сборки загружаются в sandbox.
             new[]
             {
                 "Content.Client",
                 "Content.Shared",
                 "Content.Shared.Database",
-                "Orbitra.VoiceChatBackend",
-                "Concentus",
             },
             // Orbitra added end
             cancel: cancel);
