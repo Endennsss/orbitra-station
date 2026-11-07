@@ -9,8 +9,5 @@
   </PropertyGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="Content.Tests" />
-    <!-- Orbitra added start - backend должен быть доступен default ALC до загрузки sandboxed client. -->
-    <ProjectReference Include="../VoiceChatBackend/Orbitra.VoiceChatBackend.csproj" />
-    <!-- Orbitra added end -->
   </ItemGroup>
 </Project>

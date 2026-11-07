@@ -25,9 +25,7 @@ using Content.Client.Stylesheets;
 using Content.Client.UserInterface;
 using Content.Client.Viewport;
 using Content.Client.Voting;
-using Content.Client._Orbitra.VoiceChat;
 using Content.Shared.Ame.Components;
-using Content.Shared._Orbitra.VoiceChat;
 using Content.Shared.FeedbackSystem;
 using Content.Shared.Gravity;
 using Content.Shared.Localizations;
@@ -42,7 +40,6 @@ using Robust.Shared.Configuration;
 using Robust.Shared.ContentPack;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Replays;
-using Robust.Shared.Network;
 using Robust.Shared.Timing;
 
 namespace Content.Client.Entry
@@ -67,7 +64,6 @@ namespace Content.Client.Entry
         [Dependency] private IOverlayManager _overlayManager = default!;
         [Dependency] private IChatManager _chatManager = default!;
         [Dependency] private IClientPreferencesManager _clientPreferencesManager = default!;
-        [Dependency] private IClientNetManager _netManager = default!;
         [Dependency] private EuiManager _euiManager = default!;
         [Dependency] private IVoteManager _voteManager = default!;
         [Dependency] private DocumentParsingManager _documentParsingManager = default!;
@@ -105,9 +101,6 @@ namespace Content.Client.Entry
             _contentLoc.Initialize();
             _componentFactory.DoAutoRegistrations();
             _componentFactory.IgnoreMissingComponents();
-
-            // Orbitra-Edit: регистрируем голосовой пакет до сетевого рукопожатия, чтобы клиент получил его ID из таблицы строк.
-            _netManager.RegisterNetMessage<MsgOrbitraVoiceFrame>(OrbitraVoiceChatSystem.OnVoiceFrameStatic, NetMessageAccept.Client);
 
             // Do not add to these, they are legacy.
             _componentFactory.RegisterClass<SharedAmeControllerComponent>();

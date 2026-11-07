@@ -360,10 +360,6 @@ ui-options-function-focus-admin-chat-window = Писать в чат (Админ
 ui-options-function-focus-dead-chat-window = Писать в чат (Мёртвые)
 
 ui-options-function-focus-console-chat-window = Писать в чат (Консоль)
-# Orbitra-Edit
-ui-options-function-push-to-talk = Нажать для разговора
-ui-options-function-radio-push-to-talk = Нажать для разговора по рации
-
 ui-options-function-cycle-chat-channel-forward = Переключение каналов чата (Вперёд)
 
 ui-options-function-cycle-chat-channel-backward = Переключение каналов чата (Назад)

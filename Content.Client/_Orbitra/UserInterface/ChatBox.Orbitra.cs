@@ -20,9 +20,6 @@ public partial class ChatBox
         ChatInput.Margin = new Thickness(8, 4, 8, 8);
         ChatInput.Input.AddStyleClass("OrbitraChatInput");
         ChatInput.ChannelSelector.AddStyleClass("OrbitraChatButton");
-        ChatInput.RadioChannelSelector.AddStyleClass("OrbitraChatButton");
-        ChatInput.RadioChannelSelector.MinHeight = 32;
-        ChatInput.RadioChannelSelector.Modulate = Color.White;
         ChatInput.FilterButton.AddStyleClass("OrbitraChatButton");
         ChatInput.FilterButton.SetSize = new Vector2(32);
         ChatInput.ChannelSelector.MinHeight = 32;
@@ -41,7 +38,6 @@ public partial class ChatBox
         OrbitraHudMenus.StyleScrollbars(Contents);
         OrbitraFocusRing.Attach(ChatInput.Input);
         OrbitraFocusRing.Attach(ChatInput.ChannelSelector);
-        OrbitraFocusRing.Attach(ChatInput.RadioChannelSelector);
         OrbitraFocusRing.Attach(ChatInput.FilterButton);
     }
 

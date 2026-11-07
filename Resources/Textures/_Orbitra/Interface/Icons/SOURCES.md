@@ -44,7 +44,6 @@ The upstream ISC license and the MIT notice for Feather-derived icons are reprod
 | navigation | navigation.svg |
 | zap | zap.svg |
 | wand_sparkles | wand-sparkles.svg |
-| microphone | mic.svg |
 
 SVG paths are from upstream. Adaptations: white stroke for UI modulation,
 24×24 intrinsic size with the original 24×24 viewBox; eye_star composes scaled
