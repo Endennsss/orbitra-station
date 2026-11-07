@@ -30,6 +30,7 @@ namespace Content.Shared.Entry
 
         public override void Init()
         {
+            _prototypeManager.PartialDirectory(new ResPath("/Prototypes/_Orbitra/Partial"), 0); // Orbitra-Edit - применяем изменения прототипов РНД и ксенобиологии.
             IgnorePrototypes();
         }
 

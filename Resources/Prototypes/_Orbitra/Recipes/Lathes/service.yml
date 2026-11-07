@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: latheRecipe
+  id: OrbitraCrematoriumFlatpack
+  result: OrbitraCrematoriumFlatpack
+  categories: [Machines, Service]
+  completetime: 15
+  materials:
+    Steel: 3000
+    Plasteel: 1000
+    Glass: 500

@@ -198,6 +198,11 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
     {
         var args = doAfter.Args;
 
+        // Orbitra added start - удалённая цель отменяет действие до обращения к её позиции.
+        if (args.Target is { } targetUid && TerminatingOrDeleted(targetUid))
+            return true;
+        // Orbitra added end
+
         if (args.Used is { } used && !Exists(used))
             return true;
 

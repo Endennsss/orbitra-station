@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: latheRecipe
+  id: OrbitraProcessedUranium
+  result: OrbitraSheetProcessedUranium1
+  completetime: 10
+  # Orbitra-Edit: обработка сохраняет соотношение урана на станках со скидкой материалов.
+  applyMaterialDiscount: false
+  materials:
+    Uranium: 200
+  categories:
+  - Materials

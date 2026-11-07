@@ -1,0 +1,82 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: technology
+  id: OrbitraXenobiology
+  name: research-technology-orbitra-xenobiology
+  icon:
+    sprite: _Orbitra/Xenobiology/Mobs/slimesBaby.rsi
+    state: base
+  discipline: OrbitraBiochemical
+  tier: 2
+  cost: 5000
+  technologyPrerequisites:
+  - BasicXenoArcheology
+  - BiochemicalStasis
+  recipeUnlocks:
+  - OrbitraXenoProcessorBoard
+  - OrbitraXenoConsoleBoard
+  - OrbitraXenoCarrier
+
+- type: technology
+  id: OrbitraXenobiologyAdvanced
+  name: research-technology-orbitra-colony-engineering
+  icon:
+    sprite: _Orbitra/Xenobiology/Mobs/slimesAdult.rsi
+    state: base
+  discipline: OrbitraBiochemical
+  tier: 3
+  cost: 7500
+  technologyPrerequisites:
+  - OrbitraXenobiology
+  - BiochemicalStasis
+  - AlternativeResearch
+  recipeUnlocks:
+  - OrbitraXenoCarrierAdvanced
+  - OrbitraXenoThermostatBoard
+
+- type: latheRecipe
+  id: OrbitraXenoProcessorBoard
+  result: OrbitraXenoProcessorBoard
+  categories: [Machines, Research]
+  completetime: 3
+  materials:
+    Glass: 500
+    Gold: 100
+
+- type: latheRecipe
+  id: OrbitraXenoConsoleBoard
+  result: OrbitraXenoConsoleBoard
+  categories: [Circuitry, Research]
+  completetime: 3
+  materials:
+    Glass: 500
+    Gold: 100
+
+- type: latheRecipe
+  id: OrbitraXenoThermostatBoard
+  result: OrbitraXenoThermostatBoard
+  categories: [Machines, Research]
+  completetime: 3
+  materials:
+    Glass: 500
+    Gold: 100
+
+- type: latheRecipe
+  id: OrbitraXenoCarrier
+  result: OrbitraXenoCarrier
+  categories: [Tools]
+  completetime: 4
+  materials:
+    Steel: 500
+    Plastic: 300
+
+- type: latheRecipe
+  id: OrbitraXenoCarrierAdvanced
+  result: OrbitraXenoCarrierAdvanced
+  categories: [Tools]
+  completetime: 5
+  materials:
+    Steel: 800
+    Plastic: 500
+    Silver: 200

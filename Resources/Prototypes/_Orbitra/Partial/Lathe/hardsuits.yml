@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: !PartialOnly entity
+  id: Protolathe
+  components:
+  - type: Lathe
+    dynamicPacks:
+    - OrbitraCargoHardsuits
+    - OrbitraEngineeringHardsuits
+    - OrbitraResearchHardsuits
+    - OrbitraServiceHardsuits
+
+- type: !PartialOnly entity
+  id: MedicalTechFab
+  components:
+  - type: Lathe
+    dynamicPacks:
+    - OrbitraMedicalHardsuits
+
+- type: !PartialOnly entity
+  id: SecurityTechFab
+  components:
+  - type: Lathe
+    dynamicPacks:
+    - OrbitraSecurityHardsuits

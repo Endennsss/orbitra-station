@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: OrbitraRadiationEmitter
+  name: lathe-recipe-orbitra-radiation-emitter
+  result: OrbitraRadiationEmitter
+  completetime: 5
+  materials:
+    Steel: 500
+    Glass: 400
+    Uranium: 200

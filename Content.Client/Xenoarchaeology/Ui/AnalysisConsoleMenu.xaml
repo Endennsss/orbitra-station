@@ -22,7 +22,7 @@
             <BoxContainer Name="ExtractContainer" Orientation="Vertical" VerticalExpand="True" Visible="False">
                 <PanelContainer HorizontalExpand="True" VerticalExpand="True" RectClipContent="True">
                     <PanelContainer.PanelOverride>
-                        <gfx:StyleBoxFlat BackgroundColor="#000000FF" />
+                        <gfx:StyleBoxFlat BackgroundColor="{x:Static orbitra:OrbitraPalettes.PanelInset}" /> <!-- Orbitra-Edit - общая подложка. -->
                     </PanelContainer.PanelOverride>
                     <BoxContainer Margin="10 10 10 5" Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True">
                         <ScrollContainer HScrollEnabled="False" HorizontalExpand="True" VerticalExpand="True">
@@ -75,7 +75,7 @@
         <BoxContainer HorizontalExpand="True" VerticalExpand="True">
             <PanelContainer Margin="10 10 10 10" HorizontalExpand="True" RectClipContent="True">
                 <PanelContainer.PanelOverride>
-                    <gfx:StyleBoxFlat BackgroundColor="#000000FF" />
+                    <gfx:StyleBoxFlat BackgroundColor="{x:Static orbitra:OrbitraPalettes.PanelInset}" /> <!-- Orbitra-Edit - общая подложка. -->
                 </PanelContainer.PanelOverride>
                 <BoxContainer Margin="10 10 10 10" Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True">
                     <ui:XenoArtifactGraphControl Name="GraphControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">

@@ -1,0 +1,148 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: entity
+  parent: BaseChemistryEmptyBottle
+  id: OrbitraXenoSampleBottle
+  name: xenobiology sample
+  description: A reagent sample produced by a slime extract. Check its contents before use.
+  suffix: Orbitra
+  components:
+  - type: Solution
+    solution:
+      maxVol: 50
+
+- type: entity
+  parent: PowerCellMedium
+  id: OrbitraXenoPowerCell
+  name: bioelectric power cell
+  description: A 720-joule power cell grown from a yellow slime extract. It has no self-charging mechanism.
+  suffix: Orbitra
+  components:
+  - type: Battery
+    maxCharge: 720
+    startingCharge: 720
+
+- type: entity
+  parent: BaseItem
+  id: OrbitraXenoSerumBase
+  name: slime serum
+  description: A single-use genetic treatment for laboratory slimes. Apply it directly to a living slime; the change is inherited by its descendants.
+  suffix: Orbitra
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Chemistry/bottle.rsi
+    layers:
+    - state: bottle-1
+    - state: bottle-1-6
+  - type: Item
+    size: Tiny
+    sprite: Objects/Specific/Chemistry/bottle.rsi
+  - type: StaticPrice
+    price: 0
+
+- type: entity
+  parent: OrbitraXenoSerumBase
+  id: OrbitraXenoSerumMutation
+  name: mutation serum
+  description: Apply directly to a living laboratory slime. Increases inherited mutation probability by 10 percentage points, up to 100%.
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    layers:
+    - state: bottle-1
+    - state: bottle-1-6
+      color: '#e35353'
+  - type: OrbitraXenobiologySerum
+    treatment: Mutation
+
+- type: entity
+  parent: OrbitraXenoSerumBase
+  id: OrbitraXenoSerumStability
+  name: stability serum
+  description: Apply directly to a living laboratory slime. Decreases inherited mutation probability by 10 percentage points, down to 0%.
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    layers:
+    - state: bottle-1
+    - state: bottle-1-6
+      color: '#9e795c'
+  - type: OrbitraXenobiologySerum
+    treatment: Stability
+
+- type: entity
+  parent: OrbitraXenoSerumBase
+  id: OrbitraXenoSerumGrowth
+  name: growth serum
+  description: Apply directly to a living laboratory slime. Increases inherited growth speed by 15 percentage points, up to twice the normal rate.
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    layers:
+    - state: bottle-1
+    - state: bottle-1-6
+      color: '#64ccd5'
+  - type: OrbitraXenobiologySerum
+    treatment: Growth
+
+- type: entity
+  parent: OrbitraXenoSerumBase
+  id: OrbitraXenoSerumYield
+  name: yield serum
+  description: Apply directly to a living laboratory slime. Increases inherited adult extract yield by one, up to three extracts.
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    layers:
+    - state: bottle-1
+    - state: bottle-1-6
+      color: '#a66bd5'
+  - type: OrbitraXenobiologySerum
+    treatment: Yield
+
+- type: entity
+  parent: OrbitraXenoSerumBase
+  id: OrbitraXenoSerumFertility
+  name: fertility serum
+  description: Apply directly to a living laboratory slime. Increases inherited offspring count by one, up to four juveniles per division.
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    layers:
+    - state: bottle-1
+    - state: bottle-1-6
+      color: '#78c765'
+  - type: OrbitraXenobiologySerum
+    treatment: Fertility
+
+- type: entity
+  parent: OrbitraXenoSerumBase
+  id: OrbitraXenoSerumDocility
+  name: docility serum
+  description: Apply directly to a living laboratory slime. Increases inherited docility by 25 percentage points, up to 100%.
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    layers:
+    - state: bottle-1
+    - state: bottle-1-6
+      color: '#ef9ac5'
+  - type: OrbitraXenobiologySerum
+    treatment: Docility
+
+- type: entity
+  parent: OrbitraXenoSerumBase
+  id: OrbitraXenoSerumThermal
+  name: thermal tolerance serum
+  description: Apply directly to a living laboratory slime. Widens the inherited comfortable temperature range by 5 K on either side, up to 20 K.
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    layers:
+    - state: bottle-1
+    - state: bottle-1-6
+      color: '#385ab5'
+  - type: OrbitraXenobiologySerum
+    treatment: Thermal

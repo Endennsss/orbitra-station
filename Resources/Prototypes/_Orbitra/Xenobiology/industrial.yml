@@ -1,0 +1,168 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+# Orbitra-Edit: катализатор связывает промышленную индукцию с исследованием третьего уровня.
+- type: technology
+  id: OrbitraIndustrialXenobiology
+  name: research-technology-orbitra-industrial-xenobiology
+  icon:
+    sprite: _Orbitra/Xenobiology/Objects/extract.rsi
+    state: core
+  discipline: OrbitraBiochemical
+  tier: 3
+  cost: 15000
+  technologyPrerequisites:
+  - OrbitraXenobiologyAdvanced
+  - IndustrialEngineering
+  recipeUnlocks:
+  - OrbitraXenoIndustrialCatalyst
+
+- type: latheRecipe
+  id: OrbitraXenoIndustrialCatalyst
+  result: OrbitraXenoIndustrialCatalyst
+  categories: [Tools]
+  completetime: 5
+  materials:
+    Glass: 500
+    Gold: 300
+    Silver: 300
+    Plasma: 500
+
+- type: entity
+  parent: BaseItem
+  id: OrbitraXenoIndustrialCatalyst
+  name: industrial induction catalyst
+  description: A sealed catalyst for industrial slime induction. Its label specifies one living adult laboratory slime and six unused extracts of the same breed.
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Chemistry/bottle.rsi
+    state: bottle-1
+    color: '#e5d785'
+  - type: Item
+    size: Tiny
+  - type: OrbitraXenobiologyIndustrialCatalyst
+  - type: StaticPrice
+    price: 0
+
+# Orbitra-Edit: промышленные предметы не наследуют одноразовый компонент обычных экстрактов.
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoIndustrialExtractBase
+  name: industrial slime extract
+  description: A dense industrial slime core. Its label specifies liquid plasma and uninterrupted operation on a floor outside containers.
+  suffix: Orbitra
+  abstract: true
+
+- type: entity
+  parent: OrbitraXenoIndustrialExtractBase
+  id: OrbitraXenoIndustrialExtractMetal
+  name: industrial metal extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#939ca6'
+  - type: OrbitraXenobiologyIndustrial
+    recipe: OrbitraXenoIndustrialMetal
+
+- type: entity
+  parent: OrbitraXenoIndustrialExtractBase
+  id: OrbitraXenoIndustrialExtractYellow
+  name: industrial yellow extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#f1dc52'
+  - type: OrbitraXenobiologyIndustrial
+    recipe: OrbitraXenoIndustrialYellow
+
+- type: entity
+  parent: OrbitraXenoIndustrialExtractBase
+  id: OrbitraXenoIndustrialExtractPurple
+  name: industrial purple extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#a66bd5'
+  - type: OrbitraXenobiologyIndustrial
+    recipe: OrbitraXenoIndustrialPurple
+
+- type: entity
+  parent: OrbitraXenoIndustrialExtractBase
+  id: OrbitraXenoIndustrialExtractSilver
+  name: industrial silver extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#c9d4db'
+  - type: OrbitraXenobiologyIndustrial
+    recipe: OrbitraXenoIndustrialSilver
+
+- type: entity
+  parent: OrbitraXenoIndustrialExtractBase
+  id: OrbitraXenoIndustrialExtractBlue
+  name: industrial blue extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#6a9ef0'
+  - type: OrbitraXenobiologyIndustrial
+    recipe: OrbitraXenoIndustrialBlue
+
+# Orbitra-Edit: каждая небольшая партия расходует плазму и полный непрерывный цикл.
+- type: orbitraXenobiologyIndustrialRecipe
+  id: OrbitraXenoIndustrialMetal
+  suffix: Orbitra
+  breed: OrbitraMetal
+  extract: OrbitraXenoIndustrialExtractMetal
+  requiredExtracts: 6
+  plasmaCost: 5
+  interval: 60
+  products:
+    SheetSteel1: 3
+    SheetGlass1: 2
+
+- type: orbitraXenobiologyIndustrialRecipe
+  id: OrbitraXenoIndustrialYellow
+  suffix: Orbitra
+  breed: OrbitraYellow
+  extract: OrbitraXenoIndustrialExtractYellow
+  requiredExtracts: 6
+  plasmaCost: 6
+  interval: 60
+  products:
+    OrbitraXenoPowerCell: 1
+
+- type: orbitraXenobiologyIndustrialRecipe
+  id: OrbitraXenoIndustrialPurple
+  suffix: Orbitra
+  breed: OrbitraPurple
+  extract: OrbitraXenoIndustrialExtractPurple
+  requiredExtracts: 6
+  plasmaCost: 5
+  interval: 60
+  products:
+    Gauze1: 3
+    Ointment1: 2
+
+- type: orbitraXenobiologyIndustrialRecipe
+  id: OrbitraXenoIndustrialSilver
+  suffix: Orbitra
+  breed: OrbitraSilver
+  extract: OrbitraXenoIndustrialExtractSilver
+  requiredExtracts: 6
+  plasmaCost: 3
+  interval: 60
+  products:
+    FoodBreadPlainSlice: 3
+
+- type: orbitraXenobiologyIndustrialRecipe
+  id: OrbitraXenoIndustrialBlue
+  suffix: Orbitra
+  breed: OrbitraBlue
+  extract: OrbitraXenoIndustrialExtractBlue
+  requiredExtracts: 6
+  plasmaCost: 4
+  interval: 60
+  products:
+    FireExtinguisherMini: 1

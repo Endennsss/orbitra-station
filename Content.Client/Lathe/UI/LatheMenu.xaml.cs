@@ -70,6 +70,10 @@ public sealed partial class LatheMenu : FancyWindow
 
         ServerListButton.OnPressed += a => OnServerListButtonPressed?.Invoke(a);
         DeleteFabricating.OnPressed += _ => DeleteFabricatingAction?.Invoke();
+        // Orbitra added start - единое оформление научных окон.
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this);
+        Content.Client._Orbitra.UserInterface.OrbitraEditorStyles.Apply(this);
+        // Orbitra added end
     }
 
     public void SetEntity(EntityUid uid)
@@ -187,7 +191,7 @@ public sealed partial class LatheMenu : FancyWindow
             if (!_prototypeManager.Resolve(id, out var proto))
                 continue;
 
-            var adjustedAmount = SharedLatheSystem.AdjustMaterial(amount, prototype.ApplyMaterialDiscount, multiplier);
+            var adjustedAmount = SharedLatheSystem.AdjustMaterial(proto, amount, prototype.ApplyMaterialDiscount, multiplier); // Orbitra-Edit - показываем расход целых единиц материала.
             var sheetVolume = _materialStorage.GetSheetVolume(proto);
 
             var unit = Loc.GetString(proto.Unit);

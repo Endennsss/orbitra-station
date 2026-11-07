@@ -1,0 +1,208 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+# Используются штатные скафандры Orbitra; улучшенная шахтёрская модель соответствует Goliath без встроенного джетпака.
+- type: latheRecipe
+  id: OrbitraHardsuitSpatio
+  result: ClothingOuterHardsuitSpatio
+  categories: [Clothing]
+  completetime: 20
+  materials:
+    Steel: 1500
+    Plastic: 500
+    Glass: 300
+
+- type: latheRecipe
+  id: OrbitraHardsuitSalvage
+  result: ClothingOuterHardsuitSalvage
+  categories: [Clothing]
+  completetime: 25
+  materials:
+    Steel: 2000
+    Durathread: 500
+    Plastic: 500
+    Glass: 400
+
+- type: latheRecipe
+  id: OrbitraHardsuitSpaceHazard
+  result: OrbitraClothingOuterHardsuitSpaceHazard
+  categories: [Clothing]
+  completetime: 20
+  materials:
+    Steel: 1500
+    Plastic: 500
+    Glass: 300
+
+- type: latheRecipe
+  id: OrbitraHardsuitMining
+  result: OrbitraClothingOuterHardsuitMining
+  categories: [Clothing]
+  completetime: 30
+  materials:
+    Steel: 2000
+    Plasteel: 1000
+    Durathread: 500
+    Plastic: 500
+    Glass: 400
+
+- type: latheRecipe
+  id: OrbitraHardsuitAdvancedMining
+  result: ClothingOuterHardsuitGoliath
+  categories: [Clothing]
+  completetime: 60
+  materials:
+    Steel: 3000
+    Plasteel: 2000
+    Durathread: 1000
+    Plastic: 1000
+    Glass: 500
+    Gold: 500
+    Plasma: 1000
+
+- type: latheRecipe
+  id: OrbitraHardsuitExpedition
+  result: OrbitraClothingOuterHardsuitExpedition
+  categories: [Clothing]
+  completetime: 45
+  materials:
+    Steel: 2500
+    Plasteel: 1500
+    Durathread: 1000
+    Plastic: 500
+    Glass: 500
+    Gold: 500
+
+- type: latheRecipe
+  id: OrbitraHardsuitEngineering
+  result: ClothingOuterHardsuitEngineering
+  categories: [Clothing]
+  completetime: 25
+  materials:
+    Steel: 2000
+    Durathread: 500
+    Plastic: 500
+    Glass: 400
+
+- type: latheRecipe
+  id: OrbitraHardsuitAtmos
+  result: ClothingOuterHardsuitAtmos
+  categories: [Clothing]
+  completetime: 30
+  materials:
+    Steel: 2000
+    Plasteel: 1000
+    Durathread: 500
+    Plastic: 500
+    Glass: 400
+
+- type: latheRecipe
+  id: OrbitraHardsuitEngineeringCompact
+  result: OrbitraClothingOuterHardsuitEngineeringCompact
+  categories: [Clothing]
+  completetime: 35
+  materials:
+    Steel: 2000
+    Plasteel: 1000
+    Durathread: 1000
+    Plastic: 500
+    Glass: 400
+
+- type: latheRecipe
+  id: OrbitraHardsuitEngineeringAdvanced
+  result: OrbitraClothingOuterHardsuitEngineeringAdvanced
+  categories: [Clothing]
+  completetime: 50
+  materials:
+    Steel: 2500
+    Plasteel: 2000
+    Durathread: 1000
+    Plastic: 500
+    Glass: 500
+    Silver: 500
+
+- type: latheRecipe
+  id: OrbitraHardsuitParamedic
+  result: ClothingOuterHardsuitMedical
+  categories: [Clothing]
+  completetime: 30
+  materials:
+    Steel: 1500
+    Durathread: 1000
+    Plastic: 1000
+    Glass: 400
+    Silver: 300
+
+- type: latheRecipe
+  id: OrbitraHardsuitMedicalRescue
+  result: OrbitraClothingOuterHardsuitMedicalRescue
+  categories: [Clothing]
+  completetime: 45
+  materials:
+    Steel: 2000
+    Plasteel: 1500
+    Durathread: 1000
+    Plastic: 1000
+    Glass: 400
+    Silver: 500
+
+- type: latheRecipe
+  id: OrbitraHardsuitSecurity
+  result: ClothingOuterHardsuitSecurity
+  categories: [Clothing]
+  completetime: 30
+  materials:
+    Steel: 2000
+    Plasteel: 1000
+    Durathread: 500
+    Plastic: 500
+    Glass: 400
+
+- type: latheRecipe
+  id: OrbitraHardsuitBrigmedic
+  result: ClothingOuterHardsuitBrigmedic
+  categories: [Clothing]
+  completetime: 35
+  materials:
+    Steel: 2000
+    Plasteel: 1000
+    Durathread: 1000
+    Plastic: 500
+    Glass: 400
+
+- type: latheRecipe
+  id: OrbitraHardsuitSecurityAdvanced
+  result: OrbitraClothingOuterHardsuitSecurityAdvanced
+  categories: [Clothing]
+  completetime: 50
+  materials:
+    Steel: 2500
+    Plasteel: 2000
+    Durathread: 1000
+    Plastic: 500
+    Glass: 500
+    Gold: 500
+
+- type: latheRecipe
+  id: OrbitraHardsuitResearch
+  result: OrbitraClothingOuterHardsuitResearch
+  categories: [Clothing]
+  completetime: 45
+  materials:
+    Steel: 2000
+    Plasteel: 1500
+    Durathread: 1000
+    Plastic: 1000
+    Glass: 500
+    Silver: 500
+
+- type: latheRecipe
+  id: OrbitraHardsuitCivilian
+  result: OrbitraClothingOuterHardsuitCivilian
+  categories: [Clothing]
+  completetime: 30
+  materials:
+    Steel: 1500
+    Plasteel: 500
+    Durathread: 500
+    Plastic: 1500
+    Glass: 300

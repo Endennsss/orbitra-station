@@ -1,0 +1,201 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: entity
+  abstract: true
+  parent: [BaseMachinePowered, ConstructibleMachine, BaseConstructibleMachineDestructible]
+  id: OrbitraBluespaceFieldMachineBase
+  name: bluespace field device
+  suffix: Orbitra
+  components:
+  - type: Transform
+    anchored: true
+  - type: WiresPanel
+  - type: Appearance
+  - type: PowerState
+    idlePowerDraw: 0
+    isWorking: false
+  - type: ActivatableUI
+    key: enum.OrbitraBluespaceDeviceUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.OrbitraBluespaceDeviceUiKey.Key:
+        type: OrbitraBluespaceDeviceBoundUserInterface
+
+- type: entity
+  parent: OrbitraBluespaceFieldMachineBase
+  id: OrbitraBluespaceProber
+  name: bluespace research prober
+  description: Studies the local bluespace field to generate research points. Requires a linked research server and raises the station's bluespace background.
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Structures/Machines/bluespace_field.rsi
+    layers:
+    - state: base
+    - state: prober
+    - state: powered
+      visible: false
+      shader: unshaded
+      map: [enum.OrbitraBluespaceDeviceLayers.Status]
+  - type: GenericVisualizer
+    visuals:
+      enum.OrbitraBluespaceDeviceVisuals.Working:
+        enum.OrbitraBluespaceDeviceLayers.Status:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 0
+  - type: PowerState
+    workingPowerDraw: 12500
+  - type: Machine
+    board: OrbitraBluespaceProberBoard
+  - type: ResearchClient
+  - type: OrbitraBluespaceProber
+    enabled: false
+
+- type: entity
+  parent: OrbitraBluespaceFieldMachineBase
+  id: OrbitraBluespaceSuppressor
+  name: bluespace background suppressor
+  description: Uses power to stabilize the station's shared bluespace field. Remains usable during a critical background event.
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Structures/Machines/bluespace_field.rsi
+    layers:
+    - state: base
+    - state: drain
+    - state: powered
+      visible: false
+      shader: unshaded
+      map: [enum.OrbitraBluespaceDeviceLayers.Status]
+  - type: GenericVisualizer
+    visuals:
+      enum.OrbitraBluespaceDeviceVisuals.Working:
+        enum.OrbitraBluespaceDeviceLayers.Status:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 0
+  - type: PowerState
+    workingPowerDraw: 25000
+  - type: Machine
+    board: OrbitraBluespaceSuppressorBoard
+  - type: OrbitraBluespaceSuppressor
+    enabled: false
+
+- type: entity
+  parent: [BaseMachine, ConstructibleMachine, BaseConstructibleMachineDestructible]
+  id: OrbitraBluespaceHarvester
+  name: bluespace harvester
+  description: A high-voltage installation which converts energy into recovered materials and supplies. Overdrive increases both power demand and bluespace instability.
+  suffix: Orbitra
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _Orbitra/Structures/Machines/bluespace_harvester.rsi
+    layers:
+    - state: idle
+      map: [enum.OrbitraBluespaceDeviceLayers.Base]
+    - state: unstable
+      visible: false
+      map: [enum.OrbitraBluespaceDeviceLayers.Status]
+  - type: WiresPanel
+  - type: PowerConsumer
+    voltage: High
+    drawRate: 0
+  - type: NodeContainer
+    examinable: true
+    nodes:
+      input: !type:CableDeviceNode
+        nodeGroupID: HVPower
+  - type: PowerState
+    ensureApc: false
+    idlePowerDraw: 0
+    workingPowerDraw: 125000
+    isWorking: false
+  - type: Machine
+    board: OrbitraBluespaceHarvesterBoard
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OrbitraBluespaceDeviceVisuals.Working:
+        enum.OrbitraBluespaceDeviceLayers.Base:
+          True: { state: active }
+          False: { state: idle }
+      enum.OrbitraBluespaceDeviceVisuals.Unstable:
+        enum.OrbitraBluespaceDeviceLayers.Status:
+          True: { visible: true }
+          False: { visible: false }
+  - type: OrbitraBluespaceHarvester
+    enabled: false
+    normalPowerDraw: 125000
+    overdrivePowerDraw: 250000
+    energyPerReward: 7500000
+    backgroundPerMegajoule: 1.2
+  - type: ActivatableUI
+    key: enum.OrbitraBluespaceDeviceUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.OrbitraBluespaceDeviceUiKey.Key:
+        type: OrbitraBluespaceDeviceBoundUserInterface
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: OrbitraBluespaceProberBoard
+  name: bluespace prober board
+  description: A machine circuit board for a bluespace research prober.
+  suffix: Orbitra
+  components:
+  - type: MachineBoard
+    prototype: OrbitraBluespaceProber
+    stackRequirements:
+      Manipulator: 2
+      Glass: 2
+      Cable: 4
+      Steel: 5
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: OrbitraBluespaceSuppressorBoard
+  name: bluespace suppressor board
+  description: A machine circuit board for a bluespace background suppressor.
+  suffix: Orbitra
+  components:
+  - type: MachineBoard
+    prototype: OrbitraBluespaceSuppressor
+    stackRequirements:
+      Manipulator: 2
+      Plasteel: 5
+      Cable: 5
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: OrbitraBluespaceHarvesterBoard
+  name: bluespace harvester board
+  description: A machine circuit board for a high-voltage bluespace harvester.
+  suffix: Orbitra
+  components:
+  - type: MachineBoard
+    prototype: OrbitraBluespaceHarvester
+    stackRequirements:
+      Manipulator: 4
+      Plasteel: 10
+      CableHV: 5
+      Gold: 5
+      OrbitraProcessedUranium: 5
+
+- type: entity
+  id: OrbitraBluespaceRift
+  name: bluespace rift
+  description: A short-lived breach in the local bluespace field.
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    sprite: Effects/portal.rsi
+    state: portal-artifact
+    drawdepth: Effects
+  - type: TimedDespawn
+    lifetime: 10

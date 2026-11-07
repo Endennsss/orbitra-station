@@ -1,0 +1,33 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: technology
+  id: OrbitraBluespaceTheory
+  name: research-technology-orbitra-bluespace-theory
+  icon:
+    sprite: _Orbitra/Objects/Materials/bluespace_crystal.rsi
+    state: bluespace_crystal
+  discipline: Experimental
+  tier: 2
+  cost: 7500
+  technologyPrerequisites:
+  - BasicAnomalousResearch
+  - BasicXenoArcheology
+  genericUnlocks:
+  - unlockDescription: research-unlock-orbitra-bluespace-theory
+
+- type: technology
+  id: OrbitraMicroreactors
+  name: research-technology-orbitra-microreactors
+  icon:
+    sprite: Objects/Power/power_cells.rsi
+    state: microreactor
+  discipline: Experimental
+  tier: 3
+  cost: 10000
+  technologyPrerequisites:
+  - AdvancedPowercells
+  - AdvancedToolsTechnology
+  - OrbitraUraniumProcessing
+  recipeUnlocks:
+  - PowerCellMicroreactor

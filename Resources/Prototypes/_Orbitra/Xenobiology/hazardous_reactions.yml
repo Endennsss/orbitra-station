@@ -1,0 +1,104 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionOrangeFire
+  suffix: Orbitra
+  breed: OrbitraOrange
+  name: orbitra-xeno-reaction-orange-fire
+  description: orbitra-xeno-reaction-orange-fire-desc
+  reagent: Plasma
+  amount: 10
+  effect: Fire
+  delay: 3
+  radius: 2
+  strength: 3
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionDarkBlueCold
+  suffix: Orbitra
+  breed: OrbitraDarkBlue
+  name: orbitra-xeno-reaction-dark-blue-cold
+  description: orbitra-xeno-reaction-dark-blue-cold-desc
+  reagent: Plasma
+  amount: 10
+  effect: Cold
+  delay: 3
+  radius: 2
+  strength: 100
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionYellowEmp
+  suffix: Orbitra
+  breed: OrbitraYellow
+  name: orbitra-xeno-reaction-yellow-emp
+  description: orbitra-xeno-reaction-yellow-emp-desc
+  reagent: Plasma
+  amount: 10
+  effect: Emp
+  delay: 3
+  radius: 3
+  strength: 1500
+  duration: 5
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionOilExplosion
+  suffix: Orbitra
+  breed: OrbitraOil
+  name: orbitra-xeno-reaction-oil-explosion
+  description: orbitra-xeno-reaction-oil-explosion-desc
+  reagent: Plasma
+  amount: 10
+  effect: Explosion
+  delay: 5
+  strength: 80
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionGoldHostile
+  suffix: Orbitra
+  breed: OrbitraGold
+  name: orbitra-xeno-reaction-gold-hostile
+  description: orbitra-xeno-reaction-gold-hostile-desc
+  reagent: Plasma
+  amount: 10
+  effect: Spawn
+  delay: 5
+  spawnCount: 2
+  creatures: [MobCarp, MobGiantSpiderAngry]
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionGoldNeutral
+  suffix: Orbitra
+  breed: OrbitraGold
+  name: orbitra-xeno-reaction-gold-neutral
+  description: orbitra-xeno-reaction-gold-neutral-desc
+  reagent: Blood
+  amount: 5
+  effect: Spawn
+  delay: 5
+  creatures: [MobMonkey, MobCrab]
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionGoldHarmless
+  suffix: Orbitra
+  breed: OrbitraGold
+  name: orbitra-xeno-reaction-gold-harmless
+  description: orbitra-xeno-reaction-gold-harmless-desc
+  reagent: Water
+  amount: 5
+  effect: Spawn
+  delay: 5
+  creatures: [MobMouse, MobLizard]
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionSepiaStasis
+  suffix: Orbitra
+  breed: OrbitraSepia
+  name: orbitra-xeno-reaction-sepia-stasis
+  description: orbitra-xeno-reaction-sepia-stasis-desc
+  reagent: Plasma
+  amount: 10
+  effect: Stasis
+  delay: 3
+  radius: 2
+  duration: 3

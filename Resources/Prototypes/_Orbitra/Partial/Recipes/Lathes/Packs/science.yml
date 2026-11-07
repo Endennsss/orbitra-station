@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+# Orbitra-Edit: обработка урана доступна на протолате после исследования технологии.
+- type: !PartialOnly latheRecipePack
+  id: ScienceEquipment
+  recipes:
+  - OrbitraProcessedUranium
+
+- type: !PartialOnly latheRecipePack
+  id: ScienceWeapons
+  recipes:
+  - OrbitraRadiationEmitter

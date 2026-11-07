@@ -1,0 +1,247 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionGreyNutrients
+  suffix: Orbitra
+  breed: OrbitraGrey
+  name: orbitra-xeno-reaction-grey-nutrients
+  description: orbitra-xeno-reaction-grey-nutrients-desc
+  reagent: Water
+  amount: 5
+  reagents:
+    Nutriment: 10
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionGreyCulture
+  suffix: Orbitra
+  breed: OrbitraGrey
+  name: orbitra-xeno-reaction-grey-culture
+  description: orbitra-xeno-reaction-grey-culture-desc
+  reagent: Blood
+  amount: 5
+  products:
+    OrbitraXenoCultureGrey: 1
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionBlueCoolant
+  suffix: Orbitra
+  breed: OrbitraBlue
+  name: orbitra-xeno-reaction-blue-coolant
+  description: orbitra-xeno-reaction-blue-coolant-desc
+  reagent: Water
+  amount: 5
+  reagents:
+    Cryoxadone: 20
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionMetalMaterials
+  suffix: Orbitra
+  breed: OrbitraMetal
+  name: orbitra-xeno-reaction-metal-materials
+  description: orbitra-xeno-reaction-metal-materials-desc
+  reagent: Water
+  amount: 5
+  products:
+    SheetSteel1: 5
+    SheetGlass1: 3
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionOrangeFlares
+  suffix: Orbitra
+  breed: OrbitraOrange
+  name: orbitra-xeno-reaction-orange-flares
+  description: orbitra-xeno-reaction-orange-flares-desc
+  reagent: Water
+  amount: 5
+  products:
+    Flare: 2
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionPurpleYield
+  suffix: Orbitra
+  breed: OrbitraPurple
+  name: orbitra-xeno-reaction-purple-yield
+  description: orbitra-xeno-reaction-purple-yield-desc
+  reagent: Plasma
+  amount: 5
+  products:
+    OrbitraXenoSerumYield: 1
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionDarkBlueThermal
+  suffix: Orbitra
+  breed: OrbitraDarkBlue
+  name: orbitra-xeno-reaction-dark-blue-thermal
+  description: orbitra-xeno-reaction-dark-blue-thermal-desc
+  reagent: Water
+  amount: 5
+  products:
+    OrbitraXenoSerumThermal: 1
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionDarkPurplePlasma
+  suffix: Orbitra
+  breed: OrbitraDarkPurple
+  name: orbitra-xeno-reaction-dark-purple-plasma
+  description: orbitra-xeno-reaction-dark-purple-plasma-desc
+  reagent: Plasma
+  amount: 5
+  products:
+    SheetPlasma1: 2
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionSilverCleaner
+  suffix: Orbitra
+  breed: OrbitraSilver
+  name: orbitra-xeno-reaction-silver-cleaner
+  description: orbitra-xeno-reaction-silver-cleaner-desc
+  reagent: Water
+  amount: 5
+  reagents:
+    SpaceCleaner: 40
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionYellowCell
+  suffix: Orbitra
+  breed: OrbitraYellow
+  name: orbitra-xeno-reaction-yellow-cell
+  description: orbitra-xeno-reaction-yellow-cell-desc
+  reagent: Water
+  amount: 5
+  products:
+    OrbitraXenoPowerCell: 1
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionRedMutation
+  suffix: Orbitra
+  breed: OrbitraRed
+  name: orbitra-xeno-reaction-red-mutation
+  description: orbitra-xeno-reaction-red-mutation-desc
+  reagent: Plasma
+  amount: 5
+  products:
+    OrbitraXenoSerumMutation: 1
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionGreenFertility
+  suffix: Orbitra
+  breed: OrbitraGreen
+  name: orbitra-xeno-reaction-green-fertility
+  description: orbitra-xeno-reaction-green-fertility-desc
+  reagent: Blood
+  amount: 5
+  products:
+    OrbitraXenoSerumFertility: 1
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionPinkDocility
+  suffix: Orbitra
+  breed: OrbitraPink
+  name: orbitra-xeno-reaction-pink-docility
+  description: orbitra-xeno-reaction-pink-docility-desc
+  reagent: Water
+  amount: 5
+  products:
+    OrbitraXenoSerumDocility: 1
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionCeruleanGrowth
+  suffix: Orbitra
+  breed: OrbitraCerulean
+  name: orbitra-xeno-reaction-cerulean-growth
+  description: orbitra-xeno-reaction-cerulean-growth-desc
+  reagent: Blood
+  amount: 5
+  products:
+    OrbitraXenoSerumGrowth: 1
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionPyriteHarvest
+  suffix: Orbitra
+  breed: OrbitraPyrite
+  name: orbitra-xeno-reaction-pyrite-harvest
+  description: orbitra-xeno-reaction-pyrite-harvest-desc
+  reagent: Water
+  amount: 5
+  reagents:
+    RobustHarvest: 30
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionBluespaceStimulant
+  suffix: Orbitra
+  breed: OrbitraBluespace
+  name: orbitra-xeno-reaction-bluespace-stimulant
+  description: orbitra-xeno-reaction-bluespace-stimulant-desc
+  reagent: Water
+  amount: 5
+  reagents:
+    Synaptizine: 15
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionSepiaStability
+  suffix: Orbitra
+  breed: OrbitraSepia
+  name: orbitra-xeno-reaction-sepia-stability
+  description: orbitra-xeno-reaction-sepia-stability-desc
+  reagent: Water
+  amount: 5
+  products:
+    OrbitraXenoSerumStability: 1
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionOilFuel
+  suffix: Orbitra
+  breed: OrbitraOil
+  name: orbitra-xeno-reaction-oil-fuel
+  description: orbitra-xeno-reaction-oil-fuel-desc
+  reagent: Water
+  amount: 5
+  reagents:
+    WeldingFuel: 20
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionBlackMedicine
+  suffix: Orbitra
+  breed: OrbitraBlack
+  name: orbitra-xeno-reaction-black-medicine
+  description: orbitra-xeno-reaction-black-medicine-desc
+  reagent: Blood
+  amount: 5
+  reagents:
+    Omnizine: 10
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionLightPinkDocility
+  suffix: Orbitra
+  breed: OrbitraLightPink
+  name: orbitra-xeno-reaction-light-pink-docility
+  description: orbitra-xeno-reaction-light-pink-docility-desc
+  reagent: Water
+  amount: 5
+  products:
+    OrbitraXenoSerumDocility: 2
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionAdamantineAlloy
+  suffix: Orbitra
+  breed: OrbitraAdamantine
+  name: orbitra-xeno-reaction-adamantine-alloy
+  description: orbitra-xeno-reaction-adamantine-alloy-desc
+  reagent: Plasma
+  amount: 5
+  products:
+    SheetPlasteel1: 5
+
+- type: orbitraXenobiologyReaction
+  id: OrbitraXenoReactionRainbowGenetics
+  suffix: Orbitra
+  breed: OrbitraRainbow
+  name: orbitra-xeno-reaction-rainbow-genetics
+  description: orbitra-xeno-reaction-rainbow-genetics-desc
+  reagent: Plasma
+  amount: 5
+  products:
+    OrbitraXenoSerumMutation: 1
+    OrbitraXenoSerumGrowth: 1
+    OrbitraXenoSerumThermal: 1

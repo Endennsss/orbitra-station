@@ -56,6 +56,7 @@ public sealed partial class XenoArtifactGraphControl : BoxContainer
 
     public void SetArtifact(Entity<XenoArtifactComponent>? artifact)
     {
+        if (_artifact?.Owner != artifact?.Owner) _hoveredNode = null; // Orbitra-Edit - сбрасываем наведение при смене связи.
         _artifact = artifact;
     }
 
@@ -81,12 +82,12 @@ public sealed partial class XenoArtifactGraphControl : BoxContainer
         base.Draw(handle);
 
         _hoveredNode = null;
-        if (_artifact == null)
+        if (_artifact == null || _entityManager.Deleted(_artifact.Value.Owner)) // Orbitra-Edit - удаление возможно между обновлениями сканера.
             return;
         var artifact = _artifact.Value;
 
         var maxDepth = _artifactSystem.GetAllNodes(artifact)
-                                      .Max(s => s.Comp.Depth);
+                                      .Select(s => s.Comp.Depth).DefaultIfEmpty().Max(); // Orbitra-Edit - пустой или ещё не полученный граф допустим.
         var segments = _artifactSystem.GetSegments(artifact);
 
         var bottomLeft = Position // the position

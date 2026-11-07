@@ -1,0 +1,55 @@
+# Используем штатную батарейную основу и внешний вид C.H.I.M.P. без его переключения частиц и улучшения.
+- type: entity
+  parent: [BaseWeaponBatterySmall, BaseScienceContraband]
+  id: OrbitraRadiationEmitter
+  name: radiation emitter
+  description: A compact laboratory emitter with a radiation warning on its casing.
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Revolvers/chimp.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-unshaded-1
+      visible: false
+      map: ["enum.GunVisualLayers.MagUnshaded"]
+      shader: unshaded
+  - type: Clothing
+    sprite: Objects/Weapons/Guns/Revolvers/chimp.rsi
+  - type: Appearance
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Gun
+    projectileSpeed: 2
+    fireRate: 0.5
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/taser2.ogg
+  - type: BatteryAmmoProvider
+    proto: OrbitraRadiationParticle
+    fireCost: 100
+  - type: StaticPrice
+    price: 100
+
+- type: entity
+  parent: BaseBullet
+  id: OrbitraRadiationParticle
+  name: radiation particle
+  categories: [HideSpawnMenu]
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/magic.rsi
+    layers:
+    - state: magicm_green
+      shader: unshaded
+  - type: Projectile
+    damage:
+      types:
+        Radiation: 10
+  # Источник нужен для облучения артефактов: одного урона Radiation недостаточно.
+  - type: RadiationSource
+    intensity: 5
+    slope: 1
+  - type: TimedDespawn
+    lifetime: 2

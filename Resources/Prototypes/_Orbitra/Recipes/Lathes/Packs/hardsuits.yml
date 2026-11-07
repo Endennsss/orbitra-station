@@ -1,0 +1,43 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: latheRecipePack
+  id: OrbitraCargoHardsuits
+  recipes:
+  - OrbitraHardsuitSpatio
+  - OrbitraHardsuitSalvage
+  - OrbitraHardsuitSpaceHazard
+  - OrbitraHardsuitMining
+  - OrbitraHardsuitAdvancedMining
+  - OrbitraHardsuitExpedition
+
+- type: latheRecipePack
+  id: OrbitraEngineeringHardsuits
+  recipes:
+  - OrbitraHardsuitEngineering
+  - OrbitraHardsuitAtmos
+  - OrbitraHardsuitEngineeringCompact
+  - OrbitraHardsuitEngineeringAdvanced
+
+- type: latheRecipePack
+  id: OrbitraMedicalHardsuits
+  recipes:
+  - OrbitraHardsuitParamedic
+  - OrbitraHardsuitMedicalRescue
+
+- type: latheRecipePack
+  id: OrbitraSecurityHardsuits
+  recipes:
+  - OrbitraHardsuitSecurity
+  - OrbitraHardsuitBrigmedic
+  - OrbitraHardsuitSecurityAdvanced
+
+- type: latheRecipePack
+  id: OrbitraResearchHardsuits
+  recipes:
+  - OrbitraHardsuitResearch
+
+- type: latheRecipePack
+  id: OrbitraServiceHardsuits
+  recipes:
+  - OrbitraHardsuitCivilian

@@ -1,0 +1,44 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: material
+  id: OrbitraProcessedUranium
+  stackEntity: OrbitraSheetProcessedUranium1
+  name: materials-orbitra-processed-uranium
+  icon: { sprite: Objects/Materials/Sheets/other.rsi, state: uranium }
+  color: "#c8f0b5"
+  price: 1.7
+
+- type: stack
+  parent: BaseSheetStack
+  id: OrbitraProcessedUranium
+  name: stack-orbitra-processed-uranium
+  icon: { sprite: Objects/Materials/Sheets/other.rsi, state: uranium }
+  spawn: OrbitraSheetProcessedUranium1
+
+- type: entity
+  parent: SheetOtherBase
+  id: OrbitraSheetProcessedUranium1
+  name: processed uranium
+  description: Pale green sheets of purified uranium prepared for compact reactor cells.
+  suffix: Orbitra
+  components:
+  - type: PhysicalComposition
+    materialComposition:
+      OrbitraProcessedUranium: 100
+  - type: Stack
+    stackType: OrbitraProcessedUranium
+    count: 1
+    baseLayer: base
+    layerStates:
+    - uranium
+    - uranium_2
+    - uranium_3
+  - type: Sprite
+    state: uranium
+    color: "#c8f0b5"
+    layers:
+    - state: uranium
+      map: ["base"]
+  - type: Item
+    heldPrefix: uranium

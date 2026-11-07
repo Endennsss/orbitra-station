@@ -4,14 +4,13 @@ using Content.Shared.Research.Components;
 using Content.Shared.Research.Prototypes;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
 namespace Content.Shared.Research.Systems;
 
 public abstract partial class SharedResearchSystem : EntitySystem
 {
-    [Dependency] private IRobustRandom _random = default!;
+    // Orbitra-Edit - зависимость от случайной выдачи технологий удалена.
     [Dependency] private SharedLatheSystem _lathe = default!;
 
     public override void Initialize()
@@ -31,19 +30,7 @@ public abstract partial class SharedResearchSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return;
 
-        var availableTechnology = GetAvailableTechnologies(uid, component);
-        _random.Shuffle(availableTechnology);
-
-        component.CurrentTechnologyCards.Clear();
-        foreach (var discipline in component.SupportedDisciplines)
-        {
-            var selected = availableTechnology.FirstOrDefault(p => p.Discipline == discipline);
-            if (selected == null)
-                continue;
-
-            component.CurrentTechnologyCards.Add(selected.ID);
-        }
-        Dirty(uid, component);
+        UpdateOrbitraTechnologyChoices(uid, component); // Orbitra-Edit - сохраняем полный список доступных технологий без случайной выборки.
     }
 
     public List<TechnologyPrototype> GetAvailableTechnologies(EntityUid uid, TechnologyDatabaseComponent? component = null)
@@ -105,6 +92,11 @@ public abstract partial class SharedResearchSystem : EntitySystem
 
     public int GetHighestDisciplineTier(TechnologyDatabaseComponent component, TechDisciplinePrototype techDiscipline)
     {
+        // Orbitra added start - дисциплины без ограничений доступны даже без технологий первого уровня.
+        if (TryGetOrbitraUnrestrictedTier(techDiscipline, out var unrestrictedTier))
+            return unrestrictedTier;
+        // Orbitra added end
+
         var allTech = ProtoMan.EnumeratePrototypes<TechnologyPrototype>()
             .Where(p => p.Discipline == techDiscipline.ID && !p.Hidden).ToList();
         var allUnlocked = new List<TechnologyPrototype>();

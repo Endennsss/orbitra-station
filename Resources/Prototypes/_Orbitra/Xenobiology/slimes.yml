@@ -1,0 +1,612 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: entity
+  id: OrbitraXenoSlimeBase
+  parent: [BaseSimpleMob, MobCombat]
+  abstract: true
+  save: true
+  suffix: Orbitra
+  name: laboratory slime
+  description: A gelatinous organism bred for its reactive extracts.
+  components:
+  - type: OrbitraXenobiologySlime
+  - type: Sprite
+    sprite: _Orbitra/Xenobiology/Mobs/slimesBaby.rsi
+    layers:
+    - state: base
+      map: [enum.OrbitraXenobiologyLayers.Body]
+  - type: GenericVisualizer
+    visuals:
+      enum.OrbitraXenobiologyVisuals.Stage:
+        enum.OrbitraXenobiologyLayers.Body:
+          Baby:
+            sprite: _Orbitra/Xenobiology/Mobs/slimesBaby.rsi
+            state: base
+          Adult:
+            sprite: _Orbitra/Xenobiology/Mobs/slimesAdult.rsi
+            state: base
+          DeadBaby:
+            sprite: _Orbitra/Xenobiology/Mobs/slimesBaby.rsi
+            state: dead
+          DeadAdult:
+            sprite: _Orbitra/Xenobiology/Mobs/slimesAdult.rsi
+            state: dead
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.3
+        density: 80
+        mask: [MobMask]
+        layer: [MobLayer]
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      60: Dead
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 1.5
+    baseSprintSpeed: 2.5
+  - type: Body
+  - type: EntityTableContainerFill
+    containers:
+      body_organs: !type:AllSelector
+        children:
+        - id: OrbitraXenoSlimeStomach
+  - type: Satiation
+    satiations:
+      Hunger:
+        prototype: OrbitraXenoSlimeHunger
+  - type: AtmosExposed
+  - type: Temperature
+    temperature: 293.15
+    heatCapacity: 20000
+    thermalConductivity: 200
+  - type: NpcFactionMember
+    factions: [OrbitraXenoSlimeCalm]
+  - type: HTN
+    rootTask:
+      task: OrbitraXenoSlimeCompound
+    blackboard:
+      VisionRadius: !type:Single
+        6
+      AggroVisionRadius: !type:Single
+        6
+      MeleeRange: !type:Single
+        1
+  - type: MeleeWeapon
+    hidden: true
+    angle: 0
+    animation: WeaponArcBite
+    soundHit:
+      collection: FootstepSlime
+    damage:
+      types:
+        Blunt: 3
+        Caustic: 2
+  - type: NameIdentifier
+    group: GenericNumber
+  - type: InteractionPopup
+    successChance: 1
+    interactSuccessString: petting-success-slimes
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepSlime
+  - type: Tag
+    tags: [FootstepSound]
+
+- type: entity
+  id: OrbitraXenoSlimeStomach
+  parent: OrganAnimalStomach
+  name: slime stomach
+  description: An elastic digestive sac from a laboratory slime.
+  suffix: Orbitra
+
+- type: satiation
+  id: OrbitraXenoSlimeHunger
+  parent: SimpleMobBaseHunger
+  baseChangeRate: -0.06
+  startingValueMinimum: 65
+  startingValueMaximum: 65
+
+- type: npcFaction
+  id: OrbitraXenoSlimeCalm
+  friendly: [OrbitraXenoSlimeHungry]
+
+- type: npcFaction
+  id: OrbitraXenoSlimeHungry
+  friendly: [OrbitraXenoSlimeCalm]
+  hostile: [NanoTrasen, Syndicate, PetsNT]
+
+- type: htnCompound
+  id: OrbitraXenoSlimeCompound
+  branches:
+  - tasks:
+    - !type:HTNPrimitiveTask
+      preconditions:
+      - !type:BaseSatiationPrecondition
+        satiationType: Hunger
+        below: Okay
+      operator: !type:UtilityOperator
+        proto: OrbitraXenoSlimeFood
+    - !type:HTNPrimitiveTask
+      operator: !type:MoveToOperator
+        pathfindInPlanning: true
+        removeKeyOnFinish: false
+        targetKey: TargetCoordinates
+        pathfindKey: TargetPathfind
+        rangeKey: MeleeRange
+    - !type:HTNPrimitiveTask
+      preconditions:
+      - !type:KeyExistsPrecondition
+        key: Target
+      operator: !type:AltInteractOperator
+    - !type:HTNPrimitiveTask
+      operator: !type:WaitOperator
+        key: IdleTime
+  - tasks:
+    - !type:HTNCompoundTask
+      task: MeleeCombatCompound
+  - tasks:
+    - !type:HTNCompoundTask
+      task: IdleCompound
+
+- type: utilityQuery
+  id: OrbitraXenoSlimeFood
+  query:
+  - !type:ComponentQuery
+    components:
+    - type: Edible
+  considerations:
+  - !type:TargetIsAliveCon
+    curve: !type:InverseBoolCurve
+  - !type:TargetDistanceCon
+    curve: !type:PresetCurve
+      preset: TargetDistance
+  - !type:FoodValueCon
+    hungerThreshold: Okay
+    curve: !type:QuadraticCurve
+      slope: 1.0
+      exponent: 0.4
+  - !type:TargetAccessibleCon
+    curve: !type:BoolCurve
+
+- type: entity
+  id: OrbitraXenoSlimeGrey
+  parent: OrbitraXenoSlimeBase
+  name: grey slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraGrey
+  - type: Sprite
+    color: "#9b9b9b"
+
+- type: entity
+  id: OrbitraXenoSlimeGreyAdult
+  parent: OrbitraXenoSlimeGrey
+  name: grey slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeBlue
+  parent: OrbitraXenoSlimeBase
+  name: blue slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraBlue
+  - type: Sprite
+    color: "#6a9ef0"
+
+- type: entity
+  id: OrbitraXenoSlimeBlueAdult
+  parent: OrbitraXenoSlimeBlue
+  name: blue slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeMetal
+  parent: OrbitraXenoSlimeBase
+  name: metal slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraMetal
+  - type: Sprite
+    color: "#939ca6"
+
+- type: entity
+  id: OrbitraXenoSlimeMetalAdult
+  parent: OrbitraXenoSlimeMetal
+  name: metal slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeOrange
+  parent: OrbitraXenoSlimeBase
+  name: orange slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraOrange
+  - type: Sprite
+    color: "#f39b45"
+
+- type: entity
+  id: OrbitraXenoSlimeOrangeAdult
+  parent: OrbitraXenoSlimeOrange
+  name: orange slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimePurple
+  parent: OrbitraXenoSlimeBase
+  name: purple slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraPurple
+  - type: Sprite
+    color: "#a66bd5"
+
+- type: entity
+  id: OrbitraXenoSlimePurpleAdult
+  parent: OrbitraXenoSlimePurple
+  name: purple slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeDarkBlue
+  parent: OrbitraXenoSlimeBase
+  name: dark blue slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraDarkBlue
+  - type: Sprite
+    color: "#385ab5"
+
+- type: entity
+  id: OrbitraXenoSlimeDarkBlueAdult
+  parent: OrbitraXenoSlimeDarkBlue
+  name: dark blue slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeDarkPurple
+  parent: OrbitraXenoSlimeBase
+  name: dark purple slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraDarkPurple
+  - type: Sprite
+    color: "#6d368b"
+
+- type: entity
+  id: OrbitraXenoSlimeDarkPurpleAdult
+  parent: OrbitraXenoSlimeDarkPurple
+  name: dark purple slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeSilver
+  parent: OrbitraXenoSlimeBase
+  name: silver slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraSilver
+  - type: Sprite
+    color: "#c9d4db"
+
+- type: entity
+  id: OrbitraXenoSlimeSilverAdult
+  parent: OrbitraXenoSlimeSilver
+  name: silver slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeYellow
+  parent: OrbitraXenoSlimeBase
+  name: yellow slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraYellow
+  - type: Sprite
+    color: "#f1dc52"
+
+- type: entity
+  id: OrbitraXenoSlimeYellowAdult
+  parent: OrbitraXenoSlimeYellow
+  name: yellow slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeRed
+  parent: OrbitraXenoSlimeBase
+  name: red slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraRed
+  - type: Sprite
+    color: "#e35353"
+
+- type: entity
+  id: OrbitraXenoSlimeRedAdult
+  parent: OrbitraXenoSlimeRed
+  name: red slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeGreen
+  parent: OrbitraXenoSlimeBase
+  name: green slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraGreen
+  - type: Sprite
+    color: "#78c765"
+
+- type: entity
+  id: OrbitraXenoSlimeGreenAdult
+  parent: OrbitraXenoSlimeGreen
+  name: green slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimePink
+  parent: OrbitraXenoSlimeBase
+  name: pink slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraPink
+  - type: Sprite
+    color: "#ef9ac5"
+
+- type: entity
+  id: OrbitraXenoSlimePinkAdult
+  parent: OrbitraXenoSlimePink
+  name: pink slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeGold
+  parent: OrbitraXenoSlimeBase
+  name: gold slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraGold
+  - type: Sprite
+    color: "#d6b145"
+
+- type: entity
+  id: OrbitraXenoSlimeGoldAdult
+  parent: OrbitraXenoSlimeGold
+  name: gold slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeCerulean
+  parent: OrbitraXenoSlimeBase
+  name: cerulean slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraCerulean
+  - type: Sprite
+    color: "#64ccd5"
+
+- type: entity
+  id: OrbitraXenoSlimeCeruleanAdult
+  parent: OrbitraXenoSlimeCerulean
+  name: cerulean slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimePyrite
+  parent: OrbitraXenoSlimeBase
+  name: pyrite slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraPyrite
+  - type: Sprite
+    color: "#e0cb76"
+
+- type: entity
+  id: OrbitraXenoSlimePyriteAdult
+  parent: OrbitraXenoSlimePyrite
+  name: pyrite slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeBluespace
+  parent: OrbitraXenoSlimeBase
+  name: bluespace slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraBluespace
+  - type: Sprite
+    color: "#4a7ffc"
+
+- type: entity
+  id: OrbitraXenoSlimeBluespaceAdult
+  parent: OrbitraXenoSlimeBluespace
+  name: bluespace slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeSepia
+  parent: OrbitraXenoSlimeBase
+  name: sepia slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraSepia
+  - type: Sprite
+    color: "#9e795c"
+
+- type: entity
+  id: OrbitraXenoSlimeSepiaAdult
+  parent: OrbitraXenoSlimeSepia
+  name: sepia slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeOil
+  parent: OrbitraXenoSlimeBase
+  name: oil slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraOil
+  - type: Sprite
+    color: "#443d4e"
+
+- type: entity
+  id: OrbitraXenoSlimeOilAdult
+  parent: OrbitraXenoSlimeOil
+  name: oil slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeBlack
+  parent: OrbitraXenoSlimeBase
+  name: black slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraBlack
+  - type: Sprite
+    color: "#55515c"
+
+- type: entity
+  id: OrbitraXenoSlimeBlackAdult
+  parent: OrbitraXenoSlimeBlack
+  name: black slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeLightPink
+  parent: OrbitraXenoSlimeBase
+  name: light pink slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraLightPink
+  - type: Sprite
+    color: "#f3bed7"
+
+- type: entity
+  id: OrbitraXenoSlimeLightPinkAdult
+  parent: OrbitraXenoSlimeLightPink
+  name: light pink slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeAdamantine
+  parent: OrbitraXenoSlimeBase
+  name: adamantine slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraAdamantine
+  - type: Sprite
+    color: "#729c8d"
+
+- type: entity
+  id: OrbitraXenoSlimeAdamantineAdult
+  parent: OrbitraXenoSlimeAdamantine
+  name: adamantine slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true
+
+- type: entity
+  id: OrbitraXenoSlimeRainbow
+  parent: OrbitraXenoSlimeBase
+  name: rainbow slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    breed: OrbitraRainbow
+  - type: Sprite
+    color: "#ede2ff"
+
+- type: entity
+  id: OrbitraXenoSlimeRainbowAdult
+  parent: OrbitraXenoSlimeRainbow
+  name: rainbow slime
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologySlime
+    adult: true

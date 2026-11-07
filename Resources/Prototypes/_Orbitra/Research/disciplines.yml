@@ -1,0 +1,12 @@
+- type: techDiscipline
+  id: OrbitraBiochemical
+  name: research-discipline-orbitra-biochemical
+  color: "#68bf91"
+  icon:
+    sprite: Interface/Misc/research_disciplines.rsi
+    state: biochemical
+  tierPrerequisites:
+    1: 0
+    2: 0
+    3: 0
+  lockoutTier: 2147483647

@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: entity
+  parent: BaseFlatpack
+  id: OrbitraCrematoriumFlatpack
+  name: crematorium flatpack
+  description: A flatpack for assembling a crematorium. Unpack it with a multitool.
+  suffix: Orbitra
+  components:
+  - type: Flatpack
+    entity: Crematorium

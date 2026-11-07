@@ -1,0 +1,123 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+# Orbitra-Edit: контекстная помощь ведёт к актуальной инструкции и связанным страницам РНД.
+- type: !PartialOnly entity
+  id: ComputerResearchAndDevelopment
+  components:
+  - type: GuideHelp
+    guides: !Clear
+    - OrbitraResearchTree
+    - OrbitraResearch
+
+- type: !PartialOnly entity
+  id: ResearchAndDevelopmentServer
+  components:
+  - type: GuideHelp
+    guides: !Clear
+    - OrbitraResearchTree
+    - OrbitraResearch
+
+- type: !PartialOnly entity
+  id: NodeScanner
+  components:
+  - type: GuideHelp
+    guides: !Clear
+    - Xenoarchaeology
+    - OrbitraResearch
+
+- type: !PartialOnly entity
+  id: OrbitraBluespaceProber
+  components:
+  - type: GuideHelp
+    guides: !Clear
+    - OrbitraResearchProbers
+    - OrbitraResearch
+
+- type: !PartialOnly entity
+  id: OrbitraBluespaceSuppressor
+  components:
+  - type: GuideHelp
+    guides: !Clear
+    - OrbitraResearchBackground
+    - OrbitraResearch
+
+- type: !PartialOnly entity
+  id: OrbitraBluespaceHarvester
+  components:
+  - type: GuideHelp
+    guides: !Clear
+    - OrbitraResearchHarvester
+    - OrbitraResearch
+
+- type: !PartialOnly entity
+  id: OrbitraBluespaceCrystal1
+  components:
+  - type: GuideHelp
+    guides: !Clear
+    - OrbitraResearchMaterials
+    - OrbitraResearch
+
+- type: !PartialOnly entity
+  id: OrbitraSheetProcessedUranium1
+  components:
+  - type: GuideHelp
+    guides: !Clear
+    - OrbitraResearchMaterials
+    - OrbitraResearch
+
+- type: !PartialOnly entity
+  id: OrbitraClothingOuterHardsuitExpedition
+  components:
+  - type: GuideHelp
+    guides: !Clear
+    - OrbitraResearchEquipment
+    - OrbitraResearch
+
+- type: !PartialOnly entity
+  id: OrbitraClothingOuterHardsuitEngineeringAdvanced
+  components:
+  - type: GuideHelp
+    guides: !Clear
+    - OrbitraResearchEquipment
+    - OrbitraResearch
+
+- type: !PartialOnly entity
+  id: OrbitraClothingOuterHardsuitMedicalRescue
+  components:
+  - type: GuideHelp
+    guides: !Clear
+    - OrbitraResearchEquipment
+    - OrbitraResearch
+
+- type: !PartialOnly entity
+  id: OrbitraClothingOuterHardsuitSecurityAdvanced
+  components:
+  - type: GuideHelp
+    guides: !Clear
+    - OrbitraResearchEquipment
+    - OrbitraResearch
+
+- type: !PartialOnly entity
+  id: OrbitraClothingOuterHardsuitResearch
+  components:
+  - type: GuideHelp
+    guides: !Clear
+    - OrbitraResearchEquipment
+    - OrbitraResearch
+
+- type: !PartialOnly entity
+  id: OrbitraClothingOuterHardsuitCivilian
+  components:
+  - type: GuideHelp
+    guides: !Clear
+    - OrbitraResearchEquipment
+    - OrbitraResearch
+
+- type: !PartialOnly entity
+  id: OrbitraCrematoriumFlatpack
+  components:
+  - type: GuideHelp
+    guides: !Clear
+    - OrbitraResearchEquipment
+    - OrbitraResearch

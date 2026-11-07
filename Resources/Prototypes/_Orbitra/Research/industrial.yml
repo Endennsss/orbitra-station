@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: technology
+  id: OrbitraUraniumProcessing
+  name: research-technology-orbitra-uranium-processing
+  icon:
+    sprite: Objects/Materials/Sheets/other.rsi
+    state: uranium
+  discipline: Industrial
+  tier: 2
+  cost: 7500
+  technologyPrerequisites:
+  - SalvageEquipment
+  - IndustrialEngineering
+  recipeUnlocks:
+  - OrbitraProcessedUranium

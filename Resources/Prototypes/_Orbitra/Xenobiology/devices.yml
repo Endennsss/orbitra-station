@@ -1,0 +1,155 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: entity
+  parent: [BaseMachinePowered, ConstructibleMachine, BaseConstructibleMachineDestructible]
+  id: OrbitraXenoProcessor
+  name: slime processor
+  description: Extracts cores from adult laboratory slime corpses. Transfer a corpse with a slime carrier, then use the controls.
+  suffix: Orbitra
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _Orbitra/Xenobiology/Structures/slime_processor.rsi
+    state: processor
+  - type: ApcPowerReceiver
+    powerLoad: 1500
+  - type: Machine
+    board: OrbitraXenoProcessorBoard
+  - type: OrbitraXenobiologyProcessor
+  - type: ActivatableUI
+    key: enum.OrbitraXenobiologyUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.OrbitraXenobiologyUiKey.Key:
+        type: OrbitraXenobiologyProcessorBoundUserInterface
+
+- type: entity
+  parent: BaseComputer
+  id: OrbitraXenoConsole
+  name: xenobiology console
+  description: Measures nearby laboratory slimes and contains a reference catalog of mutations and extract reactions.
+  suffix: Orbitra
+  components:
+  - type: Computer
+    board: OrbitraXenoConsoleBoard
+  - type: Sprite
+    layers:
+    - map: [computerLayerBody]
+      state: computer
+    - map: [computerLayerKeyboard]
+      state: generic_keyboard
+    - map: [computerLayerScreen]
+      state: dna
+    - map: [computerLayerKeys]
+      state: med_key
+  - type: OrbitraXenobiologyConsole
+  - type: ActivatableUI
+    key: enum.OrbitraXenobiologyUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.OrbitraXenobiologyUiKey.Key:
+        type: OrbitraXenobiologyBoundUserInterface
+
+- type: entity
+  parent: SpaceHeaterAnchored
+  id: OrbitraXenoThermostat
+  name: laboratory thermostat
+  description: Heats or cools a containment pen's air. Slime body temperature changes gradually through heat exchange.
+  suffix: Orbitra
+  components:
+  - type: SpaceHeater
+    minTemperature: 263.15
+    maxTemperature: 333.15
+  - type: Machine
+    board: OrbitraXenoThermostatBoard
+
+- type: entity
+  parent: BaseItem
+  id: OrbitraXenoCarrier
+  name: slime carrier
+  description: Captures one laboratory slime when used on it. Use in hand to release it, or on a processor to transfer an adult corpse.
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Xenobiology/Objects/slime_pack.rsi
+    state: icon
+  - type: Item
+    size: Large
+  - type: OrbitraXenobiologyCarrier
+
+- type: entity
+  parent: OrbitraXenoCarrier
+  id: OrbitraXenoCarrierAdvanced
+  name: colony carrier
+  description: Holds three laboratory slimes. Releases or transfers the oldest captured specimen first.
+  suffix: Orbitra
+  components:
+  - type: OrbitraXenobiologyCarrier
+    capacity: 3
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: OrbitraXenoProcessorBoard
+  name: slime processor board
+  description: A machine circuit board for a slime processor.
+  suffix: Orbitra
+  components:
+  - type: MachineBoard
+    prototype: OrbitraXenoProcessor
+    stackRequirements:
+      Manipulator: 2
+      Glass: 2
+      Cable: 2
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: OrbitraXenoConsoleBoard
+  name: xenobiology console board
+  description: A circuit board for a xenobiology console.
+  suffix: Orbitra
+  components:
+  - type: ComputerBoard
+    prototype: OrbitraXenoConsole
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: OrbitraXenoThermostatBoard
+  name: laboratory thermostat board
+  description: A machine circuit board for a laboratory thermostat.
+  suffix: Orbitra
+  components:
+  - type: MachineBoard
+    prototype: OrbitraXenoThermostat
+    stackRequirements:
+      Manipulator: 1
+      Cable: 2
+
+- type: entity
+  parent: CrateScienceSecure
+  id: OrbitraXenoStarterCrate
+  name: xenobiology starter crate
+  description: Starter cultures, a carrier and a feeding kit for a xenobiology colony.
+  suffix: Orbitra
+  components:
+  - type: StorageFill
+    contents:
+    - id: OrbitraXenoCultureGrey
+      amount: 3
+    - id: OrbitraXenoCarrier
+    - id: Syringe
+      amount: 2
+    - id: DrinkWaterBottleFull
+    - id: FoodMeat
+      amount: 4
+
+- type: cargoProduct
+  id: OrbitraXenoStarterPack
+  icon:
+    sprite: _Orbitra/Xenobiology/Objects/extract.rsi
+    state: core
+  product: OrbitraXenoStarterCrate
+  cost: 2500
+  category: cargoproduct-category-name-science
+  group: market

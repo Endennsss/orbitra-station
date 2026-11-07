@@ -1,0 +1,8 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+# Orbitra-Edit: промышленный катализатор появляется в протолате после исследования.
+- type: !PartialOnly latheRecipePack
+  id: ScienceEquipment
+  recipes:
+  - OrbitraXenoIndustrialCatalyst

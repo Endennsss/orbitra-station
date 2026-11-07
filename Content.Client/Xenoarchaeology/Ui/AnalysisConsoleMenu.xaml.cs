@@ -66,6 +66,12 @@ public sealed partial class AnalysisConsoleMenu : FancyWindow
         };
 
         ExtractButton.OnPressed += StartExtract;
+        // Orbitra added start - единое оформление научных окон.
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this);
+        Content.Client._Orbitra.UserInterface.OrbitraEditorStyles.Apply(this);
+        BackPanel.PanelOverride = null;
+        BackPanel.SetOnlyStyleClass("OrbitraWindowSurface");
+        // Orbitra added end
     }
 
     /// <summary>
@@ -130,6 +136,14 @@ public sealed partial class AnalysisConsoleMenu : FancyWindow
     {
         base.FrameUpdate(args);
 
+        // Orbitra edit start - переносной сканер обновляется по собственной связи с артефактом.
+        if (_scannerOwner != null)
+        {
+            UpdateScannerFrame();
+            return;
+        }
+        // Orbitra edit end
+
         if (_hideExtractInfoIn == null || _timing.CurTime + _meta.GetPauseTime(_owner) < _hideExtractInfoIn)
             return;
 
@@ -167,8 +181,9 @@ public sealed partial class AnalysisConsoleMenu : FancyWindow
 
     public void SetSelectedNode(Entity<XenoArtifactNodeComponent>? node)
     {
+        ValidateScannerSelection(ref node); // Orbitra-Edit - устаревший выбор не переносится между артефактами.
         InfoContainer.Visible = node != null;
-        if (!_artifactAnalyzer.TryGetArtifactFromConsole(_owner, out var artifact))
+        if (!TryGetDisplayedArtifact(out var artifact)) // Orbitra-Edit - общий вывод сведений для консоли и сканера.
             return;
 
         NoneSelectedLabel.Visible = node == null;

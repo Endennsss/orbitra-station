@@ -1,0 +1,56 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: entity
+  abstract: true
+  id: OrbitraBaseVeinBluespaceCrystal
+  suffix: Orbitra
+  description: Blue crystals shimmer within the rock.
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: OrbitraOreBluespaceCrystal
+  - type: Sprite
+    layers:
+    - state: rock_bluespace_crystal
+      sprite: _Orbitra/Structures/Walls/bluespace_ore.rsi
+      map: ["enum.MiningScannerVisualLayers.Overlay"]
+
+# Orbitra-Edit: слои основания породы наследуются от штатного IconSmooth.
+- type: entity
+  parent: [OrbitraBaseVeinBluespaceCrystal, AsteroidRock]
+  id: OrbitraAsteroidRockBluespaceCrystal
+  suffix: Orbitra
+
+- type: entity
+  parent: [OrbitraBaseVeinBluespaceCrystal, IronRock]
+  id: OrbitraIronRockBluespaceCrystal
+  suffix: Orbitra
+
+- type: entity
+  parent: [OrbitraBaseVeinBluespaceCrystal, WallRock]
+  id: OrbitraWallRockBluespaceCrystal
+  suffix: Orbitra
+  components:
+  - type: EntityRemap
+    mask:
+      AsteroidRock: OrbitraAsteroidRockBluespaceCrystal
+      IronRock: OrbitraIronRockBluespaceCrystal
+      WallRockChromite: OrbitraWallRockChromiteBluespaceCrystal
+      WallRockSand: OrbitraWallRockSandBluespaceCrystal
+      WallRockSnow: OrbitraWallRockSnowBluespaceCrystal
+
+- type: entity
+  parent: [OrbitraBaseVeinBluespaceCrystal, WallRockSnow]
+  id: OrbitraWallRockSnowBluespaceCrystal
+  suffix: Orbitra
+
+- type: entity
+  parent: [OrbitraBaseVeinBluespaceCrystal, WallRockSand]
+  id: OrbitraWallRockSandBluespaceCrystal
+  suffix: Orbitra
+
+- type: entity
+  parent: [OrbitraBaseVeinBluespaceCrystal, WallRockChromite]
+  id: OrbitraWallRockChromiteBluespaceCrystal
+  suffix: Orbitra

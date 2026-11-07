@@ -1,0 +1,179 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+# Orbitra-Edit: Зависимости определяют порядок изучения технологий.
+
+- type: !PartialOnly technology
+  id: ConcentratedLaserWeaponry
+  technologyPrerequisites:
+  - WeaponizedLaserManipulation
+
+- type: !PartialOnly technology
+  id: WaveParticleHarnessing
+  technologyPrerequisites:
+  - ConcentratedLaserWeaponry
+
+- type: !PartialOnly technology
+  id: KineticModifications
+  technologyPrerequisites:
+  - SalvageWeapons
+
+- type: !PartialOnly technology
+  id: DualWieldingTechnology
+  technologyPrerequisites:
+  - BasicRobotics
+  - AdvancedRiotControl
+
+- type: !PartialOnly technology
+  id: ThermalWeaponry
+  technologyPrerequisites:
+  - WeaponizedLaserManipulation
+  - AtmosphericTech
+
+- type: !PartialOnly technology
+  id: PortableMicrofusionWeaponry
+  technologyPrerequisites:
+  - ConcentratedLaserWeaponry
+  - AdvancedPowercells
+
+- type: !PartialOnly technology
+  id: FauxAstroTiles
+  technologyPrerequisites:
+  - Hydroponics
+  - MechanicalCompression
+
+- type: !PartialOnly technology
+  id: AdvancedCleaning
+  technologyPrerequisites:
+  - BasicRobotics
+  recipeUnlocks:
+  - !Remove TrashBagHolding
+
+- type: !PartialOnly technology
+  id: HONKMech
+  technologyPrerequisites:
+  - CritterMechs
+  - RipleyAPLU
+
+- type: !PartialOnly technology
+  id: AdvancedSpray
+  technologyPrerequisites:
+  - Hydroponics
+  - AtmosphericTech
+
+- type: !PartialOnly technology
+  id: BluespaceCargoTransport
+  technologyPrerequisites:
+  - BasicAnomalousResearch
+  - SalvageEquipment
+
+- type: !PartialOnly technology
+  id: PushHorn
+  technologyPrerequisites:
+  - AdvancedEntertainment
+
+- type: !PartialOnly technology
+  id: MechanizedTreatment
+  technologyPrerequisites:
+  - BiochemicalStasis
+  - BasicRobotics
+
+- type: !PartialOnly technology
+  id: QuantumFiberWeaving
+  technologyPrerequisites:
+  - BluespaceCargoTransport
+  - IndustrialEngineering
+
+- type: !PartialOnly technology
+  id: AbnormalArtifactManipulation
+  technologyPrerequisites:
+  - BasicXenoArcheology
+  - IndustrialEngineering
+
+- type: !PartialOnly technology
+  id: AdvancedAnomalyResearch
+  recipeUnlocks:
+  - OrbitraRadiationEmitter
+
+- type: !PartialOnly technology
+  id: DeterrenceTechnologies
+  technologyPrerequisites:
+  - BasicAnomalousResearch
+  - AdvancedRiotControl
+
+- type: !PartialOnly technology
+  id: GravityManipulation
+  technologyPrerequisites:
+  - MagnetsTech
+  - SpaceScanning
+
+- type: !PartialOnly technology
+  id: QuantumLeaping
+  technologyPrerequisites:
+  - GravityManipulation
+  - BluespaceCargoTransport
+
+- type: !PartialOnly technology
+  id: BluespaceTimeManipulation
+  technologyPrerequisites:
+  - AdvancedAnomalyResearch
+
+- type: !PartialOnly technology
+  id: TeleSci
+  technologyPrerequisites:
+  - GravityManipulation
+  - BluespaceCargoTransport
+
+- type: !PartialOnly technology
+  id: Shuttlecraft
+  technologyPrerequisites:
+  - SpaceScanning
+
+- type: !PartialOnly technology
+  id: AdvancedToolsTechnology
+  technologyPrerequisites:
+  - IndustrialEngineering
+  - BasicRobotics
+
+- type: !PartialOnly technology
+  id: MassExcavation
+  technologyPrerequisites:
+  - SalvageEquipment
+  - SalvageWeapons
+  recipeUnlocks:
+  - !Remove OreBagOfHolding
+
+- type: !PartialOnly technology
+  id: BluespaceStorage
+  discipline: Experimental
+  technologyPrerequisites:
+  - BluespaceCargoTransport
+  - MechanicalCompression
+  - OrbitraBluespaceTheory
+  recipeUnlocks:
+  - OreBagOfHolding
+  - TrashBagHolding
+
+- type: !PartialOnly technology
+  id: BiochemicalStasis
+  technologyPrerequisites:
+  - AtmosphericTech
+
+- type: !PartialOnly technology
+  id: BluespaceChemistry
+  technologyPrerequisites:
+  - MechanizedTreatment
+  - BluespaceCargoTransport
+
+- type: !PartialOnly technology
+  id: LauncherSyringe
+  technologyPrerequisites:
+  - MechanizedTreatment
+  - NonlethalAmmunition
+
+- type: !PartialOnly technology
+  id: OptimizedMicrogalvanism
+  technologyPrerequisites:
+  - AdvancedToolsTechnology
+  recipeUnlocks:
+  - !Remove PowerCellMicroreactor

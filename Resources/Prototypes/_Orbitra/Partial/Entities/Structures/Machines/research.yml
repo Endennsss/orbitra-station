@@ -1,0 +1,7 @@
+# Orbitra-Edit: штатный сервер должен предлагать медицинские технологии и ксенобиологию.
+- type: !PartialOnly entity
+  id: ResearchAndDevelopmentServer
+  components:
+  - type: TechnologyDatabase
+    supportedDisciplines:
+    - OrbitraBiochemical

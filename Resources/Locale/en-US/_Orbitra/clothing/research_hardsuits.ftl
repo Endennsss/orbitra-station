@@ -1,0 +1,42 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+ent-OrbitraClothingOuterHardsuitExpedition = expedition hardsuit
+    .desc = A yellow expedition hardsuit with reinforced joints and thick protective lining.
+    .suffix = Orbitra
+ent-OrbitraClothingHeadHelmetHardsuitExpedition = expedition helmet
+    .desc = A reinforced yellow helmet with a broad visor and an expedition headlamp.
+    .suffix = Orbitra
+ent-OrbitraClothingOuterHardsuitEngineeringAdvanced = industrial hardsuit
+    .desc = An Icarus industrial hardsuit with insulated plating and a heavy protective collar.
+    .suffix = Orbitra
+ent-OrbitraClothingHeadHelmetHardsuitEngineeringAdvanced = industrial helmet
+    .desc = An Icarus helmet with a shielded visor and an insulated neck seal.
+    .suffix = Orbitra
+ent-OrbitraClothingOuterHardsuitMedicalRescue = rescue hardsuit
+    .desc = A blue and white Valkyrie rescue hardsuit with sealed cuffs and a washable outer shell.
+    .suffix = Orbitra
+ent-OrbitraClothingHeadHelmetHardsuitMedicalRescue = rescue helmet
+    .desc = A white Valkyrie helmet with a blue visor and an integrated medical display.
+    .suffix = Orbitra
+ent-OrbitraClothingOuterHardsuitSecurityAdvanced = riot hardsuit
+    .desc = A grey security hardsuit with red markings and overlapping impact-resistant plates.
+    .suffix = Orbitra
+ent-OrbitraClothingHeadHelmetHardsuitSecurityAdvanced = riot helmet
+    .desc = A heavily plated security helmet with a recessed visor and red markings.
+    .suffix = Orbitra
+ent-OrbitraClothingHeadHardsuitResearchBase = research hardsuit helmet
+    .desc = { ent-ClothingHeadHardsuitBase.desc }
+    .suffix = Orbitra
+ent-OrbitraClothingOuterHardsuitResearch = laboratory hardsuit
+    .desc = A white laboratory hardsuit with purple plating and a sealed protective collar.
+    .suffix = Orbitra
+ent-OrbitraClothingHeadHelmetHardsuitResearch = laboratory helmet
+    .desc = A white laboratory helmet with purple trim and a shielded visor.
+    .suffix = Orbitra
+ent-OrbitraClothingOuterHardsuitCivilian = civilian hardsuit
+    .desc = A lightweight gray civilian hardsuit with flexible joints and sealed cuffs for maintenance work in vacuum.
+    .suffix = Orbitra
+ent-OrbitraClothingHeadHelmetHardsuitCivilian = civilian helmet
+    .desc = A gray civilian helmet with a blue visor and a sealed neck ring.
+    .suffix = Orbitra

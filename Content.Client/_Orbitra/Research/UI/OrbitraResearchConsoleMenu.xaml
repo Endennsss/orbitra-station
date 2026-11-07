@@ -1,0 +1,62 @@
+<!-- SPDX-License-Identifier: MIT -->
+<!-- Copyright (c) 2026 Ende (Orbitra) -->
+
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:orbitra="clr-namespace:Content.Client._Orbitra.UserInterface"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      xmlns:research="clr-namespace:Content.Client._Orbitra.Research.UI"
+                      Title="{Loc 'orbitra-research-tree-title'}"
+                      MinSize="800 480"
+                      SetSize="1100 700">
+    <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="8" Margin="8">
+        <PanelContainer Name="HeaderPanel" StyleClasses="OrbitraWindowHeader">
+            <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="4">
+                <BoxContainer SeparationOverride="12">
+                    <Label Name="PointsLabel" StyleClasses="LabelHeading"/>
+                    <LineEdit Name="SearchEdit" PlaceHolder="{Loc 'orbitra-research-tree-search'}" HorizontalExpand="True" VerticalAlignment="Center"/>
+                    <orbitra:OrbitraButton Name="ServerButton" Text="{Loc 'research-console-menu-server-selection-button'}" VerticalAlignment="Center"/>
+                </BoxContainer>
+                <RichTextLabel Name="FreeChoiceHint" Text="{Loc 'orbitra-research-tree-free-choice'}" HorizontalExpand="True"/>
+            </BoxContainer>
+        </PanelContainer>
+        <BoxContainer Name="TreeContent" Access="Public" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="8">
+            <PanelContainer Name="SidebarPanel" StyleClasses="OrbitraWindowSurface" SetWidth="220" VerticalExpand="True">
+                <ScrollContainer HScrollEnabled="False" ReserveScrollbarSpace="True" HorizontalExpand="True" VerticalExpand="True">
+                    <BoxContainer Name="DisciplineList" Orientation="Vertical" HorizontalExpand="True" SeparationOverride="8" Margin="8"/>
+                </ScrollContainer>
+            </PanelContainer>
+            <PanelContainer Name="GraphPanel" StyleClasses="OrbitraWindowSurface" HorizontalExpand="True" VerticalExpand="True">
+                <research:OrbitraResearchTreeControl Name="Graph" Access="Public" HorizontalExpand="True" VerticalExpand="True"/>
+            </PanelContainer>
+            <PanelContainer Name="DetailsPanel" StyleClasses="OrbitraWindowSurface" SetWidth="300" VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" Margin="10" SeparationOverride="8">
+                    <ScrollContainer HScrollEnabled="False" ReserveScrollbarSpace="True" HorizontalExpand="True" VerticalExpand="True">
+                        <BoxContainer Name="DetailsContent" Access="Public" Orientation="Vertical" HorizontalExpand="True" SeparationOverride="10"/>
+                    </ScrollContainer>
+                    <RichTextLabel Name="PurchaseStatusLabel" Access="Public" HorizontalExpand="True"/>
+                    <orbitra:OrbitraButton Name="ResearchButton" Access="Public" Text="{Loc 'orbitra-research-tree-research'}" Disabled="True" MinHeight="38" ClipText="True"/>
+                </BoxContainer>
+            </PanelContainer>
+        </BoxContainer>
+        <PanelContainer Name="FooterPanel" StyleClasses="OrbitraWindowSurface">
+            <BoxContainer Orientation="Vertical" Margin="8 5" SeparationOverride="4">
+                <BoxContainer SeparationOverride="8">
+                    <orbitra:OrbitraButton Name="SidebarButton" Text="{Loc 'orbitra-research-tree-directions'}" ToggleMode="True" Pressed="True"/>
+                    <Label Name="ResultCountLabel" HorizontalExpand="True" ClipText="True"/>
+                    <orbitra:OrbitraButton Name="CenterButton" Text="{Loc 'orbitra-research-tree-center'}"/>
+                    <orbitra:OrbitraButton Name="ZoomOutButton" Text="−" MinWidth="30"/>
+                    <Label Name="ZoomLabel" MinWidth="46" Align="Center"/>
+                    <orbitra:OrbitraButton Name="ZoomInButton" Text="+" MinWidth="30"/>
+                    <orbitra:OrbitraButton Name="ResetButton" Text="{Loc 'orbitra-research-tree-reset'}"/>
+                </BoxContainer>
+                <BoxContainer SeparationOverride="10">
+                    <Label Name="ResearchedLegend" Text="{Loc 'orbitra-research-tree-legend-researched'}"/>
+                    <Label Name="AvailableLegend" Text="{Loc 'orbitra-research-tree-legend-available'}"/>
+                    <Label Name="LockedLegend" Text="{Loc 'orbitra-research-tree-legend-locked'}"/>
+                    <Control HorizontalExpand="True"/>
+                </BoxContainer>
+                <RichTextLabel Name="NavigationHint" Text="{Loc 'orbitra-research-tree-navigation'}" HorizontalExpand="True"/>
+            </BoxContainer>
+        </PanelContainer>
+    </BoxContainer>
+</controls:FancyWindow>

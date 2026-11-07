@@ -1,0 +1,85 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: orbitraBluespaceHarvesterLoot
+  id: OrbitraHarvesterSteel
+  suffix: Orbitra
+  category: Materials
+  weight: 3
+  products:
+    SheetSteel1: 60
+
+- type: orbitraBluespaceHarvesterLoot
+  id: OrbitraHarvesterGlass
+  suffix: Orbitra
+  category: Materials
+  weight: 2
+  products:
+    SheetGlass1: 60
+
+- type: orbitraBluespaceHarvesterLoot
+  id: OrbitraHarvesterMetals
+  suffix: Orbitra
+  category: Materials
+  products:
+    SheetPlasteel1: 20
+    IngotGold1: 10
+    IngotSilver1: 10
+
+- type: orbitraBluespaceHarvesterLoot
+  id: OrbitraHarvesterReactorMaterials
+  suffix: Orbitra
+  category: Materials
+  products:
+    SheetPlasma1: 30
+    SheetUranium1: 20
+
+- type: orbitraBluespaceHarvesterLoot
+  id: OrbitraHarvesterRareCrystals
+  suffix: Orbitra
+  category: Materials
+  weight: 0.5
+  products:
+    MaterialDiamond1: 5
+    OrbitraBluespaceCrystal1: 2
+
+- type: orbitraBluespaceHarvesterLoot
+  id: OrbitraHarvesterMedicalSupplies
+  suffix: Orbitra
+  category: Supplies
+  products:
+    Gauze1: 20
+    Ointment1: 20
+    EmergencyMedipen: 4
+
+- type: orbitraBluespaceHarvesterLoot
+  id: OrbitraHarvesterFoodSupplies
+  suffix: Orbitra
+  category: Supplies
+  products:
+    FoodSnackNutribrick: 16
+
+- type: orbitraBluespaceHarvesterLoot
+  id: OrbitraHarvesterLaboratorySupplies
+  suffix: Orbitra
+  category: Research
+  products:
+    MicroManipulatorStockPart: 16
+    Beaker: 4
+    Syringe: 4
+
+- type: orbitraBluespaceHarvesterLoot
+  id: OrbitraHarvesterPowerSupplies
+  suffix: Orbitra
+  category: Research
+  products:
+    PowerCellHigh: 4
+    CableHVStack1: 60
+
+- type: orbitraBluespaceHarvesterLoot
+  id: OrbitraHarvesterResearchMaterials
+  suffix: Orbitra
+  category: Research
+  products:
+    OrbitraSheetProcessedUranium1: 10
+    SheetPlastic1: 30

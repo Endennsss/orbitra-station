@@ -1,0 +1,73 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+# Orbitra-Edit: четыре дочерние сумки наследуют кристаллы и остальные материалы базового рецепта.
+- type: !PartialOnly latheRecipe
+  id: ClothingBackpackHolding
+  materials:
+    OrbitraBluespaceCrystal: 200
+
+- type: !PartialOnly latheRecipe
+  id: TrashBagHolding
+  materials:
+    OrbitraBluespaceCrystal: 200
+
+- type: !PartialOnly latheRecipe
+  id: DeviceDesynchronizer
+  materials:
+    OrbitraBluespaceCrystal: 200
+
+# Orbitra-Edit: собственный materials заменяет наследование, поэтому сохраняем базовый состав трёх плат.
+- type: !PartialOnly latheRecipe
+  id: StationTeleporterMachineCircuitboard
+  materials:
+    Steel: 100
+    Glass: 500
+    Gold: 100
+    OrbitraBluespaceCrystal: 200
+
+- type: !PartialOnly latheRecipe
+  id: CargoTelepadMachineCircuitboard
+  materials:
+    Steel: 100
+    Glass: 500
+    Gold: 100
+    OrbitraBluespaceCrystal: 200
+
+- type: !PartialOnly latheRecipe
+  id: StationTeleportersControlCircuitboard
+  materials:
+    Steel: 100
+    Glass: 500
+    Gold: 100
+    OrbitraBluespaceCrystal: 100
+
+# Orbitra-Edit: собственный materials заменяет наследование, поэтому сохраняем базовый состав двух модулей.
+- type: !PartialOnly latheRecipe
+  id: BorgModuleAdvancedMining
+  materials:
+    Steel: 500
+    Glass: 500
+    Plastic: 250
+    Gold: 50
+    OrbitraBluespaceCrystal: 200
+
+- type: !PartialOnly latheRecipe
+  id: BluespaceBeaker
+  materials:
+    OrbitraBluespaceCrystal: 100
+
+- type: !PartialOnly latheRecipe
+  id: SyringeBluespace
+  materials:
+    OrbitraBluespaceCrystal: 100
+
+- type: !PartialOnly latheRecipe
+  id: DeviceQuantumSpinInverter
+  materials:
+    OrbitraBluespaceCrystal: 100
+
+- type: !PartialOnly latheRecipe
+  id: TeleporterChipBlank
+  materials:
+    OrbitraBluespaceCrystal: 100

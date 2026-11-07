@@ -1,0 +1,59 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: guideEntry
+  id: OrbitraResearch
+  name: guide-entry-orbitra-rnd-research
+  text: "/ServerInfo/Guidebook/_Orbitra/Research/Overview.xml"
+  children:
+  - OrbitraResearchTree
+  - OrbitraResearchMaterials
+  - OrbitraResearchAnomalies
+  - OrbitraResearchProbers
+  - OrbitraResearchHarvester
+  - OrbitraResearchBackground
+  - OrbitraResearchEquipment
+  - OrbitraResearchTroubleshooting
+
+- type: guideEntry
+  id: OrbitraResearchTree
+  name: guide-entry-orbitra-rnd-tree
+  text: "/ServerInfo/Guidebook/_Orbitra/Research/Tree.xml"
+
+- type: guideEntry
+  id: OrbitraResearchMaterials
+  name: guide-entry-orbitra-rnd-materials
+  text: "/ServerInfo/Guidebook/_Orbitra/Research/Materials.xml"
+
+- type: guideEntry
+  id: OrbitraResearchAnomalies
+  name: guide-entry-orbitra-rnd-anomalies
+  text: "/ServerInfo/Guidebook/_Orbitra/Research/Anomalies.xml"
+  children:
+  - APE
+  - ScannersAndVessels
+
+- type: guideEntry
+  id: OrbitraResearchProbers
+  name: guide-entry-orbitra-rnd-probers
+  text: "/ServerInfo/Guidebook/_Orbitra/Research/Probers.xml"
+
+- type: guideEntry
+  id: OrbitraResearchHarvester
+  name: guide-entry-orbitra-rnd-harvester
+  text: "/ServerInfo/Guidebook/_Orbitra/Research/Harvester.xml"
+
+- type: guideEntry
+  id: OrbitraResearchBackground
+  name: guide-entry-orbitra-rnd-background
+  text: "/ServerInfo/Guidebook/_Orbitra/Research/Background.xml"
+
+- type: guideEntry
+  id: OrbitraResearchEquipment
+  name: guide-entry-orbitra-rnd-equipment
+  text: "/ServerInfo/Guidebook/_Orbitra/Research/Equipment.xml"
+
+- type: guideEntry
+  id: OrbitraResearchTroubleshooting
+  name: guide-entry-orbitra-rnd-troubleshooting
+  text: "/ServerInfo/Guidebook/_Orbitra/Research/Troubleshooting.xml"

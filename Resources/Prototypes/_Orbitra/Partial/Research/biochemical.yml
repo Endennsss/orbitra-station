@@ -1,0 +1,17 @@
+# Orbitra-Edit: медицинские технологии относятся к отдельной биохимической ветке.
+
+- type: !PartialOnly technology
+  id: BiochemicalStasis
+  discipline: OrbitraBiochemical
+
+- type: !PartialOnly technology
+  id: MechanizedTreatment
+  discipline: OrbitraBiochemical
+
+- type: !PartialOnly technology
+  id: BluespaceChemistry
+  discipline: OrbitraBiochemical
+
+- type: !PartialOnly technology
+  id: LauncherSyringe
+  discipline: OrbitraBiochemical

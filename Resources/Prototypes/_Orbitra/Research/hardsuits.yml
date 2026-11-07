@@ -1,0 +1,92 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: technology
+  id: OrbitraAdvancedCargoSuits
+  name: research-technology-orbitra-advanced-cargo-suits
+  icon:
+    sprite: _Orbitra/Clothing/OuterClothing/Hardsuits/expedition.rsi
+    state: icon
+  discipline: Industrial
+  tier: 3
+  cost: 15000
+  technologyPrerequisites:
+  - MassExcavation
+  - AdvancedToolsTechnology
+  recipeUnlocks:
+  - OrbitraHardsuitAdvancedMining
+  - OrbitraHardsuitExpedition
+
+- type: technology
+  id: OrbitraAdvancedEngineeringSuits
+  name: research-technology-orbitra-advanced-engineering-suits
+  icon:
+    sprite: _Orbitra/Clothing/OuterClothing/Hardsuits/engineering_advanced.rsi
+    state: icon
+  discipline: Industrial
+  tier: 3
+  cost: 12500
+  technologyPrerequisites:
+  - AdvancedAtmospherics
+  - AdvancedToolsTechnology
+  recipeUnlocks:
+  - OrbitraHardsuitEngineeringAdvanced
+
+- type: technology
+  id: OrbitraAdvancedMedicalSuits
+  name: research-technology-orbitra-advanced-medical-suits
+  icon:
+    sprite: _Orbitra/Clothing/OuterClothing/Hardsuits/medical_rescue.rsi
+    state: icon
+  discipline: OrbitraBiochemical
+  tier: 3
+  cost: 12500
+  technologyPrerequisites:
+  - BiochemicalStasis
+  - MechanizedTreatment
+  recipeUnlocks:
+  - OrbitraHardsuitMedicalRescue
+
+- type: technology
+  id: OrbitraAdvancedSecuritySuits
+  name: research-technology-orbitra-advanced-security-suits
+  icon:
+    sprite: _Orbitra/Clothing/OuterClothing/Hardsuits/security_advanced.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 3
+  cost: 15000
+  technologyPrerequisites:
+  - AdvancedRiotControl
+  - IndustrialEngineering
+  recipeUnlocks:
+  - OrbitraHardsuitSecurityAdvanced
+
+- type: technology
+  id: OrbitraAdvancedResearchSuits
+  name: research-technology-orbitra-advanced-research-suits
+  icon:
+    sprite: _Orbitra/Clothing/OuterClothing/Hardsuits/research.rsi
+    state: icon
+  discipline: Experimental
+  tier: 3
+  cost: 12500
+  technologyPrerequisites:
+  - AnomalyCoreHarnessing
+  - AdvancedToolsTechnology
+  recipeUnlocks:
+  - OrbitraHardsuitResearch
+
+- type: technology
+  id: OrbitraServiceSuits
+  name: research-technology-orbitra-service-suits
+  icon:
+    sprite: _Orbitra/Clothing/OuterClothing/Hardsuits/civilian.rsi
+    state: icon
+  discipline: CivilianServices
+  tier: 2
+  cost: 7500
+  technologyPrerequisites:
+  - IndustrialEngineering
+  recipeUnlocks:
+  - OrbitraHardsuitCivilian

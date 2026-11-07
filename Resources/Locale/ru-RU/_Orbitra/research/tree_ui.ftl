@@ -1,0 +1,43 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+orbitra-research-tree-title = Дерево исследований
+orbitra-research-tree-search = Найти технологию или открываемый рецепт…
+orbitra-research-tree-points = Научные очки: { $points }
+orbitra-research-tree-free-choice = Исследуйте любую доступную технологию
+orbitra-research-tree-directions = Направления
+orbitra-research-tree-all = Все направления
+orbitra-research-tree-center = К выбору
+orbitra-research-tree-reset = Сброс
+orbitra-research-tree-zoom = { $percent }%
+orbitra-research-tree-zoom-in = Приблизить
+orbitra-research-tree-zoom-out = Отдалить
+orbitra-research-tree-visible = Видно { $count } / { $total }
+orbitra-research-tree-navigation = Перетаскивание: обзор · Колесо: масштаб · Нажатие: детали · Стрелки: нужны все связанные технологии
+orbitra-research-tree-legend-researched = ● Изучено
+orbitra-research-tree-legend-available = ● Доступно
+orbitra-research-tree-legend-locked = ● Закрыто
+orbitra-research-tree-state-researched = Изучено
+orbitra-research-tree-state-available = Доступно для исследования
+orbitra-research-tree-state-locked = Требования не выполнены
+orbitra-research-tree-research = Исследовать
+orbitra-research-tree-select-hint = Выберите узел дерева, чтобы увидеть назначение, требования и открываемые рецепты.
+orbitra-research-tree-no-database = Нет данных о технологиях. Проверьте подключение к серверу исследований.
+orbitra-research-tree-description-fallback = Развивает это направление исследований и открывает перечисленные ниже возможности.
+orbitra-research-tree-unnamed-recipe = Рецепт производства
+orbitra-research-tree-discipline-tier = { $discipline } · Уровень { $tier }
+orbitra-research-tree-node-meta = Уровень { $tier } · { $cost } оч.
+orbitra-research-tree-cost = Стоимость: { $cost } научных очков
+orbitra-research-tree-requirements = Требования: выполнить все
+orbitra-research-tree-no-prerequisites = Обязательных предварительных технологий нет.
+orbitra-research-tree-prerequisite-done = ✓ { $name }
+orbitra-research-tree-prerequisite-missing = ✕ { $name }
+orbitra-research-tree-show-prerequisite = Показать в дереве
+orbitra-research-tree-tier-progress = Уровень { $tier }: { $unlocked } / { $total }
+orbitra-research-tree-unlocks = Открываемые рецепты: { $count }
+orbitra-research-tree-no-unlocks = Производственные рецепты для этой технологии не указаны.
+orbitra-research-tree-already-researched = Технология уже изучена на этом сервере.
+orbitra-research-tree-locked-reason = Сначала выполните все требования, перечисленные выше.
+orbitra-research-tree-points-missing = Не хватает научных очков: { $points }.
+orbitra-research-tree-ready = Технология доступна и готова к исследованию.
+orbitra-research-tree-director-access-required = Для изучения технологий требуется доступ научного руководителя.

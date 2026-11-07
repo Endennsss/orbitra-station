@@ -260,7 +260,7 @@ public sealed class MaterialArbitrageTest : GameTest
                         }
                         foreach (var (matId, amount) in recipe.Materials)
                         {
-                            var actualAmount = SharedLatheSystem.AdjustMaterial(amount, recipe.ApplyMaterialDiscount, multiplier);
+                            var actualAmount = SharedLatheSystem.AdjustMaterial(protoManager.Index(matId), amount, recipe.ApplyMaterialDiscount, multiplier); // Orbitra-Edit - учитываем неделимые единицы материала.
                             if (spawnedMats.TryGetValue(matId, out var numSpawned))
                                 Assert.That(numSpawned, Is.LessThanOrEqualTo(actualAmount), $"destroying a {id} spawns more {matId} than required to produce via an (upgraded) lathe.");
                         }
@@ -347,7 +347,7 @@ public sealed class MaterialArbitrageTest : GameTest
                         }
                         foreach (var (matId, amount) in recipe.Materials)
                         {
-                            var actualAmount = SharedLatheSystem.AdjustMaterial(amount, recipe.ApplyMaterialDiscount, multiplier);
+                            var actualAmount = SharedLatheSystem.AdjustMaterial(protoManager.Index(matId), amount, recipe.ApplyMaterialDiscount, multiplier); // Orbitra-Edit - учитываем неделимые единицы материала.
                             if (deconstructedMats.TryGetValue(matId, out var numSpawned))
                                 Assert.That(numSpawned, Is.LessThanOrEqualTo(actualAmount), $"deconstructing {id} spawns more {matId} than required to produce via an (upgraded) lathe.");
                         }
@@ -409,7 +409,7 @@ public sealed class MaterialArbitrageTest : GameTest
                         }
                         foreach (var (matId, amount) in recipe.Materials)
                         {
-                            var actualAmount = SharedLatheSystem.AdjustMaterial(amount, recipe.ApplyMaterialDiscount, multiplier);
+                            var actualAmount = SharedLatheSystem.AdjustMaterial(protoManager.Index(matId), amount, recipe.ApplyMaterialDiscount, multiplier); // Orbitra-Edit - учитываем неделимые единицы материала.
                             if (compositionComponent.MaterialComposition.TryGetValue(matId, out var numSpawned))
                                 Assert.That(numSpawned, Is.LessThanOrEqualTo(actualAmount), $"The physical composition of {id} has more {matId} than required to produce via an (upgraded) lathe.");
                         }

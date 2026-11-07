@@ -1,4 +1,6 @@
-﻿<DefaultWindow xmlns="https://spacestation14.io"
+<!-- Orbitra-Edit - общая рамка окна выбора сервера исследований. -->
+<controls:FancyWindow xmlns="https://spacestation14.io"
+            xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
             Title="{Loc 'research-client-server-selection-menu-title'}"
             MinSize="300 300"
             SetSize="300 300">
@@ -6,4 +8,4 @@
               SelectMode="Single">
         <!-- Servers are added here by code -->
     </ItemList>
-</DefaultWindow>
+</controls:FancyWindow>

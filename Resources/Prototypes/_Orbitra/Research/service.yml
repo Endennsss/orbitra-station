@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: technology
+  id: OrbitraCremation
+  name: research-technology-orbitra-cremation
+  icon:
+    sprite: Structures/Storage/morgue.rsi
+    state: crema_closed
+  discipline: CivilianServices
+  tier: 3
+  cost: 10000
+  technologyPrerequisites:
+  - AdvancedCleaning
+  recipeUnlocks:
+  - OrbitraCrematoriumFlatpack

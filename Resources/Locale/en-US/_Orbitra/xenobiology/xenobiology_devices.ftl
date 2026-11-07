@@ -1,0 +1,143 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+orbitra-xeno-title = Xenobiology laboratory
+orbitra-xeno-specimens = Specimens
+orbitra-xeno-catalog = Breed catalog
+orbitra-xeno-count = Specimens in range: { $count }
+orbitra-xeno-unpowered = No power. Measurements unavailable.
+orbitra-xeno-process = Get extracts
+orbitra-xeno-eject = Return specimen
+orbitra-xeno-search = Search breeds...
+orbitra-xeno-captured = Specimen secured in the carrier.
+orbitra-xeno-baby = juvenile
+orbitra-xeno-adult = adult
+orbitra-xeno-dead = dead
+orbitra-xeno-specimen = [bold]{ $breed }[/bold] | { $stage } | Generation { $generation }
+    Growth: { $growth }% | Satiety: { $hunger }% | Biomass: { $biomass } | Body: { $temperature } °C
+    Mutation: { $mutation }% | Offspring: { $offspring } | Extracts: { $yield }
+    Growth rate: ×{ $rate } | Docility: { $docility }% | Thermal tolerance: +{ $tolerance } K
+orbitra-xeno-guide = Feed real food, control the pen's air temperature, then use the adult's context menu to divide it. Process dead adults for extracts. Inject the listed reagent into an extract once. Cultures require 5u water and must be on the floor to hatch.
+orbitra-xeno-breed-button = { $tier }: { $name }
+orbitra-xeno-breed-conditions = Growth: { $seconds } s; biomass for adulthood: { $growth }; for division: { $division }. Comfortable body temperature: { $minimum } to { $maximum } °C.
+orbitra-xeno-mutations = [bold]Possible offspring mutations[/bold]
+orbitra-xeno-stable-lineage = A stable terminal lineage.
+orbitra-xeno-reactions = [bold]Single-use extract reactions[/bold]
+orbitra-xeno-reaction = [bold]{ $name }[/bold] | { $amount }u { $reagent }
+    { $description }
+research-technology-orbitra-xenobiology = Xenobiology
+research-technology-orbitra-colony-engineering = Colony engineering
+orbitra-research-technology-orbitra-xenobiology-description = Equipment for breeding laboratory slimes, observing inherited traits and producing single-use extracts.
+orbitra-research-technology-orbitra-colony-engineering-description = Larger carriers and thermostats for controlling colony growth conditions and selective breeding.
+ent-OrbitraXenoProcessor = slime processor
+    .desc = Extracts cores from adult laboratory slime corpses. Transfer a corpse with a slime carrier, then use the controls.
+    .suffix = Orbitra
+ent-OrbitraXenoConsole = xenobiology console
+    .desc = Measures nearby laboratory slimes and contains a reference catalog of mutations and extract reactions.
+    .suffix = Orbitra
+ent-OrbitraXenoThermostat = laboratory thermostat
+    .desc = Heats or cools a containment pen's air. Slime body temperature changes gradually through heat exchange.
+    .suffix = Orbitra
+ent-OrbitraXenoCarrier = slime carrier
+    .desc = Captures one laboratory slime when used on it. Use in hand to release it, or on a processor to transfer an adult corpse.
+    .suffix = Orbitra
+ent-OrbitraXenoCarrierAdvanced = colony carrier
+    .desc = Holds three laboratory slimes. Releases or transfers the oldest captured specimen first.
+    .suffix = Orbitra
+ent-OrbitraXenoProcessorBoard = slime processor board
+    .desc = A machine circuit board for a slime processor.
+    .suffix = Orbitra
+ent-OrbitraXenoConsoleBoard = xenobiology console board
+    .desc = A circuit board for a xenobiology console.
+    .suffix = Orbitra
+ent-OrbitraXenoThermostatBoard = laboratory thermostat board
+    .desc = A machine circuit board for a laboratory thermostat.
+    .suffix = Orbitra
+ent-OrbitraXenoStarterCrate = xenobiology starter crate
+    .desc = Starter cultures, a carrier and a feeding kit for a xenobiology colony.
+    .suffix = Orbitra
+orbitra-xeno-identity = { $name } #{ $identifier }
+orbitra-xeno-list-status = { $status } · Generation { $generation }
+orbitra-xeno-live-count = Live measurements · { $count } specimens · Range: { $range } tiles
+orbitra-xeno-specimen-search = Search names, numbers or breeds...
+orbitra-xeno-filter-all = All specimens
+orbitra-xeno-filter-baby = Living juveniles
+orbitra-xeno-filter-adult = Living adults
+orbitra-xeno-filter-attention = Needs attention
+orbitra-xeno-no-specimens = No specimens in scanning range.
+orbitra-xeno-no-matching-specimens = No specimens match your search.
+orbitra-xeno-no-breeds = No breeds match your search.
+orbitra-xeno-select-specimen = Select a specimen to inspect its condition.
+orbitra-xeno-colony-start-hint = Hatch a slime from a starter culture and keep it near the console. Its condition and inherited traits will appear here. Growth conditions and extract reactions are available in the breed catalog.
+orbitra-xeno-search-hint = Change the search or select "All specimens" to restore hidden specimens to the list.
+orbitra-xeno-offline-hint = Restore power to measure the colony's condition. The breed catalog remains available without power.
+orbitra-xeno-back-to-list = Back to list
+orbitra-xeno-open-breed = Breed reference
+orbitra-xeno-selected-breed = { $breed } · Generation { $generation }
+orbitra-xeno-contained = In a container; growth paused
+orbitra-xeno-hostile = Hostile
+orbitra-xeno-cold = Too cold; growth paused
+orbitra-xeno-hot = Too hot; growth paused
+orbitra-xeno-hungry = Hungry; growth paused
+orbitra-xeno-growth-adult = Growth: adult
+orbitra-xeno-growth-value = Growth: { $amount }%
+orbitra-xeno-hunger-value = Satiety: { $amount }%
+orbitra-xeno-biomass-value = Biomass: { $amount } / { $required }
+orbitra-xeno-temperature-value = Body temperature: { $temperature } °C
+orbitra-xeno-temperature-range = Comfortable range: { $minimum } to { $maximum } °C
+orbitra-xeno-genetics = Inherited traits
+orbitra-xeno-gene-mutation = Mutation chance
+orbitra-xeno-gene-offspring = Offspring on division
+orbitra-xeno-gene-yield = Extract yield
+orbitra-xeno-gene-rate = Growth multiplier
+orbitra-xeno-gene-docility = Docility
+orbitra-xeno-gene-tolerance = Extra thermal tolerance
+orbitra-xeno-percent = { $amount }%
+orbitra-xeno-multiplier = ×{ $amount }
+orbitra-xeno-kelvin = +{ $amount } K
+orbitra-xeno-colony-summary = Showing { $visible } / { $total } · Needs attention: { $attention }
+orbitra-xeno-catalog-count = Breeds: { $count }
+orbitra-xeno-help = Quick guide
+orbitra-xeno-tier = Mutation tier { $tier }
+orbitra-xeno-tier-all = All mutation tiers
+orbitra-xeno-catalog-care = Care and mutations
+orbitra-xeno-catalog-recipes = Extract recipes
+orbitra-xeno-care = Growth conditions
+orbitra-xeno-care-duration = Time to adulthood
+orbitra-xeno-care-growth-biomass = Biomass for adulthood
+orbitra-xeno-care-division-biomass = Biomass for division
+orbitra-xeno-care-temperature = Body temperature
+orbitra-xeno-care-temperature-value = { $minimum } to { $maximum } °C
+orbitra-xeno-seconds = { $seconds } s
+orbitra-xeno-care-thresholds = Growth requires at least 25% satiety. Division requires at least 50%. Containers pause growth. Inherited traits change growth speed and comfortable temperatures.
+orbitra-xeno-mutation-heading = Mutation paths
+orbitra-xeno-mutation-explanation = Shares below apply only when an offspring mutates. The parent's inherited mutation chance determines how often that happens.
+orbitra-xeno-mutation-target = { $name } · { $chance }% of mutations
+orbitra-xeno-reaction-heading = Extract recipes
+orbitra-xeno-extract-instruction = Inject the listed quantity into an extract once. Extra reagent does not increase the output.
+orbitra-xeno-catalyst = Input: { $amount }u { $reagent }
+orbitra-xeno-product = { $count } × { $name }
+orbitra-xeno-reagent-product = Sample: { $amount }u { $name }
+orbitra-xeno-processor-title = Slime processor
+orbitra-xeno-processor-no-power = No power. The input can still be ejected.
+orbitra-xeno-processor-ready = Ready for extraction
+orbitra-xeno-processor-processing = Extracting cores
+orbitra-xeno-processor-invalid = Requires an unprocessed adult corpse
+orbitra-xeno-processor-idle = Waiting for a specimen
+orbitra-xeno-input-empty = Input chamber empty
+orbitra-xeno-input-unknown = Unidentified specimen
+orbitra-xeno-processor-instructions =
+    1. Capture a dead adult slime with a carrier.
+    2. Use the loaded carrier on this processor.
+    3. Press "Get extracts".
+orbitra-xeno-processor-consume-hint = Processing takes { $seconds } s and consumes the corpse. You can return the specimen before it finishes.
+orbitra-xeno-processor-cancel-hint = "Cancel and return" stops processing and returns the specimen without consuming the corpse.
+orbitra-xeno-processor-power-hint = Processing requires power. You can return the specimen now.
+orbitra-xeno-processor-invalid-hint = Return the specimen and use a carrier to load an unprocessed adult corpse.
+orbitra-xeno-cancel-eject = Cancel and return
+orbitra-xeno-expected-yield = Expected output: { $count ->
+    [one] { $count } extract
+   *[other] { $count } extracts
+    }
+orbitra-xeno-time-remaining = Remaining: { $seconds } s
+orbitra-xeno-processor-finishing = Finishing extraction...

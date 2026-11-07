@@ -1,0 +1,311 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraGrey
+  suffix: Orbitra
+  name: orbitra-xeno-breed-grey
+  description: orbitra-xeno-breed-grey-description
+  color: "#9b9b9b"
+  tier: 0
+  mob: OrbitraXenoSlimeGrey
+  extract: OrbitraXenoExtractGrey
+  growthDuration: 180
+  mutations:
+    OrbitraBlue: 1
+    OrbitraMetal: 1
+    OrbitraOrange: 1
+    OrbitraPurple: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraBlue
+  suffix: Orbitra
+  name: orbitra-xeno-breed-blue
+  description: orbitra-xeno-breed-blue-description
+  color: "#6a9ef0"
+  tier: 1
+  mob: OrbitraXenoSlimeBlue
+  extract: OrbitraXenoExtractBlue
+  growthDuration: 200
+  mutations:
+    OrbitraDarkBlue: 1
+    OrbitraPink: 2
+    OrbitraSilver: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraMetal
+  suffix: Orbitra
+  name: orbitra-xeno-breed-metal
+  description: orbitra-xeno-breed-metal-description
+  color: "#939ca6"
+  tier: 1
+  mob: OrbitraXenoSlimeMetal
+  extract: OrbitraXenoExtractMetal
+  growthDuration: 200
+  mutations:
+    OrbitraGold: 2
+    OrbitraSilver: 1
+    OrbitraYellow: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraOrange
+  suffix: Orbitra
+  name: orbitra-xeno-breed-orange
+  description: orbitra-xeno-breed-orange-description
+  color: "#f39b45"
+  tier: 1
+  mob: OrbitraXenoSlimeOrange
+  extract: OrbitraXenoExtractOrange
+  growthDuration: 200
+  mutations:
+    OrbitraDarkPurple: 1
+    OrbitraRed: 2
+    OrbitraYellow: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraPurple
+  suffix: Orbitra
+  name: orbitra-xeno-breed-purple
+  description: orbitra-xeno-breed-purple-description
+  color: "#a66bd5"
+  tier: 1
+  mob: OrbitraXenoSlimePurple
+  extract: OrbitraXenoExtractPurple
+  growthDuration: 200
+  mutations:
+    OrbitraDarkBlue: 1
+    OrbitraDarkPurple: 1
+    OrbitraGreen: 2
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraDarkBlue
+  suffix: Orbitra
+  name: orbitra-xeno-breed-dark-blue
+  description: orbitra-xeno-breed-dark-blue-description
+  color: "#385ab5"
+  tier: 2
+  mob: OrbitraXenoSlimeDarkBlue
+  extract: OrbitraXenoExtractDarkBlue
+  growthDuration: 220
+  mutations:
+    OrbitraBlue: 1
+    OrbitraPurple: 1
+    OrbitraCerulean: 2
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraDarkPurple
+  suffix: Orbitra
+  name: orbitra-xeno-breed-dark-purple
+  description: orbitra-xeno-breed-dark-purple-description
+  color: "#6d368b"
+  tier: 2
+  mob: OrbitraXenoSlimeDarkPurple
+  extract: OrbitraXenoExtractDarkPurple
+  growthDuration: 220
+  mutations:
+    OrbitraOrange: 1
+    OrbitraPurple: 1
+    OrbitraSepia: 2
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraSilver
+  suffix: Orbitra
+  name: orbitra-xeno-breed-silver
+  description: orbitra-xeno-breed-silver-description
+  color: "#c9d4db"
+  tier: 2
+  mob: OrbitraXenoSlimeSilver
+  extract: OrbitraXenoExtractSilver
+  growthDuration: 220
+  mutations:
+    OrbitraBlue: 1
+    OrbitraMetal: 1
+    OrbitraPyrite: 2
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraYellow
+  suffix: Orbitra
+  name: orbitra-xeno-breed-yellow
+  description: orbitra-xeno-breed-yellow-description
+  color: "#f1dc52"
+  tier: 2
+  mob: OrbitraXenoSlimeYellow
+  extract: OrbitraXenoExtractYellow
+  growthDuration: 220
+  mutations:
+    OrbitraMetal: 1
+    OrbitraOrange: 1
+    OrbitraBluespace: 2
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraRed
+  suffix: Orbitra
+  name: orbitra-xeno-breed-red
+  description: orbitra-xeno-breed-red-description
+  color: "#e35353"
+  tier: 2
+  mob: OrbitraXenoSlimeRed
+  extract: OrbitraXenoExtractRed
+  growthDuration: 220
+  mutations:
+    OrbitraRed: 1
+    OrbitraOil: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraGreen
+  suffix: Orbitra
+  name: orbitra-xeno-breed-green
+  description: orbitra-xeno-breed-green-description
+  color: "#78c765"
+  tier: 2
+  mob: OrbitraXenoSlimeGreen
+  extract: OrbitraXenoExtractGreen
+  growthDuration: 220
+  mutations:
+    OrbitraGreen: 1
+    OrbitraBlack: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraPink
+  suffix: Orbitra
+  name: orbitra-xeno-breed-pink
+  description: orbitra-xeno-breed-pink-description
+  color: "#ef9ac5"
+  tier: 2
+  mob: OrbitraXenoSlimePink
+  extract: OrbitraXenoExtractPink
+  growthDuration: 220
+  mutations:
+    OrbitraPink: 1
+    OrbitraLightPink: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraGold
+  suffix: Orbitra
+  name: orbitra-xeno-breed-gold
+  description: orbitra-xeno-breed-gold-description
+  color: "#d6b145"
+  tier: 2
+  mob: OrbitraXenoSlimeGold
+  extract: OrbitraXenoExtractGold
+  growthDuration: 220
+  mutations:
+    OrbitraGold: 1
+    OrbitraAdamantine: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraCerulean
+  suffix: Orbitra
+  name: orbitra-xeno-breed-cerulean
+  description: orbitra-xeno-breed-cerulean-description
+  color: "#64ccd5"
+  tier: 3
+  mob: OrbitraXenoSlimeCerulean
+  extract: OrbitraXenoExtractCerulean
+  growthDuration: 240
+  mutations:
+    OrbitraCerulean: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraPyrite
+  suffix: Orbitra
+  name: orbitra-xeno-breed-pyrite
+  description: orbitra-xeno-breed-pyrite-description
+  color: "#e0cb76"
+  tier: 3
+  mob: OrbitraXenoSlimePyrite
+  extract: OrbitraXenoExtractPyrite
+  growthDuration: 240
+  mutations:
+    OrbitraPyrite: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraBluespace
+  suffix: Orbitra
+  name: orbitra-xeno-breed-bluespace
+  description: orbitra-xeno-breed-bluespace-description
+  color: "#4a7ffc"
+  tier: 3
+  mob: OrbitraXenoSlimeBluespace
+  extract: OrbitraXenoExtractBluespace
+  growthDuration: 240
+  mutations:
+    OrbitraBluespace: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraSepia
+  suffix: Orbitra
+  name: orbitra-xeno-breed-sepia
+  description: orbitra-xeno-breed-sepia-description
+  color: "#9e795c"
+  tier: 3
+  mob: OrbitraXenoSlimeSepia
+  extract: OrbitraXenoExtractSepia
+  growthDuration: 240
+  mutations:
+    OrbitraSepia: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraOil
+  suffix: Orbitra
+  name: orbitra-xeno-breed-oil
+  description: orbitra-xeno-breed-oil-description
+  color: "#443d4e"
+  tier: 3
+  mob: OrbitraXenoSlimeOil
+  extract: OrbitraXenoExtractOil
+  growthDuration: 240
+  mutations:
+    OrbitraOil: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraBlack
+  suffix: Orbitra
+  name: orbitra-xeno-breed-black
+  description: orbitra-xeno-breed-black-description
+  color: "#55515c"
+  tier: 3
+  mob: OrbitraXenoSlimeBlack
+  extract: OrbitraXenoExtractBlack
+  growthDuration: 240
+  mutations:
+    OrbitraBlack: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraLightPink
+  suffix: Orbitra
+  name: orbitra-xeno-breed-light-pink
+  description: orbitra-xeno-breed-light-pink-description
+  color: "#f3bed7"
+  tier: 3
+  mob: OrbitraXenoSlimeLightPink
+  extract: OrbitraXenoExtractLightPink
+  growthDuration: 240
+  mutations:
+    OrbitraLightPink: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraAdamantine
+  suffix: Orbitra
+  name: orbitra-xeno-breed-adamantine
+  description: orbitra-xeno-breed-adamantine-description
+  color: "#729c8d"
+  tier: 3
+  mob: OrbitraXenoSlimeAdamantine
+  extract: OrbitraXenoExtractAdamantine
+  growthDuration: 240
+  mutations:
+    OrbitraAdamantine: 1
+
+- type: orbitraXenobiologyBreed
+  id: OrbitraRainbow
+  suffix: Orbitra
+  name: orbitra-xeno-breed-rainbow
+  description: orbitra-xeno-breed-rainbow-description
+  color: "#ede2ff"
+  tier: 4
+  mob: OrbitraXenoSlimeRainbow
+  extract: OrbitraXenoExtractRainbow
+  growthDuration: 260
+  mutations:
+    OrbitraRainbow: 1

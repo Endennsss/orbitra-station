@@ -1,0 +1,55 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: material
+  id: OrbitraBluespaceCrystal
+  stackEntity: OrbitraBluespaceCrystal1
+  name: materials-orbitra-bluespace-crystal
+  unit: materials-unit-orbitra-crystal
+  icon: { sprite: _Orbitra/Objects/Materials/bluespace_crystal.rsi, state: bluespace_crystal }
+  color: "#416be0"
+  price: 5
+  orbitraLatheUnit: 100
+
+- type: stack
+  parent: BaseMediumStack
+  id: OrbitraBluespaceCrystal
+  name: stack-orbitra-bluespace-crystal
+  icon: { sprite: _Orbitra/Objects/Materials/bluespace_crystal.rsi, state: bluespace_crystal }
+  spawn: OrbitraBluespaceCrystal1
+
+- type: entity
+  parent: OreBase
+  id: OrbitraBluespaceCrystal1
+  name: bluespace crystal
+  description: A fragile blue crystal with a faint shimmer deep inside.
+  suffix: Orbitra
+  components:
+  - type: Tag
+    tags:
+    - Ore
+    - RawMaterial
+  - type: Stack
+    stackType: OrbitraBluespaceCrystal
+    count: 1
+    baseLayer: base
+    layerStates:
+    - bluespace_crystal
+    - bluespace_crystal_2
+    - bluespace_crystal_3
+  - type: PhysicalComposition
+    materialComposition:
+      OrbitraBluespaceCrystal: 100
+  - type: Sprite
+    sprite: _Orbitra/Objects/Materials/bluespace_crystal.rsi
+    layers:
+    - state: bluespace_crystal
+      map: ["base"]
+  - type: Item
+    heldPrefix: diamond
+
+- type: ore
+  id: OrbitraOreBluespaceCrystal
+  oreEntity: OrbitraBluespaceCrystal1
+  minOreYield: 1
+  maxOreYield: 1

@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+# Orbitra-Edit: микрореакторная батарея требует обработанный уран вместо обычного.
+- type: !PartialOnly latheRecipe
+  id: PowerCellMicroreactor
+  materials:
+    Uranium: !Remove
+    OrbitraProcessedUranium: 200

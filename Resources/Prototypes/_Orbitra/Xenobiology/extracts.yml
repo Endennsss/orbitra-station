@@ -1,0 +1,281 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: entity
+  parent: BaseItem
+  id: OrbitraXenoExtractBase
+  name: slime extract
+  description: A single-use slime core. Consult the xenobiology console for the catalyst, dose and hazards before use.
+  suffix: Orbitra
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Xenobiology/Objects/extract.rsi
+    state: core
+  - type: Item
+    size: Tiny
+    sprite: _Orbitra/Xenobiology/Objects/extract.rsi
+  - type: SolutionManager
+    solutions: [OrbitraXenoExtractSolution]
+  - type: InjectableSolution
+    solution: extract
+  - type: RefillableSolution
+    solution: extract
+  - type: ExaminableSolution
+    solution: extract
+    exactVolume: true
+  - type: StaticPrice
+    price: 0
+
+- type: entity
+  parent: Solution
+  id: OrbitraXenoExtractSolution
+  suffix: Orbitra
+  categories: [HideSpawnMenu]
+  components:
+  - type: Solution
+    id: extract
+    solution:
+      maxVol: 15
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractGrey
+  name: grey extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#9b9b9b'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraGrey
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractBlue
+  name: blue extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#6a9ef0'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraBlue
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractMetal
+  name: metal extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#939ca6'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraMetal
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractOrange
+  name: orange extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#f39b45'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraOrange
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractPurple
+  name: purple extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#a66bd5'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraPurple
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractDarkBlue
+  name: dark blue extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#385ab5'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraDarkBlue
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractDarkPurple
+  name: dark purple extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#6d368b'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraDarkPurple
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractSilver
+  name: silver extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#c9d4db'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraSilver
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractYellow
+  name: yellow extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#f1dc52'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraYellow
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractRed
+  name: red extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#e35353'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraRed
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractGreen
+  name: green extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#78c765'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraGreen
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractPink
+  name: pink extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#ef9ac5'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraPink
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractGold
+  name: gold extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#d6b145'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraGold
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractCerulean
+  name: cerulean extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#64ccd5'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraCerulean
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractPyrite
+  name: pyrite extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#e0cb76'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraPyrite
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractBluespace
+  name: bluespace extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#4a7ffc'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraBluespace
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractSepia
+  name: sepia extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#9e795c'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraSepia
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractOil
+  name: oil extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#443d4e'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraOil
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractBlack
+  name: black extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#55515c'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraBlack
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractLightPink
+  name: light pink extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#f3bed7'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraLightPink
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractAdamantine
+  name: adamantine extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#729c8d'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraAdamantine
+
+- type: entity
+  parent: OrbitraXenoExtractBase
+  id: OrbitraXenoExtractRainbow
+  name: rainbow extract
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#ede2ff'
+  - type: OrbitraXenobiologyExtract
+    breed: OrbitraRainbow

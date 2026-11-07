@@ -1,5 +1,6 @@
 using Content.Shared.Research.Components;
-using Content.Shared.Research.Prototypes;
+// Orbitra-Edit - прототипы обрабатывает окно дерева.
+using Content.Client._Orbitra.Research.UI; // Orbitra-Edit - окно дерева исследований.
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;
 using Robust.Shared.Prototypes;
@@ -10,7 +11,7 @@ namespace Content.Client.Research.UI;
 public sealed class ResearchConsoleBoundUserInterface : BoundUserInterface
 {
     [ViewVariables]
-    private ResearchConsoleMenu? _consoleMenu;
+    private OrbitraResearchConsoleMenu? _consoleMenu; // Orbitra-Edit - окно дерева исследований.
 
     public ResearchConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
     {
@@ -22,7 +23,7 @@ public sealed class ResearchConsoleBoundUserInterface : BoundUserInterface
 
         var owner = Owner;
 
-        _consoleMenu = this.CreateWindow<ResearchConsoleMenu>();
+        _consoleMenu = this.CreateWindow<OrbitraResearchConsoleMenu>(); // Orbitra-Edit - окно дерева исследований.
         _consoleMenu.SetEntity(owner);
 
         _consoleMenu.OnTechnologyCardPressed += id =>
@@ -40,14 +41,9 @@ public sealed class ResearchConsoleBoundUserInterface : BoundUserInterface
     {
         base.OnProtoReload(args);
 
-        if (!args.WasModified<TechnologyPrototype>())
-            return;
-
-        if (State is not ResearchConsoleBoundInterfaceState rState)
-            return;
-
-        _consoleMenu?.UpdatePanels(rState);
-        _consoleMenu?.UpdateInformationPanel(rState);
+        // Orbitra edit start - окно само обновляет кеш затронутых технологий и рецептов.
+        _consoleMenu?.OnProtoReload(args);
+        // Orbitra edit end
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)

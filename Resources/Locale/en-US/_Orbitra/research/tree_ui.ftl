@@ -1,0 +1,43 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+orbitra-research-tree-title = Research tree
+orbitra-research-tree-search = Find a technology or unlocked recipe…
+orbitra-research-tree-points = Research points: { $points }
+orbitra-research-tree-free-choice = Research any available technology
+orbitra-research-tree-directions = Disciplines
+orbitra-research-tree-all = All disciplines
+orbitra-research-tree-center = Find selection
+orbitra-research-tree-reset = Reset
+orbitra-research-tree-zoom = { $percent }%
+orbitra-research-tree-zoom-in = Zoom in
+orbitra-research-tree-zoom-out = Zoom out
+orbitra-research-tree-visible = Showing { $count } / { $total }
+orbitra-research-tree-navigation = Drag: pan · Wheel: zoom · Click: details · Arrows: all connected prerequisites are required
+orbitra-research-tree-legend-researched = ● Researched
+orbitra-research-tree-legend-available = ● Available
+orbitra-research-tree-legend-locked = ● Locked
+orbitra-research-tree-state-researched = Researched
+orbitra-research-tree-state-available = Available for research
+orbitra-research-tree-state-locked = Requirements unmet
+orbitra-research-tree-research = Research
+orbitra-research-tree-select-hint = Select a tree node to see its purpose, requirements and unlocked recipes.
+orbitra-research-tree-no-database = Technology data is unavailable. Check the connection to the research server.
+orbitra-research-tree-description-fallback = Advances this research discipline and unlocks the capabilities listed below.
+orbitra-research-tree-unnamed-recipe = Production recipe
+orbitra-research-tree-discipline-tier = { $discipline } · Tier { $tier }
+orbitra-research-tree-node-meta = Tier { $tier } · { $cost } RP
+orbitra-research-tree-cost = Cost: { $cost } research points
+orbitra-research-tree-requirements = Requirements: complete all
+orbitra-research-tree-no-prerequisites = No prerequisite technologies.
+orbitra-research-tree-prerequisite-done = ✓ { $name }
+orbitra-research-tree-prerequisite-missing = ✕ { $name }
+orbitra-research-tree-show-prerequisite = Show in tree
+orbitra-research-tree-tier-progress = Tier { $tier }: { $unlocked } / { $total }
+orbitra-research-tree-unlocks = Unlocked recipes: { $count }
+orbitra-research-tree-no-unlocks = No production recipes are listed for this technology.
+orbitra-research-tree-already-researched = This server has already researched this technology.
+orbitra-research-tree-locked-reason = Complete all requirements listed above first.
+orbitra-research-tree-points-missing = Missing research points: { $points }.
+orbitra-research-tree-ready = This technology is available and ready to research.
+orbitra-research-tree-director-access-required = Research Director access is required to research technologies.

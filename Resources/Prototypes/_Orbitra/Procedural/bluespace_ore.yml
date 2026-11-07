@@ -1,0 +1,32 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: oreDunGen
+  id: OrbitraOreBluespaceCrystal
+  replacement: AsteroidRock
+  entity: OrbitraAsteroidRockBluespaceCrystal
+  count: 1
+  minGroupSize: 1
+  maxGroupSize: 1
+
+- type: biomeMarkerLayer
+  id: OrbitraOreBluespaceCrystal
+  entityMask:
+    AsteroidRock: OrbitraAsteroidRockBluespaceCrystal
+    IronRock: OrbitraIronRockBluespaceCrystal
+    WallRock: OrbitraWallRockBluespaceCrystal
+    WallRockChromite: OrbitraWallRockChromiteBluespaceCrystal
+    WallRockSand: OrbitraWallRockSandBluespaceCrystal
+    WallRockSnow: OrbitraWallRockSnowBluespaceCrystal
+  size: 128
+  maxCount: 1
+  minGroupSize: 1
+  maxGroupSize: 1
+  radius: 4
+
+- type: salvageLoot
+  id: OrbitraOreBluespaceCrystal
+  guaranteed: true
+  loots:
+  - !type:BiomeMarkerLoot
+    proto: OrbitraOreBluespaceCrystal

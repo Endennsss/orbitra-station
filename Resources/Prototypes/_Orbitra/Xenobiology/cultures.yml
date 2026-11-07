@@ -1,0 +1,281 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: entity
+  parent: BaseItem
+  id: OrbitraXenoCultureBase
+  name: slime culture
+  description: A dormant laboratory culture. Add five units of water and place it on the floor to hatch a juvenile slime.
+  suffix: Orbitra
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Xenobiology/Objects/extract_jellies.rsi
+    state: jelly
+  - type: Item
+    size: Small
+    sprite: _Orbitra/Xenobiology/Objects/extract_jellies.rsi
+  - type: SolutionManager
+    solutions: [OrbitraXenoCultureSolution]
+  - type: InjectableSolution
+    solution: culture
+  - type: RefillableSolution
+    solution: culture
+  - type: ExaminableSolution
+    solution: culture
+    exactVolume: true
+  - type: StaticPrice
+    price: 0
+
+- type: entity
+  parent: Solution
+  id: OrbitraXenoCultureSolution
+  suffix: Orbitra
+  categories: [HideSpawnMenu]
+  components:
+  - type: Solution
+    id: culture
+    solution:
+      maxVol: 10
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureGrey
+  name: grey culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#9b9b9b'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraGrey
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureBlue
+  name: blue culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#6a9ef0'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraBlue
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureMetal
+  name: metal culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#939ca6'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraMetal
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureOrange
+  name: orange culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#f39b45'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraOrange
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCulturePurple
+  name: purple culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#a66bd5'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraPurple
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureDarkBlue
+  name: dark blue culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#385ab5'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraDarkBlue
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureDarkPurple
+  name: dark purple culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#6d368b'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraDarkPurple
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureSilver
+  name: silver culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#c9d4db'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraSilver
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureYellow
+  name: yellow culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#f1dc52'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraYellow
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureRed
+  name: red culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#e35353'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraRed
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureGreen
+  name: green culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#78c765'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraGreen
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCulturePink
+  name: pink culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#ef9ac5'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraPink
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureGold
+  name: gold culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#d6b145'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraGold
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureCerulean
+  name: cerulean culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#64ccd5'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraCerulean
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCulturePyrite
+  name: pyrite culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#e0cb76'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraPyrite
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureBluespace
+  name: bluespace culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#4a7ffc'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraBluespace
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureSepia
+  name: sepia culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#9e795c'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraSepia
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureOil
+  name: oil culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#443d4e'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraOil
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureBlack
+  name: black culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#55515c'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraBlack
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureLightPink
+  name: light pink culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#f3bed7'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraLightPink
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureAdamantine
+  name: adamantine culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#729c8d'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraAdamantine
+
+- type: entity
+  parent: OrbitraXenoCultureBase
+  id: OrbitraXenoCultureRainbow
+  name: rainbow culture
+  suffix: Orbitra
+  components:
+  - type: Sprite
+    color: '#ede2ff'
+  - type: OrbitraXenobiologyCulture
+    breed: OrbitraRainbow

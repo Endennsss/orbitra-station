@@ -17,6 +17,10 @@ public sealed partial class DiskConsoleMenu : FancyWindow
 
         ServerButton.OnPressed += _ => OnServerButtonPressed?.Invoke();
         PrintButton.OnPressed += _ => OnPrintButtonPressed?.Invoke();
+        // Orbitra added start - единое оформление научных окон.
+        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this);
+        Content.Client._Orbitra.UserInterface.OrbitraEditorStyles.Apply(this);
+        // Orbitra added end
     }
 
     public void Update(DiskConsoleBoundUserInterfaceState state)

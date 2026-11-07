@@ -1,5 +1,7 @@
-﻿<controls:FancyWindow xmlns="https://spacestation14.io"
+<controls:FancyWindow xmlns="https://spacestation14.io"
                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                     xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Stylesheets"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:graphics="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
                      Title="{Loc 'tech-disk-ui-name'}"
                      MinSize="400 260"
@@ -13,7 +15,7 @@
                 HorizontalAlignment="Left"></Button>
         <PanelContainer Margin="0 10 0 0" VerticalExpand="True">
             <PanelContainer.PanelOverride>
-                <graphics:StyleBoxFlat BackgroundColor="#000000FF"/>
+                <graphics:StyleBoxFlat BackgroundColor="{x:Static orbitra:OrbitraPalettes.PanelInset}"/> <!-- Orbitra-Edit - общая подложка. -->
             </PanelContainer.PanelOverride>
             <BoxContainer Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True" VerticalAlignment="Center">
                 <Label Name="TotalLabel"

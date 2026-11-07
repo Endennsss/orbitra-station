@@ -1,0 +1,100 @@
+<!-- SPDX-License-Identifier: MIT -->
+<!-- Copyright (c) 2026 Ende (Orbitra) -->
+
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      xmlns:orbitra="clr-namespace:Content.Client._Orbitra.UserInterface"
+                      Title="{Loc 'orbitra-xeno-title'}" MinSize="640 400" SetSize="1000 650">
+    <BoxContainer Orientation="Vertical" SeparationOverride="8" HorizontalExpand="True" VerticalExpand="True">
+        <PanelContainer Name="HeaderPanel" StyleClasses="OrbitraWindowHeader">
+            <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="6">
+                <BoxContainer SeparationOverride="6">
+                    <orbitra:OrbitraButton Name="SpecimensButton" Text="{Loc 'orbitra-xeno-specimens'}" ToggleMode="True" Pressed="True" HorizontalExpand="True"/>
+                    <orbitra:OrbitraButton Name="CatalogButton" Text="{Loc 'orbitra-xeno-catalog'}" ToggleMode="True" HorizontalExpand="True"/>
+                </BoxContainer>
+                <Label Name="Status" Access="Public" ClipText="True"/>
+            </BoxContainer>
+        </PanelContainer>
+        <BoxContainer Name="ColonyContent" Access="Public" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="8">
+            <PanelContainer Name="ListPanel" StyleClasses="OrbitraWindowSurface" SetWidth="290" VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="6" HorizontalExpand="True" VerticalExpand="True">
+                    <LineEdit Name="SpecimenSearch" Access="Public" PlaceHolder="{Loc 'orbitra-xeno-specimen-search'}"/>
+                    <orbitra:OrbitraOptionButton Name="SpecimenFilter" Access="Public"/>
+                    <RichTextLabel Name="ColonyEmpty" Access="Public" Text="{Loc 'orbitra-xeno-no-specimens'}" HorizontalExpand="True"/>
+                    <ScrollContainer HScrollEnabled="False" HorizontalExpand="True" VerticalExpand="True" ReserveScrollbarSpace="True">
+                        <BoxContainer Name="SpecimenList" Access="Public" Orientation="Vertical" SeparationOverride="5" HorizontalExpand="True"/>
+                    </ScrollContainer>
+                </BoxContainer>
+            </PanelContainer>
+            <PanelContainer Name="SpecimenPanel" StyleClasses="OrbitraWindowSurface" HorizontalExpand="True" VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="8" HorizontalExpand="True" VerticalExpand="True">
+                    <orbitra:OrbitraButton Name="SpecimenBack" Text="{Loc 'orbitra-xeno-back-to-list'}" Visible="False"/>
+                    <RichTextLabel Name="SelectHint" Text="{Loc 'orbitra-xeno-select-specimen'}" HorizontalExpand="True"/>
+                    <ScrollContainer Name="SpecimenDetailsScroll" HScrollEnabled="False" HorizontalExpand="True" VerticalExpand="True" ReserveScrollbarSpace="True">
+                        <BoxContainer Name="SpecimenDetails" Access="Public" Orientation="Vertical" SeparationOverride="10" HorizontalExpand="True">
+                            <BoxContainer SeparationOverride="10">
+                                <EntityPrototypeView Name="Portrait" SetSize="72 72"/>
+                                <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="3">
+                                    <Label Name="SelectedName" Access="Public" StyleClasses="LabelHeading" ClipText="True"/>
+                                    <Label Name="SelectedBreedLabel" ClipText="True"/>
+                                    <Label Name="SelectedStatus" ClipText="True"/>
+                                    <orbitra:OrbitraButton Name="OpenSelectedBreed" Text="{Loc 'orbitra-xeno-open-breed'}"/>
+                                </BoxContainer>
+                            </BoxContainer>
+                            <BoxContainer Name="Vitals" Orientation="Vertical" SeparationOverride="7" HorizontalExpand="True"/>
+                            <PanelContainer Name="TemperaturePanel" StyleClasses="OrbitraWindowSurface">
+                                <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="4">
+                                    <Label Name="Temperature" StyleClasses="LabelHeading" ClipText="True"/>
+                                    <Label Name="TemperatureRange" ClipText="True"/>
+                                </BoxContainer>
+                            </PanelContainer>
+                            <Label Text="{Loc 'orbitra-xeno-genetics'}" StyleClasses="LabelHeading"/>
+                            <BoxContainer Name="Genetics" Orientation="Vertical" SeparationOverride="6" HorizontalExpand="True"/>
+                        </BoxContainer>
+                    </ScrollContainer>
+                </BoxContainer>
+            </PanelContainer>
+        </BoxContainer>
+        <BoxContainer Name="CatalogContent" HorizontalExpand="True" VerticalExpand="True" Visible="False" SeparationOverride="8">
+            <PanelContainer Name="CatalogListPanel" StyleClasses="OrbitraWindowSurface" SetWidth="290" VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="6" HorizontalExpand="True" VerticalExpand="True">
+                    <LineEdit Name="CatalogSearch" Access="Public" PlaceHolder="{Loc 'orbitra-xeno-search'}"/>
+                    <orbitra:OrbitraOptionButton Name="CatalogTierFilter" Access="Public"/>
+                    <RichTextLabel Name="CatalogEmpty" Access="Public" Text="{Loc 'orbitra-xeno-no-breeds'}" Visible="False" HorizontalExpand="True"/>
+                    <ScrollContainer HScrollEnabled="False" VerticalExpand="True" HorizontalExpand="True" ReserveScrollbarSpace="True">
+                        <BoxContainer Name="BreedList" Access="Public" Orientation="Vertical" SeparationOverride="4" HorizontalExpand="True"/>
+                    </ScrollContainer>
+                </BoxContainer>
+            </PanelContainer>
+            <PanelContainer Name="CatalogDetailsPanel" StyleClasses="OrbitraWindowSurface" HorizontalExpand="True" VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="6" HorizontalExpand="True" VerticalExpand="True">
+                    <BoxContainer SeparationOverride="10">
+                        <orbitra:OrbitraButton Name="CatalogBack" Text="{Loc 'orbitra-xeno-back-to-list'}" Visible="False" VerticalAlignment="Center"/>
+                        <TextureRect Name="CatalogPortrait" SetSize="48 48" Stretch="KeepAspectCentered"/>
+                        <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="3">
+                            <Label Name="CatalogName" StyleClasses="LabelHeading" ClipText="True"/>
+                            <Label Name="CatalogTier" StyleClasses="LabelSubText" ClipText="True"/>
+                        </BoxContainer>
+                    </BoxContainer>
+                    <BoxContainer SeparationOverride="6">
+                        <orbitra:OrbitraButton Name="CatalogCareButton" Text="{Loc 'orbitra-xeno-catalog-care'}" ToggleMode="True" Pressed="True" HorizontalExpand="True"/>
+                        <orbitra:OrbitraButton Name="CatalogRecipesButton" Text="{Loc 'orbitra-xeno-catalog-recipes'}" ToggleMode="True" HorizontalExpand="True"/>
+                    </BoxContainer>
+                    <ScrollContainer Name="CatalogDetailsScroll" HScrollEnabled="False" HorizontalExpand="True" VerticalExpand="True" ReserveScrollbarSpace="True">
+                        <BoxContainer Name="BreedDetails" Access="Public" Orientation="Vertical" HorizontalExpand="True" SeparationOverride="10"/>
+                    </ScrollContainer>
+                    <ScrollContainer Name="CatalogRecipesScroll" HScrollEnabled="False" HorizontalExpand="True" VerticalExpand="True" ReserveScrollbarSpace="True" Visible="False">
+                        <BoxContainer Name="BreedRecipes" Access="Public" Orientation="Vertical" HorizontalExpand="True" SeparationOverride="10"/>
+                    </ScrollContainer>
+                </BoxContainer>
+            </PanelContainer>
+        </BoxContainer>
+        <ScrollContainer Name="HelpPanel" Visible="False" VerticalExpand="True" HorizontalExpand="True" HScrollEnabled="False" ReserveScrollbarSpace="True">
+            <RichTextLabel Text="{Loc 'orbitra-xeno-guide'}" HorizontalExpand="True"/>
+        </ScrollContainer>
+        <BoxContainer SeparationOverride="8">
+            <Label Name="Summary" HorizontalExpand="True" ClipText="True"/>
+            <orbitra:OrbitraButton Name="GuideButton" Text="{Loc 'orbitra-xeno-help'}" ToggleMode="True"/>
+        </BoxContainer>
+    </BoxContainer>
+</controls:FancyWindow>

@@ -1,0 +1,42 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+ent-OrbitraClothingOuterHardsuitExpedition = экспедиционный скафандр
+    .desc = Жёлтый экспедиционный скафандр с усиленными сочленениями и плотной защитной подкладкой.
+    .suffix = Orbitra
+ent-OrbitraClothingHeadHelmetHardsuitExpedition = экспедиционный шлем
+    .desc = Усиленный жёлтый шлем с широким визором и экспедиционным фонарём.
+    .suffix = Orbitra
+ent-OrbitraClothingOuterHardsuitEngineeringAdvanced = промышленный скафандр
+    .desc = Промышленный скафандр Икар с изолированными пластинами и массивным защитным воротником.
+    .suffix = Orbitra
+ent-OrbitraClothingHeadHelmetHardsuitEngineeringAdvanced = промышленный шлем
+    .desc = Шлем Икар с защищённым визором и изолированным шейным уплотнением.
+    .suffix = Orbitra
+ent-OrbitraClothingOuterHardsuitMedicalRescue = спасательный скафандр
+    .desc = Бело-синий спасательный скафандр Валькирия с герметичными манжетами и моющейся наружной оболочкой.
+    .suffix = Orbitra
+ent-OrbitraClothingHeadHelmetHardsuitMedicalRescue = спасательный шлем
+    .desc = Белый шлем Валькирия с синим визором и встроенным медицинским дисплеем.
+    .suffix = Orbitra
+ent-OrbitraClothingOuterHardsuitSecurityAdvanced = бронескафандр СБ
+    .desc = Серый скафандр службы безопасности с красными отметками и перекрывающимися противоударными пластинами.
+    .suffix = Orbitra
+ent-OrbitraClothingHeadHelmetHardsuitSecurityAdvanced = бронешлем СБ
+    .desc = Тяжёлый шлем службы безопасности с утопленным визором и красными отметками.
+    .suffix = Orbitra
+ent-OrbitraClothingHeadHardsuitResearchBase = исследовательский гермошлем
+    .desc = { ent-ClothingHeadHardsuitBase.desc }
+    .suffix = Orbitra
+ent-OrbitraClothingOuterHardsuitResearch = лабораторный скафандр
+    .desc = Белый лабораторный скафандр с фиолетовыми пластинами и герметичным защитным воротником.
+    .suffix = Orbitra
+ent-OrbitraClothingHeadHelmetHardsuitResearch = лабораторный шлем
+    .desc = Белый лабораторный шлем с фиолетовой отделкой и защищённым визором.
+    .suffix = Orbitra
+ent-OrbitraClothingOuterHardsuitCivilian = гражданский скафандр
+    .desc = Лёгкий серый гражданский скафандр с гибкими сочленениями и герметичными манжетами для технических работ в вакууме.
+    .suffix = Orbitra
+ent-OrbitraClothingHeadHelmetHardsuitCivilian = гражданский шлем
+    .desc = Серый гражданский шлем с синим визором и герметичным шейным кольцом.
+    .suffix = Orbitra

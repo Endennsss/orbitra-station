@@ -1,0 +1,44 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: !PartialOnly technology
+  id: SalvageEquipment
+  recipeUnlocks:
+  - OrbitraHardsuitSpatio
+  - OrbitraHardsuitSalvage
+  - OrbitraHardsuitSpaceHazard
+
+- type: !PartialOnly technology
+  id: MassExcavation
+  recipeUnlocks:
+  - OrbitraHardsuitMining
+
+- type: !PartialOnly technology
+  id: IndustrialEngineering
+  recipeUnlocks:
+  - OrbitraHardsuitEngineering
+
+- type: !PartialOnly technology
+  id: AdvancedAtmospherics
+  recipeUnlocks:
+  - OrbitraHardsuitAtmos
+
+- type: !PartialOnly technology
+  id: AdvancedToolsTechnology
+  recipeUnlocks:
+  - OrbitraHardsuitEngineeringCompact
+
+- type: !PartialOnly technology
+  id: BiochemicalStasis
+  recipeUnlocks:
+  - OrbitraHardsuitParamedic
+
+- type: !PartialOnly technology
+  id: AdvancedRiotControl
+  recipeUnlocks:
+  - OrbitraHardsuitSecurity
+
+- type: !PartialOnly technology
+  id: SpecialMeans
+  recipeUnlocks:
+  - OrbitraHardsuitBrigmedic
