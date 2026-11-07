@@ -34,6 +34,7 @@ public sealed partial class GhostGui : UIWidget
     public void Hide()
     {
         TargetWindow.Close();
+        CloseOrbitraSkinWindow(); // Orbitra-Edit - выбор скина закрывается при выходе из наблюдения.
         Visible = false;
     }
 
@@ -62,6 +63,7 @@ public sealed partial class GhostGui : UIWidget
 
         if (disposing)
         {
+            DisposeOrbitraSkinWindow(); // Orbitra-Edit - окно принадлежит панели призрака.
             TargetWindow.Dispose();
         }
     }

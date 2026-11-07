@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: !PartialOnly entity
+  id: MobObserverBase
+  components:
+  - type: OrbitraGhostSkin

@@ -1,0 +1,23 @@
+<!-- SPDX-License-Identifier: MIT -->
+<!-- Copyright (c) 2026 Ende (Orbitra) -->
+
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
+                      Title="{Loc 'orbitra-ghost-skins-title'}" SetSize="460 430" MinSize="320 300">
+    <BoxContainer Orientation="Vertical" SeparationOverride="8" HorizontalExpand="True" VerticalExpand="True">
+        <Label Text="{Loc 'orbitra-ghost-skins-label'}"/>
+        <kit:OrbitraOptionButton Name="SkinPicker" HorizontalExpand="True"/>
+        <ScrollContainer HorizontalExpand="True" VerticalExpand="True" HScrollEnabled="False" ReserveScrollbarSpace="True">
+            <BoxContainer Orientation="Vertical" SeparationOverride="8" HorizontalExpand="True">
+                <PanelContainer StyleClasses="OrbitraWindowSurface">
+                    <TextureRect Name="Preview" SetSize="112 112" Stretch="KeepAspectCentered" HorizontalAlignment="Center"/>
+                </PanelContainer>
+                <RichTextLabel Name="Description" HorizontalExpand="True"/>
+                <RichTextLabel Text="{Loc 'orbitra-ghost-skins-hint'}" HorizontalExpand="True"/>
+                <RichTextLabel Name="CurrentSkin" HorizontalExpand="True"/>
+            </BoxContainer>
+        </ScrollContainer>
+        <kit:OrbitraButton Name="ApplyButton" Text="{Loc 'orbitra-ghost-skins-apply'}" StyleClasses="OrbitraButtonPrimary" HorizontalExpand="True"/>
+    </BoxContainer>
+</controls:FancyWindow>

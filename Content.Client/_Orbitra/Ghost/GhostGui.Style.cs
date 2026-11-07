@@ -16,6 +16,7 @@ public sealed partial class GhostGui
             button.Orphan();
             flow.AddChild(button);
         }
+        InitializeOrbitraSkinButton(flow);
         old.Orphan();
         old.Dispose();
         var panel = new PanelContainer();

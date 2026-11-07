@@ -2,6 +2,12 @@ Name: OrbitraUpdates
 AdminOnly: false
 Order: -1
 Entries:
+- id: 100
+  author: Ende
+  time: '2026-11-07T20:06:49Z'
+  changes:
+  - type: Add
+    message: В панели призрака появился выбор скинов с сохранением настройки. Первый новый облик — полупрозрачный синдикатский Mauler; способности и видимость призрака сохраняются.
 - id: 99
   author: Ende
   time: '2026-11-07T19:18:05Z'

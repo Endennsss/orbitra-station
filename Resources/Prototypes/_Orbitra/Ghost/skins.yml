@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: orbitraGhostSkin
+  id: OrbitraGhostSkinDefault
+  name: orbitra-ghost-skin-default
+  description: orbitra-ghost-skin-default-description
+  icon:
+    sprite: Mobs/Ghosts/ghost_human.rsi
+    state: animated
+  order: 0
+
+- type: orbitraGhostSkin
+  id: OrbitraGhostSkinMauler
+  name: orbitra-ghost-skin-mauler
+  description: orbitra-ghost-skin-mauler-description
+  sprite:
+    sprite: Objects/Specific/Mech/mecha.rsi
+    state: mauler
+  icon:
+    sprite: Objects/Specific/Mech/mecha.rsi
+    state: mauler
+  opacity: 0.45
+  order: 10
