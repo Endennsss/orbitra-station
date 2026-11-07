@@ -117,6 +117,8 @@ public partial class RadiationSystem
             // also send an event with combination of total rad
             if (rads > 0)
                 IrradiateEntity(receiver, rads, GridcastUpdateRate);
+
+            ApplyOrbitraCosmicRadiation(receiver, GridcastUpdateRate); // Orbitra-Edit - космический фон и штатные дозиметры.
         }
 
         // raise broadcast event that radiation system has updated

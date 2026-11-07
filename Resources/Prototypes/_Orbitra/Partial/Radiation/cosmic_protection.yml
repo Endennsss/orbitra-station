@@ -1,0 +1,44 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: !PartialOnly entity
+  id: ClothingOuterEVASuitBase
+  components:
+  - type: OrbitraCosmicRadiationProtection
+    transmission: 0.2
+
+- type: !PartialOnly entity
+  id: ClothingOuterHardsuitBase
+  components:
+  - type: OrbitraCosmicRadiationProtection
+    transmission: 0.12
+
+- type: !PartialOnly entity
+  id: ClothingOuterHardsuitEngineering
+  components:
+  - type: OrbitraCosmicRadiationProtection
+    transmission: 0.08
+
+- type: !PartialOnly entity
+  id: ClothingOuterHardsuitAtmos
+  components:
+  - type: OrbitraCosmicRadiationProtection
+    transmission: 0.08
+
+- type: !PartialOnly entity
+  id: ClothingOuterHardsuitEngineeringWhite
+  components:
+  - type: OrbitraCosmicRadiationProtection
+    transmission: 0.07
+
+- type: !PartialOnly entity
+  id: ClothingOuterHardsuitRd
+  components:
+  - type: OrbitraCosmicRadiationProtection
+    transmission: 0.07
+
+- type: !PartialOnly entity
+  id: ClothingOuterHardsuitSyndieElite
+  components:
+  - type: OrbitraCosmicRadiationProtection
+    transmission: 0.07

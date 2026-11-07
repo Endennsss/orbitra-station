@@ -17,8 +17,3 @@
   id: OrbitraBloomComposite
   kind: source
   path: /Textures/_Orbitra/Shaders/emissive_bloom.swsl
-
-- type: shader
-  id: OrbitraDarkStation
-  kind: source
-  path: /Textures/_Orbitra/Shaders/dark_station.swsl
