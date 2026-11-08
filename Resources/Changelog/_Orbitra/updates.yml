@@ -2,6 +2,12 @@ Name: OrbitraUpdates
 AdminOnly: false
 Order: -1
 Entries:
+- id: 102
+  author: Ende
+  time: '2026-11-08T18:13:15+00:00'
+  changes:
+  - type: Fix
+    message: Наружные решётки больше не защищают от космической радиации, в том числе на Dev-карте.
 - id: 101
   author: Ende
   time: '2026-11-07T22:28:09+00:00'

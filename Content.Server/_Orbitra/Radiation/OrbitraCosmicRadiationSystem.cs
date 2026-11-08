@@ -14,6 +14,7 @@ using Content.Shared.Inventory;
 using Content.Shared.Light.Components;
 using Content.Shared.Light.EntitySystems;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Maps;
 using Robust.Shared.Configuration;
 using Robust.Shared.Map.Components;
 
@@ -28,6 +29,7 @@ public sealed partial class OrbitraCosmicRadiationSystem : EntitySystem
     [Dependency] private SharedMapSystem _map = default!;
     [Dependency] private SharedRoofSystem _roof = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private TurfSystem _turf = default!;
 
     public override void Initialize()
     {
@@ -56,9 +58,9 @@ public sealed partial class OrbitraCosmicRadiationSystem : EntitySystem
             if (TryComp<RoofComponent>(gridUid, out var roof) && _roof.IsRooved((gridUid, grid, roof), indices))
                 return 0f;
 
-            // Неявная крыша покрывает пол грида, но не пустой космос вокруг станции.
+            // Неявная крыша покрывает пол, но не космические тайлы, включая наружные решётки.
             var tile = _map.GetTileRef(gridUid, grid, indices);
-            if (!tile.Tile.IsEmpty && HasComp<ImplicitRoofComponent>(gridUid))
+            if (!_turf.IsSpace(tile) && HasComp<ImplicitRoofComponent>(gridUid))
                 return 0f;
         }
 
