@@ -2,6 +2,12 @@ Name: OrbitraUpdates
 AdminOnly: false
 Order: -1
 Entries:
+- id: 104
+  author: Ende
+  time: '2026-11-08T19:06:24+00:00'
+  changes:
+  - type: Tweak
+    message: Общая тема Orbitra автоматически применяется к обычным окнам и новым элементам интерфейса. Специализированные раскладки редакторов вынесены в отдельный профиль.
 - id: 103
   author: Ende
   time: '2026-11-08T18:26:36+00:00'

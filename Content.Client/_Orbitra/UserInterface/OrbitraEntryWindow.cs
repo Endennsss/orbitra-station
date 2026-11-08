@@ -5,7 +5,7 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Opt-in presentation for common windows in both the lobby and the round.</summary>
+/// <summary>Common window lifecycle shared by default themes and specialized layouts.</summary>
 internal static class OrbitraEntryWindow
 {
     /// <summary>Delays only user-requested closure; native Close and Dispose remain immediate.</summary>
@@ -32,7 +32,7 @@ internal static class OrbitraEntryWindow
         return false;
     }
 
-    public static void Attach(BaseWindow window)
+    public static void Attach(BaseWindow window, bool applyEditorLayout = true)
     {
         if (window.HasStyleClass("OrbitraEntryWindow"))
             return;
@@ -48,7 +48,7 @@ internal static class OrbitraEntryWindow
         Lifetime lifetime = null!;
         void Fit()
         {
-            if (active && window.IsOpen)
+            if (active && window.IsOpen && applyEditorLayout)
                 OrbitraEditorStyles.FitWindow(window);
         }
         void QueueFit()
@@ -71,7 +71,7 @@ internal static class OrbitraEntryWindow
                 // OpenCentered повторно вызывает OnOpen перед штатным центрированием.
                 ui.DeferAction(() =>
                 {
-                    if (!window.Disposed && window.IsOpen && openingPosition is { } position)
+                    if (applyEditorLayout && !window.Disposed && window.IsOpen && openingPosition is { } position)
                         Robust.Client.UserInterface.Controls.LayoutContainer.SetPosition(window, position);
                 });
                 return;
@@ -84,19 +84,26 @@ internal static class OrbitraEntryWindow
             ui.RootControl.OnResized -= QueueFit;
             active = true;
             var opening = ++generation;
-            OrbitraEditorStyles.Apply(window);
+            if (applyEditorLayout)
+                OrbitraEditorStyles.Apply(window);
+            else
+                OrbitraWindowTheme.Apply(window);
             Fit();
-            window.OnResized += QueueFit;
-            ui.RootControl.OnResized += QueueFit;
+            if (applyEditorLayout)
+            {
+                window.OnResized += QueueFit;
+                ui.RootControl.OnResized += QueueFit;
+            }
             // Прозрачность задаётся до первого кадра, а не после отложенной раскладки.
             OrbitraMotion.Reveal(window, OrbitraMotion.WindowDuration);
             ui.DeferAction(() =>
             {
                 if (window.Disposed || !active || !window.IsOpen || opening != generation)
                     return;
-                if (!firstOpen && openingPosition is { } position)
+                if (applyEditorLayout && !firstOpen && openingPosition is { } position)
                     Robust.Client.UserInterface.Controls.LayoutContainer.SetPosition(window, position);
-                OrbitraEditorStyles.FitWindow(window, firstOpen);
+                if (applyEditorLayout)
+                    OrbitraEditorStyles.FitWindow(window, firstOpen);
                 firstOpen = false;
             });
         };

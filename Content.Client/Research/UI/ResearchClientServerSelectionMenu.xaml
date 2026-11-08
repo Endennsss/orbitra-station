@@ -3,7 +3,7 @@
             xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
             Title="{Loc 'research-client-server-selection-menu-title'}"
             MinSize="300 300"
-            SetSize="300 300">
+            SetSize="300 300" StyleClasses="OrbitraEditorLayout">
     <ItemList Name="Servers"
               SelectMode="Single">
         <!-- Servers are added here by code -->

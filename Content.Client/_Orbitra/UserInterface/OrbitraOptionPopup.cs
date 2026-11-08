@@ -12,6 +12,9 @@ internal static class OrbitraOptionPopup
 {
     public static void Attach(OptionButton option)
     {
+        if (option.HasStyleClass("OrbitraOptionPopupAttached"))
+            return;
+        option.AddStyleClass("OrbitraOptionPopupAttached");
         StyleRows(option.OptionsScroll);
         option.OptionStyleClasses.Remove("OrbitraLobbyButton");
         option.OptionStyleClasses.Add("OrbitraOptionRow");
@@ -47,6 +50,9 @@ internal static class OrbitraOptionPopup
 
     private static void StyleRows(Control control)
     {
+        if (control.HasStyleClass("OrbitraOptionRowsStyled"))
+            return;
+        control.AddStyleClass("OrbitraOptionRowsStyled");
         if (control is BoxContainer box)
             box.SeparationOverride = 0;
         if (control is Button button)

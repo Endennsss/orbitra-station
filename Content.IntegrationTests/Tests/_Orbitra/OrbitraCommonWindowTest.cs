@@ -86,7 +86,7 @@ public sealed class OrbitraCommonWindowTest : GameTest
     }
 
     [Test]
-    public async Task CommonWindowStylesDynamicChildrenAndOwnsPopupsInRound()
+    public async Task CommonWindowStylesDynamicChildrenAndOwnsPopupsWithExplicitNativeExceptions()
     {
         FancyWindow window = null!;
         DefaultWindow unrelated = null!;
@@ -101,6 +101,7 @@ public sealed class OrbitraCommonWindowTest : GameTest
             dynamicButton = new Button { Text = "Dynamic" };
             window.ContentsContainer.AddChild(dynamicButton);
             unrelated = new DefaultWindow();
+            unrelated.AddStyleClass("OrbitraNativePresentation");
             unrelated.OpenCentered();
             popup = new Popup();
             Pair.Client.Resolve<IUserInterfaceManager>().ModalRoot.AddChild(popup);

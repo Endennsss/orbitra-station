@@ -7,7 +7,7 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Applies editor-local presentation without altering shared controls elsewhere.</summary>
+/// <summary>Optional specialized layout adjustments on top of the shared Orbitra appearance.</summary>
 internal static class OrbitraEditorStyles
 {
     public static void OpenWindow(BaseWindow window)
@@ -50,12 +50,16 @@ internal static class OrbitraEditorStyles
 
     public static void Apply(Control root)
     {
+        if (OrbitraControlTheme.IsNative(root))
+            return;
         if (root.HasStyleClass("OrbitraJournalNavigation"))
             return;
-        if (root.HasStyleClass("OrbitraEditorControl"))
+        if (root.HasStyleClass("OrbitraEditorLayoutControl"))
             return;
         if (root.HasStyleClass("OrbitraOptionRow"))
             return;
+        root.AddStyleClass("OrbitraEditorLayoutControl");
+        OrbitraControlTheme.Apply(root);
         root.AddStyleClass("OrbitraEditorControl");
         if (root is Content.Client.Administration.UI.Tabs.PlayerTab.PlayerTab or
             Content.Client.Administration.UI.Tabs.ObjectsTab.ObjectsTab)
@@ -128,7 +132,7 @@ internal static class OrbitraEditorStyles
             OrbitraMotion.AttachButton(button);
             root.MinWidth = 0;
             // Orbitra-Edit - высоту по умолчанию задаём только кнопкам без явного размера.
-            if (button.MinHeight <= 0)
+            if (button.MinHeight <= 0 && !float.IsFinite(button.SetHeight))
                 button.MinHeight = OrbitraUiMetrics.ElementHeight;
             // Обрезаем только растягиваемые строки: у обычной кнопки текст задаёт её ширину.
             button.ClipText = button.HorizontalExpand && button.Parent is not WrapContainer;

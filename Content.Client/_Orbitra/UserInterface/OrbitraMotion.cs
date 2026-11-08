@@ -162,6 +162,9 @@ internal sealed partial class OrbitraMotion : Control
     /// <summary>Animates only selected tab content, not tab headers or virtualized rows.</summary>
     internal static void AttachTabs(TabContainer tabs)
     {
+        if (tabs.HasStyleClass("OrbitraTabsAttached"))
+            return;
+        tabs.AddStyleClass("OrbitraTabsAttached");
         var selected = tabs.CurrentTab;
         tabs.OnTabChanged += index =>
         {

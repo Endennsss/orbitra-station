@@ -44,8 +44,6 @@ public sealed partial class OrbitraGhostSkinWindow : FancyWindow
         };
         OnOpen += OnOpened;
         OnClose += OnClosed;
-        OrbitraEntryWindow.Attach(this);
-        OrbitraEditorStyles.Apply(this);
     }
 
     private void OnOpened()

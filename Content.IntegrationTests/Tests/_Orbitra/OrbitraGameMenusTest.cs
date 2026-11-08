@@ -141,7 +141,7 @@ public sealed class OrbitraGameMenusTest : GameTest
     }
 
     [Test]
-    public async Task NativeSpawnersAreExplicitlyStyledAndUnrelatedWindowsStayNative()
+    public async Task NativeSpawnersAndOrdinaryWindowsUseSharedTheme()
     {
         var flags = new List<bool>();
         await Client.WaitPost(() =>
@@ -155,7 +155,7 @@ public sealed class OrbitraGameMenusTest : GameTest
                 window.OpenCentered();
             flags.Add(entities.HasStyleClass("OrbitraEntryWindow"));
             flags.Add(tiles.HasStyleClass("OrbitraEntryWindow"));
-            flags.Add(!unrelated.HasStyleClass("OrbitraEntryWindow"));
+            flags.Add(unrelated.HasStyleClass("OrbitraEntryWindow"));
             flags.Add(All(entities).OfType<OrbitraWindowCloseButton>().Count() == 1);
             entities.Close();
             entities.Open();

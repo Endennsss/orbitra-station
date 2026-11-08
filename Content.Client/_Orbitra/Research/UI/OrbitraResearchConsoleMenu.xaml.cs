@@ -71,8 +71,6 @@ public sealed partial class OrbitraResearchConsoleMenu : FancyWindow
         _accessReader = _entity.System<AccessReaderSystem>();
         _lathe = _entity.System<SharedLatheSystem>();
 
-        OrbitraEntryWindow.Attach(this);
-        OrbitraEditorStyles.Apply(this);
         ResearchedLegend.FontColorOverride = OrbitraResearchTreeControl.StateColor(OrbitraResearchNodeState.Researched);
         AvailableLegend.FontColorOverride = OrbitraResearchTreeControl.StateColor(OrbitraResearchNodeState.Available);
         LockedLegend.FontColorOverride = OrbitraResearchTreeControl.StateColor(OrbitraResearchNodeState.Locked);

@@ -103,8 +103,6 @@ public sealed partial class OrbitraXenobiologyWindow : FancyWindow
         ApplySpecimenFilter();
         if (_breeds.Count > 0)
             SelectBreed(_breeds[0].ID, false);
-        OrbitraEntryWindow.Attach(this);
-        OrbitraEditorStyles.Apply(this);
     }
 
     /// <summary>Fits the window to the logical viewport, including enlarged interface scales.</summary>

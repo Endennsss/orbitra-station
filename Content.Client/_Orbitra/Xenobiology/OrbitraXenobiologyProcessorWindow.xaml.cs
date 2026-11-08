@@ -58,8 +58,6 @@ public sealed partial class OrbitraXenobiologyProcessorWindow : FancyWindow
         _initialized = true;
         FitToViewport(UserInterfaceManager.WindowRoot.Size);
         UpdateState(new OrbitraXenobiologyProcessorBoundUserInterfaceState { Status = OrbitraXenobiologyProcessorStatus.Empty });
-        OrbitraEntryWindow.Attach(this);
-        OrbitraEditorStyles.Apply(this);
     }
 
     /// <summary>Fits the processor to the available logical viewport.</summary>

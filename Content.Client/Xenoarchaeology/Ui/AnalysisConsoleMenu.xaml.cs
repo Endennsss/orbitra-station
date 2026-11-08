@@ -67,8 +67,6 @@ public sealed partial class AnalysisConsoleMenu : FancyWindow
 
         ExtractButton.OnPressed += StartExtract;
         // Orbitra added start - единое оформление научных окон.
-        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this);
-        Content.Client._Orbitra.UserInterface.OrbitraEditorStyles.Apply(this);
         BackPanel.PanelOverride = null;
         BackPanel.SetOnlyStyleClass("OrbitraWindowSurface");
         // Orbitra added end

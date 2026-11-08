@@ -7,7 +7,7 @@
                       xmlns:research="clr-namespace:Content.Client._Orbitra.Research.UI"
                       Title="{Loc 'orbitra-research-tree-title'}"
                       MinSize="800 480"
-                      SetSize="1100 700">
+                      SetSize="1100 700" StyleClasses="OrbitraEditorLayout">
     <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" SeparationOverride="8" Margin="8">
         <PanelContainer Name="HeaderPanel" StyleClasses="OrbitraWindowHeader">
             <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="4">

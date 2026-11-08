@@ -49,8 +49,6 @@ public sealed partial class OrbitraBluespaceDeviceWindow : FancyWindow
         IoCManager.InjectDependencies(this);
         _sprite = _entity.System<SpriteSystem>();
         _loot = _prototype.EnumeratePrototypes<OrbitraBluespaceHarvesterLootPrototype>().OrderBy(loot => loot.ID).ToArray();
-        OrbitraEntryWindow.Attach(this);
-        OrbitraEditorStyles.Apply(this);
         foreach (var mode in Enum.GetValues<OrbitraBluespacePowerMode>())
             PowerMode.AddItem(_loc.GetString($"orbitra-bluespace-mode-{mode.ToString().ToLowerInvariant()}"), (int) mode);
         foreach (var category in Enum.GetValues<OrbitraBluespaceLootCategory>())

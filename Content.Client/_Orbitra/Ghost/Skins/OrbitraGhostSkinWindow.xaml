@@ -4,7 +4,7 @@
 <controls:FancyWindow xmlns="https://spacestation14.io"
                       xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
                       xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
-                      Title="{Loc 'orbitra-ghost-skins-title'}" SetSize="460 430" MinSize="320 300">
+                      Title="{Loc 'orbitra-ghost-skins-title'}" SetSize="460 430" MinSize="320 300" StyleClasses="OrbitraEditorLayout">
     <BoxContainer Orientation="Vertical" SeparationOverride="8" HorizontalExpand="True" VerticalExpand="True">
         <Label Text="{Loc 'orbitra-ghost-skins-label'}"/>
         <kit:OrbitraOptionButton Name="SkinPicker" HorizontalExpand="True"/>

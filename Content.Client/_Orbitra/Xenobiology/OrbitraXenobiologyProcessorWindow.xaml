@@ -4,7 +4,7 @@
 <controls:FancyWindow xmlns="https://spacestation14.io"
                       xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
                       xmlns:orbitra="clr-namespace:Content.Client._Orbitra.UserInterface"
-                      Title="{Loc 'orbitra-xeno-processor-title'}" MinSize="360 320" SetSize="520 440">
+                      Title="{Loc 'orbitra-xeno-processor-title'}" MinSize="360 320" SetSize="520 440" StyleClasses="OrbitraEditorLayout">
     <BoxContainer Orientation="Vertical" SeparationOverride="8" Margin="8" HorizontalExpand="True" VerticalExpand="True">
         <PanelContainer Name="HeaderPanel" StyleClasses="OrbitraWindowHeader">
             <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="4">

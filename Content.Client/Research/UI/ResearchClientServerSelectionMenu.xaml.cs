@@ -24,10 +24,6 @@ namespace Content.Client.Research.UI
 
             Servers.OnItemSelected += OnItemSelected;
             Servers.OnItemDeselected += OnItemDeselected;
-            // Orbitra added start - единое оформление научных окон.
-            Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this);
-            Content.Client._Orbitra.UserInterface.OrbitraEditorStyles.Apply(this);
-            // Orbitra added end
         }
 
         public void OnItemSelected(ItemList.ItemListSelectedEventArgs itemListSelectedEventArgs)

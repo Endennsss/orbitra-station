@@ -70,10 +70,6 @@ public sealed partial class LatheMenu : FancyWindow
 
         ServerListButton.OnPressed += a => OnServerListButtonPressed?.Invoke(a);
         DeleteFabricating.OnPressed += _ => DeleteFabricatingAction?.Invoke();
-        // Orbitra added start - единое оформление научных окон.
-        Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this);
-        Content.Client._Orbitra.UserInterface.OrbitraEditorStyles.Apply(this);
-        // Orbitra added end
     }
 
     public void SetEntity(EntityUid uid)

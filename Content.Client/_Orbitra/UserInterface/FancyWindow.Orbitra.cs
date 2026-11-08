@@ -7,7 +7,7 @@ namespace Content.Client.UserInterface.Controls;
 
 public partial class FancyWindow
 {
-    /// <summary>Opts this window into entry-screen chrome without changing unrelated game windows.</summary>
+    /// <summary>Applies the shared Orbitra frame to a content-owned window.</summary>
     internal void ApplyOrbitraChrome()
     {
         if (HasStyleClass("OrbitraWindowChrome"))

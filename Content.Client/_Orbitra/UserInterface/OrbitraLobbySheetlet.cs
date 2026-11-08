@@ -11,7 +11,7 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Local lobby styles; does not replace in-round controls or global palettes.</summary>
+/// <summary>Shared Orbitra control and window styles layered over the game palettes.</summary>
 [CommonSheetlet]
 public sealed class OrbitraLobbySheetlet : Sheetlet<PalettedStylesheet>
 {
@@ -94,21 +94,37 @@ public sealed class OrbitraLobbySheetlet : Sheetlet<PalettedStylesheet>
             E<RichTextLabel>().Class("OrbitraLobbyMuted").Font(sheet.BaseFont.GetFont(11)).FontColor(OrbitraPalettes.IconNormal),
         };
         foreach (var style in new[] { "OrbitraLobbyButton", "OrbitraLobbyPrimary", "OrbitraDangerButton", "OrbitraNavigationButton",
-                     OrbitraButtonStyles.Primary, OrbitraButtonStyles.Secondary, OrbitraButtonStyles.Ghost, OrbitraButtonStyles.Danger })
+                     OrbitraButtonStyles.Primary, OrbitraButtonStyles.Secondary, OrbitraButtonStyles.Ghost, OrbitraButtonStyles.Danger,
+                     OrbitraControlTheme.ButtonClass })
         {
+            var isBase = style == OrbitraControlTheme.ButtonClass;
+            var selectorClasses = isBase ? new[] { style } : new[] { style, ContainerButton.StyleClassButton };
             var isPrimary = style is "OrbitraLobbyPrimary" or OrbitraButtonStyles.Primary;
             var isGhost = style == OrbitraButtonStyles.Ghost;
             var background = isGhost ? new StyleBoxFlat(normal) { BackgroundColor = Color.Transparent, BorderColor = Color.Transparent } : isPrimary ? primary : normal;
+            var hoverStyle = hover;
+            var pressedStyle = pressed;
+            if (isBase)
+            {
+                background = new StyleBoxFlat(background);
+                hoverStyle = new StyleBoxFlat(hover);
+                pressedStyle = new StyleBoxFlat(pressed);
+                foreach (var stateBox in new[] { background, hoverStyle, pressedStyle })
+                    stateBox.SetContentMarginOverride(StyleBox.Margin.Vertical, 2);
+            }
             rules.AddRange([
-                E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).Box(background).MinHeight(isPrimary ? OrbitraUiMetrics.ActionHeight : OrbitraUiMetrics.ElementHeight).Modulate(Color.White),
-                E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).PseudoNormal().Box(background).Modulate(Color.White),
-                E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).PseudoHovered().Box(hover).Modulate(Color.White),
-                E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).PseudoPressed().Box(pressed).Modulate(Color.White),
-                E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).PseudoDisabled().Box(background).Modulate(Color.White.WithAlpha(0.65f)),
-                E<ContainerButton>().Class(style, ContainerButton.StyleClassButton).ParentOf(E<Label>()).Font(sheet.BaseFont.GetFont(13))
+                E<ContainerButton>().Class(selectorClasses).Box(background).MinHeight(isPrimary ? OrbitraUiMetrics.ActionHeight : OrbitraUiMetrics.ElementHeight).Modulate(Color.White),
+                E<ContainerButton>().Class(selectorClasses).PseudoNormal().Box(background).Modulate(Color.White),
+                E<ContainerButton>().Class(selectorClasses).PseudoHovered().Box(hoverStyle).Modulate(Color.White),
+                E<ContainerButton>().Class(selectorClasses).PseudoPressed().Box(pressedStyle).Modulate(Color.White),
+                E<ContainerButton>().Class(selectorClasses).PseudoDisabled().Box(background).Modulate(Color.White.WithAlpha(0.65f)),
+                E<ContainerButton>().Class(selectorClasses).ParentOf(E<Label>()).Font(sheet.BaseFont.GetFont(13))
                     .FontColor(OrbitraPalettes.Highlight.Text),
             ]);
         }
+        foreach (var style in new[] { OrbitraControlTheme.ButtonClass })
+            rules.Add(E<ContainerButton>().Class(style, OrbitraControlTheme.FixedHeightClass).MinHeight(0));
+        rules.Add(E<ContainerButton>().Class(OrbitraControlTheme.ButtonClass, "negative").ParentOf(E<Label>()).FontColor(sheet.NegativePalette.Text));
         var selected = Box(OrbitraPalettes.PanelHighlight, 12);
         // Служебные строки не наследуют цветовую модуляцию текстурных кнопок.
         foreach (var state in new[] { "normal", "hover", "pressed", "disabled" })

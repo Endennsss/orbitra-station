@@ -235,7 +235,7 @@ public sealed class OrbitraEditorUiTest : GameTest
     }
 
     [Test]
-    public async Task EntryWindowsPreservePositionAndDoNotStyleUnrelatedWindows()
+    public async Task EditorWindowsPreservePositionAlongsideAutomaticOrdinaryWindowTheme()
     {
         var client = Pair.Client;
         var ui = client.Resolve<IUserInterfaceManager>();
@@ -267,7 +267,7 @@ public sealed class OrbitraEditorUiTest : GameTest
             Assert.That(options.Position.Y, Is.EqualTo(16).Within(1));
             using var unrelated = new Robust.Client.UserInterface.CustomControls.DefaultWindow();
             unrelated.OpenCentered();
-            Assert.That(unrelated.HasStyleClass("OrbitraEntryWindow"), Is.False);
+            Assert.That(unrelated.HasStyleClass("OrbitraEntryWindow"), Is.True);
             unrelated.Close();
             options.Close();
             options.Dispose();

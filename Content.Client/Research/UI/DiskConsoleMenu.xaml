@@ -5,7 +5,7 @@
                      xmlns:graphics="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
                      Title="{Loc 'tech-disk-ui-name'}"
                      MinSize="400 260"
-                     SetSize="400 260">
+                     SetSize="400 260" StyleClasses="OrbitraEditorLayout">
     <BoxContainer Orientation="Vertical"
                   HorizontalExpand="True"
                   VerticalExpand="True"
