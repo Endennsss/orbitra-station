@@ -42,3 +42,15 @@
   components:
   - type: OrbitraCosmicRadiationProtection
     transmission: 0.07
+
+- type: !PartialOnly entity
+  id: ClothingOuterSuitSpaceNinja
+  components:
+  - type: OrbitraCosmicRadiationProtection
+    transmission: 0.12
+
+- type: !PartialOnly entity
+  id: ClothingOuterHardsuitCarp
+  components:
+  - type: OrbitraCosmicRadiationProtection
+    transmission: 0.12

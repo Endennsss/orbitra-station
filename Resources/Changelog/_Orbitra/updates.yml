@@ -2,6 +2,14 @@ Name: OrbitraUpdates
 AdminOnly: false
 Order: -1
 Entries:
+- id: 103
+  author: Ende
+  time: '2026-11-08T18:26:36+00:00'
+  changes:
+  - type: Add
+    message: Добавлены скины призрака — голографический карп и космодракон.
+  - type: Fix
+    message: Космическую защиту получили костюм ниндзя и скафандр-карп, не наследующие общую базу EVA.
 - id: 102
   author: Ende
   time: '2026-11-08T18:13:15+00:00'

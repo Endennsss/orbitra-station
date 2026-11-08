@@ -10,8 +10,10 @@ namespace Content.IntegrationTests.Tests._Orbitra.Ghost;
 public sealed class OrbitraGhostSkinTest
 {
     /// <summary>The owning observer can request a predefined skin through the actual network boundary.</summary>
-    [Test]
-    public async Task AttachedGhostCanSelectMaulerThroughNetwork()
+    [TestCase("OrbitraGhostSkinMauler")]
+    [TestCase("OrbitraGhostSkinHoloCarp")]
+    [TestCase("OrbitraGhostSkinDragon")]
+    public async Task AttachedGhostCanSelectPredefinedSkinThroughNetwork(string skin)
     {
         await using var pair = await PoolManager.GetServerClient(new PoolSettings { Connected = true });
         var server = pair.Server;
@@ -28,11 +30,11 @@ public sealed class OrbitraGhostSkinTest
             });
             await pair.RunTicksSync(15);
             await pair.Client.WaitPost(() => pair.Client.ResolveDependency<IEntityNetworkManager>()
-                .SendSystemNetworkMessage(new OrbitraSelectGhostSkinEvent("OrbitraGhostSkinMauler")));
+                .SendSystemNetworkMessage(new OrbitraSelectGhostSkinEvent(skin)));
             await pair.RunTicksSync(10);
             await server.WaitAssertion(() => Assert.That(
                 server.EntMan.GetComponent<OrbitraGhostSkinComponent>(ghost).Skin.Id,
-                Is.EqualTo("OrbitraGhostSkinMauler")));
+                Is.EqualTo(skin)));
         }
         finally
         {

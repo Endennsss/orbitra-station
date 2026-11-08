@@ -14,8 +14,10 @@ namespace Content.IntegrationTests.Tests._Orbitra.Ghost;
 [TestFixture, NonParallelizable]
 public sealed class OrbitraGhostSkinVisualTest
 {
-    [Test]
-    public async Task ReplacementPreservesNativeDeathStateAndRestoresTint()
+    [TestCase("OrbitraGhostSkinMauler")]
+    [TestCase("OrbitraGhostSkinHoloCarp")]
+    [TestCase("OrbitraGhostSkinDragon")]
+    public async Task ReplacementPreservesNativeDeathStateAndRestoresTint(string selectedSkin)
     {
         await using var pair = await PoolManager.GetServerClient(new PoolSettings { Connected = true });
         var client = pair.Client;
@@ -38,7 +40,7 @@ public sealed class OrbitraGhostSkinVisualTest
                 Assert.That(native.State.Name, Is.EqualTo("ghost_Cold0"));
 
                 sprites.SetVisible((uid, sprite), false);
-                skin.Skin = "OrbitraGhostSkinMauler";
+                skin.Skin = selectedSkin;
                 appearance.OnChangeData(uid, sprite);
                 var replacement = sprite.AllLayers.Last();
                 Assert.Multiple(() =>
@@ -69,7 +71,7 @@ public sealed class OrbitraGhostSkinVisualTest
                         Assert.That(replacement.Visible, Is.False);
                         Assert.That(sprite.Visible, Is.False);
                     });
-                    skin.Skin = "OrbitraGhostSkinMauler";
+                    skin.Skin = selectedSkin;
                     appearance.OnChangeData(uid, sprite);
                     Assert.That(sprite.AllLayers.Count(), Is.EqualTo(originalCount + 1));
                 }

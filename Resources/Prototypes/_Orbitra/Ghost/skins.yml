@@ -22,3 +22,29 @@
     state: mauler
   opacity: 0.45
   order: 10
+
+- type: orbitraGhostSkin
+  id: OrbitraGhostSkinHoloCarp
+  name: orbitra-ghost-skin-holo-carp
+  description: orbitra-ghost-skin-holo-carp-description
+  sprite:
+    sprite: Mobs/Aliens/Carps/holo.rsi
+    state: alive
+  icon:
+    sprite: Mobs/Aliens/Carps/holo.rsi
+    state: alive
+  opacity: 0.45
+  order: 20
+
+- type: orbitraGhostSkin
+  id: OrbitraGhostSkinDragon
+  name: orbitra-ghost-skin-dragon
+  description: orbitra-ghost-skin-dragon-description
+  sprite:
+    sprite: Mobs/Aliens/Carps/dragon.rsi
+    state: alive
+  icon:
+    sprite: Mobs/Aliens/Carps/dragon.rsi
+    state: alive
+  opacity: 0.45
+  order: 30

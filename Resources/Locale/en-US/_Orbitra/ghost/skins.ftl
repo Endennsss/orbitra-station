@@ -11,3 +11,8 @@ orbitra-ghost-skin-default = Ordinary ghost
 orbitra-ghost-skin-default-description = The usual ghost appearance, including its cause of death.
 orbitra-ghost-skin-mauler = Spectral Mauler
 orbitra-ghost-skin-mauler-description = A translucent silhouette of the Syndicate Mauler mech. A cosmetic appearance with no chassis, weapons, or additional capabilities.
+
+orbitra-ghost-skin-holo-carp = Holographic carp
+orbitra-ghost-skin-holo-carp-description = A translucent blue space carp made of light.
+orbitra-ghost-skin-dragon = Spectral space dragon
+orbitra-ghost-skin-dragon-description = A large translucent silhouette of a space dragon.

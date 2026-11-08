@@ -10,6 +10,8 @@ using Content.Server.Atmos.EntitySystems;
 using Content.Server.Radiation.Systems;
 using Content.Shared._Orbitra.Radiation;
 using Content.Shared.Atmos.Components;
+using Content.Server.Atmos.Components;
+using Content.Shared.Clothing.Components;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
@@ -21,6 +23,7 @@ using Content.Shared.Radiation.Components;
 using Robust.Shared.Configuration;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
+using Robust.Shared.Prototypes;
 using Robust.UnitTesting.Pool;
 
 namespace Content.IntegrationTests.Tests._Orbitra.Radiation;
@@ -58,6 +61,8 @@ public sealed class OrbitraCosmicRadiationTest
     [TestCase("ClothingOuterHardsuitSpatio", 0.12f, 417f)]
     [TestCase("ClothingOuterHardsuitEngineering", 0.08f, 625f)]
     [TestCase("ClothingOuterHardsuitEngineeringWhite", 0.07f, 715f)]
+    [TestCase("ClothingOuterSuitSpaceNinja", 0.12f, 417f)]
+    [TestCase("ClothingOuterHardsuitCarp", 0.12f, 417f)]
     public async Task EquippedSuitDefinesCosmicWorkBudget(string prototype, float transmission, float seconds)
     {
         await WithHuman(async (pair, map, human) =>
@@ -218,6 +223,38 @@ public sealed class OrbitraCosmicRadiationTest
             });
             Assert.That(values, Is.EqualTo(new[] { 0f, 0.3f, 0f }));
         });
+    }
+
+    [Test]
+    public async Task EveryVacuumProtectiveOuterClothingHasCosmicShielding()
+    {
+        await using var pair = await PoolManager.GetServerClient();
+        var server = pair.Server;
+        var prototypes = server.ResolveDependency<IPrototypeManager>();
+        var factory = server.ResolveDependency<IComponentFactory>();
+        await server.WaitAssertion(() =>
+        {
+            var checkedSuits = 0;
+            Assert.Multiple(() =>
+            {
+                foreach (var prototype in prototypes.EnumeratePrototypes<EntityPrototype>())
+                {
+                    if (prototype.Abstract || pair.IsTestPrototype(prototype)
+                        || !prototype.TryComp<ClothingComponent>(out var clothing, factory)
+                        || (clothing.Slots & SlotFlags.OUTERCLOTHING) == 0
+                        || !prototype.TryComp<PressureProtectionComponent>(out var pressure, factory)
+                        || pressure.LowPressureMultiplier <= 1f)
+                        continue;
+                    checkedSuits++;
+                    Assert.That(prototype.TryComp<OrbitraCosmicRadiationProtectionComponent>(out var protection, factory),
+                        Is.True, $"{prototype.ID} protects from vacuum but has no cosmic shielding.");
+                    if (protection != null)
+                        Assert.That(protection.Transmission, Is.GreaterThan(0f).And.LessThanOrEqualTo(1f), prototype.ID);
+                }
+            });
+            Assert.That(checkedSuits, Is.GreaterThan(0));
+        });
+        await pair.CleanReturnAsync();
     }
 
     private static float Radiation(TestPair pair, EntityUid uid)

@@ -11,3 +11,8 @@ orbitra-ghost-skin-default = Обычный призрак
 orbitra-ghost-skin-default-description = Привычный облик призрака с отображением причины смерти.
 orbitra-ghost-skin-mauler = Призрачный Mauler
 orbitra-ghost-skin-mauler-description = Полупрозрачный силуэт синдикатского меха Mauler. Только внешний вид — без корпуса, оружия и дополнительных возможностей.
+
+orbitra-ghost-skin-holo-carp = Голографический карп
+orbitra-ghost-skin-holo-carp-description = Полупрозрачный голубой космический карп из света.
+orbitra-ghost-skin-dragon = Призрачный космодракон
+orbitra-ghost-skin-dragon-description = Крупный полупрозрачный силуэт космического дракона.
