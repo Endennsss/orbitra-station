@@ -101,7 +101,8 @@ foreach ($source in $sourceRules) {
     $cursorData = Get-RuleData -RulePath $cursorBridgeRuleMd
     $githubData = Get-RuleData -RulePath $githubBridgeRuleMd
 
-    $expectedSourceRule = "../../../.agents/rules/$name"
+    $expectedSourceRule = "../../.agents/rules/$name"
+    $expectedLink = [regex]::Escape("]($expectedSourceRule)")
 
     if ($antigravityData.trigger -ne $sourceData.trigger) {
         $errors.Add("Antigravity bridge trigger mismatch for '$name'.")
@@ -111,21 +112,21 @@ foreach ($source in $sourceRules) {
             "Antigravity bridge source_rule mismatch for '$name': '$($antigravityData.source_rule)'"
         )
     }
-    if ($antigravityData.body -notmatch [regex]::Escape($expectedSourceRule)) {
+    if ($antigravityData.body -notmatch $expectedLink) {
         $errors.Add("Antigravity bridge reference mismatch for '$name'.")
     }
 
     if ($claudeData.trigger -ne $sourceData.trigger) {
         $errors.Add("Claude bridge trigger mismatch for '$name'.")
     }
-    if ($claudeData.body -notmatch [regex]::Escape($expectedSourceRule)) {
+    if ($claudeData.body -notmatch $expectedLink) {
         $errors.Add("Claude bridge reference mismatch for '$name'.")
     }
 
     if ($cursorData.trigger -ne $sourceData.trigger) {
         $errors.Add("Cursor bridge trigger mismatch for '$name'.")
     }
-    if ($cursorData.body -notmatch [regex]::Escape($expectedSourceRule)) {
+    if ($cursorData.body -notmatch $expectedLink) {
         $errors.Add("Cursor bridge reference mismatch for '$name'.")
     }
 
@@ -137,7 +138,7 @@ foreach ($source in $sourceRules) {
             "GitHub Copilot bridge source_rule mismatch for '$name': '$($githubData.source_rule)'"
         )
     }
-    if ($githubData.body -notmatch [regex]::Escape($expectedSourceRule)) {
+    if ($githubData.body -notmatch $expectedLink) {
         $errors.Add("GitHub Copilot bridge reference mismatch for '$name'.")
     }
 }

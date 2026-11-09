@@ -2,14 +2,6 @@
 trigger: always_on
 ---
 
-# Orbitra: экономия токенов
+# Context and tool use
 
-Работай экономно с токенами, не снижая качество, безопасность и обязательные проверки.
-
-1. Используй узкие поисковые запросы, точечное чтение файлов и минимально достаточный вывод команд.
-2. Не перечитывай файлы, правила или результаты команд, если они не изменились и уже доступны в текущем контексте.
-3. Не запускай повторно тяжёлые сборки, линтеры или тесты без новой причины; выбирай самую узкую проверку для изменённой области.
-4. Не дублируй объяснения, планы и промежуточные статусы. Итоговый ответ должен быть кратким и содержать только результат, проверку и существенные ограничения.
-5. Для независимых операций предпочитай один составной запрос или параллельное безопасное чтение вместо серии однотипных вызовов.
-6. Не экономь токены ценой пропуска обязательных правил, проверки изменений, диагностики ошибки или важного предупреждения пользователю.
-
+Use repository-aware IDE tools when available. Otherwise use focused searches and read only relevant files or ranges. Batch independent reads and limit output. Reuse available evidence. Repeat a heavy check only when it tests new changes or resolves uncertainty. Keep updates and final reports concise while retaining verification results and material limitations.

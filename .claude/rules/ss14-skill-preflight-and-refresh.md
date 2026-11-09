@@ -2,9 +2,4 @@
 trigger: always_on
 ---
 
-# Claude Bridge
-
-Canonical source rule file:
-../../../.agents/rules/ss14-skill-preflight-and-refresh.md.
-
-Load rule content from the source rule path.
+Read the [canonical rule](../../.agents/rules/ss14-skill-preflight-and-refresh.md).
