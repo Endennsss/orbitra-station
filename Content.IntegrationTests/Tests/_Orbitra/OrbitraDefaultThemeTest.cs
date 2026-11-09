@@ -10,6 +10,8 @@ using Robust.Client.UserInterface;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
+using Robust.Shared;
+using Robust.Shared.Configuration;
 
 namespace Content.IntegrationTests.Tests._Orbitra;
 
@@ -255,6 +257,89 @@ public sealed class OrbitraDefaultThemeTest
         finally
         {
             await pair.Client.WaitPost(() => window?.Dispose());
+        }
+        await pair.CleanReturnAsync();
+    }
+
+    [TestCase(false)]
+    [TestCase(true)]
+    public async Task WindowsFitTheViewportAndRestoreTheirPreferredSize(bool engineWindow)
+    {
+        await using var pair = await PoolManager.GetServerClient(new PoolSettings { Connected = true });
+        var cfg = pair.Client.ResolveDependency<IConfigurationManager>();
+        var scale = cfg.GetCVar(CVars.DisplayUIScale);
+        var autoScale = cfg.GetCVar(CVars.ResAutoScaleEnabled);
+        var preferred = new Vector2(800, 500);
+        var minimum = new Vector2(640, 400);
+        var maximum = new Vector2(1000, 600);
+        BaseWindow window = null!;
+        OrbitraAdaptiveRow row = null!;
+        try
+        {
+            await pair.Client.WaitPost(() =>
+            {
+                cfg.SetCVar(CVars.ResAutoScaleEnabled, false);
+                cfg.SetCVar(CVars.DisplayUIScale, 1f);
+                window = engineWindow ? new DefaultWindow() : new FancyWindow();
+                window.MinSize = minimum;
+                window.MaxSize = maximum;
+                window.SetSize = preferred;
+                row = new OrbitraAdaptiveRow();
+                row.AddChild(new Button { Text = "First" });
+                row.AddChild(new Button { Text = "Second" });
+                Contents(window).AddChild(row);
+                window.OpenCentered();
+            });
+            await pair.RunTicksSync(3);
+            await pair.Client.WaitAssertion(() =>
+                Assert.That(row.Orientation, Is.EqualTo(BoxContainer.LayoutOrientation.Horizontal)));
+
+            await pair.Client.WaitPost(() => cfg.SetCVar(CVars.DisplayUIScale, 2.5f));
+            await pair.RunTicksSync(4);
+            await pair.Client.WaitAssertion(() => Assert.Multiple(() =>
+            {
+                Assert.That(window.Position.X, Is.GreaterThanOrEqualTo(0));
+                Assert.That(window.Position.Y, Is.GreaterThanOrEqualTo(0));
+                Assert.That(window.Rect.Right, Is.LessThanOrEqualTo(window.Parent!.Width + 1));
+                Assert.That(window.Rect.Bottom, Is.LessThanOrEqualTo(window.Parent!.Height + 1));
+                Assert.That(window.MaxSize, Is.EqualTo(maximum));
+                Assert.That(row.Orientation, Is.EqualTo(BoxContainer.LayoutOrientation.Vertical));
+            }));
+
+            await pair.Client.WaitPost(() => cfg.SetCVar(CVars.DisplayUIScale, 1f));
+            await pair.RunTicksSync(4);
+            await pair.Client.WaitAssertion(() => Assert.Multiple(() =>
+            {
+                Assert.That(window.Size, Is.EqualTo(preferred));
+                Assert.That(window.SetSize, Is.EqualTo(preferred));
+                Assert.That(window.MinSize, Is.EqualTo(minimum));
+                Assert.That(row.Orientation, Is.EqualTo(BoxContainer.LayoutOrientation.Horizontal));
+            }));
+
+            await pair.Client.WaitPost(() =>
+            {
+                window.SetWidth = preferred.X + 100;
+                window.SetHeight = maximum.Y + 100;
+                cfg.SetCVar(CVars.DisplayUIScale, 2.5f);
+            });
+            await pair.RunTicksSync(4);
+            await pair.Client.WaitAssertion(() => Assert.That(window.SetWidth, Is.LessThan(maximum.X)));
+            await pair.Client.WaitPost(window.Close);
+            await pair.Client.WaitAssertion(() =>
+            {
+                Assert.That(window.SetWidth, Is.EqualTo(preferred.X + 100));
+                Assert.That(window.SetHeight, Is.EqualTo(maximum.Y + 100));
+                Assert.That(window.MinSize, Is.EqualTo(minimum));
+            });
+        }
+        finally
+        {
+            await pair.Client.WaitPost(() =>
+            {
+                window?.Dispose();
+                cfg.SetCVar(CVars.ResAutoScaleEnabled, autoScale);
+                cfg.SetCVar(CVars.DisplayUIScale, scale);
+            });
         }
         await pair.CleanReturnAsync();
     }
