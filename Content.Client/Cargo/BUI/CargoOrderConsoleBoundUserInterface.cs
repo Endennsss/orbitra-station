@@ -64,17 +64,18 @@ namespace Content.Client.Cargo.BUI
 
             _menu.OnItemSelected += (row) =>
             {
-                if (row == null)
+                if (row?.Product is not { } product) // Orbitra-Edit - берём данные заказа из прототипа товара.
                     return;
 
                 description.Clear();
                 description.PushColor(Color.White); // Rich text default color is grey
-                if (row.MainButton.ToolTip != null)
-                    description.AddText(row.MainButton.ToolTip);
+                // Orbitra edit start - подсказка каталога содержит и название, и описание.
+                description.AddText(product.Description);
 
                 _orderMenu.Description.SetMessage(description);
-                _product = row.Product;
-                _orderMenu.ProductName.Text = row.ProductName.Text;
+                _product = product;
+                _orderMenu.ProductName.Text = product.Name;
+                // Orbitra edit end
                 _orderMenu.PointCost.Text = row.PointCost.Text;
                 _orderMenu.Requester.Text = orderRequester;
                 _orderMenu.Reason.Text = "";

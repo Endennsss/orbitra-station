@@ -1,7 +1,8 @@
 <Control xmlns="https://spacestation14.io" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Stylesheets"
          xmlns:graphics="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+         xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
          MouseFilter="Stop">
-    <PanelContainer StyleClasses="BackgroundPanelOpenLeft"/>
+    <PanelContainer StyleClasses="BackgroundPanel"/> <!-- Orbitra-Edit - редактор размещён внутри окна. -->
     <PanelContainer>
         <PanelContainer.PanelOverride>
             <graphics:StyleBoxFlat BorderColor="{x:Static orbitra:OrbitraPalettes.PanelBackground}" BorderThickness="0 0 0 3"/>
@@ -18,9 +19,10 @@
         <PanelContainer StyleClasses="LowDivider" Margin="0 0 1 0"/>
         <BoxContainer Orientation="Horizontal">
             <Label Text="{Loc news-write-ui-article-name-label}" Margin="17 10 0 9" VerticalAlignment="Center"/>
-            <LineEdit Name="TitleField" Margin="6 10 0 9" MinWidth="260" MinHeight="23" Access="Public"/>
-            <Control HorizontalExpand="True" />
-            <Label Name="RichTextInfoLabel" Text="?" MouseFilter="Pass" Margin="14 0" StyleClasses="LabelWeak"/>
+            <!-- Orbitra edit start - ширина поля следует за шириной редактора. -->
+            <LineEdit Name="TitleField" Margin="6 10 0 9" HorizontalExpand="True" MinHeight="23" Access="Public"/>
+            <Label Name="RichTextInfoLabel" Text="?" MouseFilter="Pass" Margin="14 0" VerticalAlignment="Center" StyleClasses="LabelWeak"/>
+            <!-- Orbitra edit end -->
         </BoxContainer>
         <Control Name="TextEditPanel" VerticalExpand="True" Margin="11 0 11 0">
             <PanelContainer>
@@ -40,20 +42,16 @@
                 <RichTextLabel Name="PreviewLabel" VerticalAlignment="Top" Margin="9 3" MaxWidth="360"/>
             </ScrollContainer>
         </Control>
-        <BoxContainer Orientation="Horizontal" Margin="12 5 12 8">
-            <Control>
-                <Button Name="ButtonCancel" SetHeight="32" SetWidth="85"
-                        StyleClasses="negative" Text="{Loc news-write-ui-cancel-text}"/>
-            </Control>
-            <Control HorizontalExpand="True"/>
-            <BoxContainer Orientation="Horizontal">
-                <Button Name="ButtonSaveDraft" SetHeight="32" SetWidth="85"
-                        StyleClasses="OpenRight" Text="{Loc news-write-ui-save-text}"/>
-                <Button Name="ButtonPreview" SetHeight="32" SetWidth="85"
-                        StyleClasses="OpenBoth" Text="{Loc news-write-ui-preview-text}"/>
-                <Button Name="ButtonPublish" SetHeight="32" SetWidth="85" Text="{Loc news-write-ui-publish-text}" Access="Public"/>
-            </BoxContainer>
-        </BoxContainer>
+        <!-- Orbitra edit start - размеры кнопок зависят от перевода и доступной ширины. -->
+        <kit:OrbitraFlowGrid Margin="12 5 12 8" HSeparationOverride="6" VSeparationOverride="6">
+            <Button Name="ButtonCancel" MinHeight="32" HorizontalExpand="True"
+                    StyleClasses="negative" Text="{Loc news-write-ui-cancel-text}"/>
+            <Button Name="ButtonSaveDraft" MinHeight="32" HorizontalExpand="True" Text="{Loc news-write-ui-save-text}"/>
+            <Button Name="ButtonPreview" MinHeight="32" HorizontalExpand="True" Text="{Loc news-write-ui-preview-text}"/>
+            <Button Name="ButtonPublish" MinHeight="32" HorizontalExpand="True"
+                    StyleClasses="positive" Text="{Loc news-write-ui-publish-text}" Access="Public"/>
+        </kit:OrbitraFlowGrid>
+        <!-- Orbitra edit end -->
     </BoxContainer>
     <PanelContainer>
         <PanelContainer.PanelOverride>

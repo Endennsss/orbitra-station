@@ -58,6 +58,7 @@ namespace Content.Client.Input
             human.AddFunction(EngineKeyFunctions.MoveLeft);
             human.AddFunction(EngineKeyFunctions.MoveRight);
             human.AddFunction(EngineKeyFunctions.Walk);
+            human.AddFunction(OrbitraKeyFunctions.Sprint); // Orbitra-Edit - бег игрока и обычного призрака.
             // Orbitra added start - отдельное управление положением лёжа и прыжком
             human.AddFunction(OrbitraKeyFunctions.ToggleProne);
             human.AddFunction(OrbitraKeyFunctions.Jump);
@@ -110,6 +111,7 @@ namespace Content.Client.Input
             aghost.AddFunction(EngineKeyFunctions.MoveLeft);
             aghost.AddFunction(EngineKeyFunctions.MoveRight);
             aghost.AddFunction(EngineKeyFunctions.Walk);
+            aghost.AddFunction(OrbitraKeyFunctions.Sprint); // Orbitra-Edit - ускоренный полёт админ-призрака.
             aghost.AddFunction(ContentKeyFunctions.SwapHands);
             aghost.AddFunction(ContentKeyFunctions.SwapHandsReverse);
             aghost.AddFunction(ContentKeyFunctions.Drop);

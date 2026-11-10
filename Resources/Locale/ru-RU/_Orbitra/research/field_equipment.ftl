@@ -1,0 +1,9 @@
+research-technology-orbitra-radiation-survey = Радиационная разведка
+research-technology-orbitra-radiological-shielding = Радиационное экранирование
+research-technology-orbitra-eva-recovery = Спасение в открытом космосе
+research-technology-orbitra-breach-containment = Локализация разгерметизации
+research-technology-orbitra-fire-response = Пожарное оснащение
+research-technology-orbitra-field-lighting = Полевое освещение
+research-technology-orbitra-salvage-rigging = Шахтёрская разгрузка
+research-technology-orbitra-field-resuscitation = Полевая реанимация
+research-technology-orbitra-low-light-optics = Оптика ночного видения

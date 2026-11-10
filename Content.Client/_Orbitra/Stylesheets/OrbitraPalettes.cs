@@ -13,6 +13,10 @@ public static class OrbitraPalettes
     public static readonly Color PanelOverlay = PanelInset.WithAlpha(0.4f);
     public static readonly Color PanelBorder = Color.FromHex("#484848");
     public static readonly Color PanelHighlight = Color.FromHex("#383838");
+    public static readonly Color ButtonSurface = Color.FromHex("#414141");
+    public static readonly Color ButtonHovered = Color.FromHex("#505050");
+    public static readonly Color ButtonPressed = Color.FromHex("#5E5E5E");
+    public static readonly Color ButtonDisabled = Color.FromHex("#343434");
     public static readonly Color IconNormal = Color.FromHex("#B0B0B0");
     public static readonly Color IconHovered = Color.FromHex("#D0D0D0");
     public static readonly Color IconPressed = Color.FromHex("#909090");

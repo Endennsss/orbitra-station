@@ -43,7 +43,12 @@ binds:
   key: S
 - function: Walk
   type: State
+  key: Control # Orbitra-Edit - медленный шаг.
+# Orbitra added start - бег при удержании Shift.
+- function: OrbitraSprint
+  type: State
   key: Shift
+# Orbitra added end
 # Shuttle
 - function: ShuttleStrafeUp
   type: State

@@ -228,6 +228,7 @@ public sealed class OrbitraWindowLifecycleTest : GameTest
     [Test]
     public async Task OptionButtonClickSelectAndRepeatedOpenKeepNativeIds()
     {
+        const string longTitle = "Second option with a longer title than fits inside the closed selector";
         IUserInterfaceManager ui = null!;
         OptionsMenu owner = null!;
         OptionButton option = null!;
@@ -240,7 +241,7 @@ public sealed class OrbitraWindowLifecycleTest : GameTest
             owner = new OptionsMenu();
             option = new OptionButton { SetSize = new Vector2(240, 36) };
             option.AddItem("First", 11);
-            option.AddItem("Second", 29);
+            option.AddItem(longTitle, 29);
             option.OnItemSelected += args => { selected++; option.SelectId(args.Id); };
             owner.ContentsContainer.AddChild(option);
             owner.OpenCentered();
@@ -259,9 +260,11 @@ public sealed class OrbitraWindowLifecycleTest : GameTest
             {
                 Assert.That(popup.Visible, Is.True);
                 Assert.That(popup.Modulate.A, Is.InRange(0.001f, 0.999f));
+                Assert.That(popup.SetWidth, Is.GreaterThan(option.Width));
+                Assert.That(popup.SetWidth, Is.LessThanOrEqualTo(ui.RootControl.Width));
             });
             Button row = null!;
-            await Pair.Client.WaitPost(() => row = Descendants(option.OptionsScroll).OfType<Button>().Single(button => button.Text == "Second"));
+            await Pair.Client.WaitPost(() => row = Descendants(option.OptionsScroll).OfType<Button>().Single(button => button.Text == longTitle));
             await Click(row);
             var expected = i + 1;
             await Pair.Client.WaitAssertion(() =>

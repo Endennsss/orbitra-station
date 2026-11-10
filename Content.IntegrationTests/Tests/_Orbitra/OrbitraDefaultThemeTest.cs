@@ -12,6 +12,7 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared;
 using Robust.Shared.Configuration;
+using Robust.Shared.Maths;
 
 namespace Content.IntegrationTests.Tests._Orbitra;
 
@@ -144,19 +145,28 @@ public sealed class OrbitraDefaultThemeTest
         public void ShowState(string state) => SetOnlyStylePseudoClass(state);
     }
 
-    [Test]
-    public async Task CommonButtonStatesKeepTheSameContentMargins()
+    [TestCase(null)]
+    [TestCase("negative")]
+    [TestCase("positive")]
+    [TestCase("OrbitraCompactRow")]
+    [TestCase("OpenLeft")]
+    [TestCase("OpenRight")]
+    [TestCase("OpenBoth")]
+    public async Task CommonButtonStatesKeepVisibleSurfacesAndStableMargins(string? style)
     {
         await using var pair = await PoolManager.GetServerClient(new PoolSettings { Connected = true });
         FancyWindow window = null!;
         StateButton button = null!;
         var margins = new List<Vector2>();
+        var backgrounds = new List<Color>();
         try
         {
             await pair.Client.WaitPost(() =>
             {
                 window = new FancyWindow();
                 button = new StateButton { Text = "Compact", SetHeight = 22 };
+                if (style != null)
+                    button.AddStyleClass(style);
                 window.ContentsContainer.AddChild(button);
                 window.OpenCentered();
             });
@@ -166,11 +176,17 @@ public sealed class OrbitraDefaultThemeTest
                 await pair.RunTicksSync(2);
                 await pair.Client.WaitAssertion(() =>
                 {
-                    Assert.That(button.TryGetStyleProperty<StyleBox>(ContainerButton.StylePropertyStyleBox, out var box), Is.True);
+                    Assert.That(button.TryGetStyleProperty<StyleBoxFlat>(ContainerButton.StylePropertyStyleBox, out var box), Is.True);
                     margins.Add(new Vector2(box!.GetContentMargin(StyleBox.Margin.Top), box.GetContentMargin(StyleBox.Margin.Bottom)));
+                    backgrounds.Add(box.BackgroundColor);
+                    Assert.That(button.ActualModulateSelf, Is.EqualTo(Color.White), $"Unexpected tint in the {state} state.");
                 });
             }
             Assert.That(margins.Distinct().Count(), Is.EqualTo(1), "Hover and press must not move or clip compact button text.");
+            Assert.That(backgrounds[0].R, Is.GreaterThan(0.23f));
+            Assert.That(backgrounds[1].R, Is.GreaterThan(backgrounds[0].R));
+            Assert.That(backgrounds[2].R, Is.GreaterThan(backgrounds[1].R));
+            Assert.That(backgrounds[3].R, Is.LessThan(backgrounds[0].R));
         }
         finally
         {

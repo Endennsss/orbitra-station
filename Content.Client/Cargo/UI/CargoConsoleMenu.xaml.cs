@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Client._Orbitra.UserInterface; // Orbitra-Edit - клавиатурный выбор категории.
 using Content.Client.Cargo.Systems;
 using Content.Client.UserInterface.Controls;
 using Content.Shared.Cargo;
@@ -59,7 +60,7 @@ namespace Content.Client.Cargo.UI
             Title = entMan.GetComponent<MetaDataComponent>(owner).EntityName;
 
             SearchBar.OnTextChanged += OnSearchBarTextChanged;
-            Categories.OnItemSelected += OnCategoryItemSelected;
+            OrbitraOptionButton.BindSelection(Categories, OnCategoryItemSelected); // Orbitra-Edit - единый обработчик мыши и клавиатуры.
 
             if (entMan.TryGetComponent<CargoOrderConsoleComponent>(owner, out var orderConsole))
             {
@@ -72,6 +73,7 @@ namespace Content.Client.Cargo.UI
 
             TabContainer.SetTabTitle(0, Loc.GetString("cargo-console-menu-tab-title-orders"));
             TabContainer.SetTabTitle(1, Loc.GetString("cargo-console-menu-tab-title-funds"));
+            InitializeOrbitraLayout(); // Orbitra-Edit - оформление вкладок и фильтра.
 
             ActionOptions.OnItemSelected += idx =>
             {
@@ -158,11 +160,11 @@ namespace Content.Client.Cargo.UI
                     var button = new CargoProductRow
                     {
                         Product = prototype,
-                        ProductName = { Text = prototype.Name },
-                        MainButton = { ToolTip = prototype.Description },
+                        MainButton = { ToolTip = $"{prototype.Name}\n\n{prototype.Description}" }, // Orbitra-Edit - полное название в подсказке.
                         PointCost = { Text = Loc.GetString("cargo-console-menu-points-amount", ("amount", prototype.Cost.ToString())) },
                         Icon = { Texture = _spriteSystem.Frame0(prototype.Icon) },
                     };
+                    button.ProductName.SetMessage(prototype.Name); // Orbitra-Edit - переносим название без разбора разметки.
                     button.MainButton.OnPressed += args =>
                     {
                         OnItemSelected?.Invoke(button);
@@ -191,7 +193,7 @@ namespace Content.Client.Cargo.UI
             _categoryStrings.Sort();
 
             // Add "All" category at the top of the list
-            _categoryStrings.Insert(0, Loc.GetString("cargo-console-menu-populate-categories-all-text"));
+            _categoryStrings.Insert(0, Loc.GetString("orbitra-cargo-console-all-categories")); // Orbitra-Edit - отдельная подпись без префикса фильтра.
 
             foreach (var str in _categoryStrings)
             {
@@ -224,15 +226,6 @@ namespace Content.Client.Cargo.UI
                 {
                     Order = order,
 
-                    Title =
-                    {
-                        Text = Loc.GetString(
-                            "cargo-console-menu-order-row-title",
-                            ("productName", productName),
-                            ("orderAmount", order.OrderQuantity),
-                            ("orderPrice", productProto.Cost)),
-                    },
-
                     Stride =
                     {
                         PanelOverride = new StyleBoxFlat
@@ -252,19 +245,16 @@ namespace Content.Client.Cargo.UI
                             ("accountColor", account.Color),
                             ("account", Loc.GetString(account.Code)))
                     },
-
-                    Description =
-                    {
-                        Text = !string.IsNullOrEmpty(order.Reason) ?
-                            Loc.GetString(
-                                "cargo-console-menu-order-row-product-description",
-                                ("orderReason", order.Reason))
-                        :
-                            Loc.GetString(
-                                "cargo-console-menu-order-row-product-description",
-                                ("orderReason", Loc.GetString("cargo-console-menu-order-row-alerts-reason-absent")))
-                    }
                 };
+
+                // Orbitra added start - переносим заголовок и причину как обычный текст.
+                row.Title.SetMessage(Loc.GetString("cargo-console-menu-order-row-title",
+                    ("productName", productName), ("orderAmount", order.OrderQuantity), ("orderPrice", productProto.Cost)));
+                var reason = !string.IsNullOrEmpty(order.Reason)
+                    ? order.Reason
+                    : Loc.GetString("cargo-console-menu-order-row-alerts-reason-absent");
+                row.Description.SetMessage(Loc.GetString("cargo-console-menu-order-row-product-description", ("orderReason", reason)));
+                // Orbitra added end
 
                 row.Cancel.OnPressed += (args) => { OnOrderCanceled?.Invoke(order); };
 

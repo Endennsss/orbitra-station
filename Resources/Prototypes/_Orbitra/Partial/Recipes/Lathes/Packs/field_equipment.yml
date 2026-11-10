@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: !PartialOnly latheRecipePack
+  id: ScienceEquipment
+  recipes:
+  - OrbitraGeigerCounter
+  - OrbitraMiniJetpack
+  - OrbitraStationPinpointer
+  - OrbitraFloodlight
+
+- type: !PartialOnly latheRecipePack
+  id: ScienceClothing
+  recipes:
+  - OrbitraRadiationSuit
+  - OrbitraFireSuit
+  - OrbitraSalvageRig
+  - OrbitraNightVisionGoggles
+
+- type: !PartialOnly latheRecipePack
+  id: AtmosTools
+  recipes:
+  - OrbitraInflatableWall
+  - OrbitraInflatableDoor
+  - OrbitraMiniFireExtinguisher
+
+- type: !PartialOnly latheRecipePack
+  id: Chemistry
+  recipes:
+  - OrbitraCompactDefibrillator

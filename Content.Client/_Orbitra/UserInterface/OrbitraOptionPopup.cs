@@ -10,16 +10,19 @@ namespace Content.Client._Orbitra.UserInterface;
 /// <summary>Presentation adapter for the stock option popup; selection and modal input remain native.</summary>
 internal static class OrbitraOptionPopup
 {
+    private const int MaximumHeight = 288;
+
     public static void Attach(OptionButton option)
     {
         if (option.HasStyleClass("OrbitraOptionPopupAttached"))
             return;
         option.AddStyleClass("OrbitraOptionPopupAttached");
+        StyleCaption(option);
         StyleRows(option.OptionsScroll);
         option.OptionStyleClasses.Remove("OrbitraLobbyButton");
         option.OptionStyleClasses.Add("OrbitraOptionRow");
         option.OptionsScroll.HScrollEnabled = false;
-        option.OptionsScroll.MaxHeight = 288;
+        option.OptionsScroll.MaxHeight = MaximumHeight;
         option.OnPressed += _ => Place(option);
     }
 
@@ -28,24 +31,82 @@ internal static class OrbitraOptionPopup
         if (option.OptionsScroll.Parent is not Popup { Visible: true } popup || option.Root == null)
             return;
         var screen = option.Root.Size;
-        var width = Math.Max(0, Math.Min(option.Width, screen.X - 32));
-        var below = Math.Max(0, screen.Y - 16 - option.GlobalPosition.Y - option.Height);
-        var above = Math.Max(0, option.GlobalPosition.Y - 16);
+        var margin = Vector2.Min(new Vector2(OrbitraUiMetrics.ScreenMargin), screen / 4);
+        var maximumWidth = Math.Max(0, screen.X - 2 * margin.X);
+        var rowWidth = MeasureRows(option.OptionsScroll, maximumWidth);
+        var width = Math.Min(maximumWidth, Math.Max(option.Width, rowWidth + OrbitraUiMetrics.Medium));
+        var below = Math.Max(0, screen.Y - margin.Y - option.GlobalPosition.Y - option.Height);
+        var above = Math.Max(0, option.GlobalPosition.Y - margin.Y);
         option.OptionsScroll.SetWidth = width;
-        option.OptionsScroll.MaxHeight = 288;
-        option.OptionsScroll.Measure(new Vector2(width, 288));
-        var wanted = Math.Min(288, option.OptionsScroll.DesiredSize.Y);
+        option.OptionsScroll.MaxHeight = MaximumHeight;
+        option.OptionsScroll.Measure(new Vector2(width, MaximumHeight));
+        var wanted = Math.Min(MaximumHeight, option.OptionsScroll.DesiredSize.Y);
         var openAbove = below < wanted && above > below;
         var height = Math.Min(wanted, openAbove ? above : below);
         option.OptionsScroll.MaxHeight = height;
         popup.MinSize = Vector2.Zero;
         popup.SetSize = popup.MaxSize = new Vector2(width, height);
-        var x = Math.Clamp(option.GlobalPosition.X, 16, Math.Max(16, screen.X - width - 16));
+        var x = Math.Clamp(option.GlobalPosition.X, margin.X, Math.Max(margin.X, screen.X - width - margin.X));
         var y = openAbove ? option.GlobalPosition.Y - height : option.GlobalPosition.Y + option.Height;
         // Повторный Open закрывает штатную модальность и отвязывает список от дерева.
         PopupContainer.SetPopupOrigin(popup, new Vector2(x, y));
         OrbitraMotion.BindPopup(popup, option);
         OrbitraMotion.Reveal(popup, OrbitraMotion.MenuDuration);
+    }
+
+    private static void StyleCaption(OptionButton option)
+    {
+        foreach (var child in option.Children)
+        {
+            if (child is not BoxContainer contents)
+                continue;
+            contents.SeparationOverride ??= OrbitraUiMetrics.Small;
+            foreach (var item in contents.Children)
+            {
+                if (item is Label caption && caption.HasStyleClass(OptionButton.StyleClassOptionButton))
+                {
+                    caption.RectClipContent = true;
+                    if (float.IsFinite(option.SetWidth))
+                        caption.ClipText = true;
+                    option.TooltipSupplier ??= _ =>
+                    {
+                        var text = option.ToolTip ?? caption.Text;
+                        return string.IsNullOrWhiteSpace(text) ? null : new OrbitraTooltip(text);
+                    };
+                }
+                else if (item is TextureRect icon && icon.HasStyleClass(OptionButton.StyleClassOptionTriangle))
+                {
+                    icon.AddStyleClass("OrbitraIcon-chevron_down");
+                    icon.SetSize = new Vector2(OrbitraUiMetrics.IconSize);
+                    icon.Stretch = TextureRect.StretchMode.KeepAspectCentered;
+                }
+            }
+        }
+    }
+
+    private static float MeasureRows(Control control, float maximumWidth)
+    {
+        if (!control.Visible)
+            return 0;
+        if (control is Button button)
+        {
+            // Обрезанный Label не запрашивает ширину. Измеряем полную подпись при открытии.
+            var clips = button.ClipText;
+            button.ClipText = false;
+            button.Measure(new Vector2(maximumWidth, MaximumHeight));
+            var width = button.DesiredSize.X;
+            button.ClipText = clips;
+            return width;
+        }
+
+        var widest = 0f;
+        foreach (var child in control.Children)
+        {
+            widest = Math.Max(widest, MeasureRows(child, maximumWidth));
+            if (widest >= maximumWidth)
+                break;
+        }
+        return widest;
     }
 
     private static void StyleRows(Control control)

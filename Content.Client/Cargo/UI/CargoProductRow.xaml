@@ -1,34 +1,22 @@
 <BoxContainer xmlns="https://spacestation14.io"
-    HorizontalExpand="True">
-    <PanelContainer HorizontalExpand="True">
-        <!-- Btn position hardcoded (args.Button.Parent?.Parent type) in CargoConsoleBUI 71 line -->
-        <Button Name="MainButton"
-                ToolTip=""
-                Access="Public"
-                VerticalExpand="False"
-                StyleClasses="OpenBoth" />
-
-        <!-- Icon & Name -->
-        <BoxContainer Orientation="Horizontal"
-                      HorizontalExpand="True"
-                      Margin="4 0">
-
-            <TextureRect Name="Icon"
-                         Access="Public"
-                         MinSize="32 32"
-                         RectClipContent="True" />
-
-            <Label Name="ProductName"
-                   Access="Public"
-                   HorizontalExpand="True"
-                   ClipText="True" />
-        </BoxContainer>
-    </PanelContainer>
-
-    <Label Name="PointCost"
-           Access="Public"
-           MinSize="56 32"
-           Align="Right"
-           Margin="0 0 5 0"
-           HorizontalAlignment="Right"/>
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:orbitra="clr-namespace:Content.Client._Orbitra.UserInterface"
+              xmlns:cargo="clr-namespace:Content.Client._Orbitra.Cargo.UI"
+              HorizontalExpand="True">
+    <!-- Orbitra edit start - название переносится в пределах строки, цена остаётся справа -->
+    <orbitra:OrbitraButton Name="MainButton" Access="Public" HorizontalExpand="True"
+                           StyleClasses="OrbitraCompactRow">
+        <cargo:OrbitraCargoProductContent SeparationOverride="{x:Static orbitra:OrbitraUiMetrics.Small}"
+                                         MouseFilter="Ignore" Margin="4 0">
+            <TextureRect Name="Icon" Access="Public"
+                         SetSize="32 32"
+                         Stretch="KeepAspectCentered"
+                         VerticalAlignment="Center" MouseFilter="Ignore" />
+            <RichTextLabel Name="ProductName" Access="Public"
+                           HorizontalExpand="True" MouseFilter="Ignore" />
+            <Label Name="PointCost" Access="Public"
+                   MinWidth="56" Align="Right" MouseFilter="Ignore" />
+        </cargo:OrbitraCargoProductContent>
+    </orbitra:OrbitraButton>
+    <!-- Orbitra edit end -->
 </BoxContainer>

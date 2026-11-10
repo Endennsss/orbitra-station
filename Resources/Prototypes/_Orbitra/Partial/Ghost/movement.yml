@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: !PartialOnly entity
+  id: MobObserverBase
+  components:
+  - type: InputMover
+    orbitraNormalSprintWeight: 0.4
+  - type: MovementSpeedModifier
+    baseSprintSpeed: 18
+    baseWalkSpeed: 8
+
+- type: !PartialOnly entity
+  id: ReplayObserver
+  components:
+  - type: MovementSpeedModifier
+    baseSprintSpeed: 36
+    baseWalkSpeed: 16

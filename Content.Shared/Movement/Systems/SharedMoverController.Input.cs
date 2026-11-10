@@ -5,6 +5,7 @@ using Content.Shared.Follower.Components;
 using Content.Shared.Input;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Events;
+using Content.Shared._Orbitra.Input; // Orbitra-Edit - команда бега.
 using Robust.Shared.GameStates;
 using Robust.Shared.Input;
 using Robust.Shared.Input.Binding;
@@ -38,7 +39,10 @@ namespace Content.Shared.Movement.Systems
                 .Bind(EngineKeyFunctions.MoveLeft, moveLeftCmdHandler)
                 .Bind(EngineKeyFunctions.MoveRight, moveRightCmdHandler)
                 .Bind(EngineKeyFunctions.MoveDown, moveDownCmdHandler)
-                .Bind(EngineKeyFunctions.Walk, new WalkInputCmdHandler(this))
+                // Orbitra edit start - две независимые команды темпа.
+                .Bind(EngineKeyFunctions.Walk, new GaitInputCmdHandler(this, MoveButtons.Walk))
+                .Bind(OrbitraKeyFunctions.Sprint, new GaitInputCmdHandler(this, MoveButtons.Sprint))
+                // Orbitra edit end
                 .Bind(EngineKeyFunctions.CameraRotateLeft, new CameraRotateInputCmdHandler(this, Direction.East))
                 .Bind(EngineKeyFunctions.CameraRotateRight, new CameraRotateInputCmdHandler(this, Direction.West))
                 .Bind(EngineKeyFunctions.CameraReset, new CameraResetInputCmdHandler(this))
@@ -113,6 +117,7 @@ namespace Content.Shared.Movement.Systems
             entity.Comp.RelativeRotation = state.RelativeRotation;
             entity.Comp.TargetRelativeRotation = state.TargetRelativeRotation;
             entity.Comp.CanMove = state.CanMove;
+            entity.Comp.OrbitraNormalSprintWeight = state.OrbitraNormalSprintWeight; // Orbitra-Edit - одинаковый темп в предсказании и на сервере.
             entity.Comp.RelativeEntity = EnsureEntity<InputMoverComponent>(state.RelativeEntity, entity.Owner);
 
             // Reset
@@ -138,6 +143,7 @@ namespace Content.Shared.Movement.Systems
                 RelativeEntity = GetNetEntity(entity.Comp.RelativeEntity),
                 LerpTarget = entity.Comp.LerpTarget,
                 HeldMoveButtons = entity.Comp.HeldMoveButtons,
+                OrbitraNormalSprintWeight = entity.Comp.OrbitraNormalSprintWeight, // Orbitra-Edit - обычный темп.
                 RelativeRotation = entity.Comp.RelativeRotation,
                 TargetRelativeRotation = entity.Comp.TargetRelativeRotation,
             };
@@ -348,7 +354,8 @@ namespace Content.Shared.Movement.Systems
             entity.Comp.TargetRelativeRotation = Angle.Zero;
         }
 
-        private void HandleRunChange(EntityUid uid, ushort subTick, bool walking)
+        // Orbitra edit start - передаём обе команды через существующее перенаправление ввода.
+        private void HandleGaitChange(EntityUid uid, ushort subTick, bool pressed, MoveButtons button)
         {
             MoverQuery.TryGetComponent(uid, out var moverComp);
 
@@ -360,14 +367,18 @@ namespace Content.Shared.Movement.Systems
                     SetMoveInput((uid, moverComp), MoveButtons.None);
                 }
 
-                HandleRunChange(relayMover.RelayEntity, subTick, walking);
+                HandleGaitChange(relayMover.RelayEntity, subTick, pressed, button);
                 return;
             }
 
             if (moverComp == null) return;
 
-            SetSprinting((uid, moverComp), subTick, walking);
+            if (button == MoveButtons.Walk)
+                SetSprinting((uid, moverComp), subTick, pressed);
+            else
+                SetMoveInput((uid, moverComp), subTick, pressed, button);
         }
+        // Orbitra edit end
 
         public (Vector2 Walking, Vector2 Sprinting) GetVelocityInput(InputMoverComponent mover)
         {
@@ -377,7 +388,7 @@ namespace Content.Shared.Movement.Systems
                 // So return a full-length vector as if it's a full tick.
                 // Physics system will have the correct time step anyways.
                 var immediateDir = DirVecForButtons(mover.HeldMoveButtons);
-                return mover.Sprinting ? (Vector2.Zero, immediateDir) : (immediateDir, Vector2.Zero);
+                return GetOrbitraGaitMovement(mover, immediateDir); // Orbitra-Edit - учитываем обычный темп вне симуляции.
             }
 
             Vector2 walk;
@@ -399,14 +410,11 @@ namespace Content.Shared.Movement.Systems
 
             var curDir = DirVecForButtons(mover.HeldMoveButtons) * remainingFraction;
 
-            if (mover.Sprinting)
-            {
-                sprint += curDir;
-            }
-            else
-            {
-                walk += curDir;
-            }
+            // Orbitra edit start - распределяем остаток тика по двум штатным скоростям.
+            var (currentWalk, currentSprint) = GetOrbitraGaitMovement(mover, curDir);
+            walk += currentWalk;
+            sprint += currentSprint;
+            // Orbitra edit end
 
             // Logger.Info($"{curDir}{walk}{sprint}");
             return (walk, sprint);
@@ -442,9 +450,12 @@ namespace Content.Shared.Movement.Systems
             {
                 var fraction = (subTick - entity.Comp.LastInputSubTick) / (float) ushort.MaxValue;
 
-                ref var lastMoveAmount = ref entity.Comp.Sprinting ? ref entity.Comp.CurTickSprintMovement : ref entity.Comp.CurTickWalkMovement;
-
-                lastMoveAmount += DirVecForButtons(entity.Comp.HeldMoveButtons) * fraction;
+                // Orbitra edit start - сохраняем вклад прежнего темпа до смены клавиши.
+                var direction = DirVecForButtons(entity.Comp.HeldMoveButtons) * fraction;
+                var (walk, sprint) = GetOrbitraGaitMovement(entity.Comp, direction);
+                entity.Comp.CurTickWalkMovement += walk;
+                entity.Comp.CurTickSprintMovement += sprint;
+                // Orbitra edit end
 
                 entity.Comp.LastInputSubTick = subTick;
             }
@@ -581,23 +592,18 @@ namespace Content.Shared.Movement.Systems
             }
         }
 
-        private sealed class WalkInputCmdHandler : InputCmdHandler
+        // Orbitra edit start - один обработчик для ходьбы и бега.
+        private sealed class GaitInputCmdHandler(SharedMoverController controller, MoveButtons button) : InputCmdHandler
         {
-            private SharedMoverController _controller;
-
-            public WalkInputCmdHandler(SharedMoverController controller)
-            {
-                _controller = controller;
-            }
-
             public override bool HandleCmdMessage(IEntityManager entManager, ICommonSession? session, IFullInputCmdMessage message)
             {
-                if (session?.AttachedEntity == null) return false;
+                if (session?.AttachedEntity is { } entity)
+                    controller.HandleGaitChange(entity, message.SubTick, message.State == BoundKeyState.Down, button);
 
-                _controller.HandleRunChange(session.AttachedEntity.Value, message.SubTick, message.State == BoundKeyState.Down);
                 return false;
             }
         }
+        // Orbitra edit end
 
         private sealed class ShuttleInputCmdHandler : InputCmdHandler
         {
@@ -630,6 +636,7 @@ namespace Content.Shared.Movement.Systems
         Left = 4,
         Right = 8,
         Walk = 16,
+        Sprint = 32, // Orbitra-Edit - удерживается команда бега.
         AnyDirection = Up | Down | Left | Right,
     }
 

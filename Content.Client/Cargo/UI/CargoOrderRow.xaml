@@ -1,24 +1,20 @@
 <PanelContainer
     xmlns="https://spacestation14.io"
-    xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+    xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
     HorizontalExpand="True"
     StyleClasses="BackgroundPanel">
 
     <!-- Main Container -->
     <BoxContainer Orientation="Vertical"
                   HorizontalExpand="True"
-                  SeparationOverride="6"
-                  Margin="-14 -2">
+                  SeparationOverride="6"> <!-- Orbitra-Edit - карточка укладывается в ширину списка. -->
 
         <BoxContainer Orientation="Vertical">
             <Control>
                 <PanelContainer StyleClasses="WindowHeadingBackground" />
 
                 <BoxContainer Margin="6">
-                    <Label Name="Title"
-                           Access="Public"
-                           MaxHeight="28"
-                           StyleClasses="LabelKeyText"/>
+                    <RichTextLabel Name="Title" Access="Public" StyleClasses="LabelKeyText"/> <!-- Orbitra-Edit - длинный заголовок переносится. -->
                 </BoxContainer>
             </Control>
 
@@ -49,21 +45,15 @@
                        VerticalExpand="True"
                        StyleClasses="LabelSubText" />
 
-                <Label Name="Description"
-                       Access="Public"
-                       HorizontalExpand="True"
-                       VerticalExpand="True"
-                       StyleClasses="LabelSubText"
-                       ClipText="True" />
+                <RichTextLabel Name="Description" Access="Public" StyleClasses="OrbitraLobbyMuted"/> <!-- Orbitra-Edit - причина переносится на новую строку. -->
             </BoxContainer>
         </BoxContainer>
 
         <BoxContainer Orientation="Vertical">
             <PanelContainer StyleClasses="LowDivider" />
 
-            <!-- Buttons -->
-            <!-- Btn's position hardcoded (args.Button.Parent?.Parent?.Parent type) in CargoConsoleBUI 158 & 166 line -->
-            <BoxContainer Margin="6">
+            <!-- Orbitra edit start - действия переносятся, если подписи не помещаются в один ряд. -->
+            <kit:OrbitraFlowGrid Margin="6" HSeparationOverride="6" VSeparationOverride="6">
                 <Button Name="Approve"
                         Access="Public"
                         Text="{Loc 'cargo-console-menu-order-row-button-approve'}"
@@ -75,7 +65,8 @@
                         Text="{Loc 'cargo-console-menu-order-row-button-cancel'}"
                         StyleClasses="OpenLeft"
                         HorizontalExpand="True" />
-            </BoxContainer>
+            </kit:OrbitraFlowGrid>
+            <!-- Orbitra edit end -->
         </BoxContainer>
     </BoxContainer>
 </PanelContainer>

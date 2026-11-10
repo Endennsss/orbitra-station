@@ -1,0 +1,135 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Ende (Orbitra)
+
+- type: technology
+  id: OrbitraRadiationSurvey
+  name: research-technology-orbitra-radiation-survey
+  icon:
+    sprite: Objects/Tools/geiger.rsi
+    state: geiger_base
+  discipline: Industrial
+  tier: 1
+  cost: 2500
+  technologyPrerequisites:
+  - IndustrialEngineering
+  recipeUnlocks:
+  - OrbitraGeigerCounter
+
+- type: technology
+  id: OrbitraRadiologicalShielding
+  name: research-technology-orbitra-radiological-shielding
+  icon:
+    sprite: Clothing/OuterClothing/Suits/rad.rsi
+    state: icon
+  discipline: Industrial
+  tier: 2
+  cost: 5000
+  technologyPrerequisites:
+  - OrbitraRadiationSurvey
+  - AtmosphericTech
+  recipeUnlocks:
+  - OrbitraRadiationSuit
+
+- type: technology
+  id: OrbitraEvaRecovery
+  name: research-technology-orbitra-eva-recovery
+  icon:
+    sprite: Objects/Tanks/Jetpacks/mini.rsi
+    state: icon
+  discipline: Industrial
+  tier: 2
+  cost: 5000
+  technologyPrerequisites:
+  - SpaceScanning
+  - OrbitraRadiationSurvey
+  recipeUnlocks:
+  - OrbitraMiniJetpack
+  - OrbitraStationPinpointer
+
+- type: technology
+  id: OrbitraBreachContainment
+  name: research-technology-orbitra-breach-containment
+  icon:
+    sprite: Objects/Misc/inflatable_wall.rsi
+    state: item_wall
+  discipline: Industrial
+  tier: 2
+  cost: 4500
+  technologyPrerequisites:
+  - AtmosphericTech
+  recipeUnlocks:
+  - OrbitraInflatableWall
+  - OrbitraInflatableDoor
+
+- type: technology
+  id: OrbitraFireResponse
+  name: research-technology-orbitra-fire-response
+  icon:
+    sprite: Objects/Misc/fire_extinguisher_mini.rsi
+    state: fire_extinguisher_closed
+  discipline: CivilianServices
+  tier: 1
+  cost: 3000
+  technologyPrerequisites:
+  - AtmosphericTech
+  recipeUnlocks:
+  - OrbitraFireSuit
+  - OrbitraMiniFireExtinguisher
+
+- type: technology
+  id: OrbitraFieldLighting
+  name: research-technology-orbitra-field-lighting
+  icon:
+    sprite: Objects/Misc/Lights/lights.rsi
+    state: floodlight
+  discipline: CivilianServices
+  tier: 1
+  cost: 2500
+  technologyPrerequisites:
+  - IndustrialEngineering
+  recipeUnlocks:
+  - OrbitraFloodlight
+
+- type: technology
+  id: OrbitraSalvageRigging
+  name: research-technology-orbitra-salvage-rigging
+  icon:
+    sprite: Clothing/Belt/salvagewebbing.rsi
+    state: icon
+  discipline: Industrial
+  tier: 1
+  cost: 2500
+  technologyPrerequisites:
+  - SalvageEquipment
+  recipeUnlocks:
+  - OrbitraSalvageRig
+
+- type: technology
+  id: OrbitraFieldResuscitation
+  name: research-technology-orbitra-field-resuscitation
+  icon:
+    sprite: Objects/Specific/Medical/defibsmall.rsi
+    state: icon
+  discipline: OrbitraBiochemical
+  tier: 3
+  cost: 7500
+  technologyPrerequisites:
+  - MechanizedTreatment
+  - AdvancedPowercells
+  recipeUnlocks:
+  - OrbitraCompactDefibrillator
+
+- type: technology
+  id: OrbitraLowLightOptics
+  name: research-technology-orbitra-low-light-optics
+  icon:
+    sprite: _Orbitra/Clothing/Eyes/Goggles/nightvision.rsi
+    state: icon
+  discipline: Experimental
+  tier: 2
+  cost: 6000
+  technologyPrerequisites:
+  - BasicAnomalousResearch
+  - AdvancedPowercells
+  recipeUnlocks:
+  - OrbitraNightVisionGoggles

@@ -28,7 +28,6 @@ internal static class OrbitraControlTheme
         control.AddStyleClass(AppliedClass);
         // Существующие sheetlet остаются единственным источником цветов и состояния элементов.
         control.AddStyleClass("OrbitraEditorControl");
-        OrbitraTooltips.Attach(control);
         if (control is LineEdit or Slider)
         {
             control.RemoveStyleClass("actionSearchBox");
@@ -51,6 +50,7 @@ internal static class OrbitraControlTheme
             checkbox.TextureRect.AddStyleClass("OrbitraCheckIcon");
         if (control is TabContainer tabs)
             OrbitraMotion.AttachTabs(tabs);
+        OrbitraTooltips.Attach(control);
         foreach (var child in control.Children)
             Apply(child);
         control.OnChildAdded += Apply;

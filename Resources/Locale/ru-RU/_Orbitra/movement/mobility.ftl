@@ -1,5 +1,6 @@
 ui-options-function-orbitra-toggle-prone = Лечь или сделать кувырок
 ui-options-function-orbitra-jump = Прыгнуть
+ui-options-function-orbitra-sprint = Бежать
 
 orbitra-mobility-cannot-move = Сейчас этот манёвр выполнить нельзя.
 orbitra-mobility-no-stamina = Недостаточно выносливости для манёвра.

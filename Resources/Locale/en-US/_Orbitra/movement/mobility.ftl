@@ -1,5 +1,6 @@
 ui-options-function-orbitra-toggle-prone = Lie down or roll
 ui-options-function-orbitra-jump = Jump
+ui-options-function-orbitra-sprint = Run
 
 orbitra-mobility-cannot-move = You cannot perform that maneuver right now.
 orbitra-mobility-no-stamina = You do not have enough stamina for that maneuver.

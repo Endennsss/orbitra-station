@@ -82,8 +82,15 @@ namespace Content.Shared.Movement.Components
         public const float SprintingSoundModifier = 3.5f;
         public const float WalkingSoundModifier = 1.5f;
 
+        // Orbitra edit start - обычный темп между медленным шагом и бегом.
+        [DataField]
+        public float OrbitraNormalSprintWeight = 0.75f;
+
+        public bool Walking => (HeldMoveButtons & MoveButtons.Walk) != MoveButtons.None;
+
         [ViewVariables]
-        public bool Sprinting => (HeldMoveButtons & MoveButtons.Walk) == 0x0;
+        public bool Sprinting => !Walking && (HeldMoveButtons & MoveButtons.Sprint) != MoveButtons.None;
+        // Orbitra edit end
 
         [ViewVariables(VVAccess.ReadWrite)]
         public bool CanMove = true;
@@ -93,6 +100,7 @@ namespace Content.Shared.Movement.Components
     public sealed class InputMoverComponentState : ComponentState
     {
         public MoveButtons HeldMoveButtons;
+        public float OrbitraNormalSprintWeight; // Orbitra-Edit - обычный темп для клиентского предсказания.
         public NetEntity? RelativeEntity;
         public Angle TargetRelativeRotation;
         public Angle RelativeRotation;

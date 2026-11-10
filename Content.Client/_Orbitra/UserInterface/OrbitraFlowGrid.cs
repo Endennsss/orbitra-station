@@ -8,7 +8,10 @@ public sealed class OrbitraFlowGrid : GridContainer
 {
     protected override Vector2 MeasureOverride(Vector2 availableSize)
     {
-        MaxGridWidth = Math.Max(1, availableSize.X);
+        if (float.IsFinite(availableSize.X))
+            MaxGridWidth = Math.Max(1, availableSize.X);
+        else
+            Columns = Math.Max(1, ChildCount);
         return base.MeasureOverride(availableSize);
     }
 }

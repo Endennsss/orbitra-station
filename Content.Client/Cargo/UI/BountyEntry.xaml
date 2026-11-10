@@ -1,37 +1,25 @@
 ﻿<BoxContainer xmlns="https://spacestation14.io"
               xmlns:customControls="clr-namespace:Content.Client.Administration.UI.CustomControls"
+              xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
               Margin="10 10 10 0"
               HorizontalExpand="True"
               Visible="True">
     <PanelContainer StyleClasses="BackgroundPanel" HorizontalExpand="True">
         <BoxContainer Orientation="Vertical"
                       HorizontalExpand="True">
-            <BoxContainer Orientation="Horizontal">
-                <BoxContainer Orientation="Vertical" HorizontalExpand="True">
-                    <RichTextLabel Name="RewardLabel"/>
-                    <RichTextLabel Name="ManifestLabel"/>
-                </BoxContainer>
-                <Control MinWidth="10"/>
-                <BoxContainer Orientation="Vertical" MinWidth="120">
-                    <BoxContainer Orientation="Horizontal" MinWidth="120">
-                        <Button Name="PrintButton"
-                                Text="{Loc 'bounty-console-label-button-text'}"
-                                HorizontalExpand="False"
-                                HorizontalAlignment="Right"
-                                StyleClasses="OpenRight"/>
-                        <Button Name="SkipButton"
-                                Text="{Loc 'bounty-console-skip-button-text'}"
-                                HorizontalExpand="False"
-                                HorizontalAlignment="Right"
-                                StyleClasses="OpenLeft"/>
-                    </BoxContainer>
-                    <RichTextLabel Name="IdLabel" HorizontalAlignment="Right" Margin="0 0 5 0"/>
-                </BoxContainer>
+            <!-- Orbitra edit start - манифест и действия получают полную ширину карточки. -->
+            <BoxContainer SeparationOverride="6">
+                <RichTextLabel Name="RewardLabel" HorizontalExpand="True"/>
+                <RichTextLabel Name="IdLabel" HorizontalAlignment="Right"/>
             </BoxContainer>
+            <RichTextLabel Name="ManifestLabel"/>
             <customControls:HSeparator Margin="5 10 5 10"/>
-            <BoxContainer>
-                <RichTextLabel Name="DescriptionLabel"/>
-            </BoxContainer>
+            <RichTextLabel Name="DescriptionLabel"/>
+            <kit:OrbitraFlowGrid Margin="0 8 0 0" HSeparationOverride="6" VSeparationOverride="6">
+                <Button Name="PrintButton" Text="{Loc 'bounty-console-label-button-text'}" HorizontalExpand="True"/>
+                <Button Name="SkipButton" Text="{Loc 'bounty-console-skip-button-text'}" HorizontalExpand="True"/>
+            </kit:OrbitraFlowGrid>
+            <!-- Orbitra edit end -->
         </BoxContainer>
     </PanelContainer>
 </BoxContainer>

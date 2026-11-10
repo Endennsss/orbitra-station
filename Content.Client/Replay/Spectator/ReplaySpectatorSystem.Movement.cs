@@ -1,4 +1,7 @@
 using Content.Shared.Movement.Components;
+using Content.Shared.Movement.Systems; // Orbitra-Edit - общий расчёт обычного темпа.
+using Content.Shared._Orbitra.Input; // Orbitra-Edit - команда бега.
+using Robust.Client.GameObjects; // Orbitra-Edit - читаем состояние клавиши ускорения в реплее.
 using Robust.Shared.Input;
 using Robust.Shared.Input.Binding;
 using Robust.Shared.Map;
@@ -9,6 +12,8 @@ namespace Content.Client.Replay.Spectator;
 // Partial class handles movement logic for observers.
 public sealed partial class ReplaySpectatorSystem
 {
+    [Dependency] private InputSystem _input = default!; // Orbitra-Edit - читаем ввод без предсказания физики.
+
     public DirectionFlag Direction;
 
     /// <summary>
@@ -96,7 +101,13 @@ public sealed partial class ReplaySpectatorSystem
         var parentRotation = _mover.GetParentGridAngle(mover);
         var localVec = effectiveDir.AsDir().ToAngle().ToWorldVec();
         var worldVec = parentRotation.RotateVec(localVec);
-        var speed = CompOrNull<MovementSpeedModifierComponent>(player)?.BaseSprintSpeed ?? DefaultSpeed;
+        // Orbitra edit start - учитываем обе команды темпа у наблюдателя без физики.
+        var speedModifier = CompOrNull<MovementSpeedModifierComponent>(player);
+        var walk = _input.CmdStates.GetState(EngineKeyFunctions.Walk) == BoundKeyState.Down;
+        var sprint = _input.CmdStates.GetState(OrbitraKeyFunctions.Sprint) == BoundKeyState.Down;
+        var weight = SharedMoverController.GetOrbitraSprintWeight(mover, walk, sprint);
+        var speed = MathHelper.Lerp(speedModifier?.BaseWalkSpeed ?? DefaultSpeed, speedModifier?.BaseSprintSpeed ?? DefaultSpeed, weight);
+        // Orbitra edit end
         var delta = worldVec * frameTime * speed;
         _transform.SetWorldPositionRotation(player, pos + delta, delta.ToWorldAngle(), xform);
     }

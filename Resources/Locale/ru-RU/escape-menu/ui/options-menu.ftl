@@ -253,7 +253,8 @@ ui-options-header-text-other = Прочий ввод текста
 
 ui-options-hotkey-keymap = Использовать клавиши QWERTY (США)
 
-ui-options-hotkey-toggle-walk = Переключать шаг\бег
+# Orbitra-Edit - переключатель медленного шага.
+ui-options-hotkey-toggle-walk = Медленный шаг по нажатию
 
 ui-options-function-move-up = Двигаться вверх
 
@@ -263,7 +264,8 @@ ui-options-function-move-down = Двигаться вниз
 
 ui-options-function-move-right = Двигаться направо
 
-ui-options-function-walk = Идти
+# Orbitra-Edit - отдельное название медленного шага.
+ui-options-function-walk = Медленный шаг
 
 ui-options-function-toggle-knockdown = Переключить ползание
 

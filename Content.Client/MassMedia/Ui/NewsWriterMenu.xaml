@@ -7,10 +7,11 @@
     MinSize="348 443"
     SetSize="348 443">
 
-    <ui:ArticleEditorPanel Name="ArticleEditorPanel" HorizontalAlignment="Left" VerticalExpand="True"
-                           MinWidth="410" MinHeight="370" Margin="0 0 0 30" Access="Public" Visible="False"/>
+    <!-- Orbitra edit start - список и редактор используют одну область окна. -->
+    <ui:ArticleEditorPanel Name="ArticleEditorPanel" Margin="8" Access="Public" Visible="False"/>
 
-    <BoxContainer Orientation="Vertical" VerticalExpand="True">
+    <BoxContainer Name="ArticleListPanel" Orientation="Vertical" VerticalExpand="True">
+        <!-- Orbitra edit end -->
         <Control VerticalExpand="True" HorizontalExpand="True" Margin="10 10 10 0">
             <PanelContainer Name="MainPanel" HorizontalExpand="False" VerticalExpand="True">
                 <PanelContainer.PanelOverride>
