@@ -1,0 +1,4 @@
+- type: shader
+  id: OrbitraSmoothGas
+  kind: source
+  path: /Textures/_Orbitra/Shaders/smooth_gas.swsl

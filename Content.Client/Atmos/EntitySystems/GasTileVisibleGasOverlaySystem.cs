@@ -26,6 +26,7 @@ public sealed partial class GasTileVisibleGasOverlaySystem : EntitySystem
     {
         base.Shutdown();
         _overlayMan.RemoveOverlay<GasTileVisibleGasOverlay>();
+        _visibleGasOverlay.Dispose(); // Orbitra-Edit - менеджер только убирает оверлей из списка.
     }
 
 }

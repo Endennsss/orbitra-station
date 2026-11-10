@@ -1,4 +1,5 @@
 using Content.Client.Atmos.Components;
+using Content.Client._Orbitra.Atmos; // Orbitra-Edit - клиентская дымка по данным штатного оверлея.
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.EntitySystems;
@@ -46,6 +47,7 @@ public sealed partial class GasTileVisibleGasOverlay : Overlay
     private readonly Texture[][] _frames;
 
     private readonly int _gasCount;
+    private readonly OrbitraGasRenderer _orbitraGas; // Orbitra-Edit - ресурсы дымки живут вместе с оверлеем.
 
     public const int GasOverlayZIndex = (int)DrawDepth.Gasses; // Under ghosts and fire, above mostly everything else
 
@@ -62,6 +64,7 @@ public sealed partial class GasTileVisibleGasOverlay : Overlay
         ZIndex = GasOverlayZIndex;
 
         _gasCount = _gasTileOverlaySystem.VisibleGasId.Length;
+        _orbitraGas = new OrbitraGasRenderer(_gasTileOverlaySystem.VisibleGasId); // Orbitra-Edit
         _timer = new float[_gasCount];
         _frameDelays = new float[_gasCount][];
         _frameCounter = new int[_gasCount];
@@ -95,6 +98,7 @@ public sealed partial class GasTileVisibleGasOverlay : Overlay
     protected override void FrameUpdate(FrameEventArgs args)
     {
         base.FrameUpdate(args);
+        _orbitraGas.Advance(args.DeltaSeconds); // Orbitra-Edit
 
         for (var i = 0; i < _gasCount; i++)
         {
@@ -116,6 +120,9 @@ public sealed partial class GasTileVisibleGasOverlay : Overlay
 
     protected override void Draw(in OverlayDrawArgs args)
     {
+        if (_orbitraGas.TryDraw(args)) // Orbitra-Edit - при отключении сохраняем штатную отрисовку.
+            return;
+
         if (args.MapId == MapId.Nullspace)
             return;
 
@@ -205,6 +212,14 @@ public sealed partial class GasTileVisibleGasOverlay : Overlay
                 return true;
             });
     }
+
+    // Orbitra added start - освобождаем текстуры и экземпляры шейдеров.
+    protected override void DisposeBehavior()
+    {
+        _orbitraGas.Dispose();
+        base.DisposeBehavior();
+    }
+    // Orbitra added end
 
     private void DrawMapOverlay(
         DrawingHandleWorld handle,

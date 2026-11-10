@@ -1,0 +1,35 @@
+uniform sampler2D previous_density;
+uniform bool map_atmosphere;
+uniform highp vec4 map_density;
+uniform highp vec2 cloud_origin;
+uniform highp vec2 cloud_size;
+uniform highp float transition;
+uniform highp float drift_time;
+
+highp float cloud_hash(highp vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+highp float cloud_noise(highp vec2 p) {
+    highp vec2 cell = floor(p);
+    highp vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(mix(cloud_hash(cell), cloud_hash(cell + vec2(1.0, 0.0)), f.x),
+        mix(cloud_hash(cell + vec2(0.0, 1.0)), cloud_hash(cell + vec2(1.0, 1.0)), f.x), f.y);
+}
+
+void fragment() {
+    highp vec4 density = map_density;
+    if (!map_atmosphere) {
+        // Один граничный пиксель с каждой стороны позволяет фильтровать через стык чанков.
+        highp vec2 uv = mix(TEXTURE_PIXEL_SIZE, vec2(1.0) - TEXTURE_PIXEL_SIZE, UV);
+        density = mix(zTextureSpec(previous_density, uv), zTexture(uv), transition);
+    }
+
+    highp vec2 position = cloud_origin + vec2(UV.x, 1.0 - UV.y) * cloud_size;
+    highp vec2 drift = vec2(drift_time * 0.17, -drift_time * 0.12);
+    highp float coarse = cloud_noise(position * 0.8 + drift);
+    highp float detail = cloud_noise(position * 1.75 - drift * 0.6 + vec2(9.3, 4.1));
+    highp float texture_detail = 0.72 + 0.2 * coarse + 0.08 * detail;
+    COLOR = vec4(density.rgb / max(density.a, 0.001), density.a * 0.45 * texture_detail);
+}
