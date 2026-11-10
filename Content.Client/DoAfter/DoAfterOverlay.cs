@@ -183,8 +183,6 @@ public sealed partial class DoAfterOverlay : Overlay // Orbitra-Edit - аним�
         }
 
         EndEntranceFrame(); // Orbitra-Edit - убираем завершённые анимации
-        handle.UseShader(null);
-        handle.SetTransform(Matrix3x2.Identity);
     }
 
     public Color GetProgressColor(float progress, float alpha = 1f)

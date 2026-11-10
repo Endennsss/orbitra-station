@@ -10,6 +10,7 @@ using Content.Shared.Administration.Logs;
 using Content.Shared.Interaction;
 using Content.Shared.Maps;
 using Content.Shared.Power.Components;
+using Content.Shared.Power.EntitySystems;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -223,10 +224,10 @@ public sealed partial class OrbitraBluespaceHarvesterSystem : EntitySystem
             return;
         }
 
-        if (consumer.DrawRate == requested && powerState.IsWorking == (requested > 0f))
+        if (consumer.DrawRate == requested && _powerState.GetWorkingState((ent, powerState)) == (requested > 0f))
             return;
 
-        // Orbitra-Edit: штатный setter управляет IsWorking, а переменная HV-нагрузка задаётся через PowerConsumer.
+        // Orbitra-Edit: штатный метод управляет состоянием включения, а переменная HV-нагрузка задаётся через PowerConsumer.
         ent.Comp.SkipPowerSample = true;
         _powerState.SetWorkingState((ent.Owner, powerState), requested > 0f);
         consumer.DrawRate = requested;

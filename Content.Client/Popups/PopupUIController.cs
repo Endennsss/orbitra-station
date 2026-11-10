@@ -82,7 +82,7 @@ public sealed class PopupUIController : UIController, IOnStateEntered<GameplaySt
         }
 
         var dimensions = handle.GetDimensions(font, popup.Text, scale);
-        var drawPosition = updatedPosition - dimensions / 2f;
+        var drawPosition = (updatedPosition - dimensions / 2f).Rounded();
         handle.DrawString(font, drawPosition, popup.Text, scale, color.WithAlpha(alpha)); // Orbitra-Edit - без обводки у экранных и мировых сообщений
     }
 

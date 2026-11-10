@@ -704,8 +704,8 @@ public sealed class OrbitraXenobiologyUiTest
                         foreach (var scroll in Descendants(themedWindow).OfType<ScrollBar>())
                         {
                             Assert.That(scroll.HasStyleClass("OrbitraEditorControl"), Is.True);
-                            Assert.That(scroll.TryGetStyleProperty<StyleBox>(ScrollBar.StylePropertyTrack, out var track), Is.True);
-                            Assert.That(((StyleBoxFlat) track).BackgroundColor, Is.EqualTo(OrbitraPalettes.PanelBackground));
+                            Assert.That(scroll.TryGetStyleProperty<StyleBoxFlat>(ScrollBar.StylePropertyTrack, out var track), Is.True);
+                            Assert.That(track!.BackgroundColor, Is.EqualTo(OrbitraPalettes.PanelBackground));
                         }
                     }
                     var specimenRow = window.SpecimenList.Children.OfType<ContainerButton>().Single();

@@ -20,7 +20,6 @@
                 <kit:OrbitraCheckBox Name="ShowLoocAboveHeadCheckBox" Text="{Loc 'ui-options-show-looc-on-head'}" />
                 <kit:OrbitraCheckBox Name="FancySpeechBubblesCheckBox" Text="{Loc 'ui-options-fancy-speech'}" />
                 <kit:OrbitraCheckBox Name="FancyNameBackgroundsCheckBox" Text="{Loc 'ui-options-fancy-name-background'}" />
-                <kit:OrbitraCheckBox Name="ChatFollowButton" Text="{Loc 'ui-options-chat-follow-button'}" />
                 <Label Text="{Loc 'ui-options-general-cursor'}"
                        StyleClasses="LabelKeyText"/>
                 <kit:OrbitraCheckBox Name="ShowHeldItemCheckBox" Text="{Loc 'ui-options-show-held-item'}" />

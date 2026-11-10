@@ -1,4 +1,5 @@
 <Control xmlns="https://spacestation14.io" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:orbitra="clr-namespace:Content.Client._Orbitra.Stylesheets"
+         xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
          xmlns:graphics="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
          xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
          MouseFilter="Stop">
@@ -16,7 +17,7 @@
                        HorizontalExpand="True" VAlign="Center" StyleClasses="FancyWindowTitle" />
             </BoxContainer>
         </Control>
-        <PanelContainer StyleClasses="LowDivider" Margin="0 0 1 0"/>
+        <controls:Separator StyleClasses="LowDivider" Margin="0 0 1 0"/>
         <BoxContainer Orientation="Horizontal">
             <Label Text="{Loc news-write-ui-article-name-label}" Margin="17 10 0 9" VerticalAlignment="Center"/>
             <!-- Orbitra edit start - ширина поля следует за шириной редактора. -->

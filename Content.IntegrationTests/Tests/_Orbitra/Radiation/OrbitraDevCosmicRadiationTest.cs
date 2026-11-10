@@ -34,7 +34,7 @@ public sealed class OrbitraDevCosmicRadiationTest : GameTest
         {
             var cosmic = Server.System<OrbitraCosmicRadiationSystem>();
             var maps = Server.System<SharedMapSystem>();
-            var map = maps.GetMapOrInvalid(Server.System<GameTicker>().DefaultMap);
+            var map = maps.GetMapOrInvalid(Server.System<ServerGameTicker>().DefaultMap);
             var spawns = SEntMan.AllEntityQueryEnumerator<MetaDataComponent, TransformComponent>();
             while (spawns.MoveNext(out _, out var metadata, out var transform))
             {

@@ -14,7 +14,7 @@
   - type: Appearance
   - type: PowerState
     idlePowerDraw: 0
-    isWorking: false
+    isTurnedOn: false
   - type: ActivatableUI
     key: enum.OrbitraBluespaceDeviceUiKey.Key
   - type: UserInterface
@@ -115,7 +115,7 @@
     ensureApc: false
     idlePowerDraw: 0
     workingPowerDraw: 125000
-    isWorking: false
+    isTurnedOn: false
   - type: Machine
     board: OrbitraBluespaceHarvesterBoard
   - type: Appearance

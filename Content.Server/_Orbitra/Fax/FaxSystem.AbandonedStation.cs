@@ -1,4 +1,5 @@
 using Content.Server._Orbitra.StationEvents;
+using Content.Shared.DeviceNetwork;
 using Content.Shared.Fax.Components;
 
 // ReSharper disable CheckNamespace
@@ -21,12 +22,12 @@ public sealed partial class FaxSystem
         }
     }
 
-    private Dictionary<string, string> OrbitraGetKnownFaxes(EntityUid uid, FaxMachineComponent comp)
+    private Dictionary<DeviceAddress, string> OrbitraGetKnownFaxes(EntityUid uid, FaxMachineComponent comp)
     {
         if (!_orbitraAbandonedStation.IsIsolationActive)
             return comp.KnownFaxes;
 
-        var known = new Dictionary<string, string>();
+        var known = new Dictionary<DeviceAddress, string>();
         foreach (var (address, name) in comp.KnownFaxes)
         {
             if (_orbitraAbandonedStation.CanFax(uid, address))

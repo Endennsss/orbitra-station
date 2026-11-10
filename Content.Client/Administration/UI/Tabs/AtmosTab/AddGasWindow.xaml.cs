@@ -30,7 +30,7 @@ namespace Content.Client.Administration.UI.Tabs.AtmosTab
 
         protected override void EnteredTree()
         {
-            base.EnteredTree(); // Orbitra-Edit
+            base.EnteredTree();
             GridOptions.Clear(); // Orbitra-Edit - повторное открытие не дублирует записи.
             GasOptions.Clear(); // Orbitra-Edit
             // Fill out grids

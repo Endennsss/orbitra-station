@@ -10,6 +10,7 @@ using Content.Shared.ActionBlocker;
 using Content.Shared.Interaction;
 using Content.Shared.Power;
 using Content.Shared.Power.Components;
+using Content.Shared.Power.EntitySystems;
 using Content.Shared.Research.Components;
 using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
@@ -271,7 +272,7 @@ public sealed partial class OrbitraBluespaceResearchSystem : EntitySystem
 
     private bool IsReceivingWorkingPower(EntityUid uid)
     {
-        return _powerStateQuery.TryComp(uid, out var powerState) && powerState.IsWorking &&
+        return _powerStateQuery.TryComp(uid, out var powerState) && _powerState.GetWorkingState((uid, powerState)) &&
                float.IsFinite(powerState.WorkingPowerDraw) && powerState.WorkingPowerDraw > 0f &&
                _receiverQuery.TryComp(uid, out var receiver) && receiver.Powered && !receiver.PowerDisabled &&
                float.IsFinite(receiver.PowerReceived) && receiver.PowerReceived > 0f &&

@@ -6,6 +6,8 @@ species-name-dwarf = Дворф
 
 species-name-reptilian = Унатх
 
+species-name-horror = Шаркающее чудовище
+
 ## Misc species things
 
 snail-hurt-by-salt-popup = Солевой раствор жжёт как кислота!

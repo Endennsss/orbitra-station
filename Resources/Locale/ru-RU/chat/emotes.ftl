@@ -72,6 +72,8 @@ chat-emote-name-snore = Храпеть
 
 chat-emote-name-flap = Взмахнуть крыльями
 
+chat-emote-name-blink = Моргнуть
+
 # Message
 
 chat-emote-msg-scream = кричит!
@@ -107,6 +109,8 @@ chat-emote-msg-salute = салютует.
 chat-emote-msg-gasp = задыхается.
 
 chat-emote-msg-deathgasp = замирает и бездыханно оседает, { POSS-ADJ($entity) } глаза мертвы и безжизненны...
+
+chat-emote-msg-deathgasp-kobold = тихо тявкает, падает и перестаёт двигаться...
 
 chat-emote-msg-deathgasp-monkey = издаёт слабое уханье, падает и перестаёт двигаться... { SUBJECT($entity) }
 
@@ -147,3 +151,5 @@ chat-emote-msg-snore = храпит.
 
 
 chat-emote-msg-flap = машет { POSS-ADJ($entity) } крыльями.
+
+chat-emote-msg-blink = моргает.

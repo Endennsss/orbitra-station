@@ -1,19 +1,19 @@
 using Content.Server.Chat.Managers;
 using Content.Server.Fax;
-using Content.Server.GameTicking;
 using Content.Server.RoundEnd;
 using Content.Server.Shuttles.Systems;
-using Content.Server.Station.Components;
 using Content.Server.StationEvents.Components;
 using Content.Server.StationEvents.Events;
 using Content.Shared.Database;
 using Content.Shared.AlertLevel;
 using Content.Shared.Cargo.Components;
+using Content.Shared.DeviceNetwork;
 using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.Fax.Components;
 using Content.Shared.GameTicking;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Popups;
+using Content.Shared.Station.Components;
 using Robust.Shared.Localization;
 using Robust.Shared.Random;
 using Robust.Shared.Audio;
@@ -29,7 +29,7 @@ public sealed partial class OrbitraAbandonedStationRuleSystem : StationEventSyst
     [Dependency] private IChatManager _chat = default!;
     [Dependency] private RoundEndSystem _roundEnd = default!;
     [Dependency] private EmergencyShuttleSystem _emergency = default!;
-    [Dependency] private ArrivalsSystem _arrivals = default!;
+    [Dependency] private ServerArrivalsSystem _arrivals = default!;
     [Dependency] private FaxSystem _fax = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private AlertLevelSystem _alertLevel = default!;
@@ -68,24 +68,12 @@ public sealed partial class OrbitraAbandonedStationRuleSystem : StationEventSyst
         Finish(ent);
     }
 
-    protected override void Added(EntityUid uid, OrbitraAbandonedStationRuleComponent component,
-        GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void Started(Entity<OrbitraAbandonedStationRuleComponent, GameRuleComponent> ent, ref GameRuleStartedEvent args)
     {
-        // Проверка до старта не расходует лимит успешных запусков в истории правил.
-        if (!CanBegin((uid, component), out var reason))
-        {
-            _chat.SendAdminAlert(_loc.GetString(reason));
-            GameTicker.EndGameRule(uid, gameRule);
-        }
-    }
-
-    protected override void Started(EntityUid uid, OrbitraAbandonedStationRuleComponent component,
-        GameRuleComponent gameRule, GameRuleStartedEvent args)
-    {
-        if (TryBegin((uid, component)))
+        if (TryBegin((ent, ent.Comp1)))
             return;
 
-        GameTicker.EndGameRule(uid, gameRule);
+        GameTicker.EndGameRule((ent, ent.Comp2));
     }
 
     /// <summary>
@@ -140,7 +128,7 @@ public sealed partial class OrbitraAbandonedStationRuleSystem : StationEventSyst
             if (_roundEnd.IsRoundEndRequested() || _emergency.EmergencyShuttleArrived)
             {
                 Announce("orbitra-abandoned-station-interrupted");
-                GameTicker.EndGameRule(uid, gameRule);
+                GameTicker.EndGameRule((uid, gameRule));
                 return;
             }
 
@@ -166,16 +154,15 @@ public sealed partial class OrbitraAbandonedStationRuleSystem : StationEventSyst
             return;
         }
 
-        GameTicker.EndGameRule(uid, gameRule);
+        GameTicker.EndGameRule((uid, gameRule));
         Announce("orbitra-abandoned-station-recovered");
         _roundEnd.RequestRoundEnd(checkCooldown: false, cantRecall: true);
     }
 
-    protected override void Ended(EntityUid uid, OrbitraAbandonedStationRuleComponent component,
-        GameRuleComponent gameRule, GameRuleEndedEvent args)
+    protected override void Ended(Entity<OrbitraAbandonedStationRuleComponent> ent, ref GameRuleEndedEvent args)
     {
-        Finish((uid, component));
-        base.Ended(uid, component, gameRule, args);
+        Finish(ent);
+        base.Ended(ent, ref args);
     }
 
     private void Finish(Entity<OrbitraAbandonedStationRuleComponent> ent)
@@ -256,9 +243,9 @@ public sealed partial class OrbitraAbandonedStationRuleSystem : StationEventSyst
         if (!TryComp(uid, out TransformComponent? xform))
             return null;
 
-        var station = StationSystem.GetOwningStation(uid, xform);
+        var station = Station.GetOwningStation(uid, xform);
         if (!HasComp<StationEventEligibleComponent>(station) ||
-            StationSystem.GetLargestGrid(station.Value) is not { } mainGrid ||
+            Station.GetLargestGrid(station.Value) is not { } mainGrid ||
             HasComp<TradeStationComponent>(xform.GridUid) ||
             xform.MapUid != Transform(mainGrid).MapUid)
             return null;
@@ -270,17 +257,17 @@ public sealed partial class OrbitraAbandonedStationRuleSystem : StationEventSyst
     /// During isolation, fax traffic must remain within the same main station.
     /// Unknown senders, including direct external administrative deliveries, are rejected.
     /// </summary>
-    public bool CanFax(EntityUid endpoint, string? otherAddress)
+    public bool CanFax(EntityUid endpoint, DeviceAddress? otherAddress)
     {
         if (!IsIsolationActive)
             return true;
-        if (string.IsNullOrEmpty(otherAddress) || GetLocalStation(endpoint) is not { } station)
+        if (otherAddress is not { } address || !address.IsValid() || GetLocalStation(endpoint) is not { } station)
             return false;
 
         var query = EntityQueryEnumerator<FaxMachineComponent, DeviceNetworkComponent>();
         while (query.MoveNext(out var uid, out _, out var network))
         {
-            if (network.Address == otherAddress)
+            if (network.Address == address)
                 return GetLocalStation(uid) == station;
         }
         return false;

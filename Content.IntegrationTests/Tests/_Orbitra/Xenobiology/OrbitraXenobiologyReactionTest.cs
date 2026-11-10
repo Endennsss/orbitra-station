@@ -298,7 +298,7 @@ public sealed class OrbitraXenobiologyReactionTest
                 Assert.That(summons, Has.Count.EqualTo(count));
                 var allowed = reagent switch
                 {
-                    "Plasma" => new[] { "MobCarp", "MobGiantSpiderAngry" },
+                    "Plasma" => new[] { "MobCarp", "MobGiantSpiderHunterAngry" },
                     "Blood" => new[] { "MobMonkey", "MobCrab" },
                     _ => new[] { "MobMouse", "MobLizard" },
                 };

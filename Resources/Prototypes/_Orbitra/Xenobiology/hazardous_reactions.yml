@@ -64,7 +64,7 @@
   effect: Spawn
   delay: 5
   spawnCount: 2
-  creatures: [MobCarp, MobGiantSpiderAngry]
+  creatures: [MobCarp, MobGiantSpiderHunterAngry]
 
 - type: orbitraXenobiologyReaction
   id: OrbitraXenoReactionGoldNeutral

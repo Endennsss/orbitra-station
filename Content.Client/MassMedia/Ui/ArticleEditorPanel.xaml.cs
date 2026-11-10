@@ -1,4 +1,4 @@
-﻿using Content.Client.Message;
+using Content.Client.Message;
 using Content.Client.RichText;
 using Content.Client.UserInterface.RichText;
 using Content.Shared.MassMedia.Systems;

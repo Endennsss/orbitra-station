@@ -7,8 +7,8 @@ using Content.IntegrationTests.Pair;
 using Content.Server._Orbitra.Research.Bluespace;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
-using Content.Server.Station.Systems;
 using Content.Server.Stack;
+using Content.Server.Station.Systems;
 using Content.Shared._Orbitra.Research.Bluespace;
 using Content.Shared.AlertLevel;
 using Content.Shared.Power.Components;
@@ -499,7 +499,7 @@ public sealed partial class OrbitraBluespaceInfrastructureTest
                         containers.Insert((harvester.Owner, null, null, null), containers.EnsureContainer<Container>(holder, "test"));
                         break;
                     case "no-station":
-                        server.System<StationSystem>().RemoveGridFromStation(context.FirstStation, context.FirstGrid);
+                        server.System<ServerStationSystem>().RemoveGridFromStation(context.FirstStation, context.FirstGrid);
                         break;
                     case "nullspace":
                         server.System<SharedTransformSystem>().DetachEntity(harvester);
@@ -705,8 +705,8 @@ public sealed partial class OrbitraBluespaceInfrastructureTest
                 }
                 firstStation = server.EntMan.SpawnEntity("OrbitraTestResearchStation", MapCoordinates.Nullspace);
                 secondStation = server.EntMan.SpawnEntity("OrbitraTestResearchStation", MapCoordinates.Nullspace);
-                server.System<StationSystem>().AddGridToStation(firstStation, first.Grid);
-                server.System<StationSystem>().AddGridToStation(secondStation, second.Grid);
+                server.System<ServerStationSystem>().AddGridToStation(firstStation, first.Grid);
+                server.System<ServerStationSystem>().AddGridToStation(secondStation, second.Grid);
                 user = server.EntMan.SpawnEntity("MobHuman", new EntityCoordinates(first.Grid, 2.25f, 0.5f));
             });
             await scenario(new StationContext(pair, first.Grid, second.Grid, first.MapUid,

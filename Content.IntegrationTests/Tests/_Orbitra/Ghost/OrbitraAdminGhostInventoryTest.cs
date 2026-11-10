@@ -35,14 +35,14 @@ public sealed class OrbitraAdminGhostInventoryTest : GameTest
         await Server.WaitAssertion(() => Assert.That(admin.HasAdminFlag(player, AdminFlags.Admin), Is.True));
         await Server.WaitPost(() =>
         {
-            observer = SEntMan.SpawnEntity(GameTicker.ObserverPrototypeName, map.GridCoords);
+            observer = SEntMan.SpawnEntity(ServerGameTicker.ObserverPrototypeName, map.GridCoords);
             Server.PlayerMan.SetAttachedEntity(player, observer);
         });
         await Server.WaitAssertion(() => Assert.That(SEntMan.HasComponent<InventoryComponent>(observer), Is.False));
 
         await Server.WaitPost(() =>
         {
-            adminGhost = SEntMan.SpawnEntity(GameTicker.AdminObserverPrototypeName, map.GridCoords);
+            adminGhost = SEntMan.SpawnEntity(ServerGameTicker.AdminObserverPrototypeName, map.GridCoords);
             Server.PlayerMan.SetAttachedEntity(player, adminGhost);
             inventory.TryGetSlotEntity(adminGhost, "back", out originalBackpack);
             for (var i = 0; i < equipment.Length; i++)

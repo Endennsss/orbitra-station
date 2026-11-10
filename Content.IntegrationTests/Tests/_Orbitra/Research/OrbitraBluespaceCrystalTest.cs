@@ -6,6 +6,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using Content.Client.IconSmoothing;
+using Content.Client.IconSmoothing.Smoothings;
 using Content.IntegrationTests.Pair;
 using Content.Server.Lathe;
 using Content.Server.Materials;
@@ -15,7 +17,6 @@ using Content.Server.Storage.EntitySystems;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
-using Content.Shared.IconSmoothing;
 using Content.Shared.Lathe;
 using Content.Shared.Materials;
 using Content.Shared.Materials.OreSilo;
@@ -33,7 +34,6 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Maths;
 using Robust.Shared.Noise;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Reflection;
 using Robust.Shared.Serialization.Manager;
 using ServerResearchSystem = Content.Server.Research.Systems.ResearchSystem;
 
@@ -605,27 +605,27 @@ public sealed class OrbitraBluespaceCrystalTest
             await client.WaitAssertion(() =>
             {
                 var sprites = client.System<SpriteSystem>();
-                var reflection = client.ResolveDependency<IReflectionManager>();
                 foreach (var (prototype, networkEntity) in rocks)
                 {
                     var rock = client.EntMan.GetEntity(networkEntity);
                     Assert.That(client.EntMan.EntityExists(rock), Is.True, prototype);
                     var sprite = client.EntMan.GetComponent<SpriteComponent>(rock);
-                    var smoothEdges = client.EntMan.HasComponent<SmoothEdgeComponent>(rock);
+                    var smoothing = client.EntMan.GetComponent<IconSmoothComponent>(rock);
                     Assert.That(sprite.Visible, Is.True, prototype);
-                    Assert.That(sprite.AllLayers.Count(), Is.GreaterThanOrEqualTo(smoothEdges ? 6 : 5), prototype);
+                    Assert.That(sprite.AllLayers.Count(), Is.GreaterThanOrEqualTo(5), prototype);
                     Assert.That(sprites.TryGetLayer((rock, sprite), MiningScannerVisualLayers.Overlay, out var overlay, false), Is.True, prototype);
                     Assert.That(overlay!.Visible, Is.True, prototype);
                     var overlayState = ((ISpriteLayer) overlay).RsiState;
                     Assert.That(overlayState.Name, Is.EqualTo("rock_bluespace_crystal"), prototype);
                     Assert.That(overlay.ActualRsi, Is.Not.Null, prototype);
                     Assert.That(overlay.ActualRsi!.TryGetState(overlayState, out _), Is.True, prototype);
-                    if (!smoothEdges)
-                        continue;
-                    foreach (var direction in new[] { "South", "East", "North", "West" })
+                    foreach (var edge in smoothing.States.OfType<EdgeSpriteSmoothing>())
                     {
-                        Assert.That(reflection.TryParseEnumReference($"enum.EdgeLayer.{direction}", out var key), Is.True);
-                        Assert.That(sprites.LayerMapTryGet((rock, sprite), key!, out _, false), Is.True, $"{prototype}: {direction}");
+                        foreach (var direction in new[] { "south", "east", "north", "west" })
+                        {
+                            var key = edge.LayerKey + direction;
+                            Assert.That(sprites.LayerMapTryGet((rock, sprite), key, out _, false), Is.True, $"{prototype}: {key}");
+                        }
                     }
                 }
             });

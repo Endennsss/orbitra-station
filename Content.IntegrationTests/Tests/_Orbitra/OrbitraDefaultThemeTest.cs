@@ -152,7 +152,7 @@ public sealed class OrbitraDefaultThemeTest
     [TestCase("OpenLeft")]
     [TestCase("OpenRight")]
     [TestCase("OpenBoth")]
-    public async Task CommonButtonStatesKeepVisibleSurfacesAndStableMargins(string? style)
+    public async Task CommonButtonStatesKeepVisibleSurfacesAndStableMargins(string style)
     {
         await using var pair = await PoolManager.GetServerClient(new PoolSettings { Connected = true });
         FancyWindow window = null!;

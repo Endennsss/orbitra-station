@@ -32,17 +32,17 @@ public sealed class OrbitraGhostSkinVisualTest
                 var appearance = entities.System<AppearanceSystem>();
                 var skin = entities.EnsureComponent<OrbitraGhostSkinComponent>(uid);
                 var originalColor = sprite.Color;
-                var originalCount = sprite.AllLayers.Count();
                 Assert.That(sprites.TryGetLayer((uid, sprite), "ghostVariant", out var native, false), Is.True);
                 var originalVisible = native!.Visible;
                 appearance.SetData(uid, GhostVisuals.Damage, "ghost_Cold0");
                 appearance.OnChangeData(uid, sprite);
                 Assert.That(native.State.Name, Is.EqualTo("ghost_Cold0"));
+                var originalLayers = sprite.AllLayers.ToArray();
 
                 sprites.SetVisible((uid, sprite), false);
                 skin.Skin = selectedSkin;
                 appearance.OnChangeData(uid, sprite);
-                var replacement = sprite.AllLayers.Last();
+                var replacement = sprite.AllLayers.Except(originalLayers).Single();
                 Assert.Multiple(() =>
                 {
                     Assert.That(sprite.Color, Is.EqualTo(Color.White));
@@ -50,7 +50,7 @@ public sealed class OrbitraGhostSkinVisualTest
                     Assert.That(replacement.Visible, Is.True);
                     Assert.That(native.Visible, Is.False);
                     Assert.That(sprite.Visible, Is.False);
-                    Assert.That(sprite.AllLayers.Count(), Is.EqualTo(originalCount + 1));
+                    Assert.That(sprite.AllLayers.Count(), Is.EqualTo(originalLayers.Length + 1));
                 });
 
                 // Штатный визуализатор продолжает обновлять скрытый слой причины смерти.
@@ -73,7 +73,7 @@ public sealed class OrbitraGhostSkinVisualTest
                     });
                     skin.Skin = selectedSkin;
                     appearance.OnChangeData(uid, sprite);
-                    Assert.That(sprite.AllLayers.Count(), Is.EqualTo(originalCount + 1));
+                    Assert.That(sprite.AllLayers.Count(), Is.EqualTo(originalLayers.Length + 1));
                 }
 
                 entities.RemoveComponent<OrbitraGhostSkinComponent>(uid);

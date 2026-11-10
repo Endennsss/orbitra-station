@@ -7,7 +7,7 @@ using Robust.Shared.Utility;
 namespace Content.Shared._Orbitra.Ghost;
 
 /// <summary>A cosmetic observer appearance. An absent sprite restores the native ghost appearance.</summary>
-[Prototype("orbitraGhostSkin")]
+[Prototype]
 public sealed partial class OrbitraGhostSkinPrototype : IPrototype
 {
     [IdDataField] public string ID { get; private set; } = default!;

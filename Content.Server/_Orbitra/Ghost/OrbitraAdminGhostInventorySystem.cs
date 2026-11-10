@@ -46,7 +46,7 @@ public sealed partial class OrbitraAdminGhostInventorySystem : EntitySystem
     private void RefreshSlots(EntityUid uid, ICommonSession player)
     {
         if (!TryComp(uid, out MetaDataComponent? metadata) ||
-            metadata.EntityPrototype?.ID != GameTicker.AdminObserverPrototypeName.Id ||
+            metadata.EntityPrototype?.ID != ServerGameTicker.AdminObserverPrototypeName.Id ||
             !TryComp(uid, out InventoryComponent? inventory))
         {
             return;

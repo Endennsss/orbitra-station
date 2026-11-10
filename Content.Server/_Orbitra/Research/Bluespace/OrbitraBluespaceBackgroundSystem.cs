@@ -2,7 +2,7 @@
 // Copyright (c) 2026 Ende (Orbitra)
 
 using Content.Server.Chat.Systems;
-using Content.Server.Station.Systems;
+using Content.Shared.Station.Systems;
 using Content.Shared.AlertLevel;
 using Content.Shared.Station.Components;
 

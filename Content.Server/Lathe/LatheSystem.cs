@@ -422,7 +422,7 @@ namespace Content.Server.Lathe
         /// Iterator returning adjusted amount of material needed to
         /// produce a given recipe
         /// </summary>
-        private IEnumerable<(ProtoId<MaterialPrototype> mat, int amount)> GetAdjustedAmount(LatheComponent lathe, LatheRecipePrototype recipe) // Orbitra-Edit - учитываем прототип материала при расчёте расхода.
+        private IEnumerable<(ProtoId<MaterialPrototype> mat, int amount)> GetAdjustedAmount(LatheComponent lathe, LatheRecipePrototype recipe)
         {
             foreach (var (mat, amount) in recipe.Materials)
             {
@@ -430,11 +430,11 @@ namespace Content.Server.Lathe
                     ? (int)(amount * lathe.MaterialUseMultiplier)
                     : amount;
 
-                // Orbitra edit start - неделимые материалы списываются и возвращаются целыми единицами.
+                // Orbitra added start - неделимые материалы списываются и возвращаются целыми единицами.
                 var material = ProtoMan.Index(mat);
                 if (material.OrbitraLatheUnit > 1)
                     adjustedAmount = AdjustMaterial(material, amount, recipe.ApplyMaterialDiscount, lathe.MaterialUseMultiplier);
-                // Orbitra edit end
+                // Orbitra added end
 
                 yield return (mat, adjustedAmount);
             }
@@ -466,6 +466,12 @@ namespace Content.Server.Lathe
                 _materialStorage.TryChangeMaterialAmount(uid, mat, amount * delta);
         }
 
+        /// <summary>
+        /// Aborts the recipe currently printing, putting it back on the queue.
+        /// </summary>
+        /// <remarks>
+        /// Alters batch counts where possible instead of creating a new batch.
+        /// </remarks>
         public void AbortProduction(EntityUid uid, LatheComponent? component = null)
         {
             if (!Resolve(uid, ref component))

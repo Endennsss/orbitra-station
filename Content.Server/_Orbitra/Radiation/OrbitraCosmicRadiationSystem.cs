@@ -47,8 +47,11 @@ public sealed partial class OrbitraCosmicRadiationSystem : EntitySystem
     /// <summary>Returns the unshielded cosmic intensity at the entity, including held instruments.</summary>
     public float GetExposure(EntityUid uid)
     {
-        if (Deleted(uid) || Terminating(uid) || IsPaused(uid) || HasComp<GhostComponent>(uid)
-            || !TryComp<TransformComponent>(uid, out var xform) || xform.MapUid is not { } mapUid
+        if (Deleted(uid) || Terminating(uid) || IsPaused(uid) || HasComp<GhostComponent>(uid))
+            return 0f;
+
+        var xform = Transform(uid);
+        if (xform.MapUid is not { } mapUid
             || TryComp<MapAtmosphereComponent>(mapUid, out var atmosphere) && !atmosphere.Space)
             return 0f;
 

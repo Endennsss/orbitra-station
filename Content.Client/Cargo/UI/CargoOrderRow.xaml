@@ -1,6 +1,7 @@
 <PanelContainer
     xmlns="https://spacestation14.io"
     xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
+    xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
     HorizontalExpand="True"
     StyleClasses="BackgroundPanel">
 
@@ -18,9 +19,9 @@
                 </BoxContainer>
             </Control>
 
-            <PanelContainer Name="Stride"
+            <controls:Separator Name="Stride"
                 Access="Public"
-                StyleClasses="LowDivider" />
+                StyleClasses="LowDivider"/>
         </BoxContainer>
 
         <!-- Info -->
@@ -33,7 +34,7 @@
                          RectClipContent="True"
                          VerticalAlignment="Center"/>
 
-            <PanelContainer StyleClasses="LowDivider" Margin="4 0"/>
+            <controls:Separator StyleClasses="LowDivider" Margin="4 0" Orientation="Vertical" MinHeight="2"/>
 
             <BoxContainer Orientation="Vertical"
                           HorizontalExpand="True"
@@ -50,7 +51,7 @@
         </BoxContainer>
 
         <BoxContainer Orientation="Vertical">
-            <PanelContainer StyleClasses="LowDivider" />
+            <controls:Separator StyleClasses="LowDivider"/>
 
             <!-- Orbitra edit start - действия переносятся, если подписи не помещаются в один ряд. -->
             <kit:OrbitraFlowGrid Margin="6" HSeparationOverride="6" VSeparationOverride="6">

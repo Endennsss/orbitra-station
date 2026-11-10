@@ -6,12 +6,7 @@ using Content.Server._Orbitra.Cargo;
 using Content.Server.Cargo.Components;
 using Content.Server.Cargo.Systems;
 using Content.Server.Fax;
-using Content.Server.GameTicking;
 using Content.Server.RoundEnd;
-using Content.Server.Shuttles.Components;
-using Content.Server.Shuttles.Systems;
-using Content.Server.Spawners.Components;
-using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
 using Content.Server.StationEvents;
 using Content.Server.StationEvents.Components;
@@ -24,9 +19,14 @@ using Content.Shared.CCVar;
 using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.Fax;
 using Content.Shared.Fax.Components;
+using Content.Shared.GameTicking;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Preferences;
+using Content.Shared.Shuttles.Components;
+using Content.Shared.Shuttles.Systems;
+using Content.Shared.Spawners.Components;
 using Content.Shared.Station.Components;
+using Content.Shared.Station.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
@@ -39,7 +39,8 @@ namespace Content.IntegrationTests.Tests._Orbitra;
 public sealed class OrbitraAbandonedStationTest : GameTest
 {
     private const string RuleId = "OrbitraTestAbandonedStation";
-    private const string ProductionRuleId = "OrbitraAbandonedStation";
+    private const string TimedRuleId = "OrbitraTestTimedAbandonedStation";
+    private static readonly EntProtoId ProductionRuleId = "OrbitraAbandonedStation";
     private static readonly ProtoId<CargoProductPrototype> TestProduct = "FunCrateGambling";
 
     public override PoolSettings PoolSettings => new() { Dirty = true, DummyTicker = false };
@@ -60,6 +61,13 @@ public sealed class OrbitraAbandonedStationTest : GameTest
             recoveryChance: 0
 
         - type: entity
+          id: OrbitraTestTimedAbandonedStation
+          parent: OrbitraAbandonedStation
+          components:
+          - type: StationEvent
+            earliestStart: 10
+
+        - type: entity
           id: OrbitraTestAbandonedCryo
           components:
           - type: ContainerContainer
@@ -76,7 +84,8 @@ public sealed class OrbitraAbandonedStationTest : GameTest
         await Server.WaitPost(() =>
         {
             Server.CfgMan.SetCVar(CCVars.EmergencyShuttleAutoCallTime, 0);
-            Server.System<GameTicker>().StartGameRule(RuleId, out rule);
+            Server.System<GameTicker>().StartGameRule(RuleId, out var started);
+            rule = started!.Value.Owner;
         });
         await Pair.RunTicksSync(2);
         await Server.WaitAssertion(() => Assert.That(Server.System<OrbitraAbandonedStationRuleSystem>().IsIsolationActive, Is.True));
@@ -89,7 +98,7 @@ public sealed class OrbitraAbandonedStationTest : GameTest
         SEntMan.AddComponent<StationDataComponent>(station);
         SEntMan.AddComponent<StationEventEligibleComponent>(station);
         SEntMan.AddComponent<StationSpawningComponent>(station);
-        Server.System<StationSystem>().AddGridToStation(station, grid);
+        Server.System<ServerStationSystem>().AddGridToStation(station, grid);
         return station;
     }
 
@@ -97,29 +106,37 @@ public sealed class OrbitraAbandonedStationTest : GameTest
     public async Task ManualOnlyAndEarlyRejectionDoNotConsumeValidStart()
     {
         EntityUid rejected = default;
-        await Server.WaitPost(() => Server.System<GameTicker>().StartGameRule(ProductionRuleId, out rejected));
+        await Server.WaitPost(() =>
+        {
+            Server.System<GameTicker>().StartGameRule(TimedRuleId, out var started);
+            rejected = started!.Value.Owner;
+        });
         await Server.WaitAssertion(() =>
         {
-            Assert.That(SEntMan.HasComponent<EndedGameRuleComponent>(rejected), Is.True);
+            Assert.That(SEntMan.HasComponent<GameRuleComponent>(rejected), Is.False);
             Assert.That(Server.System<OrbitraAbandonedStationRuleSystem>().IsIsolationActive, Is.False);
-            var prototype = SProtoMan.Index<EntityPrototype>(ProductionRuleId);
+            var prototype = SProtoMan.Index<EntityPrototype>(ProductionRuleId.Id);
             Assert.That(prototype.TryComp<StationEventComponent>(out var config, SEntMan.ComponentFactory), Is.True);
-            Assert.That(config.EarliestStart, Is.EqualTo(10));
+            Assert.That(config.EarliestStart, Is.Zero);
             Assert.That(config.ManualOnly, Is.True);
             Assert.That(config.MaxOccurrences, Is.EqualTo(1));
             Assert.That(prototype.TryComp<OrbitraAbandonedStationRuleComponent>(out var eventConfig, SEntMan.ComponentFactory), Is.True);
             Assert.That(eventConfig.WarningDuration,
                 Is.EqualTo(TimeSpan.FromSeconds(60)));
             Assert.That(Server.System<EventManagerSystem>().AvailableEvents(currentTimeOverride: TimeSpan.FromHours(2))
-                .Keys.Any(p => p.ID == "OrbitraAbandonedStation" || p.ID == RuleId), Is.False);
+                .Events.Any(e => e.Item1.ID == ProductionRuleId.Id || e.Item1.ID == RuleId || e.Item1.ID == TimedRuleId), Is.False);
         });
 
         var rule = await StartOutage();
         EntityUid duplicate = default;
-        await Server.WaitPost(() => Server.System<GameTicker>().StartGameRule(RuleId, out duplicate));
+        await Server.WaitPost(() =>
+        {
+            Server.System<GameTicker>().StartGameRule(RuleId, out var started);
+            duplicate = started!.Value.Owner;
+        });
         await Server.WaitAssertion(() =>
         {
-            Assert.That(SEntMan.HasComponent<EndedGameRuleComponent>(duplicate), Is.True);
+            Assert.That(SEntMan.HasComponent<GameRuleComponent>(duplicate), Is.False);
             Assert.That(SEntMan.HasComponent<ActiveGameRuleComponent>(rule), Is.True);
         });
     }
@@ -205,7 +222,7 @@ public sealed class OrbitraAbandonedStationTest : GameTest
         int ticks = 0;
         await Server.WaitPost(() =>
         {
-            rule = SEntMan.SpawnEntity(ProductionRuleId, MapCoordinates.Nullspace);
+            rule = SEntMan.SpawnEntity(TimedRuleId, MapCoordinates.Nullspace);
             // Убираем автоматический старт; проверяем тот же прототип через штатный StartGameRule.
             SEntMan.AddComponent<DelayedStartRuleComponent>(rule).RuleStartTime = TimeSpan.FromDays(1);
             var timing = Server.ResolveDependency<IGameTiming>();
@@ -230,7 +247,7 @@ public sealed class OrbitraAbandonedStationTest : GameTest
         EntityUid rule = default;
         await Server.WaitPost(() =>
         {
-            rule = Server.System<GameTicker>().AddGameRule(RuleId);
+            rule = Server.System<GameTicker>().AddGameRule(RuleId)!.Value.Owner;
             var comp = SEntMan.GetComponent<OrbitraAbandonedStationRuleComponent>(rule);
             comp.RecoveryMinimum = TimeSpan.Zero;
             comp.RecoveryMaximum = TimeSpan.Zero;
@@ -250,11 +267,12 @@ public sealed class OrbitraAbandonedStationTest : GameTest
         {
             Server.System<GameTicker>().RestartRound();
             Server.System<RoundEndSystem>().RequestRoundEnd(checkCooldown: false);
-            Server.System<GameTicker>().StartGameRule(RuleId, out rejected);
+            Server.System<GameTicker>().StartGameRule(RuleId, out var started);
+            rejected = started!.Value.Owner;
         });
         await Server.WaitAssertion(() =>
         {
-            Assert.That(SEntMan.HasComponent<EndedGameRuleComponent>(rejected), Is.True);
+            Assert.That(SEntMan.HasComponent<GameRuleComponent>(rejected), Is.False);
             Assert.That(Server.System<OrbitraAbandonedStationRuleSystem>().IsIsolationActive, Is.False);
         });
     }
@@ -266,7 +284,7 @@ public sealed class OrbitraAbandonedStationTest : GameTest
         await Server.WaitPost(() =>
         {
             var ticker = Server.System<GameTicker>();
-            rule = ticker.AddGameRule(RuleId);
+            rule = ticker.AddGameRule(RuleId)!.Value.Owner;
             SEntMan.GetComponent<OrbitraAbandonedStationRuleComponent>(rule).WarningDuration = TimeSpan.FromSeconds(2);
             ticker.StartGameRule(rule);
         });
@@ -276,7 +294,7 @@ public sealed class OrbitraAbandonedStationTest : GameTest
         await Pair.RunSeconds(2);
         await Server.WaitAssertion(() =>
         {
-            Assert.That(SEntMan.HasComponent<EndedGameRuleComponent>(rule), Is.True);
+            Assert.That(SEntMan.HasComponent<GameRuleComponent>(rule), Is.False);
             Assert.That(Server.System<OrbitraAbandonedStationRuleSystem>().IsIsolationActive, Is.False);
             Assert.That(Server.System<RoundEndSystem>().IsRoundEndRequested(), Is.True);
         });
@@ -399,14 +417,16 @@ public sealed class OrbitraAbandonedStationTest : GameTest
             telepad = SEntMan.SpawnEntity(null, map.GridCoords);
             var tele = SEntMan.AddComponent<CargoTelepadComponent>(telepad);
             tele.CurrentOrders.Add(order);
-            tele.Accumulator = 0;
+            tele.NextTeleport = TimeSpan.Zero;
         });
         var rule = await StartOutage();
         bool added = true;
         await Server.WaitPost(() =>
         {
-            SEntMan.EventBus.RaiseLocalEvent(console, new CargoConsoleAddOrderMessage("test", "test", "FunCrateGambling", 1) { Actor = actor });
-            SEntMan.EventBus.RaiseLocalEvent(console, new CargoConsoleApproveOrderMessage(1) { Actor = actor });
+            var add = new CargoConsoleAddOrderMessage("test", "test", TestProduct.Id, 1) { Actor = actor };
+            var approve = new CargoConsoleApproveOrderMessage(1) { Actor = actor };
+            SEntMan.EventBus.RaiseLocalEvent(console, add);
+            SEntMan.EventBus.RaiseLocalEvent(console, approve);
             added = Server.System<CargoSystem>().AddAndApproveOrder(station,
                 SProtoMan.Index(TestProduct), 1, "test", "test", "test",
                 SEntMan.GetComponent<StationCargoOrderDatabaseComponent>(station), "Cargo",
@@ -425,7 +445,7 @@ public sealed class OrbitraAbandonedStationTest : GameTest
         {
             Server.System<GameTicker>().EndGameRule(rule);
             SEntMan.GetComponent<CargoTelepadComponent>(telepad).CurrentState = CargoTelepadState.Idle;
-            SEntMan.GetComponent<CargoTelepadComponent>(telepad).Accumulator = 0;
+            SEntMan.GetComponent<CargoTelepadComponent>(telepad).NextTeleport = TimeSpan.Zero;
         });
         await Pair.RunTicksSync(2);
         await Server.WaitAssertion(() => Assert.That(order.NumDispatched, Is.EqualTo(1)));

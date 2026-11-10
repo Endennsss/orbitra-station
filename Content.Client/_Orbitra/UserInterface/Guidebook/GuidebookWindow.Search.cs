@@ -20,11 +20,6 @@ public sealed partial class GuidebookWindow
         OrbitraKeyboardNavigation.Attach(_orbitraSectionsPopup).HandleKey = HandleOrbitraSearchKey;
         Scroll.CanKeyboardFocus = true;
         OrbitraArticleSearch.OnTextChanged += _ => FilterOrbitraGuides();
-        HomeButton.OnPressed += _ =>
-        {
-            if (Selected is { } id && _entries.TryGetValue(id, out var entry))
-                ShowGuide(entry);
-        };
         OnOpen += EnsureOrbitraGuideCulture;
     }
 

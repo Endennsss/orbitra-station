@@ -37,12 +37,12 @@ namespace Content.Shared.Chat
         public Color? MessageColorOverride;
         public string? AudioPath;
         public float AudioVolume;
-        public bool IsBriefing;
+        public bool IsBriefing; // Orbitra-Edit - отдельное оформление приветствия антагониста.
 
         [NonSerialized]
         public bool Read;
 
-        public ChatMessage(ChatChannel channel, string message, string wrappedMessage, NetEntity source, int? senderKey, bool hideChat = false, Color? colorOverride = null, string? audioPath = null, float audioVolume = 0, bool isBriefing = false)
+        public ChatMessage(ChatChannel channel, string message, string wrappedMessage, NetEntity source, int? senderKey, bool hideChat = false, Color? colorOverride = null, string? audioPath = null, float audioVolume = 0, bool isBriefing = false) // Orbitra-Edit
         {
             Channel = channel;
             Message = message;
@@ -53,22 +53,7 @@ namespace Content.Shared.Chat
             MessageColorOverride = colorOverride;
             AudioPath = audioPath;
             AudioVolume = audioVolume;
-            IsBriefing = isBriefing;
-        }
-
-        public ChatMessage(ChatMessage copyFrom)
-        {
-            Channel = copyFrom.Channel;
-            Message = copyFrom.Message;
-            WrappedMessage = copyFrom.WrappedMessage;
-            SenderEntity = copyFrom.SenderEntity;
-            SenderKey = copyFrom.SenderKey;
-            HideChat = copyFrom.HideChat;
-            MessageColorOverride = copyFrom.MessageColorOverride;
-            AudioPath = copyFrom.AudioPath;
-            AudioVolume = copyFrom.AudioVolume;
-            IsBriefing = copyFrom.IsBriefing;
-            Read = copyFrom.Read;
+            IsBriefing = isBriefing; // Orbitra-Edit
         }
     }
 
@@ -85,6 +70,7 @@ namespace Content.Shared.Chat
         public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
         {
             var length = buffer.ReadVariableInt32();
+            buffer.AssertAtLeastSize(length);
             using var stream = new MemoryStream(length);
             buffer.ReadAlignedMemory(stream, length);
             serializer.DeserializeDirect(stream, out Message);

@@ -32,6 +32,7 @@ chat-emote-name-robotbeep = Robot
 chat-emote-name-yawn = Yawn
 chat-emote-name-snore = Snore
 chat-emote-name-flap = Flap Wings
+chat-emote-name-blink = Blink
 
 # Message
 chat-emote-msg-scream = screams!
@@ -51,6 +52,7 @@ chat-emote-msg-snap = snaps {POSS-ADJ($entity)} fingers.
 chat-emote-msg-salute = salutes.
 chat-emote-msg-gasp = gasps.
 chat-emote-msg-deathgasp = seizes up and falls limp, {POSS-ADJ($entity)} eyes dead and lifeless...
+chat-emote-msg-deathgasp-kobold = lets out a faint yip as {SUBJECT($entity)} collapses and stops moving...
 chat-emote-msg-deathgasp-monkey = lets out a faint chimper as {SUBJECT($entity)} collapses and stops moving...
 chat-emote-msg-deathgasp-scurret = lets out a final ‘wa’ and falls still...
 chat-emote-msg-buzz = buzzes!
@@ -68,3 +70,4 @@ chat-emote-msg-monkeyscreeches = screeches!
 chat-emote-msg-yawn = yawns.
 chat-emote-msg-snore = snores.
 chat-emote-msg-flap = flaps {POSS-ADJ($entity)} wings.
+chat-emote-msg-blink = blinks.

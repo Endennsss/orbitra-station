@@ -1,5 +1,5 @@
 using System.Numerics;
-using Content.Client.GameTicking.Managers;
+using Content.Client.GameTicking;
 using Content.Client.Lobby;
 using Content.Client.Lobby.UI;
 using Content.IntegrationTests.Fixtures;
