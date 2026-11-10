@@ -26,6 +26,9 @@ public sealed partial class OrbitraMobilityComponent : Component
 
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField, AutoPausedField]
     public TimeSpan NextJump;
+
+    // Сервер накапливает время бега между списаниями стамины.
+    public float PendingSprintSeconds;
 }
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]

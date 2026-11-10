@@ -382,6 +382,9 @@ namespace Content.Shared.Movement.Systems
         // Orbitra edit end
 
         public (Vector2 Walking, Vector2 Sprinting) GetVelocityInput(InputMoverComponent mover)
+            => GetVelocityInput(mover, out _); // Orbitra-Edit - сохраняем API для двух базовых скоростей.
+
+        private (Vector2 Walking, Vector2 Sprinting) GetVelocityInput(InputMoverComponent mover, out Vector2 orbitraSprint) // Orbitra-Edit
         {
             if (!Timing.InSimulation)
             {
@@ -389,6 +392,7 @@ namespace Content.Shared.Movement.Systems
                 // So return a full-length vector as if it's a full tick.
                 // Physics system will have the correct time step anyways.
                 var immediateDir = DirVecForButtons(mover.HeldMoveButtons);
+                orbitraSprint = mover.Sprinting ? immediateDir : Vector2.Zero; // Orbitra-Edit
                 return GetOrbitraGaitMovement(mover, immediateDir); // Orbitra-Edit - учитываем обычный темп вне симуляции.
             }
 
@@ -400,12 +404,14 @@ namespace Content.Shared.Movement.Systems
             {
                 walk = Vector2.Zero;
                 sprint = Vector2.Zero;
+                orbitraSprint = Vector2.Zero; // Orbitra-Edit
                 remainingFraction = 1;
             }
             else
             {
                 walk = mover.CurTickWalkMovement;
                 sprint = mover.CurTickSprintMovement;
+                orbitraSprint = mover.CurTickOrbitraSprintMovement; // Orbitra-Edit
                 remainingFraction = (ushort.MaxValue - mover.LastInputSubTick) / (float) ushort.MaxValue;
             }
 
@@ -415,6 +421,8 @@ namespace Content.Shared.Movement.Systems
             var (currentWalk, currentSprint) = GetOrbitraGaitMovement(mover, curDir);
             walk += currentWalk;
             sprint += currentSprint;
+            if (mover.Sprinting)
+                orbitraSprint += curDir;
             // Orbitra edit end
 
             // Logger.Info($"{curDir}{walk}{sprint}");
@@ -456,6 +464,8 @@ namespace Content.Shared.Movement.Systems
                 var (walk, sprint) = GetOrbitraGaitMovement(entity.Comp, direction);
                 entity.Comp.CurTickWalkMovement += walk;
                 entity.Comp.CurTickSprintMovement += sprint;
+                if (entity.Comp.Sprinting)
+                    entity.Comp.CurTickOrbitraSprintMovement += direction;
                 // Orbitra edit end
 
                 entity.Comp.LastInputSubTick = subTick;
@@ -481,6 +491,7 @@ namespace Content.Shared.Movement.Systems
 
             component.CurTickWalkMovement = Vector2.Zero;
             component.CurTickSprintMovement = Vector2.Zero;
+            component.CurTickOrbitraSprintMovement = Vector2.Zero; // Orbitra-Edit
             component.LastInputTick = Timing.CurTick;
             component.LastInputSubTick = 0;
         }

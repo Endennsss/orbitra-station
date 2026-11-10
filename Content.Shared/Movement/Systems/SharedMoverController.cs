@@ -128,6 +128,7 @@ public abstract partial class SharedMoverController : VirtualController
     {
         var uid = entity.Owner;
         var mover = entity.Comp;
+        mover.OrbitraSprintFraction = 0f; // Orbitra-Edit - обнуляем также при блокировке движения.
 
         // If we're a relay then apply all of our data to the parent instead and go next.
         if (RelayQuery.TryComp(uid, out var relay))
@@ -243,7 +244,7 @@ public abstract partial class SharedMoverController : VirtualController
             var walkSpeed = moveSpeedComponent?.WeightlessWalkSpeed ?? MovementSpeedModifierComponent.DefaultBaseWalkSpeed;
             var sprintSpeed = moveSpeedComponent?.WeightlessSprintSpeed ?? MovementSpeedModifierComponent.DefaultBaseSprintSpeed;
 
-            wishDir = AssertValidWish(mover, walkSpeed, sprintSpeed);
+            wishDir = AssertValidWish(entity, walkSpeed, sprintSpeed); // Orbitra-Edit - ускорение бега доступно только на земле.
 
             var ev = new CanWeightlessMoveEvent(uid);
             RaiseLocalEvent(uid, ref ev, true);
@@ -282,7 +283,7 @@ public abstract partial class SharedMoverController : VirtualController
             var walkSpeed = moveSpeedComponent?.CurrentWalkSpeed ?? MovementSpeedModifierComponent.DefaultBaseWalkSpeed;
             var sprintSpeed = moveSpeedComponent?.CurrentSprintSpeed ?? MovementSpeedModifierComponent.DefaultBaseSprintSpeed;
 
-            wishDir = AssertValidWish(mover, walkSpeed, sprintSpeed);
+            wishDir = AssertValidWish(entity, walkSpeed, sprintSpeed, grounded: physicsComponent.BodyStatus == BodyStatus.OnGround); // Orbitra-Edit
 
             if (wishDir != Vector2.Zero)
             {
@@ -620,13 +621,15 @@ public abstract partial class SharedMoverController : VirtualController
         return sound != null;
     }
 
-    private Vector2 AssertValidWish(InputMoverComponent mover, float walkSpeed, float sprintSpeed)
+    private Vector2 AssertValidWish(Entity<InputMoverComponent> entity, float walkSpeed, float sprintSpeed, bool grounded = false) // Orbitra-Edit
     {
-        var (walkDir, sprintDir) = GetVelocityInput(mover);
+        var (walkDir, sprintDir) = GetVelocityInput(entity.Comp, out var orbitraSprint); // Orbitra-Edit
 
         var total = walkDir * walkSpeed + sprintDir * sprintSpeed;
+        if (grounded && orbitraSprint != Vector2.Zero) // Orbitra-Edit
+            total += GetOrbitraSprintAdjustment(entity, orbitraSprint, walkSpeed, sprintSpeed); // Orbitra-Edit
 
-        var parentRotation = GetParentGridAngle(mover);
+        var parentRotation = GetParentGridAngle(entity.Comp); // Orbitra-Edit
         var wishDir = _relativeMovement ? parentRotation.RotateVec(total) : total;
 
         DebugTools.Assert(MathHelper.CloseToPercent(total.Length(), wishDir.Length()));

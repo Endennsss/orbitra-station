@@ -34,6 +34,8 @@ namespace Content.Shared.Movement.Components
 
         public Vector2 CurTickWalkMovement;
         public Vector2 CurTickSprintMovement;
+        public Vector2 CurTickOrbitraSprintMovement; // Orbitra-Edit - отдельный вклад ввода на Shift.
+        public float OrbitraSprintFraction; // Orbitra-Edit - доля текущего шага физики с ускорением.
 
         [ViewVariables]
         public MoveButtons HeldMoveButtons = MoveButtons.None;
