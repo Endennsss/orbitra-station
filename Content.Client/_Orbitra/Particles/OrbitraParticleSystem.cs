@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Shared._Orbitra.Particles;
 using Content.Shared.Atmos;
+using Content.Shared.CCVar;
 using Content.Shared.DoAfter;
 using Content.Shared.GameTicking;
 using Content.Shared.Tools.Systems;
@@ -156,6 +157,8 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
     {
         if (Pool.Capacity == 0 || !_prototypes.TryIndex<OrbitraParticleEffectPrototype>(ev.Effect, out var effect))
             return;
+        if (ev.Effect == "OrbitraParticleBreachFloorDust" && _configuration.GetCVar(CCVars.ReducedMotion))
+            return;
         if (TryGetEntity(ev.Source, out var source) && Exists(source.Value))
         {
             if (!TryComp<SpriteComponent>(source, out var sprite) || !sprite.Visible || sprite.ContainerOccluded || sprite.Color.A <= 0 ||
@@ -163,16 +166,30 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
                 return;
         }
         else if (ev.Effect is not ("OrbitraParticleElectrical" or "OrbitraParticleBreachDust" or "OrbitraParticleLeakMist" or
-                     "OrbitraParticleBulletMetal" or "OrbitraParticleBulletStone" or "OrbitraParticleBulletWood" or
-                     "OrbitraParticleBulletGlass" or "OrbitraParticleBulletDust"))
+                     "OrbitraParticleBreachSurge" or "OrbitraParticleBreachJet" or "OrbitraParticleBreachFloorDust" or
+                     "OrbitraParticleBulletMetal" or
+                     "OrbitraParticleBulletStone" or "OrbitraParticleBulletWood" or "OrbitraParticleBulletGlass" or
+                     "OrbitraParticleBulletDust"))
             return;
         // При поломке конструкция заменяет исходную сущность. Координаты грида и FOV остаются действительными.
         var point = GetCoordinates(ev.Coordinates);
         if (!point.IsValid(EntityManager))
             return;
         Emit(point, ev.Effect, (int) MathF.Ceiling(effect.Count * _density), ev.Direction, true, ev.Tint);
+        if (ev.Effect is "OrbitraParticleBreachSurge" or "OrbitraParticleBreachJet")
+            EmitBreachLayer(point, "OrbitraParticleBreachVapor", ev.Direction);
+        if (ev.Effect == "OrbitraParticleBreachSurge")
+            EmitBreachLayer(point, "OrbitraParticleBreachDust", ev.Direction);
+        if (ev.Effect == "OrbitraParticleBreachFloorDust")
+            EmitBreachLayer(point, "OrbitraParticleBreachFloorHaze", ev.Direction);
         if (ev.ImpactMark && source is { } structure)
             TryImpactMark(structure, point);
+    }
+
+    private void EmitBreachLayer(EntityCoordinates point, string id, float direction)
+    {
+        if (_prototypes.TryIndex<OrbitraParticleEffectPrototype>(id, out var effect))
+            Emit(point, id, (int) MathF.Ceiling(effect.Count * _density), direction, true);
     }
 
     private void Emit(EntityCoordinates point, string id, int count, float direction, bool burst, Color? tint = null)

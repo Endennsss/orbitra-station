@@ -82,12 +82,22 @@ internal sealed class OrbitraParticleOverlay : Overlay
                 shader.SetParameter("source_eye", origin - eye.Position.Position);
                 shader.SetParameter("smoke", effect.Smoke);
                 shader.SetParameter("shape", effect.Shape);
-                handle.UseShader(shader);
                 var size = particle.Size * (effect.Smoke ? 1f + progress * 2 : 1f);
-                var rotation = MathF.Atan2(particle.Velocity.Y, particle.Velocity.X);
-                handle.SetTransform(Matrix3x2.CreateRotation(rotation) * Matrix3x2.CreateTranslation(particle.Position) * matrix);
+                var pixelsPerUnit = effect.Smoke ? EyeManager.PixelsPerMeter / 2f : EyeManager.PixelsPerMeter;
+                var pixelRadius = size * pixelsPerUnit;
+                // Нечётный диаметр оставляет центральный пиксель даже у самых мелких искр.
+                var pixelDiameter = 2f * MathF.Floor(pixelRadius) + 1f;
+                var pixelIndex = (particle.Position * pixelsPerUnit).Floored();
+                var pixelCenter = ((Vector2) pixelIndex + new Vector2(0.5f)) / pixelsPerUnit;
+                var direction = effect.Shape is 1 or 2 or 4 && particle.Velocity != Vector2.Zero
+                    ? Vector2.Normalize(particle.Velocity)
+                    : Vector2.UnitX;
+                shader.SetParameter("pixel_geometry", new Vector2(pixelDiameter, pixelRadius));
+                shader.SetParameter("particle_direction", direction);
+                handle.UseShader(shader);
+                handle.SetTransform(matrix);
                 handle.DrawTextureRect(Texture.White,
-                    Box2.CenteredAround(Vector2.Zero, new Vector2(size * 2)), Color.White);
+                    Box2.CenteredAround(pixelCenter, new Vector2(pixelDiameter / pixelsPerUnit)), Color.White);
             }
         }
         finally

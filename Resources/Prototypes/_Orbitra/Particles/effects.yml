@@ -75,6 +75,7 @@
 
 - type: orbitraParticleEffect
   id: OrbitraParticleBreachDust
+  shape: 2
   color: "#D9D3C5BF"
   endColor: "#A39E9600"
   size: 0.044
@@ -84,6 +85,77 @@
   spawnRadius: 0.20
   lifetime: 0.45
   count: 14
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleBreachFloorDust
+  color: "#DED4C3D8"
+  endColor: "#A99D8938"
+  emissive: true
+  size: 0.078
+  speed: 0.55
+  drag: 0.5
+  spread: 0.44
+  spawnRadius: 0.17
+  lifetime: 0.58
+  count: 6
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleBreachFloorHaze
+  color: "#C9BBABA8"
+  endColor: "#8E806B10"
+  smoke: true
+  emissive: true
+  size: 0.060
+  speed: 0.43
+  drag: 0.6
+  spread: 0.52
+  spawnRadius: 0.15
+  lifetime: 0.51
+  count: 2
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleBreachSurge
+  shape: 4
+  color: "#D6D6D6B0"
+  endColor: "#92929200"
+  smoke: true
+  emissive: true
+  size: 0.34
+  speed: 7.4
+  drag: 1.35
+  spread: 0.38
+  spawnRadius: 0.24
+  lifetime: 0.96
+  count: 10
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleBreachJet
+  shape: 4
+  color: "#C4C4C48A"
+  endColor: "#84848400"
+  smoke: true
+  emissive: true
+  size: 0.26
+  speed: 5.2
+  drag: 1.3
+  spread: 0.30
+  spawnRadius: 0.17
+  lifetime: 0.85
+  count: 6
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleBreachVapor
+  color: "#B7B7B75C"
+  endColor: "#7E7E7E00"
+  smoke: true
+  emissive: true
+  size: 0.25
+  speed: 3.7
+  drag: 0.8
+  spread: 0.38
+  spawnRadius: 0.18
+  lifetime: 1.05
+  count: 4
 
 - type: orbitraParticleEffect
   id: OrbitraParticleLeakMist

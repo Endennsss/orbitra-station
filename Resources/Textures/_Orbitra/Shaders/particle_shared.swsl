@@ -7,20 +7,43 @@ uniform highp vec2 source_eye;
 uniform lowp vec4 particle_color;
 uniform bool smoke;
 uniform lowp int shape;
+uniform highp vec2 pixel_geometry;
+uniform highp vec2 particle_direction;
+
+highp float breach_cloud(highp vec2 along) {
+    // Слой конденсата шире на переднем крае, с изгибом вдоль потока.
+    highp float phase = dot(particle_direction, vec2(5.1, 7.9));
+    along.y += 0.12 * sin(along.x * 5.5 + phase);
+    highp float front = length((along - vec2(0.19, 0.04)) * vec2(1.55, 1.95));
+    highp float tail = length((along - vec2(-0.34, -0.09)) * vec2(1.9, 3.0));
+    highp float curl = length((along - vec2(0.01, 0.29)) * vec2(2.6, 2.8));
+    highp float edge = min(front, min(tail, curl + 0.14));
+    edge += 0.07 * sin(along.x * 15.0 + along.y * 11.0 + phase);
+    return 0.16 * step(edge, 1.0) + 0.32 * step(edge, 0.78) + 0.38 * step(edge, 0.52);
+}
 
 void fragment() {
     if (use_fov && doesOcclude(source_eye, FOV_TEXTURE, 0.75, -0.75 / 32.0))
         discard;
-    highp vec2 offset = UV2 * 2.0 - 1.0;
-    if (shape == 1)
-        offset.y *= 2.5;
-    highp float radius = length(offset);
-    highp float alpha = smoke ? pow(max(0.0, 1.0 - radius), 2.0) :
-        (1.0 - smoothstep(0.0, 0.35, radius)) + 0.2 * pow(max(0.0, 1.0 - radius), 2.0);
-    if (shape == 2)
-        alpha = (1.0 - smoothstep(0.4, 0.6, abs(offset.x))) * (1.0 - smoothstep(0.2, 0.35, abs(offset.y)));
-    // Пылинке нужна полная мягкая точка, а не субпиксельное ядро искры.
-    if (shape == 3)
-        alpha = 1.0 - smoothstep(0.25, 1.0, radius);
+    highp vec2 pixel = floor(UV2 * pixel_geometry.x) - floor(pixel_geometry.x * 0.5);
+    highp vec2 offset = pixel / max(pixel_geometry.y, 0.001);
+    highp float alpha;
+    if (smoke && shape != 4) {
+        highp float radius = length(offset);
+        alpha = 0.08 * step(radius, 0.94) + 0.19 * step(radius, 0.70) +
+            0.29 * step(radius, 0.46) + 0.35 * step(radius, 0.23);
+    } else if (shape == 1 || shape == 2 || shape == 4) {
+        // Поворачиваем силуэт внутри сетки, чтобы пиксели оставались параллельны тайлам.
+        highp vec2 normal = vec2(-particle_direction.y, particle_direction.x);
+        highp vec2 along = vec2(dot(offset, particle_direction), dot(offset, normal));
+        if (shape == 4)
+            alpha = breach_cloud(along);
+        else if (shape == 1)
+            alpha = step(length(along * vec2(1.0, 2.1)), 0.94);
+        else
+            alpha = step(abs(along.x), 0.85) * step(abs(along.y), 0.44);
+    } else {
+        alpha = step(length(offset), shape == 3 ? 0.92 : 0.74);
+    }
     COLOR = vec4(particle_color.rgb, particle_color.a * clamp(alpha, 0.0, 1.0));
 }

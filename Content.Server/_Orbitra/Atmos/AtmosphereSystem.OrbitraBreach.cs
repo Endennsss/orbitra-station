@@ -14,7 +14,11 @@ public sealed partial class AtmosphereSystem
 {
     private static readonly SoundSpecifier BreachImpact = new SoundCollectionSpecifier("MetalThud");
     private static readonly TimeSpan BreachCueInterval = TimeSpan.FromSeconds(2);
+    private static readonly TimeSpan BreachVisualInterval = TimeSpan.FromSeconds(0.7);
     private static readonly TimeSpan BreachResetInterval = TimeSpan.FromSeconds(4);
+    private const int BreachFloorDustBudget = 24;
+    private TimeSpan _breachFloorDustBudgetReset;
+    private int _breachFloorDustCount;
 
     private bool TryProcessOrbitraBreachFlow(Entity<GridAtmosphereComponent> grid, TileAtmosphere tile)
     {
@@ -30,9 +34,12 @@ public sealed partial class AtmosphereSystem
             return true;
 
         var angle = tile.PressureDirection.ToAngle() + XformSystem.GetWorldRotation(grid);
+        var newAirflow = tile.OrbitraAirflow == AtmosDirection.Invalid;
         RecordOrbitraAirflow(tile);
         if (tile.AdjacentTiles[tile.PressureDirection.ToIndex()] == outlet)
             PlayOrbitraBreachCue(tile, outlet, angle, strength);
+        else if (newAirflow && tile.OrbitraAirflow != AtmosDirection.Invalid && !tile.Space)
+            PlayOrbitraBreachFloorDust(tile, angle);
 
         if (!SpaceWind)
             return true;
@@ -73,22 +80,56 @@ public sealed partial class AtmosphereSystem
         return true;
     }
 
+    private void PlayOrbitraBreachFloorDust(TileAtmosphere tile, Angle angle)
+    {
+        var now = _gameTiming.CurTime;
+        if (now >= _breachFloorDustBudgetReset)
+        {
+            _breachFloorDustBudgetReset = now + BreachVisualInterval;
+            _breachFloorDustCount = 0;
+        }
+
+        if (_breachFloorDustCount >= BreachFloorDustBudget)
+            return;
+
+        _breachFloorDustCount++;
+        // Пыль рассеивается внутри клетки потока даже при резком повороте у стены.
+        var offset = (Vector2) tile.PressureDirection.CardinalToIntVec() * -0.12f;
+        var coordinates = _mapSystem.ToCenterCoordinates(tile.GridIndex, tile.GridIndices).Offset(offset);
+        RaiseNetworkEvent(new OrbitraParticleBurstEvent(NetEntity.Invalid, GetNetCoordinates(coordinates),
+            "OrbitraParticleBreachFloorDust", (float) (angle.Theta - Math.PI / 2)),
+            Filter.Pvs(coordinates, 1f, EntityManager));
+    }
+
     private void PlayOrbitraBreachCue(TileAtmosphere tile, TileAtmosphere outlet, Angle angle, float strength)
     {
         var now = _gameTiming.CurTime;
-        if (now < outlet.OrbitraNextBreachCue)
+        if (now < outlet.OrbitraNextBreachCue && now < outlet.OrbitraNextBreachVisual)
             return;
 
         var first = outlet.OrbitraNextBreachCue == TimeSpan.Zero || now - outlet.OrbitraNextBreachCue > BreachResetInterval;
-        outlet.OrbitraNextBreachCue = now + BreachCueInterval;
         var coordinates = _mapSystem.ToCenterCoordinates(tile.GridIndex, tile.GridIndices);
-        if (first && strength >= 0.7f)
-            _audio.PlayPvs(BreachImpact, coordinates, AudioParams.Default.WithVolume(-6f).WithMaxDistance(12f));
-        if (SpaceWindSound is { } wind)
-            _audio.PlayPvs(wind, coordinates, wind.Params.WithVolume(-20f + strength * 13f).WithMaxDistance(12f));
+        if (now >= outlet.OrbitraNextBreachCue)
+        {
+            outlet.OrbitraNextBreachCue = now + BreachCueInterval;
+            if (first && strength >= 0.7f)
+                _audio.PlayPvs(BreachImpact, coordinates, AudioParams.Default.WithVolume(-6f).WithMaxDistance(12f));
+            if (SpaceWindSound is { } wind)
+                _audio.PlayPvs(wind, coordinates, wind.Params.WithVolume(-20f + strength * 13f).WithMaxDistance(12f));
+        }
 
+        if (now < outlet.OrbitraNextBreachVisual)
+            return;
+
+        var effect = (first, strength) switch
+        {
+            (true, >= 0.7f) => "OrbitraParticleBreachSurge",
+            (_, >= 0.35f) => "OrbitraParticleBreachJet",
+            _ => "OrbitraParticleBreachDust",
+        };
+        outlet.OrbitraNextBreachVisual = now + (strength >= 0.35f ? BreachVisualInterval : BreachCueInterval);
         RaiseNetworkEvent(new OrbitraParticleBurstEvent(NetEntity.Invalid, GetNetCoordinates(coordinates),
-            "OrbitraParticleBreachDust", (float) (angle.Theta - Math.PI / 2)),
+            effect, (float) (angle.Theta - Math.PI / 2)),
             Filter.Pvs(coordinates, 1f, EntityManager));
     }
 }

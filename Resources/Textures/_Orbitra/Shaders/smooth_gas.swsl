@@ -21,21 +21,27 @@ highp float cloud_noise(highp vec2 p) {
 }
 
 void fragment() {
+    // Более крупные пиксели дымки остаются привязаны к сетке грида.
+    const highp float pixels_per_tile = 8.0;
+    highp vec2 position = cloud_origin + UV * cloud_size;
+    position = (floor(position * pixels_per_tile) + 0.5) / pixels_per_tile;
+    highp vec2 field_uv = (position - cloud_origin) / cloud_size;
     highp vec4 density = map_density;
     if (!map_atmosphere) {
         // Один граничный пиксель с каждой стороны позволяет фильтровать через стык чанков.
-        highp vec2 uv = mix(TEXTURE_PIXEL_SIZE, vec2(1.0) - TEXTURE_PIXEL_SIZE, UV);
+        highp vec2 uv = mix(TEXTURE_PIXEL_SIZE, vec2(1.0) - TEXTURE_PIXEL_SIZE, field_uv);
         density = mix(zTextureSpec(previous_density, uv), zTexture(uv), transition);
     }
 
-    highp vec2 position = cloud_origin + UV * cloud_size;
     if (use_flow) {
-        highp vec4 flow = zTextureSpec(flow_map, UV);
+        highp vec4 flow = zTextureSpec(flow_map, field_uv);
         position -= (flow.rg * 255.0 - 128.0) / 127.0 * flow.a * drift_time * 1.4;
     }
     highp vec2 drift = vec2(drift_time * 0.17, -drift_time * 0.12);
-    highp float coarse = cloud_noise(position * 0.8 + drift);
-    highp float detail = cloud_noise(position * 1.75 - drift * 0.6 + vec2(9.3, 4.1));
-    highp float texture_detail = 0.72 + 0.2 * coarse + 0.08 * detail;
+    highp float coarse = cloud_noise(position + drift);
+    highp float detail = cloud_noise(position * 2.8 - drift * 0.6 + vec2(9.3, 4.1));
+    highp float billow = 0.72 * coarse + 0.28 * detail;
+    // Ступени выделяют завихрения, а плотность на краю облака затухает отдельно.
+    highp float texture_detail = 0.34 + 0.22 * (step(0.33, billow) + step(0.49, billow) + step(0.64, billow));
     COLOR = vec4(density.rgb / max(density.a, 0.001), density.a * 0.45 * texture_detail);
 }

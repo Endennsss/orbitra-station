@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using Content.IntegrationTests.Fixtures;
 using Content.Server._Orbitra.Atmos;
 using Content.Server.Atmos.EntitySystems;
 using Content.Shared.Atmos;
+using Content.Shared.Atmos.Components;
 using Content.Shared.Buckle;
 using Content.Shared.Buckle.Components;
 using Content.Shared.CCVar;
@@ -160,6 +163,9 @@ public sealed class DevBreachTest : GameTest
                 }
                 else
                 {
+                    Assert.That(SEntMan.GetComponent<GridAtmosphereComponent>(grid).Tiles.Values
+                        .Any(tile => tile.OrbitraNextBreachVisual > TimeSpan.Zero), Is.True,
+                        "An open hull breach must emit its visual cue.");
                     Assert.That(SEntMan.GetComponent<TransformComponent>(exposedPaper).GridUid, Is.Null, "Paper must leave the grid into space.");
                     Assert.That(exteriorPressure, Is.LessThan(15f));
                 }
