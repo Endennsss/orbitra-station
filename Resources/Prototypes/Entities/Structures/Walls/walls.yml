@@ -991,6 +991,7 @@
   id: WallSolid
   name: solid wall
   components:
+  - type: OrbitraHullLeak # Orbitra-Edit - повреждённая наружная обшивка может пропускать воздух.
   # Orbitra added start - материал косметической стружки.
   - type: OrbitraParticleMaterial
     material: Metal

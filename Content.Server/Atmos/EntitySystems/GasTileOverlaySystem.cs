@@ -223,17 +223,18 @@ public sealed partial class GasTileOverlaySystem : SharedGasTileOverlaySystem
         else if (!tile.Space && tile.Air != null)
             newByteTemp = new(tile.Air.Temperature);
 
+        var visualState = Content.Shared._Orbitra.Atmos.OrbitraAtmosVisual.Pack(tile.Hotspot.State, tile.OrbitraFireTint, tile.OrbitraAirflow); // Orbitra-Edit
         if (oldData.Equals(default))
         {
             changed = true;
-            oldData = new GasOverlayData(tile.Hotspot.State, new byte[VisibleGasId.Length], newByteTemp);
+            oldData = new GasOverlayData(visualState, new byte[VisibleGasId.Length], newByteTemp); // Orbitra-Edit
         }
-        else if (oldData.FireState != tile.Hotspot.State ||
+        else if (oldData.VisualState != visualState || // Orbitra-Edit
                  Math.Abs(oldData.ByteGasTemperature.Value - newByteTemp.Value) > 1 || // Dirty Temperature when there is more then 1 byte difference. That should measure up to minimum 4 degreese difference, 6 degreese on average.
                  oldData.ByteGasTemperature.Value != newByteTemp.Value && newByteTemp.Value > ThermalByte.TempResolution) // change of special ThermalByte value
         {
             changed = true;
-            oldData = new GasOverlayData(tile.Hotspot.State, oldData.Opacity, newByteTemp);
+            oldData = new GasOverlayData(visualState, oldData.Opacity, newByteTemp); // Orbitra-Edit
         }
 
         if (tile is {Air: not null, NoGridTile: false})

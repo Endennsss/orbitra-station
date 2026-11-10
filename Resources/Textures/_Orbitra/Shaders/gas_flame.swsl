@@ -1,0 +1,57 @@
+light_mode unshaded;
+
+uniform sampler2D previous_fire;
+uniform highp vec2 fire_origin;
+uniform highp vec2 fire_size;
+uniform highp float transition;
+uniform bool reduced_motion;
+
+highp float flame_hash(highp vec2 cell) {
+    highp vec3 p = fract(cell.xyx * 0.1031);
+    p += dot(p, p.yzx + 33.33);
+    return fract((p.x + p.y) * p.z);
+}
+
+highp float flame_noise(highp vec2 p) {
+    highp vec2 cell = floor(p);
+    highp vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(mix(flame_hash(cell), flame_hash(cell + vec2(1.0, 0.0)), f.x),
+        mix(flame_hash(cell + vec2(0.0, 1.0)), flame_hash(cell + vec2(1.0, 1.0)), f.x), f.y);
+}
+
+void fragment() {
+    highp vec2 uv = mix(TEXTURE_PIXEL_SIZE, vec2(1.0) - TEXTURE_PIXEL_SIZE, UV);
+    highp vec4 fire = mix(zTextureSpec(previous_fire, uv), zTexture(uv), transition);
+    COLOR = vec4(0.0);
+    if (fire.a > 0.001) {
+        highp vec3 properties = fire.rgb / fire.a;
+        highp vec2 flow = clamp(properties.gb * 2.0 - 1.0, vec2(-1.0), vec2(1.0));
+        highp float time = reduced_motion ? 0.0 : TIME;
+        highp vec2 p = fire_origin + UV * fire_size;
+
+        // Широкие восходящие волны изгибают мелкие языки в координатах грида.
+        highp vec2 lift = vec2(0.0, time);
+        highp float billow = flame_noise(p * vec2(0.93, 0.67) - lift * 0.78);
+        highp float shear = flame_noise(p * vec2(1.27, 1.08) - lift * 1.51 + vec2(8.2, 3.1));
+        highp vec2 rising = p - vec2(0.0, time * 1.55);
+        rising += vec2((billow - 0.5) * 0.67, (shear - 0.5) * 0.53);
+        rising -= flow * (0.25 + 0.52 * shear);
+        highp float tongues = flame_noise(rising * vec2(3.1, 1.05));
+        highp float detail = flame_noise(rising * vec2(6.3, 2.45) + vec2(5.2, 2.3));
+
+        highp float heat = tongues * 0.54 + billow * 0.29 + detail * 0.17;
+        heat += 0.23 * sqrt(fire.a);
+        highp float skirt = smoothstep(0.41, 0.61, heat);
+        highp float body = smoothstep(0.53, 0.76, heat);
+        highp float core = smoothstep(0.70, 0.94, heat);
+        highp float gas = smoothstep(0.025, 0.14, properties.r);
+        highp float tritium = smoothstep(0.14, 1.0, properties.r);
+        highp vec3 rim = mix(vec3(0.70, 0.12, 0.022),
+            mix(vec3(0.67, 0.11, 0.31), vec3(0.62, 0.49, 0.16), tritium), gas * 0.60);
+        highp vec3 color = mix(rim, vec3(1.0, 0.43, 0.058), body);
+        color = mix(color, vec3(1.0, 0.94, 0.63), core);
+        highp float coverage = fire.a * (0.21 * skirt + 0.52 * body + 0.23 * core);
+        COLOR = zFromSrgb(vec4(color, coverage));
+    }
+}

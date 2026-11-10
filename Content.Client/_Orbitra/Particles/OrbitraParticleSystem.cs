@@ -162,7 +162,7 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
                 (MetaData(source.Value).Flags & MetaDataFlags.Detached) != 0)
                 return;
         }
-        else if (ev.Effect is not ("OrbitraParticleElectrical" or
+        else if (ev.Effect is not ("OrbitraParticleElectrical" or "OrbitraParticleBreachDust" or "OrbitraParticleLeakMist" or
                      "OrbitraParticleBulletMetal" or "OrbitraParticleBulletStone" or "OrbitraParticleBulletWood" or
                      "OrbitraParticleBulletGlass" or "OrbitraParticleBulletDust"))
             return;

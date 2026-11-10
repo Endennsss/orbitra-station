@@ -1,4 +1,6 @@
 uniform sampler2D previous_density;
+uniform sampler2D flow_map;
+uniform bool use_flow;
 uniform bool map_atmosphere;
 uniform highp vec4 map_density;
 uniform highp vec2 cloud_origin;
@@ -26,7 +28,11 @@ void fragment() {
         density = mix(zTextureSpec(previous_density, uv), zTexture(uv), transition);
     }
 
-    highp vec2 position = cloud_origin + vec2(UV.x, 1.0 - UV.y) * cloud_size;
+    highp vec2 position = cloud_origin + UV * cloud_size;
+    if (use_flow) {
+        highp vec4 flow = zTextureSpec(flow_map, UV);
+        position -= (flow.rg * 255.0 - 128.0) / 127.0 * flow.a * drift_time * 1.4;
+    }
     highp vec2 drift = vec2(drift_time * 0.17, -drift_time * 0.12);
     highp float coarse = cloud_noise(position * 0.8 + drift);
     highp float detail = cloud_noise(position * 1.75 - drift * 0.6 + vec2(9.3, 4.1));

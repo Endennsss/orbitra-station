@@ -51,6 +51,7 @@ namespace Content.Server.Atmos.Reactions
             }
 
             energyReleased /= heatScale; // adjust energy to make sure speedup doesn't cause mega temperature rise
+            atmosphereSystem.AddOrbitraFireHeat(location, Gas.Tritium, energyReleased); // Orbitra-Edit
             if (energyReleased > 0)
             {
                 var newHeatCapacity = atmosphereSystem.GetHeatCapacity(mixture, true);

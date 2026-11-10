@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Shared._Orbitra.Atmos;
 using Content.Shared.Atmos;
 using Robust.Client.Graphics;
 using Robust.Shared.Graphics;
@@ -11,6 +12,8 @@ internal sealed partial class OrbitraGasRenderer
     private sealed class ChunkSurface : IDisposable
     {
         private static readonly Vector2i Size = new(OrbitraGasField.TextureSize, OrbitraGasField.TextureSize);
+        private static readonly Vector2i FlowSize = new(OrbitraGasField.Tiles, OrbitraGasField.Tiles);
+        private static readonly TextureLoadParameters FlowTextureOptions = new() { Srgb = false };
         private static readonly TextureLoadParameters TextureOptions = new()
         {
             Srgb = false,
@@ -21,14 +24,18 @@ internal sealed partial class OrbitraGasRenderer
         private readonly Vector4[] _field = new Vector4[OrbitraGasField.FieldSize * OrbitraGasField.FieldSize];
         private readonly Rgba32[] _from = new Rgba32[Size.X * Size.Y];
         private readonly Rgba32[] _target = new Rgba32[Size.X * Size.Y];
+        private readonly Rgba32[] _flow = new Rgba32[FlowSize.X * FlowSize.Y];
+        private readonly IClyde _clyde;
         private readonly OwnedTexture _previousTexture;
         private readonly OwnedTexture _targetTexture;
         private readonly ShaderInstance _shader;
+        private OwnedTexture? _flowTexture;
         private float _changedAt;
         private bool _hasGas;
 
         public ChunkSurface(IClyde clyde, ShaderPrototype prototype)
         {
+            _clyde = clyde;
             _previousTexture = clyde.CreateBlankTexture<Rgba32>(Size, "orbitra-gas-previous", TextureOptions);
             try
             {
@@ -37,6 +44,7 @@ internal sealed partial class OrbitraGasRenderer
                 {
                     _shader = prototype.InstanceUnique();
                     _shader.SetParameter("map_atmosphere", false);
+                    _shader.SetParameter("use_flow", false);
                     _shader.SetParameter("previous_density", _previousTexture);
                 }
                 catch
@@ -70,6 +78,7 @@ internal sealed partial class OrbitraGasRenderer
             if (!changed)
                 return;
 
+            UpdateFlow(_sources[4]);
             field.Clear();
             var origin = index * OrbitraGasField.Tiles;
             foreach (var source in _sources)
@@ -101,6 +110,50 @@ internal sealed partial class OrbitraGasRenderer
             _targetTexture.SetSubImage<Rgba32>(Vector2i.Zero, Size, _target);
         }
 
+        private void UpdateFlow(GasOverlayChunk? center)
+        {
+            var changed = false;
+            var active = false;
+            for (var y = 0; y < FlowSize.Y; y++)
+            for (var x = 0; x < FlowSize.X; x++)
+            {
+                var data = center?.TileData[y * FlowSize.X + x] ?? default;
+                var direction = OrbitraAtmosVisual.Flow(data.VisualState);
+                var pixel = default(Rgba32);
+                if (direction != AtmosDirection.Invalid)
+                {
+                    var offset = direction.CardinalToIntVec();
+                    pixel = new Rgba32((byte) (128 + 127 * offset.X), (byte) (128 + 127 * offset.Y), 255, 255);
+                    active = true;
+                }
+
+                var index = (FlowSize.Y - 1 - y) * FlowSize.X + x;
+                changed |= _flow[index] != pixel;
+                _flow[index] = pixel;
+            }
+
+            if (!changed)
+                return;
+
+            if (!active)
+            {
+                _shader.SetParameter("use_flow", false);
+                _shader.SetParameter("flow_map", Texture.White);
+                _flowTexture?.Dispose();
+                _flowTexture = null;
+                return;
+            }
+
+            if (_flowTexture == null)
+            {
+                _flowTexture = _clyde.CreateBlankTexture<Rgba32>(FlowSize, "orbitra-gas-flow", FlowTextureOptions);
+                _shader.SetParameter("flow_map", _flowTexture);
+                _shader.SetParameter("use_flow", true);
+            }
+
+            _flowTexture.SetSubImage<Rgba32>(Vector2i.Zero, FlowSize, _flow);
+        }
+
         public void Draw(DrawingHandleWorld handle, Matrix3x2 transform, Box2 bounds, float now, float driftTime)
         {
             SetCloudPosition(_shader, bounds, driftTime);
@@ -113,6 +166,7 @@ internal sealed partial class OrbitraGasRenderer
         public void Dispose()
         {
             _shader.Dispose();
+            _flowTexture?.Dispose();
             _targetTexture.Dispose();
             _previousTexture.Dispose();
         }

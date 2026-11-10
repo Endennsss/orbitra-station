@@ -283,6 +283,7 @@ namespace Content.Server.Atmos.EntitySystems
         [PublicAPI]
         public override ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder)
         {
+            BeginOrbitraFireSample(holder as TileAtmosphere); // Orbitra-Edit - собираем тепло текущих реакций.
             var reaction = ReactionResult.NoReaction;
             var temperature = mixture.Temperature;
             var energy = GetThermalEnergy(mixture);
@@ -314,6 +315,7 @@ namespace Content.Server.Atmos.EntitySystems
                     break;
             }
 
+            EndOrbitraFireSample(holder as TileAtmosphere); // Orbitra-Edit - обновляем оттенок по выделенному теплу.
             return reaction;
         }
 

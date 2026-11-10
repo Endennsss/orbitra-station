@@ -40,6 +40,7 @@ public sealed partial class AtmosMonitorData : BaseAtmosDeviceData
     ///     Current pressure detected by this sensor.
     /// </summary>
     public float Pressure { get; }
+    public bool OrbitraPressureFalling { get; init; } // Orbitra-Edit - показывает снижение давления до аварийного порога.
     /// <summary>
     ///     Current temperature detected by this sensor.
     /// </summary>

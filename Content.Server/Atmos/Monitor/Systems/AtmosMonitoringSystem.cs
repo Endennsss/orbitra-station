@@ -157,7 +157,10 @@ public sealed partial class AtmosMonitorSystem : EntitySystem
                 gases,
                 ent.Comp.PressureThreshold ?? new(),
                 ent.Comp.TemperatureThreshold ?? new(),
-                ent.Comp.GasThresholds ?? new());
+                ent.Comp.GasThresholds ?? new())
+            {
+                OrbitraPressureFalling = ent.Comp.OrbitraPressureFalling, // Orbitra-Edit - передаём тренд давления в панель.
+            };
         }
 
         var airAlarm = new AirAlarmSetDataPayload
@@ -304,6 +307,8 @@ public sealed partial class AtmosMonitorSystem : EntitySystem
                 alarmTypes &= ~AtmosMonitorThresholdTypeFlags.Gas;
             }
         }
+
+        UpdateOrbitraPressureTrend(monitor, air.Pressure, ref state, ref alarmTypes); // Orbitra-Edit - раннее предупреждение о падении давления.
 
         // if the state of the current air doesn't match the last alarm state,
         // we update the state

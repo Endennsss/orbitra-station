@@ -26,5 +26,6 @@ public sealed partial class GasTileFireOverlaySystem : EntitySystem
     {
         base.Shutdown();
         _overlayMan.RemoveOverlay<GasTileFireOverlay>();
+        _fireOverlay.Dispose(); // Orbitra-Edit - освобождаем ресурсы оверлея огня.
     }
 }

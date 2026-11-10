@@ -66,7 +66,10 @@ public abstract partial class SharedGasTileOverlaySystem : EntitySystem
     [Serializable, NetSerializable]
     public readonly struct GasOverlayData : IEquatable<GasOverlayData>
     {
-        [ViewVariables] public readonly byte FireState;
+        // Orbitra edit start - сохраняем размер очага, оттенок и поток в одном байте.
+        [ViewVariables] public readonly byte VisualState;
+        public byte FireState => _Orbitra.Atmos.OrbitraAtmosVisual.FireStage(VisualState);
+        // Orbitra edit end
         [ViewVariables] public readonly byte[] Opacity;
         // TODO change fire color based on ByteTemp
 
@@ -78,16 +81,16 @@ public abstract partial class SharedGasTileOverlaySystem : EntitySystem
         public readonly ThermalByte ByteGasTemperature;
 
 
-        public GasOverlayData(byte fireState, byte[] opacity, ThermalByte byteTemp)
+        public GasOverlayData(byte visualState, byte[] opacity, ThermalByte byteTemp) // Orbitra-Edit
         {
-            FireState = fireState;
+            VisualState = visualState; // Orbitra-Edit
             Opacity = opacity;
             ByteGasTemperature = byteTemp;
         }
 
         public bool Equals(GasOverlayData other)
         {
-            if (FireState != other.FireState)
+            if (VisualState != other.VisualState) // Orbitra-Edit
                 return false;
 
             if (Opacity?.Length != other.Opacity?.Length)

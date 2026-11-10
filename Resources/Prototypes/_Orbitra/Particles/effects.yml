@@ -74,6 +74,30 @@
   lifetime: 0.4
 
 - type: orbitraParticleEffect
+  id: OrbitraParticleBreachDust
+  color: "#D9D3C5BF"
+  endColor: "#A39E9600"
+  size: 0.044
+  speed: 6.0
+  drag: 1.2
+  spread: 0.16
+  spawnRadius: 0.20
+  lifetime: 0.45
+  count: 14
+
+- type: orbitraParticleEffect
+  id: OrbitraParticleLeakMist
+  color: "#DEDCD188"
+  endColor: "#B0AAA000"
+  size: 0.025
+  speed: 1.4
+  drag: 0.3
+  spread: 0.18
+  spawnRadius: 0.07
+  lifetime: 0.35
+  count: 5
+
+- type: orbitraParticleEffect
   id: OrbitraParticleStone
   color: "#B2A997DD"
   endColor: "#7C786888"

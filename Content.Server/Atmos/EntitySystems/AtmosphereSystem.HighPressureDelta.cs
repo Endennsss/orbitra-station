@@ -105,6 +105,9 @@ public sealed partial class AtmosphereSystem
 
     private void HighPressureMovements(Entity<GridAtmosphereComponent> gridAtmosphere, TileAtmosphere tile)
     {
+        if (TryProcessOrbitraBreachFlow(gridAtmosphere, tile)) // Orbitra-Edit - берём направление потока к вакууму из Monstermos.
+            return;
+
         // TODO ATMOS finish this
 
         // Don't play the space wind sound on tiles that are on fire...

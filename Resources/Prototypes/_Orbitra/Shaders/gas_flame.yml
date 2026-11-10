@@ -1,0 +1,4 @@
+- type: shader
+  id: OrbitraGasFlame
+  kind: source
+  path: /Textures/_Orbitra/Shaders/gas_flame.swsl

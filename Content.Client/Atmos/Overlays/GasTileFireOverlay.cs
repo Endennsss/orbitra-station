@@ -1,4 +1,5 @@
 using Content.Client.Atmos.EntitySystems;
+using Content.Client._Orbitra.Atmos; // Orbitra-Edit
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Robust.Client.GameObjects;
@@ -29,6 +30,7 @@ public sealed partial class GasTileFireOverlay : Overlay
     private readonly SharedTransformSystem _xformSys;
     private readonly SharedMapSystem _mapSystem = default!;
     private readonly ShaderInstance _shader;
+    private readonly OrbitraGasFlameRenderer _orbitraFlame = new(); // Orbitra-Edit
 
     private readonly float[] _timer;
     private readonly float[][] _frameDelays;
@@ -71,6 +73,7 @@ public sealed partial class GasTileFireOverlay : Overlay
     protected override void FrameUpdate(FrameEventArgs args)
     {
         base.FrameUpdate(args);
+        _orbitraFlame.Advance(args.DeltaSeconds); // Orbitra-Edit
 
         for (var i = 0; i < FireStates; i++)
         {
@@ -92,6 +95,11 @@ public sealed partial class GasTileFireOverlay : Overlay
     {
         if (args.MapId == MapId.Nullspace)
             return;
+
+        // Orbitra added start - рисуем единый очаг поверх горящих клеток.
+        if (args.Space == OverlaySpace.WorldSpaceEntities && _orbitraFlame.TryDraw(args))
+            return;
+        // Orbitra added end
 
         var drawHandle = args.WorldHandle;
         var xformQuery = _entManager.GetEntityQuery<TransformComponent>();
@@ -164,4 +172,6 @@ public sealed partial class GasTileFireOverlay : Overlay
                 return true;
             });
     }
+
+    protected override void DisposeBehavior() => _orbitraFlame.Dispose(); // Orbitra-Edit
 }

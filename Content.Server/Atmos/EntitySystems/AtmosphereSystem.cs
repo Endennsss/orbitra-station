@@ -100,6 +100,7 @@ public sealed partial class AtmosphereSystem : SharedAtmosphereSystem
         base.Update(frameTime);
 
         UpdateProcessing(frameTime);
+        ExpireOrbitraAirflow(); // Orbitra-Edit - гасим эффекты, когда поток прекращается.
         UpdateHighPressure(frameTime);
 
         var delay = TimeSpan.FromSeconds(ExposedUpdateDelay);

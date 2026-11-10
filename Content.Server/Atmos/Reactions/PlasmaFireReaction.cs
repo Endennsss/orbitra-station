@@ -60,6 +60,7 @@ namespace Content.Server.Atmos.Reactions
 
                     energyReleased += Atmospherics.FirePlasmaEnergyReleased * plasmaBurnRate;
                     energyReleased /= heatScale; // adjust energy to make sure speedup doesn't cause mega temperature rise
+                    atmosphereSystem.AddOrbitraFireHeat(location, Gas.Plasma, energyReleased); // Orbitra-Edit
                     mixture.ReactionResults[(byte)GasReaction.Fire] += plasmaBurnRate * (1 + oxygenBurnRate);
                 }
             }

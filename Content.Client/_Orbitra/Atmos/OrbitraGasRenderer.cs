@@ -204,6 +204,7 @@ internal sealed partial class OrbitraGasRenderer : IDisposable
         {
             _mapShader = GetPrototype().InstanceUnique();
             _mapShader.SetParameter("map_atmosphere", true);
+            _mapShader.SetParameter("use_flow", false);
         }
     }
 

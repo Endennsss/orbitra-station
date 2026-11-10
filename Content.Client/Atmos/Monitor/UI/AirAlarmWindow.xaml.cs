@@ -100,7 +100,11 @@ public sealed partial class AirAlarmWindow : FancyWindow
     {
         _address.SetMarkup(state.Address.ToString());
         _deviceTotal.SetMarkup($"{state.DeviceCount}");
-        _pressure.SetMarkup(Loc.GetString("air-alarm-ui-window-pressure", ("pressure", $"{state.PressureAverage:0.##}")));
+        // Orbitra edit start - показываем падение давления отдельно от текущего значения.
+        var pressureFalling = state.DeviceData.Exists(static entry => entry.Item2 is AtmosMonitorData { OrbitraPressureFalling: true });
+        _pressure.SetMarkup(Loc.GetString(pressureFalling ? "orbitra-air-alarm-pressure-falling" : "air-alarm-ui-window-pressure",
+            ("pressure", $"{state.PressureAverage:0.##}")));
+        // Orbitra edit end
         _temperature.SetMarkup(Loc.GetString("air-alarm-ui-window-temperature", ("tempC", $"{TemperatureHelpers.KelvinToCelsius(state.TemperatureAverage):0.#}"), ("temperature", $"{state.TemperatureAverage:0.##}")));
         _alarmState.SetMarkup(Loc.GetString("air-alarm-ui-window-alarm-state",
                     ("color", ColorForAlarm(state.AlarmType)),

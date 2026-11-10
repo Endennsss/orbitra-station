@@ -91,6 +91,7 @@ public sealed partial class AtmosphereSystem
             !IsMixtureIgnitable(tile.Air))
         {
             tile.Hotspot = new Hotspot();
+            tile.OrbitraFireTint = 0; // Orbitra-Edit - следующий очаг начинает со своего оттенка.
             InvalidateVisuals(ent, tile);
             return;
         }
