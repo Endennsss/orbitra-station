@@ -80,6 +80,7 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
             _viewerMap = map;
         }
         Pool.Update(frameTime);
+        UpdateGravityDust(frameTime);
         PruneImpactMarks();
         _stale.Clear();
         foreach (var (key, emitter) in _emitters)
@@ -223,6 +224,9 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
     {
         Pool.Clear();
         _emitters.Clear();
+        _hasGravityDust = false;
+        _nextGravityDustSample = TimeSpan.Zero;
+        _gravityDustGrids.Clear();
     }
 
     public override void Shutdown()

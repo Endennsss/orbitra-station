@@ -87,6 +87,13 @@
   count: 14
 
 - type: orbitraParticleEffect
+  id: OrbitraParticleGravityDust
+  color: "#CFC6B2C9"
+  emissive: true
+  size: 0.052
+  speed: 0.33
+
+- type: orbitraParticleEffect
   id: OrbitraParticleBreachFloorDust
   color: "#DED4C3D8"
   endColor: "#A99D8938"

@@ -20,6 +20,7 @@ internal sealed class OrbitraParticlePool
         public Color? Tint;
         public EntityUid? ImpactSource;
         public float? Opacity;
+        public float? GravityDustLift;
     }
 
     public readonly Particle[] Particles = new Particle[768];
@@ -122,6 +123,9 @@ internal sealed class OrbitraParticlePool
         for (var i = Count - 1; i >= 0; i--)
         {
             ref var p = ref Particles[i];
+            if (p.GravityDustLift.HasValue)
+                continue;
+
             p.Age += dt;
             if (p.Age >= p.Lifetime)
             {

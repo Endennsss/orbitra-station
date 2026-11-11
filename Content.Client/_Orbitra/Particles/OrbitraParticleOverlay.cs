@@ -38,6 +38,7 @@ internal sealed class OrbitraParticleOverlay : Overlay
     {
         if (_system.Pool.Capacity == 0 || args.Viewport.Eye is not { } eye)
             return;
+        _system.CollectGravityDust(args.MapId, args.WorldAABB);
         _sources.Clear();
         _lookup.GetEntitiesIntersecting(args.MapId, args.WorldAABB, _sources);
         foreach (var source in _sources)
