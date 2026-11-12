@@ -1,6 +1,6 @@
 ---
 name: ss14-documentation-writing
-description: A practical documentation standard in Space Station 14 for C#, SWSL, YAML and FTL: how to write `<summary>`, when to add explanatory comments, how to document partial systems, and how to avoid noisy documentation. Use it when writing, refactoring and reviewing documentation in code, prototypes and localization.
+description: A practical documentation standard in Space Station 14 for C#, SWSL, YAML and FTL: how to write `<summary>`, when to add Russian comments, how to document partial systems, and how to avoid noisy documentation. Use it when writing, refactoring and reviewing documentation in code, prototypes and localization.
 ---
 
 # SS14 Documentation Writing
@@ -26,8 +26,7 @@ Goal: leave only useful documentation that speeds up reviews and reduces the ris
 
 ### Language
 
-1. Write documentation in English.
-2. Do not distort identifiers and XML tags and do not mix languages ​​in one doc block.
+Follow the [code comment language rule](../../rules/code-comment-language.md).
 
 ### C# and SWSL
 
@@ -48,7 +47,7 @@ Goal: leave only useful documentation that speeds up reviews and reduces the ris
 ### FTL
 
 1. Use comments in FTL only for rare divisions into groups.
-2. Always put a space between `##` and the group name: `## Group Name`.
+2. Always put a space between `##` and the group name: `## Название группы`.
 3. Do not use broken headers like `##bombs`.
 4. Don't spam headers before every few keys.
 
@@ -81,13 +80,13 @@ Goal: leave only useful documentation that speeds up reviews and reduces the ris
 4. `BaseContainer` and `SharedContainerSystem.Remove(...)` show a stable API documentation style: `summary` + `remarks` + described parameters.
 5. In `SharedScp096System` the logic is decomposed into partial parts with separate blocks of responsibilities and dependencies.
 6. `Scp096PhotoSystem` and `ArtifactScp096MadnessSystem` show that the documentation should take into account non-standard call flags (`TryAddTarget(..., true, true)`), and not just the default path.
-7. In YAML directories, level separators `# Rank 2` / `# Rank 3` make large lists readable without overload.
-8. In FTL, the correct group separator is `## Strings for the battery ...` and does not break parsing.
+7. In YAML directories, level separators `# Ранг 2` / `# Ранг 3` make large lists readable without overload.
+8. In FTL, the correct group separator is `## Строки меню батареи` and does not break parsing.
 
 ## Anti-patterns ❌
 
 1. Invalid XML tags in docks (`</summarY>` and other typos).
-2. Russian-language and mixed-language doc comments in the code.
+2. New or revised comment prose that violates the code comment language rule.
 3. Obvious comments that simply duplicate a line of code.
 4. Using `TODO/HACK/FIXME` as "documentation of behavior" instead of a correction or normal explanation.
 5. Multi-line explanations in YAML where one phrase is enough.
@@ -101,18 +100,18 @@ Goal: leave only useful documentation that speeds up reviews and reduces the ris
 
 ```csharp
 /// <summary>
-/// Handles click detection for sprites.
+/// Определяет попадание клика по спрайту.
 /// </summary>
 public sealed class ClickableSystem : EntitySystem
 {
     /// <summary>
-    /// Used to check whether a click worked.
+    /// Проверяет, попал ли клик по спрайту.
     /// </summary>
     public bool CheckClick(...)
     {
-        // First we get localPos, the clicked location in the sprite-coordinate frame.
+        // Переводим точку клика в локальные координаты спрайта.
         ...
-        // Next check each individual sprite layer using automatically computed click maps.
+        // Проверяем каждый слой по его карте попаданий.
         ...
     }
 }
@@ -124,15 +123,15 @@ Comment: `summary` holds the API contract, and inline comments remain only for n
 
 ```csharp
 /// <summary>
-/// Creates an invisible wall in a free space after some checks.
+/// Создаёт невидимую стену на свободной клетке.
 /// </summary>
 private void OnInvisibleWall(Entity<MimePowersComponent> ent, ref InvisibleWallActionEvent args)
 {
-    // Get the tile in front of the mime
+    // Берём клетку перед мимом.
     ...
-    // Check if the tile is blocked by a wall or mob, and don't create the wall if so
+    // Стена и существо блокируют создание на этой клетке.
     ...
-    // Make sure we set the invisible wall to despawn properly
+    // Задаём срок жизни невидимой стены.
     ...
 }
 ```
@@ -143,10 +142,10 @@ Comment: Comments do not clutter the method, but only clarify the checks and con
 
 ```csharp
 /// <summary>
-/// Returns true if there is an ID in privileged slot and said ID satisfies access requirements.
+/// Возвращает true, если в специальном слоте есть ID-карта с нужным доступом.
 /// </summary>
 /// <remarks>
-/// Other code relies on the fact this returns false if privileged Id is null.
+/// Вызывающий код полагается на false при отсутствии карты.
 /// </remarks>
 private bool PrivilegedIdIsAuthorized(...)
 {
@@ -162,7 +161,7 @@ Comment: `remarks` fixes an invariant that is otherwise easy to break with a ref
 public abstract partial class SharedDoorSystem
 {
     /*
-     * Target-handling part of the system.
+     * Обработка целей взаимодействия с дверью.
      */
     [Dependency] private SharedPopupSystem _popup = default!;
     ...
@@ -177,11 +176,11 @@ Comment: For such systems, document not only “what the part does”, but also 
 ### Example 5: YAML grouping without overloading
 
 ```yaml
-# Rank 2
+# Ранг 2
 - type: cargoProduct
   id: CargoDoubleEmergencyTank
 
-# Rank 3
+# Ранг 3
 - type: cargoProduct
   id: CargoFulton
 ```
@@ -191,7 +190,7 @@ Comment: A short delimiter speeds up reading and does not turn into an additiona
 ### Example 6: FTL delimiters
 
 ```ftl
-## Strings for the battery (SMES/substation) menu
+## Строки меню батареи (SMES и подстанции)
 battery-menu-out = OUT
 
 ##bombs
@@ -202,12 +201,12 @@ Comment: the first header is correct, the second is broken due to the lack of a 
 
 ## Checklist before PR
 
-1. All new doc comments in the code are in English.
+1. New and revised comments follow the code comment language rule.
 2. Added `summary` for public and intersystem contracts.
 3. In partial systems there is a brief description of the role of the part.
 4. Complex blocks received a short explanation "why".
 5. In YAML, comments are short and only to the point.
-6. In FTL, group comments are rare and only in the format `## Group Name`.
+6. In FTL, group comments are rare and only in the format `## Название группы`.
 7. There are no invalid XML tags or broken FTL headers.
 
 ## Extension rule
