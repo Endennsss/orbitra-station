@@ -1,0 +1,10 @@
+- type: loadout
+  id: OrbitraLoadoutRoundstartCash
+  effects:
+  - !type:JobRequirementLoadoutEffect
+    requirement:
+      !type:OverallPlaytimeRequirement
+      time: 20h
+  storage:
+    back:
+    - OrbitraRoundstartCash

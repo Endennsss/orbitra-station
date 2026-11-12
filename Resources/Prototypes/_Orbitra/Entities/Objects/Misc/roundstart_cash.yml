@@ -1,0 +1,9 @@
+- type: entity
+  parent: SpaceCash
+  id: OrbitraRoundstartCash
+  name: деньги
+  description: Случайная сумма кредитов на старте раунда.
+  suffix: Orbitra
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: OrbitraRoundstartCash
