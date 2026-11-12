@@ -11,6 +11,17 @@ public sealed partial class CargoSystem
 {
     [Dependency] private OrbitraAbandonedStationRuleSystem _orbitraAbandonedStation = default!;
 
+    [SubscribeLocalEvent]
+    private void OrbitraOnTelepadTerminating(Entity<CargoTelepadComponent> ent, ref EntityTerminatingEvent args)
+    {
+        if (!_orbitraAbandonedStation.IsIsolationActive || ent.Comp.CurrentOrders.Count == 0)
+            return;
+
+        // При выключении компонентов телепад уже отсоединён от станции.
+        if (_station.GetOwningStation(ent) is { } station && _orderQuery.HasComp(station))
+            OrbitraTrySuspendDelivery(ent, station);
+    }
+
     private bool OrbitraTrySuspendDelivery(Entity<CargoTelepadComponent> telepad, EntityUid station)
     {
         if (!_orbitraAbandonedStation.IsIsolationActive)

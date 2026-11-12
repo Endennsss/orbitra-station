@@ -131,9 +131,13 @@ public sealed class OrbitraResearchAccessTest
                     equipped = server.System<InventorySystem>().TryEquip(user, card, "id", force: true);
                 }
                 server.PlayerMan.SetAttachedEntity(session, user);
+            });
+            await pair.RunTicksSync(15);
+            await server.WaitPost(() =>
+            {
                 opened = ui.TryOpenUi(console, ResearchConsoleUiKey.Key, user);
                 // Orbitra-Edit: изменение очков публикует BUI-состояние только после открытия интерфейса.
-                research.ModifyServerPoints(researchServer, InitialPoints);
+                server.System<ServerResearchSystem>().ModifyServerPoints(researchServer, InitialPoints);
             });
             await pair.RunTicksSync(15);
             await server.WaitAssertion(() =>

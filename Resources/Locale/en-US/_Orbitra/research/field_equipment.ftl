@@ -7,3 +7,13 @@ research-technology-orbitra-field-lighting = Field lighting
 research-technology-orbitra-salvage-rigging = Salvage rigging
 research-technology-orbitra-field-resuscitation = Field resuscitation
 research-technology-orbitra-low-light-optics = Low-light optics
+
+orbitra-research-technology-orbitra-radiation-survey-description = Geiger counters for locating radiation hazards and measuring exposure.
+orbitra-research-technology-orbitra-radiological-shielding-description = Radiation suits for working in contaminated areas.
+orbitra-research-technology-orbitra-eva-recovery-description = Compact jetpacks and station pinpointers for finding your way back from space.
+orbitra-research-technology-orbitra-breach-containment-description = Inflatable walls and doors for temporarily sealing breaches.
+orbitra-research-technology-orbitra-fire-response-description = Protective suits and compact extinguishers for responding to fires.
+orbitra-research-technology-orbitra-field-lighting-description = Portable floodlights for work sites and dark compartments.
+orbitra-research-technology-orbitra-salvage-rigging-description = A salvage rig for carrying tools on expeditions.
+orbitra-research-technology-orbitra-field-resuscitation-description = Compact defibrillators for treating cardiac arrest in the field.
+orbitra-research-technology-orbitra-low-light-optics-description = Night-vision goggles for working in poorly lit areas.

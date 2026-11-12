@@ -7,3 +7,13 @@ research-technology-orbitra-field-lighting = Полевое освещение
 research-technology-orbitra-salvage-rigging = Шахтёрская разгрузка
 research-technology-orbitra-field-resuscitation = Полевая реанимация
 research-technology-orbitra-low-light-optics = Оптика ночного видения
+
+orbitra-research-technology-orbitra-radiation-survey-description = Счётчики Гейгера для поиска источников радиации и измерения облучения.
+orbitra-research-technology-orbitra-radiological-shielding-description = Костюмы радиационной защиты для работы в заражённых зонах.
+orbitra-research-technology-orbitra-eva-recovery-description = Компактные джетпаки и указатели станции для возвращения из открытого космоса.
+orbitra-research-technology-orbitra-breach-containment-description = Надувные стены и двери для временной герметизации пробоин.
+orbitra-research-technology-orbitra-fire-response-description = Защитные костюмы и компактные огнетушители для борьбы с пожарами.
+orbitra-research-technology-orbitra-field-lighting-description = Переносные прожекторы для освещения рабочих площадок и тёмных отсеков.
+orbitra-research-technology-orbitra-salvage-rigging-description = Разгрузка для переноски инструментов в экспедициях.
+orbitra-research-technology-orbitra-field-resuscitation-description = Компактные дефибрилляторы для помощи при остановке сердца в полевых условиях.
+orbitra-research-technology-orbitra-low-light-optics-description = Очки ночного видения для работы в плохо освещённых местах.

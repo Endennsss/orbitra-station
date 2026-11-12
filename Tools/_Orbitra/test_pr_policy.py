@@ -16,7 +16,18 @@ class PrPolicyTest(unittest.TestCase):
                 'body': '\n\n'.join('## ' + heading + '\nОписание результата.' for heading in REQUIRED)}
 
     def test_filled_pr_passes(self):
-        self.assertEqual([], validate(self.valid_pr()))
+        pr = dict(self.valid_pr(), body='## Что изменено\nИсправлено перекрытие блума.\n\n## Проверки\nПроверено на Dev.')
+        self.assertEqual([], validate(pr))
+
+    def test_template_matches_policy(self):
+        template = (ROOT / '.github/PULL_REQUEST_TEMPLATE.md').read_text(encoding='utf-8')
+        headings = tuple(line[3:] for line in template.splitlines() if line.startswith('## '))
+        self.assertEqual(('Что изменено', 'Проверки'), headings)
+        self.assertEqual(REQUIRED, headings)
+
+    def test_draft_does_not_require_title_or_body(self):
+        self.assertEqual([], validate({'draft': True, 'title': 'WIP'}))
+        self.assertTrue(validate({'draft': False, 'title': 'WIP'}))
 
     def test_empty_template_does_not_pass(self):
         pr = self.valid_pr()
@@ -26,7 +37,7 @@ class PrPolicyTest(unittest.TestCase):
     def test_comments_do_not_count_as_description(self):
         pr = self.valid_pr()
         pr['body'] = '## Что изменено\n<!-- Filled description -->'
-        self.assertEqual(4, len(validate(pr)))
+        self.assertEqual(2, len(validate(pr)))
 
     def test_unknown_type_english_title_and_trailing_dot_fail(self):
         for title in ('Update bloom', 'fix: fix bloom', 'fix: исправлено.', 'misc: исправлено'):

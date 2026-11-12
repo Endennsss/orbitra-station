@@ -234,3 +234,5 @@ orbitra-research-technology-orbitra-bluespace-theory-description = The theoretic
 orbitra-research-technology-orbitra-uranium-processing-description = Processing ordinary uranium at a protolathe into fuel for microreactor cells.
 
 orbitra-research-technology-orbitra-microreactors-description = Self-charging microreactor cells made with processed uranium.
+
+orbitra-research-technology-packaged-lights-description = Boxes of replacement bulbs and tubes for station light fixtures.

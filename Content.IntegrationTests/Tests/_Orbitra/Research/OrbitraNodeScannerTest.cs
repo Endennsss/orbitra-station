@@ -37,7 +37,7 @@ public sealed class OrbitraNodeScannerTest
           suffix: Orbitra
           components:
           - type: XenoArtifactNode
-            triggerTip: artifact-trigger-hint-health-analyzer
+            triggerTip: artifact-verb-activate
             maxDurability: 3
             maxDurabilityCanDecreaseBy:
               min: 0
@@ -80,7 +80,7 @@ public sealed class OrbitraNodeScannerTest
                 Assert.That(window.FindControl<RichTextLabel>("EffectValueLabel").Text,
                     Is.EqualTo(loc.GetString("analysis-console-info-effect-value", ("state", true), ("info", description))));
                 Assert.That(window.FindControl<RichTextLabel>("TriggerValueLabel").Text,
-                    Does.Contain(loc.GetString("artifact-trigger-hint-health-analyzer")));
+                    Does.Contain(loc.GetString("artifact-verb-activate")));
                 Assert.That(window.FindControl<RichTextLabel>("DurabilityValueLabel").Text,
                     Is.EqualTo(FormattedMessage.FromMarkupOrThrow(loc.GetString("analysis-console-info-durability-value",
                         ("color", Color.Red), ("current", 1), ("max", 3))).ToMarkup()));

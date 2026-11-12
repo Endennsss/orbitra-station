@@ -17,6 +17,11 @@
     powerLoad: 1500
   - type: Machine
     board: OrbitraXenoProcessorBoard
+  - type: ContainerContainer
+    containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
+      xeno_input: !type:ContainerSlot
   - type: OrbitraXenobiologyProcessor
   - type: ActivatableUI
     key: enum.OrbitraXenobiologyUiKey.Key
@@ -34,16 +39,9 @@
   components:
   - type: Computer
     board: OrbitraXenoConsoleBoard
-  - type: Sprite
-    layers:
-    - map: [computerLayerBody]
-      state: computer
-    - map: [computerLayerKeyboard]
-      state: generic_keyboard
-    - map: [computerLayerScreen]
-      state: dna
-    - map: [computerLayerKeys]
-      state: med_key
+  - type: ComputerVisuals
+    stateScreen: dna
+    stateKeys: med_key
   - type: OrbitraXenobiologyConsole
   - type: ActivatableUI
     key: enum.OrbitraXenobiologyUiKey.Key
@@ -78,6 +76,9 @@
   - type: Item
     size: Large
   - type: OrbitraXenobiologyCarrier
+  - type: ContainerContainer
+    containers:
+      xeno_carrier: !type:Container
 
 - type: entity
   parent: OrbitraXenoCarrier

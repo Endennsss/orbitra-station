@@ -898,13 +898,17 @@ public sealed class OrbitraResearchTreeUiTest
             {
                 researchServer = entMan.SpawnEntity("ResearchAndDevelopmentServer", map.GridCoords);
                 console = entMan.SpawnEntity("ComputerResearchAndDevelopment", map.GridCoords);
+                var power = server.System<PowerReceiverSystem>();
+                power.SetNeedsPower(console, false);
+                power.SetNeedsPower(researchServer, false);
                 user = entMan.SpawnEntity("MobHuman", map.GridCoords);
                 var card = entMan.SpawnEntity("RDIDCard", map.GridCoords);
                 equipped = server.System<InventorySystem>().TryEquip(user, card, "id", force: true);
                 server.PlayerMan.SetAttachedEntity(session, user);
-                opened = ui.TryOpenUi(console, ResearchConsoleUiKey.Key, user);
             });
 
+            await pair.RunTicksSync(15);
+            await server.WaitPost(() => opened = ui.TryOpenUi(console, ResearchConsoleUiKey.Key, user));
             await pair.RunTicksSync(15);
 
             await server.WaitAssertion(() =>

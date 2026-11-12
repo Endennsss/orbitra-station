@@ -1,0 +1,53 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: ru-RU
+tone_instructions: >-
+  Пиши по-русски. В замечании укажи проблему, её эффект и короткий способ исправить.
+  Сохраняй идентификаторы в оригинале. Не дублируй замечания и не пересказывай diff.
+reviews:
+  profile: quiet
+  high_level_summary: true
+  high_level_summary_in_walkthrough: true
+  high_level_summary_instructions: >-
+    Не больше трёх коротких пунктов на русском о результате и существенном риске,
+    если он есть. Без перечня файлов, таблиц и догадок о пройденных тестах.
+  collapse_walkthrough: true
+  changed_files_summary: false
+  sequence_diagrams: false
+  estimate_code_review_effort: false
+  review_info: false
+  review_status: false
+  review_progress: false
+  in_progress_fortune: false
+  poem: false
+  related_issues: false
+  related_prs: false
+  suggested_labels: false
+  suggested_reviewers: false
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - '^(staging|stable)$'
+  path_instructions:
+    - path: '**/*'
+      instructions: >-
+        Используй AGENTS.md и применимые правила .agents/rules. Отмечай воспроизводимые
+        регрессии, потерю данных и ошибки с конкретным сценарием. Пропускай вкусовые
+        правки и косметическое форматирование.
+    - path: 'Content.*/**/*.cs'
+      instructions: >-
+        Проверяй права на сервере, сетевое состояние, prediction и жизненный цикл ECS.
+        Ищи утечки и лишние выделения в горячих путях. Код форка держи в _Orbitra;
+        правки апстрима должны быть небольшими и помеченными по правилам репозитория.
+    - path: 'Resources/**/*'
+      instructions: >-
+        Проверяй ссылки на прототипы, наследование, локализацию и атрибуцию импортированных ресурсов.
+    - path: '.github/workflows/**'
+      instructions: >-
+        Проверяй разрешения, контекст события, доступ к секретам и условия обязательных
+        проверок. Сбой сборки или теста должен быть виден в результате.
+knowledge_base:
+  code_guidelines:
+    filePatterns:
+      - AGENTS.md
+      - .agents/rules/*.md

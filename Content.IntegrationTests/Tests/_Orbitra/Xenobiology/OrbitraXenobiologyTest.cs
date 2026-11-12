@@ -145,6 +145,7 @@ public sealed class OrbitraXenobiologyTest
         var map = await pair.CreateTestMap();
         var previous = pair.Player.AttachedEntity;
         EntityUid console = default;
+        EntityUid user = default;
         var opened = false;
         var completed = false;
         try
@@ -157,12 +158,14 @@ public sealed class OrbitraXenobiologyTest
                     mapSystem.SetTile(map.Grid, new EntityCoordinates(map.Grid, x, y), map.Tile.Tile);
                 console = server.EntMan.SpawnEntity("OrbitraXenoConsole", new EntityCoordinates(map.Grid, 1.5f, 2.5f));
                 server.System<PowerReceiverSystem>().SetNeedsPower(console, false);
-                var user = server.EntMan.SpawnEntity("MobHuman", new EntityCoordinates(map.Grid, 1.5f, 1.5f));
+                user = server.EntMan.SpawnEntity("MobHuman", new EntityCoordinates(map.Grid, 1.5f, 1.5f));
                 server.EntMan.SpawnEntity("OrbitraXenoSlimeGrey", new EntityCoordinates(map.Grid, 2.25f, 1.5f));
                 server.EntMan.SpawnEntity("OrbitraXenoSlimeGrey", new EntityCoordinates(map.Grid, 3.25f, 1.5f));
                 server.PlayerMan.SetAttachedEntity(pair.Player, user);
-                opened = server.System<UserInterfaceSystem>().TryOpenUi(console, OrbitraXenobiologyUiKey.Key, user);
             });
+            await pair.RunTicksSync(15);
+            await server.WaitPost(() =>
+                opened = server.System<UserInterfaceSystem>().TryOpenUi(console, OrbitraXenobiologyUiKey.Key, user));
             await pair.RunTicksSync(20);
             await pair.RunSeconds(1.2f);
             await server.WaitAssertion(() =>

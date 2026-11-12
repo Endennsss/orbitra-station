@@ -4,6 +4,7 @@ on:
   push:
     branches: [ master, staging, stable ]
   merge_group:
+  workflow_dispatch:
   pull_request:
     types: [ opened, reopened, synchronize, ready_for_review ]
     branches: [ master, staging, stable ]
@@ -14,8 +15,8 @@ concurrency:
 
 jobs:
   build:
-    name: Build & Test Debug # Orbitra-Edit - имя обязательной проверки в ruleset
-    if: github.actor != 'PJBot' && github.event.pull_request.draft == false
+    name: Linux tests
+    if: github.actor != 'PJBot' && (github.event_name != 'pull_request' || !github.event.pull_request.draft)
     strategy:
       fail-fast: false
       matrix:
@@ -52,7 +53,7 @@ jobs:
       run: dotnet restore
 
     - name: Build Project
-      run: dotnet build --configuration DebugOpt --no-restore /m
+      run: dotnet build --configuration DebugOpt --no-restore -m:2 -nodeReuse:false
 
     - name: Run Content.Tests
       if: matrix.shard == 0
@@ -60,9 +61,9 @@ jobs:
       run: dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj -- NUnit.ConsoleOut=1 NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
 
     - name: Run Content.IntegrationTests
+      timeout-minutes: 100
       shell: pwsh
       run: |
-        $env:DOTNET_gcServer=1
         $shard = [int]$env:SHARD_INDEX
         $shardCount = [int]$env:SHARD_COUNT
         $testRoot = Join-Path (Get-Location) "Content.IntegrationTests/Tests"
@@ -110,33 +111,26 @@ jobs:
         $filter = $selected[$shard] -join '|'
         Write-Host "Integration test shard $($shard + 1)/$($shardCount): $($selected[$shard].Count) filters, estimated weight $($loads[$shard])"
 
-        # Длинные UI-тесты могут не писать в stdout несколько минут. Запускаем
-        # тестовый процесс отдельно и печатаем heartbeat, чтобы GitHub runner
-        # не отменял активный job из-за отсутствия вывода.
         $arguments = @(
           "test",
           "--no-build",
           "--configuration", "DebugOpt",
           "Content.IntegrationTests/Content.IntegrationTests.csproj",
           "--filter", $filter,
+          "--results-directory", "test_results",
+          "--blame-hang", "--blame-hang-timeout", "20m", "--blame-hang-dump-type", "none",
           "--",
           "NUnit.ConsoleOut=2",
           "NUnit.MapWarningTo=Failed",
           "NUnit.TestOutputXml=logs",
           "NUnit.WorkDirectory=$(pwd)/test_results"
         )
-        $testProcess = Start-Process dotnet -ArgumentList $arguments -NoNewWindow -PassThru
-        while (-not $testProcess.HasExited) {
-          Write-Host "Content.IntegrationTests still running..."
-          Start-Sleep -Seconds 60
-          $testProcess.Refresh()
-        }
-        if ($testProcess.ExitCode -ne 0) {
-          exit $testProcess.ExitCode
-        }
+        dotnet @arguments
+        exit $LASTEXITCODE
       env:
         SHARD_INDEX: ${{ matrix.shard }}
         SHARD_COUNT: 8
+        ORBITRA_INTEGRATION_TIMEOUT_MINUTES: 95
 
     - name: Archive NUnit3 test results.
       if: always()

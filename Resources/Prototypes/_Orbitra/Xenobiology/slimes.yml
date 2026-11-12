@@ -48,6 +48,9 @@
     baseWalkSpeed: 1.5
     baseSprintSpeed: 2.5
   - type: Body
+  - type: ContainerContainer
+    containers:
+      body_organs: !type:Container
   - type: EntityTableContainerFill
     containers:
       body_organs: !type:AllSelector
@@ -60,7 +63,8 @@
   - type: AtmosExposed
   - type: Temperature
     temperature: 293.15
-    heatCapacity: 20000
+    # Совпадает с теплоёмкостью, рассчитанной по массе фикстуры при спавне.
+    heatCapacity: 67858.414
     thermalConductivity: 200
   - type: NpcFactionMember
     factions: [OrbitraXenoSlimeCalm]

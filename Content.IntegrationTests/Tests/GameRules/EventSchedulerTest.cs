@@ -43,6 +43,15 @@ public sealed partial class EventSchedulerTest : GameTest
             : TimeSpan.FromMinutes(eventComp!.EarliestStart);
         var players = Math.Max(ruleComp.MinPlayers, eventComp.MinimumPlayers);
 
+        // Orbitra added start - ручные события не должны попадать в автоматический выбор.
+        if (eventComp.ManualOnly)
+        {
+            Assert.That(_eventMan.TryBuildLimitedEvents(ruleEv, out _, time, players), Is.False,
+                $"Manual-only rule {ruleId} was eligible for automatic scheduling.");
+            return;
+        }
+        // Orbitra added end
+
         if (time > TimeSpan.Zero || players > 1)
         {
             Assert.That(!_eventMan.TryBuildLimitedEvents(ruleEv, out _),

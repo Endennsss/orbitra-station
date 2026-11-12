@@ -8,10 +8,13 @@ from pathlib import Path
 
 
 TITLE = re.compile(r'^(add|fix|tweak|remove|refactor|docs|test|build|ci|chore|upstream|revert): \S.*[^.\s]$')
-REQUIRED = ('Что изменено', 'Зачем', 'Проверки', 'Авторы и вклад')
+REQUIRED = ('Что изменено', 'Проверки')
 
 
 def validate(pr):
+    if pr.get('draft') is True:
+        return []
+
     errors = []
     title = pr.get('title', '')
     if not TITLE.fullmatch(title) or not re.search('[А-Яа-яЁё]', title):

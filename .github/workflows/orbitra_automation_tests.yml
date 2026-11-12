@@ -5,7 +5,7 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
-    types: [opened, reopened, synchronize, ready_for_review, edited]
+    types: [opened, reopened, synchronize, ready_for_review, converted_to_draft, edited]
   merge_group:
   workflow_dispatch:
 

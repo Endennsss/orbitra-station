@@ -234,3 +234,5 @@ orbitra-research-technology-orbitra-bluespace-theory-description = Теорет�
 orbitra-research-technology-orbitra-uranium-processing-description = Обработка обычного урана на протолате для производства топлива микрореакторных батарей.
 
 orbitra-research-technology-orbitra-microreactors-description = Самозаряжающиеся микрореакторные батареи на основе обработанного урана.
+
+orbitra-research-technology-packaged-lights-description = Коробки со сменными лампочками и трубками для светильников станции.
