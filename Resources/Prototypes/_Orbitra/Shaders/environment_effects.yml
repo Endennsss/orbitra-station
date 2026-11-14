@@ -1,0 +1,9 @@
+- type: shader
+  id: OrbitraSoot
+  kind: source
+  path: /Textures/_Orbitra/Shaders/soot.swsl
+
+- type: shader
+  id: OrbitraMeteorTrail
+  kind: source
+  path: /Textures/_Orbitra/Shaders/meteor_trail.swsl

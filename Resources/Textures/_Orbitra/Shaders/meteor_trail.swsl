@@ -1,0 +1,13 @@
+light_mode unshaded;
+
+// Узкое ядро расширяется у головы и постепенно растворяется к хвосту.
+void fragment() {
+    highp float x = UV2.x;
+    highp float y = abs(UV2.y - 0.5);
+    highp float lengthMask = smoothstep(0.0, 0.82, x) * (1.0 - smoothstep(0.89, 1.0, x));
+    highp float width = mix(0.05, 0.24, x);
+    highp float halo = 1.0 - smoothstep(width * 0.45, width * 1.9, y);
+    highp float core = 1.0 - smoothstep(width * 0.12, width * 0.65, y);
+    COLOR = vec4(mix(vec3(0.34, 0.53, 0.72), vec3(0.93, 0.97, 1.0), core),
+        lengthMask * (halo * 0.34 + core * 0.65));
+}

@@ -86,7 +86,9 @@ internal sealed class OrbitraParticleOverlay : Overlay
                 var effect = particle.Effect;
                 var tint = Color.InterpolateBetween(particle.Tint ?? effect.Color,
                     particle.Tint is { } blood ? new Color(blood.R * 0.45f, blood.G * 0.45f, blood.B * 0.45f, blood.A) : effect.EndColor, progress);
-                tint.A *= (particle.Opacity ?? 1f) * (1f - progress) * Math.Min(1f, particle.Age * 40f);
+                // Короткие выбросы должны быть видны уже в первом кадре.
+                var fadeIn = particle.Burst ? 1f : Math.Min(1f, particle.Age * 40f);
+                tint.A *= (particle.Opacity ?? 1f) * (1f - progress) * fadeIn;
                 if (tint.A <= 0f)
                     continue;
 

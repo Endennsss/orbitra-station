@@ -1,0 +1,13 @@
+light_mode unshaded;
+
+// Затемняем готовый спрайт, сохраняя его прозрачность и мелкие детали.
+void fragment() {
+    highp vec4 source = zTexture(UV);
+    highp vec2 cell = floor(UV / TEXTURE_PIXEL_SIZE);
+    highp float grain = fract(sin(dot(cell, vec2(14.83, 43.23))) * 4375.854);
+    highp float streak = sin(cell.x * 0.24 + sin(cell.y * 0.09) * 1.4);
+    highp float deposit = smoothstep(-0.38, 0.82, streak + (grain - 0.5) * 0.65);
+    highp float amount = 0.27 + deposit * 0.34;
+    highp vec3 soot = source.rgb * vec3(0.31, 0.26, 0.22);
+    COLOR = vec4(mix(source.rgb, soot, amount), source.a);
+}
