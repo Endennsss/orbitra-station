@@ -1,4 +1,0 @@
-- type: shader
-  id: OrbitraAtmosphereGrade
-  kind: source
-  path: /Textures/_Orbitra/Shaders/atmosphere_grade.swsl
