@@ -18,10 +18,10 @@ public sealed partial class VotePopup
         MaxWidth = 460;
         if (GetChild(0) is PanelContainer panel)
             panel.PanelOverride = new StyleBoxFlat(OrbitraPalettes.PanelBackground)
-        {
-            BorderColor = OrbitraPalettes.PanelBorder,
-            BorderThickness = new Thickness(1),
-        };
+            {
+                BorderColor = OrbitraPalettes.PanelBorder,
+                BorderThickness = new Thickness(1),
+            };
         VoteCaller.HorizontalExpand = true;
         VoteCaller.ClipText = false;
         VoteTitle.HorizontalExpand = true;
@@ -40,3 +40,5 @@ public sealed partial class VotePopup
         }
     }
 }
+
+// К слову хуйня не рабочая))))
