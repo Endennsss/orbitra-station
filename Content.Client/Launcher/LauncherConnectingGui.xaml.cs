@@ -44,6 +44,7 @@ namespace Content.Client.Launcher
             LayoutContainer.SetAnchorPreset(this, LayoutContainer.LayoutPreset.Wide);
 
             Stylesheet = IoCManager.Resolve<IStylesheetManager>().SheetSystem;
+            InitializeOrbitraPresentation(); // Orbitra-Edit
 
             ChangeLoginTip();
             RetryButton.OnPressed += ReconnectButtonPressed;
@@ -52,10 +53,6 @@ namespace Content.Client.Launcher
             CopyButton.OnPressed += CopyButtonPressed;
             CopyButtonDisconnected.OnPressed += CopyButtonDisconnectedPressed;
             ExitButton.OnPressed += _ => _state.Exit();
-
-            var addr = state.Address;
-            if (addr != null)
-                ConnectingAddress.Text = addr;
 
             state.PageChanged += OnPageChanged;
             state.ConnectFailReasonChanged += ConnectFailReasonChanged;
@@ -90,7 +87,7 @@ namespace Content.Client.Launcher
 
         private void CopyButtonDisconnectedPressed(BaseButton.ButtonEventArgs args)
         {
-            CopyText(DisconnectReason.Text);
+            CopyText(_state.LastDisconnectReason); // Orbitra-Edit - копируется исходный текст причины.
         }
 
         private void CopyText(string? text)
@@ -141,7 +138,7 @@ namespace Content.Client.Launcher
             var tipsDataset = _cfg.GetCVar(CCVars.LoginTipsDataset);
             var loginTipsEnabled = _prototype.TryIndex<LocalizedDatasetPrototype>(tipsDataset, out var tips);
 
-            LoginTips.Visible = loginTipsEnabled;
+            LoginTips.Visible = loginTipsEnabled && tips!.Values.Count > 0; // Orbitra-Edit - пустая карточка скрыта.
             if (!loginTipsEnabled)
             {
                 return;
@@ -193,7 +190,7 @@ namespace Content.Client.Launcher
             Disconnected.Visible = page == LauncherConnecting.Page.Disconnected;
 
             if (page == LauncherConnecting.Page.Disconnected)
-                DisconnectReason.Text = _state.LastDisconnectReason;
+                DisconnectReason.SetMessage(_state.LastDisconnectReason ?? ""); // Orbitra-Edit - длинная причина переносится.
         }
 
         private void ConnectionStateChanged(ClientConnectionState state)
