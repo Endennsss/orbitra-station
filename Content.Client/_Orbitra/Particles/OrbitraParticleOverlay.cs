@@ -15,6 +15,8 @@ internal sealed class OrbitraParticleOverlay : Overlay
     private readonly EntityLookupSystem _lookup;
     private readonly SharedTransformSystem _transform;
     private readonly HashSet<Entity<SpriteComponent>> _sources = new();
+    private readonly Dictionary<EntityUid, Matrix3x2?> _parentMatrices = new();
+    private readonly Func<IClydeViewport, ParticleShaders> _createShaders;
     private readonly ShaderInstance _lit;
     private readonly ShaderInstance _glow;
     private readonly OverlayResourceCache<ParticleShaders> _resources = new();
@@ -26,6 +28,7 @@ internal sealed class OrbitraParticleOverlay : Overlay
     {
         _entities = entities;
         _system = system;
+        _createShaders = _ => new ParticleShaders(_system.Pool.Capacity);
         _lookup = entities.System<EntityLookupSystem>();
         _transform = entities.System<SharedTransformSystem>();
         var prototypes = IoCManager.Resolve<IPrototypeManager>();
@@ -56,31 +59,44 @@ internal sealed class OrbitraParticleOverlay : Overlay
         var handle = args.WorldHandle;
         var oldShader = handle.GetShader();
         var oldTransform = handle.GetTransform();
-        var shaders = _resources.GetForViewport(args.Viewport, static _ => new ParticleShaders());
+        var shaders = _resources.GetForViewport(args.Viewport, _createShaders);
+        var fovTexture = args.Viewport.FovRenderTarget.Texture;
+        _parentMatrices.Clear();
         var visibleBounds = args.WorldAABB.Enlarged(0.5f);
         try
         {
             for (var i = 0; i < _system.Pool.Count; i++)
             {
                 ref var particle = ref _system.Pool.Particles[i];
-                if (!_entities.TryGetComponent<TransformComponent>(particle.Parent, out var parent) || parent.MapID != args.MapId)
+                if (!_parentMatrices.TryGetValue(particle.Parent, out var parentMatrix))
+                {
+                    parentMatrix = _entities.TryGetComponent<TransformComponent>(particle.Parent, out var parent) &&
+                                   parent.MapID == args.MapId
+                        ? _transform.GetWorldMatrix(parent)
+                        : null;
+                    _parentMatrices.Add(particle.Parent, parentMatrix);
+                }
+
+                if (parentMatrix is not { } matrix)
                     continue;
-                var matrix = _transform.GetWorldMatrix(parent);
                 var position = Vector2.Transform(particle.Position, matrix);
                 if (!visibleBounds.Contains(position))
                     continue;
-                var origin = Vector2.Transform(particle.Origin, matrix);
                 var progress = Math.Clamp(particle.Age / particle.Lifetime, 0f, 1f);
                 var effect = particle.Effect;
-                // Команды Clyde исполняются отложенно: один mutable shader на все частицы теряет параметры.
-                var instances = effect.Emissive ? shaders.Glow : shaders.Lit;
-                var shader = instances[i] ??= (effect.Emissive ? _glow : _lit).Duplicate();
-                SetFov(shader, args.Viewport);
                 var tint = Color.InterpolateBetween(particle.Tint ?? effect.Color,
                     particle.Tint is { } blood ? new Color(blood.R * 0.45f, blood.G * 0.45f, blood.B * 0.45f, blood.A) : effect.EndColor, progress);
                 tint.A *= (particle.Opacity ?? 1f) * (1f - progress) * Math.Min(1f, particle.Age * 40f);
+                if (tint.A <= 0f)
+                    continue;
+
+                // Команды Clyde исполняются отложенно, поэтому каждому вызову нужны свои параметры.
+                var instances = effect.Emissive ? shaders.Glow : shaders.Lit;
+                var shader = instances[i] ??= (effect.Emissive ? _glow : _lit).Duplicate();
+                shader.SetParameter("FOV_TEXTURE", fovTexture);
+                shader.SetParameter("use_fov", eye.DrawFov);
                 shader.SetParameter("particle_color", tint);
-                shader.SetParameter("source_eye", origin - eye.Position.Position);
+                shader.SetParameter("source_eye", Vector2.Transform(particle.Origin, matrix) - eye.Position.Position);
                 shader.SetParameter("smoke", effect.Smoke);
                 shader.SetParameter("shape", effect.Shape);
                 var size = particle.Size * (effect.Smoke ? 1f + progress * 2 : 1f);
@@ -108,12 +124,6 @@ internal sealed class OrbitraParticleOverlay : Overlay
         }
     }
 
-    private static void SetFov(ShaderInstance shader, IClydeViewport viewport)
-    {
-        shader.SetParameter("FOV_TEXTURE", viewport.FovRenderTarget.Texture);
-        shader.SetParameter("use_fov", viewport.Eye!.DrawFov);
-    }
-
     protected override void DisposeBehavior()
     {
         _resources.Dispose();
@@ -124,10 +134,10 @@ internal sealed class OrbitraParticleOverlay : Overlay
 
     internal void ClearCache() => _resources.Dispose();
 
-    private sealed class ParticleShaders : IDisposable
+    private sealed class ParticleShaders(int capacity) : IDisposable
     {
-        public readonly ShaderInstance?[] Glow = new ShaderInstance?[768];
-        public readonly ShaderInstance?[] Lit = new ShaderInstance?[768];
+        public readonly ShaderInstance?[] Glow = new ShaderInstance?[capacity];
+        public readonly ShaderInstance?[] Lit = new ShaderInstance?[capacity];
 
         public void Dispose()
         {

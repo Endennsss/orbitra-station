@@ -46,7 +46,9 @@ public sealed partial class AtmosphereSystem
 
         var direction = angle.ToWorldVec();
         _entSet.Clear();
-        _lookup.GetLocalEntitiesIntersecting(grid.Owner, tile.GridIndices, _entSet, 0f);
+        // Поток не двигает статичные тела и содержимое контейнеров.
+        _lookup.GetLocalEntitiesIntersecting(grid.Owner, tile.GridIndices, _entSet, 0f,
+            LookupFlags.Dynamic | LookupFlags.Sundries | LookupFlags.Sensors);
         foreach (var uid in _entSet)
         {
             if (!_movedByPressureQuery.TryComp(uid, out var movement) || !movement.Enabled ||

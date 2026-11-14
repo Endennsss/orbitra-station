@@ -52,6 +52,7 @@ public sealed partial class OptionsTabControlRow : Control
     [Dependency] private IConfigurationManager _cfg = default!;
 
     private ValueList<BaseOption> _options;
+    internal event Action? ValuesLoaded; // Orbitra-Edit - обновляем зависимые элементы после загрузки значений.
 
     public OptionsTabControlRow()
     {
@@ -186,6 +187,7 @@ public sealed partial class OptionsTabControlRow : Control
         }
 
         UpdateButtonState();
+        ValuesLoaded?.Invoke(); // Orbitra-Edit
     }
 
     /// <summary>
@@ -234,12 +236,7 @@ public sealed partial class OptionsTabControlRow : Control
 
     private void ResetButtonPressed(BaseButton.ButtonEventArgs obj)
     {
-        foreach (var option in _options)
-        {
-            option.LoadValue();
-        }
-
-        UpdateButtonState();
+        Initialize(); // Orbitra-Edit - используем тот же путь загрузки, что и при открытии.
         ShowOrbitraFeedback(Content.Client._Orbitra.UserInterface.OrbitraNotificationKind.Info, _loc.GetString("orbitra-feedback-settings-discarded")); // Orbitra-Edit
     }
 
@@ -251,6 +248,7 @@ public sealed partial class OptionsTabControlRow : Control
         }
 
         UpdateButtonState();
+        ValuesLoaded?.Invoke(); // Orbitra-Edit - значения по умолчанию тоже меняют видимость.
         ShowOrbitraFeedback(Content.Client._Orbitra.UserInterface.OrbitraNotificationKind.Warning, _loc.GetString("orbitra-feedback-settings-defaults")); // Orbitra-Edit
     }
 

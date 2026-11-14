@@ -85,8 +85,8 @@ public sealed partial class GraphicsTab : Control
 
         InitializeOrbitraBloomOptions(); // Orbitra-Edit - подключаем настройки нового Bloom.
         InitializeOrbitraParticleOptions(); // Orbitra-Edit - настройка косметических частиц.
+        InitializeOrbitraPerformanceOptions(); // Orbitra-Edit
         Control.Initialize();
-        UpdateOrbitraBloomVisibility(); // Orbitra-Edit
 
         _cfg.OnValueChanged(CCVars.ViewportMinimumWidth, _ => UpdateViewportWidthRange());
         _cfg.OnValueChanged(CCVars.ViewportMaximumWidth, _ => UpdateViewportWidthRange());

@@ -35,6 +35,7 @@ public sealed partial class GraphicsTab
         strength.ImmediateValueChanged += PreviewOrbitraBloomStrength;
         quality.ImmediateValueChanged += PreviewOrbitraBloomQuality;
         OrbitraBloomEnabledCheckBox.OnToggled += _ => UpdateOrbitraBloomVisibility();
+        Control.ValuesLoaded += UpdateOrbitraBloomVisibility;
     }
 
     private void UpdateOrbitraBloomVisibility()

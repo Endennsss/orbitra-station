@@ -26,6 +26,11 @@
 
                 <!-- Quality -->
                 <Label Text="{Loc 'ui-options-quality-label'}" StyleClasses="LabelKeyText"/>
+                <!-- Orbitra added start - пресет и переключатель отрисовки газов. -->
+                <kit:OrbitraButton Name="OrbitraLowSpecButton" Text="{Loc 'orbitra-options-low-spec'}"
+                            ToolTip="{Loc 'orbitra-options-low-spec-tooltip'}" />
+                <kit:OrbitraCheckBox Name="OrbitraSmoothGasesCheckBox" Text="{Loc 'orbitra-options-smooth-gases'}" />
+                <!-- Orbitra added end -->
                 <ui:OptionDropDown Name="DropDownLightingQuality" Title="{Loc 'ui-options-lighting-label'}" />
                 <!-- Orbitra added start - параметры нового Bloom карты света -->
                 <kit:OrbitraCheckBox Name="OrbitraBloomEnabledCheckBox" Text="{Loc 'orbitra-options-bloom-enabled'}" />

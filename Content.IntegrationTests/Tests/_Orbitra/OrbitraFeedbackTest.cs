@@ -4,8 +4,11 @@ using System.Numerics;
 using System.Reflection;
 using Content.Client._Orbitra.UserInterface;
 using Content.Client.Options.UI;
+using Content.Client.Options.UI.Tabs;
 using Content.Client.UserInterface.Systems.Ghost.Controls;
 using Content.IntegrationTests.Fixtures;
+using Content.Shared._Orbitra.Graphics;
+using Content.Shared._Orbitra.Particles;
 using Content.Shared.CCVar;
 using Content.Shared.Ghost.Systems;
 using Robust.Client.Input;
@@ -128,6 +131,57 @@ public sealed class OrbitraFeedbackTest : GameTest
             if (slot.HasMessage) kinds.Add(slot.Kind);
         });
         Assert.That(kinds, Is.EqualTo(new[] { OrbitraNotificationKind.Info, OrbitraNotificationKind.Success, OrbitraNotificationKind.Warning }));
+    }
+
+    [Test]
+    public async Task LowSpecPresetCanBeDiscardedOrApplied()
+    {
+        await Client.WaitAssertion(() =>
+        {
+            var config = Client.Resolve<IConfigurationManager>();
+            config.SetCVar(CCVars.ReducedMotion, true);
+            config.SetCVar(OrbitraBloomCVars.Enabled, true);
+            config.SetCVar(OrbitraParticleCVars.Quality, "Medium");
+            config.SetCVar(CCVars.ParallaxLowQuality, false);
+            config.SetCVar(CCVars.AmbientOcclusion, true);
+            config.SetCVar(OrbitraGasCVars.SmoothGases, true);
+
+            using var options = new OptionsMenu();
+            options.OpenCentered();
+            var tabs = options.FindControl<TabContainer>("Tabs");
+            var graphics = tabs.Children.OfType<GraphicsTab>().Single();
+            tabs.CurrentTab = System.Array.IndexOf(tabs.Children.ToArray(), graphics);
+            options.Measure(new Vector2(960, 720));
+            options.Arrange(UIBox2.FromDimensions(Vector2.Zero, new Vector2(960, 720)));
+
+            var preset = graphics.FindControl<OrbitraButton>("OrbitraLowSpecButton");
+            var bloom = graphics.FindControl<OrbitraCheckBox>("OrbitraBloomEnabledCheckBox");
+            var bloomQuality = graphics.FindControl<OptionDropDown>("OrbitraBloomQualityDropDown");
+            var particles = graphics.FindControl<OptionDropDown>("OrbitraParticleQualityDropDown");
+
+            preset.GrabKeyboardFocus();
+            Key(Keyboard.Key.Return);
+            Assert.That(bloom.Pressed, Is.False);
+            Assert.That(bloomQuality.Visible, Is.False);
+            Assert.That(particles.Button.SelectedMetadata, Is.EqualTo("Low"));
+            Assert.That(config.GetCVar(OrbitraBloomCVars.Enabled), Is.True);
+
+            graphics.Control.FindControl<OrbitraButton>("ResetButton").GrabKeyboardFocus();
+            Key(Keyboard.Key.Return);
+            Assert.That(bloom.Pressed, Is.True);
+            Assert.That(bloomQuality.Visible, Is.True);
+            Assert.That(particles.Button.SelectedMetadata, Is.EqualTo("Medium"));
+
+            preset.GrabKeyboardFocus();
+            Key(Keyboard.Key.Return);
+            graphics.Control.FindControl<OrbitraButton>("ApplyButton").GrabKeyboardFocus();
+            Key(Keyboard.Key.Return);
+            Assert.That(config.GetCVar(OrbitraBloomCVars.Enabled), Is.False);
+            Assert.That(config.GetCVar(OrbitraParticleCVars.Quality), Is.EqualTo("Low"));
+            Assert.That(config.GetCVar(CCVars.ParallaxLowQuality), Is.True);
+            Assert.That(config.GetCVar(CCVars.AmbientOcclusion), Is.False);
+            Assert.That(config.GetCVar(OrbitraGasCVars.SmoothGases), Is.True);
+        });
     }
 
     [Test]
