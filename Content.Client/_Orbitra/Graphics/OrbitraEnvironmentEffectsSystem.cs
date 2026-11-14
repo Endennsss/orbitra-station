@@ -62,7 +62,12 @@ public sealed partial class OrbitraEnvironmentEffectsSystem : EntitySystem
 
     private sealed class MeteorOverlay : Overlay
     {
-        private static readonly ProtoId<ShaderPrototype> MeteorShader = "OrbitraMeteorTrail"; // должно дать забилдить хотя-бы
+        private static readonly ProtoId<ShaderPrototype> MeteorShader = "OrbitraMeteorTrail";
+
+        private readonly ShaderInstance _shader =
+            IoCManager.Resolve<IPrototypeManager>()
+                .Index(MeteorShader)
+                .InstanceUnique(); // АААААААААААААААААААААААААААА
         private readonly IEntityManager _entities;
         private readonly SharedMapSystem _maps;
         private readonly ParallaxSystem _parallax;
