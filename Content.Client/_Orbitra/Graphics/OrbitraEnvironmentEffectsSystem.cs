@@ -61,7 +61,6 @@ public sealed partial class OrbitraEnvironmentEffectsSystem : EntitySystem
     }
 
     private sealed class MeteorOverlay : Overlay
-    private sealed class MeteorOverlay : Overlay
     {
         private static readonly ProtoId<ShaderPrototype> MeteorShader = "OrbitraMeteorTrail";
 
