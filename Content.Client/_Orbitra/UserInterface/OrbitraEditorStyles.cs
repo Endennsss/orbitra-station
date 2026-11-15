@@ -18,35 +18,8 @@ internal static class OrbitraEditorStyles
         window.OpenCentered();
     }
 
-    public static void FitWindow(BaseWindow window, bool center = false)
-    {
-        var screen = IoCManager.Resolve<IUserInterfaceManager>().RootControl.Size;
-        var available = Vector2.Max(new Vector2(200, 128), screen - new Vector2(OrbitraUiMetrics.ScreenMargin * 2));
-        window.MaxSize = available;
-        window.MinSize = Vector2.Min(window.MinSize, available);
-        if (float.IsFinite(window.SetWidth))
-            window.SetWidth = Math.Min(window.SetWidth, available.X);
-        if (float.IsFinite(window.SetHeight))
-            window.SetHeight = Math.Min(window.SetHeight, available.Y);
-        window.Measure(available);
-        if (window.IsOpen)
-        {
-            var size = Vector2.Min(window.DesiredSize, available);
-            var position = center ? (screen - size) / 2 : window.Position;
-            var margin = new Vector2(OrbitraUiMetrics.ScreenMargin);
-            LayoutContainer.SetPosition(window, Vector2.Clamp(position, margin, Vector2.Max(margin, screen - size - margin)));
-        }
-    }
-
-    private static bool PreservesHorizontalScroll(Control control)
-    {
-        if (control.HasStyleClass("OrbitraHorizontalScroll"))
-            return true;
-        for (var parent = control.Parent; parent != null; parent = parent.Parent)
-            if (parent.HasStyleClass("OrbitraPreserveHorizontalScroll"))
-                return true;
-        return false;
-    }
+    public static void FitWindow(BaseWindow window, bool center = false) =>
+        OrbitraEntryWindow.FitViewport(window, OrbitraUiMetrics.ScreenMargin, center);
 
     public static void Apply(Control root)
     {
@@ -99,12 +72,8 @@ internal static class OrbitraEditorStyles
             OrbitraMotion.AttachTabs(tabs);
         if (root is Content.Client.UserInterface.Controls.FancyWindow window)
             window.ApplyOrbitraChrome();
-        if (root is Content.Client.Voting.UI.VoteCallMenu voteWindow)
-            voteWindow.ApplyOrbitraChrome();
         if (root is Content.Client.Administration.UI.Bwoink.BwoinkControl bwoink)
             OrbitraHelpLayout.Attach(bwoink);
-        if (root is ScrollContainer scroll && !PreservesHorizontalScroll(root))
-            scroll.HScrollEnabled = false;
         if (root is Content.Client.Humanoid.MarkingPicker)
             OrbitraMarkingNavigation.Attach(root, "OrganTabs");
         if (root is Content.Client.Humanoid.OrganMarkingPicker)

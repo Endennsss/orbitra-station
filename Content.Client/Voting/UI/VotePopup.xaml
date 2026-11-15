@@ -1,14 +1,22 @@
-<Control xmlns="https://spacestation14.io" MinWidth="300" MaxWidth="500">
-    <PanelContainer StyleClasses="BackgroundPanel" />
-    <BoxContainer Margin="4" Orientation="Vertical">
-        <Label Name="VoteCaller" />
-        <RichTextLabel Name="VoteTitle" />
-        <Button Margin="4 4" Name="FollowVoteTarget" Text="{Loc 'ui-vote-follow-button-popup'}" Visible="False"></Button>
-
-        <GridContainer Columns="3" Name="VoteOptionsContainer"/>
-        <BoxContainer Orientation="Horizontal">
-            <ProgressBar Margin="4" HorizontalExpand="True" Name="TimeLeftBar" MinValue="0" MaxValue="1" />
-            <Label Name="TimeLeftText" />
+<Control xmlns="https://spacestation14.io"
+         xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
+         MaxWidth="460">
+    <!-- Orbitra edit start - варианты прокручиваются, заголовок и таймер остаются видимыми. -->
+    <PanelContainer StyleClasses="OrbitraWindowSurface">
+        <BoxContainer Margin="10" Orientation="Vertical" SeparationOverride="8">
+            <RichTextLabel Name="VoteCaller" StyleClasses="OrbitraLobbyMuted" />
+            <RichTextLabel Name="VoteTitle" StyleClasses="LabelKeyText" />
+            <kit:OrbitraButton Name="FollowVoteTarget" Text="{Loc 'ui-vote-follow-button-popup'}"
+                               StyleClasses="OrbitraButtonSecondary" ClipText="True" Visible="False" />
+            <ScrollContainer Name="VoteOptionsScroll" HScrollEnabled="False" ReturnMeasure="True" MaxHeight="196">
+                <BoxContainer Name="VoteOptionsContainer" Orientation="Vertical" SeparationOverride="4" />
+            </ScrollContainer>
+            <BoxContainer SeparationOverride="8">
+                <ProgressBar HorizontalExpand="True" VerticalAlignment="Center" MinHeight="6"
+                             Name="TimeLeftBar" MinValue="0" MaxValue="1" />
+                <Label Name="TimeLeftText" StyleClasses="OrbitraLobbyMuted" />
+            </BoxContainer>
         </BoxContainer>
-    </BoxContainer>
+    </PanelContainer>
+    <!-- Orbitra edit end -->
 </Control>

@@ -23,10 +23,36 @@ internal static class OrbitraOptionPopup
         option.OptionStyleClasses.Add("OrbitraOptionRow");
         option.OptionsScroll.HScrollEnabled = false;
         option.OptionsScroll.MaxHeight = MaximumHeight;
-        option.OnPressed += _ => Place(option);
+
+        Control? trackedRoot = null;
+        void FitOpenPopup() => Place(option, animate: false);
+
+        option.OnPressed += _ =>
+        {
+            if (option.OptionsScroll.Parent is not Popup { Visible: true } popup || option.Root is not { } root)
+                return;
+
+            Place(option, animate: true);
+            if (trackedRoot != null)
+                return;
+
+            trackedRoot = root;
+            root.OnResized += FitOpenPopup;
+            option.OnResized += FitOpenPopup;
+            popup.OnPopupHide += StopTracking;
+            return;
+
+            void StopTracking()
+            {
+                root.OnResized -= FitOpenPopup;
+                option.OnResized -= FitOpenPopup;
+                popup.OnPopupHide -= StopTracking;
+                trackedRoot = null;
+            }
+        };
     }
 
-    private static void Place(OptionButton option)
+    private static void Place(OptionButton option, bool animate)
     {
         if (option.OptionsScroll.Parent is not Popup { Visible: true } popup || option.Root == null)
             return;
@@ -47,11 +73,15 @@ internal static class OrbitraOptionPopup
         popup.MinSize = Vector2.Zero;
         popup.SetSize = popup.MaxSize = new Vector2(width, height);
         var x = Math.Clamp(option.GlobalPosition.X, margin.X, Math.Max(margin.X, screen.X - width - margin.X));
-        var y = openAbove ? option.GlobalPosition.Y - height : option.GlobalPosition.Y + option.Height;
+        var preferredY = openAbove ? option.GlobalPosition.Y - height : option.GlobalPosition.Y + option.Height;
+        var y = Math.Clamp(preferredY, margin.Y, Math.Max(margin.Y, screen.Y - height - margin.Y));
         // Повторный Open закрывает штатную модальность и отвязывает список от дерева.
         PopupContainer.SetPopupOrigin(popup, new Vector2(x, y));
-        OrbitraMotion.BindPopup(popup, option);
-        OrbitraMotion.Reveal(popup, OrbitraMotion.MenuDuration);
+        if (animate)
+        {
+            OrbitraMotion.BindPopup(popup, option);
+            OrbitraMotion.Reveal(popup, OrbitraMotion.MenuDuration);
+        }
     }
 
     private static void StyleCaption(OptionButton option)
@@ -66,7 +96,7 @@ internal static class OrbitraOptionPopup
                 if (item is Label caption && caption.HasStyleClass(OptionButton.StyleClassOptionButton))
                 {
                     caption.RectClipContent = true;
-                    if (float.IsFinite(option.SetWidth))
+                    if (option.HorizontalExpand || float.IsFinite(option.SetWidth))
                         caption.ClipText = true;
                     option.TooltipSupplier ??= _ =>
                     {

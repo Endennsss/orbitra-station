@@ -19,6 +19,9 @@ public sealed partial class LobbyGui
 
     private void InitializeOrbitraLayout()
     {
+        VoteContainer.OnChildAdded += _ => VoteScroll.Visible = true;
+        VoteContainer.OnChildRemoved += _ => VoteScroll.Visible = VoteContainer.ChildCount != 0;
+
         CollapseButton.Text = "";
         CollapseButton.SetSize = new System.Numerics.Vector2(32);
         CollapseButton.AddChild(new OrbitraIcon { Icon = "minus" });

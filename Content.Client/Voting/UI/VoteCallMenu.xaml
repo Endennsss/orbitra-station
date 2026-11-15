@@ -1,36 +1,23 @@
-<ui:VoteCallMenu xmlns:orbitraKeyboard="clr-namespace:Content.Client._Orbitra.UserInterface" xmlns="https://spacestation14.io"
+<ui:VoteCallMenu xmlns="https://spacestation14.io"
                  xmlns:ui="clr-namespace:Content.Client.Voting.UI"
-                 xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
-                 MouseFilter="Stop" MinSize="350 200">
-    <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
-    <PanelContainer StyleClasses="BackgroundPanel" />
-    <BoxContainer Orientation="Vertical">
-        <BoxContainer Margin="8 0" Orientation="Horizontal">
-            <Label Text="{Loc 'ui-vote-create-title'}"
-                   HorizontalExpand="True" VAlign="Center" StyleClasses="LabelHeading" />
-            <TextureButton Name="CloseButton" StyleClasses="windowCloseButton"
-                           VerticalAlignment="Center" />
-        </BoxContainer>
-        <controls:Separator StyleClasses="HighDivider"/>
-
-        <!-- Orbitra-Edit: параметры прокручиваются, создание остаётся внизу. -->
+                 xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
+                 Title="{Loc 'ui-vote-create-title'}" SetSize="440 280" MinSize="250 190">
+    <!-- Orbitra edit start - общая рамка и кнопка создания вне прокрутки. -->
+    <BoxContainer Orientation="Vertical" SeparationOverride="8">
         <ScrollContainer HScrollEnabled="False" VerticalExpand="True">
-        <BoxContainer Orientation="Vertical" Margin="8 2 8 0">
-            <BoxContainer Orientation="Vertical">
-                <orbitraKeyboard:OrbitraOptionButton Margin="2 1" Name="VoteTypeButton" HorizontalExpand="True" />
-                <BoxContainer Name="VoteOptionsButtonContainer" HorizontalExpand="True" Orientation="Vertical">
-                </BoxContainer>
-                <orbitraKeyboard:OrbitraButton Margin="64 4" Name="FollowButton" Text="{Loc 'ui-vote-follow-button'}" Visible="False" />
-                <Label Margin="2 2" Name="VoteNotTrustedLabel" Text="{Loc 'ui-vote-trusted-users-notice'}" Visible="False" />
-                <Label Margin="2 2" Name="VoteWarningLabel" Text="{Loc 'ui-vote-abuse-warning'}" Visible="False" HorizontalAlignment="Center"/>
+            <BoxContainer Orientation="Vertical" SeparationOverride="8">
+                <kit:OrbitraOptionButton Name="VoteTypeButton" HorizontalExpand="True" />
+                <BoxContainer Name="VoteOptionsButtonContainer" Orientation="Vertical" SeparationOverride="8" />
+                <kit:OrbitraButton Name="FollowButton" Text="{Loc 'ui-vote-follow-button'}"
+                                   StyleClasses="OrbitraButtonSecondary" Visible="False" />
+                <RichTextLabel Name="VoteNotTrustedLabel" Visible="False" />
+                <RichTextLabel Name="VoteWarningLabel" Text="{Loc 'ui-vote-abuse-warning'}" Visible="False" />
+                <RichTextLabel Name="VoteTypeTimeoutLabel" StyleClasses="OrbitraLobbyMuted" Visible="False" />
             </BoxContainer>
-            <Label Margin="8 2" Name="VoteTypeTimeoutLabel" Visible="False" />
-        </BoxContainer>
         </ScrollContainer>
-
-        <orbitraKeyboard:OrbitraButton Margin="8 12 8 2" Name="CreateButton" Text="{Loc 'ui-vote-create-button'}" MinHeight="44" />
-
-        <controls:Separator StyleClasses="LowDivider"/>
-        <Label Margin="12 0 0 0" StyleClasses="LabelSubText" Text="{Loc 'ui-vote-fluff'}" />
+        <kit:OrbitraButton Name="CreateButton" Text="{Loc 'ui-vote-create-button'}"
+                           StyleClasses="OrbitraButtonPrimary" Disabled="True" />
+        <Label Name="VoteFooter" StyleClasses="OrbitraLobbyMuted" Text="{Loc 'ui-vote-fluff'}" ClipText="True" />
     </BoxContainer>
+    <!-- Orbitra edit end -->
 </ui:VoteCallMenu>

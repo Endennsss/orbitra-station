@@ -4,6 +4,14 @@ using System.Numerics;
 using System.Reflection;
 using Content.Client.Lobby;
 using Content.Client.Voting.UI;
+using Content.Server.Voting;
+using Content.Server.Voting.Managers;
+using Content.Shared.Voting;
+using Robust.Client.Input;
+using Robust.Shared.GameObjects;
+using Robust.Shared.Input;
+using Robust.Shared.Map;
+using Robust.Shared.Network;
 using Content.Client.RoundEnd;
 using Content.Client.UserInterface.Systems.Ghost.Controls.Roles;
 using Content.Client.UserInterface.Systems.Ghost.Widgets;
@@ -16,6 +24,7 @@ using Content.Shared.Ghost.Roles;
 using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
+using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.Configuration;
 
 namespace Content.IntegrationTests.Tests._Orbitra;
@@ -66,6 +75,111 @@ public sealed class OrbitraRoundMenusTest : GameTest
         finally
         {
             await Client.WaitPost(() => menu.Dispose());
+        }
+    }
+
+    [Test]
+    public async Task VoteCallMenuRefreshesTargetsAfterTheTypeWasSelected()
+    {
+        VoteCallMenu menu = null!;
+        const string target = "Длинное имя игрока с названием профессии";
+        await Client.WaitPost(() =>
+        {
+            Client.Resolve<IConfigurationManager>().SetCVar(CCVars.ReducedMotion, true);
+            menu = new VoteCallMenu();
+            menu.OpenCentered();
+        });
+
+        try
+        {
+            await Pair.RunTicksSync(6);
+            await Client.WaitPost(() =>
+            {
+                var selector = menu.FindControl<OptionButton>("VoteTypeButton");
+                selector.GrabKeyboardFocus();
+                Key(Keyboard.Key.Return);
+                Key(Keyboard.Key.End);
+                Key(Keyboard.Key.Return);
+                Assert.That(selector.SelectedId, Is.EqualTo((int) StandardVoteType.Votekick));
+                Assert.That(menu.FindControl<Button>("CreateButton").Disabled, Is.True);
+            });
+
+            await Server.WaitPost(() => Server.Resolve<IEntityNetworkManager>().SendSystemNetworkMessage(
+                new VotePlayerListResponseEvent([(new NetUserId(Guid.NewGuid()), NetEntity.Invalid, target)], false),
+                ServerSession!.Channel));
+            await Pair.RunTicksSync(5);
+            await Client.WaitAssertion(() =>
+            {
+                var options = menu.FindControl<BoxContainer>("VoteOptionsButtonContainer").Children.OfType<OrbitraOptionButton>().ToArray();
+                Assert.That(options, Has.Length.EqualTo(2));
+                Assert.That(All(options[0]).OfType<Label>().Any(label => label.Text?.Trim() == target), Is.True);
+                Assert.That(options[1].ItemCount, Is.GreaterThanOrEqualTo(3));
+            });
+        }
+        finally
+        {
+            await Client.WaitPost(() => menu.Dispose());
+        }
+    }
+
+    [Test]
+    public async Task LobbyVoteKeepsManyOptionsReachableAndSendsTheClickedVote()
+    {
+        IVoteHandle vote = null!;
+        const string choice = "Длинное название следующего режима для узкого окна";
+        await Server.WaitPost(() => vote = Server.Resolve<IVoteManager>().CreateVote(new VoteOptions
+        {
+            Title = "Следующий режим",
+            InitiatorText = "Длинное имя инициатора голосования",
+            Options = Enumerable.Range(0, 12).Select(i => ($"{choice} {i}", (object) i)).ToList(),
+        }));
+        await Pair.RunTicksSync(10);
+        await Client.WaitPost(() =>
+        {
+            var ui = Client.Resolve<IUserInterfaceManager>();
+            foreach (var window in ui.WindowRoot.Children.OfType<BaseWindow>().ToArray())
+                window.Close();
+        });
+        await Pair.RunTicksSync(3);
+        Button first = null!;
+        await Client.WaitAssertion(() =>
+        {
+            var lobby = ((LobbyState) Client.Resolve<Robust.Client.State.IStateManager>().CurrentState).Lobby!;
+            var popup = lobby.VoteContainer.Children.OfType<VotePopup>().Single();
+            var options = popup.FindControl<BoxContainer>("VoteOptionsContainer").Children.OfType<Button>().ToArray();
+            var scroll = popup.FindControl<ScrollContainer>("VoteOptionsScroll");
+            Assert.That(popup.VisibleInTree, Is.True);
+            Assert.That(options, Has.Length.EqualTo(12));
+            Assert.That(scroll.Height, Is.InRange(1, 196));
+            Assert.That(options[^1].GlobalPosition.Y, Is.GreaterThan(scroll.GlobalPosition.Y + scroll.Height));
+            Assert.That(options[0].Width, Is.LessThanOrEqualTo(scroll.Width + 1));
+            first = options[0];
+            var pointer = new ScreenCoordinates(first.GlobalPixelPosition + first.PixelSize / 2, first.Window!.Id);
+            var hit = Client.Resolve<IUserInterfaceManager>().MouseGetControl(pointer);
+            Assert.That(OrbitraKeyboardNavigation.Contains(first, hit), Is.True,
+                $"Курсор попал в {hit?.GetType().Name ?? "пустоту"} вместо кнопки голосования.");
+
+        });
+        await Click(first);
+        await Pair.RunTicksSync(10);
+        await Server.WaitAssertion(() => Assert.That(vote.CastVotes[ServerSession!], Is.Zero));
+    }
+
+    private void Key(Keyboard.Key key)
+    {
+        var input = Client.Resolve<IInputManager>();
+        input.KeyDown(new KeyEventArgs(key, false, false, false, false, false, 0));
+        input.KeyUp(new KeyEventArgs(key, false, false, false, false, false, 0));
+    }
+
+    private async Task Click(Control control)
+    {
+        var position = new ScreenCoordinates(control.GlobalPixelPosition + control.PixelSize / 2, control.Window?.Id ?? default);
+        foreach (var state in new[] { BoundKeyState.Down, BoundKeyState.Up })
+        {
+            var args = new GUIBoundKeyEventArgs(EngineKeyFunctions.UIClick, state, position, default,
+                control.Size / 2, control.PixelSize / 2);
+            await Client.DoGuiEvent(control, args);
         }
     }
 

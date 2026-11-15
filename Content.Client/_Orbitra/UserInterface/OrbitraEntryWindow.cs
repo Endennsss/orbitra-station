@@ -32,6 +32,18 @@ internal static class OrbitraEntryWindow
         return false;
     }
 
+    internal static void FitViewport(BaseWindow window, float inset, bool center)
+    {
+        foreach (var child in window.Children)
+        {
+            if (child is not Lifetime lifetime)
+                continue;
+
+            lifetime.Viewport.Fit(inset, center);
+            return;
+        }
+    }
+
     public static void Attach(BaseWindow window, bool applyEditorLayout = true)
     {
         if (window.HasStyleClass("OrbitraEntryWindow"))
@@ -45,7 +57,6 @@ internal static class OrbitraEntryWindow
         var active = false;
         var generation = 0;
         var fitQueued = false;
-        var viewport = applyEditorLayout ? null : new OrbitraWindowViewport(window);
         Lifetime lifetime = null!;
         void Fit()
         {
@@ -54,7 +65,7 @@ internal static class OrbitraEntryWindow
             if (applyEditorLayout)
                 OrbitraEditorStyles.FitWindow(window);
             else
-                viewport!.Fit();
+                lifetime.Viewport.Fit();
         }
         void QueueFit()
         {
@@ -130,7 +141,7 @@ internal static class OrbitraEntryWindow
             if (active)
             {
                 lastPosition = window.Position;
-                viewport?.Restore();
+                lifetime.Viewport.Restore();
             }
             active = false;
             generation++;
@@ -150,6 +161,7 @@ internal static class OrbitraEntryWindow
         private bool _awaitingClose;
         private Color _closeColor;
         internal bool Closing { get; private set; }
+        internal OrbitraWindowViewport Viewport { get; } = new(window);
 
         internal void RequestClose()
         {

@@ -223,7 +223,7 @@ public sealed class OrbitraDefaultThemeTest
             await pair.Client.WaitAssertion(() =>
             {
                 Assert.That(button.MinWidth, Is.Zero);
-                Assert.That(scroll.HScrollEnabled, Is.False);
+                Assert.That(scroll.HScrollEnabled, Is.True);
                 Assert.That(Descendants(window).OfType<OrbitraWindowCloseButton>().Count(), Is.EqualTo(1));
                 var rows = Descendants(option.OptionsScroll).OfType<Button>().ToArray();
                 Assert.That(rows, Has.Length.EqualTo(2));

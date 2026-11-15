@@ -15,23 +15,25 @@ internal sealed class OrbitraWindowViewport(BaseWindow window)
     private Dimension _setWidth;
     private Dimension _setHeight;
 
-    internal void Fit()
+    internal void Fit(float inset = 0, bool center = false)
     {
         if (window.Parent is not LayoutContainer parent || parent.Width <= 0 || parent.Height <= 0)
             return;
 
-        var margins = new Vector2(window.Margin.SumHorizontal, window.Margin.SumVertical);
-        if (UpdateLimits(Vector2.Max(Vector2.Zero, parent.Size - margins)))
-        {
-            // Пересчитываем прямоугольник в родителе после штатного смещения окна.
-            // Новый размер нельзя раскладывать по сохранённому прямоугольнику старого размера.
-            parent.InvalidateArrange();
-        }
+        var margin = Vector2.Min(new Vector2(inset), parent.Size / 4);
+        var innerSize = parent.Size - 2 * margin;
+        var windowMargins = new Vector2(window.Margin.SumHorizontal, window.Margin.SumVertical);
+        var changed = UpdateLimits(Vector2.Max(Vector2.Zero, innerSize - windowMargins));
 
-        var size = Vector2.Min(window.Size, parent.Size);
-        var position = Vector2.Clamp(window.Position, Vector2.Zero, parent.Size - size);
+        // Положение пересчитываем по новому размеру, в том числе сразу после сжатия окна.
+        window.Measure(innerSize);
+        var size = Vector2.Min(window.DesiredSize, innerSize);
+        var requestedPosition = center ? (parent.Size - size) / 2 : window.Position;
+        var position = Vector2.Clamp(requestedPosition, margin, Vector2.Max(margin, parent.Size - size - margin));
         if (position != window.Position)
             LayoutContainer.SetPosition(window, position);
+        if (changed)
+            parent.InvalidateArrange();
     }
 
     internal void Restore() => UpdateLimits(new Vector2(float.PositiveInfinity));
@@ -39,19 +41,17 @@ internal sealed class OrbitraWindowViewport(BaseWindow window)
     private bool UpdateLimits(Vector2 viewport)
     {
         var minimum = window.MinSize;
+        var maximum = window.MaxSize;
         var requested = window.SetSize;
-        var fittedMinimum = new Vector2(_minWidth.Resolve(minimum.X, viewport.X, window.MaxWidth),
-            _minHeight.Resolve(minimum.Y, viewport.Y, window.MaxHeight));
-        var fittedRequest = new Vector2(_setWidth.Resolve(requested.X, viewport.X, window.MaxWidth),
-            _setHeight.Resolve(requested.Y, viewport.Y));
-        if (!minimum.X.Equals(fittedMinimum.X))
-            window.MinWidth = fittedMinimum.X;
-        if (!minimum.Y.Equals(fittedMinimum.Y))
-            window.MinHeight = fittedMinimum.Y;
-        if (!requested.X.Equals(fittedRequest.X))
-            window.SetWidth = fittedRequest.X;
-        if (!requested.Y.Equals(fittedRequest.Y))
-            window.SetHeight = fittedRequest.Y;
+        var fittedMinimum = new Vector2(_minWidth.Resolve(minimum.X, viewport.X, maximum.X),
+            _minHeight.Resolve(minimum.Y, viewport.Y, maximum.Y));
+        var fittedRequest = new Vector2(_setWidth.Resolve(requested.X, viewport.X, maximum.X),
+            _setHeight.Resolve(requested.Y, viewport.Y, maximum.Y));
+
+        if (!minimum.Equals(fittedMinimum))
+            window.MinSize = fittedMinimum;
+        if (!requested.Equals(fittedRequest))
+            window.SetSize = fittedRequest;
         return !minimum.Equals(fittedMinimum) || !requested.Equals(fittedRequest);
     }
 
@@ -68,7 +68,8 @@ internal sealed class OrbitraWindowViewport(BaseWindow window)
             if (_preferred is { } saved && current.Equals(_applied))
             {
                 preferred = saved;
-                limit = Math.Min(limit, maximum);
+                if (!restoring)
+                    limit = Math.Min(limit, maximum);
             }
             _applied = preferred > limit ? limit : preferred;
             _preferred = !restoring && preferred > limit ? preferred : null;

@@ -11,7 +11,6 @@ public sealed partial class BanListWindow : Content.Client.UserInterface.Control
     public BanListWindow()
     {
         RobustXamlLoader.Load(this);
-        AddStyleClass("OrbitraPreserveHorizontalScroll"); // Orbitra-Edit
         Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
 
         TabContainer.SetTabTitle(0, Loc.GetString("ban-list-bans"));

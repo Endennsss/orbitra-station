@@ -1,44 +1,45 @@
-using Robust.Client.UserInterface.Controls;
-using Robust.Client.Graphics;
-using Content.Client._Orbitra.Stylesheets;
+using System.Numerics;
 using Content.Client._Orbitra.UserInterface;
-using Robust.Shared.Maths;
+using Robust.Client.UserInterface;
+using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client.Voting.UI;
 
 public sealed partial class VotePopup
 {
-    /// <summary>Адаптирует компактный попап голосования к узкой панели лобби.</summary>
+    protected override Vector2 MeasureOverride(Vector2 availableSize)
+    {
+        var width = Math.Min(availableSize.X, 400);
+        return new Vector2(width, base.MeasureOverride(new Vector2(width, availableSize.Y)).Y);
+    }
+
     private void ApplyOrbitraChrome()
     {
-        // Orbitra-Edit - варианты голосования идут в один адаптивный столбец,
-        // чтобы длинные названия режима не выезжали за границы панели.
-        HorizontalExpand = true;
-        MinWidth = 360;
-        MaxWidth = 460;
-        if (GetChild(0) is PanelContainer panel)
-            panel.PanelOverride = new StyleBoxFlat(OrbitraPalettes.PanelBackground)
-            {
-                BorderColor = OrbitraPalettes.PanelBorder,
-                BorderThickness = new Thickness(1),
-            };
-        VoteCaller.HorizontalExpand = true;
-        VoteCaller.ClipText = false;
-        VoteTitle.HorizontalExpand = true;
-        VoteOptionsContainer.Columns = 1;
+        OrbitraControlTheme.Apply(this);
+        OrbitraKeyboardNavigation.Attach(this);
+    }
 
-        foreach (var child in VoteOptionsContainer.Children)
+    private sealed class VoteOptionButton : OrbitraButton
+    {
+        private readonly RichTextLabel _caption = new() { MouseFilter = MouseFilterMode.Ignore };
+
+        public VoteOptionButton(ButtonGroup group)
         {
-            if (child is not Button button)
-                continue;
+            ToggleMode = true;
+            Group = group;
+            HorizontalExpand = true;
+            Label.Visible = false;
+            AddChild(_caption);
+            AddStyleClass(OrbitraButtonStyles.Secondary);
+        }
 
-            button.HorizontalExpand = true;
-            button.MinWidth = 0;
-            button.ClipText = false;
-            button.MinHeight = 36;
-            button.AddStyleClass(OrbitraButtonStyles.Secondary);
+        public void SetCaption(string text)
+        {
+            if (Text == text)
+                return;
+
+            Text = text;
+            _caption.SetMessage(text);
         }
     }
 }
-
-// К слову хуйня не рабочая))))

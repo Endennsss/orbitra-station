@@ -10,7 +10,6 @@ public sealed partial class AdminLogsWindow : Content.Client.UserInterface.Contr
     public AdminLogsWindow()
     {
         RobustXamlLoader.Load(this);
-        AddStyleClass("OrbitraPreserveHorizontalScroll"); // Orbitra-Edit
         Content.Client._Orbitra.UserInterface.OrbitraEntryWindow.Attach(this); // Orbitra-Edit
     }
 }
