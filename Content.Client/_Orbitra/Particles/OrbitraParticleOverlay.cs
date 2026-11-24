@@ -108,7 +108,7 @@ internal sealed class OrbitraParticleOverlay : Overlay
                 var pixelDiameter = 2f * MathF.Floor(pixelRadius) + 1f;
                 var pixelIndex = (particle.Position * pixelsPerUnit).Floored();
                 var pixelCenter = ((Vector2) pixelIndex + new Vector2(0.5f)) / pixelsPerUnit;
-                var direction = effect.Shape is 1 or 2 or 4 && particle.Velocity != Vector2.Zero
+                var direction = effect.Shape is 1 or 2 or 4 or 5 && particle.Velocity != Vector2.Zero
                     ? Vector2.Normalize(particle.Velocity)
                     : Vector2.UnitX;
                 shader.SetParameter("pixel_geometry", new Vector2(pixelDiameter, pixelRadius));

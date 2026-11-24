@@ -17,6 +17,8 @@
         - state: ice
       drawdepth: FloorObjects
       color: "#ffffff44"
+    - type: OrbitraParticleMaterial # Orbitra-Edit - осколки льда при ударе.
+      material: Ice # Orbitra-Edit
     - type: Clickable
     - type: Transform
       anchored: true

@@ -152,7 +152,11 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                     transferMoles = MathF.Min(transferMoles, maxTransfer);
                 }
 
-                _atmosphereSystem.Merge(environment, pipe.Air.Remove(transferMoles));
+                // Orbitra edit start - показываем поток только при реальном переносе видимого газа.
+                var released = pipe.Air.Remove(transferMoles);
+                OrbitraVentParticles(uid, released, intake: false, room: environment);
+                _atmosphereSystem.Merge(environment, released);
+                // Orbitra edit end
             }
             else if (vent.PumpDirection == VentPumpDirection.Siphoning && environment.Pressure > 0)
             {
@@ -182,7 +186,11 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                     transferMoles = MathF.Min(transferMoles, maxTransfer);
                 }
 
-                _atmosphereSystem.Merge(pipe.Air, environment.Remove(transferMoles));
+                // Orbitra edit start - видимый газ удаляется со стороны помещения.
+                var removed = environment.Remove(transferMoles);
+                OrbitraVentParticles(uid, removed, intake: true);
+                _atmosphereSystem.Merge(pipe.Air, removed);
+                // Orbitra edit end
             }
         }
 

@@ -22,6 +22,7 @@ public static class OrbitraParticleCVars
         OrbitraParticleMaterial.Stone => "OrbitraParticleStone",
         OrbitraParticleMaterial.Wood => "OrbitraParticleWood",
         OrbitraParticleMaterial.Glass => "OrbitraParticleGlass",
+        OrbitraParticleMaterial.Ice => "OrbitraParticleIceShard",
         _ => "OrbitraParticleDust",
     };
 }

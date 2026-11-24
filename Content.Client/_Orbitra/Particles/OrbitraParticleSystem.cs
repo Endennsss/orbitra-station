@@ -90,6 +90,11 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
         }
         foreach (var key in _stale)
             _emitters.Remove(key);
+        foreach (var (uid, sample) in _runningDust)
+        {
+            if (_timing.RealTime - sample.Time > RunningDustSampleTimeout)
+                _runningDust.Remove(uid);
+        }
     }
 
     internal void Collect(EntityUid uid)
@@ -100,10 +105,9 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
         var burning = _appearanceQuery.TryComp(uid, out var appearance) &&
             _appearance.TryGetData<bool>(uid, FireVisuals.OnFire, out var onFire, appearance) && onFire;
         _doAfterQuery.TryComp(uid, out var actions);
-        if (!burning && (actions == null || actions.DoAfters.Count == 0))
-            return;
         if (!_transformQuery.TryComp(uid, out var xform) || xform.MapUid == null)
             return;
+        CollectEnvironment(uid, appearance, xform);
         if (burning)
         {
             _appearance.TryGetData<float>(uid, FireVisuals.FireStacks, out var stacks, appearance);
@@ -166,7 +170,7 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
                 (MetaData(source.Value).Flags & MetaDataFlags.Detached) != 0)
                 return;
         }
-        else if (ev.Effect is not ("OrbitraParticleElectrical" or "OrbitraParticleBreachDust" or "OrbitraParticleLeakMist" or
+        else if (ev.Source != NetEntity.Invalid && ev.Effect is not ("OrbitraParticleElectrical" or "OrbitraParticleBreachDust" or "OrbitraParticleLeakMist" or
                      "OrbitraParticleBreachSurge" or "OrbitraParticleBreachJet" or "OrbitraParticleBreachFloorDust" or
                      "OrbitraParticleBulletMetal" or
                      "OrbitraParticleBulletStone" or "OrbitraParticleBulletWood" or "OrbitraParticleBulletGlass" or
@@ -180,7 +184,15 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
         if (ev.Effect is "OrbitraParticleBreachSurge" or "OrbitraParticleBreachJet")
             EmitBreachLayer(point, "OrbitraParticleBreachVapor", ev.Direction);
         if (ev.Effect == "OrbitraParticleBreachSurge")
+        {
             EmitBreachLayer(point, "OrbitraParticleBreachDust", ev.Direction);
+            EmitBreachLayer(point, "OrbitraParticleBreachPulse", ev.Direction);
+        }
+        if (ev.Effect == "OrbitraParticleElectrical")
+        {
+            EmitBreachLayer(point, "OrbitraParticleElectricalFlash", ev.Direction);
+            EmitBreachLayer(point, "OrbitraParticleElectricalSmoke", MathF.PI / 2);
+        }
         if (ev.Effect == "OrbitraParticleBreachFloorDust")
             EmitBreachLayer(point, "OrbitraParticleBreachFloorHaze", ev.Direction);
         if (ev.ImpactMark && source is { } structure)
@@ -205,16 +217,25 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
         {
             var rotation = angle + ((float) _random.NextDouble() - 0.5f) * effect.Spread;
             var speed = effect.Speed * (0.4f + (float) _random.NextDouble() * 0.6f);
+            var lifetime = effect.Lifetime * (0.6f + (float) _random.NextDouble() * 0.4f);
+            var velocity = new Vector2(MathF.Cos(rotation), MathF.Sin(rotation)) * speed;
+            var position = point.Position + new Vector2((float) _random.NextDouble() - 0.5f,
+                (float) _random.NextDouble() - 0.5f) * effect.SpawnRadius * 2f;
+            // Вытяжка собирает частицы с периферии к решётке.
+            if (effect.Inward)
+                position -= velocity * lifetime;
+
             Pool.Add(new OrbitraParticlePool.Particle
             {
                 Parent = point.EntityId,
-                Position = point.Position + new Vector2((float) _random.NextDouble() - 0.5f, (float) _random.NextDouble() - 0.5f) * effect.SpawnRadius * 2f,
+                Position = position,
                 Origin = point.Position,
-                Velocity = new Vector2(MathF.Cos(rotation), MathF.Sin(rotation)) * speed,
-                Lifetime = effect.Lifetime * (0.6f + (float) _random.NextDouble() * 0.4f),
+                Velocity = velocity,
+                Lifetime = lifetime,
                 Size = effect.Size * (0.8f + (float) _random.NextDouble() * 0.4f),
                 Effect = effect,
                 Burst = burst,
+                ElectricalBounce = id == "OrbitraParticleElectrical" && velocity.Y < 0f,
                 Tint = tint,
             });
         }
@@ -224,6 +245,7 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
     {
         Pool.Clear();
         _emitters.Clear();
+        _runningDust.Clear();
         _hasGravityDust = false;
         _nextGravityDustSample = TimeSpan.Zero;
         _gravityDustGrids.Clear();

@@ -32,12 +32,18 @@ void fragment() {
         highp float radius = length(offset);
         alpha = 0.08 * step(radius, 0.94) + 0.19 * step(radius, 0.70) +
             0.29 * step(radius, 0.46) + 0.35 * step(radius, 0.23);
-    } else if (shape == 1 || shape == 2 || shape == 4) {
+    } else if (shape == 1 || shape == 2 || shape == 4 || shape == 5) {
         // Поворачиваем силуэт внутри сетки, чтобы пиксели оставались параллельны тайлам.
         highp vec2 normal = vec2(-particle_direction.y, particle_direction.x);
         highp vec2 along = vec2(dot(offset, particle_direction), dot(offset, normal));
         if (shape == 4)
             alpha = breach_cloud(along);
+        else if (shape == 5) {
+            // Узкая полоса с яркой передней частью и более слабым хвостом.
+            highp float width = 0.065 + 0.07 * (1.0 - min(abs(along.x), 1.0));
+            alpha = step(abs(along.y), width) * step(abs(along.x), 0.96) *
+                (0.24 + 0.72 * smoothstep(-0.9, 0.38, along.x));
+        }
         else if (shape == 1)
             alpha = step(length(along * vec2(1.0, 2.1)), 0.94);
         else

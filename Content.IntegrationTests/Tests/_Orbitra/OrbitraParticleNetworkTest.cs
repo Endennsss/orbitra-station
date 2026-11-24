@@ -227,9 +227,29 @@ public sealed class OrbitraParticleNetworkTest : GameTest
                 server.System<SharedDestructibleSystem>().BreakEntity(machine);
         });
         await Pair.RunTicksSync(4);
-        var actual = 0;
-        await client.WaitPost(() => actual = client.System<OrbitraParticleSystem>().Pool.Count);
-        TestContext.Out.WriteLine($"Electrical burst: powered={powered}, damage={damage}, particles={actual}, expected={count}");
-        Assert.That(actual, Is.EqualTo(count));
+        await client.WaitAssertion(() =>
+        {
+            var pool = client.System<OrbitraParticleSystem>().Pool;
+            var sparks = 0;
+            var smoke = 0;
+            var flashes = 0;
+            for (var i = 0; i < pool.Count; i++)
+            {
+                switch (pool.Particles[i].Effect.ID)
+                {
+                    case "OrbitraParticleElectrical": sparks++; break;
+                    case "OrbitraParticleElectricalSmoke": smoke++; break;
+                    case "OrbitraParticleElectricalFlash": flashes++; break;
+                }
+            }
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(sparks, Is.EqualTo(count));
+                Assert.That(smoke, Is.EqualTo(powered ? 5 : 0));
+                // Вспышка может угаснуть до проверки, но одно повреждение не должно давать две.
+                Assert.That(flashes, Is.LessThanOrEqualTo(powered ? 1 : 0));
+            });
+        });
     }
 }

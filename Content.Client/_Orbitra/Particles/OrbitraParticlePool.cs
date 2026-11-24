@@ -17,6 +17,7 @@ internal sealed class OrbitraParticlePool
         public float Size;
         public OrbitraParticleEffectPrototype Effect;
         public bool Burst;
+        public bool ElectricalBounce;
         public Color? Tint;
         public EntityUid? ImpactSource;
         public float? Opacity;
@@ -126,13 +127,26 @@ internal sealed class OrbitraParticlePool
             if (p.GravityDustLift.HasValue)
                 continue;
 
+            var age = p.Age;
             p.Age += dt;
             if (p.Age >= p.Lifetime)
             {
                 Particles[i] = Particles[--Count];
                 continue;
             }
-            p.Position += p.Velocity * dt;
+            // Один короткий отскок искр от пола в плоскости спрайта.
+            if (p.ElectricalBounce && p.Age >= p.Lifetime * 0.32f)
+            {
+                var beforeBounce = Math.Max(0f, p.Lifetime * 0.32f - age);
+                p.Position += p.Velocity * beforeBounce;
+                p.Velocity = new Vector2(p.Velocity.X, -p.Velocity.Y) * 0.48f;
+                p.Position += p.Velocity * (dt - beforeBounce);
+                p.ElectricalBounce = false;
+            }
+            else
+            {
+                p.Position += p.Velocity * dt;
+            }
             p.Velocity *= MathF.Exp(-p.Effect.Drag * dt);
         }
     }

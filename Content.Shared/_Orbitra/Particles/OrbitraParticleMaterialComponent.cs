@@ -4,7 +4,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared._Orbitra.Particles;
 
 [Serializable, NetSerializable]
-public enum OrbitraParticleMaterial : byte { Generic, Metal, Stone, Wood, Glass }
+public enum OrbitraParticleMaterial : byte { Generic, Metal, Stone, Wood, Glass, Ice }
 
 /// <summary>Inherited visual material for tool and impact particles.</summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]

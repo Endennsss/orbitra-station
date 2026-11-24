@@ -130,7 +130,9 @@ public sealed partial class AtmosphereSystem
             _ => "OrbitraParticleBreachDust",
         };
         outlet.OrbitraNextBreachVisual = now + (strength >= 0.35f ? BreachVisualInterval : BreachCueInterval);
-        RaiseNetworkEvent(new OrbitraParticleBurstEvent(NetEntity.Invalid, GetNetCoordinates(coordinates),
+        // Начало струи видно на полу перед краем пробоины.
+        var visualOrigin = coordinates.Offset((Vector2) tile.PressureDirection.CardinalToIntVec() * -0.55f);
+        RaiseNetworkEvent(new OrbitraParticleBurstEvent(NetEntity.Invalid, GetNetCoordinates(visualOrigin),
             effect, (float) (angle.Theta - Math.PI / 2)),
             Filter.Pvs(coordinates, 1f, EntityManager));
     }

@@ -243,7 +243,11 @@ public sealed partial class AtmosphereSystem
         if (!component.Tiles.TryGetValue(args.Tile, out var tile))
             return;
 
+        // Orbitra added start - пар виден только при тушении существующего очага.
+        PlayOrbitraFireEnd(uid, tile, quenched: true);
+        // Orbitra added end
         tile.Hotspot = new Hotspot();
+        InvalidateVisuals(uid, tile.GridIndices); // Orbitra-Edit - показать исчезновение пламени при тушении.
         args.Handled = true;
 
         //var ev = new InvalidateTileMethodEvent(uid, args.Tile);

@@ -13,6 +13,7 @@ using System.Diagnostics.CodeAnalysis;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Physics.Systems;
+using Content.Server.Medical.Components;
 
 namespace Content.Server._Orbitra.Particles;
 
@@ -36,6 +37,7 @@ public sealed partial class OrbitraParticleBurstSystem : EntitySystem
         SubscribeLocalEvent<ApcPowerReceiverComponent, OrbitraParticleBeforeBreakEvent>(OnBreak);
         SubscribeLocalEvent<ApcPowerReceiverComponent, DamageThresholdReached>(OnThreshold);
         SubscribeLocalEvent<BloodstreamComponent, OrbitraParticleMeleeHitEvent>(OnBloodHit);
+        SubscribeLocalEvent<CryoPodAirComponent, EntRemovedFromContainerMessage>(OnCryoOpened);
     }
 
     private void OnThreshold(Entity<ApcPowerReceiverComponent> ent, ref DamageThresholdReached args)

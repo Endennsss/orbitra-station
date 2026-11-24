@@ -67,17 +67,22 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             var position = _transformSystem.GetGridTilePositionOrDefault(uid);
             var environment = _atmosphereSystem.GetTileMixture(grid, args.Map, position, true);
 
+            // Orbitra added start - учитываем только видимый газ, поступивший в выходную трубу.
+            var visibleGasBefore = _orbitraVentEffects.VisibleGasMoles(outlet.Air);
+            // Orbitra added end
             Scrub(timeDelta, scrubber, environment, outlet);
 
-            if (!scrubber.WideNet)
-                return;
-
-            // Scrub adjacent tiles too.
-            var enumerator = _atmosphereSystem.GetAdjacentTileMixtures(grid, position, false, true);
-            while (enumerator.MoveNext(out var adjacent))
+            // Orbitra edit start - общий эффект для узкой и широкой вытяжки.
+            if (scrubber.WideNet)
             {
-                Scrub(timeDelta, scrubber, adjacent, outlet);
+                var enumerator = _atmosphereSystem.GetAdjacentTileMixtures(grid, position, false, true);
+                while (enumerator.MoveNext(out var adjacent))
+                    Scrub(timeDelta, scrubber, adjacent, outlet);
             }
+
+            if (_orbitraVentEffects.VisibleGasMoles(outlet.Air) > visibleGasBefore + 0.01f)
+                _orbitraVentEffects.EmitVentFlow(uid, intake: true);
+            // Orbitra edit end
         }
 
         private void OnVentScrubberLeaveAtmosphere(EntityUid uid, GasVentScrubberComponent component,

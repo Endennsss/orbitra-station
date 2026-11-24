@@ -128,10 +128,10 @@ public sealed partial class OrbitraHullLeakSystem : EntitySystem
                 AudioParams.Default.WithLoop(true).WithVolume(-18f).WithMaxDistance(5f))?.Entity;
             if (now >= active.NextMist)
             {
-                active.NextMist = now + TimeSpan.FromSeconds(2);
+                active.NextMist = now + TimeSpan.FromSeconds(0.8);
                 var offset = wallTile - interior;
                 var angle = MathF.Atan2(offset.Y, offset.X) + (float) _transform.GetWorldRotation(grid).Theta;
-                var point = _map.ToCenterCoordinates(grid, interior);
+                var point = _map.ToCenterCoordinates(grid, interior).Offset((System.Numerics.Vector2) offset * 0.22f);
                 RaiseNetworkEvent(new OrbitraParticleBurstEvent(NetEntity.Invalid, GetNetCoordinates(point),
                     "OrbitraParticleLeakMist", angle), Filter.Pvs(point, 0.5f, EntityManager));
             }

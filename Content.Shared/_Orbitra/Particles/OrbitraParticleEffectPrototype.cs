@@ -21,6 +21,8 @@ public sealed partial class OrbitraParticleEffectPrototype : IPrototype
     [DataField] public int Count = 8;
     [DataField] public bool Emissive;
     [DataField] public bool Smoke;
+    /// <summary>Начинает движение на расстоянии, с которого частица успеет дойти до источника.</summary>
+    [DataField] public bool Inward;
     /// <summary>Stationary temporary impact mark, sharing the particle budget.</summary>
     [DataField] public bool ImpactMark;
     [DataField] public int Shape;

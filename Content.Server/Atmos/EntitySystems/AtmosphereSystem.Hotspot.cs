@@ -91,6 +91,7 @@ public sealed partial class AtmosphereSystem
             !IsMixtureIgnitable(tile.Air))
         {
             // Orbitra added start - копоть оседает после затухания развитого очага.
+            PlayOrbitraFireEnd(ent.Owner, tile, quenched: false);
             if (tile.Hotspot.State == 3)
                 OrbitraLeaveSoot(ent.Owner, ent.Comp3, tile.GridIndices);
             // Orbitra added end
