@@ -1,6 +1,7 @@
 delivery-recipient-examine = This one is meant for {$recipient}, {$job}.
 delivery-already-opened-examine = It was already opened.
-delivery-earnings-examine = Delivering this will earn the station [color=yellow]{$spesos}[/color] spesos.
+# Orbitra-Edit - название валюты.
+delivery-earnings-examine = Delivering this will earn the station [color=yellow]{$spesos}[/color] credits.
 delivery-recipient-no-name = Unnamed
 delivery-recipient-no-job = Unknown
 

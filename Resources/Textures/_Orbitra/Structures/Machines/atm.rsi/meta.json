@@ -1,0 +1,17 @@
+{
+    "version": 1,
+    "license": "CC0-1.0",
+    "copyright": "Created by EmoGarbage, reshaded by Checkraze. From https://github.com/new-frontiers-14/frontier-station-14/tree/a2d4b0d70319a326a1a65813aa8ba08c22448345/Resources/Textures/_NF/Structures/Machines/atm/atm.rsi. Icon and unshaded layers imported as base and screen.",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "base"
+        },
+        {
+            "name": "screen"
+        }
+    ]
+}

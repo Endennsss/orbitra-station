@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/23/2026 19:53:31
-  entityCount: 26326
+  entityCount: 26327
 maps:
 - 1
 grids:
@@ -160753,4 +160753,11 @@ entities:
     - type: Transform
       parent: 15
       pos: 10.366022,10.564426
+- proto: OrbitraAtm
+  entities:
+  - uid: 26327
+    components:
+    - type: Transform
+      parent: 15
+      pos: -3.5,-42.5
 ...

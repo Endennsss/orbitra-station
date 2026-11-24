@@ -157,6 +157,9 @@ public abstract partial class SharedVendingMachineSystem
             return;
         }
 
+        if (!TryCollectOrbitraPayment(uid, user, vendComponent, entry)) // Orbitra-Edit: оплачиваем только доступный товар.
+            return;
+
         // Start Ejecting and prevent users from ordering while anim playing
         ejectComponent.EjectEnd = Timing.CurTime + ejectComponent.EjectDelay;
         ejectComponent.NextItemToEject = entry.ID;

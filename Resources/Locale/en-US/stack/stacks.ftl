@@ -107,7 +107,8 @@ stack-rolling-paper = rolling {$amount ->
 }
 
 stack-fulton = fulton
-stack-credit = speso
+# Orbitra-Edit - название валюты.
+stack-credit = credit
 stack-plasma = plasma
 stack-biomass = biomass
 stack-pyrotton = pyrotton

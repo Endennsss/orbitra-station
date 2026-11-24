@@ -57,6 +57,7 @@ public sealed partial class VendingMachineMenu : FancyWindow
             return;
 
         var item = new VendingMachineItem(protoID, text);
+        AddOrbitraPrice(item, protoID); // Orbitra-Edit: цена остаётся видимой при длинном названии.
         var key = new VendorItemKey(type, protoID);
         _listItems[key] = (button, item);
         button.AddChild(item);

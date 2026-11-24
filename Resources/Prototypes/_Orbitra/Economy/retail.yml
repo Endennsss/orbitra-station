@@ -1,0 +1,112 @@
+- type: orbitraRetailCatalog
+  id: OrbitraSoftdrinksRetail
+  inventory: RobustSoftdrinksInventory
+  defaultPrice: 12
+  prices:
+    DrinkFourteenLokoCan: 15
+    DrinkColaBottleFull: 35
+    DrinkChangelingStingCan: 20
+    DrinkNukieCan: 25
+
+- type: orbitraRetailCatalog
+  id: OrbitraCoffeeRetail
+  inventory: HotDrinksMachineInventory
+  defaultPrice: 12
+  prices:
+    DrinkTeacup: 10
+    DrinkGreenTea: 10
+    DrinkTeapot: 30
+
+- type: orbitraRetailCatalog
+  id: OrbitraSodaRetail
+  inventory: SodaInventory
+  defaultPrice: 12
+
+- type: orbitraRetailCatalog
+  id: OrbitraBodaRetail
+  inventory: BodaInventory
+  defaultPrice: 12
+
+- type: orbitraRetailCatalog
+  id: OrbitraSpaceUpRetail
+  inventory: SpaceUpInventory
+  defaultPrice: 12
+
+- type: orbitraRetailCatalog
+  id: OrbitraPwrGameRetail
+  inventory: PwrGameInventory
+  defaultPrice: 15
+
+- type: orbitraRetailCatalog
+  id: OrbitraGibbRetail
+  inventory: DrGibbInventory
+  defaultPrice: 12
+
+- type: orbitraRetailCatalog
+  id: OrbitraSmiteRetail
+  inventory: SmiteInventory
+  defaultPrice: 12
+
+- type: orbitraRetailCatalog
+  id: OrbitraStarkistRetail
+  inventory: StarkistInventory
+  defaultPrice: 12
+
+- type: orbitraRetailCatalog
+  id: OrbitraJuiceRetail
+  inventory: ShamblersJuiceInventory
+  defaultPrice: 12
+
+- type: orbitraRetailCatalog
+  id: OrbitraSnackRetail
+  inventory: GetmoreChocolateCorpInventory
+  defaultPrice: 15
+
+- type: orbitraRetailCatalog
+  id: OrbitraDiscountRetail
+  inventory: DiscountDansInventory
+  defaultPrice: 12
+
+- type: orbitraRetailCatalog
+  id: OrbitraDonutRetail
+  inventory: DonutInventory
+  defaultPrice: 20
+
+- type: orbitraRetailCatalog
+  id: OrbitraNoodleRetail
+  inventory: ChangInventory
+  defaultPrice: 25
+
+- type: orbitraRetailCatalog
+  id: OrbitraBarRetail
+  inventory: BoozeOMatInventory
+  defaultPrice: 35
+
+- type: orbitraRetailCatalog
+  id: OrbitraTobaccoRetail
+  inventory: CigaretteMachineInventory
+  defaultPrice: 45
+
+- type: orbitraRetailCatalog
+  id: OrbitraGamesRetail
+  inventory: GoodCleanFunInventory
+  defaultPrice: 50
+
+- type: orbitraRetailCatalog
+  id: OrbitraClothesRetail
+  inventory: ClothesMateInventory
+  defaultPrice: 55
+
+- type: orbitraRetailCatalog
+  id: OrbitraToolRetail
+  inventory: YouToolInventory
+  defaultPrice: 65
+  prices:
+    CableApcStack: 30
+    Welder: 90
+    TRayScanner: 110
+    NetworkConfigurator: 100
+    GasAnalyzer: 100
+    ClothingHandsGlovesColorYellowBudget: 110
+    ClothingHandsGlovesColorYellow: 140
+    Multitool: 140

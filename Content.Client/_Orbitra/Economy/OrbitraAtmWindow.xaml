@@ -1,0 +1,34 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      xmlns:orbitra="clr-namespace:Content.Client._Orbitra.UserInterface"
+                      Title="{Loc 'orbitra-atm-title'}" MinSize="360 290" SetSize="420 400">
+    <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="8" HorizontalExpand="True" VerticalExpand="True">
+        <PanelContainer StyleClasses="OrbitraWindowHeader">
+            <BoxContainer Margin="10" SeparationOverride="10">
+                <BoxContainer Orientation="Vertical" SeparationOverride="2" HorizontalExpand="True">
+                    <Label Name="AccountLabel" StyleClasses="LabelSubText" Text="{Loc 'orbitra-atm-title'}"/>
+                    <Label Name="BalanceLabel" StyleClasses="LabelHeadingBigger" ClipText="True"/>
+                </BoxContainer>
+                <orbitra:OrbitraButton Name="CardButton" Text="{Loc 'orbitra-atm-insert-card'}" VerticalAlignment="Center"/>
+            </BoxContainer>
+        </PanelContainer>
+        <RichTextLabel Name="LoginNotice" Text="{Loc 'orbitra-atm-login'}" HorizontalExpand="True"/>
+        <PanelContainer Name="Operations" StyleClasses="OrbitraWindowSurface" Visible="False">
+            <BoxContainer Margin="8" Orientation="Vertical" SeparationOverride="6">
+                <BoxContainer SeparationOverride="6">
+                    <LineEdit Name="Amount" PlaceHolder="{Loc 'orbitra-atm-amount'}" HorizontalExpand="True"/>
+                    <orbitra:OrbitraButton Name="WithdrawButton" Text="{Loc 'orbitra-atm-withdraw'}" MinWidth="90"/>
+                </BoxContainer>
+                <BoxContainer SeparationOverride="6">
+                    <LineEdit Name="Recipient" PlaceHolder="{Loc 'orbitra-atm-recipient'}" HorizontalExpand="True"/>
+                    <orbitra:OrbitraButton Name="TransferButton" Text="{Loc 'orbitra-atm-transfer'}" MinWidth="90"/>
+                </BoxContainer>
+                <orbitra:OrbitraButton Name="DepositButton" Text="{Loc 'orbitra-atm-deposit'}" HorizontalExpand="True"/>
+            </BoxContainer>
+        </PanelContainer>
+        <Label Name="HistoryTitle" Text="{Loc 'orbitra-atm-history'}" StyleClasses="LabelHeading" Visible="False"/>
+        <ScrollContainer Name="HistoryScroll" HScrollEnabled="False" VerticalExpand="True" Visible="False">
+            <BoxContainer Name="HistoryList" Orientation="Vertical" Margin="4" SeparationOverride="3" HorizontalExpand="True"/>
+        </ScrollContainer>
+    </BoxContainer>
+</controls:FancyWindow>

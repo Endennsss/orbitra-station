@@ -1,0 +1,20 @@
+- type: orbitraPayroll
+  id: OrbitraStationPayroll
+  interval: 1800
+  defaultGrade:
+    startingMinimum: 45
+    startingMaximum: 75
+    salary: 60
+  grades:
+  - startingMinimum: 25
+    startingMaximum: 40
+    salary: 35
+    jobs: [Passenger, ServiceWorker, MedicalIntern, TechnicalAssistant, SecurityCadet, ResearchAssistant]
+  - startingMinimum: 80
+    startingMaximum: 105
+    salary: 85
+    jobs: [HeadOfPersonnel, HeadOfSecurity, ChiefMedicalOfficer, ChiefEngineer, ResearchDirector, Quartermaster]
+  - startingMinimum: 110
+    startingMaximum: 145
+    salary: 100
+    jobs: [Captain]

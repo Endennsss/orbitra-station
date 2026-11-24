@@ -23,7 +23,8 @@ figurines-qm-8 = 99% of gamblers quit right before they hit it big!
 figurines-cargotech-1 = DRAGON ON ATS!
 figurines-cargotech-2 = I sold the station!
 figurines-cargotech-3 = Brain bounty? I don't have a brain.
-figurines-cargotech-4 = You're worth 3000 spesos. Congrats.
+# Orbitra-Edit - название валюты.
+figurines-cargotech-4 = You're worth 3000 credits. Congrats.
 figurines-cargotech-5 = Vegetable bounty? Nobody eats those anyways.
 figurines-cargotech-6 = WE ARE SECEDING!! ALL HAIL CARGONIA!!
 figurines-cargotech-7 = Pizza party at cargo!
@@ -188,7 +189,8 @@ figurines-chaplain-6 = Vampires aren't real.
 figurines-chef-1 = I swear it's not human meat.
 figurines-chef-2 = More banana cream pies?
 figurines-chef-3 = How does rotary sushi sound?
-figurines-chef-4 = That'll be 1,000 spesos.
+# Orbitra-Edit - название валюты.
+figurines-chef-4 = That'll be 1,000 credits.
 figurines-chef-5 = For here or to go?
 figurines-chef-6 = Where'd Pun Pun go? No idea...
 

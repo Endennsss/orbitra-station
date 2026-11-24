@@ -1,7 +1,7 @@
 - type: entity
   parent: BaseItem
   id: SpaceCash
-  name: spesos
+  name: credits # Orbitra-Edit
   description: You gotta have money.
   components:
   - type: Cash
@@ -55,7 +55,7 @@
 
 - type: material
   id: Credit
-  name: speso
+  name: credit # Orbitra-Edit
   unit: materials-unit-bill
   stackEntity: SpaceCash
   icon: { sprite: /Textures/Objects/Economy/cash.rsi, state: cash }

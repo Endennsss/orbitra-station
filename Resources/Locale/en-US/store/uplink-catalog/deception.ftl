@@ -25,7 +25,8 @@ uplink-decoy-disk-name = Decoy Nuclear Disk
 uplink-decoy-disk-desc = A piece of plastic with a lenticular printing, made to look like a nuclear authentication disk.
 
 uplink-bribe-name = Lobbying Bundle
-uplink-bribe-desc = Thirty thousand unmarked spesos for dubiously-legal investments. Comes with a syndicate encryption key, insulated combat gloves and flashproof sunglasses. Real or counterfeit? Yes.
+# Orbitra-Edit - название валюты.
+uplink-bribe-desc = Thirty thousand unmarked credits for dubiously-legal investments. Comes with a syndicate encryption key, insulated combat gloves and flashproof sunglasses. Real or counterfeit? Yes.
 
 uplink-exploding-syndicate-bomb-fake-name = Decoy Syndicate Bomb
 uplink-exploding-syndicate-bomb-fake-desc = A training bomb carefully made to look just like the real thing. In all ways similar to a syndicate bomb, but only creates a tiny explosion.

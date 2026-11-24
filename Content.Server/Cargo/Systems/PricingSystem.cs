@@ -184,7 +184,7 @@ public sealed partial class PricingSystem : EntitySystem
 
         // TODO: Proper container support.
 
-        return price;
+        return LimitOrbitraRetailExport(prototype, price); // Orbitra-Edit
     }
 
     /// <summary>
@@ -218,6 +218,9 @@ public sealed partial class PricingSystem : EntitySystem
         {
             price += GetStaticPrice(uid);
         }
+
+        if (TryComp(uid, out MetaDataComponent? metadata) && metadata.EntityPrototype is { } prototype) // Orbitra-Edit: оценка товара отдельно от содержимого.
+            price = LimitOrbitraRetailExport(prototype, price); // Orbitra-Edit
 
         if (includeContents && TryComp<ContainerManagerComponent>(uid, out var containers))
         {

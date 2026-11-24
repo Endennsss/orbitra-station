@@ -1,0 +1,75 @@
+- type: entity
+  parent: BaseComputer
+  id: OrbitraAtm
+  name: bank terminal
+  description: An Orbitra cash terminal. It handles personal accounts and physical credits.
+  components:
+  - type: OrbitraAtm
+  - type: ItemSlots
+    slots:
+      bank_id:
+        name: orbitra-atm-id-slot
+        insertSound: null
+        ejectSound: null
+        ejectOnBreak: true
+        whitelist:
+          components:
+          - IdCard
+  - type: Sprite
+    sprite: _Orbitra/Structures/Machines/atm.rsi
+    layers:
+    - state: base
+      map: [ "enum.ComputerVisualLayers.Frame" ]
+    - state: screen
+      map: [ "enum.ComputerVisualLayers.Screen" ]
+      visible: false
+  - type: ComputerVisuals
+    stateFrame: base
+    stateKeyboard: null
+    stateScreen: screen
+    stateKeys: null
+    statePanel: null
+  - type: Computer
+    board: OrbitraAtmBoard
+  - type: ActivatableUI
+    key: enum.OrbitraAtmUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.OrbitraAtmUiKey.Key:
+        type: OrbitraAtmBoundUserInterface
+  - type: PointLight
+    radius: 1.15
+    energy: 1.1
+    color: "#68c4c3"
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: OrbitraAtmBoard
+  name: bank terminal circuit board
+  description: A circuit board for an Orbitra bank terminal.
+  components:
+  - type: ComputerBoard
+    prototype: OrbitraAtm
+
+- type: entity
+  parent: CrateGenericSteel
+  id: OrbitraAtmKit
+  name: bank terminal kit
+  description: A terminal board and materials to assemble it.
+  components:
+  - type: StorageFill
+    contents:
+    - id: OrbitraAtmBoard
+    - id: SheetSteel10
+    - id: SheetGlass10
+    - id: CableApcStack10
+
+- type: cargoProduct
+  id: OrbitraAtmOrder
+  icon:
+    sprite: _Orbitra/Structures/Machines/atm.rsi
+    state: base
+  product: OrbitraAtmKit
+  cost: 450
+  category: cargoproduct-category-name-service
+  group: market

@@ -50,11 +50,12 @@ thief-backpack-category-sleeper-description =
     and a hypopen.
 
 thief-backpack-category-communicator-name = Communicator Kit
+# Orbitra-Edit - название валюты.
 thief-backpack-category-communicator-description =
     Money is power, and secrets are money. Use your silver tongue
     and wealth to subvert the station.
     Includes: Master key for all station channels, a CyberSun pen,
-    voice mask implanter, and 20k spesos inside a briefcase.
+    voice mask implanter, and 20k credits inside a briefcase.
 
 thief-backpack-category-smuggler-name = Smuggler Kit
 thief-backpack-category-smuggler-description =

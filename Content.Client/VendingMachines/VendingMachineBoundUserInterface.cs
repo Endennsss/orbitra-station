@@ -5,6 +5,7 @@ using Robust.Client.UserInterface;
 using Robust.Shared.Input;
 using System.Linq;
 using Content.Shared.VendingMachines.Components;
+using Content.Shared._Orbitra.Economy; // Orbitra-Edit
 
 namespace Content.Client.VendingMachines;
 
@@ -22,6 +23,7 @@ public sealed class VendingMachineBoundUserInterface(EntityUid owner, Enum uiKey
 
         _menu = this.CreateWindowCenteredLeft<VendingMachineMenu>();
         _menu.Title = EntMan.GetComponent<MetaDataComponent>(Owner).EntityName;
+        SetOrbitraRetailCatalog(); // Orbitra-Edit
         _menu.OnItemSelected += OnItemSelected;
         Refresh();
     }
@@ -61,8 +63,27 @@ public sealed class VendingMachineBoundUserInterface(EntityUid owner, Enum uiKey
         if (selectedItem == null)
             return;
 
-        SendPredictedMessage(new VendingMachineEjectMessage(selectedItem.Type, selectedItem.ID));
+        // Orbitra edit start - платную покупку подтверждает сервер.
+        var message = new VendingMachineEjectMessage(selectedItem.Type, selectedItem.ID);
+        if (GetOrbitraPrice(selectedItem) > 0)
+            SendMessage(message);
+        else
+            SendPredictedMessage(message);
+        // Orbitra edit end
     }
+
+    // Orbitra added start - каталог один и тот же на клиенте и сервере.
+    private void SetOrbitraRetailCatalog()
+    {
+        if (_menu is { } menu && EntMan.TryGetComponent(Owner, out VendingMachineComponent? vendor))
+            menu.SetRetailCatalog(EntMan.System<OrbitraRetailSystem>(), vendor.PackPrototypeId);
+    }
+
+    private int GetOrbitraPrice(VendingMachineInventoryEntry item) =>
+        EntMan.TryGetComponent(Owner, out VendingMachineComponent? vendor)
+            ? EntMan.System<OrbitraRetailSystem>().GetPrice(vendor.PackPrototypeId, item.ID)
+            : 0;
+    // Orbitra added end
 
     protected override void Dispose(bool disposing)
     {

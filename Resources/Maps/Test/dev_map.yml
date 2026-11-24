@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 10:22:08
-  entityCount: 3690
+  entityCount: 3692
 maps:
 - 23
 grids:
@@ -19310,6 +19310,22 @@ entities:
     - type: Transform
       parent: 1
       pos: 31.5,19.5
+- proto: OrbitraAtm
+  entities:
+  - uid: 4001
+    components:
+    - type: Transform
+      parent: 1
+      pos: 34.5,19.5
+- proto: VendingMachineCola
+  entities:
+  - uid: 4002
+    components:
+    - type: Transform
+      parent: 1
+      pos: 32.5,19.5
+    - type: VendingMachine
+      initialStockQuality: 1
 - proto: SpawnPointCaptain
   entities:
   - uid: 24
