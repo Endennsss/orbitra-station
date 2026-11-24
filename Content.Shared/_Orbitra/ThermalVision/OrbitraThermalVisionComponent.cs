@@ -4,7 +4,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Orbitra.ThermalVision;
 
-/// <summary>Wearable, server-authorized thermal contact scanner. Does not grant normal vision.</summary>
+/// <summary>Носимый тепловизор с серверной проверкой целей, независимый от обычного зрения.</summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class OrbitraThermalVisionComponent : Component
 {
@@ -16,6 +16,6 @@ public sealed partial class OrbitraThermalVisionComponent : Component
 
 public sealed partial class OrbitraToggleThermalVisionEvent : InstantActionEvent;
 
-/// <summary>Allows specialized equipment to revoke thermal authorization without expanding PVS.</summary>
+/// <summary>Позволяет специальному снаряжению отозвать допуск тепловых целей без расширения PVS.</summary>
 [ByRefEvent]
 public record struct OrbitraThermalVisionAttemptEvent(EntityUid User, bool Cancelled = false);

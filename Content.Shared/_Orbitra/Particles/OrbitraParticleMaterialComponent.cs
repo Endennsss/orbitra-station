@@ -6,7 +6,7 @@ namespace Content.Shared._Orbitra.Particles;
 [Serializable, NetSerializable]
 public enum OrbitraParticleMaterial : byte { Generic, Metal, Stone, Wood, Glass, Ice }
 
-/// <summary>Inherited visual material for tool and impact particles.</summary>
+/// <summary>Наследуемый материал для частиц от инструментов и попаданий.</summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class OrbitraParticleMaterialComponent : Component
 {

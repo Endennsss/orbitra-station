@@ -5,7 +5,7 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Arranges hidden-tab content without retaining the previous visible header height.</summary>
+/// <summary>Пересчитывает содержимое вкладок, когда заголовки скрыты.</summary>
 public sealed class OrbitraEditorTabContainer : TabContainer
 {
     protected override Vector2 ArrangeOverride(Vector2 finalSize)

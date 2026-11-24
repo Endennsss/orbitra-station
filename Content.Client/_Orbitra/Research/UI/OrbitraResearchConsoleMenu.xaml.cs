@@ -23,8 +23,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Client._Orbitra.Research.UI;
 
 /// <summary>
-/// Presents the existing research console rules as a browsable technology tree.
-/// The server remains authoritative for research availability, prices and purchases.
+/// Показывает технологии в виде дерева. Доступность, цену и покупку определяет сервер.
 /// </summary>
 [GenerateTypedNameReferences]
 public sealed partial class OrbitraResearchConsoleMenu : FancyWindow
@@ -53,13 +52,13 @@ public sealed partial class OrbitraResearchConsoleMenu : FancyWindow
     private bool _detailsDirty = true;
     private bool _centerAfterNavigation;
 
-    /// <summary>Requests an existing console purchase message for an available technology.</summary>
+    /// <summary>Отправляет штатный запрос консоли на покупку доступной технологии.</summary>
     public event Action<string>? OnTechnologyCardPressed;
 
-    /// <summary>Requests the existing server selection interface.</summary>
+    /// <summary>Запрашивает штатный интерфейс выбора сервера исследований.</summary>
     public event Action? OnServerButtonPressed;
 
-    /// <summary>The selected technology, preserved across ordinary console updates.</summary>
+    /// <summary>Технология, выбранная в том числе после обновления консоли.</summary>
     public ProtoId<TechnologyPrototype>? SelectedTechnology => Graph.SelectedTechnology;
 
     public OrbitraResearchConsoleMenu()
@@ -126,14 +125,14 @@ public sealed partial class OrbitraResearchConsoleMenu : FancyWindow
         return size;
     }
 
-    /// <summary>Binds the window to the console's existing networked technology database.</summary>
+    /// <summary>Привязывает окно к сетевой базе технологий консоли.</summary>
     public void SetEntity(EntityUid entity)
     {
         _console = entity;
         _forceRefresh = true;
     }
 
-    /// <summary>Updates node states while retaining catalog, filter, selection, pan and zoom.</summary>
+    /// <summary>Обновляет состояние узлов с сохранением каталога, фильтра, выбора, положения и масштаба.</summary>
     public void UpdatePanels(ResearchConsoleBoundInterfaceState state)
     {
         _points = state.Points;
@@ -193,7 +192,7 @@ public sealed partial class OrbitraResearchConsoleMenu : FancyWindow
         RefreshDetails();
     }
 
-    /// <summary>Refreshes the research point balance and purchase availability.</summary>
+    /// <summary>Обновляет баланс очков исследований и доступность покупки.</summary>
     public void UpdateInformationPanel(ResearchConsoleBoundInterfaceState state)
     {
         _points = state.Points;
@@ -201,7 +200,7 @@ public sealed partial class OrbitraResearchConsoleMenu : FancyWindow
         UpdatePurchaseStatus();
     }
 
-    /// <summary>Rebuilds cached prototype presentation after relevant hot reloads.</summary>
+    /// <summary>Перестраивает представление прототипов после соответствующей горячей перезагрузки.</summary>
     public void OnProtoReload(PrototypesReloadedEventArgs args)
     {
         if (!args.WasModified<TechnologyPrototype>() && !args.WasModified<TechDisciplinePrototype>() &&
@@ -213,7 +212,7 @@ public sealed partial class OrbitraResearchConsoleMenu : FancyWindow
         UpdateInformationPanel(new ResearchConsoleBoundInterfaceState(_points));
     }
 
-    /// <summary>Selects a technology in the catalog without purchasing it.</summary>
+    /// <summary>Выбирает технологию в каталоге без запроса на покупку.</summary>
     public bool SelectTechnology(ProtoId<TechnologyPrototype> id) => Graph.SelectTechnology(id);
 
     private bool HasConsoleAccess()

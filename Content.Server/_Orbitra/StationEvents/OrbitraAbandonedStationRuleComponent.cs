@@ -5,29 +5,28 @@ using Robust.Shared.Prototypes;
 namespace Content.Server._Orbitra.StationEvents;
 
 /// <summary>
-/// Configuration and round-local state of the loss of Central Command communications.
-/// All durations are measured in simulation time.
+/// Настройки и состояние потери связи с ЦК в текущем раунде. Все интервалы заданы по времени симуляции.
 /// </summary>
 [RegisterComponent]
 public sealed partial class OrbitraAbandonedStationRuleComponent : Component
 {
-    /// <summary>Delay between the initial warning and suspension of services.</summary>
+    /// <summary>Время от первого предупреждения до отключения служб.</summary>
     [DataField]
     public TimeSpan WarningDuration = TimeSpan.FromMinutes(1);
 
-    /// <summary>Earliest first recovery check, measured from round start.</summary>
+    /// <summary>Минимальное время первой проверки восстановления от начала раунда.</summary>
     [DataField]
     public TimeSpan RecoveryMinimum = TimeSpan.FromMinutes(90);
 
-    /// <summary>Latest first recovery check, measured from round start.</summary>
+    /// <summary>Максимальное время первой проверки восстановления от начала раунда.</summary>
     [DataField]
     public TimeSpan RecoveryMaximum = TimeSpan.FromMinutes(120);
 
-    /// <summary>Delay after a failed check or activation past the chosen recovery time.</summary>
+    /// <summary>Задержка после неудачной проверки или запуска после выбранного времени восстановления.</summary>
     [DataField]
     public TimeSpan RetryInterval = TimeSpan.FromMinutes(15);
 
-    /// <summary>Independent success probability of each recovery check, from zero to one.</summary>
+    /// <summary>Независимая вероятность успеха каждой проверки восстановления, от 0 до 1.</summary>
     [DataField]
     public float RecoveryChance = 0.5f;
 

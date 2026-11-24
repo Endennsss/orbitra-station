@@ -4,7 +4,7 @@ namespace Content.Server.StationEvents.Components;
 public sealed partial class StationEventComponent
 {
     /// <summary>
-    /// Excludes this event from automatic selection without disabling administrative starts.
+    /// Исключает событие из случайного выбора, сохраняя ручной запуск администратора.
     /// </summary>
     [DataField]
     public bool ManualOnly;

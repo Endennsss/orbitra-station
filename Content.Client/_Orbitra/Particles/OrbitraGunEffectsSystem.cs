@@ -7,7 +7,7 @@ using Robust.Client.Player;
 
 namespace Content.Client._Orbitra.Particles;
 
-/// <summary>Maintains one owned light impulse per weapon.</summary>
+/// <summary>Управляет одним импульсом света на оружие.</summary>
 public sealed partial class OrbitraGunEffectsSystem : EntitySystem
 {
     [Dependency] private IGameTiming _timing = default!;
@@ -24,7 +24,7 @@ public sealed partial class OrbitraGunEffectsSystem : EntitySystem
         SubscribeNetworkEvent<RoundRestartCleanupEvent>(_ => Clear());
     }
 
-    /// <summary>Called once by the existing predicted/remote muzzle-flash path.</summary>
+    /// <summary>Вызывается один раз из штатной ветки вспышки для локального или удалённого выстрела.</summary>
     public void ObserveShot(EntityUid gun, EntityUid source, Angle angle, string flash)
     {
         if (TerminatingOrDeleted(gun) || TerminatingOrDeleted(source))

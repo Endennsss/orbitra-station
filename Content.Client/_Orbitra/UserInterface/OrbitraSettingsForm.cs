@@ -3,7 +3,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Centers a full-width bounded form even when all field labels support clipping.</summary>
+/// <summary>Центрирует форму ограниченной ширины, даже если все подписи её полей обрезаются.</summary>
 public sealed class OrbitraSettingsForm : BoxContainer
 {
     public OrbitraSettingsForm()

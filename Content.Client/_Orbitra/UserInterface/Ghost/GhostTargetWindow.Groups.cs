@@ -44,7 +44,7 @@ public sealed partial class GhostTargetWindow
         ButtonContainer.SeparationOverride = OrbitraUiMetrics.Small;
     }
 
-    /// <summary>Uses server metadata only; no target entity needs to be present in the client's PVS.</summary>
+    /// <summary>Использует серверные метаданные без загрузки цели в PVS клиента.</summary>
     private void UpdateOrbitraTargets(IEnumerable<GhostWarp> warps)
     {
         var oldFocus = UserInterfaceManager.KeyboardFocused;

@@ -112,7 +112,7 @@ namespace Content.Client.Changelog
                 var directory = new ResPath("/Changelog");
                 foreach (var file in _resource.ContentFindFiles(new ResPath("/Changelog/")))
                 {
-                    if ((file.Directory != directory && file.Directory != new ResPath("/Changelog/_Orbitra")) || file.Extension != "yml") // Orbitra-Edit - собственные журналы в папке Lime
+                    if ((file.Directory != directory && file.Directory != new ResPath("/Changelog/_Orbitra")) || file.Extension != "yml") // Orbitra-Edit - отдельный каталог журналов Orbitra.
                         continue;
 
                     var yamlData = _resource.ContentFileReadYaml(file);

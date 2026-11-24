@@ -27,7 +27,7 @@ using Robust.Shared.Random;
 
 namespace Content.Server._Orbitra.Xenobiology;
 
-/// <summary>Runs feeding, maturation, inherited traits and controlled division of laboratory slimes.</summary>
+/// <summary>Управляет питанием, ростом, наследованием признаков и делением лабораторных слизней.</summary>
 public sealed partial class OrbitraXenobiologySystem : EntitySystem
 {
     [Dependency] private IPrototypeManager _prototype = default!;
@@ -50,7 +50,7 @@ public sealed partial class OrbitraXenobiologySystem : EntitySystem
     [Dependency] private EntityQuery<TemperatureComponent> _temperatureQuery = default!;
     [Dependency] private EntityQuery<TransformComponent> _transformQuery = default!;
 
-    /// <summary>Map-wide colony limit shared by division and culture hatching; unprocessed corpses also count.</summary>
+    /// <summary>Общий лимит колонии на карте для деления и культур. Необработанные трупы тоже учитываются.</summary>
     public const int PopulationLimit = 64;
 
     private const float UpdateInterval = 1f;
@@ -171,7 +171,7 @@ public sealed partial class OrbitraXenobiologySystem : EntitySystem
             args.PushMarkup(Loc.GetString("orbitra-xeno-examine-hungry"));
     }
 
-    /// <summary>Starts a cancellable division interaction for a conscious handler in reach.</summary>
+    /// <summary>Начинает отменяемое деление для сознательного игрока в пределах досягаемости.</summary>
     public bool TryStartDivision(EntityUid slime, EntityUid user)
     {
         if (!CanDivide(slime, user))
@@ -187,7 +187,7 @@ public sealed partial class OrbitraXenobiologySystem : EntitySystem
         });
     }
 
-    /// <summary>Checks nutrition, adulthood, containment, player control and the colony population limit.</summary>
+    /// <summary>Проверяет питание, зрелость, контейнеры, контроль игроком и численность колонии.</summary>
     public bool CanDivide(EntityUid slime, EntityUid? user = null)
     {
         // Orbitra edit start: индукция закрепляет взрослого слайма за промышленным циклом.
@@ -223,7 +223,7 @@ public sealed partial class OrbitraXenobiologySystem : EntitySystem
         return count - 1 + Math.Clamp(state.Offspring, 2, 4) <= PopulationLimit;
     }
 
-    /// <summary>Consumes one adult and creates a bounded litter carrying independently sampled inherited traits.</summary>
+    /// <summary>Расходует взрослую особь и создаёт ограниченный выводок с независимо выбранными наследуемыми признаками.</summary>
     public bool TryDivide(EntityUid slime, EntityUid? user = null)
     {
         if (!CanDivide(slime, user) || !_slimeQuery.TryComp(slime, out var parent))
@@ -259,7 +259,7 @@ public sealed partial class OrbitraXenobiologySystem : EntitySystem
         return true;
     }
 
-    /// <summary>Checks whether a corpse can produce extracts; juveniles and player-controlled specimens cannot.</summary>
+    /// <summary>Проверяет, можно ли извлечь экстракт из трупа взрослого образца, которым не управляет игрок.</summary>
     public bool CanHarvest(EntityUid slime)
     {
         // Orbitra edit start: индуцированное ядро нельзя собрать повторно.
@@ -269,7 +269,7 @@ public sealed partial class OrbitraXenobiologySystem : EntitySystem
         // Orbitra edit end
     }
 
-    /// <summary>Claims an adult corpse exactly once. The caller spawns the returned yield and deletes the corpse.</summary>
+    /// <summary>Однократно резервирует труп взрослого. Вызывающий код выдаёт экстракты и удаляет труп.</summary>
     public bool TryHarvest(EntityUid slime, out ProtoId<OrbitraXenobiologyBreedPrototype> breed, out int yield)
     {
         breed = default;
@@ -284,7 +284,7 @@ public sealed partial class OrbitraXenobiologySystem : EntitySystem
         return true;
     }
 
-    /// <summary>Checks whether a genetic treatment can change a living, unconsumed specimen.</summary>
+    /// <summary>Проверяет применимость генетической обработки к живому неиспользованному образцу.</summary>
     public bool CanApplyTreatment(EntityUid slime, OrbitraXenobiologyTreatment treatment)
     {
         if (TerminatingOrDeleted(slime) || !_slimeQuery.TryComp(slime, out var state) ||
@@ -304,7 +304,7 @@ public sealed partial class OrbitraXenobiologySystem : EntitySystem
         };
     }
 
-    /// <summary>Applies a bounded, inheritable trait change. The caller consumes the successful treatment item.</summary>
+    /// <summary>Вносит наследуемое изменение в установленных пределах. Вызывающий код расходует использованный предмет.</summary>
     public bool TryApplyTreatment(EntityUid slime, OrbitraXenobiologyTreatment treatment)
     {
         if (!CanApplyTreatment(slime, treatment) || !_slimeQuery.TryComp(slime, out var state))
@@ -339,7 +339,7 @@ public sealed partial class OrbitraXenobiologySystem : EntitySystem
         return true;
     }
 
-    /// <summary>Stops development and current HTN actions while a specimen is held inside a container.</summary>
+    /// <summary>Приостанавливает развитие и текущие действия HTN, пока образец в контейнере.</summary>
     public void SetSuspended(EntityUid slime, bool suspended)
     {
         if (!_slimeQuery.TryComp(slime, out var state))
@@ -361,7 +361,7 @@ public sealed partial class OrbitraXenobiologySystem : EntitySystem
         }
     }
 
-    /// <summary>Completes maturation only when sufficient real nutrition and growth have accumulated.</summary>
+    /// <summary>Завершает взросление после накопления нужного питания и роста.</summary>
     public bool TryMature(EntityUid slime)
     {
         if (!CanMature(slime) || !_slimeQuery.TryComp(slime, out var state))
@@ -374,7 +374,7 @@ public sealed partial class OrbitraXenobiologySystem : EntitySystem
         return true;
     }
 
-    /// <summary>Checks maturation without mutating food reserves or the appearance.</summary>
+    /// <summary>Проверяет готовность к взрослению без изменения питания или внешности.</summary>
     public bool CanMature(EntityUid slime)
     {
         if (TerminatingOrDeleted(slime) || !_slimeQuery.TryComp(slime, out var state) ||

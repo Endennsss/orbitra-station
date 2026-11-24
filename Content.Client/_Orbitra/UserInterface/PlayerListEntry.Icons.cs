@@ -9,7 +9,7 @@ public sealed partial class PlayerListEntry
     private bool _orbitraPinned;
     private OrbitraIcon? _orbitraPin;
 
-    /// <summary>Changes only the pin presentation in an explicitly styled player list.</summary>
+    /// <summary>Меняет оформление закрепления только в явно оформленном списке игроков.</summary>
     internal bool ApplyOrbitraPin()
     {
         if (!HasStyleClass("OrbitraEditorControl"))

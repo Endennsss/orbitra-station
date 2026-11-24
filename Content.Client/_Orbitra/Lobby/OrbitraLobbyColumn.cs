@@ -3,7 +3,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.Lobby;
 
-/// <summary>Reserves the round actions before measuring the flexible character preview.</summary>
+/// <summary>Выделяет место действиям раунда перед измерением предпросмотра персонажа.</summary>
 public sealed class OrbitraLobbyColumn : BoxContainer
 {
     protected override Vector2 MeasureOverride(Vector2 availableSize)

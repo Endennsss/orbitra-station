@@ -5,10 +5,10 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>The semantic result of a local UI operation.</summary>
+/// <summary>Результат локального действия в интерфейсе.</summary>
 public enum OrbitraNotificationKind { Info, Success, Warning, Error }
 
-/// <summary>A reserved owner-local message slot; replacing a message never queues another one.</summary>
+/// <summary>Выделенное место для сообщения внутри владельца. Новое сообщение заменяет текущее.</summary>
 public sealed class OrbitraNotification : Control
 {
     private readonly PanelContainer _panel = new() { Visible = false, HorizontalExpand = true, RectClipContent = true };
@@ -39,7 +39,7 @@ public sealed class OrbitraNotification : Control
         AddChild(_motion);
     }
 
-    /// <summary>Displays an operation result without moving focus or changing the reserved geometry.</summary>
+    /// <summary>Показывает результат без перевода фокуса или изменения выделенного места.</summary>
     public void Show(OrbitraNotificationKind kind, string text)
     {
         var reveal = !_panel.Visible || _hiding;
@@ -63,7 +63,7 @@ public sealed class OrbitraNotification : Control
             _motion.Reveal(OrbitraMotionPresets.Section, new Vector2(-48, 0));
     }
 
-    /// <summary>Dismisses the current result, keeping its layout slot reserved.</summary>
+    /// <summary>Скрывает текущий результат, сохраняя выделенное место.</summary>
     public void Dismiss()
     {
         if (!_panel.Visible || _hiding) return;
@@ -88,7 +88,7 @@ public sealed class OrbitraNotification : Control
         });
     }
 
-    /// <summary>Immediately releases a result when its owner leaves the interface.</summary>
+    /// <summary>Сразу убирает результат при удалении владельца из интерфейса.</summary>
     public void Clear()
     {
         _generation++;

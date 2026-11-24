@@ -4,7 +4,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Scoped native tooltip surface. Specialized supplier controls remain intact inside it.</summary>
+/// <summary>Оформление подсказки с сохранением штатных контролов, которые поставляют её содержимое.</summary>
 internal sealed class OrbitraTooltip : PanelContainer
 {
     internal Control? Owner;

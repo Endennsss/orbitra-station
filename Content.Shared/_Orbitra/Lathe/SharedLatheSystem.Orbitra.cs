@@ -8,7 +8,7 @@ namespace Content.Shared.Lathe;
 public abstract partial class SharedLatheSystem
 {
     /// <summary>
-    /// Applies material discounts and rounds the cost up to whole material units.
+    /// Применяет скидки на материалы и округляет стоимость вверх до целых единиц.
     /// </summary>
     public static int AdjustMaterial(MaterialPrototype material, int original, bool reduce, float multiplier)
     {

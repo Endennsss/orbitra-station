@@ -7,7 +7,7 @@ using Robust.Shared.Utility;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Explicit presentation hooks for HUD navigation and context-menu service icons.</summary>
+/// <summary>Подключает оформление навигации HUD и служебные иконки контекстных меню.</summary>
 internal static class OrbitraHudMenus
 {
     internal static void StyleButton(MenuButton button, string icon)

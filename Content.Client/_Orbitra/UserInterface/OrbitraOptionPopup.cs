@@ -7,7 +7,7 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Presentation adapter for the stock option popup; selection and modal input remain native.</summary>
+/// <summary>Оформление штатного выпадающего списка с сохранением выбора и модального ввода.</summary>
 internal static class OrbitraOptionPopup
 {
     private const int MaximumHeight = 288;

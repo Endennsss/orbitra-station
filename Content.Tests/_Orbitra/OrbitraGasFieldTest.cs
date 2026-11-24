@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Numerics;
 using Content.Client._Orbitra.Atmos;
 using NUnit.Framework;
 using Robust.Shared.GameObjects;
-using Robust.Shared.Map;
+using Robust.Shared.Maths;
 using SixLabors.ImageSharp.PixelFormats;
 
 namespace Content.Tests._Orbitra;
@@ -66,20 +67,60 @@ public sealed class OrbitraGasFieldTest
     }
 
     [Test]
-    public void MissingChunksAndMapChangesDisposeCachedResources()
+    public void CamerasShareCacheUntilChunksLeaveNetworkVisibility()
     {
         using var cache = new OrbitraGasCache<TrackedResource>();
         var removed = new TrackedResource();
         var retained = new TrackedResource();
-        cache.ChangeMap(new MapId(1));
-        cache.Entries.Add((new EntityUid(1), (0, 0)), removed);
-        cache.Entries.Add((new EntityUid(1), (1, 0)), retained);
+        var first = (new EntityUid(1), new Vector2i(0, 0));
+        var second = (new EntityUid(2), new Vector2i(1, 0));
+        cache.Reserve([first]);
+        cache.Add(first, removed);
+        cache.Reserve([second]);
+        cache.Add(second, retained);
+        cache.Reserve([first]);
+        Assert.That(cache.TryGet(first, out var cached), Is.True);
+        Assert.That(cached, Is.SameAs(removed));
+        Assert.That(retained.Disposed, Is.False);
         cache.Retain(key => key.Index.X == 1);
         Assert.That(removed.Disposed, Is.True);
         Assert.That(retained.Disposed, Is.False);
-        cache.ChangeMap(new MapId(2));
-        Assert.That(retained.Disposed, Is.True);
-        Assert.That(cache.Entries, Is.Empty);
+        Assert.That(cache.TryGet(first, out _), Is.False);
+    }
+
+    [Test]
+    public void CacheEvictsOldestChunkOutsideCurrentView()
+    {
+        using var cache = new OrbitraGasCache<TrackedResource>();
+        var grid = new EntityUid(1);
+        var oldest = new TrackedResource();
+        var stillVisible = new TrackedResource();
+        cache.Add((grid, new Vector2i(0, 0)), stillVisible);
+        cache.Add((grid, new Vector2i(1, 0)), oldest);
+        for (var i = 2; i < OrbitraGasCache<TrackedResource>.Capacity; i++)
+            cache.Add((grid, new Vector2i(i, 0)), new TrackedResource());
+
+        cache.Reserve([(grid, new Vector2i(0, 0)), (grid, new Vector2i(-1, 0))]);
+        Assert.That(oldest.Disposed, Is.True);
+        Assert.That(stillVisible.Disposed, Is.False);
+    }
+
+    [Test]
+    public void SecondCameraFallsBackWhenCombinedViewsExceedBudget()
+    {
+        using var cache = new OrbitraGasCache<TrackedResource>();
+        var grid = new EntityUid(1);
+        var visible = new HashSet<(EntityUid Grid, Vector2i Index)>();
+        for (var i = 0; i < OrbitraGasCache<TrackedResource>.Capacity; i++)
+            visible.Add((grid, new Vector2i(i, 0)));
+        Assert.That(cache.Reserve(visible), Is.True);
+        var first = new TrackedResource();
+        cache.Add((grid, new Vector2i(0, 0)), first);
+
+        Assert.That(cache.Reserve([(grid, new Vector2i(-1, 0))]), Is.False);
+        Assert.That(first.Disposed, Is.False);
+        cache.BeginFrame();
+        Assert.That(cache.Reserve([(grid, new Vector2i(-1, 0))]), Is.True);
     }
 
     private sealed class TrackedResource : IDisposable

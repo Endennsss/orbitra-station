@@ -3,15 +3,15 @@
 
 namespace Content.Server._Orbitra.Research.Bluespace;
 
-/// <summary>Configures an APC-powered suppressor that remains usable during a station scram.</summary>
+/// <summary>Настройки питаемого от ЛКП подавителя, доступного при аварийной блокировке станции.</summary>
 [RegisterComponent, Access(typeof(OrbitraBluespaceResearchSystem))]
 public sealed partial class OrbitraBluespaceSuppressorComponent : Component
 {
-    /// <summary>Requested operating state; power, anchoring and station membership remain required.</summary>
+    /// <summary>Запрошенный режим работы. Устройство требует питания, крепления и принадлежности к станции.</summary>
     [DataField]
     public bool Enabled;
 
-    /// <summary>Station background removed per active second.</summary>
+    /// <summary>Снижение фона станции за секунду работы.</summary>
     [DataField]
     public float SuppressionPerSecond = 0.12f;
 

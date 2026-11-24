@@ -7,42 +7,42 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Orbitra.Xenobiology;
 
-/// <summary>A single-use extract recipe exposed by the laboratory's reaction catalog.</summary>
+/// <summary>Одноразовый рецепт экстракта из каталога реакций лаборатории.</summary>
 [Prototype]
 public sealed partial class OrbitraXenobiologyReactionPrototype : IPrototype
 {
     [IdDataField]
     public string ID { get; private set; } = default!;
 
-    /// <summary>The breed that produces this reaction.</summary>
+    /// <summary>Порода, экстракт которой даёт эту реакцию.</summary>
     [DataField(required: true)]
     public ProtoId<OrbitraXenobiologyBreedPrototype> Breed;
 
-    /// <summary>The localized product title.</summary>
+    /// <summary>Локализованное название продукта.</summary>
     [DataField(required: true)]
     public LocId Name;
 
-    /// <summary>The localized result and handling instructions.</summary>
+    /// <summary>Локализованное описание результата и способа обращения.</summary>
     [DataField(required: true)]
     public LocId Description;
 
-    /// <summary>The editor suffix identifying Orbitra content.</summary>
+    /// <summary>Суффикс для определения содержимого Orbitra в редакторе.</summary>
     [DataField]
     public string Suffix = "Orbitra";
 
-    /// <summary>The chemical consumed to activate this reaction.</summary>
+    /// <summary>Реагент, расходуемый для запуска реакции.</summary>
     [DataField(required: true)]
     public ProtoId<ReagentPrototype> Reagent;
 
-    /// <summary>The required catalyst quantity; output never scales with excess catalyst.</summary>
+    /// <summary>Требуемое количество катализатора. Избыток не увеличивает выход.</summary>
     [DataField]
     public FixedPoint2 Amount = FixedPoint2.New(5);
 
-    /// <summary>The finite number of each item produced.</summary>
+    /// <summary>Ограниченное количество каждого продукта.</summary>
     [DataField]
     public Dictionary<EntProtoId, int> Products = new();
 
-    /// <summary>The reagents delivered in a separate sample bottle.</summary>
+    /// <summary>Реагенты, выдаваемые в отдельной пробирке для образца.</summary>
     [DataField]
     public Dictionary<ProtoId<ReagentPrototype>, FixedPoint2> Reagents = new();
 

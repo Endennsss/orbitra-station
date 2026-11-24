@@ -20,7 +20,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._Orbitra.Research.Bluespace;
 
-/// <summary>Converts real HV energy into bounded rewards while sharing station bluespace instability.</summary>
+/// <summary>Превращает полученную от высоковольтной сети энергию в награды с учётом общего блюспейс-фона.</summary>
 public sealed partial class OrbitraBluespaceHarvesterSystem : EntitySystem
 {
     [Dependency] private OrbitraBluespaceBackgroundSystem _bluespaceBackground = default!;
@@ -104,7 +104,7 @@ public sealed partial class OrbitraBluespaceHarvesterSystem : EntitySystem
         SetPowerDraw(ent, 0f);
     }
 
-    /// <summary>Checks operating prerequisites and actual positive HV receipt without changing state.</summary>
+    /// <summary>Проверяет условия работы и фактическое получение энергии от высоковольтной сети.</summary>
     public bool CanOperate(Entity<OrbitraBluespaceHarvesterComponent> ent)
     {
         return CanRequestPower(ent) && _powerConsumerQuery.TryComp(ent, out var consumer) &&

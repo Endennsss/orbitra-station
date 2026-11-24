@@ -6,7 +6,7 @@ using Content.Client._Orbitra.UserInterface; // Orbitra-Edit
 
 namespace Content.Client._Orbitra.Lobby;
 
-/// <summary>Responsive loadout categories sharing one content tree and one selection.</summary>
+/// <summary>Адаптивные категории снаряжения с общим деревом и выбранным разделом.</summary>
 public sealed class OrbitraLoadoutTabs : BoxContainer
 {
     private readonly OptionButton _selector = new OrbitraOptionButton { Visible = false };
@@ -29,7 +29,7 @@ public sealed class OrbitraLoadoutTabs : BoxContainer
         Content.Client._Orbitra.UserInterface.OrbitraOptionButton.BindSelection(_selector, args => Select(args.Id));
     }
 
-    /// <summary>Adds existing loadout controls without changing equipment or restrictions.</summary>
+    /// <summary>Добавляет штатные контролы снаряжения, сохраняя правила его выбора.</summary>
     public int AddTab(Control control, string title)
     {
         var index = _categories.Count;

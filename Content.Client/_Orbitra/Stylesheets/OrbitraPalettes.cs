@@ -3,7 +3,7 @@ using Content.Client.Stylesheets.Palette;
 namespace Content.Client._Orbitra.Stylesheets;
 
 /// <summary>
-/// Neutral interface colors shared by the game and system stylesheets.
+/// Нейтральные цвета, общие для игровых и системных стилей.
 /// </summary>
 public static class OrbitraPalettes
 {

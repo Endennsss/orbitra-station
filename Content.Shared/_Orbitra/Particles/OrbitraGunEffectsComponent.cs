@@ -1,6 +1,6 @@
 namespace Content.Shared._Orbitra.Particles;
 
-/// <summary>Prototype-defined cosmetic muzzle parameters; does not affect weapon mechanics.</summary>
+/// <summary>Настройки внешнего вида дульной вспышки из прототипа, независимые от механики оружия.</summary>
 [RegisterComponent]
 public sealed partial class OrbitraGunEffectsComponent : Component
 {

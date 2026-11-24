@@ -5,18 +5,18 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Orbitra.Xenobiology;
 
-/// <summary>A single-use slime extract that reacts with a measured chemical catalyst.</summary>
+/// <summary>Одноразовый экстракт слизня для реакции с заданным количеством катализатора.</summary>
 [RegisterComponent]
 public sealed partial class OrbitraXenobiologyExtractComponent : Component
 {
-    /// <summary>The breed whose reaction catalog this extract uses.</summary>
+    /// <summary>Порода, по которой выбирается каталог реакций экстракта.</summary>
     [DataField(required: true)]
     public ProtoId<OrbitraXenobiologyBreedPrototype> Breed;
 
-    /// <summary>The solution accepting injected or poured catalysts.</summary>
+    /// <summary>Раствор для влитых или введённых шприцем катализаторов.</summary>
     [DataField]
     public string Solution = "extract";
 
-    /// <summary>Whether a reaction has already claimed this extract.</summary>
+    /// <summary>Признак расходования экстракта в реакции.</summary>
     public bool Used;
 }

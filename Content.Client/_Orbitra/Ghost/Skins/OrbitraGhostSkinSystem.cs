@@ -12,7 +12,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client._Orbitra.Ghost.Skins;
 
-/// <summary>Requests observer cosmetics and applies the server-selected skin on a separate sprite layer.</summary>
+/// <summary>Запрашивает внешность призрака и применяет выбранный сервером облик отдельным слоем спрайта.</summary>
 public sealed partial class OrbitraGhostSkinSystem : EntitySystem
 {
     [Dependency] private IConfigurationManager _cfg = default!;
@@ -88,7 +88,7 @@ public sealed partial class OrbitraGhostSkinSystem : EntitySystem
         SkinChanged?.Invoke();
     }
 
-    /// <summary>Stores and requests a predefined skin for the currently controlled ghost.</summary>
+    /// <summary>Хранит и запрашивает облик для текущего призрака игрока.</summary>
     public bool RequestSkin(ProtoId<OrbitraGhostSkinPrototype> skin)
     {
         if (!CanRequestSkin(skin))

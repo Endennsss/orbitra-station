@@ -5,7 +5,7 @@ using Robust.Shared.Input;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Routes keyboard activation through the original button lifecycle.</summary>
+/// <summary>Проводит активацию клавиатурой через штатный жизненный цикл кнопки.</summary>
 public interface IOrbitraKeyboardButton
 {
     void KeyboardActivate(GUIBoundKeyEventArgs args);

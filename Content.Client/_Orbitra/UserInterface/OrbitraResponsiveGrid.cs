@@ -5,7 +5,7 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Two columns on wide forms, a single column when controls need room for their labels.</summary>
+/// <summary>Размещает поля в две колонки или в одну, когда не хватает места для подписей.</summary>
 public sealed class OrbitraResponsiveGrid : GridContainer
 {
     protected override Vector2 MeasureOverride(Vector2 availableSize)

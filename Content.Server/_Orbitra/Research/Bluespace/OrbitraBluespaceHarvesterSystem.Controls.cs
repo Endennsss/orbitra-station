@@ -29,7 +29,7 @@ public sealed partial class OrbitraBluespaceHarvesterSystem
         TrySetLootCategory(ent, args.Category, args.Actor);
     }
 
-    /// <summary>Changes the operator switch after validating access and the critical interlock.</summary>
+    /// <summary>Переключает установку после проверки доступа и аварийной блокировки.</summary>
     public bool TrySetEnabled(Entity<OrbitraBluespaceHarvesterComponent> ent, bool enabled, EntityUid user)
     {
         if (!CanSetEnabled(ent, enabled, user))
@@ -44,13 +44,13 @@ public sealed partial class OrbitraBluespaceHarvesterSystem
         return true;
     }
 
-    /// <summary>Checks operator access and prevents activation during a critical shutdown.</summary>
+    /// <summary>Проверяет доступ оператора и возможность запуска при аварийной остановке.</summary>
     public bool CanSetEnabled(Entity<OrbitraBluespaceHarvesterComponent> ent, bool enabled, EntityUid user)
     {
         return CanConfigure(ent, user) && (!enabled || !IsCritical(ent));
     }
 
-    /// <summary>Selects one of the two power modes without directly changing native PowerState fields.</summary>
+    /// <summary>Выбирает один из двух режимов мощности без прямой записи в PowerState.</summary>
     public bool TrySetPowerMode(Entity<OrbitraBluespaceHarvesterComponent> ent, OrbitraBluespacePowerMode mode, EntityUid user)
     {
         if (!CanSetPowerMode(ent, mode, user))
@@ -64,13 +64,13 @@ public sealed partial class OrbitraBluespaceHarvesterSystem
         return true;
     }
 
-    /// <summary>Checks operator access and rejects undefined power-mode values.</summary>
+    /// <summary>Проверяет доступ оператора и допустимость значения режима мощности.</summary>
     public bool CanSetPowerMode(Entity<OrbitraBluespaceHarvesterComponent> ent, OrbitraBluespacePowerMode mode, EntityUid user)
     {
         return Enum.IsDefined(mode) && CanConfigure(ent, user);
     }
 
-    /// <summary>Selects an available configured loot category.</summary>
+    /// <summary>Выбирает доступную категорию из настроенной таблицы наград.</summary>
     public bool TrySetLootCategory(Entity<OrbitraBluespaceHarvesterComponent> ent, OrbitraBluespaceLootCategory category, EntityUid user)
     {
         if (!CanSetLootCategory(ent, category, user))
@@ -82,13 +82,13 @@ public sealed partial class OrbitraBluespaceHarvesterSystem
         return true;
     }
 
-    /// <summary>Checks operator access, enum validity and the presence of at least one bounded reward.</summary>
+    /// <summary>Проверяет доступ, допустимость категории и наличие хотя бы одной награды в пределах лимита.</summary>
     public bool CanSetLootCategory(Entity<OrbitraBluespaceHarvesterComponent> ent, OrbitraBluespaceLootCategory category, EntityUid user)
     {
         return Enum.IsDefined(category) && CanConfigure(ent, user) && GetTotalLootWeight(category) > 0d;
     }
 
-    /// <summary>Requires a live, unpaused actor who can physically manipulate this open interface.</summary>
+    /// <summary>Требует живого игрока вне паузы, способного взаимодействовать с открытым интерфейсом.</summary>
     public bool CanConfigure(Entity<OrbitraBluespaceHarvesterComponent> ent, EntityUid user)
     {
         return !TerminatingOrDeleted(ent) && !TerminatingOrDeleted(user) &&

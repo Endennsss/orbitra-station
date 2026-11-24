@@ -6,7 +6,7 @@ using Robust.Shared.Input;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>One tooltip presenter per UI root; mouse timing and specialized suppliers remain native.</summary>
+/// <summary>Один контроллер подсказок на корень интерфейса со штатным временем наведения и источниками.</summary>
 internal sealed class OrbitraTooltips : Control
 {
     private OrbitraTooltip? _active;

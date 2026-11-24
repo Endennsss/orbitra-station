@@ -33,7 +33,6 @@ RUN apt-get update \
         libfontconfig1 \
         libfreetype6 \
         libicu-dev \
-        rsync \
         tini \
         tzdata \
     && rm -rf /var/lib/apt/lists/* \
@@ -43,11 +42,11 @@ WORKDIR /home/container
 ENV HOME=/home/container \
     USER=container
 
-COPY --from=builder --chown=container:container /out/ /opt/orbitra/
+COPY --from=builder /out/ /opt/orbitra/
 COPY --chown=container:container docker/orbitra-entrypoint.sh /usr/local/bin/orbitra-entrypoint.sh
-RUN chmod 0755 /usr/local/bin/orbitra-entrypoint.sh
+RUN chmod 0755 /usr/local/bin/orbitra-entrypoint.sh \
+    && ln -sT /home/container/logs /opt/orbitra/logs
 
 USER container
 STOPSIGNAL SIGINT
 ENTRYPOINT ["/usr/bin/tini", "-g", "--", "/usr/local/bin/orbitra-entrypoint.sh"]
-CMD ["./Robust.Server", "--config-file", "config.toml", "--data-dir", "data"]

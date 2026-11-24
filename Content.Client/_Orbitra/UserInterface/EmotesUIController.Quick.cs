@@ -6,7 +6,7 @@ namespace Content.Client.UserInterface.Systems.Emotes;
 
 public sealed partial class EmotesUIController
 {
-    /// <summary>Shares the radial menu's eligibility rules with the chat shortcuts.</summary>
+    /// <summary>Использует для быстрых действий чата те же правила доступности, что и радиальное меню.</summary>
     public IEnumerable<EmotePrototype> GetAvailableEmotes()
     {
         foreach (var emote in _prototypeManager.EnumeratePrototypes<EmotePrototype>())
@@ -25,7 +25,7 @@ public sealed partial class EmotesUIController
         return emote.Available || !EntityManager.TryGetComponent<SpeechComponent>(player.Value, out var speech) || speech.AllowedEmotes.Contains(emote.ID);
     }
 
-    /// <summary>Revalidates a shortcut and uses the same predictive request as the radial menu.</summary>
+    /// <summary>Повторно проверяет быстрое действие и отправляет штатный запрос радиального меню с предсказанием.</summary>
     public bool TryPlayQuickEmote(EmotePrototype emote)
     {
         if (!CanUseEmote(emote))

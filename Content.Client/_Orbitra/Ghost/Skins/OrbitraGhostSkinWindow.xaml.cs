@@ -12,7 +12,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client._Orbitra.Ghost.Skins;
 
-/// <summary>A prototype-driven cosmetic selector owned by the ghost HUD.</summary>
+/// <summary>Выбор облика из прототипов в интерфейсе призрака.</summary>
 [GenerateTypedNameReferences]
 public sealed partial class OrbitraGhostSkinWindow : FancyWindow
 {

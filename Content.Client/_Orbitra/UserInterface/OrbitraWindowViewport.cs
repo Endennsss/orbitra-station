@@ -7,7 +7,7 @@ using Robust.Client.UserInterface.CustomControls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Fits an ordinary window into its current logical viewport.</summary>
+/// <summary>Подгоняет обычное окно под текущую логическую область просмотра.</summary>
 internal sealed class OrbitraWindowViewport(BaseWindow window)
 {
     private Dimension _minWidth;

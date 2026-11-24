@@ -6,38 +6,38 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Orbitra.Xenobiology;
 
-/// <summary>Defines induction requirements and one bounded, plasma-fueled industrial batch.</summary>
+/// <summary>Требования индукции и одна ограниченная промышленная партия на плазме.</summary>
 [Prototype]
 public sealed partial class OrbitraXenobiologyIndustrialRecipePrototype : IPrototype
 {
     [IdDataField]
     public string ID { get; private set; } = default!;
 
-    /// <summary>The tooling suffix identifying Orbitra content.</summary>
+    /// <summary>Суффикс для определения содержимого Orbitra в инструментах.</summary>
     [DataField]
     public string Suffix = "Orbitra";
 
-    /// <summary>The only slime and ordinary extract lineage accepted by this recipe.</summary>
+    /// <summary>Порода слизня и обычных экстрактов, принимаемых этим рецептом.</summary>
     [DataField(required: true)]
     public ProtoId<OrbitraXenobiologyBreedPrototype> Breed;
 
-    /// <summary>The industrial extract created after induction.</summary>
+    /// <summary>Промышленный экстракт, получаемый после индукции.</summary>
     [DataField(required: true)]
     public EntProtoId Extract;
 
-    /// <summary>The unused ordinary extracts consumed after the induction catalyst.</summary>
+    /// <summary>Количество неиспользованных обычных экстрактов, расходуемых после катализатора.</summary>
     [DataField]
     public int RequiredExtracts = 6;
 
-    /// <summary>Liquid plasma consumed before spawning each batch.</summary>
+    /// <summary>Жидкая плазма, расходуемая перед выдачей каждой партии.</summary>
     [DataField]
     public FixedPoint2 PlasmaCost = FixedPoint2.New(5);
 
-    /// <summary>Uninterrupted time on a real floor needed for a batch.</summary>
+    /// <summary>Время непрерывного нахождения на полу для получения партии.</summary>
     [DataField]
     public TimeSpan Interval = TimeSpan.FromSeconds(60);
 
-    /// <summary>Bounded native or local items produced per batch.</summary>
+    /// <summary>Ограниченный набор штатных или локальных товаров одной партии.</summary>
     [DataField(required: true)]
     public Dictionary<EntProtoId, int> Products = new();
 }

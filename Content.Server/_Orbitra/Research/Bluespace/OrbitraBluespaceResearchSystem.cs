@@ -17,7 +17,7 @@ using Robust.Shared.Containers;
 
 namespace Content.Server._Orbitra.Research.Bluespace;
 
-/// <summary>Runs powered station research probers and suppressors without offline point accrual.</summary>
+/// <summary>Управляет зондами и подавителями станции. Очки начисляются во время работы устройств.</summary>
 public sealed partial class OrbitraBluespaceResearchSystem : EntitySystem
 {
     [Dependency] private OrbitraBluespaceBackgroundSystem _background = default!;
@@ -128,7 +128,7 @@ public sealed partial class OrbitraBluespaceResearchSystem : EntitySystem
         StopDemand(ent);
     }
 
-    /// <summary>Applies an explicit prober operating request from a currently authorized UI actor.</summary>
+    /// <summary>Применяет запрос переключения зонда от игрока с действующим доступом к интерфейсу.</summary>
     public bool TrySetEnabled(Entity<OrbitraBluespaceProberComponent> ent, EntityUid user, bool enabled)
     {
         if (!CanSetEnabled(ent, user))
@@ -140,13 +140,13 @@ public sealed partial class OrbitraBluespaceResearchSystem : EntitySystem
         return true;
     }
 
-    /// <summary>Checks actor, open interface, action blockers and unobstructed control range.</summary>
+    /// <summary>Проверяет игрока, открытый интерфейс, возможность взаимодействия и отсутствие препятствий.</summary>
     public bool CanSetEnabled(Entity<OrbitraBluespaceProberComponent> ent, EntityUid user)
     {
         return CanControl(ent, user);
     }
 
-    /// <summary>Applies an explicit suppressor request; the station scram never prevents suppression.</summary>
+    /// <summary>Применяет запрос переключения подавителя. Блокировка станции допускает подавление фона.</summary>
     public bool TrySetEnabled(Entity<OrbitraBluespaceSuppressorComponent> ent, EntityUid user, bool enabled)
     {
         if (!CanSetEnabled(ent, user))
@@ -157,7 +157,7 @@ public sealed partial class OrbitraBluespaceResearchSystem : EntitySystem
         return true;
     }
 
-    /// <summary>Checks actor, open interface, action blockers and unobstructed control range.</summary>
+    /// <summary>Проверяет игрока, открытый интерфейс, возможность взаимодействия и отсутствие препятствий.</summary>
     public bool CanSetEnabled(Entity<OrbitraBluespaceSuppressorComponent> ent, EntityUid user)
     {
         return CanControl(ent, user);

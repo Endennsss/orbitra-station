@@ -4,7 +4,7 @@ using Robust.Shared.Configuration;
 
 namespace Content.Shared._Orbitra.Compatibility;
 
-/// <summary>Imports the previous brand's archived settings without replacing explicit new values.</summary>
+/// <summary>Импортирует настройки прежнего названия проекта, сохраняя явно заданные новые значения.</summary>
 [CVarDefs]
 public static class OrbitraLegacySettings
 {
@@ -13,7 +13,7 @@ public static class OrbitraLegacySettings
     public static readonly CVarDef<string> OldBloomQuality = CVarDef.Create("lime.bloom_quality", "Medium", CVar.CLIENTONLY);
     public static readonly CVarDef<string> OldParticlesQuality = CVarDef.Create("lime.particles_quality", "Medium", CVar.CLIENTONLY);
 
-    /// <summary>Runs after config loading and before presentation systems subscribe to settings.</summary>
+    /// <summary>Выполняется после загрузки настроек до подписок систем интерфейса.</summary>
     public static void Import(IConfigurationManager config)
     {
         Import(config, OldBloomEnabled, OrbitraBloomCVars.Enabled, true);

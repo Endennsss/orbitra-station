@@ -6,7 +6,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Orbitra.Ghost;
 
-/// <summary>The server-selected appearance replicated to observers; it grants no gameplay capabilities.</summary>
+/// <summary>Выбранный сервером косметический облик призрака, передаваемый наблюдателям.</summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true, fieldDeltas: true)]
 public sealed partial class OrbitraGhostSkinComponent : Component
 {

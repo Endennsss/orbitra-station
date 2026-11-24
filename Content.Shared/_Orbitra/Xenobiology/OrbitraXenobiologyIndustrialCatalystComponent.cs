@@ -3,10 +3,10 @@
 
 namespace Content.Shared._Orbitra.Xenobiology;
 
-/// <summary>A printed, single-use research gate for industrial slime induction.</summary>
+/// <summary>Одноразовый печатный катализатор исследования для промышленной индукции слизня.</summary>
 [RegisterComponent]
 public sealed partial class OrbitraXenobiologyIndustrialCatalystComponent : Component
 {
-    /// <summary>Claims the catalyst before any component or deletion callbacks.</summary>
+    /// <summary>Резервирует катализатор до событий компонентов и удаления.</summary>
     public bool Used;
 }

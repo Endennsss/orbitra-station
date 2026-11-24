@@ -3,7 +3,7 @@ using Robust.Client.UserInterface;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Emote-only sector with native hit testing and smoothly changing surface colors.</summary>
+/// <summary>Сектор эмоции со штатной проверкой попадания и анимацией цвета.</summary>
 public sealed class OrbitraRadialSector : RadialMenuButtonWithSector
 {
     private Color _from;

@@ -2,12 +2,12 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Passive status presentation; data loading and retries belong to the owning screen.</summary>
+/// <summary>Показывает статус. Загрузка данных и повторные попытки выполняются экраном-владельцем.</summary>
 public sealed class OrbitraStatusPanel : BoxContainer
 {
     private readonly RichTextLabel _title = new();
     private readonly RichTextLabel _description = new();
-    /// <summary>Localized plain-text heading for declarative empty states.</summary>
+    /// <summary>Локализованный заголовок без разметки для пустого состояния.</summary>
     public string Title { set => _title.SetMessage(value); }
     public Button ActionButton { get; } = new OrbitraButton { Visible = false };
 

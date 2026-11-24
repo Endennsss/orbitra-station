@@ -3,7 +3,7 @@ using Content.Shared.Cargo;
 namespace Content.Server._Orbitra.Cargo;
 
 /// <summary>
-/// Paid deliveries rescued from telepads removed during the communications outage.
+/// Оплаченные грузы с телепортов, удалённых во время отключения связи.
 /// </summary>
 [RegisterComponent]
 public sealed partial class OrbitraSuspendedCargoDeliveryComponent : Component

@@ -74,7 +74,16 @@ public sealed class OrbitraJournalUiTest : GameTest
             scroll.Arrange(UIBox2.FromDimensions(Vector2.Zero, new Vector2(500, 300)));
         });
         await Pair.RunTicksSync(5);
-        await client.WaitAssertion(() => Assert.That(list.LiveRows, Is.InRange(1, 30)));
+        await client.WaitAssertion(() =>
+        {
+            Assert.That(list.LiveRows, Is.InRange(1, 30));
+            Assert.That(created, Is.LessThan(60), "Opening the journal must not build off-screen rows.");
+        });
+        var beforeResize = created;
+        await client.WaitPost(() => scroll.SetWidth = 320);
+        await Pair.RunTicksSync(5);
+        await client.WaitAssertion(() => Assert.That(created - beforeResize, Is.LessThan(60),
+            "Resizing must not build off-screen rows."));
         var before = created;
         await client.WaitPost(() => scroll.VScroll = scroll.VScrollTarget = 20000);
         await Pair.RunTicksSync(5);

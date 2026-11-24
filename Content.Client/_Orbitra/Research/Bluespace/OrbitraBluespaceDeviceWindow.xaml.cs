@@ -20,7 +20,7 @@ using Robust.Shared.Utility;
 
 namespace Content.Client._Orbitra.Research.Bluespace;
 
-/// <summary>Displays server-authoritative power, station background and production controls.</summary>
+/// <summary>Показывает полученное с сервера питание, фон станции и управление производством.</summary>
 [GenerateTypedNameReferences]
 public sealed partial class OrbitraBluespaceDeviceWindow : FancyWindow
 {
@@ -36,11 +36,11 @@ public sealed partial class OrbitraBluespaceDeviceWindow : FancyWindow
     private bool _initialized;
     private bool _updating;
 
-    /// <summary>Requests a new operating state.</summary>
+    /// <summary>Запрашивает новый режим работы.</summary>
     public event Action<bool>? EnabledRequested;
-    /// <summary>Requests a bounded harvester power mode.</summary>
+    /// <summary>Запрашивает допустимый режим мощности харвестера.</summary>
     public event Action<OrbitraBluespacePowerMode>? PowerModeRequested;
-    /// <summary>Requests a configured reward category.</summary>
+    /// <summary>Запрашивает выбранную категорию награды.</summary>
     public event Action<OrbitraBluespaceLootCategory>? LootCategoryRequested;
 
     public OrbitraBluespaceDeviceWindow()
@@ -76,7 +76,7 @@ public sealed partial class OrbitraBluespaceDeviceWindow : FancyWindow
         FitToViewport(UserInterfaceManager.WindowRoot.Size);
     }
 
-    /// <summary>Fits the device window to the logical viewport, including enlarged UI scales.</summary>
+    /// <summary>Подгоняет окно под логическую область просмотра с учётом масштаба интерфейса.</summary>
     public void FitToViewport(Vector2 viewport)
     {
         if (viewport.X <= 0 || viewport.Y <= 0)
@@ -111,7 +111,7 @@ public sealed partial class OrbitraBluespaceDeviceWindow : FancyWindow
         Selectors.Orientation = width < 560 ? BoxContainer.LayoutOrientation.Vertical : BoxContainer.LayoutOrientation.Horizontal;
     }
 
-    /// <summary>Applies a complete device state without generating control requests.</summary>
+    /// <summary>Применяет полное состояние устройства без отправки запросов управления.</summary>
     public void UpdateState(OrbitraBluespaceDeviceBoundUserInterfaceState state)
     {
         _state = state;

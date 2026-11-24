@@ -10,7 +10,7 @@ public sealed partial class FaxSystem
     [Dependency] private OrbitraAbandonedStationRuleSystem _orbitraAbandonedStation = default!;
 
     /// <summary>
-    /// Refreshes discovery and open windows after a change in external connectivity.
+    /// Обновляет обнаружение факсов и открытые окна после смены внешней связи.
     /// </summary>
     public void OrbitraRefreshFaxes()
     {

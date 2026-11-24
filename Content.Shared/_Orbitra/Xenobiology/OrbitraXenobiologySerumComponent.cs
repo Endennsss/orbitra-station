@@ -3,7 +3,7 @@
 
 namespace Content.Shared._Orbitra.Xenobiology;
 
-/// <summary>The inherited trait affected by a xenobiological gene treatment.</summary>
+/// <summary>Наследуемый признак, изменяемый генетической обработкой.</summary>
 public enum OrbitraXenobiologyTreatment : byte
 {
     Mutation,
@@ -15,14 +15,14 @@ public enum OrbitraXenobiologyTreatment : byte
     Thermal,
 }
 
-/// <summary>A single-use treatment applied directly to a laboratory slime.</summary>
+/// <summary>Одноразовая обработка, применяемая прямо к лабораторному слизню.</summary>
 [RegisterComponent]
 public sealed partial class OrbitraXenobiologySerumComponent : Component
 {
-    /// <summary>The bounded, heritable genetic change attempted by this treatment.</summary>
+    /// <summary>Наследуемое генетическое изменение в допустимых пределах.</summary>
     [DataField(required: true)]
     public OrbitraXenobiologyTreatment Treatment;
 
-    /// <summary>Whether an application already consumed this treatment.</summary>
+    /// <summary>Признак расходования средства при обработке.</summary>
     public bool Used;
 }

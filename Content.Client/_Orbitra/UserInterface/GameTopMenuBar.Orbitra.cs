@@ -4,7 +4,7 @@ namespace Content.Client.UserInterface.Systems.MenuBar.Widgets;
 
 public sealed partial class GameTopMenuBar
 {
-    /// <summary>Shared appearance for both native HUD layouts, preserving their controls and bindings.</summary>
+    /// <summary>Общее оформление обоих штатных вариантов HUD с сохранением контролов и привязок.</summary>
     private void InitializeOrbitra()
     {
         OrbitraHudMenus.StyleButton(EscapeButton, "menu");

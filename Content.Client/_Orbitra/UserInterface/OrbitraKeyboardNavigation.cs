@@ -8,7 +8,7 @@ using Robust.Shared.Map;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Keyboard traversal restricted to an explicitly registered presentation root.</summary>
+/// <summary>Ограничивает навигацию с клавиатуры явно зарегистрированной областью интерфейса.</summary>
 internal sealed class OrbitraKeyboardNavigation : Control
 {
     internal static bool Rebinding;

@@ -6,7 +6,7 @@ using Robust.Shared.Input;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Keyboard input for native option rows, sharing explicitly registered selection handlers.</summary>
+/// <summary>Обработка клавиатуры штатных строк выбора через явно зарегистрированные обработчики.</summary>
 public sealed class OrbitraOptionButton : OptionButton, IOrbitraKeyboardButton
 {
     private readonly List<(Button Button, int Id)> _rows = new();
@@ -23,7 +23,7 @@ public sealed class OrbitraOptionButton : OptionButton, IOrbitraKeyboardButton
         };
     }
 
-    /// <summary>Uses one application handler for both mouse and keyboard selection.</summary>
+    /// <summary>Использует общий обработчик для выбора мышью и клавиатурой.</summary>
     public static void BindSelection(OptionButton option, Action<ItemSelectedEventArgs> handler)
     {
         option.OnItemSelected += handler;

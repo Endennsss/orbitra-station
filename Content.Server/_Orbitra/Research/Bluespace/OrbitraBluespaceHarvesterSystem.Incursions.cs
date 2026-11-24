@@ -19,7 +19,7 @@ public sealed partial class OrbitraBluespaceHarvesterSystem
     private const int MaximumActiveIncursions = 6;
     private const int MaximumActiveAnomalies = 2;
 
-    /// <summary>Releases a bounded hostile wave within the shared station cooldown and living creature budget.</summary>
+    /// <summary>Выпускает ограниченную волну в пределах общей задержки и лимита живых существ на станции.</summary>
     public bool TryOpenIncursion(Entity<OrbitraBluespaceHarvesterComponent> ent)
     {
         if (!CanOpenIncursion(ent, out var station, out var coordinates))
@@ -65,7 +65,7 @@ public sealed partial class OrbitraBluespaceHarvesterSystem
         return true;
     }
 
-    /// <summary>Checks operation, prototypes, safe output and station limits without reserving a wave.</summary>
+    /// <summary>Проверяет работу установки, прототипы, безопасный выход и лимиты станции без резервирования волны.</summary>
     public bool CanOpenIncursion(Entity<OrbitraBluespaceHarvesterComponent> ent,
         out EntityUid station, out EntityCoordinates coordinates)
     {
@@ -94,7 +94,7 @@ public sealed partial class OrbitraBluespaceHarvesterSystem
         return TryGetOutput(ent, out coordinates);
     }
 
-    /// <summary>Creates a native anomaly which must be handled normally instead of despawning on a timer.</summary>
+    /// <summary>Создаёт штатную аномалию, которую нужно устранить обычным способом.</summary>
     public bool TrySpawnAnomaly(Entity<OrbitraBluespaceHarvesterComponent> ent)
     {
         if (!CanSpawnAnomaly(ent, out var station, out var coordinates))
@@ -122,7 +122,7 @@ public sealed partial class OrbitraBluespaceHarvesterSystem
         return true;
     }
 
-    /// <summary>Checks the separate station anomaly cooldown and active anomaly budget without changing either.</summary>
+    /// <summary>Проверяет отдельную задержку аномалий и их лимит на станции.</summary>
     public bool CanSpawnAnomaly(Entity<OrbitraBluespaceHarvesterComponent> ent,
         out EntityUid station, out EntityCoordinates coordinates)
     {

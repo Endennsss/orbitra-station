@@ -11,7 +11,7 @@ public enum OrbitraXenobiologyUiKey : byte
     Key,
 }
 
-/// <summary>Read-only measurements from a powered colony console.</summary>
+/// <summary>Доступные для просмотра измерения с запитанной консоли колонии.</summary>
 [Serializable, NetSerializable]
 public sealed class OrbitraXenobiologyBoundUserInterfaceState : BoundUserInterfaceState
 {
@@ -20,7 +20,7 @@ public sealed class OrbitraXenobiologyBoundUserInterfaceState : BoundUserInterfa
     public List<OrbitraXenobiologySpecimen> Specimens = new();
 }
 
-/// <summary>Authoritative input, operating state and extraction progress of a slime processor.</summary>
+/// <summary>Серверное состояние входа, режима и прогресса обработки в процессоре слизней.</summary>
 [Serializable, NetSerializable]
 public sealed class OrbitraXenobiologyProcessorBoundUserInterfaceState : BoundUserInterfaceState
 {
@@ -47,7 +47,7 @@ public enum OrbitraXenobiologyProcessorStatus : byte
     InvalidInput,
 }
 
-/// <summary>A measured specimen; no client-supplied identity is used for laboratory actions.</summary>
+/// <summary>Измеренный образец. Лабораторные действия используют идентификаторы с сервера.</summary>
 [Serializable, NetSerializable]
 public sealed class OrbitraXenobiologySpecimen
 {
@@ -76,10 +76,10 @@ public sealed class OrbitraXenobiologySpecimen
     public float ThermalTolerance;
 }
 
-/// <summary>Requests processing of the machine's existing input, with server-side revalidation.</summary>
+/// <summary>Запрашивает обработку загруженного образца с повторной проверкой на сервере.</summary>
 [Serializable, NetSerializable]
 public sealed class OrbitraXenobiologyProcessMessage : BoundUserInterfaceMessage;
 
-/// <summary>Requests safe release of the machine's existing input.</summary>
+/// <summary>Запрашивает безопасную выдачу загруженного образца.</summary>
 [Serializable, NetSerializable]
 public sealed class OrbitraXenobiologyEjectMessage : BoundUserInterfaceMessage;

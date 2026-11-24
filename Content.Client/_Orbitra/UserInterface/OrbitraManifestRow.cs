@@ -4,7 +4,7 @@ using Robust.Shared.Maths;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Shared four-column geometry for manifest headers and wrapping player rows.</summary>
+/// <summary>Общая геометрия четырёх колонок заголовка манифеста и строк игроков с переносом текста.</summary>
 public sealed class OrbitraManifestRow : Control
 {
     private const float Gap = 8;

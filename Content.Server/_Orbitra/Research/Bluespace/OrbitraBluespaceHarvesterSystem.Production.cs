@@ -11,7 +11,7 @@ namespace Content.Server._Orbitra.Research.Bluespace;
 public sealed partial class OrbitraBluespaceHarvesterSystem
 {
     // Orbitra-Edit: партия расходует заряд до первого Spawn, а инциденты резервируют общий бюджет станции.
-    /// <summary>Claims one completed reward before spawning a bounded, weighted batch on safe floor.</summary>
+    /// <summary>Списывает готовую награду до выдачи на безопасном полу партии, выбранной по весам.</summary>
     public bool TryProduceReward(Entity<OrbitraBluespaceHarvesterComponent> ent)
     {
         if (!CanProduceReward(ent, out var coordinates))
@@ -62,7 +62,7 @@ public sealed partial class OrbitraBluespaceHarvesterSystem
         return true;
     }
 
-    /// <summary>Checks real operation, a complete charge, a valid reward table and safe floor outside the footprint.</summary>
+    /// <summary>Требует работающей установки, полного заряда, допустимых наград и безопасного места за её корпусом.</summary>
     public bool CanProduceReward(Entity<OrbitraBluespaceHarvesterComponent> ent, out EntityCoordinates coordinates)
     {
         coordinates = default;

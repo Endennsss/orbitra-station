@@ -5,7 +5,7 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Chooses guide navigation mode before measuring either pane.</summary>
+/// <summary>Выбирает режим навигации по справочнику до измерения панелей.</summary>
 public sealed class OrbitraGuideSplitContainer : SplitContainer
 {
     public event Action<float>? AvailableWidthChanged;

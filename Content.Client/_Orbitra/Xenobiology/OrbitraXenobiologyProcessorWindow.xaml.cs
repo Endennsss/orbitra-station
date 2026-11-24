@@ -16,7 +16,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._Orbitra.Xenobiology;
 
-/// <summary>Compact processor controls reflecting authoritative input and extraction state.</summary>
+/// <summary>Компактное управление процессором образцов по состоянию входа и обработки на сервере.</summary>
 [GenerateTypedNameReferences]
 public sealed partial class OrbitraXenobiologyProcessorWindow : FancyWindow
 {
@@ -30,9 +30,9 @@ public sealed partial class OrbitraXenobiologyProcessorWindow : FancyWindow
     private bool _awaitingResponse;
     private bool _initialized;
 
-    /// <summary>Requests processing of the existing machine input.</summary>
+    /// <summary>Запрашивает обработку загруженного образца.</summary>
     public event Action? ProcessRequested;
-    /// <summary>Requests release of the existing input, cancelling processing when necessary.</summary>
+    /// <summary>Запрашивает выдачу образца и при необходимости отменяет обработку.</summary>
     public event Action? EjectRequested;
 
     public OrbitraXenobiologyProcessorWindow()
@@ -60,7 +60,7 @@ public sealed partial class OrbitraXenobiologyProcessorWindow : FancyWindow
         UpdateState(new OrbitraXenobiologyProcessorBoundUserInterfaceState { Status = OrbitraXenobiologyProcessorStatus.Empty });
     }
 
-    /// <summary>Fits the processor to the available logical viewport.</summary>
+    /// <summary>Подгоняет интерфейс процессора под доступную логическую область просмотра.</summary>
     public void FitToViewport(Vector2 viewport)
     {
         if (viewport.X <= 0 || viewport.Y <= 0)
@@ -86,7 +86,7 @@ public sealed partial class OrbitraXenobiologyProcessorWindow : FancyWindow
             ? BoxContainer.LayoutOrientation.Vertical : BoxContainer.LayoutOrientation.Horizontal;
     }
 
-    /// <summary>Replaces pending button state with a fresh server response.</summary>
+    /// <summary>Заменяет состояние ожидания кнопки свежим ответом сервера.</summary>
     public void UpdateState(OrbitraXenobiologyProcessorBoundUserInterfaceState state)
     {
         _state = state;

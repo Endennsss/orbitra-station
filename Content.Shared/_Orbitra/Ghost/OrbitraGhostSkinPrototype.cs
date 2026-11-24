@@ -6,7 +6,7 @@ using Robust.Shared.Utility;
 
 namespace Content.Shared._Orbitra.Ghost;
 
-/// <summary>A cosmetic observer appearance. An absent sprite restores the native ghost appearance.</summary>
+/// <summary>Косметический облик наблюдателя. Если спрайт отсутствует, возвращается штатный вид.</summary>
 [Prototype]
 public sealed partial class OrbitraGhostSkinPrototype : IPrototype
 {
@@ -15,7 +15,7 @@ public sealed partial class OrbitraGhostSkinPrototype : IPrototype
     [DataField(required: true)] public LocId Description;
     [DataField] public SpriteSpecifier? Sprite;
     [DataField(required: true)] public SpriteSpecifier Icon = default!;
-    /// <summary>Opacity of the replacement sprite, independent of the native ghost's alpha.</summary>
+    /// <summary>Непрозрачность заменяющего спрайта, независимая от прозрачности исходного призрака.</summary>
     [DataField] public float Opacity = 0.5f;
     [DataField] public int Order;
 }

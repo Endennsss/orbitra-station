@@ -69,14 +69,14 @@ public sealed partial class LobbyGui
         UpdateOrbitraLayout();
     }
 
-    /// <summary>Applies the server's existing chat-width preference within usable bounds.</summary>
+    /// <summary>Применяет серверную настройку ширины чата с учётом доступного места.</summary>
     public void SetOrbitraChatWidth(float width)
     {
         _orbitraChatWidth = float.IsFinite(width) ? Math.Clamp(width, 360, 480) : 400;
         UpdateOrbitraLayout();
     }
 
-    /// <summary>Displays readiness independently of the action label.</summary>
+    /// <summary>Показывает готовность отдельно от подписи кнопки действия.</summary>
     public void SetOrbitraReadyState(bool ready, bool started)
     {
         var changed = ReadyStatus.Visible != (ready && !started);

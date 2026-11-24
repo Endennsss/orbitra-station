@@ -6,17 +6,21 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Variable-height journal rows with cached measurements and a viewport-sized live window.</summary>
+/// <summary>Измеряет строки журнала по мере прокрутки и держит в дереве только ближайшие к экрану.</summary>
 public sealed class OrbitraVirtualList : Control
 {
+    private const float RowSpacing = 8f;
+    private const float EstimatedRowHeight = 32f;
     private readonly ScrollContainer _scroll;
     private readonly List<Func<Control>> _rows;
     private readonly Dictionary<int, Control> _live = new();
     private readonly List<int> _remove = new();
-    private float[] _offsets;
+    private readonly float[] _heights;
+    private readonly float[] _offsets;
     private float _measuredWidth = -1;
     private float _measuredScale;
     private bool _queued;
+    private (int Index, float Within, float Scroll)? _anchor;
 
     public int LiveRows => _live.Count;
     public int RowCount => _rows.Count;
@@ -25,7 +29,13 @@ public sealed class OrbitraVirtualList : Control
     {
         _scroll = scroll;
         _rows = rows;
+        _heights = new float[rows.Count];
         _offsets = new float[rows.Count + 1];
+        for (var i = 0; i < rows.Count; i++)
+        {
+            _heights[i] = EstimatedRowHeight;
+            _offsets[i + 1] = _offsets[i] + EstimatedRowHeight + RowSpacing;
+        }
         _scroll.OnScrolled += QueueRefresh;
         OnResized += QueueRefresh;
     }
@@ -35,34 +45,52 @@ public sealed class OrbitraVirtualList : Control
         var width = Math.Max(1, availableSize.X);
         if (Math.Abs(width - _measuredWidth) > 0.1f || _measuredScale != UIScale)
         {
-            var anchor = FindRow(_scroll.VScroll);
-            var within = _scroll.VScroll - _offsets[anchor];
-            var hadLayout = _measuredWidth > 0;
             _measuredWidth = width;
             _measuredScale = UIScale;
-            _offsets[0] = 0;
-            // Полная разметка нужна только при смене ширины/шрифта, не при прокрутке.
-            for (var i = 0; i < _rows.Count; i++)
-            {
-                using var row = _rows[i]();
-                // Шрифт и UIScale берутся из реального дерева окна, иначе высота ещё не оформленной строки неверна.
-                AddChild(row);
-                OrbitraEditorStyles.Apply(row);
-                row.Measure(new Vector2(width, float.PositiveInfinity));
-                _offsets[i + 1] = _offsets[i] + Math.Max(1, row.DesiredSize.Y) + 8;
-            }
-            if (hadLayout)
-            {
-                var restored = _offsets[anchor] + within;
-                UserInterfaceManager.DeferAction(() =>
-                {
-                    if (!Disposed)
-                        _scroll.VScroll = _scroll.VScrollTarget = restored;
-                });
-            }
             QueueRefresh();
         }
+        MeasureLiveRows(width);
         return new Vector2(width, _offsets[^1]);
+    }
+
+    private void MeasureLiveRows(float width)
+    {
+        var firstChanged = _rows.Count;
+        foreach (var (index, row) in _live)
+        {
+            row.Measure(new Vector2(width, float.PositiveInfinity));
+            var height = Math.Max(1, row.DesiredSize.Y);
+            if (_heights[index].Equals(height))
+                continue;
+
+            _heights[index] = height;
+            firstChanged = Math.Min(firstChanged, index);
+        }
+        if (firstChanged == _rows.Count)
+            return;
+
+        // Старые измерения за экраном служат оценкой до следующего показа строки.
+        // Точку прокрутки привязываем к той же строке, пока пользователь сам её не сдвинет.
+        if (_anchor == null && _scroll.VScroll > 0)
+        {
+            var index = FindRow(_scroll.VScroll);
+            _anchor = (index, _scroll.VScroll - _offsets[index], _scroll.VScroll);
+            UserInterfaceManager.DeferAction(RestoreAnchor);
+        }
+        for (var i = firstChanged; i < _rows.Count; i++)
+            _offsets[i + 1] = _offsets[i] + _heights[i] + RowSpacing;
+        QueueRefresh();
+    }
+
+    private void RestoreAnchor()
+    {
+        var anchor = _anchor;
+        _anchor = null;
+        if (Disposed || anchor is not { } saved || !_scroll.VScroll.Equals(saved.Scroll))
+            return;
+
+        var scroll = _offsets[saved.Index] + Math.Clamp(saved.Within, 0, _heights[saved.Index]);
+        _scroll.VScroll = _scroll.VScrollTarget = scroll;
     }
 
     private int FindRow(float y)
@@ -104,6 +132,7 @@ public sealed class OrbitraVirtualList : Control
             if (index < first || index > last)
                 _remove.Add(index);
         }
+        var changed = _remove.Count != 0;
         foreach (var index in _remove)
         {
             _live[index].Dispose();
@@ -117,17 +146,16 @@ public sealed class OrbitraVirtualList : Control
             OrbitraEditorStyles.Apply(row);
             _live.Add(i, row);
             AddChild(row);
+            changed = true;
         }
-        InvalidateArrange();
+        if (changed)
+            InvalidateMeasure();
     }
 
     protected override Vector2 ArrangeOverride(Vector2 finalSize)
     {
         foreach (var (index, row) in _live)
-        {
-            row.Measure(new Vector2(finalSize.X, float.PositiveInfinity));
-            row.Arrange(UIBox2.FromDimensions(new Vector2(0, _offsets[index]), new Vector2(finalSize.X, _offsets[index + 1] - _offsets[index] - 8)));
-        }
+            row.Arrange(UIBox2.FromDimensions(new Vector2(0, _offsets[index]), new Vector2(finalSize.X, _heights[index])));
         return finalSize;
     }
 

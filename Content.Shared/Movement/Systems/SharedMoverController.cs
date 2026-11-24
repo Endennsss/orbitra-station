@@ -626,8 +626,12 @@ public abstract partial class SharedMoverController : VirtualController
         var (walkDir, sprintDir) = GetVelocityInput(entity.Comp, out var orbitraSprint); // Orbitra-Edit
 
         var total = walkDir * walkSpeed + sprintDir * sprintSpeed;
-        if (grounded && orbitraSprint != Vector2.Zero) // Orbitra-Edit
-            total += GetOrbitraSprintAdjustment(entity, orbitraSprint, walkSpeed, sprintSpeed); // Orbitra-Edit
+        // Orbitra edit start - в невесомости вклад Shift соответствует обычному темпу.
+        if (orbitraSprint != Vector2.Zero)
+            total += grounded
+                ? GetOrbitraSprintAdjustment(entity, orbitraSprint, walkSpeed, sprintSpeed)
+                : GetOrbitraNormalGaitAdjustment(entity.Comp, orbitraSprint, walkSpeed, sprintSpeed);
+        // Orbitra edit end
 
         var parentRotation = GetParentGridAngle(entity.Comp); // Orbitra-Edit
         var wishDir = _relativeMovement ? parentRotation.RotateVec(total) : total;

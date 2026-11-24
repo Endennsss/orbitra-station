@@ -27,7 +27,6 @@ internal sealed partial class OrbitraGasFlameRenderer : IDisposable
     private readonly Vector4[] _fieldScratch = new Vector4[OrbitraGasField.FieldSize * OrbitraGasField.FieldSize];
     private readonly List<VisibleChunk> _visible = new(OrbitraGasCache<ChunkSurface>.Capacity);
     private readonly HashSet<(EntityUid Grid, Vector2i Index)> _visibleKeys = new();
-    private readonly Func<(EntityUid Grid, Vector2i Index), bool> _isVisible;
     private readonly Func<(EntityUid Grid, Vector2i Index), bool> _isAvailable;
     private List<Entity<MapGridComponent>> _grids = new();
     private ShaderPrototype? _prototype;
@@ -43,13 +42,13 @@ internal sealed partial class OrbitraGasFlameRenderer : IDisposable
         _maps = _entities.System<SharedMapSystem>();
         _transform = _entities.System<SharedTransformSystem>();
         _overlays = _entities.GetEntityQuery<GasTileOverlayComponent>();
-        _isVisible = _visibleKeys.Contains;
         _isAvailable = IsAvailable;
     }
 
     public void Advance(float seconds)
     {
         _time += seconds;
+        _cache.BeginFrame();
         _cache.Retain(_isAvailable);
     }
 
@@ -58,7 +57,9 @@ internal sealed partial class OrbitraGasFlameRenderer : IDisposable
         if (_unavailable)
             return false;
 
-        _cache.ChangeMap(args.MapId);
+        if (args.MapId == MapId.Nullspace)
+            return true;
+
         try
         {
             if (!PrepareChunks(args))
@@ -83,7 +84,7 @@ internal sealed partial class OrbitraGasFlameRenderer : IDisposable
         {
             foreach (var chunk in _visible)
             {
-                var surface = _cache.Entries[(chunk.Grid, chunk.Index)];
+                var surface = _cache[(chunk.Grid, chunk.Index)];
                 handle.SetTransform(chunk.Transform);
                 surface.Draw(handle, chunk.Bounds, _time, reducedMotion);
             }
@@ -118,30 +119,29 @@ internal sealed partial class OrbitraGasFlameRenderer : IDisposable
                     continue;
 
                 var key = (grid.Owner, index);
-                if ((!_cache.Entries.TryGetValue(key, out var surface) || !surface.MayBeVisible(_time)) &&
+                if ((!_cache.TryGet(key, out var surface) || !surface.MayBeVisible(_time)) &&
                     !HasFire(chunk))
                     continue;
 
                 if (_visible.Count == OrbitraGasCache<ChunkSurface>.Capacity)
-                {
-                    _cache.Dispose();
                     return false;
-                }
 
                 _visibleKeys.Add(key);
                 _visible.Add(new VisibleChunk(grid.Owner, overlay, index, matrix, bounds));
             }
         }
 
-        _cache.Retain(_isVisible);
+        if (!_cache.Reserve(_visibleKeys))
+            return false;
+
         foreach (var chunk in _visible)
         {
             var key = (chunk.Grid, chunk.Index);
-            if (!_cache.Entries.TryGetValue(key, out var surface))
+            if (!_cache.TryGet(key, out var surface))
             {
                 _prototype ??= _prototypes.Index(FlameShader);
                 surface = new ChunkSurface(_clyde, _prototype);
-                _cache.Entries.Add(key, surface);
+                _cache.Add(key, surface);
             }
 
             surface.Update(chunk.Overlay.Chunks, chunk.Index, _fieldScratch, _time);

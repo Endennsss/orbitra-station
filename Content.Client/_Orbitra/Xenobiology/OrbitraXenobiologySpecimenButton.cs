@@ -10,7 +10,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.Xenobiology;
 
-/// <summary>A stable colony list entry reused when measurements change.</summary>
+/// <summary>Строка колонии, переиспользуемая при изменении измерений.</summary>
 internal sealed class OrbitraXenobiologySpecimenButton : OrbitraContainerButton
 {
     private readonly TextureRect _icon = new() { SetSize = new Vector2(40), Stretch = TextureRect.StretchMode.KeepAspectCentered };

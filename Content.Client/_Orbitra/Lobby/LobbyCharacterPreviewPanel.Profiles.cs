@@ -11,7 +11,7 @@ namespace Content.Client.Lobby.UI;
 
 public sealed partial class LobbyCharacterPreviewPanel
 {
-    /// <summary>Requests a saved profile relative to the selected slot.</summary>
+    /// <summary>Запрашивает сохранённый профиль относительно выбранного слота.</summary>
     public event Action<int>? OrbitraProfileRequested;
     private int _orbitraDirection;
     private int _orbitraStep = 1;
@@ -46,7 +46,7 @@ public sealed partial class LobbyCharacterPreviewPanel
         OrbitraProfileRequested?.Invoke(step);
     }
 
-    /// <summary>Updates labels without interpreting the localized profile summary.</summary>
+    /// <summary>Обновляет подписи, используя локализованное описание профиля как готовый текст.</summary>
     public void RefreshOrbitraProfile(HumanoidCharacterProfile profile, PlayerPreferences? preferences)
     {
         CharacterName.Text = string.IsNullOrWhiteSpace(profile.Name) ? Loc.GetString("orbitra-lobby-unnamed") : profile.Name;
@@ -137,7 +137,7 @@ public sealed partial class LobbyCharacterPreviewPanel
         PreviousProfile.Disabled = NextProfile.Disabled = _orbitraSlotCount <= 1;
     }
 
-    /// <summary>Clears both client-only dummies when no profile is available.</summary>
+    /// <summary>Убирает оба клиентских манекена при отсутствии профиля.</summary>
     public void ClearOrbitraPreview()
     {
         FinishOrbitraTransition();

@@ -102,15 +102,25 @@ public sealed class OrbitraThermalVisionTest : GameTest
                 SEntMan.GetComponent<OrbitraThermalVisionComponent>(goggles)), wearer);
         });
         await Pair.RunTicksSync(15);
+        OrbitraThermalContactsEvent? snapshot = null;
         await Client.WaitAssertion(() =>
         {
             Assert.That(equipped && toggled, Is.True);
             var thermal = Client.System<ClientThermal>();
             Assert.That(thermal.IsActive(), Is.True);
-            Assert.That(Array.Exists(thermal.Contacts!.Contacts, contact => contact.Target == farNet), Is.True);
-            Assert.That(Array.Exists(thermal.Contacts.Contacts, contact => contact.Target == remoteNet), Is.False);
+            snapshot = thermal.Contacts!;
+            Assert.That(Array.Exists(snapshot.Contacts, contact => contact.Target == farNet), Is.True);
+            Assert.That(Array.Exists(snapshot.Contacts, contact => contact.Target == remoteNet), Is.False);
+            Assert.That(Array.Exists(snapshot.Contacts, contact => contact.Target == snapshot.Wearer), Is.False);
             Assert.That(thermal.TryGetContactSprite(new OrbitraThermalContact(farNet), out _), Is.False,
                 "Unlimited authorization must not load an out-of-PVS sprite.");
+        });
+        await Pair.RunTicksSync(8);
+        await Client.WaitAssertion(() =>
+        {
+            var thermal = Client.System<ClientThermal>();
+            Assert.That(thermal.IsActive(), Is.True);
+            Assert.That(thermal.Contacts, Is.SameAs(snapshot), "An unchanged list must survive a keepalive without replacement.");
         });
         await Server.WaitPost(() => Server.System<MobStateSystem>().ChangeMobState(far, MobState.Dead));
         await Pair.RunTicksSync(15);

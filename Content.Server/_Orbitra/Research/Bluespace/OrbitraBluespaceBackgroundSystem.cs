@@ -8,7 +8,7 @@ using Content.Shared.Station.Components;
 
 namespace Content.Server._Orbitra.Research.Bluespace;
 
-/// <summary>Owns finite, station-scoped bluespace background, passive decay and safety warnings.</summary>
+/// <summary>Управляет фоном блюспейса на станции, его затуханием и предупреждениями.</summary>
 public sealed partial class OrbitraBluespaceBackgroundSystem : EntitySystem
 {
     [Dependency] private StationSystem _station = default!;
@@ -25,7 +25,7 @@ public sealed partial class OrbitraBluespaceBackgroundSystem : EntitySystem
         UpdatesBefore.Add(typeof(OrbitraBluespaceResearchSystem));
     }
 
-    /// <summary>Finds the owning station; unowned devices never share a fallback background.</summary>
+    /// <summary>Находит станцию устройства. Для устройств без станции общий фон не создаётся.</summary>
     public bool TryGetScope(EntityUid device, out EntityUid scope)
     {
         scope = default;
@@ -40,7 +40,7 @@ public sealed partial class OrbitraBluespaceBackgroundSystem : EntitySystem
         return true;
     }
 
-    /// <summary>Reads the current finite background without creating or changing station state.</summary>
+    /// <summary>Читает допустимый текущий фон без создания или изменения состояния станции.</summary>
     public float GetLevel(EntityUid device)
     {
         return TryGetScope(device, out var scope) && _backgroundQuery.TryComp(scope, out var background)
@@ -48,7 +48,7 @@ public sealed partial class OrbitraBluespaceBackgroundSystem : EntitySystem
             : 0f;
     }
 
-    /// <summary>Checks the station safety latch, including its configured recovery hysteresis.</summary>
+    /// <summary>Проверяет блокировку станции с учётом настроенного порога восстановления.</summary>
     public bool IsCritical(EntityUid device)
     {
         if (!TryGetScope(device, out var scope) || !_backgroundQuery.TryComp(scope, out var background))
@@ -58,14 +58,14 @@ public sealed partial class OrbitraBluespaceBackgroundSystem : EntitySystem
                FiniteLevel(background.Level, 0f) >= FiniteLevel(background.CriticalThreshold, 95f);
     }
 
-    /// <summary>Checks the station's shared hostile incursion and security escalation threshold.</summary>
+    /// <summary>Проверяет общий порог вторжения и повышения кода безопасности.</summary>
     public bool HasIncursionRisk(EntityUid device)
     {
         return TryGetScope(device, out var scope) && _backgroundQuery.TryComp(scope, out var background) &&
                FiniteLevel(background.Level, 0f) >= FiniteLevel(background.IncursionThreshold, 70f);
     }
 
-    /// <summary>Checks the threshold for larger hostile waves and native anomalies.</summary>
+    /// <summary>Проверяет порог более крупных вторжений и штатных аномалий.</summary>
     public bool HasAnomalyRisk(EntityUid device)
     {
         return TryGetScope(device, out var scope) && _backgroundQuery.TryComp(scope, out var background) &&
@@ -73,7 +73,7 @@ public sealed partial class OrbitraBluespaceBackgroundSystem : EntitySystem
                    FiniteLevel(background.DangerThreshold, 85f));
     }
 
-    /// <summary>Adjusts an unpaused station's background, rejecting nonfinite input and missing ownership.</summary>
+    /// <summary>Меняет фон станции вне паузы, проверяя принадлежность устройства и конечность значения.</summary>
     public bool TryAdjustLevel(EntityUid device, float delta)
     {
         if (!CanAdjustLevel(device, delta) || !TryGetScope(device, out var scope))
@@ -84,7 +84,7 @@ public sealed partial class OrbitraBluespaceBackgroundSystem : EntitySystem
         return true;
     }
 
-    /// <summary>Checks whether a finite background adjustment can affect an active station.</summary>
+    /// <summary>Проверяет возможность изменить фон активной станции на конечную величину.</summary>
     public bool CanAdjustLevel(EntityUid device, float delta)
     {
         return float.IsFinite(delta) && TryGetScope(device, out var scope) &&

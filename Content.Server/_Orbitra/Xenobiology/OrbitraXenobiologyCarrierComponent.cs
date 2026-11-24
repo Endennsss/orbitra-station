@@ -3,19 +3,19 @@
 
 namespace Content.Server._Orbitra.Xenobiology;
 
-/// <summary>Safely contains laboratory slimes without making living mobs into items.</summary>
+/// <summary>Хранит лабораторных слизней живыми сущностями в контейнере.</summary>
 [RegisterComponent]
 public sealed partial class OrbitraXenobiologyCarrierComponent : Component
 {
-    /// <summary>Container used for specimens.</summary>
+    /// <summary>Контейнер для образцов.</summary>
     [DataField]
     public string Container = "xeno_carrier";
 
-    /// <summary>Maximum carried specimens.</summary>
+    /// <summary>Лимит переносимых образцов.</summary>
     [DataField]
     public int Capacity = 1;
 
-    /// <summary>Time needed to capture one reachable specimen.</summary>
+    /// <summary>Время захвата одного доступного образца.</summary>
     [DataField]
     public TimeSpan CaptureDelay = TimeSpan.FromSeconds(2);
 }

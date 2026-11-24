@@ -21,7 +21,7 @@ using Robust.Shared.Audio;
 namespace Content.Server._Orbitra.StationEvents;
 
 /// <summary>
-/// Controls a round-wide communications outage without changing persistent server settings.
+/// Управляет потерей связи в раунде без записи постоянных настроек сервера.
 /// </summary>
 public sealed partial class OrbitraAbandonedStationRuleSystem : StationEventSystem<OrbitraAbandonedStationRuleComponent>
 {
@@ -38,7 +38,7 @@ public sealed partial class OrbitraAbandonedStationRuleSystem : StationEventSyst
     private EntityUid? _acceptedRule;
 
     /// <summary>
-    /// Whether purchases, external faxes, arrivals and ordinary evacuation are suspended.
+    /// Приостановлены ли закупки, внешние факсы, прибытие и обычная эвакуация.
     /// </summary>
     public bool IsIsolationActive => GameTicker.RunLevel == GameRunLevel.InRound &&
         TryComp<OrbitraAbandonedStationRuleComponent>(_acceptedRule, out var rule) &&
@@ -77,7 +77,7 @@ public sealed partial class OrbitraAbandonedStationRuleSystem : StationEventSyst
     }
 
     /// <summary>
-    /// Checks the round age, occurrence limit and evacuation status before accepting an outage.
+    /// Проверяет время раунда, лимит событий и состояние эвакуации до запуска изоляции.
     /// </summary>
     public bool CanBegin(Entity<OrbitraAbandonedStationRuleComponent> ent, out LocId reason)
     {
@@ -96,7 +96,7 @@ public sealed partial class OrbitraAbandonedStationRuleSystem : StationEventSyst
     }
 
     /// <summary>
-    /// Accepts the event and begins its warning period exactly once per round.
+    /// Принимает событие и начинает предупреждение один раз за раунд.
     /// </summary>
     public bool TryBegin(Entity<OrbitraAbandonedStationRuleComponent> ent)
     {
@@ -224,7 +224,7 @@ public sealed partial class OrbitraAbandonedStationRuleSystem : StationEventSyst
     }
 
     /// <summary>
-    /// Reports an unavailable service to the acting player, without spending resources.
+    /// Сообщает игроку о недоступности службы без расходования ресурсов.
     /// </summary>
     public bool CanUseService(EntityUid? user = null)
     {
@@ -236,7 +236,7 @@ public sealed partial class OrbitraAbandonedStationRuleSystem : StationEventSyst
     }
 
     /// <summary>
-    /// Gets the main station containing a fax, excluding remote grids owned by that station.
+    /// Находит основную станцию факса, исключая удалённые гриды той же станции.
     /// </summary>
     private EntityUid? GetLocalStation(EntityUid uid)
     {
@@ -254,8 +254,7 @@ public sealed partial class OrbitraAbandonedStationRuleSystem : StationEventSyst
     }
 
     /// <summary>
-    /// During isolation, fax traffic must remain within the same main station.
-    /// Unknown senders, including direct external administrative deliveries, are rejected.
+    /// При изоляции факсы разрешены только внутри основной станции. Отправителя, включая внешний административный факс, необходимо опознать.
     /// </summary>
     public bool CanFax(EntityUid endpoint, DeviceAddress? otherAddress)
     {

@@ -7,7 +7,7 @@ using static Content.Client.Stylesheets.StylesheetHelpers;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Explicitly scoped department accents for the ghost teleport menu.</summary>
+/// <summary>Цветовые акценты отделов в меню телепортации призрака.</summary>
 [CommonSheetlet]
 public sealed class OrbitraGhostSheetlet : Sheetlet<PalettedStylesheet>
 {

@@ -2,7 +2,7 @@ using System.Linq;
 
 namespace Content.Client._Orbitra.Lobby;
 
-/// <summary>Pure navigation and responsive layout rules shared by the lobby and tests.</summary>
+/// <summary>Правила навигации и адаптивной раскладки лобби, доступные тестам.</summary>
 public static class OrbitraLobbyPolicy
 {
     public static int? NextSlot(IEnumerable<int> slots, int selected, int step)

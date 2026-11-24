@@ -5,7 +5,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Wraps actions in explicitly styled AHelp windows without replacing their controls.</summary>
+/// <summary>Переносит действия в окне обращения к администрации с сохранением их контролов.</summary>
 internal static class OrbitraHelpLayout
 {
     public static void Attach(BwoinkControl control)

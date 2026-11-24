@@ -7,91 +7,91 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared._Orbitra.Xenobiology;
 
-/// <summary>Heritable traits and lifecycle state of a laboratory slime.</summary>
+/// <summary>Наследуемые признаки и стадия развития лабораторного слизня.</summary>
 [RegisterComponent]
 public sealed partial class OrbitraXenobiologySlimeComponent : Component
 {
-    /// <summary>Lineage governing mutation choices, maturation and extraction.</summary>
+    /// <summary>Порода, определяющая варианты мутаций, рост и извлечение экстрактов.</summary>
     [DataField]
     public ProtoId<OrbitraXenobiologyBreedPrototype> Breed = "OrbitraGrey";
 
-    /// <summary>Whether this specimen has reached adulthood.</summary>
+    /// <summary>Достиг ли образец зрелости.</summary>
     [DataField]
     public bool Adult;
 
-    /// <summary>Accumulated growth time while fed and at a suitable temperature.</summary>
+    /// <summary>Накопленное время роста при достаточном питании и подходящей температуре.</summary>
     [ViewVariables]
     public float Growth;
 
-    /// <summary>Food actually swallowed, available for maturation or division.</summary>
+    /// <summary>Поглощённая пища, доступная для роста или деления.</summary>
     [DataField]
     public float Biomass;
 
-    /// <summary>Number of divisions separating this specimen from a starter culture.</summary>
+    /// <summary>Количество делений от исходной культуры до этого образца.</summary>
     [DataField]
     public int Generation;
 
-    /// <summary>Inherited chance of a child changing lineage, before diet and temperature modifiers.</summary>
+    /// <summary>Наследуемая вероятность смены породы потомком до учёта питания и температуры.</summary>
     [DataField]
     public float MutationChance = 0.25f;
 
-    /// <summary>Number of juveniles created by a division.</summary>
+    /// <summary>Количество детёнышей при делении.</summary>
     [DataField]
     public int Offspring = 2;
 
-    /// <summary>Number of extracts obtained from this adult's corpse.</summary>
+    /// <summary>Количество экстрактов из трупа этого взрослого.</summary>
     [DataField]
     public int ExtractYield = 1;
 
-    /// <summary>Inherited multiplier for maturation speed.</summary>
+    /// <summary>Наследуемый множитель скорости взросления.</summary>
     [DataField]
     public float GrowthRate = 1f;
 
-    /// <summary>Inherited resistance to starvation aggression; at one the specimen remains tame.</summary>
+    /// <summary>Наследуемая устойчивость к агрессии от голода. При значении 1 слизень остаётся ручным.</summary>
     [DataField]
     public float Docility;
 
-    /// <summary>Inherited widening of the comfortable temperature range, in kelvin.</summary>
+    /// <summary>Наследуемое расширение диапазона комфортной температуры в кельвинах.</summary>
     [DataField]
     public float ThermalTolerance;
 
-    /// <summary>One-time guard shared by division and corpse extraction.</summary>
+    /// <summary>Общий одноразовый флаг деления и извлечения из трупа.</summary>
     [ViewVariables]
     public bool Consumed;
 
-    /// <summary>Whether development and NPC behavior are suspended inside a container.</summary>
+    /// <summary>Приостановлены ли развитие и поведение NPC в контейнере.</summary>
     [ViewVariables]
     public bool Suspended;
 
-    /// <summary>Whether starvation has switched the specimen to the hungry faction.</summary>
+    /// <summary>Перевёл ли голод образец во враждебную фракцию.</summary>
     [ViewVariables]
     public bool Hostile;
 
-    /// <summary>Remaining time in which a recently swallowed meal suppresses starvation aggression.</summary>
+    /// <summary>Оставшееся время, пока недавняя еда подавляет агрессию от голода.</summary>
     [ViewVariables]
     public float FeedingGrace;
 
-    /// <summary>Protein swallowed during this specimen's lifetime.</summary>
+    /// <summary>Белок, съеденный образцом за всю жизнь.</summary>
     [ViewVariables]
     public float ProteinIntake;
 
-    /// <summary>Plant nutrient swallowed during this specimen's lifetime.</summary>
+    /// <summary>Растительные питательные вещества, съеденные образцом за всю жизнь.</summary>
     [ViewVariables]
     public float NutrimentIntake;
 
-    /// <summary>Time exposed to cool conditions, used to bias mutation choices.</summary>
+    /// <summary>Время в прохладных условиях, влияющее на выбор мутации.</summary>
     [ViewVariables]
     public float ColdExposure;
 
-    /// <summary>Time exposed to warm conditions, used to bias mutation choices.</summary>
+    /// <summary>Время в тёплых условиях, влияющее на выбор мутации.</summary>
     [ViewVariables]
     public float WarmExposure;
 
-    /// <summary>Whether containment temporarily stopped an enabled HTN.</summary>
+    /// <summary>Приостановил ли контейнер выполнявшееся поведение HTN.</summary>
     [ViewVariables]
     public bool ResumeHtn;
 }
 
-/// <summary>Completes manual division after the handler remains next to the specimen.</summary>
+/// <summary>Завершает ручное деление, когда игрок остаётся рядом с образцом.</summary>
 [Serializable, NetSerializable]
 public sealed partial class OrbitraXenobiologyDivideDoAfterEvent : SimpleDoAfterEvent;

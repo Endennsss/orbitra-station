@@ -8,7 +8,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._Orbitra.ThermalVision;
 
-/// <summary>GPU-only exposure history; stores a single gain, never a delayed world image.</summary>
+/// <summary>История экспозиции на видеокарте, хранящая только коэффициент усиления.</summary>
 internal sealed class OrbitraThermalExposure : IDisposable
 {
     private static readonly ProtoId<ShaderPrototype> ExposureShader = "OrbitraThermalExposure";

@@ -5,7 +5,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Orbitra.Research.Bluespace;
 
-/// <summary>One weighted, bounded batch of harvester products in an operator-selectable category.</summary>
+/// <summary>Одна партия наград с весом выпадения в выбираемой категории.</summary>
 [Prototype]
 public sealed partial class OrbitraBluespaceHarvesterLootPrototype : IPrototype
 {
@@ -13,19 +13,19 @@ public sealed partial class OrbitraBluespaceHarvesterLootPrototype : IPrototype
     [IdDataField]
     public string ID { get; private set; } = default!;
 
-    /// <summary>Fork metadata identifying this loot table.</summary>
+    /// <summary>Метаданные форка для таблицы наград.</summary>
     [DataField]
     public string Suffix = "Orbitra";
 
-    /// <summary>Operator-selectable category containing this batch.</summary>
+    /// <summary>Категория партии, которую может выбрать оператор.</summary>
     [DataField(required: true)]
     public OrbitraBluespaceLootCategory Category;
 
-    /// <summary>Relative probability among valid batches of the same category.</summary>
+    /// <summary>Относительный вес среди допустимых партий той же категории.</summary>
     [DataField]
     public float Weight = 1f;
 
-    /// <summary>Entity prototype and unit quantity, split into native stacks; batches allow at most 300 units and sixteen entities.</summary>
+    /// <summary>Прототип и число единиц с разбиением на штатные стопки. До 300 единиц и 16 сущностей на партию.</summary>
     [DataField(required: true)]
     public Dictionary<EntProtoId, int> Products = new();
 }

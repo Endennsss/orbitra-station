@@ -1,6 +1,6 @@
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Durations in seconds for common UI interactions, independent of screen choreography.</summary>
+/// <summary>Длительности общих действий интерфейса в секундах.</summary>
 internal static class OrbitraMotionPresets
 {
     internal const float WindowOpen = 0.18f;

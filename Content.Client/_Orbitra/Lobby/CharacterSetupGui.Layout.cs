@@ -10,7 +10,7 @@ public sealed partial class CharacterSetupGui
     private Content.Client._Orbitra.UserInterface.OrbitraVisibility _orbitraToolsMotion = default!;
     public event Action? OrbitraExitRequested;
 
-    /// <summary>Closes a local menu first, otherwise requests the normal guarded editor exit.</summary>
+    /// <summary>Закрывает локальное меню или запускает штатный выход из редактора с проверками.</summary>
     public void HandleOrbitraEscape()
     {
         if (OrbitraCharacterPanel.Visible || OrbitraToolsPanel.Visible)

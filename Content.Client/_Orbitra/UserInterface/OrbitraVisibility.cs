@@ -4,7 +4,7 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Reversible visibility for existing panels without replacing or measuring their contents.</summary>
+/// <summary>Обратимое скрытие существующих панелей с сохранением содержимого и размеров.</summary>
 internal sealed class OrbitraVisibility(Control target)
 {
     private readonly OrbitraInputBlock _input = new();

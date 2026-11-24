@@ -5,7 +5,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Vertical, screen-bounded presentation of the existing channel selector.</summary>
+/// <summary>Вертикальный список штатных каналов с ограничением по высоте экрана.</summary>
 internal static class OrbitraChannelPopup
 {
     internal static UIBox2 Place(ChannelSelectorButton owner)

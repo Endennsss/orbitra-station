@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Compact neutral close icon for entry-flow windows.</summary>
+/// <summary>Компактная нейтральная иконка закрытия для окон меню.</summary>
 internal sealed class OrbitraWindowCloseButton : OrbitraButton
 {
     public OrbitraWindowCloseButton()

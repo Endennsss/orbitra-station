@@ -6,7 +6,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Non-measuring keyboard focus outline for explicitly styled controls.</summary>
+/// <summary>Контур фокуса для явно оформленных контролов, не влияющий на размеры.</summary>
 internal sealed class OrbitraFocusRing : Control
 {
     internal static void Attach(Control owner)

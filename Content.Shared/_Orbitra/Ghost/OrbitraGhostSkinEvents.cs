@@ -6,7 +6,7 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared._Orbitra.Ghost;
 
-/// <summary>Requests a predefined skin for the sender's currently attached ghost.</summary>
+/// <summary>Запрашивает заданный облик для текущего призрака отправителя.</summary>
 [Serializable, NetSerializable]
 public sealed class OrbitraSelectGhostSkinEvent(ProtoId<OrbitraGhostSkinPrototype> skin) : EntityEventArgs
 {

@@ -5,10 +5,10 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Common window lifecycle shared by default themes and specialized layouts.</summary>
+/// <summary>Общий жизненный цикл окон со штатной темой и специальной раскладкой.</summary>
 internal static class OrbitraEntryWindow
 {
-    /// <summary>Delays only user-requested closure; native Close and Dispose remain immediate.</summary>
+    /// <summary>Анимирует закрытие, запрошенное игроком. Штатные Close и Dispose работают сразу.</summary>
     internal static void RequestClose(BaseWindow window)
     {
         foreach (var child in window.Children)
@@ -153,7 +153,7 @@ internal static class OrbitraEntryWindow
         window.AddChild(lifetime);
     }
 
-    /// <summary>Also releases root subscriptions when a window is disposed without calling Close.</summary>
+    /// <summary>Снимает подписки с корня и при уничтожении окна через Dispose.</summary>
     private sealed class Lifetime(BaseWindow window, Action cleanup) : Control
     {
         private readonly OrbitraInputBlock _input = new();

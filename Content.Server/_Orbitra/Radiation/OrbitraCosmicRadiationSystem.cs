@@ -20,7 +20,7 @@ using Robust.Shared.Map.Components;
 
 namespace Content.Server._Orbitra.Radiation;
 
-/// <summary>Applies background cosmic radiation outside protected interiors.</summary>
+/// <summary>Применяет космический фон за пределами защищённых помещений.</summary>
 public sealed partial class OrbitraCosmicRadiationSystem : EntitySystem
 {
     [Dependency] private IConfigurationManager _cfg = default!;
@@ -44,7 +44,7 @@ public sealed partial class OrbitraCosmicRadiationSystem : EntitySystem
                 ("protection", MathF.Round((1f - ValidTransmission(ent.Comp.Transmission)) * 100f))));
     }
 
-    /// <summary>Returns the unshielded cosmic intensity at the entity, including held instruments.</summary>
+    /// <summary>Возвращает космический фон в точке сущности до учёта защиты, в том числе для приборов.</summary>
     public float GetExposure(EntityUid uid)
     {
         if (Deleted(uid) || Terminating(uid) || IsPaused(uid) || HasComp<GhostComponent>(uid))
@@ -71,7 +71,7 @@ public sealed partial class OrbitraCosmicRadiationSystem : EntitySystem
         return float.IsFinite(intensity) ? Math.Clamp(intensity, 0f, 10f) : 0f;
     }
 
-    /// <summary>Returns transmission through a suit only when worn with a sealed pressure helmet.</summary>
+    /// <summary>Возвращает долю излучения, которую пропускает скафандр с герметичным шлемом.</summary>
     public float GetTransmission(EntityUid uid)
     {
         if (!_inventory.TryGetSlotEntity(uid, "outerClothing", out var suit)
@@ -84,7 +84,7 @@ public sealed partial class OrbitraCosmicRadiationSystem : EntitySystem
         return ValidTransmission(protection.Transmission);
     }
 
-    /// <summary>Validates exposure without changing health, equipment, or the world.</summary>
+    /// <summary>Проверяет условия облучения без изменения здоровья и экипировки.</summary>
     public bool CanApplyExposure(EntityUid uid, float duration, out float intensity)
     {
         intensity = 0f;
@@ -94,7 +94,7 @@ public sealed partial class OrbitraCosmicRadiationSystem : EntitySystem
         return intensity > 0f;
     }
 
-    /// <summary>Applies cosmic damage once and returns ambient intensity for the existing Geiger counters.</summary>
+    /// <summary>Наносит космический урон один раз и возвращает фоновое значение для штатных дозиметров.</summary>
     public float ApplyExposure(EntityUid uid, float duration)
     {
         if (!CanApplyExposure(uid, duration, out var intensity))

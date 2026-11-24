@@ -3,7 +3,7 @@ using Robust.Client.UserInterface;
 
 namespace Content.Client._Orbitra.Lobby;
 
-/// <summary>Reserves a full-screen footer independently of the centered lobby body.</summary>
+/// <summary>Выделяет место нижней панели на всю ширину экрана независимо от содержимого лобби.</summary>
 public sealed class OrbitraLobbyFrame : Control
 {
     protected override Vector2 MeasureOverride(Vector2 availableSize)

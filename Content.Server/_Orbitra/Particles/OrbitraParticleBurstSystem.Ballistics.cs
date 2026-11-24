@@ -11,7 +11,7 @@ namespace Content.Server._Orbitra.Particles;
 
 public sealed partial class OrbitraParticleBurstSystem
 {
-    /// <summary>Captures coordinates before damage can destroy the target.</summary>
+    /// <summary>Сохраняет координаты до возможного уничтожения цели уроном.</summary>
     public BulletImpact? CaptureBulletImpact(EntityUid target, EntityUid projectile, bool ballistic, Vector2? contactPoint = null)
     {
         if (TerminatingOrDeleted(target) || TerminatingOrDeleted(projectile) ||
@@ -45,7 +45,7 @@ public sealed partial class OrbitraParticleBurstSystem
         return new(GetNetEntity(target), point, OrbitraBallistics.Effect(material), direction, null, mark);
     }
 
-    /// <summary>Publishes only impacts which actually caused physical damage.</summary>
+    /// <summary>Передаёт сведения только о попаданиях с подтверждённым физическим уроном.</summary>
     public bool TryBulletImpact(BulletImpact? impact, DamageSpecifier damage)
     {
         if (!CanBulletImpact(impact, damage))

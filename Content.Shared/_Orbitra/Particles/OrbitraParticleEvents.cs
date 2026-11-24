@@ -4,15 +4,15 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared._Orbitra.Particles;
 
-/// <summary>A confirmed melee hit, raised only after damage resolution.</summary>
+/// <summary>Подтверждённое попадание в ближнем бою после расчёта урона.</summary>
 [ByRefEvent]
 public readonly record struct OrbitraParticleMeleeHitEvent(EntityUid User, DamageSpecifier Damage);
 
-/// <summary>Captures electrical state before ordinary breakage handlers disable the machine.</summary>
+/// <summary>Сохраняет электрическое состояние до отключения машины штатной поломкой.</summary>
 [ByRefEvent]
 public readonly record struct OrbitraParticleBeforeBreakEvent;
 
-/// <summary>One transient burst for nearby clients, not one message per particle.</summary>
+/// <summary>Одно событие короткого выброса для ближайших клиентов.</summary>
 [Serializable, NetSerializable]
 public sealed class OrbitraParticleBurstEvent(NetEntity source, NetCoordinates coordinates, string effect, float direction, Color? tint = null, bool impactMark = false) : EntityEventArgs
 {

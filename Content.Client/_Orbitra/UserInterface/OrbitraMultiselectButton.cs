@@ -4,7 +4,7 @@ using Robust.Shared.Input;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Styles the native multiselect popup while retaining native selection and modal behavior.</summary>
+/// <summary>Оформляет штатный список множественного выбора с сохранением выбора и модального ввода.</summary>
 public sealed class OrbitraMultiselectButton<TKey> : MultiselectOptionButton<TKey>, IOrbitraKeyboardButton where TKey : notnull
 {
     private Popup? _popup;

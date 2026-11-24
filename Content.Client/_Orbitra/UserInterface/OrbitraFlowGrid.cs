@@ -3,7 +3,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Flows existing fixed-size entries into as many columns as the viewport permits.</summary>
+/// <summary>Размещает элементы фиксированного размера в доступном числе колонок.</summary>
 public sealed class OrbitraFlowGrid : GridContainer
 {
     protected override Vector2 MeasureOverride(Vector2 availableSize)

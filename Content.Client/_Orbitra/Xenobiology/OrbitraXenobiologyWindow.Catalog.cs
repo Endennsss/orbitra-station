@@ -14,7 +14,7 @@ namespace Content.Client._Orbitra.Xenobiology;
 
 public sealed partial class OrbitraXenobiologyWindow
 {
-    /// <summary>Catalog navigation and recipes are independent of the live specimen refresh.</summary>
+    /// <summary>Каталог и рецепты обновляются независимо от живого образца.</summary>
     private readonly Dictionary<string, List<OrbitraXenobiologyReactionPrototype>> _reactions = new();
 
     private void BuildCatalog()
@@ -58,7 +58,7 @@ public sealed partial class OrbitraXenobiologyWindow
         UpdateSummary();
     }
 
-    /// <summary>Opens a lineage, clearing a search that could otherwise conceal a mutation target.</summary>
+    /// <summary>Открывает породу и сбрасывает поиск, чтобы цель мутации была видна.</summary>
     public bool SelectBreed(string id) => SelectBreed(id, true);
 
     private bool SelectBreed(string id, bool showDetails)

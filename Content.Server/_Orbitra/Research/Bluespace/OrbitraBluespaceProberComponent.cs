@@ -3,27 +3,27 @@
 
 namespace Content.Server._Orbitra.Research.Bluespace;
 
-/// <summary>Configures an APC-powered research source which raises its station's bluespace background.</summary>
+/// <summary>Настройки питаемого от ЛКП источника очков исследований, повышающего блюспейс-фон.</summary>
 [RegisterComponent, Access(typeof(OrbitraBluespaceResearchSystem))]
 public sealed partial class OrbitraBluespaceProberComponent : Component
 {
-    /// <summary>Requested operating state; physical and research conditions are checked separately.</summary>
+    /// <summary>Запрошенный режим работы. Физические условия и доступ исследований проверяются отдельно.</summary>
     [DataField]
     public bool Enabled;
 
-    /// <summary>Research points generated per active second before background and population modifiers.</summary>
+    /// <summary>Очки исследований за секунду работы до учёта фона и населения.</summary>
     [DataField]
     public float PointsPerSecond = 5f;
 
-    /// <summary>Station background added per active second.</summary>
+    /// <summary>Прирост фона станции за секунду работы.</summary>
     [DataField]
     public float BackgroundPerSecond = 0.04f;
 
-    /// <summary>Divides each prober's output by the active station prober count raised to this power.</summary>
+    /// <summary>Степень, в которую возводится число активных зондов при делении выработки каждого из них.</summary>
     [DataField]
     public float DiminishingExponent = 0.5f;
 
-    /// <summary>Additional output multiplier at one hundred background.</summary>
+    /// <summary>Дополнительный множитель выработки при фоне 100.</summary>
     [DataField]
     public float BackgroundPointMultiplier = 1f;
 

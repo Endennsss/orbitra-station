@@ -1,4 +1,5 @@
 import json
+import subprocess
 import unittest
 from pathlib import Path
 
@@ -73,7 +74,16 @@ class PrPolicyTest(unittest.TestCase):
             gate = workflow['jobs']['ci-success']
             self.assertEqual('always()', gate['if'])
             self.assertEqual('${{ needs.build.result }}', gate['steps'][0]['env']['BUILD_RESULT'])
-            self.assertEqual('test "$BUILD_RESULT" = success', gate['steps'][0]['run'])
+            command = gate['steps'][0]['run']
+            self.assertNotEqual(0, subprocess.run(['bash', '-c', command],
+                                                env={'BUILD_RESULT': 'failure', 'TEST_RESULT': 'success'}).returncode)
+            if path == 'build-test-debug.yml':
+                self.assertIn('linux-tests', gate['needs'])
+                self.assertEqual('${{ needs.linux-tests.result }}', gate['steps'][0]['env']['TEST_RESULT'])
+                self.assertNotEqual(0, subprocess.run(['bash', '-c', command],
+                                                    env={'BUILD_RESULT': 'success', 'TEST_RESULT': 'failure'}).returncode)
+            self.assertEqual(0, subprocess.run(['bash', '-c', command],
+                                              env={'BUILD_RESULT': 'success', 'TEST_RESULT': 'success'}).returncode)
             names.append(gate['name'])
         self.assertEqual(len(names), len(set(names)))
 

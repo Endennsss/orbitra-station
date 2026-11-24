@@ -13,7 +13,7 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Entry-UI transitions, owned by the UI root rather than a static collection of windows.</summary>
+/// <summary>Анимации входа, принадлежащие корню интерфейса, с жизненным циклом вместе с ним.</summary>
 internal sealed partial class OrbitraMotion : Control
 {
     internal const float ScreenDuration = 0.24f;
@@ -141,7 +141,7 @@ internal sealed partial class OrbitraMotion : Control
         return result;
     }
 
-    /// <summary>Attaches a reveal to actual visibility changes, never to data refreshes.</summary>
+    /// <summary>Запускает появление при смене видимости, без повторной анимации на обновлении данных.</summary>
     internal static void AttachReveal(Control target, float duration)
     {
         if (target.HasStyleClass("OrbitraMotionAttached"))
@@ -159,7 +159,7 @@ internal sealed partial class OrbitraMotion : Control
             transition.Reveal(duration);
     }
 
-    /// <summary>Animates only selected tab content, not tab headers or virtualized rows.</summary>
+    /// <summary>Анимирует содержимое выбранной вкладки без анимации заголовков и виртуальных строк.</summary>
     internal static void AttachTabs(TabContainer tabs)
     {
         if (tabs.HasStyleClass("OrbitraTabsAttached"))
@@ -258,7 +258,7 @@ internal sealed partial class OrbitraMotion : Control
         }
     }
 
-    /// <summary>Briefly emphasizes an existing status without changing its text or geometry.</summary>
+    /// <summary>Кратко выделяет статус без изменения текста и размеров.</summary>
     internal static void Pulse(Control target)
     {
         if (target.VisibleInTree)
@@ -268,7 +268,7 @@ internal sealed partial class OrbitraMotion : Control
         }
     }
 
-    /// <summary>Opt-in color transitions for existing buttons; native input remains unchanged.</summary>
+    /// <summary>Дополнительные цветовые переходы штатных кнопок с сохранением обработки ввода.</summary>
     internal static void AttachButton(ContainerButton button)
     {
         if (button.HasStyleClass("OrbitraSurfaceAttached"))
@@ -327,7 +327,7 @@ internal sealed partial class OrbitraMotion : Control
         Presented();
     }
 
-    /// <summary>Records a rendered UI frame separately from layout and simulation time.</summary>
+    /// <summary>Записывает отрисованный кадр интерфейса отдельно от времени раскладки и симуляции.</summary>
     internal void Presented()
     {
         foreach (var transition in _active)

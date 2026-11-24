@@ -8,7 +8,7 @@ using Robust.Client.UserInterface.CustomControls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Content-side adapter for the standard engine window frame.</summary>
+/// <summary>Адаптер штатной рамки окна движка.</summary>
 internal static class OrbitraDefaultWindowChrome
 {
     internal static void Apply(DefaultWindow window)

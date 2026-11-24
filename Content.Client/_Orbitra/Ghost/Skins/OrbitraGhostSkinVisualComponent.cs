@@ -6,19 +6,19 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client._Orbitra.Ghost.Skins;
 
-/// <summary>Client-only restoration data for a cosmetic ghost sprite replacement.</summary>
+/// <summary>Клиентские данные для восстановления спрайта после смены облика призрака.</summary>
 [RegisterComponent]
 public sealed partial class OrbitraGhostSkinVisualComponent : Component
 {
-    /// <summary>The native sprite tint captured before replacement.</summary>
+    /// <summary>Исходный оттенок спрайта до замены.</summary>
     public Color OriginalColor;
 
-    /// <summary>The native ghost layer visibility captured before replacement.</summary>
+    /// <summary>Исходная видимость слоя призрака до замены.</summary>
     public bool OriginalVisible;
 
-    /// <summary>Whether a replacement currently owns the native layer visibility and global tint.</summary>
+    /// <summary>Управляет ли заменяющий облик видимостью слоя и общим оттенком.</summary>
     public bool Replacing;
 
-    /// <summary>The replacement whose layer data was last applied.</summary>
+    /// <summary>Облик, параметры которого последними применены к слою.</summary>
     public ProtoId<OrbitraGhostSkinPrototype>? AppliedSkin;
 }

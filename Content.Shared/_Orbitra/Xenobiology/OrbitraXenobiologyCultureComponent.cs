@@ -5,18 +5,18 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Orbitra.Xenobiology;
 
-/// <summary>A dormant culture that becomes a juvenile slime when hydrated outside a container.</summary>
+/// <summary>Спящая культура, которая при насыщении водой вне контейнера превращается в детёныша.</summary>
 [RegisterComponent]
 public sealed partial class OrbitraXenobiologyCultureComponent : Component
 {
-    /// <summary>The breed to hatch.</summary>
+    /// <summary>Порода будущего слизня.</summary>
     [DataField(required: true)]
     public ProtoId<OrbitraXenobiologyBreedPrototype> Breed;
 
-    /// <summary>The solution accepting hydration water.</summary>
+    /// <summary>Раствор, принимающий воду для гидратации.</summary>
     [DataField]
     public string Solution = "culture";
 
-    /// <summary>Whether this culture has already hatched.</summary>
+    /// <summary>Признак завершённого выращивания культуры.</summary>
     public bool Used;
 }

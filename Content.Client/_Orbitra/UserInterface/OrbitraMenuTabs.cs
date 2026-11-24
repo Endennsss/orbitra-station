@@ -4,7 +4,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Scrollable navigation for existing tabs; pages and their handlers remain unchanged.</summary>
+/// <summary>Прокручиваемая навигация по существующим вкладкам с сохранением страниц и обработчиков.</summary>
 internal sealed class OrbitraMenuTabs : BoxContainer
 {
     private readonly TabContainer _tabs;

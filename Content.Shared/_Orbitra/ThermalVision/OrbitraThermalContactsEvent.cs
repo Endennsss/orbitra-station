@@ -3,18 +3,19 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared._Orbitra.ThermalVision;
 
-/// <summary>Server-authorized sprite reference. Does not force the target into the client's PVS.</summary>
+/// <summary>Ссылка на разрешённую сервером цель, которая не расширяет PVS клиента.</summary>
 [Serializable, NetSerializable]
 public readonly record struct OrbitraThermalContact(NetEntity Target);
 
-/// <summary>Full replacement of thermal contacts, sent only to the authorized wearer's session.</summary>
+/// <summary>Список тепловых целей или продление его срока для сессии владельца очков.</summary>
 [Serializable, NetSerializable]
 public sealed class OrbitraThermalContactsEvent(NetEntity device, NetEntity wearer, MapId map,
-    OrbitraThermalContact[] contacts, bool active) : EntityEventArgs
+    OrbitraThermalContact[] contacts, bool active, bool keepAlive = false) : EntityEventArgs
 {
     public readonly NetEntity Device = device;
     public readonly NetEntity Wearer = wearer;
     public readonly MapId Map = map;
     public readonly OrbitraThermalContact[] Contacts = contacts;
     public readonly bool Active = active;
+    public readonly bool KeepAlive = keepAlive;
 }

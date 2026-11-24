@@ -4,7 +4,7 @@ using Robust.Client.UserInterface;
 
 namespace Content.Client._Orbitra.Lobby;
 
-/// <summary>A decorative screen-space grounding shadow, unrelated to world lighting.</summary>
+/// <summary>Декоративная тень в координатах экрана, независимая от освещения карты.</summary>
 public sealed class OrbitraLobbyShadow : Control
 {
     private readonly Vector2[] _points = new Vector2[34];

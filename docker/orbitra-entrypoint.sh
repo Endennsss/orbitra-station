@@ -3,24 +3,7 @@ set -euo pipefail
 
 cd /home/container
 
-image_version="$(cat /opt/orbitra/.orbitra-image-version 2>/dev/null || printf '%s' unknown)"
-installed_version="$(cat .orbitra-image-version 2>/dev/null || printf '%s' missing)"
-
-# Обновляем только файлы production-пакета. Конфиг и данные сервера живут в
-# каталоге Pelican и намеренно не заменяются новым образом.
-if [[ ! -x ./Robust.Server || "$image_version" != "$installed_version" ]]; then
-    rsync -a \
-        --exclude='config.toml' \
-        --exclude='data/' \
-        --exclude='logs/' \
-        --exclude='saves/' \
-        --exclude='/Resources/Prototypes/' \
-        /opt/orbitra/ /home/container/
-
-    # Удаляем устаревшие прототипы, которые были перенесены или удалены в новом образе.
-    mkdir -p /home/container/Resources/Prototypes
-    rsync -a --delete /opt/orbitra/Resources/Prototypes/ /home/container/Resources/Prototypes/
-fi
+image_version="$(cat /opt/orbitra/.orbitra-image-version)"
 
 if [[ ! -f config.toml ]]; then
     cp /opt/orbitra/config.template.toml config.toml
@@ -33,8 +16,6 @@ if [[ ! "$port" =~ ^[1-9][0-9]{0,4}$ ]] || (( port > 65535 )); then
     exit 1
 fi
 
-printf '%s\n' "$image_version" > .orbitra-image-version
-
 discord_url="${DISCORD_URL:-}"
 if [[ -n "$discord_url" && ! "$discord_url" =~ ^https://(discord\.gg|discord\.com)/ ]]; then
     echo "Invalid DISCORD_URL: expected an https://discord.gg or https://discord.com URL" >&2
@@ -43,7 +24,9 @@ fi
 
 echo "Orbitra image: ${image_version}"
 echo "Orbitra port: ${SERVER_PORT:-1212}"
-exec ./Robust.Server --config-file config.toml --data-dir data \
+mkdir -p logs
+# Движок ищет ресурсы и архив клиента рядом с исполняемым файлом.
+exec /opt/orbitra/Robust.Server --config-file config.toml --data-dir data \
     --cvar "net.port=$port" \
     --cvar "game.hostname=${SERVER_NAME:-Orbitra Station}" \
     --cvar "game.desc=${SERVER_DESC:-Русскоязычный сервер Orbitra Station}" \

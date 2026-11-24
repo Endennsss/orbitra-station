@@ -7,7 +7,7 @@ namespace Content.Client.UserInterface.Controls;
 
 public partial class FancyWindow
 {
-    /// <summary>Applies the shared Orbitra frame to a content-owned window.</summary>
+    /// <summary>Применяет общую рамку Orbitra к игровому окну.</summary>
     internal void ApplyOrbitraChrome()
     {
         if (HasStyleClass("OrbitraWindowChrome"))

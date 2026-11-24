@@ -3,36 +3,36 @@
 
 namespace Content.Server._Orbitra.Research.Bluespace;
 
-/// <summary>Stores the shared bluespace background and safety hysteresis on a station entity.</summary>
+/// <summary>Хранит общий блюспейс-фон и пороги блокировки на сущности станции.</summary>
 [RegisterComponent]
 [Access(typeof(OrbitraBluespaceBackgroundSystem), typeof(OrbitraBluespaceResearchSystem))]
 public sealed partial class OrbitraBluespaceBackgroundComponent : Component
 {
-    /// <summary>Background removed per unpaused second without machinery.</summary>
+    /// <summary>Сколько фона исчезает за секунду без паузы и работы устройств.</summary>
     [DataField]
     public float DecayPerSecond = 0.03f;
 
-    /// <summary>First station warning threshold, in the range zero to one hundred.</summary>
+    /// <summary>Первый порог предупреждения станции по шкале от 0 до 100.</summary>
     [DataField]
     public float WarningThreshold = 60f;
 
-    /// <summary>Shared threshold for hostile incursions and automatic Blue alert.</summary>
+    /// <summary>Общий порог для вторжений и автоматического синего кода.</summary>
     [DataField]
     public float IncursionThreshold = 70f;
 
-    /// <summary>Severe instability warning threshold.</summary>
+    /// <summary>Порог предупреждения о сильной нестабильности.</summary>
     [DataField]
     public float DangerThreshold = 85f;
 
-    /// <summary>Background at which risky station machinery is scrammed.</summary>
+    /// <summary>Уровень фона, при котором опасные устройства станции блокируются.</summary>
     [DataField]
     public float CriticalThreshold = 95f;
 
-    /// <summary>Background must fall strictly below this level to clear the station scram.</summary>
+    /// <summary>Для разблокировки станции фон должен стать строго ниже этого уровня.</summary>
     [DataField]
     public float RecoveryThreshold = 80f;
 
-    /// <summary>Time before previously announced warning severities can rearm; escalation bypasses this delay.</summary>
+    /// <summary>Задержка повторного предупреждения того же уровня. Усиление опасности предупреждается сразу.</summary>
     [DataField]
     public TimeSpan WarningCooldown = TimeSpan.FromSeconds(60);
 

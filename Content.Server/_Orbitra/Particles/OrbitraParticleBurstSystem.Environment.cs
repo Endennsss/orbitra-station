@@ -14,12 +14,14 @@ public sealed partial class OrbitraParticleBurstSystem
     private readonly Dictionary<EntityUid, TimeSpan> _nextVentParticle = new();
     private TimeSpan _nextVentCleanup;
 
+    /// <summary>Посылает ближайшим клиентам выброс частиц. Направление задано в мировых радианах.</summary>
     public void EmitEnvironment(EntityCoordinates point, string effect, float direction, EntityUid? source = null)
     {
         if (point.IsValid(EntityManager))
             Send(source ?? EntityUid.Invalid, point, effect, direction);
     }
 
+    /// <summary>Суммирует количество газов из списка видимых примесей. Значение выражено в молях.</summary>
     public float VisibleGasMoles(GasMixture? mixture)
     {
         if (mixture == null)
@@ -31,6 +33,7 @@ public sealed partial class OrbitraParticleBurstSystem
         return moles;
     }
 
+    /// <summary>Показывает приток или вытяжку с ограничением частоты на вентиляцию и общего числа источников.</summary>
     public void EmitVentFlow(EntityUid uid, bool intake)
     {
         var now = _timing.CurTime;

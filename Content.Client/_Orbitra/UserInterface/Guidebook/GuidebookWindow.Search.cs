@@ -38,7 +38,7 @@ public sealed partial class GuidebookWindow
             RebuildOrbitraGuideIndex();
     }
 
-    /// <summary>Indexes only actual permitted tree entries; never parses article bodies for searching.</summary>
+    /// <summary>Поиск индексирует разрешённые пункты дерева без разбора текста статей.</summary>
     private void RebuildOrbitraGuideIndex()
     {
         _orbitraIndexCulture = IoCManager.Resolve<ILocalizationManager>().DefaultCulture?.Name;

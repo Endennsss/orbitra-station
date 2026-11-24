@@ -6,7 +6,7 @@ using Robust.Client.UserInterface.CustomControls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Common window appearance, independent of feature-specific layouts.</summary>
+/// <summary>Общее оформление окон, независимое от специальной раскладки.</summary>
 internal static class OrbitraWindowTheme
 {
     internal const string EditorLayoutClass = "OrbitraEditorLayout";

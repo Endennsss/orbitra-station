@@ -14,7 +14,7 @@ using Robust.Shared.Utility;
 
 namespace Content.Client._Orbitra.Xenobiology;
 
-/// <summary>Shared presentation of specimen identity, status, portraits and bounded measurements.</summary>
+/// <summary>Общее отображение личности, состояния, портрета и допустимых измерений образца.</summary>
 internal static class OrbitraXenobiologyPresentation
 {
     public static StyleBoxFlat MeterFill(Color color) => new()

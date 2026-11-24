@@ -2,7 +2,7 @@ namespace Content.Client.Lobby.UI.ProfileEditorControls;
 
 public sealed partial class ProfilePreviewSpriteView
 {
-    /// <summary>Transfers an existing dummy to the transition buffer without respawning its equipment.</summary>
+    /// <summary>Переносит готовый манекен в буфер перехода вместе со снаряжением.</summary>
     internal void TransferOrbitraPreviewTo(ProfilePreviewSpriteView target)
     {
         target.ClearPreview();

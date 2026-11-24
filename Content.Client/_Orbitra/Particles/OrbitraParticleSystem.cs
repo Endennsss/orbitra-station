@@ -15,7 +15,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._Orbitra.Particles;
 
-/// <summary>Simulates cosmetic particles once per frame, independently of viewport rendering.</summary>
+/// <summary>Обновляет декоративные частицы один раз за кадр независимо от числа камер.</summary>
 public sealed partial class OrbitraParticleSystem : EntitySystem
 {
     [Dependency] private IConfigurationManager _configuration = default!;

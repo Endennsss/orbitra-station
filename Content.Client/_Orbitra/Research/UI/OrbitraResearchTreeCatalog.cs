@@ -11,7 +11,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Client._Orbitra.Research.UI;
 
 /// <summary>
-/// Cached, localized presentation data shared by the graph and the details pane.
+/// Локализованные данные представления, общие для графа и панели сведений.
 /// </summary>
 internal sealed class OrbitraResearchTreeCatalog
 {
@@ -87,7 +87,7 @@ internal sealed class OrbitraResearchTreeCatalog
     }
 
     /// <summary>
-    /// Normalizes legacy technology names for the fork's description keys.
+    /// Приводит старые имена технологий к ключам описания Orbitra.
     /// </summary>
     public static string GetDescriptionKey(TechnologyPrototype technology)
     {

@@ -4,7 +4,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.Lobby;
 
-/// <summary>One stable, horizontally scrollable line of journal sections.</summary>
+/// <summary>Строка разделов журнала с горизонтальной прокруткой.</summary>
 public sealed class OrbitraJournalTabs : BoxContainer
 {
     private readonly BoxContainer _items = new() { SeparationOverride = 4 };

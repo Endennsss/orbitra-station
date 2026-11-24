@@ -6,7 +6,7 @@ namespace Content.Client.UserInterface.Systems.Chat.Widgets;
 
 public partial class ChatBox
 {
-    /// <summary>Styles only chat chrome, leaving message formatting and opacity management native.</summary>
+    /// <summary>Оформляет рамку чата, сохраняя штатное форматирование сообщений и управление прозрачностью.</summary>
     private void InitializeOrbitra()
     {
         var column = (BoxContainer) Contents.Parent!;
@@ -41,7 +41,7 @@ public partial class ChatBox
         OrbitraFocusRing.Attach(ChatInput.FilterButton);
     }
 
-    /// <summary>Adds shortcuts only to the explicitly connected separated-chat HUD.</summary>
+    /// <summary>Добавляет быстрые действия только в подключённый HUD с отдельным чатом.</summary>
     public void AddOrbitraQuickEmotes()
     {
         var column = (BoxContainer) ChatInput.Parent!;

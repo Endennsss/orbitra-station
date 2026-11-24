@@ -10,7 +10,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._Orbitra.ThermalVision;
 
-/// <summary>Owns local thermal presentation and rejects stale contacts after equipment or body changes.</summary>
+/// <summary>Управляет тепловой отрисовкой и сбрасывает список целей при смене тела или очков.</summary>
 public sealed partial class OrbitraThermalVisionSystem : EntitySystem
 {
     [Dependency] private IPlayerManager _players = default!;
@@ -44,7 +44,30 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
             if (Contacts?.Device == args.Device) Contacts = null;
             return;
         }
-        if (Contacts?.Device != args.Device) ActivatedAt = _timing.RealTime;
+
+        if (args.KeepAlive)
+        {
+            if (Contacts is { } current && current.Device == args.Device && current.Wearer == args.Wearer &&
+                current.Map == args.Map)
+                _received = _timing.RealTime;
+            return;
+        }
+
+        if (Contacts?.Device != args.Device)
+            ActivatedAt = _timing.RealTime;
+
+        // Сервер разделяет список между владельцами с одинаковыми картой и слоями.
+        for (var i = 0; i < args.Contacts.Length; i++)
+        {
+            if (args.Contacts[i].Target != args.Wearer)
+                continue;
+
+            var filtered = new OrbitraThermalContact[args.Contacts.Length - 1];
+            args.Contacts.AsSpan(0, i).CopyTo(filtered);
+            args.Contacts.AsSpan(i + 1).CopyTo(filtered.AsSpan(i));
+            args = new OrbitraThermalContactsEvent(args.Device, args.Wearer, args.Map, filtered, true);
+            break;
+        }
         Contacts = args;
         _received = _timing.RealTime;
     }
@@ -52,18 +75,17 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
     internal bool IsActive()
     {
         if (Contacts is not { } contacts) return false;
-        if (_timing.RealTime - _received > TimeSpan.FromSeconds(0.35) ||
-            _players.LocalEntity is not { } wearer || GetNetEntity(wearer) != contacts.Wearer ||
+        if (_players.LocalEntity is not { } wearer || GetNetEntity(wearer) != contacts.Wearer ||
             !_inventory.TryGetSlotEntity(wearer, "eyes", out var eyes) || GetNetEntity(eyes.Value) != contacts.Device ||
             !TryComp<OrbitraThermalVisionComponent>(eyes, out var device) || !device.Enabled)
         {
             Contacts = null;
             return false;
         }
-        return true;
+        return _timing.RealTime - _received <= TimeSpan.FromSeconds(0.35);
     }
 
-    /// <summary>Resolves only existing, live PVS sprites at their current interpolated transform.</summary>
+    /// <summary>Возвращает уже доступный клиенту спрайт цели в её текущей интерполированной позиции.</summary>
     internal bool TryGetContactSprite(OrbitraThermalContact contact, out Entity<SpriteComponent> sprite)
     {
         sprite = default;

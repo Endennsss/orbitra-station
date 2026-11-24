@@ -11,7 +11,7 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Shared Orbitra control and window styles layered over the game palettes.</summary>
+/// <summary>Общие стили контролов и окон Orbitra поверх игровых палитр.</summary>
 [CommonSheetlet]
 public sealed class OrbitraLobbySheetlet : Sheetlet<PalettedStylesheet>
 {

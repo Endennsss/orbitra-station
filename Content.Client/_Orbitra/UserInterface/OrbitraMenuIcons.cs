@@ -3,7 +3,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Adds service icons without replacing labels, handlers or gameplay textures.</summary>
+/// <summary>Добавляет служебные иконки, сохраняя подписи, обработчики и игровые текстуры.</summary>
 internal static class OrbitraMenuIcons
 {
     public static void Apply(Control control)

@@ -4,7 +4,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.Lobby;
 
-/// <summary>Compact navigation for the existing organ and marking-layer tabs.</summary>
+/// <summary>Компактная навигация по вкладкам органов и слоёв отметин.</summary>
 internal sealed class OrbitraMarkingNavigation : BoxContainer
 {
     private readonly TabContainer _tabs;

@@ -5,7 +5,7 @@ namespace Content.Client.Administration.UI;
 
 public sealed partial class AdminMenuWindow
 {
-    /// <summary>Reuses the original pages behind a fixed scrollable navigation row.</summary>
+    /// <summary>Сохраняет исходные страницы под закреплённой строкой навигации с прокруткой.</summary>
     private void InitializeOrbitraMenu()
     {
         SetSize = new System.Numerics.Vector2(900, 600);

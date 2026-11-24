@@ -9,7 +9,7 @@ namespace Content.Shared.Research.Systems;
 public abstract partial class SharedResearchSystem
 {
     /// <summary>
-    /// Resolves the configured ceiling for disciplines governed only by explicit technology prerequisites.
+    /// Возвращает настроенный максимум для дисциплин, ограниченных только явными зависимостями технологий.
     /// </summary>
     private static bool TryGetOrbitraUnrestrictedTier(TechDisciplinePrototype discipline, out int tier)
     {

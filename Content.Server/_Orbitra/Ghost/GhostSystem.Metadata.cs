@@ -7,7 +7,7 @@ public sealed partial class GhostSystem
 {
     [Dependency] private SharedRoleSystem _roles = default!;
 
-    /// <summary>Supplies presentation metadata without changing target eligibility or PVS.</summary>
+    /// <summary>Передаёт метаданные для интерфейса с сохранением правил выбора цели и PVS.</summary>
     private GhostWarp CreateOrbitraPlayerWarp(EntityUid target, EntityUid? mind, string displayName)
     {
         _jobs.MindTryGetJob(mind, out var job);

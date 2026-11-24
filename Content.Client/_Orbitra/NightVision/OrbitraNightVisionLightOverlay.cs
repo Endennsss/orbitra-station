@@ -5,7 +5,7 @@ using Robust.Shared.Timing;
 namespace Content.Client._Orbitra.NightVision;
 
 /// <summary>
-/// Reuses the source's lighting lift without requesting a screen copy.
+/// Повторно использует подъём освещённости от источника без копирования экрана.
 /// </summary>
 internal sealed partial class OrbitraNightVisionLightOverlay : Overlay
 {

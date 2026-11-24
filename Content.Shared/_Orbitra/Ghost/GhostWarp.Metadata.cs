@@ -8,15 +8,15 @@ namespace Content.Shared.Ghost.Systems;
 [StructLayout(LayoutKind.Auto)]
 public partial struct GhostWarp
 {
-    /// <summary>Unformatted character name, independent of the localized display label.</summary>
+    /// <summary>Имя персонажа без форматирования, отдельно от локализованной подписи.</summary>
     public string? CharacterName { get; init; }
 
-    /// <summary>Authoritative mind job; clients can resolve its icon and department outside PVS.</summary>
+    /// <summary>Должность из состояния разума для определения иконки и отдела вне клиентского PVS.</summary>
     public ProtoId<JobPrototype>? Job { get; init; }
 
-    /// <summary>Server-resolved antagonist status, sent only in an authorized ghost warp response.</summary>
+    /// <summary>Статус антагониста с сервера только для разрешённого ответа меню телепортации призрака.</summary>
     public bool IsAntagonist { get; init; }
 
-    /// <summary>True when the target is another observer, rather than a living character.</summary>
+    /// <summary>Признак того, что цель является наблюдателем.</summary>
     public bool IsGhost { get; init; }
 }

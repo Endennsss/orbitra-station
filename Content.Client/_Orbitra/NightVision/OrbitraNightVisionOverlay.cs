@@ -10,7 +10,7 @@ using Robust.Shared.Timing;
 namespace Content.Client._Orbitra.NightVision;
 
 /// <summary>
-/// Applies device optics to the world after Bloom and before the engine's FOV mask.
+/// Применяет оптику после свечения и до маски поля зрения движка.
 /// </summary>
 internal sealed partial class OrbitraNightVisionOverlay : Overlay
 {

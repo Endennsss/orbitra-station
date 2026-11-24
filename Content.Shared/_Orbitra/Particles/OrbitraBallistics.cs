@@ -1,6 +1,6 @@
 namespace Content.Shared._Orbitra.Particles;
 
-/// <summary>Shared cosmetic budgets and material selection for ballistic impacts.</summary>
+/// <summary>Общие лимиты частиц и выбор материала при попаданиях пуль.</summary>
 public static class OrbitraBallistics
 {
     public static string Effect(OrbitraParticleMaterial material) => material switch

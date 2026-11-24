@@ -3,7 +3,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.Lobby;
 
-/// <summary>Centers the crew column independently of either side panel.</summary>
+/// <summary>Центрирует колонку экипажа независимо от боковых панелей.</summary>
 public sealed class OrbitraLobbyBody : BoxContainer
 {
     public float SideWidth { get; set; } = 400;

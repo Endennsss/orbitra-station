@@ -48,7 +48,7 @@ public enum OrbitraBluespaceDeviceLayers : byte
     Status,
 }
 
-/// <summary>Reports authoritative operating conditions for a bluespace infrastructure device.</summary>
+/// <summary>Передаёт серверное состояние работы блюспейс-устройства.</summary>
 [Serializable, NetSerializable]
 public sealed class OrbitraBluespaceDeviceBoundUserInterfaceState(
     OrbitraBluespaceDeviceKind kind,
@@ -86,21 +86,21 @@ public sealed class OrbitraBluespaceDeviceBoundUserInterfaceState(
     public readonly float EnergyPerReward = energyPerReward;
 }
 
-/// <summary>Requests an explicit operating state; all machine conditions are checked on the server.</summary>
+/// <summary>Запрашивает режим работы. Условия для машины проверяет сервер.</summary>
 [Serializable, NetSerializable]
 public sealed class OrbitraBluespaceSetEnabledMessage(bool enabled) : BoundUserInterfaceMessage
 {
     public readonly bool Enabled = enabled;
 }
 
-/// <summary>Selects the harvester's bounded power mode.</summary>
+/// <summary>Выбирает допустимый режим мощности харвестера.</summary>
 [Serializable, NetSerializable]
 public sealed class OrbitraBluespaceSetPowerModeMessage(OrbitraBluespacePowerMode mode) : BoundUserInterfaceMessage
 {
     public readonly OrbitraBluespacePowerMode Mode = mode;
 }
 
-/// <summary>Selects a configured harvester reward category.</summary>
+/// <summary>Выбирает настроенную категорию награды харвестера.</summary>
 [Serializable, NetSerializable]
 public sealed class OrbitraBluespaceSetLootCategoryMessage(OrbitraBluespaceLootCategory category) : BoundUserInterfaceMessage
 {

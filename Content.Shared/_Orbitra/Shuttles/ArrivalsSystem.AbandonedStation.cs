@@ -4,7 +4,7 @@ namespace Content.Shared.Shuttles.Systems;
 public abstract partial class ArrivalsSystem
 {
     /// <summary>
-    /// Whether the communications outage blocks arrivals on the server.
+    /// Блокирует ли потеря связи прибытие на сервере.
     /// </summary>
     public virtual bool OrbitraArrivalsSuspended => false;
 }

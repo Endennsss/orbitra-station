@@ -23,7 +23,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._Orbitra.Xenobiology;
 
-/// <summary>Owns safe specimen transport, powered extraction and read-only colony measurements.</summary>
+/// <summary>Управляет переносом образцов, извлечением на питании и просмотром измерений колонии.</summary>
 public sealed partial class OrbitraXenobiologyDeviceSystem : EntitySystem
 {
     [Dependency] private SharedContainerSystem _container = default!;
@@ -118,7 +118,7 @@ public sealed partial class OrbitraXenobiologyDeviceSystem : EntitySystem
             args.Handled = TryCapture(ent, args.User, target);
     }
 
-    /// <summary>Starts a cancellable capture with a held carrier and a reachable, uncontained slime.</summary>
+    /// <summary>Начинает отменяемый захват доступного свободного слизня переноской в руках.</summary>
     public bool TryCapture(Entity<OrbitraXenobiologyCarrierComponent> carrier, EntityUid user, EntityUid target)
     {
         if (!CanCapture(carrier, user, target))
@@ -134,7 +134,7 @@ public sealed partial class OrbitraXenobiologyDeviceSystem : EntitySystem
         });
     }
 
-    /// <summary>Checks all capture conditions without changing specimen or container state.</summary>
+    /// <summary>Проверяет условия захвата без изменения образца и контейнера.</summary>
     public bool CanCapture(Entity<OrbitraXenobiologyCarrierComponent> carrier, EntityUid user, EntityUid target)
     {
         return !TerminatingOrDeleted(carrier) && !TerminatingOrDeleted(target) &&
@@ -166,7 +166,7 @@ public sealed partial class OrbitraXenobiologyDeviceSystem : EntitySystem
             args.Handled = TryRelease(ent, args.User);
     }
 
-    /// <summary>Releases one specimen at the holder's position through the normal container API.</summary>
+    /// <summary>Выпускает образец у владельца через штатный API контейнеров.</summary>
     public bool TryRelease(Entity<OrbitraXenobiologyCarrierComponent> carrier, EntityUid user)
     {
         if (!_hands.IsHolding(user, carrier) || !_actionBlocker.CanInteract(user, null) ||
@@ -178,7 +178,7 @@ public sealed partial class OrbitraXenobiologyDeviceSystem : EntitySystem
             destination: Transform(user).Coordinates);
     }
 
-    /// <summary>Transfers a corpse from the held carrier into the reached processor without dropping it.</summary>
+    /// <summary>Переносит труп из переноски в доступный процессор без выбрасывания на пол.</summary>
     public bool TryTransfer(Entity<OrbitraXenobiologyCarrierComponent> carrier, EntityUid user,
         Entity<OrbitraXenobiologyProcessorComponent> processor)
     {
@@ -219,14 +219,14 @@ public sealed partial class OrbitraXenobiologyDeviceSystem : EntitySystem
         return null;
     }
 
-    /// <summary>Checks that a powered, idle processor contains an adult corpse which has not been harvested.</summary>
+    /// <summary>Проверяет питание, отсутствие обработки и наличие взрослого трупа с доступным выходом экстракта.</summary>
     public bool CanProcess(Entity<OrbitraXenobiologyProcessorComponent> processor)
     {
         return IsPowered(processor) && !IsProcessing(processor) &&
                GetInput(processor) is { } input && IsHarvestable(input);
     }
 
-    /// <summary>Starts powered processing; source eligibility is checked again on completion.</summary>
+    /// <summary>Запускает обработку на питании и повторно проверяет образец при завершении.</summary>
     public bool TryProcess(Entity<OrbitraXenobiologyProcessorComponent> processor, EntityUid user)
     {
         if (!CanUse(processor, user) || !CanProcess(processor))
@@ -251,7 +251,7 @@ public sealed partial class OrbitraXenobiologyDeviceSystem : EntitySystem
             UpdateProcessor(ent);
     }
 
-    /// <summary>Cancels processing and returns the corpse without spending its extraction yield.</summary>
+    /// <summary>Отменяет обработку и возвращает труп, сохраняя возможность извлечения.</summary>
     public bool TryEject(Entity<OrbitraXenobiologyProcessorComponent> processor, EntityUid user)
     {
         if (!CanUse(processor, user) || GetInput(processor) is not { } input ||

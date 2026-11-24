@@ -9,7 +9,7 @@ using Robust.Shared.Localization;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Chat shortcuts using native emote prototypes and the radial menu controller.</summary>
+/// <summary>Быстрые действия чата на основе штатных прототипов эмоций и контроллера радиального меню.</summary>
 public sealed partial class OrbitraQuickEmotes : PanelContainer
 {
     [Dependency] private IPlayerManager _player = default!;

@@ -4,7 +4,7 @@ using Robust.Shared.Physics.Systems;
 
 namespace Content.Shared._Orbitra.Particles;
 
-/// <summary>Shared material and contact geometry helpers; particles themselves are client-only.</summary>
+/// <summary>Общий выбор материала и геометрия контакта для клиентских частиц.</summary>
 public sealed partial class SharedOrbitraParticleSystem : EntitySystem
 {
     [Dependency] private SharedTransformSystem _transform = default!;

@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Content.Shared._Orbitra.ThermalVision;
 using Content.Shared.Actions;
 using Content.Shared.Body.Components;
@@ -16,21 +17,37 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._Orbitra.ThermalVision;
 
-/// <summary>Authorizes same-map biological sprites for thermal rendering without expanding PVS.</summary>
+/// <summary>Разрешает тепловую отрисовку живых целей на карте владельца очков, не расширяя его PVS.</summary>
 public sealed partial class OrbitraThermalVisionSystem : EntitySystem
 {
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private SharedActionsSystem _actions = default!;
-    [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private SharedContainerSystem _containers = default!;
     [Dependency] private PowerCellSystem _powerCell = default!;
     [Dependency] private IGameTiming _timing = default!;
 
-    private readonly Dictionary<EntityUid, ICommonSession> _active = new();
+    private static readonly TimeSpan ScanInterval = TimeSpan.FromSeconds(0.05);
+    private static readonly TimeSpan KeepAliveInterval = TimeSpan.FromSeconds(0.15);
+    private static readonly TimeSpan FullRefreshInterval = TimeSpan.FromSeconds(1);
+
+    private readonly Dictionary<EntityUid, ActiveDevice> _active = new();
     private readonly List<EntityUid> _stopping = new();
-    private readonly List<EntityUid> _candidates = new();
+    private readonly Dictionary<MapId, List<(ushort Mask, OrbitraThermalContact Contact)>> _candidates = new();
+    private readonly Dictionary<(MapId Map, int Mask), Snapshot> _snapshots = new();
     private readonly List<OrbitraThermalContact> _contacts = new();
     private TimeSpan _nextScan;
+    private int _scan;
+
+    private readonly record struct Snapshot(int Scan, OrbitraThermalContact[] Contacts);
+
+    private sealed class ActiveDevice(ICommonSession session)
+    {
+        public readonly ICommonSession Session = session;
+        public MapId Map;
+        public OrbitraThermalContact[]? Contacts;
+        public TimeSpan NextKeepAlive;
+        public TimeSpan NextFull;
+    }
 
     public override void Initialize()
     {
@@ -86,7 +103,7 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
         Disable(ent);
     }
 
-    /// <summary>Toggles only an actual eye-slot device belonging to the performing player.</summary>
+    /// <summary>Переключает очки, надетые самим игроком в слот глаз.</summary>
     public bool TryToggle(Entity<OrbitraThermalVisionComponent> device, EntityUid performer)
     {
         if (!CanUse(device, performer) || !TryComp<ActorComponent>(performer, out var actor) ||
@@ -100,11 +117,12 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
 
             device.Comp.Enabled = true;
             _powerCell.SetDrawEnabled(device.Owner, true);
-            _active[device] = actor.PlayerSession;
+            var active = new ActiveDevice(actor.PlayerSession);
+            _active[device] = active;
             _actions.SetToggled(device.Comp.ActionEntity, true);
             Dirty(device);
-            RefreshCandidates();
-            SendContacts(device, performer, actor.PlayerSession);
+            RefreshIfDue(_timing.CurTime, force: _active.Count == 1);
+            SendContacts(device, performer, active, _timing.CurTime);
         }
         return true;
     }
@@ -118,11 +136,12 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
         return !attempt.Cancelled;
     }
 
+    /// <summary>Выключает питание очков и отзывает разрешённые цели у их владельца.</summary>
     public void Disable(Entity<OrbitraThermalVisionComponent> device)
     {
-        if (_active.Remove(device, out var session) && session.Status != SessionStatus.Disconnected &&
+        if (_active.Remove(device, out var active) && active.Session.Status != SessionStatus.Disconnected &&
             device.Comp.Wearer is { } wearer)
-            RaiseNetworkEvent(new OrbitraThermalContactsEvent(GetNetEntity(device), GetNetEntity(wearer), default, [], false), session);
+            RaiseNetworkEvent(new OrbitraThermalContactsEvent(GetNetEntity(device), GetNetEntity(wearer), default, [], false), active.Session);
         device.Comp.Enabled = false;
         _powerCell.SetDrawEnabled(device.Owner, false);
         _actions.SetToggled(device.Comp.ActionEntity, false);
@@ -135,78 +154,137 @@ public sealed partial class OrbitraThermalVisionSystem : EntitySystem
         if (_active.Count == 0)
         {
             _candidates.Clear();
+            _snapshots.Clear();
             return;
         }
-        var scan = _timing.CurTime >= _nextScan;
-        if (scan)
-        {
-            _nextScan = _timing.CurTime + TimeSpan.FromSeconds(0.05);
-            RefreshCandidates();
-        }
+        var now = _timing.CurTime;
+        var scan = RefreshIfDue(now);
         _stopping.Clear();
-        foreach (var (uid, session) in _active)
+        foreach (var (uid, active) in _active)
         {
             if (!TryComp<OrbitraThermalVisionComponent>(uid, out var device) || device.Wearer is not { } wearer ||
-                session.AttachedEntity != wearer || !CanUse((uid, device), wearer))
+                active.Session.AttachedEntity != wearer || !CanUse((uid, device), wearer))
             {
                 _stopping.Add(uid);
                 continue;
             }
-            if (scan) SendContacts((uid, device), wearer, session);
+            if (scan)
+                SendContacts((uid, device), wearer, active, now);
         }
         foreach (var uid in _stopping)
         {
             if (TryComp<OrbitraThermalVisionComponent>(uid, out var device)) Disable((uid, device));
             else _active.Remove(uid);
         }
+        if (scan)
+        {
+            foreach (var (key, snapshot) in _snapshots)
+            {
+                if (snapshot.Scan != _scan)
+                    _snapshots.Remove(key);
+            }
+        }
     }
 
-    /// <summary>Checks physiology, containment and map without a device-specific distance limit.</summary>
+    /// <summary>Проверяет физиологию, контейнеры и слои видимости цели на карте владельца.</summary>
     public bool IsThermalTarget(EntityUid target, EntityUid wearer)
     {
-        if (target == wearer || TerminatingOrDeleted(target) || EntityManager.IsQueuedForDeletion(target) ||
-            !TryComp<MobStateComponent>(target, out var mob) || mob.CurrentState == MobState.Dead ||
+        if (target == wearer || !TryComp<MobStateComponent>(target, out var mob) ||
             !HasComp<BloodstreamComponent>(target) || !HasComp<TemperatureComponent>(target) ||
-            !TryComp<InjurableComponent>(target, out var damage) ||
-            damage.DamageContainer?.Id is not ("Biological" or "StructuralBiological" or "BiologicalMetaphysical") ||
-            _containers.IsEntityInContainer(target)) return false;
-        // Тепловые контакты не раскрывают сущности из скрытых серверных слоёв видимости.
-        var mask = MetaData(target).VisibilityMask;
-        if (!TryComp<EyeComponent>(wearer, out var eye) || (eye.VisibilityMask & mask) != mask) return false;
-        var origin = _transform.GetMapCoordinates(wearer);
-        var position = _transform.GetMapCoordinates(target);
-        return origin.MapId != MapId.Nullspace && origin.MapId == position.MapId;
+            !CanDetect(target, mob) || !TryComp<EyeComponent>(wearer, out var eye))
+            return false;
+
+        var map = Transform(wearer).MapID;
+        return map != MapId.Nullspace && map == Transform(target).MapID &&
+            CanSeeLayer(eye.VisibilityMask, MetaData(target).VisibilityMask);
     }
 
-    private void RefreshCandidates()
+    private bool CanDetect(EntityUid uid, MobStateComponent mob) =>
+        mob.CurrentState != MobState.Dead && !TerminatingOrDeleted(uid) && !EntityManager.IsQueuedForDeletion(uid) &&
+        TryComp<InjurableComponent>(uid, out var damage) &&
+        (damage.DamageContainer?.Id is "Biological" or "StructuralBiological" or "BiologicalMetaphysical") &&
+        !_containers.IsEntityInContainer(uid);
+
+    // Тепловые контакты не раскрывают сущности из скрытых серверных слоёв видимости.
+    private static bool CanSeeLayer(int eyeMask, ushort targetMask) => (eyeMask & targetMask) == targetMask;
+
+    private bool RefreshIfDue(TimeSpan now, bool force = false)
     {
-        // Один общий пакет кандидатов на интервал сканирования, не полный обход для каждых очков.
-        _candidates.Clear();
-        var query = EntityQueryEnumerator<BloodstreamComponent, TemperatureComponent, MobStateComponent>();
-        while (query.MoveNext(out var uid, out _, out _, out var mob))
+        if (!force && now < _nextScan)
+            return false;
+
+        _nextScan = now + ScanInterval;
+        _scan++;
+        foreach (var targets in _candidates.Values)
+            targets.Clear();
+
+        var query = EntityQueryEnumerator<BloodstreamComponent, TemperatureComponent, MobStateComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out _, out _, out var mob, out var xform))
         {
-            if (mob.CurrentState != MobState.Dead)
-                _candidates.Add(uid);
+            if (xform.MapID == MapId.Nullspace || !CanDetect(uid, mob))
+                continue;
+
+            if (!_candidates.TryGetValue(xform.MapID, out var targets))
+                _candidates.Add(xform.MapID, targets = new());
+            targets.Add((MetaData(uid).VisibilityMask, new OrbitraThermalContact(GetNetEntity(uid))));
         }
+
+        foreach (var (map, targets) in _candidates)
+        {
+            if (targets.Count == 0)
+                _candidates.Remove(map);
+        }
+        return true;
     }
 
-    private void SendContacts(Entity<OrbitraThermalVisionComponent> device, EntityUid wearer, ICommonSession session)
+    private OrbitraThermalContact[] GetContacts(MapId map, int mask)
     {
+        var key = (map, mask);
+        var hasSnapshot = _snapshots.TryGetValue(key, out var snapshot);
+        if (hasSnapshot && snapshot.Scan == _scan)
+            return snapshot.Contacts;
+
         _contacts.Clear();
-        var origin = _transform.GetMapCoordinates(wearer);
-        foreach (var candidate in _candidates)
+        if (_candidates.TryGetValue(map, out var targets))
         {
-            if (!IsThermalTarget(candidate, wearer)) continue;
-            _contacts.Add(new OrbitraThermalContact(GetNetEntity(candidate)));
+            foreach (var target in targets)
+            {
+                if (CanSeeLayer(mask, target.Mask))
+                    _contacts.Add(target.Contact);
+            }
         }
-        RaiseNetworkEvent(new OrbitraThermalContactsEvent(GetNetEntity(device), GetNetEntity(wearer), origin.MapId,
-            _contacts.ToArray(), true), session);
+        var contacts = hasSnapshot && CollectionsMarshal.AsSpan(_contacts).SequenceEqual(snapshot.Contacts)
+            ? snapshot.Contacts
+            : _contacts.ToArray();
+        _snapshots[key] = new Snapshot(_scan, contacts);
+        return contacts;
+    }
+
+    private void SendContacts(Entity<OrbitraThermalVisionComponent> device, EntityUid wearer, ActiveDevice active, TimeSpan now)
+    {
+        var map = Transform(wearer).MapID;
+        var contacts = TryComp<EyeComponent>(wearer, out var eye) ? GetContacts(map, eye.VisibilityMask) : [];
+        var full = active.Map != map || !ReferenceEquals(active.Contacts, contacts) || now >= active.NextFull;
+        if (!full && now < active.NextKeepAlive)
+            return;
+
+        if (full)
+        {
+            active.Contacts = contacts;
+            active.Map = map;
+            active.NextFull = now + FullRefreshInterval;
+        }
+        // Короткое подтверждение продлевает список. Полный повтор восстанавливает его после пересоздания локального тела.
+        active.NextKeepAlive = now + KeepAliveInterval;
+        RaiseNetworkEvent(new OrbitraThermalContactsEvent(GetNetEntity(device), GetNetEntity(wearer), map,
+            full ? contacts : [], true, keepAlive: !full), active.Session);
     }
 
     public override void Shutdown()
     {
         _active.Clear();
         _candidates.Clear();
+        _snapshots.Clear();
         _contacts.Clear();
         _stopping.Clear();
         base.Shutdown();

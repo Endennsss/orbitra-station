@@ -18,7 +18,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._Orbitra.Xenobiology;
 
-/// <summary>A colony dashboard with stable specimen selection and an independent breed reference.</summary>
+/// <summary>Панель колонии, сохраняющая выбор образца и отдельно показывающая справочник пород.</summary>
 [GenerateTypedNameReferences]
 public sealed partial class OrbitraXenobiologyWindow : FancyWindow
 {
@@ -44,11 +44,11 @@ public sealed partial class OrbitraXenobiologyWindow : FancyWindow
     private int _filter;
     private int _catalogTier = -1;
 
-    /// <summary>The selected specimen identity, retained across refreshes and row reordering.</summary>
+    /// <summary>Идентификатор выбранного образца, сохраняемый при обновлении и перестановке строк.</summary>
     public NetEntity? SelectedSpecimen => _selectedSpecimen;
-    /// <summary>The currently selected catalog lineage.</summary>
+    /// <summary>Текущая выбранная порода в каталоге.</summary>
     public string? SelectedBreed => _selectedBreed;
-    /// <summary>Specimens matching the current local search and filter.</summary>
+    /// <summary>Образцы, совпавшие с локальным поиском и фильтром.</summary>
     public IReadOnlyList<NetEntity> VisibleSpecimenIds => _visibleSpecimens;
 
     public OrbitraXenobiologyWindow()
@@ -105,7 +105,7 @@ public sealed partial class OrbitraXenobiologyWindow : FancyWindow
             SelectBreed(_breeds[0].ID, false);
     }
 
-    /// <summary>Fits the window to the logical viewport, including enlarged interface scales.</summary>
+    /// <summary>Подгоняет окно под логическую область просмотра с учётом увеличенного масштаба интерфейса.</summary>
     public void FitToViewport(Vector2 viewport)
     {
         if (viewport.X <= 0 || viewport.Y <= 0)
@@ -167,7 +167,7 @@ public sealed partial class OrbitraXenobiologyWindow : FancyWindow
         ColonyContent.Visible = !show && !_catalogVisible;
     }
 
-    /// <summary>Refreshes measurements without replacing rows, selection or the catalog scroll position.</summary>
+    /// <summary>Обновляет измерения с сохранением строк, выбора и положения прокрутки каталога.</summary>
     public void UpdateState(OrbitraXenobiologyBoundUserInterfaceState state)
     {
         _powered = state.Powered;
@@ -202,7 +202,7 @@ public sealed partial class OrbitraXenobiologyWindow : FancyWindow
         ApplySpecimenFilter();
     }
 
-    /// <summary>Selects a visible specimen without sending any remote game action.</summary>
+    /// <summary>Выбирает видимый образец без отправки игровых действий на сервер.</summary>
     public bool SelectSpecimen(NetEntity id)
     {
         if (!_specimens.ContainsKey(id) || !_rows[id].Visible)

@@ -3,7 +3,7 @@
 
 namespace Content.Server._Orbitra.Radiation;
 
-/// <summary>Preserves sub-hundredth doses between radiation updates.</summary>
+/// <summary>Накапливает дозы меньше сотой между обновлениями радиации.</summary>
 [RegisterComponent]
 public sealed partial class OrbitraCosmicRadiationDoseComponent : Component
 {

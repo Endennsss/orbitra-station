@@ -5,7 +5,7 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Changes label placement using the width allocated to this row, not the window.</summary>
+/// <summary>Выбирает положение подписи по выделенной ширине строки.</summary>
 public sealed class OrbitraFormRow : BoxContainer
 {
     protected override Vector2 MeasureOverride(Vector2 availableSize)

@@ -8,7 +8,7 @@ namespace Content.Client._Orbitra.UserInterface;
 
 internal sealed partial class OrbitraMotion
 {
-    /// <summary>One reusable transition. Reversal starts at the current opacity and offset.</summary>
+    /// <summary>Переиспользуемый переход. При смене направления сохраняет текущую прозрачность и смещение.</summary>
     internal sealed class Transition
     {
         internal readonly Control Target;

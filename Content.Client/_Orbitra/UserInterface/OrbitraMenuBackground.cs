@@ -11,7 +11,7 @@ public static class OrbitraMenuCVars
         "orbitra.ui.standard_background", false, CVar.CLIENTONLY | CVar.ARCHIVE);
 }
 
-/// <summary>Optional static background, retaining each screen's original background when disabled.</summary>
+/// <summary>Дополнительный статический фон. При выключении экран использует исходный фон.</summary>
 public sealed class OrbitraMenuBackground : TextureRect
 {
     private readonly IConfigurationManager _configuration = IoCManager.Resolve<IConfigurationManager>();

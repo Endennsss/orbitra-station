@@ -5,7 +5,7 @@ using Robust.Client.UserInterface.CustomControls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Feature-specific spawning layout and toggles over the common window theme.</summary>
+/// <summary>Раскладка окна спавна поверх общей темы.</summary>
 internal static class OrbitraEngineMenus
 {
     public static void Ensure(IUserInterfaceManager ui)
@@ -13,7 +13,7 @@ internal static class OrbitraEngineMenus
         ui.GetUIController<OrbitraWindowThemeController>().Ensure();
     }
 
-    /// <summary>Routes explicit content-side toggles through the same reversible closing lifecycle.</summary>
+    /// <summary>Применяет обратимое закрытие к явно переключаемым игровым окнам.</summary>
     public static void Toggle<T>(IUserInterfaceManager ui, Action nativeToggle) where T : DefaultWindow, new()
     {
         Ensure(ui);

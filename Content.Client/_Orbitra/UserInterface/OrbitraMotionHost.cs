@@ -5,18 +5,18 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Moves content inside its final layout slot without changing the slot's measurement.</summary>
+/// <summary>Смещает содержимое при анимации, сохраняя размер выделенного ему места.</summary>
 public sealed class OrbitraMotionHost : Control
 {
     private Vector2 _offset;
     private OrbitraMotion.Transition? _transition;
     private bool _requestedVisible;
-    private readonly List<(Control Control, MouseFilterMode Mouse, bool Focus)> _blocked = new();
+    private readonly OrbitraInputBlock _input = new();
 
     internal void Reveal(float duration, Vector2 offset)
     {
         _requestedVisible = true;
-        RestoreInput();
+        _input.Restore();
         Visible = true;
         (_transition ??= new OrbitraMotion.Transition(this)).Reveal(duration, offset);
     }
@@ -29,7 +29,7 @@ public sealed class OrbitraMotionHost : Control
         if (immediate)
         {
             _transition?.Finish();
-            RestoreInput();
+            _input.Restore();
             Visible = shown;
             return;
         }
@@ -37,41 +37,16 @@ public sealed class OrbitraMotionHost : Control
             Reveal(0.18f, offset);
         else if (Visible)
         {
-            BlockInput(this);
+            _input.Block(this);
             (_transition ??= new OrbitraMotion.Transition(this)).Hide(0.12f, offset);
         }
-    }
-
-    private void BlockInput(Control control)
-    {
-        if (_blocked.Count > 0 && control == this)
-            return;
-        _blocked.Add((control, control.MouseFilter, control.CanKeyboardFocus));
-        control.MouseFilter = MouseFilterMode.Ignore;
-        control.CanKeyboardFocus = false;
-        control.OnChildAdded += BlockInput;
-        foreach (var child in control.Children)
-            BlockInput(child);
-    }
-
-    private void RestoreInput()
-    {
-        foreach (var (control, mouse, focus) in _blocked)
-        {
-            if (control.Disposed)
-                continue;
-            control.OnChildAdded -= BlockInput;
-            control.MouseFilter = mouse;
-            control.CanKeyboardFocus = focus;
-        }
-        _blocked.Clear();
     }
 
     internal void CompleteMotion(bool hidden)
     {
         if (hidden)
             Visible = false;
-        RestoreInput();
+        _input.Restore();
     }
 
     internal void SetVisualOffset(Vector2 offset)
@@ -92,7 +67,7 @@ public sealed class OrbitraMotionHost : Control
     protected override void ExitedTree()
     {
         _transition?.Finish();
-        RestoreInput();
+        _input.Restore();
         base.ExitedTree();
     }
 }

@@ -9,7 +9,7 @@ using static Content.Client.Stylesheets.StylesheetHelpers;
 namespace Content.Client._Orbitra.Stylesheets;
 
 /// <summary>
-/// Typography for Orbitra chat and speech bubbles.
+/// Шрифты чата Orbitra и облаков речи.
 /// </summary>
 [CommonSheetlet]
 public sealed class OrbitraChatSheetlet : Sheetlet<PalettedStylesheet>

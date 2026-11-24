@@ -6,113 +6,113 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._Orbitra.Research.Bluespace;
 
-/// <summary>Configures a high-voltage harvester and stores its bounded energy accounting.</summary>
+/// <summary>Настройки высоковольтного харвестера и ограниченное накопление энергии.</summary>
 [RegisterComponent, AutoGenerateComponentPause]
 public sealed partial class OrbitraBluespaceHarvesterComponent : Component
 {
-    /// <summary>Whether the operator has enabled the harvester.</summary>
+    /// <summary>Включил ли оператор харвестер.</summary>
     [DataField]
     public bool Enabled;
 
-    /// <summary>Requested power in normal mode, in watts.</summary>
+    /// <summary>Запрошенная мощность в штатном режиме, в ваттах.</summary>
     [DataField]
     public float NormalPowerDraw = 125_000f;
 
-    /// <summary>Requested power in overdrive mode, in watts.</summary>
+    /// <summary>Запрошенная мощность в форсированном режиме, в ваттах.</summary>
     [DataField]
     public float OverdrivePowerDraw = 250_000f;
 
-    /// <summary>Real received energy required for one reward, in joules.</summary>
+    /// <summary>Фактически полученная энергия, необходимая для одной награды, в джоулях.</summary>
     [DataField]
     public float EnergyPerReward = 7_500_000f;
 
-    /// <summary>Station background added per megajoule of actual consumption.</summary>
+    /// <summary>Прирост фона станции на мегаджоуль фактического потребления.</summary>
     [DataField]
     public float BackgroundPerMegajoule = 1.2f;
 
-    /// <summary>Additional background multiplier while using overdrive.</summary>
+    /// <summary>Дополнительный множитель фона в форсированном режиме.</summary>
     [DataField]
     public float OverdriveBackgroundMultiplier = 2f;
 
-    /// <summary>Local critical threshold, in addition to the shared station interlock.</summary>
+    /// <summary>Порог локальной блокировки устройства вдобавок к общей блокировке станции.</summary>
     [DataField]
     public float CriticalLevel = 95f;
 
-    /// <summary>Background must fall below this threshold before a local scram can be reset.</summary>
+    /// <summary>Для снятия локальной блокировки фон должен опуститься ниже этого порога.</summary>
     [DataField]
     public float RestartLevel = 80f;
 
-    /// <summary>Station-wide incursion cooldown, never shorter than forty seconds.</summary>
+    /// <summary>Общая задержка вторжений на станции, от 40 секунд.</summary>
     [DataField]
     public TimeSpan IncidentCooldown = TimeSpan.FromSeconds(40);
 
-    /// <summary>Maximum living incursion creatures per station, bounded to six.</summary>
+    /// <summary>Лимит живых существ вторжений на станцию, до шести.</summary>
     [DataField]
     public int MaxActiveIncursions = 6;
 
-    /// <summary>Creatures released in a wave above the station incursion threshold.</summary>
+    /// <summary>Число существ в волне выше порога вторжения.</summary>
     [DataField]
     public int IncursionWaveSize = 2;
 
-    /// <summary>Creatures released in a wave above the station danger threshold.</summary>
+    /// <summary>Число существ в волне выше порога опасности.</summary>
     [DataField]
     public int DangerousWaveSize = 3;
 
-    /// <summary>Station-wide anomaly cooldown, never shorter than two minutes.</summary>
+    /// <summary>Общая задержка аномалий на станции, от двух минут.</summary>
     [DataField]
     public TimeSpan AnomalyCooldown = TimeSpan.FromSeconds(120);
 
-    /// <summary>Maximum active harvester anomalies per station, bounded to two.</summary>
+    /// <summary>Лимит активных аномалий харвестеров на станцию, до двух.</summary>
     [DataField]
     public int MaxActiveAnomalies = 2;
 
-    /// <summary>Native anomaly created above the station danger threshold.</summary>
+    /// <summary>Штатная аномалия выше порога опасности.</summary>
     [DataField]
     public EntProtoId AnomalyPrototype = "AnomalyBluespace";
 
-    /// <summary>Lifetime of an incursion creature, bounded to three minutes.</summary>
+    /// <summary>Время жизни существа вторжения, до трёх минут.</summary>
     [DataField]
     public TimeSpan IncursionLifetime = TimeSpan.FromSeconds(180);
 
-    /// <summary>Temporary visual effect used for a local incursion.</summary>
+    /// <summary>Временный визуальный эффект местного вторжения.</summary>
     [DataField]
     public EntProtoId RiftPrototype = "OrbitraBluespaceRift";
 
-    /// <summary>Native hostile creature released by a local incursion.</summary>
+    /// <summary>Штатное враждебное существо из местного вторжения.</summary>
     [DataField]
     public EntProtoId HostilePrototype = "MobCarp";
 
-    /// <summary>Selected power consumption mode.</summary>
+    /// <summary>Выбранный режим потребления энергии.</summary>
     [DataField]
     public OrbitraBluespacePowerMode PowerMode;
 
-    /// <summary>Selected reward table category.</summary>
+    /// <summary>Выбранная категория таблицы наград.</summary>
     [DataField]
     public OrbitraBluespaceLootCategory LootCategory;
 
-    /// <summary>Accumulated actual energy, capped at a single reward.</summary>
+    /// <summary>Фактически накопленная энергия с верхней границей в одну награду.</summary>
     [ViewVariables(VVAccess.ReadOnly)]
     public double StoredEnergy;
 
-    /// <summary>Whether the local critical interlock is engaged.</summary>
+    /// <summary>Активна ли локальная аварийная блокировка.</summary>
     [ViewVariables(VVAccess.ReadOnly)]
     public bool Critical;
 
-    /// <summary>Whether a completed reward is waiting for a safe output tile.</summary>
+    /// <summary>Ожидает ли готовая награда безопасную клетку для выдачи.</summary>
     [ViewVariables(VVAccess.ReadOnly)]
     public bool OutputBlocked;
 
-    /// <summary>Prevents nested spawn callbacks from claiming the same energy.</summary>
+    /// <summary>Защищает заряд от повторного списания во вложенных событиях спавна.</summary>
     public bool Producing;
 
-    /// <summary>Requires a fresh power-network update after any requested-load change.</summary>
+    /// <summary>Требует свежего обновления электросети после смены запрошенной нагрузки.</summary>
     public bool SkipPowerSample;
 
-    /// <summary>Next bounded output and incursion check.</summary>
+    /// <summary>Время следующей проверки выхода и вторжений.</summary>
     [AutoPausedField]
     public TimeSpan NextOutputCheck;
 
-    /// <summary>Next interface refresh.</summary>
+    /// <summary>Время следующего обновления интерфейса.</summary>
     [AutoPausedField]
     public TimeSpan NextUiUpdate;
 }

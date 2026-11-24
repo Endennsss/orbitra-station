@@ -6,41 +6,43 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._Orbitra.Xenobiology;
 
-/// <summary>A reusable industrial core, distinct from the ordinary single-use extract.</summary>
+/// <summary>Многоразовый промышленный экстракт.</summary>
 [RegisterComponent]
 public sealed partial class OrbitraXenobiologyIndustrialComponent : Component
 {
-    /// <summary>Induction lineage, fuel cost, cycle duration and outputs.</summary>
+    /// <summary>Порода индукции, расход топлива, время цикла и продукты.</summary>
     [DataField(required: true)]
     public ProtoId<OrbitraXenobiologyIndustrialRecipePrototype> Recipe;
 
-    /// <summary>Refillable solution accepting liquid plasma.</summary>
+    /// <summary>Пополняемый раствор для жидкой плазмы.</summary>
     [DataField]
     public string Solution = "extract";
 
-    /// <summary>Prevents chemistry callbacks from starting a nested batch.</summary>
+    /// <summary>Защищает от повторного запуска партии во вложенных событиях химии.</summary>
     public bool Producing;
 }
 
-/// <summary>Marks fueled industrial extracts that need placement checks and cycle updates.</summary>
+/// <summary>Отмечает заправленные промышленные экстракты для проверки положения и цикла.</summary>
 [RegisterComponent, AutoGenerateComponentPause]
 public sealed partial class OrbitraXenobiologyIndustrialActiveComponent : Component
 {
-    /// <summary>The next batch deadline, cleared whenever production is interrupted.</summary>
+    /// <summary>Когда заправленный экстракт без активного цикла снова проверит своё положение.</summary>
+    public TimeSpan NextIdleCheck;
+    /// <summary>Срок завершения следующей партии. Сбрасывается при прерывании цикла.</summary>
     [AutoPausedField]
     public TimeSpan? NextProduction;
 }
 
-/// <summary>Tracks ordinary extracts fed to an induced adult and blocks competing lifecycle actions.</summary>
+/// <summary>Учитывает экстракты, скормленные индуцированному взрослому, и блокирует другие изменения его жизненного цикла.</summary>
 [RegisterComponent]
 public sealed partial class OrbitraXenobiologyIndustrialInductionComponent : Component
 {
-    /// <summary>The recipe selected and fixed when the catalyst was consumed.</summary>
+    /// <summary>Рецепт, выбранный при расходовании катализатора.</summary>
     public ProtoId<OrbitraXenobiologyIndustrialRecipePrototype> Recipe;
 
-    /// <summary>Number of unused same-lineage ordinary extracts claimed so far.</summary>
+    /// <summary>Количество уже внесённых неиспользованных экстрактов той же породы.</summary>
     public int ExtractsFed;
 
-    /// <summary>Claims the final transformation before spawning or deleting entities.</summary>
+    /// <summary>Резервирует итоговое превращение до спавна или удаления сущностей.</summary>
     public bool Consumed;
 }

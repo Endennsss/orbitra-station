@@ -11,7 +11,7 @@ using static Content.Client.Stylesheets.StylesheetHelpers;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Scoped HUD and context-menu surfaces; gameplay sprites and chat markup remain untouched.</summary>
+/// <summary>Оформление HUD и контекстных меню без изменения игровых спрайтов и разметки чата.</summary>
 [CommonSheetlet]
 public sealed class OrbitraHudMenuSheetlet : Sheetlet<PalettedStylesheet>
 {

@@ -9,7 +9,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._Orbitra.Ghost.Skins;
 
-/// <summary>Validates cosmetic skin requests without changing observer capabilities.</summary>
+/// <summary>Проверяет запрос облика с сохранением возможностей наблюдателя.</summary>
 public sealed partial class OrbitraGhostSkinSystem : EntitySystem
 {
     [Dependency] private IPrototypeManager _prototype = default!;
@@ -32,7 +32,7 @@ public sealed partial class OrbitraGhostSkinSystem : EntitySystem
         TrySetSkin(ghost, msg.Skin);
     }
 
-    /// <summary>Checks the target and predefined appearance without adding or changing components.</summary>
+    /// <summary>Проверяет цель и заданный облик без записи компонентов.</summary>
     public bool CanSetSkin(EntityUid ghost, ProtoId<OrbitraGhostSkinPrototype> skin)
     {
         if (Deleted(ghost) || Terminating(ghost) || !HasComp<GhostComponent>(ghost))
@@ -45,7 +45,7 @@ public sealed partial class OrbitraGhostSkinSystem : EntitySystem
                float.IsFinite(prototype.Opacity) && prototype.Opacity > 0f && prototype.Opacity <= 1f;
     }
 
-    /// <summary>Selects a validated skin for an observer.</summary>
+    /// <summary>Устанавливает проверенный облик наблюдателя.</summary>
     public bool TrySetSkin(EntityUid ghost, ProtoId<OrbitraGhostSkinPrototype> skin)
     {
         if (!CanSetSkin(ghost, skin))

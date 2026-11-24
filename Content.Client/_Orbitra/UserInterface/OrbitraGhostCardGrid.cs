@@ -3,7 +3,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Equal-width ghost target cards, measured at their actual column width for text wrapping.</summary>
+/// <summary>Карточки целей призрака одинаковой ширины с переносом текста по ширине колонки.</summary>
 public sealed class OrbitraGhostCardGrid : GridContainer
 {
     private const float PreferredCardWidth = 200;

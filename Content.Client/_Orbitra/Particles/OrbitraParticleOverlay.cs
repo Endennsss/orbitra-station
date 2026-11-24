@@ -7,7 +7,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client._Orbitra.Particles;
 
-/// <summary>Draws pooled particles in world space, with a separate FOV check at their origin.</summary>
+/// <summary>Рисует частицы из пула в мировых координатах и отдельно проверяет видимость источника.</summary>
 internal sealed class OrbitraParticleOverlay : Overlay
 {
     private readonly IEntityManager _entities;

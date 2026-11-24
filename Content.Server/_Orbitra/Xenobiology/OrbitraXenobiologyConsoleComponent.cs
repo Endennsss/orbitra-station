@@ -3,11 +3,11 @@
 
 namespace Content.Server._Orbitra.Xenobiology;
 
-/// <summary>Displays the local colony's measurements and the breed reference catalog.</summary>
+/// <summary>Показывает измерения местной колонии и справочник пород.</summary>
 [RegisterComponent]
 public sealed partial class OrbitraXenobiologyConsoleComponent : Component
 {
-    /// <summary>Maximum measurement distance in world metres.</summary>
+    /// <summary>Максимальное расстояние измерения в игровых метрах.</summary>
     [DataField]
     public float Range = 20f;
 }

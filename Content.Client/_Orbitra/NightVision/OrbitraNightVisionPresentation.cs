@@ -4,7 +4,7 @@ using Content.Shared.Overlays;
 namespace Content.Client._Orbitra.NightVision;
 
 /// <summary>
-/// Shared activation state for the lighting and phosphor passes of a single local viewer.
+/// Общее состояние активации световых и фосфорных эффектов одного локального наблюдателя.
 /// </summary>
 internal sealed class OrbitraNightVisionPresentation
 {
@@ -57,7 +57,7 @@ internal sealed class OrbitraNightVisionPresentation
         1f - MathF.Exp(-Math.Max(elapsed, 0f) / 0.65f));
 
     /// <summary>
-    /// Preserves the existing priority, relay and minimum-noise selection rules.
+    /// Сохраняет штатные правила приоритетов, ретрансляции и минимального шума.
     /// </summary>
     internal static Entity<NightVisionComponent>? SelectSource(EntityUid viewer, List<Entity<NightVisionComponent>> sources)
     {

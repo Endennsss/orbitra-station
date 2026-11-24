@@ -24,7 +24,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._Orbitra.Xenobiology;
 
-/// <summary>Consumes induction inputs once and runs bounded, interruptible industrial production cycles.</summary>
+/// <summary>Однократно расходует сырьё индукции и ведёт ограниченные прерываемые циклы производства.</summary>
 public sealed partial class OrbitraXenobiologyIndustrialSystem : EntitySystem
 {
     [Dependency] private IPrototypeManager _prototype = default!;
@@ -133,7 +133,7 @@ public sealed partial class OrbitraXenobiologyIndustrialSystem : EntitySystem
         ResetCycle(ent);
     }
 
-    /// <summary>Claims one held research catalyst before attaching induction progress to the selected adult.</summary>
+    /// <summary>Расходует катализатор исследования в руке до записи прогресса индукции взрослого слизня.</summary>
     public bool TryInduce(EntityUid catalyst, EntityUid user, EntityUid slime)
     {
         if (!CanInduce(catalyst, user, slime, false) ||
@@ -150,7 +150,7 @@ public sealed partial class OrbitraXenobiologyIndustrialSystem : EntitySystem
         return true;
     }
 
-    /// <summary>Checks held access, living NPC adulthood and support without consuming the research gate.</summary>
+    /// <summary>Проверяет предмет в руке, доступность породы и то, что цель — взрослый живой NPC.</summary>
     public bool CanInduce(EntityUid catalyst, EntityUid user, EntityUid slime, bool quiet = true)
     {
         if (!CanUseHeld(catalyst, user, slime) ||
@@ -163,7 +163,7 @@ public sealed partial class OrbitraXenobiologyIndustrialSystem : EntitySystem
         return TryGetRecipe(state.Breed, out _) || Fail(user, slime, "orbitra-xeno-industrial-unsupported", quiet);
     }
 
-    /// <summary>Claims an unused same-breed extract before completing one irreversible transformation.</summary>
+    /// <summary>Расходует неиспользованный экстракт той же породы до необратимого превращения.</summary>
     public bool TryFeed(EntityUid extract, EntityUid user, EntityUid slime)
     {
         if (!CanFeed(extract, user, slime, false) ||
@@ -192,7 +192,7 @@ public sealed partial class OrbitraXenobiologyIndustrialSystem : EntitySystem
         return true;
     }
 
-    /// <summary>Checks the immutable induction recipe, source lineage and all actor safety conditions.</summary>
+    /// <summary>Проверяет зафиксированный рецепт индукции, породу источника и условия взаимодействия игрока.</summary>
     public bool CanFeed(EntityUid extract, EntityUid user, EntityUid slime, bool quiet = true)
     {
         if (!CanUseHeld(extract, user, slime))
@@ -207,7 +207,7 @@ public sealed partial class OrbitraXenobiologyIndustrialSystem : EntitySystem
         return source.Breed == recipe.Breed || Fail(user, slime, "orbitra-xeno-industrial-breed", quiet);
     }
 
-    /// <summary>Starts a fresh full cycle; existing uninterrupted cycles keep their deadline.</summary>
+    /// <summary>Запускает полный цикл. Непрерывный цикл сохраняет прежний срок.</summary>
     public bool TryStartProduction(EntityUid extract)
     {
         if (!CanStartProduction(extract) || !_industrialQuery.TryComp(extract, out var industrial))
@@ -218,15 +218,15 @@ public sealed partial class OrbitraXenobiologyIndustrialSystem : EntitySystem
         return true;
     }
 
-    /// <summary>Requires real non-space floor, no ancestor container, an unpaused item and sufficient plasma.</summary>
+    /// <summary>Требует пол, отсутствие контейнера и паузы и достаточное количество плазмы.</summary>
     public bool CanStartProduction(EntityUid extract)
     {
         return !TerminatingOrDeleted(extract) && !IsPaused(extract) &&
                _industrialQuery.TryComp(extract, out var industrial) && !industrial.Producing &&
-               TryGetFuel(extract, industrial, out _, out _) && TryGetFloor(extract, out _);
+               TryGetFloor(extract, out _) && TryGetFuel(extract, industrial, out _, out _);
     }
 
-    /// <summary>Consumes fuel and the due cycle before any chemistry callbacks or finite output spawns.</summary>
+    /// <summary>Расходует топливо и завершившийся цикл до событий химии и создания продуктов.</summary>
     public bool TryProduce(EntityUid extract)
     {
         if (!CanProduce(extract) || !_industrialQuery.TryComp(extract, out var industrial) ||
@@ -269,29 +269,40 @@ public sealed partial class OrbitraXenobiologyIndustrialSystem : EntitySystem
         return true;
     }
 
-    /// <summary>Checks the current cycle deadline as well as fuel and placement without changing progress.</summary>
+    /// <summary>Проверяет срок цикла, топливо и размещение без изменения прогресса.</summary>
     public bool CanProduce(EntityUid extract)
     {
         return CanStartProduction(extract) && _activeQuery.TryComp(extract, out var active) &&
                active.NextProduction is { } deadline && deadline <= _timing.CurTime;
     }
 
+    private static readonly TimeSpan IdleCheckInterval = TimeSpan.FromSeconds(0.25);
+
     /// <inheritdoc/>
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+        var now = _timing.CurTime;
         var query = EntityQueryEnumerator<OrbitraXenobiologyIndustrialActiveComponent, OrbitraXenobiologyIndustrialComponent>();
         while (query.MoveNext(out var uid, out var active, out _))
         {
-            if (!CanStartProduction(uid))
+            if (active.NextProduction is not { } due)
             {
-                active.NextProduction = null;
+                if (now >= active.NextIdleCheck)
+                {
+                    active.NextIdleCheck = now + IdleCheckInterval;
+                    TryStartProduction(uid);
+                }
                 continue;
             }
-            if (active.NextProduction == null)
-                TryStartProduction(uid);
-            else if (active.NextProduction <= _timing.CurTime)
-                TryProduce(uid);
+
+            // Нарушение положения прерывает текущий цикл сразу. Топливо и рецепт
+            // проверяются при изменении раствора, запуске цикла и перед выпуском.
+            if (!TryGetFloor(uid, out _) || now >= due && !TryProduce(uid) && active.NextProduction == due)
+            {
+                active.NextProduction = null;
+                active.NextIdleCheck = now + IdleCheckInterval;
+            }
         }
     }
 
@@ -384,7 +395,10 @@ public sealed partial class OrbitraXenobiologyIndustrialSystem : EntitySystem
     private void ResetCycle(EntityUid extract)
     {
         if (_activeQuery.TryComp(extract, out var active))
+        {
             active.NextProduction = null;
+            active.NextIdleCheck = default;
+        }
     }
 
     private bool Fail(EntityUid user, EntityUid target, LocId message, bool quiet)

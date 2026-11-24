@@ -3,7 +3,7 @@ using Content.Shared._Orbitra.Particles;
 
 namespace Content.Client._Orbitra.Particles;
 
-/// <summary>Bounded storage, independent of entities, render targets and camera coordinates.</summary>
+/// <summary>Хранилище ограниченного размера, независимое от сущностей, целей рендера и камеры.</summary>
 internal sealed class OrbitraParticlePool
 {
     internal struct Particle

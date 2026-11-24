@@ -3,24 +3,24 @@
 
 namespace Content.Server._Orbitra.Research.Bluespace;
 
-/// <summary>Keeps incursion limits on the owning station rather than on individual machines.</summary>
+/// <summary>Хранит лимиты вторжений на станции, общие для её установок.</summary>
 [RegisterComponent, AutoGenerateComponentPause]
 public sealed partial class OrbitraBluespaceHarvesterStationComponent : Component
 {
-    /// <summary>Earliest time at which any harvester on this station may open another rift.</summary>
+    /// <summary>Когда любой харвестер станции сможет открыть следующий разлом.</summary>
     [AutoPausedField]
     public TimeSpan NextIncident;
 
-    /// <summary>Creatures which still occupy the station's bounded incursion budget.</summary>
+    /// <summary>Существа, которые ещё считаются в лимите вторжений станции.</summary>
     public HashSet<EntityUid> Incursions = new();
 
-    /// <summary>Earliest time at which a harvester may create another native anomaly.</summary>
+    /// <summary>Когда харвестер сможет создать следующую штатную аномалию.</summary>
     [AutoPausedField]
     public TimeSpan NextAnomaly;
 
-    /// <summary>Active harvester anomalies retained until they are neutralized or deleted.</summary>
+    /// <summary>Активные аномалии харвестеров до их нейтрализации или удаления.</summary>
     public HashSet<EntityUid> Anomalies = new();
 
-    /// <summary>Reserves the station budget during nested entity spawn callbacks.</summary>
+    /// <summary>Резервирует лимит станции во вложенных событиях спавна.</summary>
     public bool Spawning;
 }

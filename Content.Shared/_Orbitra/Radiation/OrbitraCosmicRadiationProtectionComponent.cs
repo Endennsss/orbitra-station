@@ -3,11 +3,11 @@
 
 namespace Content.Shared._Orbitra.Radiation;
 
-/// <summary>Transmission of cosmic radiation through an equipped suit with a sealed helmet.</summary>
+/// <summary>Проницаемость для космического излучения у надетого скафандра с герметичным шлемом.</summary>
 [RegisterComponent]
 public sealed partial class OrbitraCosmicRadiationProtectionComponent : Component
 {
-    /// <summary>Fraction transmitted, independent of conventional radiation armor. Must be in (0, 1].</summary>
+    /// <summary>Доля пропущенного излучения в диапазоне (0, 1], независимо от обычной радиационной брони.</summary>
     [DataField]
     public float Transmission = 0.2f;
 }

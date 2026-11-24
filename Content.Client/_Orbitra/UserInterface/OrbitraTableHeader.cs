@@ -4,7 +4,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Keeps table headers aligned with the actual list viewport when its scrollbar appears.</summary>
+/// <summary>Сохраняет выравнивание заголовков таблицы при появлении полосы прокрутки.</summary>
 internal sealed class OrbitraTableHeader : Control
 {
     private readonly Control _header;

@@ -17,7 +17,7 @@ using Content.Server.Medical.Components;
 
 namespace Content.Server._Orbitra.Particles;
 
-/// <summary>Publishes confirmed transient effects to nearby observers.</summary>
+/// <summary>Передаёт подтверждённые кратковременные эффекты ближайшим наблюдателям.</summary>
 public sealed partial class OrbitraParticleBurstSystem : EntitySystem
 {
     [Dependency] private SharedOrbitraParticleSystem _particles = default!;
@@ -72,7 +72,7 @@ public sealed partial class OrbitraParticleBurstSystem : EntitySystem
         TryBloodHit(ent, args.User, args.Damage);
     }
 
-    /// <summary>Emits cosmetic blood only for confirmed physical damage to a blood-filled body.</summary>
+    /// <summary>Показывает кровь после подтверждённого физического урона телу с кровью.</summary>
     public bool TryBloodHit(EntityUid target, EntityUid attacker, DamageSpecifier damage)
     {
         if (!CanBloodHit(target, attacker, damage, out var blood))

@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Client.Graphics;
 using Content.Shared._Orbitra.Graphics;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
@@ -14,7 +15,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client._Orbitra.Atmos;
 
-/// <summary>Draws continuous gas clouds from the existing visible-gas snapshots.</summary>
+/// <summary>Рисует непрерывную дымку по сетевым данным о видимых газах.</summary>
 internal sealed partial class OrbitraGasRenderer : IDisposable
 {
     private static readonly ProtoId<ShaderPrototype> ShaderId = "OrbitraSmoothGas";
@@ -31,18 +32,14 @@ internal sealed partial class OrbitraGasRenderer : IDisposable
     private readonly Vector3[] _palette;
     private readonly Vector4[] _fieldScratch = new Vector4[OrbitraGasField.FieldSize * OrbitraGasField.FieldSize];
     private readonly OrbitraGasCache<ChunkSurface> _cache = new();
+    private readonly OverlayResourceCache<MapSurface> _mapSurfaces = new();
+    private static readonly Func<IClydeViewport, MapSurface> CreateMapSurface = _ => new();
     private readonly List<VisibleChunk> _visible = new(OrbitraGasCache<ChunkSurface>.Capacity);
     private readonly HashSet<(EntityUid Grid, Vector2i Index)> _visibleKeys = new();
-    private readonly Func<(EntityUid Grid, Vector2i Index), bool> _isVisible;
     private readonly Func<(EntityUid Grid, Vector2i Index), bool> _isAvailable;
     private List<Entity<MapGridComponent>> _grids = new();
     private ShaderPrototype? _prototype;
-    private ShaderInstance? _mapShader;
-    private MapId _map = MapId.Nullspace;
     private float _time;
-    private float _mapChangedAt;
-    private Vector4 _mapFrom;
-    private Vector4 _mapTo;
     private bool _unavailable;
 
     private readonly record struct VisibleChunk(EntityUid Grid, GasTileOverlayComponent Overlay, Vector2i Index,
@@ -54,7 +51,6 @@ internal sealed partial class OrbitraGasRenderer : IDisposable
         _maps = _entities.System<SharedMapSystem>();
         _transform = _entities.System<SharedTransformSystem>();
         _overlays = _entities.GetEntityQuery<GasTileOverlayComponent>();
-        _isVisible = _visibleKeys.Contains;
         _isAvailable = IsAvailable;
 
         // Цвета дымки повторяют прежние спрайты. Цвет в анализаторе задаётся отдельно.
@@ -79,9 +75,10 @@ internal sealed partial class OrbitraGasRenderer : IDisposable
     public void Advance(float seconds)
     {
         _time += seconds;
+        _cache.BeginFrame();
         _cache.Retain(_isAvailable);
         if (!_configuration.GetCVar(OrbitraGasCVars.SmoothGases))
-            ChangeMap(MapId.Nullspace);
+            Dispose();
     }
 
     public bool TryDraw(in OverlayDrawArgs args)
@@ -89,7 +86,6 @@ internal sealed partial class OrbitraGasRenderer : IDisposable
         if (_unavailable || !_configuration.GetCVar(OrbitraGasCVars.SmoothGases))
             return false;
 
-        ChangeMap(args.MapId);
         if (args.MapId == MapId.Nullspace)
             return true;
 
@@ -97,6 +93,7 @@ internal sealed partial class OrbitraGasRenderer : IDisposable
         var mapUid = _maps.GetMapOrInvalid(args.MapId);
         var drawMap = _entities.HasComponent<MapGridComponent>(mapUid) == entitiesPass;
 
+        MapSurface? mapSurface = null;
         try
         {
             if (entitiesPass && !PrepareChunks(args))
@@ -105,7 +102,10 @@ internal sealed partial class OrbitraGasRenderer : IDisposable
             if (drawMap)
             {
                 _entities.TryGetComponent<MapAtmosphereComponent>(mapUid, out var atmosphere);
-                UpdateMap(atmosphere?.OverlayData.Opacity);
+                mapSurface = _mapSurfaces.GetForViewport(args.Viewport, CreateMapSurface);
+                mapSurface.Update(args.MapId, OrbitraGasField.Mix(atmosphere?.OverlayData.Opacity, _palette), _time);
+                if (mapSurface.NeedsShader)
+                    mapSurface.CreateShader(GetPrototype());
             }
         }
         catch (Exception error)
@@ -122,14 +122,13 @@ internal sealed partial class OrbitraGasRenderer : IDisposable
         var time = _configuration.GetCVar(CCVars.ReducedMotion) ? 0f : _time;
         try
         {
-            if (drawMap && _mapShader != null)
-                DrawMap(handle, args.WorldAABB, time);
+            mapSurface?.Draw(handle, args.WorldAABB, _time, time);
 
             if (entitiesPass)
             {
                 foreach (var chunk in _visible)
                 {
-                    var surface = _cache.Entries[(chunk.Grid, chunk.Index)];
+                    var surface = _cache[(chunk.Grid, chunk.Index)];
                     surface.Draw(handle, chunk.Transform, chunk.Bounds, _time, time);
                 }
             }
@@ -164,26 +163,25 @@ internal sealed partial class OrbitraGasRenderer : IDisposable
                     continue;
 
                 var key = (grid.Owner, index);
-                if ((!_cache.Entries.TryGetValue(key, out var previous) || !previous.MayBeVisible(_time)) && !HasGas(chunk))
+                if ((!_cache.TryGet(key, out var previous) || !previous.MayBeVisible(_time)) && !HasGas(chunk))
                     continue;
 
                 if (_visible.Count == OrbitraGasCache<ChunkSurface>.Capacity)
-                {
-                    _cache.Dispose();
                     return false;
-                }
 
                 _visibleKeys.Add(key);
                 _visible.Add(new VisibleChunk(grid.Owner, overlay, index, matrix, bounds));
             }
         }
 
-        _cache.Retain(_isVisible);
+        if (!_cache.Reserve(_visibleKeys))
+            return false;
+
         foreach (var chunk in _visible)
         {
             var key = (chunk.Grid, chunk.Index);
-            if (!_cache.Entries.TryGetValue(key, out var surface))
-                _cache.Entries.Add(key, surface = new ChunkSurface(_clyde, GetPrototype()));
+            if (!_cache.TryGet(key, out var surface))
+                _cache.Add(key, surface = new ChunkSurface(_clyde, GetPrototype()));
 
             surface.Update(chunk.Overlay.Chunks, chunk.Index, _palette, _fieldScratch, _time);
         }
@@ -191,46 +189,53 @@ internal sealed partial class OrbitraGasRenderer : IDisposable
         return true;
     }
 
-    private void UpdateMap(ReadOnlySpan<byte> opacity)
+    // Переход фоновой атмосферы принадлежит камере; текстуры чанков общие.
+    private sealed class MapSurface : IDisposable
     {
-        var color = OrbitraGasField.Mix(opacity, _palette);
-        if (_mapTo == color)
-            return;
+        private MapId _map = MapId.Nullspace;
+        private Vector4 _from;
+        private Vector4 _to;
+        private float _changedAt;
+        private ShaderInstance? _shader;
 
-        _mapFrom = Vector4.Lerp(_mapFrom, _mapTo, Progress(_time, _mapChangedAt));
-        _mapTo = color;
-        _mapChangedAt = _time;
-        if (_mapShader == null)
+        public bool NeedsShader => _shader == null && (_from.W != 0f || _to.W != 0f);
+
+        public void Update(MapId map, Vector4 color, float now)
         {
-            _mapShader = GetPrototype().InstanceUnique();
-            _mapShader.SetParameter("map_atmosphere", true);
-            _mapShader.SetParameter("use_flow", false);
+            if (map != _map)
+            {
+                _map = map;
+                _from = _to = default;
+            }
+
+            if (_to == color)
+                return;
+
+            _from = Vector4.Lerp(_from, _to, Progress(now, _changedAt));
+            _to = color;
+            _changedAt = now;
         }
-    }
 
-    private void DrawMap(DrawingHandleWorld handle, Box2 bounds, float time)
-    {
-        var density = Vector4.Lerp(_mapFrom, _mapTo, Progress(_time, _mapChangedAt));
-        if (density.W == 0f || _mapShader is not { } shader)
-            return;
+        public void CreateShader(ShaderPrototype prototype)
+        {
+            _shader = prototype.InstanceUnique();
+            _shader.SetParameter("map_atmosphere", true);
+            _shader.SetParameter("use_flow", false);
+        }
 
-        shader.SetParameter("map_density", density);
-        SetCloudPosition(shader, bounds, time);
-        handle.UseShader(shader);
-        handle.DrawRect(bounds, Color.White);
-    }
+        public void Draw(DrawingHandleWorld handle, Box2 bounds, float now, float driftTime)
+        {
+            var density = Vector4.Lerp(_from, _to, Progress(now, _changedAt));
+            if (density.W == 0f || _shader is not { } shader)
+                return;
 
-    private void ChangeMap(MapId map)
-    {
-        if (_map == map)
-            return;
+            shader.SetParameter("map_density", density);
+            SetCloudPosition(shader, bounds, driftTime);
+            handle.UseShader(shader);
+            handle.DrawRect(bounds, Color.White);
+        }
 
-        _map = map;
-        _cache.ChangeMap(map);
-        _visible.Clear();
-        _visibleKeys.Clear();
-        _grids.Clear();
-        _mapFrom = _mapTo = default;
+        public void Dispose() => _shader?.Dispose();
     }
 
     private bool IsAvailable((EntityUid Grid, Vector2i Index) key) =>
@@ -267,8 +272,10 @@ internal sealed partial class OrbitraGasRenderer : IDisposable
 
     public void Dispose()
     {
-        ChangeMap(MapId.Nullspace);
-        _mapShader?.Dispose();
-        _mapShader = null;
+        _cache.Dispose();
+        _mapSurfaces.Dispose();
+        _visible.Clear();
+        _visibleKeys.Clear();
+        _grids.Clear();
     }
 }

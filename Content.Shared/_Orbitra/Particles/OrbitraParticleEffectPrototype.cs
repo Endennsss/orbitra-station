@@ -2,7 +2,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Orbitra.Particles;
 
-/// <summary>Data-driven cosmetic particle emission; never creates gameplay entities.</summary>
+/// <summary>Настройки декоративных частиц. Игровые сущности при выбросе не создаются.</summary>
 [Prototype]
 public sealed partial class OrbitraParticleEffectPrototype : IPrototype
 {
@@ -11,9 +11,9 @@ public sealed partial class OrbitraParticleEffectPrototype : IPrototype
     [DataField] public Color EndColor = Color.Gray;
     [DataField] public float Size = 0.035f;
     [DataField] public float Speed = 1.2f;
-    /// <summary>Velocity damping per second.</summary>
+    /// <summary>Затухание скорости за секунду.</summary>
     [DataField] public float Drag = 3f;
-    /// <summary>Half-width of the emission area in world units.</summary>
+    /// <summary>Половина ширины области выброса в мировых единицах.</summary>
     [DataField] public float SpawnRadius;
     [DataField] public float Spread = 2.8f;
     [DataField] public float Lifetime = 0.5f;
@@ -23,7 +23,7 @@ public sealed partial class OrbitraParticleEffectPrototype : IPrototype
     [DataField] public bool Smoke;
     /// <summary>Начинает движение на расстоянии, с которого частица успеет дойти до источника.</summary>
     [DataField] public bool Inward;
-    /// <summary>Stationary temporary impact mark, sharing the particle budget.</summary>
+    /// <summary>Временная неподвижная отметина удара из общего бюджета частиц.</summary>
     [DataField] public bool ImpactMark;
     [DataField] public int Shape;
 }

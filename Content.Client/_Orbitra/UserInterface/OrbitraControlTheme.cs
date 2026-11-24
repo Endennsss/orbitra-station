@@ -6,7 +6,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Shared appearance for ordinary controls; leaves their layout constraints intact.</summary>
+/// <summary>Общее оформление обычных контролов с сохранением ограничений раскладки.</summary>
 internal static class OrbitraControlTheme
 {
     internal const string AppliedClass = "OrbitraBaseThemed";

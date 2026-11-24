@@ -4,6 +4,6 @@ namespace Content.Shared.Chat;
 
 public abstract partial class SharedChatSystem
 {
-    /// <summary>Reserves one player emote; the server owns the cooldown shared by all input paths.</summary>
+    /// <summary>Резервирует одну эмоцию игрока. Сервер хранит общий таймер для всех способов ввода.</summary>
     public virtual bool TryConsumeOrbitraEmote(ICommonSession player) => true;
 }

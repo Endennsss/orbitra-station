@@ -7,7 +7,7 @@ using Robust.Client.GameObjects;
 namespace Content.Client.Research;
 
 /// <summary>
-/// Refreshes open research consoles after their networked technology database has been applied.
+/// Обновляет открытые консоли после применения сетевого состояния базы технологий.
 /// </summary>
 public sealed partial class ResearchSystem
 {

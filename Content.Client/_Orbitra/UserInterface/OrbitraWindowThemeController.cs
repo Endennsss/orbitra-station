@@ -8,7 +8,7 @@ using Robust.Client.UserInterface.CustomControls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Installs the default Orbitra theme before ordinary windows are first shown.</summary>
+/// <summary>Подключает тему Orbitra до первого появления обычных окон.</summary>
 public sealed class OrbitraWindowThemeController : UIController
 {
     private bool _attached;

@@ -7,7 +7,7 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Optional specialized layout adjustments on top of the shared Orbitra appearance.</summary>
+/// <summary>Дополнительная раскладка специальных окон поверх общей темы Orbitra.</summary>
 internal static class OrbitraEditorStyles
 {
     public static void OpenWindow(BaseWindow window)

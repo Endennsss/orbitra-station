@@ -24,6 +24,30 @@ public sealed class OrbitraWindowLifecycleTest : GameTest
     public override PoolSettings PoolSettings => new() { InLobby = true, Dirty = true };
 
     [Test]
+    public async Task ReparentingBlockedControlRestoresOriginalInput()
+    {
+        await Pair.Client.WaitAssertion(() =>
+        {
+            using var root = new Control();
+            var left = new Control();
+            var right = new Control();
+            var button = new Button { MouseFilter = Control.MouseFilterMode.Stop, CanKeyboardFocus = true };
+            root.AddChild(left);
+            root.AddChild(right);
+            left.AddChild(button);
+            var input = new OrbitraInputBlock();
+
+            input.Block(root);
+            button.Orphan();
+            right.AddChild(button);
+            Assert.That(button.MouseFilter, Is.EqualTo(Control.MouseFilterMode.Ignore));
+            input.Restore();
+            Assert.That(button.MouseFilter, Is.EqualTo(Control.MouseFilterMode.Stop));
+            Assert.That(button.CanKeyboardFocus, Is.True);
+        });
+    }
+
+    [Test]
     public async Task NativeOpenEscapeAndReopenReverseWithoutDuplicateClose()
     {
         IUserInterfaceManager ui = null!;

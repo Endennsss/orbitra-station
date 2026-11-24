@@ -2,13 +2,16 @@
 
 using System.Numerics;
 using Content.Server.Gravity;
+using Content.Server.Physics.Controllers;
 using Content.IntegrationTests.Fixtures;
 using Content.Shared._Orbitra.Movement;
 using Content.Shared.Gravity;
 using Content.Shared.Movement.Components;
+using Content.Shared.Movement.Systems;
 using Content.Shared.Standing;
 using Content.Shared.Stunnable;
 using Robust.Shared.GameObjects;
+using Robust.Shared.Maths;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 
@@ -18,6 +21,38 @@ namespace Content.IntegrationTests.Tests._Orbitra;
 public sealed class OrbitraMobilityTest : GameTest
 {
     public override PoolSettings PoolSettings => new() { Connected = true, Dirty = true };
+
+    [Test]
+    public async Task SprintInputKeepsNormalGaitInWeightlessness()
+    {
+        var map = await Pair.CreateTestMap();
+        EntityUid human = default;
+        var normal = 0f;
+        var controller = Server.System<MoverController>();
+
+        await Server.WaitPost(() =>
+        {
+            human = SEntMan.SpawnEntity("MobHuman", map.GridCoords);
+            Server.PlayerMan.SetAttachedEntity(Server.PlayerMan.GetSessionById(Client.Session!.UserId), human);
+        });
+        await Pair.RunTicksSync(10);
+        await Server.WaitPost(() =>
+        {
+            var input = SEntMan.GetComponent<InputMoverComponent>(human);
+            controller.SetVelocityDirection((human, input), Direction.East, 0, true);
+        });
+        await Pair.RunTicksSync(3);
+        await Server.WaitAssertion(() =>
+        {
+            Assert.That(Server.System<GravitySystem>().IsWeightless(human), Is.True);
+            normal = controller.GetWishDir(human).Length();
+            Assert.That(normal, Is.GreaterThan(0f));
+            SEntMan.GetComponent<InputMoverComponent>(human).HeldMoveButtons |= MoveButtons.Sprint;
+        });
+        await Pair.RunTicksSync(3);
+        await Server.WaitAssertion(() =>
+            Assert.That(controller.GetWishDir(human).Length(), Is.EqualTo(normal).Within(0.001f)));
+    }
 
     [Test]
     public async Task StationaryJumpKeepsVelocityFiniteAndReturnsToGround()

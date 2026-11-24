@@ -149,7 +149,7 @@ public sealed partial class OrbitraResearchTreeControl
     }
 }
 
-/// <summary>A directed prerequisite path in graph coordinates, cached until the visible layout changes.</summary>
+/// <summary>Направленная линия зависимости в координатах графа, закэшированная до смены видимой раскладки.</summary>
 internal sealed record OrbitraResearchTreeEdge(
     ProtoId<TechnologyPrototype> From,
     ProtoId<TechnologyPrototype> To,

@@ -7,7 +7,7 @@ using Content.Client._Orbitra.Lobby;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Fades the existing popup content after native modality has already been released.</summary>
+/// <summary>Плавно скрывает содержимое меню после снятия штатного модального ввода.</summary>
 internal sealed class OrbitraPopupPresentation : IDisposable
 {
     private readonly Popup _popup;

@@ -14,7 +14,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Client._Orbitra.Research.UI;
 
 /// <summary>
-/// A clipped technology graph. Layout and input use UI units; rendering uses local physical pixels.
+/// Граф с обрезкой по границам. Раскладка и ввод используют единицы интерфейса, отрисовка — локальные пиксели.
 /// </summary>
 public sealed partial class OrbitraResearchTreeControl : Control
 {
@@ -47,28 +47,28 @@ public sealed partial class OrbitraResearchTreeControl : Control
     private bool _captionsDirty = true;
     private bool _centerWhenSized;
 
-    /// <summary>Raised when a node is selected, without purchasing it.</summary>
+    /// <summary>Срабатывает при выборе узла без запроса на покупку.</summary>
     public event Action<ProtoId<TechnologyPrototype>>? OnTechnologySelected;
 
-    /// <summary>Raised after the graph viewport or its visible subset changes.</summary>
+    /// <summary>Срабатывает после смены области просмотра графа или набора видимых узлов.</summary>
     public event Action? OnViewChanged;
 
-    /// <summary>Technologies currently shown, including prerequisites retained by a filter.</summary>
+    /// <summary>Отображаемые технологии, включая зависимости, оставленные фильтром.</summary>
     public IReadOnlyCollection<ProtoId<TechnologyPrototype>> VisibleTechnologyIds => _visible;
 
-    /// <summary>Scale relative to the graph's UI coordinates.</summary>
+    /// <summary>Масштаб относительно координат интерфейса графа.</summary>
     public float Zoom { get; private set; } = 0.8f;
 
-    /// <summary>Translation in UI units.</summary>
+    /// <summary>Смещение в единицах интерфейса.</summary>
     public Vector2 Pan { get; private set; } = new(20, 20);
 
-    /// <summary>The selected technology, which may lie outside the current filter.</summary>
+    /// <summary>Выбранная технология, которая может находиться за пределами текущего фильтра.</summary>
     public ProtoId<TechnologyPrototype>? SelectedTechnology { get; private set; }
 
-    /// <summary>Cached visible card bounds in graph coordinates, shared by rendering, routing and hit testing.</summary>
+    /// <summary>Границы видимых карточек в координатах графа для рендера, связей и обработки нажатий.</summary>
     internal IReadOnlyDictionary<ProtoId<TechnologyPrototype>, UIBox2> NodeBounds => _nodeBounds;
 
-    /// <summary>Cached paths consumed directly by the renderer.</summary>
+    /// <summary>Закэшированные пути для отрисовки.</summary>
     internal IReadOnlyList<OrbitraResearchTreeEdge> Edges => _edges;
 
     public OrbitraResearchTreeControl()
@@ -100,7 +100,7 @@ public sealed partial class OrbitraResearchTreeControl : Control
             _states.Add(id, state);
     }
 
-    /// <summary>Restores or changes a viewport without rebuilding the catalog or layout.</summary>
+    /// <summary>Восстанавливает или меняет область просмотра без перестройки каталога и раскладки.</summary>
     public void SetViewport(float zoom, Vector2 pan)
     {
         if (!float.IsFinite(zoom) || !float.IsFinite(pan.X) || !float.IsFinite(pan.Y))
@@ -113,7 +113,7 @@ public sealed partial class OrbitraResearchTreeControl : Control
         OnViewChanged?.Invoke();
     }
 
-    /// <summary>Shows matching technologies together with their transitive prerequisites.</summary>
+    /// <summary>Показывает совпавшие технологии со всей цепочкой их зависимостей.</summary>
     public void SetFilter(ProtoId<TechDisciplinePrototype>? discipline, string search)
     {
         var trimmed = search.Trim();
@@ -125,7 +125,7 @@ public sealed partial class OrbitraResearchTreeControl : Control
         RebuildLayout();
     }
 
-    /// <summary>Selects a catalog entry. Selection never sends a purchase request.</summary>
+    /// <summary>Выбирает запись каталога без отправки запроса на покупку.</summary>
     public bool SelectTechnology(ProtoId<TechnologyPrototype> id)
     {
         if (_catalog == null || !_catalog.Technologies.ContainsKey(id))
@@ -136,7 +136,7 @@ public sealed partial class OrbitraResearchTreeControl : Control
         return true;
     }
 
-    /// <summary>Moves the selected visible node to the center of the viewport.</summary>
+    /// <summary>Помещает выбранный видимый узел в центр области просмотра.</summary>
     public void CenterSelection()
     {
         if (SelectedTechnology is not { } selected || !_nodes.TryGetValue(selected, out var node) || !_visible.Contains(selected))
@@ -151,7 +151,7 @@ public sealed partial class OrbitraResearchTreeControl : Control
         SetViewport(Zoom, Size / 2 - (node.Position + NodeSize / 2) * Zoom);
     }
 
-    /// <summary>Changes scale while keeping an anchor fixed in UI coordinates.</summary>
+    /// <summary>Меняет масштаб вокруг неподвижной точки в координатах интерфейса.</summary>
     public void ZoomAt(float factor, Vector2 anchor)
     {
         var graphAnchor = UiToGraph(anchor);

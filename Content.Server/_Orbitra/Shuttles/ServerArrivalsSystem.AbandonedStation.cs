@@ -12,7 +12,7 @@ public sealed partial class ServerArrivalsSystem
     public override bool OrbitraArrivalsSuspended => _orbitraAbandonedStation.IsIsolationActive;
 
     /// <summary>
-    /// Restarts the waiting period instead of executing trips missed during isolation.
+    /// После изоляции заново запускает ожидание рейса.
     /// </summary>
     public void OrbitraResumeArrivals()
     {

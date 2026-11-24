@@ -9,7 +9,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._Orbitra.ThermalVision;
 
-/// <summary>Common ownership and activation for optics; never renders into unrelated camera viewports.</summary>
+/// <summary>Управляет оптикой и её активацией только для соответствующей игровой камеры.</summary>
 internal abstract class OrbitraThermalOverlay : Overlay
 {
     protected readonly OrbitraThermalVisionSystem Thermal;
@@ -38,7 +38,7 @@ internal abstract class OrbitraThermalOverlay : Overlay
     }
 }
 
-/// <summary>Desaturates the world before FOV, leaving hidden geometry and HUD untouched.</summary>
+/// <summary>Обесцвечивает мир до маски поля зрения, сохраняя скрытие геометрии и оформление HUD.</summary>
 internal sealed class OrbitraThermalWorldOverlay(OrbitraThermalVisionSystem thermal)
     : OrbitraThermalOverlay(thermal, "OrbitraThermalWorld")
 {
@@ -71,7 +71,7 @@ internal sealed class OrbitraThermalWorldOverlay(OrbitraThermalVisionSystem ther
     }
 }
 
-/// <summary>Re-renders authorized PVS sprites above FOV using their normal animation and transform.</summary>
+/// <summary>Рисует разрешённые спрайты из PVS поверх маски видимости со штатной анимацией и положением.</summary>
 internal sealed class OrbitraThermalContactOverlay : OrbitraThermalOverlay
 {
     private readonly SpriteSystem _sprites = IoCManager.Resolve<IEntityManager>().System<SpriteSystem>();

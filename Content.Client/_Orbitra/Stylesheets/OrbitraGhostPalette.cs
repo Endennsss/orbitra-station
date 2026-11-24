@@ -1,6 +1,6 @@
 namespace Content.Client._Orbitra.Stylesheets;
 
-/// <summary>Department accents; labels keep the neutral palette's readable foreground.</summary>
+/// <summary>Акцентные цвета отделов с сохранением контрастных подписей нейтральной палитры.</summary>
 public static class OrbitraGhostPalette
 {
     public static Color CardBackground(Color accent, float strength) =>

@@ -4,7 +4,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Fixed-size outline icon, styled from the shared SVG-derived texture set.</summary>
+/// <summary>Контурная иконка фиксированного размера из общего набора текстур.</summary>
 public sealed class OrbitraIcon : TextureRect
 {
     private string? _icon;

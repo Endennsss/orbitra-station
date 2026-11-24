@@ -9,7 +9,7 @@ using static Content.Client.Stylesheets.StylesheetHelpers;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Character cards and the explicitly styled emote wheel.</summary>
+/// <summary>Карточки персонажей и оформление радиального меню эмоций.</summary>
 [CommonSheetlet]
 public sealed class OrbitraCharacterEmoteSheetlet : Sheetlet<PalettedStylesheet>
 {

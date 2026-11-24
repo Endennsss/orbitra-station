@@ -19,7 +19,7 @@ public sealed partial class AnalysisConsoleMenu
     private RichTextLabel? _scannerState;
     private readonly HashSet<string> _scannerTriggeredNodes = new();
 
-    /// <summary>Uses the native artifact view for a handheld scanner, without console actions.</summary>
+    /// <summary>Показывает артефакт в ручном сканере без действий консоли.</summary>
     public void SetScannerOwner(EntityUid owner)
     {
         if (!_ent.HasComponent<NodeScannerComponent>(owner))
@@ -44,7 +44,7 @@ public sealed partial class AnalysisConsoleMenu
         UpdateScanner();
     }
 
-    /// <summary>Refreshes the linked graph and selected node using the console's visibility rules.</summary>
+    /// <summary>Обновляет связанный граф и выбранный узел по правилам видимости консоли.</summary>
     public void UpdateScanner()
     {
         if (!_ent.TryGetComponent<NodeScannerComponent>(_scannerOwner, out var scanner))

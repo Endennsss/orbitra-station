@@ -3,7 +3,7 @@ using Robust.Client.UserInterface;
 
 namespace Content.Client._Orbitra.Lobby;
 
-/// <summary>A fixed, clipped preview surface. Animation never changes its measured footprint.</summary>
+/// <summary>Обрезаемая область предпросмотра с размером, независимым от анимации.</summary>
 public sealed class OrbitraPreviewStage : Control
 {
     public float IncomingOffset { get; set; }

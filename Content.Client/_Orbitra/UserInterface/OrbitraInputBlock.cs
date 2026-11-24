@@ -1,17 +1,17 @@
 using Robust.Client.UserInterface;
 
-using Content.Client._Orbitra.Lobby;
-
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Temporarily removes input from a fading subtree, including newly added children.</summary>
+/// <summary>Отключает ввод в скрываемой ветке интерфейса, включая добавляемые контролы.</summary>
 internal sealed class OrbitraInputBlock
 {
-    private readonly List<(Control Control, Control.MouseFilterMode Mouse, bool Focus)> _controls = new();
+    private readonly Dictionary<Control, (Control.MouseFilterMode Mouse, bool Focus)> _controls = new();
 
     internal void Block(Control control)
     {
-        _controls.Add((control, control.MouseFilter, control.CanKeyboardFocus));
+        // Перенос внутри ветки не меняет состояние, которое надо восстановить.
+        if (!_controls.TryAdd(control, (control.MouseFilter, control.CanKeyboardFocus)))
+            return;
         control.ReleaseKeyboardFocus();
         control.MouseFilter = Control.MouseFilterMode.Ignore;
         control.CanKeyboardFocus = false;
@@ -22,7 +22,7 @@ internal sealed class OrbitraInputBlock
 
     internal void Restore()
     {
-        foreach (var (control, mouse, focus) in _controls)
+        foreach (var (control, (mouse, focus)) in _controls)
         {
             control.OnChildAdded -= Block;
             if (control.Disposed)

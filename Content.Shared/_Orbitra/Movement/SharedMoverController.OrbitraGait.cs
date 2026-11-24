@@ -18,6 +18,7 @@ public abstract partial class SharedMoverController
     [Dependency] protected EntityQuery<OrbitraMobilityComponent> OrbitraMobilityQuery = default!;
     [Dependency] protected EntityQuery<StaminaComponent> OrbitraSprintStaminaQuery = default!;
 
+    /// <summary>Доля базовой скорости бега в текущем темпе. Ctrl имеет приоритет над Shift.</summary>
     public static float GetOrbitraSprintWeight(InputMoverComponent mover, bool walking, bool sprinting)
     {
         if (walking)
@@ -32,6 +33,10 @@ public abstract partial class SharedMoverController
         return (direction * (1f - sprintWeight), direction * sprintWeight);
     }
 
+    private static Vector2 GetOrbitraNormalGaitAdjustment(InputMoverComponent mover, Vector2 direction,
+        float walkSpeed, float sprintSpeed) =>
+        direction * (float.Lerp(walkSpeed, sprintSpeed, mover.OrbitraNormalSprintWeight) - sprintSpeed);
+
     private Vector2 GetOrbitraSprintAdjustment(Entity<InputMoverComponent> entity, Vector2 direction,
         float walkSpeed, float sprintSpeed)
     {
@@ -40,10 +45,7 @@ public abstract partial class SharedMoverController
 
         if (stamina.Critical || stamina.StaminaDamage >= stamina.CritThreshold * OrbitraSprintStaminaLimit ||
             _orbitraStanding.IsDown(entity.Owner))
-        {
-            var normalSpeed = float.Lerp(walkSpeed, sprintSpeed, entity.Comp.OrbitraNormalSprintWeight);
-            return direction * (normalSpeed - sprintSpeed);
-        }
+            return GetOrbitraNormalGaitAdjustment(entity.Comp, direction, walkSpeed, sprintSpeed);
 
         entity.Comp.OrbitraSprintFraction = direction.Length();
         return direction * (sprintSpeed * (OrbitraSprintSpeedMultiplier - 1f));

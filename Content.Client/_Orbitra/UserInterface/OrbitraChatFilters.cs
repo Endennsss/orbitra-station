@@ -4,7 +4,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Bounds and arranges the native filter controls without replacing their state or handlers.</summary>
+/// <summary>Подгоняет штатные контролы фильтра, сохраняя их состояние и обработчики.</summary>
 internal static class OrbitraChatFilters
 {
     internal static UIBox2 Place(ChannelFilterButton owner)

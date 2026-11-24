@@ -1,6 +1,6 @@
 namespace Content.Client._Orbitra.UserInterface;
 
-/// <summary>Shared logical UI dimensions; window-specific preferred sizes remain local.</summary>
+/// <summary>Общие логические размеры интерфейса. Предпочтительные размеры задаёт каждое окно.</summary>
 public static class OrbitraUiMetrics
 {
     public const int Small = 8;
@@ -19,7 +19,7 @@ public static class OrbitraUiMetrics
     public const float FormWidth = 720;
 }
 
-/// <summary>Semantic button roles. Legacy style names are aliases in the common sheetlet.</summary>
+/// <summary>Смысловые роли кнопок. Старые имена стилей определены в общей таблице стилей как псевдонимы.</summary>
 public static class OrbitraButtonStyles
 {
     public const string Primary = "OrbitraButtonPrimary";

@@ -20,7 +20,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._Orbitra.Xenobiology;
 
-/// <summary>Consumes extracts and dormant cultures once, and applies bounded genetic treatments.</summary>
+/// <summary>Однократно расходует экстракты и спящие культуры и применяет ограниченные генетические изменения.</summary>
 public sealed partial class OrbitraXenobiologyExtractSystem : EntitySystem
 {
     [Dependency] private IPrototypeManager _prototype = default!;
@@ -84,7 +84,7 @@ public sealed partial class OrbitraXenobiologyExtractSystem : EntitySystem
         args.Handled = TryApplySerum(ent, args.User, target);
     }
 
-    /// <summary>Claims an unused extract before chemistry callbacks or output spawns can re-enter this system.</summary>
+    /// <summary>Помечает экстракт использованным до вложенных событий химии и спавна.</summary>
     public bool TryReact(Entity<OrbitraXenobiologyExtractComponent> ent)
     {
         if (!CanReact(ent, out var reaction, out var solution, out var coordinates) ||
@@ -121,7 +121,7 @@ public sealed partial class OrbitraXenobiologyExtractSystem : EntitySystem
         return true;
     }
 
-    /// <summary>Checks catalyst quantity and world coordinates without consuming the extract.</summary>
+    /// <summary>Проверяет количество катализатора и мировые координаты без расхода экстракта.</summary>
     public bool CanReact(Entity<OrbitraXenobiologyExtractComponent> ent,
         out OrbitraXenobiologyReactionPrototype reaction,
         out Entity<SolutionComponent> solution,
@@ -153,7 +153,7 @@ public sealed partial class OrbitraXenobiologyExtractSystem : EntitySystem
         return true;
     }
 
-    /// <summary>Hatches a hydrated culture on the floor, respecting the laboratory population limit.</summary>
+    /// <summary>Выращивает гидратированную культуру на полу с учётом лимита колонии.</summary>
     public bool TryHatch(Entity<OrbitraXenobiologyCultureComponent> ent)
     {
         if (!CanHatch(ent, out var breed, out var coordinates))
@@ -168,7 +168,7 @@ public sealed partial class OrbitraXenobiologyExtractSystem : EntitySystem
         return true;
     }
 
-    /// <summary>Checks hydration, containment and population before creating any creature.</summary>
+    /// <summary>Проверяет гидратацию, контейнеры и численность до создания существа.</summary>
     public bool CanHatch(Entity<OrbitraXenobiologyCultureComponent> ent,
         out OrbitraXenobiologyBreedPrototype breed, out EntityCoordinates coordinates)
     {
@@ -198,7 +198,7 @@ public sealed partial class OrbitraXenobiologyExtractSystem : EntitySystem
         return true;
     }
 
-    /// <summary>Applies one heritable treatment through an actual held, reachable interaction.</summary>
+    /// <summary>Применяет наследуемое изменение к доступной цели предметом в руках.</summary>
     public bool TryApplySerum(Entity<OrbitraXenobiologySerumComponent> ent, EntityUid user, EntityUid target)
     {
         if (!CanApplySerum(ent, user, target))
@@ -218,7 +218,7 @@ public sealed partial class OrbitraXenobiologyExtractSystem : EntitySystem
         return true;
     }
 
-    /// <summary>Checks the source, recipient, reach and ability to interact without changing either entity.</summary>
+    /// <summary>Проверяет источник, цель, расстояние и возможность взаимодействия без изменения сущностей.</summary>
     public bool CanApplySerum(Entity<OrbitraXenobiologySerumComponent> ent, EntityUid user, EntityUid target)
     {
         return !TerminatingOrDeleted(ent) && !TerminatingOrDeleted(user) && !TerminatingOrDeleted(target) &&

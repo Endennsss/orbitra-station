@@ -6,7 +6,7 @@ namespace Content.Client.UserInterface.Controls.FancyTree;
 
 public sealed partial class TreeItem
 {
-    /// <summary>Uses Lucide disclosure icons only for explicitly styled tree items.</summary>
+    /// <summary>Использует значки раскрытия Lucide для явно оформленных элементов дерева.</summary>
     internal bool ApplyOrbitraIcon()
     {
         if (Tree == null || !HasStyleClass("OrbitraEditorControl"))

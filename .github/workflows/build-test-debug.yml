@@ -13,143 +13,110 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.event_name != 'merge_group' }}
 
+env:
+  SHARD_COUNT: '8'
+
 jobs:
   build:
-    name: Linux tests
+    name: Build Linux tests
     if: github.actor != 'PJBot' && (github.event_name != 'pull_request' || !github.event.pull_request.draft)
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-        shard: [0, 1, 2, 3, 4, 5, 6, 7]
-
-    runs-on: ${{ matrix.os }}
-    # Интеграционные тесты запускают клиент и сервер; полный набор регулярно
-    # занимает больше часа на ubuntu-latest.
-    timeout-minutes: 120
-
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
     steps:
-    - name: Checkout Master
-      uses: actions/checkout@v7
-
-    - name: Setup Submodule
-      run: |
-        git submodule update --init --recursive
+    - uses: actions/checkout@v7
+      with:
+        submodules: recursive
 
     - name: Pull engine updates
       uses: space-wizards/submodule-dependency@v0.1.5
 
-    - name: Update Engine Submodules
-      run: |
-        cd RobustToolbox/
-        git submodule update --init --recursive
+    - name: Update engine submodules
+      run: git -C RobustToolbox submodule update --init --recursive
 
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v5
+    - uses: actions/setup-dotnet@v5
       with:
         dotnet-version: 10.0.x
 
-    - name: Install dependencies
-      run: dotnet restore
-
     - name: Build Project
-      run: dotnet build --configuration DebugOpt --no-restore -m:2 -nodeReuse:false
+      run: dotnet build Content.IntegrationTests/Content.IntegrationTests.csproj --configuration DebugOpt -m:2 -nodeReuse:false
+
+    - name: Discover and shard integration tests
+      run: |
+        mkdir -p test_filters
+        dotnet vstest bin/Content.IntegrationTests/Content.IntegrationTests.dll \
+          /ListFullyQualifiedTests /ListTestsTargetPath:test_filters/discovered.txt
+        python3 Tools/_Orbitra/shard_integration_tests.py test_filters/discovered.txt test_filters --count "$SHARD_COUNT"
+        tar -cf linux-tests.tar bin/Content.Tests bin/Content.IntegrationTests \
+          bin/Content.Client bin/Content.Server RobustToolbox/Resources test_filters
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: built-linux-tests
+        path: linux-tests.tar
+        if-no-files-found: error
+
+  linux-tests:
+    name: Linux tests
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+    - uses: actions/checkout@v7
+
+    - uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: 10.0.x
+
+    - uses: actions/download-artifact@v4
+      with:
+        name: built-linux-tests
+
+    - name: Extract test binaries
+      run: tar -xf linux-tests.tar
 
     - name: Run Content.Tests
       if: matrix.shard == 0
-      shell: pwsh
-      run: dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj -- NUnit.ConsoleOut=1 NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
+      run: |
+        mkdir -p test_results
+        dotnet vstest bin/Content.Tests/Content.Tests.dll /ResultsDirectory:test_results -- \
+          NUnit.ConsoleOut=1 NUnit.TestOutputXml=logs "NUnit.WorkDirectory=$PWD/test_results"
 
     - name: Run Content.IntegrationTests
       timeout-minutes: 100
-      shell: pwsh
-      run: |
-        $shard = [int]$env:SHARD_INDEX
-        $shardCount = [int]$env:SHARD_COUNT
-        $testRoot = Join-Path (Get-Location) "Content.IntegrationTests/Tests"
-        $groups = @()
-
-        # Распределяем отдельные тестовые классы, а не крупные каталоги. Раньше
-        # весь _Orbitra попадал в один shard и job мог работать дольше лимита
-        # runner-а, хотя остальные shards уже завершались.
-        $seen = @{}
-        foreach ($file in @(Get-ChildItem $testRoot -Recurse -File -Filter *.cs)) {
-          $source = Get-Content $file.FullName -Raw
-          $namespaceMatch = [regex]::Match($source, '(?m)^\s*namespace\s+([^;{]+)')
-          if (-not $namespaceMatch.Success) {
-            continue
-          }
-          $namespace = $namespaceMatch.Groups[1].Value.Trim()
-          $testWeight = [Math]::Max(1, [regex]::Matches($source, '\[(?:Test|TestCase|TestCaseSource)(?:[^\]]*)\]').Count)
-          foreach ($classMatch in [regex]::Matches($source, '(?m)\bclass\s+(\w+)')) {
-            $className = $classMatch.Groups[1].Value
-            $filter = "FullyQualifiedName~$namespace.$className"
-            if ($seen.ContainsKey($filter)) {
-              continue
-            }
-            $seen[$filter] = $true
-            # Эти классы запускают полноценные server/client сценарии и заметно
-            # тяжелее обычных unit-проверок, поэтому даём им больший вес.
-            $weight = $testWeight
-            if ($className -in @('EntityTest', 'StartTest', 'SaveLoadMapTest', 'TestRoundRestartCleanupEvent')) {
-              $weight = [Math]::Max($weight, 40)
-            }
-            $groups += [pscustomobject]@{ Filter = $filter; Weight = $weight }
-          }
-        }
-        if ($groups.Count -eq 0) {
-          throw "Не удалось найти классы интеграционных тестов для распределения"
-        }
-
-        $loads = @(0) * $shardCount
-        $selected = 0..($shardCount - 1) | ForEach-Object { ,@() }
-        foreach ($group in ($groups | Sort-Object Weight -Descending)) {
-          $target = 0..($shardCount - 1) | Sort-Object { $loads[$_] } | Select-Object -First 1
-          $selected[$target] += $group.Filter
-          $loads[$target] += $group.Weight
-        }
-        $filter = $selected[$shard] -join '|'
-        Write-Host "Integration test shard $($shard + 1)/$($shardCount): $($selected[$shard].Count) filters, estimated weight $($loads[$shard])"
-
-        $arguments = @(
-          "test",
-          "--no-build",
-          "--configuration", "DebugOpt",
-          "Content.IntegrationTests/Content.IntegrationTests.csproj",
-          "--filter", $filter,
-          "--results-directory", "test_results",
-          "--blame-hang", "--blame-hang-timeout", "20m", "--blame-hang-dump-type", "none",
-          "--",
-          "NUnit.ConsoleOut=2",
-          "NUnit.MapWarningTo=Failed",
-          "NUnit.TestOutputXml=logs",
-          "NUnit.WorkDirectory=$(pwd)/test_results"
-        )
-        dotnet @arguments
-        exit $LASTEXITCODE
       env:
         SHARD_INDEX: ${{ matrix.shard }}
-        SHARD_COUNT: 8
         ORBITRA_INTEGRATION_TIMEOUT_MINUTES: 95
+      run: |
+        mkdir -p test_results
+        filter=$(cat "test_filters/$SHARD_INDEX.filter")
+        dotnet vstest bin/Content.IntegrationTests/Content.IntegrationTests.dll \
+          "/TestCaseFilter:$filter" /ResultsDirectory:test_results \
+          "/Blame:CollectHangDump;TestTimeout=20m;HangDumpType=none" -- \
+          NUnit.ConsoleOut=2 NUnit.MapWarningTo=Failed NUnit.TestOutputXml=logs "NUnit.WorkDirectory=$PWD/test_results"
 
-    - name: Archive NUnit3 test results.
+    - name: Archive NUnit3 test results
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: nunit3-results-${{ matrix.os }}-shard-${{ matrix.shard }}
+        name: nunit3-results-ubuntu-latest-shard-${{ matrix.shard }}
         path: test_results/*
         retention-days: 7
         compression-level: 9
+
   ci-success:
     name: Build & Test Debug
     if: always() # Orbitra-Edit: ошибка сборки не должна превращать обязательную проверку в skipped.
-    needs:
-      - build
+    needs: [build, linux-tests]
     runs-on: ubuntu-latest
     steps:
       - name: CI succeeded
         # Orbitra edit start - итог зависит от реального результата сборки и тестов.
         env:
           BUILD_RESULT: ${{ needs.build.result }}
-        run: test "$BUILD_RESULT" = success
+          TEST_RESULT: ${{ needs.linux-tests.result }}
+        run: test "$BUILD_RESULT" = success && test "$TEST_RESULT" = success
         # Orbitra edit end
