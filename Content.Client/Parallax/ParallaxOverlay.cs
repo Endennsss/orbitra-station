@@ -49,6 +49,11 @@ public sealed partial class ParallaxOverlay : Overlay
             return;
 
         var position = args.Viewport.Eye?.Position.Position ?? Vector2.Zero;
+        // Orbitra added start - процедурный фон для обычного космоса.
+        if (TryDrawOrbitraSky(args, position))
+            return;
+        // Orbitra added end
+
         var worldHandle = args.WorldHandle;
 
         var layers = _parallax.GetParallaxLayers(args.MapId);

@@ -16,10 +16,10 @@ public sealed partial class FTLComponent : Component
 {
     // TODO Full game save / add datafields
 
-    [ViewVariables]
+    [ViewVariables, AutoNetworkedField] // Orbitra-Edit — фаза БСС для параллакса.
     public FTLState State = FTLState.Available;
 
-    [ViewVariables(VVAccess.ReadWrite)]
+    [ViewVariables(VVAccess.ReadWrite), AutoNetworkedField] // Orbitra-Edit — время разгона и торможения.
     public StartEndTime StateTime;
 
     [ViewVariables(VVAccess.ReadWrite)]

@@ -282,6 +282,7 @@ public sealed partial class ShuttleSystem
         hyperspace.TargetCoordinates = coordinates;
         hyperspace.TargetAngle = angle;
         hyperspace.PriorityTag = priorityTag;
+        Dirty(shuttleUid, hyperspace); // Orbitra-Edit — передаём начало разгона.
 
         _console.RefreshShuttleConsoles(shuttleUid);
 
@@ -336,6 +337,8 @@ public sealed partial class ShuttleSystem
             hyperspace.TargetCoordinates = Transform(shuttleUid).Coordinates;
             Log.Error($"Unable to FTL grid {ToPrettyString(shuttleUid)} to target properly?");
         }
+
+        Dirty(shuttleUid, hyperspace); // Orbitra-Edit — передаём начало разгона.
     }
 
     private bool TrySetupFTL(EntityUid uid, ShuttleComponent shuttle, [NotNullWhen(true)] out FTLComponent? component)
@@ -411,6 +414,7 @@ public sealed partial class ShuttleSystem
         _transform.SetLocalRotation(entity, Angle.Zero, xform);
         _index += width + Buffer;
         comp.StateTime = StartEndTime.FromCurTime(_gameTiming, comp.TravelTime - DefaultArrivalTime);
+        Dirty(uid, comp); // Orbitra-Edit — передаём переход в БСС.
 
         Enable(uid, component: body);
         _physics.SetLinearVelocity(uid, new Vector2(0f, 20f), body: body);
@@ -452,6 +456,7 @@ public sealed partial class ShuttleSystem
         _thruster.DisableLinearThrusters(shuttle);
         _thruster.EnableLinearThrustDirection(shuttle, DirectionFlag.South);
 
+        Dirty(entity.Owner, comp); // Orbitra-Edit — передаём начало торможения.
         _console.RefreshShuttleConsoles(entity.Owner);
     }
 
@@ -550,6 +555,7 @@ public sealed partial class ShuttleSystem
                 ? ArrivalsFTLCooldown
                 : FTLCooldown);
         comp.StateTime = StartEndTime.FromCurTime(_gameTiming, cooldown);
+        Dirty(uid, comp); // Orbitra-Edit — передаём завершение прыжка.
         _console.RefreshShuttleConsoles(uid);
         _mapSystem.SetPaused(mapId, false);
         Smimsh(uid, xform: xform);

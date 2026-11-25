@@ -48,6 +48,11 @@ public sealed partial class ParallaxControl : Control
 
     protected override void Draw(DrawingHandleScreen handle)
     {
+        // Orbitra added start - фон главного меню и экрана подключения.
+        if (TryDrawOrbitraSky(handle))
+            return;
+        // Orbitra added end
+
         var currentTime = (float) _timing.RealTime.TotalSeconds;
         var offset = Offset + new Vector2(currentTime * SpeedX, currentTime * SpeedY);
 

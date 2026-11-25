@@ -1,3 +1,4 @@
+using Content.Client.Parallax;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Configuration;
@@ -31,6 +32,9 @@ public sealed class OrbitraMenuBackground : TextureRect
 
     public static void Attach(Control owner, Control fallback, Control? credits = null)
     {
+        if (fallback is ParallaxControl parallax)
+            parallax.UseOrbitraSky = true;
+
         var background = new OrbitraMenuBackground(fallback, credits);
         owner.AddChild(background);
         background.SetPositionInParent(1);

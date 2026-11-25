@@ -1,0 +1,122 @@
+light_mode unshaded;
+
+uniform highp vec2 viewport_size;
+uniform highp vec2 camera_drift;
+uniform highp float camera_rotation;
+uniform highp float phase_time;
+uniform bool menu_background;
+uniform bool low_quality;
+uniform highp float warp_speed;
+uniform highp float warp_distance;
+
+highp float hashCell(highp vec2 p) {
+    highp vec3 v = fract(vec3(p.x, p.y, p.x) * vec3(0.1031, 0.11369, 0.13787));
+    v += dot(v, v.yzx + 19.19);
+    return fract((v.x + v.y) * v.z);
+}
+
+highp float valueNoise(highp vec2 p) {
+    highp vec2 cell = floor(p);
+    highp vec2 within = fract(p);
+    highp vec2 blend = within * within * (3.0 - 2.0 * within);
+    return mix(
+        mix(hashCell(cell), hashCell(cell + vec2(1.0, 0.0)), blend.x),
+        mix(hashCell(cell + vec2(0.0, 1.0)), hashCell(cell + vec2(1.0, 1.0)), blend.x),
+        blend.y);
+}
+
+highp vec2 rotateSky(highp vec2 p, highp float angle) {
+    highp float cosine = cos(angle);
+    highp float sine = sin(angle);
+    return vec2(cosine * p.x - sine * p.y, sine * p.x + cosine * p.y);
+}
+
+highp vec3 starLayer(highp vec2 p, highp float density, highp float pixel, highp float gain) {
+    highp vec2 scaled = p * density;
+    highp vec2 cell = floor(scaled);
+    highp float seed = hashCell(cell);
+    if (seed < 0.68) {
+        return vec3(0.0);
+    }
+
+    highp vec2 offset = vec2(hashCell(cell + 16.2), hashCell(cell - 41.7));
+    highp vec2 local = fract(scaled) - (0.23 + offset * 0.54);
+    highp float strength = hashCell(cell + 57.3);
+    highp float radius = 0.018 + 0.055 * strength * strength;
+    highp float fade = clamp(pixel * density * 0.62, 0.015, 0.19);
+    highp float core = 1.0 - smoothstep(max(0.0, radius - fade), radius + fade, length(local));
+    highp float light = core * (0.018 + 0.44 * strength * strength * strength) * gain;
+    highp vec3 color = mix(vec3(0.49, 0.72, 1.0), vec3(1.0, 0.80, 0.58), offset.x * offset.x);
+    return color * light;
+}
+
+highp vec3 warpStars(highp vec2 view, highp vec2 density, highp float pixel, highp float speed, highp float gain) {
+    highp vec2 scaled = view * density;
+    highp vec2 cell = floor(scaled);
+    highp float seed = hashCell(cell);
+    if (seed < 0.55) {
+        return vec3(0.0);
+    }
+
+    highp float strength = hashCell(cell + 57.3);
+    highp vec2 offset = vec2(hashCell(cell + 16.2), hashCell(cell - 41.7));
+    highp vec2 local = fract(scaled) - (vec2(0.19, 0.16) + offset * vec2(0.62, 0.33));
+    // Шлейфы затухают до края ячейки, поэтому при прокрутке их край не обрезается.
+    highp float trailLength = (0.023 + 0.43 * speed * speed) * mix(0.36, 1.0, strength);
+    highp float trail = smoothstep(-pixel * density.y, 0.0, local.y) *
+        (1.0 - smoothstep(0.0, trailLength, local.y));
+    highp float width = mix(0.008, 0.046, strength * strength);
+    highp float fade = min(pixel * density.x * 0.7, 0.14);
+    highp float core = 1.0 - smoothstep(max(0.0, width - fade), width + fade, abs(local.x));
+    highp vec3 color = mix(vec3(0.52, 0.70, 1.0), vec3(0.95, 0.83, 0.65), offset.x * offset.x);
+    return color * trail * core * (0.035 + 0.32 * strength * strength) * gain;
+}
+
+highp vec2 nebulaCoordinates(highp vec2 sky) {
+    return vec2(sky.x + sky.y * 0.65, sky.y * 1.7 - sky.x * 0.24) * 3.8;
+}
+
+highp vec3 backgroundLight(highp vec2 sky, highp float pixel) {
+    // В БСС курс проходит вдоль оси Y. Дальние облака прокручиваются медленнее ближних.
+    highp vec2 travel = vec2(0.0, warp_distance);
+    highp vec2 dust = nebulaCoordinates(sky);
+    highp vec2 dustTravel = nebulaCoordinates(travel);
+    highp vec2 dustDrift = nebulaCoordinates(camera_drift);
+    highp vec2 distantDust = dust + dustTravel * 0.24 + dustDrift * 0.025;
+    highp vec2 nearbyDust = dust + dustTravel * 0.43 + dustDrift * 0.055;
+    highp float structure = valueNoise(distantDust) * 0.72 + valueNoise(nearbyDust * 2.7 + 19.4) * 0.28;
+    if (!low_quality) {
+        structure = structure * 0.83 + valueNoise(nearbyDust * 6.2 - 7.3) * 0.17;
+    }
+    highp float wisps = smoothstep(0.37, 0.84, structure);
+    highp float tint = valueNoise(distantDust * 0.64 + 8.9);
+    highp vec3 gas = mix(vec3(0.004, 0.018, 0.031), vec3(0.018, 0.008, 0.031), tint);
+    highp vec3 result = vec3(0.0014, 0.0021, 0.0042) + gas * wisps;
+    highp vec2 menuDrift = menu_background ? vec2(0.025, -0.012) * sin(phase_time * 0.035) : vec2(0.0);
+    highp vec3 stars = starLayer(sky + travel * 0.60 + camera_drift * 0.085 + menuDrift, 155.0, pixel, 0.33);
+    stars += starLayer(sky + travel + camera_drift * 0.21 + menuDrift * 2.0 + 17.0, 66.0, pixel, 1.0);
+
+    if (warp_speed > 0.001) {
+        highp vec3 streaks = warpStars(sky + travel + vec2(17.0, 0.0), vec2(48.0, 4.2), pixel, warp_speed, 0.8);
+        if (!low_quality) {
+            streaks += warpStars(sky + travel * 0.60, vec2(88.0, 10.0), pixel, warp_speed, 0.22);
+        }
+        highp float amount = smoothstep(0.0, 0.80, warp_speed);
+        stars = mix(stars, stars * 0.20 + streaks, amount);
+    }
+    result += stars;
+    return result;
+}
+
+void fragment() {
+    highp vec2 uv = FRAGCOORD.xy / viewport_size;
+    if (menu_background) {
+        uv = UV2;
+    }
+    highp float aspect = viewport_size.x / viewport_size.y;
+    highp float pixel = 1.0 / viewport_size.y;
+    highp vec2 view = (uv - 0.5) * vec2(aspect, 1.0);
+    highp vec2 world = rotateSky(view, -camera_rotation);
+    highp vec3 result = backgroundLight(world, pixel);
+    COLOR = vec4(clamp(result, vec3(0.0), vec3(1.0)), 1.0);
+}

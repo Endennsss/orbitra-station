@@ -44,7 +44,13 @@ public sealed partial class ParallaxSystem : SharedParallaxSystem
     public override void Shutdown()
     {
         base.Shutdown();
-        _overlay.RemoveOverlay<ParallaxOverlay>();
+        // Orbitra edit start - освобождаем экземпляр шейдера вместе с оверлеем.
+        if (_overlay.TryGetOverlay<ParallaxOverlay>(out var overlay))
+        {
+            _overlay.RemoveOverlay(overlay);
+            overlay.Dispose();
+        }
+        // Orbitra edit end
     }
 
     private void OnAfterAutoHandleState(EntityUid uid, ParallaxComponent component, ref AfterAutoHandleStateEvent args)
