@@ -10,7 +10,7 @@ public sealed partial class OrbitraPayrollPrototype : IPrototype
     public static readonly ProtoId<OrbitraPayrollPrototype> Station = "OrbitraStationPayroll";
 
     [IdDataField] public string ID { get; private set; } = default!;
-    [DataField] public TimeSpan Interval = TimeSpan.FromMinutes(30);
+    [DataField] public TimeSpan Interval = TimeSpan.FromMinutes(15);
     [DataField] public OrbitraPayrollGrade DefaultGrade = new();
     [DataField] public List<OrbitraPayrollGrade> Grades = new();
 
@@ -31,6 +31,6 @@ public sealed partial class OrbitraPayrollGrade
 {
     [DataField] public int StartingMinimum = 45;
     [DataField] public int StartingMaximum = 75;
-    [DataField] public int Salary = 60;
+    [DataField] public int Salary = 180;
     [DataField] public HashSet<ProtoId<JobPrototype>> Jobs = new();
 }

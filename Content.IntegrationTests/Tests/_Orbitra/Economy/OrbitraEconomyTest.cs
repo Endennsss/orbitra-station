@@ -58,7 +58,7 @@ public sealed class OrbitraEconomyTest : GameTest
         var hands = Server.System<SharedHandsSystem>();
         int receiverNumber = 0, serviceBalance = 0, vendTicks = 0;
         int startingBalance = 0, receiverStartingBalance = 0, salary = 0;
-        var interval = TimeSpan.FromMinutes(30);
+        var interval = TimeSpan.FromMinutes(15);
         TimeSpan firstPayday = default, forcedPayday = default;
         string paydayTitle = string.Empty, paydayMessage = string.Empty;
         await Pair.RunTicksSync(20);
@@ -89,8 +89,11 @@ public sealed class OrbitraEconomyTest : GameTest
             salary = account.Comp.Salary;
             firstPayday = account.Comp.NextPay;
             Assert.That(startingBalance, Is.InRange(110, 145));
-            Assert.That(salary, Is.EqualTo(100));
+            Assert.That(salary, Is.EqualTo(300));
             Assert.That(firstPayday - SGameTiming.CurTime, Is.EqualTo(interval));
+            var payroll = SProtoMan.Index(OrbitraPayrollPrototype.Station);
+            Assert.That(payroll.GetGrade("StationEngineer").Salary, Is.EqualTo(180));
+            Assert.That(payroll.GetGrade("ChiefEngineer").Salary, Is.EqualTo(240));
             var loc = Server.ResolveDependency<ILocalizationManager>();
             paydayTitle = loc.GetString("orbitra-payroll-notification-title");
             paydayMessage = loc.GetString("orbitra-payroll-notification", ("amount", salary));
@@ -109,13 +112,15 @@ public sealed class OrbitraEconomyTest : GameTest
             receiverNumber = receiver.Comp.Number;
             receiverStartingBalance = receiver.Comp.Balance;
             Assert.That(receiverStartingBalance, Is.InRange(25, 40));
-            Assert.That(receiver.Comp.Salary, Is.EqualTo(35));
+            Assert.That(receiver.Comp.Salary, Is.EqualTo(120));
             bank.EnsureCrewAccount(recipient, "Passenger");
             Assert.That(receiver.Comp.Balance, Is.EqualTo(receiverStartingBalance));
 
             var pricing = Server.System<PricingSystem>();
+            var retail = Server.System<OrbitraRetailSystem>();
             Assert.That(pricing.GetEstimatedPrice(SProtoMan.Index(Cola)), Is.LessThanOrEqualTo(6));
-            Assert.That(Server.System<OrbitraRetailSystem>().GetPrice("SustenanceInventory", "FoodSnackNutribrick"), Is.Zero);
+            Assert.That(retail.GetPrice("SustenanceInventory", "FoodSnackNutribrick"), Is.Zero);
+            Assert.That(receiver.Comp.Salary, Is.GreaterThanOrEqualTo(6 * retail.GetPrice("DonutInventory", "FoodDonutPink")));
             Assert.That(SProtoMan.EnumeratePrototypes<OrbitraRetailCatalogPrototype>().Count(), Is.GreaterThanOrEqualTo(15));
         });
 
