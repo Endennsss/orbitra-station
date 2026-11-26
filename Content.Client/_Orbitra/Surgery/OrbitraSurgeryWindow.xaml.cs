@@ -137,7 +137,7 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
             _procedure = state.ActiveProcedure;
             _organ = state.ActiveOrgan;
         }
-        BodyMap.State = state;
+        BodyMap.SetReadings(state.Injuries, state.Organs);
         RefreshSelection();
     }
 

@@ -86,16 +86,12 @@ public sealed partial class CryoPodWindow : FancyWindow
         }
 
         // Health analyzer
-        var maybePatient = _entityManager.GetEntity(msg.Health.TargetEntity);
+        // Orbitra edit start
         var hasPatient = msg.Health.TargetEntity.HasValue;
-        var hasDamage = hasPatient && msg.HasDamage;
-
-        NoDamageText.Visible = (hasPatient && !hasDamage);
         HealthSection.Visible = hasPatient;
         EjectPatientButton.Disabled = !hasPatient;
-
-        if (hasPatient)
-            HealthAnalyzer.Populate(msg.Health);
+        HealthAnalyzer.Populate(msg.Health);
+        // Orbitra edit end
 
         // Reagents
         float? lowestTempRequirement = null;

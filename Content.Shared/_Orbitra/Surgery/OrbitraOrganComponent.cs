@@ -24,11 +24,11 @@ public sealed partial class OrbitraOrganComponent : Component
 }
 
 /// <summary>Анатомия человека, поддерживающая операции на внутренних органах.</summary>
-[RegisterComponent, NetworkedComponent]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class OrbitraHumanOrganPatientComponent : Component
 {
-    [DataField] public float DamagedHeartRecovery = 0.45f;
-    [DataField] public float FailedHeartBloodLoss = 2f;
-    [DataField] public float DamagedBreathFraction = 0.8f;
-    [DataField] public float DamagedLiverInterval = 2f;
+    [DataField, AutoNetworkedField] public float DamagedHeartRecovery = 0.45f;
+    [DataField, AutoNetworkedField] public float FailedHeartBloodLoss = 2f;
+    [DataField, AutoNetworkedField] public float DamagedBreathFraction = 0.8f;
+    [DataField, AutoNetworkedField] public float DamagedLiverInterval = 2f;
 }

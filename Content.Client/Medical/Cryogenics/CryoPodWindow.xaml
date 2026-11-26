@@ -220,18 +220,10 @@
             </BoxContainer>
 
         </BoxContainer>
-        <BoxContainer Name="HealthSection"
-                      VerticalExpand="True"
-                      Orientation="Vertical">
-
+        <!-- Orbitra edit start -->
+        <BoxContainer Name="HealthSection" VerticalExpand="True" HorizontalExpand="True" MinWidth="275">
             <health:HealthAnalyzerControl Name="HealthAnalyzer"/>
-
-            <!-- This label is used to deal with a stray hline at the end of the health analyzer UI -->
-            <Label Name="NoDamageText"
-                   Text="{Loc 'cryo-pod-window-health-no-damage'}"
-                   FontColorOverride="DeepSkyBlue"/>
-            <Control VerticalExpand="True"/>
-
         </BoxContainer>
+        <!-- Orbitra edit end -->
     </BoxContainer>
 </controls:FancyWindow>

@@ -1,0 +1,14 @@
+orbitra-analyzer-blood = Кровь
+orbitra-analyzer-temperature = Температура
+orbitra-analyzer-damage = Урон
+orbitra-analyzer-live = На связи
+orbitra-analyzer-paused = Вне зоны сканирования
+orbitra-analyzer-expand-damage = Показать виды урона
+orbitra-analyzer-collapse-damage = Скрыть виды урона
+orbitra-analyzer-alert-internal = Внутреннее кровотечение
+orbitra-analyzer-alert-external = Наружное кровотечение
+orbitra-analyzer-alert-resuscitation = Стандартная реанимация невозможна
+orbitra-analyzer-alert-heart-missing = Сердце отсутствует
+orbitra-analyzer-alert-heart-failed = Отказ сердца
+orbitra-analyzer-alert-lungs-missing = Лёгкие отсутствуют
+orbitra-analyzer-alert-lungs-failed = Отказ лёгких

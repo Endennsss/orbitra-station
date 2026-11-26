@@ -1,14 +1,8 @@
-<controls:FancyWindow
-    xmlns="https://spacestation14.io"
-    xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
-    xmlns:ui="clr-namespace:Content.Client.HealthAnalyzer.UI"
-    MaxHeight="525"
-    MinWidth="300">
-    <ScrollContainer
-        Name="Container"
-        Margin="5 5 5 5"
-        ReturnMeasure="True"
-        VerticalExpand="True">
-        <ui:HealthAnalyzerControl Name="HealthAnalyzer"/>
-    </ScrollContainer>
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      xmlns:ui="clr-namespace:Content.Client.HealthAnalyzer.UI"
+                      SetSize="550 572" MinSize="300 320" Resizable="True">
+    <!-- Orbitra edit start -->
+    <ui:HealthAnalyzerControl Name="HealthAnalyzer" Margin="8"/>
+    <!-- Orbitra edit end -->
 </controls:FancyWindow>

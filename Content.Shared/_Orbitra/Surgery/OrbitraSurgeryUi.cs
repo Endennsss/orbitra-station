@@ -46,8 +46,7 @@ public sealed class OrbitraSurgeryState(NetEntity? patient, string patientName,
     public readonly Dictionary<SurgeryOrgan, SurgeryOrganCondition> Organs = organs ?? new();
     public readonly SurgeryOrgan? ActiveOrgan = activeOrgan;
     public bool HasFindings(SurgeryZone zone) => Injuries.GetValueOrDefault(zone) != SurgeryInjury.None ||
-        zone == SurgeryZone.Torso && (Organs.ContainsValue(SurgeryOrganCondition.Damaged) ||
-        Organs.ContainsValue(SurgeryOrganCondition.Nonfunctional) || Organs.ContainsValue(SurgeryOrganCondition.Missing));
+        zone == SurgeryZone.Torso && OrbitraOrganSystem.HasFindings(Organs);
     public readonly string PatientName = patientName;
     public bool AcceptsProstheses { get; init; }
     public bool FieldTable { get; init; }

@@ -1,0 +1,15 @@
+<BoxContainer xmlns="https://spacestation14.io"
+              xmlns:surgery="clr-namespace:Content.Client._Orbitra.Surgery"
+              Orientation="Vertical" HorizontalExpand="True" SeparationOverride="6" Visible="False">
+    <Label Text="{Loc 'orbitra-analyzer-anatomy-title'}" StyleClasses="LabelHeading"/>
+    <BoxContainer Name="Columns" HorizontalExpand="True" SeparationOverride="8">
+        <surgery:OrbitraSurgeryBodyMap Name="BodyMap" SetWidth="156" SetHeight="204" VerticalAlignment="Top"/>
+        <BoxContainer Name="ZoneButtons" Orientation="Vertical" HorizontalExpand="True" SeparationOverride="2"/>
+    </BoxContainer>
+    <PanelContainer Name="ReadingCard" StyleClasses="OrbitraWindowSurface">
+        <BoxContainer Orientation="Vertical" Margin="8 5" SeparationOverride="3">
+            <Label Name="ZoneName" StyleClasses="LabelHeading"/>
+            <RichTextLabel Name="ZoneDetails" HorizontalExpand="True"/>
+        </BoxContainer>
+    </PanelContainer>
+</BoxContainer>

@@ -16,8 +16,10 @@ public sealed partial class OrbitraSurgeryAnatomySystem : EntitySystem
 
     private void OnRefreshSpeed(Entity<OrbitraMissingLegsComponent> ent, ref RefreshMovementSpeedModifiersEvent args)
     {
-        args.ModifySpeed(ent.Comp.Count switch { 1 => 0.55f, 2 => 0.25f, _ => 1f });
+        args.ModifySpeed(MissingLegSpeed(ent.Comp.Count));
     }
+
+    public static float MissingLegSpeed(int count) => count switch { 1 => 0.55f, 2 => 0.25f, _ => 1f };
 
     /// <summary>Категория основного органа выбранной области.</summary>
     public static string? Category(SurgeryZone zone) => zone switch

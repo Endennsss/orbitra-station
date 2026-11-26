@@ -1,0 +1,14 @@
+orbitra-analyzer-blood = Blood
+orbitra-analyzer-temperature = Temperature
+orbitra-analyzer-damage = Damage
+orbitra-analyzer-live = Live scan
+orbitra-analyzer-paused = Out of scanning range
+orbitra-analyzer-expand-damage = Show damage breakdown
+orbitra-analyzer-collapse-damage = Hide damage breakdown
+orbitra-analyzer-alert-internal = Internal bleeding
+orbitra-analyzer-alert-external = External bleeding
+orbitra-analyzer-alert-resuscitation = Standard resuscitation unavailable
+orbitra-analyzer-alert-heart-missing = Heart missing
+orbitra-analyzer-alert-heart-failed = Heart failure
+orbitra-analyzer-alert-lungs-missing = Lungs missing
+orbitra-analyzer-alert-lungs-failed = Lung failure

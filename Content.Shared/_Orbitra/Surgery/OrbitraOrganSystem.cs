@@ -62,6 +62,18 @@ public sealed partial class OrbitraOrganSystem : EntitySystem
         return result;
     }
 
+    public static bool HasFindings(Dictionary<SurgeryOrgan, SurgeryOrganCondition>? conditions)
+    {
+        if (conditions == null)
+            return false;
+        foreach (var condition in conditions.Values)
+        {
+            if (condition != SurgeryOrganCondition.Healthy)
+                return true;
+        }
+        return false;
+    }
+
     /// <summary>Регуляция крови за штатный тик с учётом сердца, включая постепенную кровопотерю при отказе.</summary>
     public (float Factor, float Loss) HeartFunction(EntityUid patient)
     {

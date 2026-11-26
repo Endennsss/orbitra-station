@@ -6,10 +6,10 @@ using Robust.Shared.Serialization;
 namespace Content.Shared._Orbitra.Surgery;
 
 /// <summary>Органический гуманоид с настройками травматологии.</summary>
-[RegisterComponent, NetworkedComponent]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class OrbitraSurgicalPatientComponent : Component
 {
-    [DataField] public ProtoId<OrbitraTraumaPrototype> TraumaProfile = "OrbitraHumanoidTrauma";
+    [DataField, AutoNetworkedField] public ProtoId<OrbitraTraumaPrototype> TraumaProfile = "OrbitraHumanoidTrauma";
 }
 
 /// <summary>Присутствует только у пациентов с активной локальной травмой.</summary>

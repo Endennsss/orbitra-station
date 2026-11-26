@@ -1,0 +1,15 @@
+orbitra-analyzer-anatomy-title = Body regions
+orbitra-analyzer-anatomy-zone-findings = !  { $zone } · { $findings }
+orbitra-analyzer-anatomy-finding-effect = { $finding }. { $effect }
+orbitra-analyzer-anatomy-leg-fracture = This leg reduces movement speed by { $percent }%.
+orbitra-analyzer-anatomy-arm-fracture = Actions using this hand take { $percent }% longer.
+orbitra-analyzer-anatomy-hand-missing = The hand on this side is unavailable.
+orbitra-analyzer-anatomy-legs-missing = Limb loss reduces movement speed by { $percent }%.
+orbitra-analyzer-anatomy-internal-bleeding = Blood loss of { $amount } u every { $seconds } s.
+orbitra-analyzer-anatomy-shrapnel = The fragment deals { $damage } damage every { $seconds } s while the patient is alive.
+orbitra-analyzer-anatomy-heart-damaged = Blood volume recovers at { $percent }% of its normal rate.
+orbitra-analyzer-anatomy-heart-failure = Blood regeneration has stopped. While alive, the patient loses { $amount } u of blood per circulation cycle.
+orbitra-analyzer-anatomy-lungs-damaged = Each breath draws { $percent }% of the usual volume.
+orbitra-analyzer-anatomy-lungs-failure = The lungs draw no air.
+orbitra-analyzer-anatomy-liver-damaged = The liver metabolizes chemicals at { $percent }% of its normal rate.
+orbitra-analyzer-anatomy-liver-failure = The liver cannot metabolize chemicals.

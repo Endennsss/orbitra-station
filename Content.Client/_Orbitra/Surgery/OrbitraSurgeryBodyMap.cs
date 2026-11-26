@@ -20,6 +20,8 @@ public sealed partial class OrbitraSurgeryBodyMap : Control
 
     private readonly RSI _parts;
     private readonly ShaderInstance _grayscale;
+    private Dictionary<SurgeryZone, SurgeryInjury>? _injuries;
+    private bool _organFindings;
     private static readonly (SurgeryZone Zone, UIBox2 Bounds, string[] States)[] Regions =
     [
         (SurgeryZone.Head, new(11, 3, 20, 10), ["head_m"]),
@@ -32,7 +34,6 @@ public sealed partial class OrbitraSurgeryBodyMap : Control
     private static readonly Vector2[] OutlineOffsets = [ -Vector2.UnitX, Vector2.UnitX, -Vector2.UnitY, Vector2.UnitY ];
     internal SurgeryZone? Selected;
     internal SurgeryZone? Hovered;
-    internal OrbitraSurgeryState? State;
     internal event Action<SurgeryZone>? ZonePressed;
     internal Func<SurgeryZone, string>? DescribeZone;
 
@@ -43,6 +44,22 @@ public sealed partial class OrbitraSurgeryBodyMap : Control
         _grayscale = _prototype.Index(OrbitraHudSheetlet.GreyscaleShader).Instance();
         MouseFilter = MouseFilterMode.Stop;
     }
+
+    internal void SetReadings(Dictionary<SurgeryZone, SurgeryInjury>? injuries,
+        Dictionary<SurgeryOrgan, SurgeryOrganCondition>? organs)
+    {
+        _injuries = injuries;
+        _organFindings = OrbitraOrganSystem.HasFindings(organs);
+        if (Hovered is { } zone)
+        {
+            if (injuries?.ContainsKey(zone) != true)
+                Hovered = null;
+            RefreshTooltip();
+        }
+    }
+
+    internal bool HasFindings(SurgeryZone zone) => _injuries?.TryGetValue(zone, out var injury) == true &&
+        (injury != SurgeryInjury.None || zone == SurgeryZone.Torso && _organFindings);
 
     private float SpriteScale => Math.Max(1, MathF.Floor(Math.Min(PixelWidth - 16 * UIScale,
         PixelHeight - 12 * UIScale) / _parts.Size.Y));
@@ -66,7 +83,7 @@ public sealed partial class OrbitraSurgeryBodyMap : Control
                 bounds = new UIBox2(bounds.Left + inset, bounds.Top, bounds.Right - inset, bounds.Bottom);
             }
             // Ограничиваем допуск штатной карты попаданий на границе соседних частей.
-            if (State?.Injuries.ContainsKey(zone) != true || position.X < bounds.Left || position.X >= bounds.Right || position.Y < bounds.Top || position.Y >= bounds.Bottom)
+            if (_injuries?.ContainsKey(zone) != true || position.X < bounds.Left || position.X >= bounds.Right || position.Y < bounds.Top || position.Y >= bounds.Bottom)
                 continue;
             foreach (var state in states)
             {
@@ -84,14 +101,24 @@ public sealed partial class OrbitraSurgeryBodyMap : Control
         if (Hovered == hovered)
             return;
         Hovered = hovered;
-        ToolTip = hovered is { } zone ? DescribeZone?.Invoke(zone) : null;
+        RefreshTooltip();
     }
 
     protected override void MouseExited()
     {
         base.MouseExited();
         Hovered = null;
-        ToolTip = null;
+        RefreshTooltip();
+    }
+
+    private void RefreshTooltip()
+    {
+        var text = Hovered is { } zone ? DescribeZone?.Invoke(zone) : null;
+        if (ToolTip == text)
+            return;
+
+        ToolTip = text;
+        HideTooltip();
     }
 
     protected override void KeyBindDown(GUIBoundKeyEventArgs args)
@@ -110,13 +137,13 @@ public sealed partial class OrbitraSurgeryBodyMap : Control
         var rect = SpriteRect();
         foreach (var (zone, _, states) in Regions)
         {
-            if (State == null || !State.Injuries.TryGetValue(zone, out var injury))
+            if (_injuries == null || !_injuries.TryGetValue(zone, out var injury))
             {
                 DrawStates(handle, states, rect, OrbitraPalettes.ButtonDisabled);
                 continue;
             }
             var missing = (injury & SurgeryInjury.Missing) != 0;
-            var marked = State.HasFindings(zone);
+            var marked = HasFindings(zone);
             var tinted = missing || Selected == zone || Hovered == zone || marked;
             var tint = Hovered == zone ? Color.PaleTurquoise : Selected == zone ? Color.Turquoise :
                 marked ? Color.LightSalmon : Color.White;
@@ -136,7 +163,7 @@ public sealed partial class OrbitraSurgeryBodyMap : Control
 
         foreach (var (zone, bounds, _) in Regions)
         {
-            if (State?.HasFindings(zone) != true)
+            if (!HasFindings(zone))
                 continue;
             // Выносим знак за пределы фигуры, чтобы выбранный цвет не скрывал травму.
             var right = zone is SurgeryZone.LeftArm or SurgeryZone.LeftLeg or SurgeryZone.Torso;

@@ -1,0 +1,15 @@
+orbitra-analyzer-anatomy-title = Области тела
+orbitra-analyzer-anatomy-zone-findings = !  { $zone } · { $findings }
+orbitra-analyzer-anatomy-finding-effect = { $finding }. { $effect }
+orbitra-analyzer-anatomy-leg-fracture = Травма этой ноги снижает скорость передвижения на { $percent }%.
+orbitra-analyzer-anatomy-arm-fracture = Действия этой рукой занимают на { $percent }% больше времени.
+orbitra-analyzer-anatomy-hand-missing = Пациент не может держать предметы этой рукой.
+orbitra-analyzer-anatomy-legs-missing = Скорость передвижения снижена на { $percent }%.
+orbitra-analyzer-anatomy-internal-bleeding = Кровопотеря составляет { $amount } ед. за { $seconds } с.
+orbitra-analyzer-anatomy-shrapnel = Пока пациент жив, осколок наносит { $damage } ед. урона за { $seconds } с.
+orbitra-analyzer-anatomy-heart-damaged = Объём крови восстанавливается со скоростью { $percent }% от обычной.
+orbitra-analyzer-anatomy-heart-failure = Объём крови не восстанавливается. Пока пациент жив, он теряет { $amount } ед. крови за цикл кровообращения.
+orbitra-analyzer-anatomy-lungs-damaged = Объём каждого вдоха составляет { $percent }% от обычного.
+orbitra-analyzer-anatomy-lungs-failure = Воздух не поступает в лёгкие.
+orbitra-analyzer-anatomy-liver-damaged = Печень перерабатывает вещества со скоростью { $percent }% от обычной.
+orbitra-analyzer-anatomy-liver-failure = Печень не перерабатывает химические вещества.

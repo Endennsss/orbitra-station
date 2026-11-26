@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using Content.IntegrationTests.Fixtures;
@@ -88,10 +89,11 @@ public sealed class OrbitraTraumaTest : GameTest
             var trauma = SEntMan.GetComponent<OrbitraTraumaComponent>(patient);
             Assert.That(trauma.Injuries.Count(pair => (pair.Value & SurgeryInjury.Fracture) != 0), Is.EqualTo(1));
             Assert.That(trauma.Injuries[SurgeryZone.Torso], Is.EqualTo(SurgeryInjury.InternalBleeding));
+            var expected = Enum.GetValues<SurgeryZone>().ToDictionary(zone => zone, zone => trauma.Injuries.GetValueOrDefault(zone));
             foreach (var active in new[] { false, true })
             {
                 var scan = Server.System<ServerHealthAnalyzerSystem>().GetHealthAnalyzerUiState(patient, active);
-                Assert.That(scan.OrbitraTrauma, Is.EquivalentTo(trauma.Injuries));
+                Assert.That(scan.OrbitraTrauma, Is.EquivalentTo(expected));
             }
         });
     }
