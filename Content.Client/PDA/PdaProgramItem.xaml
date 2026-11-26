@@ -1,17 +1,10 @@
-﻿<ContainerButton HorizontalExpand="True" MinHeight="60" Margin="4"
-                 xmlns:pda="clr-namespace:Content.Client.PDA"
+﻿<ContainerButton HorizontalExpand="True" MinHeight="44" Margin="4 3" StyleClasses="button OrbitraOptionRow"
                  xmlns="https://spacestation14.io">
-    <PanelContainer Name="Panel"/>
-    <BoxContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True">
-        <BoxContainer Orientation="Vertical" VerticalExpand="True" MinWidth="60">
-            <AnimatedTextureRect HorizontalAlignment="Center" VerticalAlignment="Center" VerticalExpand="True" Name="Icon" />
-        </BoxContainer>
-        <BoxContainer Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True">
-            <Label Name="ProgramName" VerticalExpand="True" />
-            <BoxContainer HorizontalExpand="True" SetHeight="28" Margin="0 0 4 4">
-                <BoxContainer HorizontalExpand="True" />
-                <Button Name="InstallButton" Visible="False" SetWidth="90" HorizontalAlignment="Right" VerticalExpand="True"></Button>
-            </BoxContainer>
-        </BoxContainer>
+    <!-- Orbitra edit start - имя, значок и действие в одной строке. -->
+    <BoxContainer Orientation="Horizontal" Margin="8 4" SeparationOverride="6">
+        <AnimatedTextureRect Name="Icon" SetSize="36 36" VerticalAlignment="Center" MouseFilter="Ignore"/>
+        <Label Name="ProgramName" HorizontalExpand="True" VerticalAlignment="Center" ClipText="True" MouseFilter="Ignore"/>
+        <Button Name="InstallButton" StyleClasses="button OrbitraButtonSecondary" Visible="False" VerticalAlignment="Center"/>
     </BoxContainer>
+    <!-- Orbitra edit end -->
 </ContainerButton>

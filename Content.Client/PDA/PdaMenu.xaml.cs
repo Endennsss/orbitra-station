@@ -1,3 +1,4 @@
+using System.Numerics;
 using Content.Shared.PDA;
 using Robust.Shared.Utility;
 using Content.Shared.CartridgeLoader;
@@ -37,6 +38,7 @@ namespace Content.Client.PDA
 
 
         private int _currentView;
+        private Vector2 _lastViewport; // Orbitra-Edit - размер логической области с учётом масштаба интерфейса
 
         public event Action<EntityUid>? OnProgramItemPressed;
         public event Action<EntityUid>? OnUninstallButtonPressed;
@@ -55,47 +57,15 @@ namespace Content.Client.PDA
             EjectPenButton.IconTexture = new SpriteSpecifier.Texture(new("/Textures/Interface/pencil.png"));
             EjectIdButton.IconTexture = new SpriteSpecifier.Texture(new("/Textures/Interface/eject.png"));
             EjectPaiButton.IconTexture = new SpriteSpecifier.Texture(new("/Textures/Interface/pai.png"));
-            ProgramCloseButton.IconTexture = new SpriteSpecifier.Texture(new("/Textures/Interface/Nano/cross.svg.png"));
 
 
             HomeButton.OnPressed += _ => ToHomeScreen();
 
-            ProgramListButton.OnPressed += _ =>
-            {
-                HomeButton.IsCurrent = false;
-                ProgramListButton.IsCurrent = true;
-                SettingsButton.IsCurrent = false;
-                ProgramTitle.IsCurrent = false;
-
-                ChangeView(ProgramListView);
-            };
-
-
-            SettingsButton.OnPressed += _ =>
-            {
-                HomeButton.IsCurrent = false;
-                ProgramListButton.IsCurrent = false;
-                SettingsButton.IsCurrent = true;
-                ProgramTitle.IsCurrent = false;
-
-                ChangeView(SettingsView);
-            };
-
-            ProgramTitle.OnPressed += _ =>
-            {
-                HomeButton.IsCurrent = false;
-                ProgramListButton.IsCurrent = false;
-                SettingsButton.IsCurrent = false;
-                ProgramTitle.IsCurrent = true;
-
-                ChangeView(ProgramContentView);
-            };
-
-            ProgramCloseButton.OnPressed += _ =>
-            {
-                HideProgramHeader();
-                ToHomeScreen();
-            };
+            // Orbitra edit start - основные вкладки доступны и при открытой программе.
+            ProgramListButton.OnPressed += _ => ChangeView(ProgramListView);
+            SettingsButton.OnPressed += _ => ChangeView(SettingsView);
+            ProgramTitle.OnPressed += _ => ChangeView(ProgramContentView);
+            // Orbitra edit end
 
             PdaOwnerButton.OnPressed += _ =>
             {
@@ -133,11 +103,12 @@ namespace Content.Client.PDA
 
             HideAllViews();
             ToHomeScreen();
+            FitToViewport(); // Orbitra-Edit
         }
 
         public void UpdateState(PdaUpdateState state)
         {
-            FlashLightToggleButton.IsActive = state.FlashlightEnabled;
+            FlashLightToggleButton.Pressed = state.FlashlightEnabled; // Orbitra-Edit - штатная подсветка включённого фонаря
 
             if (state.PdaOwnerInfo.ActualOwnerName != null)
             {
@@ -176,7 +147,7 @@ namespace Content.Client.PDA
             StationTimeLabel.SetMarkup(Loc.GetString("comp-pda-ui-station-time",
                 ("time", stationTime.ToString("hh\\:mm\\:ss"))));
 
-            var alertColor = state.PdaOwnerInfo.StationAlertColor;
+            var alertColor = Color.InterpolateBetween(state.PdaOwnerInfo.StationAlertColor, Color.White, 0.28f); // Orbitra-Edit - контраст индикатора на тёмном экране
             (_alertLevel, _, _instructions) = _alert.AlertLevelData(state.PdaOwnerInfo.StationAlertLevel);
 
             StationAlertLevelLabel.SetMarkup(Loc.GetString(
@@ -249,56 +220,26 @@ namespace Content.Client.PDA
                 item.OnInstallButtonPressed += uid => OnInstallButtonPressed?.Invoke(uid);
                 ProgramList.AddChild(item);
             }
-
-            //Add a filler item to the last row when it only contains one item
-            if (programs.Count % 2 == 0)
-                 ProgramList.AddChild(new Control() { HorizontalExpand = true });
         }
 
-        /// <summary>
-        /// Changes the current view to the home screen (view 0) and sets the tabs `IsCurrent` flag accordingly
-        /// </summary>
-        public void ToHomeScreen()
-        {
-            HomeButton.IsCurrent = true;
-            ProgramListButton.IsCurrent = false;
-            SettingsButton.IsCurrent = false;
-            ProgramTitle.IsCurrent = false;
+        public void ToHomeScreen() => ChangeView(HomeView);
 
-            ChangeView(HomeView);
-        }
-
-        /// <summary>
-        /// Hides the program title and close button.
-        /// </summary>
+        // Orbitra edit start - состояние общего меню отдельно от заголовка программы.
         public void HideProgramHeader()
         {
-            ProgramTitle.IsCurrent = false;
-            ProgramTitle.Visible = false;
-            ProgramCloseButton.Visible = false;
-            ProgramListButton.Visible = true;
-            SettingsButton.Visible = true;
+            ProgramHeader.Visible = false;
+            if (_currentView == ProgramContentView)
+                ChangeView(ProgramListView);
         }
 
-        /// <summary>
-        /// Changes the current view to the program content view (view 3), sets the program title and sets the tabs `IsCurrent` flag accordingly
-        /// </summary>
         public void ToProgramView(string title)
         {
-            HomeButton.IsCurrent = false;
-            ProgramListButton.IsCurrent = false;
-            SettingsButton.IsCurrent = false;
-            ProgramTitle.IsCurrent = false;
-            ProgramTitle.IsCurrent = true;
-            ProgramTitle.Visible = true;
-            ProgramCloseButton.Visible = true;
-            ProgramListButton.Visible = false;
-            SettingsButton.Visible = false;
-
+            ProgramHeader.Visible = true;
+            ProgramTitle.ToolTip = title;
             ProgramTitle.LabelText = title;
             ChangeView(ProgramContentView);
         }
-
+        // Orbitra edit end
 
         /// <summary>
         /// Changes the current view to the given view number
@@ -311,6 +252,13 @@ namespace Content.Client.PDA
             ViewContainer.GetChild(_currentView).Visible = false;
             ViewContainer.GetChild(view).Visible = true;
             _currentView = view;
+
+            // Orbitra edit start - выбор вкладки для всех переходов, в том числе закрытия программы.
+            HomeButton.IsCurrent = view == HomeView;
+            ProgramListButton.IsCurrent = view == ProgramListView;
+            SettingsButton.IsCurrent = view == SettingsView;
+            ProgramTitle.IsCurrent = view == ProgramContentView;
+            // Orbitra edit end
         }
 
         private void HideAllViews()
@@ -321,6 +269,35 @@ namespace Content.Client.PDA
                 view.Visible = false;
             }
         }
+
+        // Orbitra added start - сохраняем портретное окно на экране при высоком масштабе интерфейса.
+        private void FitToViewport()
+        {
+            var viewport = UserInterfaceManager.WindowRoot.Size;
+            if (viewport.X <= 0 || viewport.Y <= 0)
+            {
+                SetSize = new Vector2(410, 576);
+                return;
+            }
+
+            _lastViewport = viewport;
+            var available = Vector2.Max(viewport - new Vector2(12), Vector2.One);
+            SetSize = Vector2.Min(new Vector2(410, 576), available);
+        }
+
+        protected override void FrameUpdate(FrameEventArgs args)
+        {
+            base.FrameUpdate(args);
+            if (UserInterfaceManager.WindowRoot.Size != _lastViewport)
+                FitToViewport();
+
+            // Сохранённая позиция BUI применяется после создания окна и может выйти за новый край экрана.
+            var available = Vector2.Max(_lastViewport - Size, Vector2.Zero);
+            var position = Vector2.Clamp(Position, Vector2.Zero, available);
+            if (position != Position)
+                LayoutContainer.SetPosition(this, position);
+        }
+        // Orbitra added end
 
         protected override void Draw(DrawingHandleScreen handle)
         {

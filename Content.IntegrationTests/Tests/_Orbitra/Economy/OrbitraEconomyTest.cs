@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Numerics;
 using Content.Client._Orbitra.Economy;
+using Content.Client.PDA;
 using Content.Client.UserInterface.Systems.Chat;
 using Content.IntegrationTests.Fixtures;
 using Content.Server._Orbitra.Economy;
@@ -10,6 +11,7 @@ using Content.Server.GameTicking;
 using Content.Server.Mind;
 using Content.Server.Station.Systems;
 using Content.Shared._Orbitra.Economy;
+using Content.Shared.CartridgeLoader;
 using Content.Shared.Chat;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Hands.EntitySystems;
@@ -266,6 +268,129 @@ public sealed class OrbitraEconomyTest : GameTest
             await Client.WaitPost(() => Client.System<SharedUserInterfaceSystem>().ClientSendUiMessage(
                 CEntMan.GetEntity(netTerminal), OrbitraAtmUiKey.Key, message));
             await Pair.RunTicksSync(9);
+        }
+    }
+
+    [Test]
+    public async Task PdaBankRequiresPersonalCardAndRefreshesAfterTransfer()
+    {
+        var bank = Server.System<OrbitraBankSystem>();
+        var serverUi = Server.System<SharedUserInterfaceSystem>();
+        var slots = Server.System<ItemSlotsSystem>();
+        var inventory = Server.System<InventorySystem>();
+        var loader = Server.System<CartridgeLoaderSystem>();
+        NetEntity netPda = default, netProgram = default;
+        EntityUid actor = default, pda = default, ownCard = default, foreignCard = default;
+        Entity<OrbitraBankAccountComponent> ownerAccount = default, recipientAccount = default;
+        var start = 0;
+        var recipientStart = 0;
+
+        await Pair.RunTicksSync(20);
+        await Server.WaitPost(() =>
+        {
+            var session = ServerSession!;
+            if (session.AttachedEntity is not { } body || !bank.TryGetAccount(body, out _))
+            {
+                var station = Server.System<ServerStationSystem>().GetStations().Single();
+                Server.System<ServerGameTicker>().MakeJoinGame(session, station, "Captain", silent: true);
+            }
+
+            actor = session.AttachedEntity!.Value;
+            Assert.That(bank.TryGetAccount(actor, out ownerAccount), Is.True);
+            start = ownerAccount.Comp.Balance;
+            Assert.That(inventory.TryGetSlotEntity(actor, "id", out var equipped), Is.True);
+            pda = equipped!.Value;
+            ownCard = slots.GetItemOrNull(pda, PdaComponent.PdaIdSlotId)!.Value;
+            netPda = SEntMan.GetNetEntity(pda);
+            var program = loader.TryGetProgram<OrbitraBankCartridgeComponent>(pda);
+            Assert.That(program, Is.Not.Null);
+            netProgram = SEntMan.GetNetEntity(program!.Value.Owner);
+
+            var coordinates = SEntMan.GetComponent<TransformComponent>(actor).Coordinates;
+            var recipient = SEntMan.SpawnAttachedTo("MobHuman", coordinates);
+            foreignCard = SEntMan.SpawnAttachedTo("PassengerIDCard", coordinates);
+            Assert.That(inventory.TryEquip(recipient, foreignCard, "id", force: true), Is.True);
+            var minds = Server.System<MindSystem>();
+            minds.TransferTo(minds.CreateMind(null, "Получатель"), recipient);
+            bank.EnsureCrewAccount(recipient, "Passenger");
+            Assert.That(bank.TryGetAccount(recipient, out recipientAccount), Is.True);
+            recipientStart = recipientAccount.Comp.Balance;
+            Assert.That(inventory.TryUnequip(recipient, "id", force: true), Is.True);
+            Assert.That(serverUi.TryOpenUi(pda, PdaUiKey.Key, actor), Is.True);
+        });
+
+        await Pair.RunTicksSync(15);
+        await Send(new CartridgeLoaderUiMessage(netProgram, CartridgeUiMessageAction.Activate));
+        await AssertBalance(start);
+        await Client.WaitAssertion(() =>
+        {
+            var clientUi = Client.System<SharedUserInterfaceSystem>();
+            Assert.That(clientUi.TryGetOpenUi<PdaBoundUserInterface>(CEntMan.GetEntity(netPda), PdaUiKey.Key, out var bui), Is.True);
+            var menu = bui!.Menu!;
+            Assert.That(menu.CaseTrim.Frame, Is.Not.Null);
+            Assert.That(menu.ProgramListButton.VisibleInTree, Is.True);
+            Assert.That(menu.FindControl<PdaNavigationButton>("SettingsButton").VisibleInTree, Is.True);
+            Assert.That(menu.ProgramTitle.VisibleInTree, Is.True);
+            Assert.That(menu.ProgramCloseButton.VisibleInTree, Is.True);
+        });
+
+        await Server.WaitPost(() =>
+        {
+            Assert.That(slots.TryEject(pda, PdaComponent.PdaIdSlotId, actor, out var card), Is.True);
+            Assert.That(card, Is.EqualTo(ownCard));
+        });
+        await Pair.RunTicksSync(12);
+        await AssertBalance(null);
+        await Server.WaitPost(() => Assert.That(slots.TryInsert(pda, PdaComponent.PdaIdSlotId, foreignCard, actor), Is.True));
+        await Pair.RunTicksSync(12);
+        await AssertBalance(null);
+        await Send(new CartridgeUiMessage(new OrbitraBankPdaTransferMessage(recipientAccount.Comp.Number, 10)));
+        await Server.WaitAssertion(() => Assert.That(ownerAccount.Comp.Balance, Is.EqualTo(start)));
+
+        await Server.WaitPost(() =>
+        {
+            Assert.That(slots.TryEject(pda, PdaComponent.PdaIdSlotId, actor, out _), Is.True);
+            Assert.That(slots.TryInsert(pda, PdaComponent.PdaIdSlotId, ownCard, actor), Is.True);
+        });
+        await Pair.RunTicksSync(12);
+        await AssertBalance(start);
+        await Send(new CartridgeUiMessage(new OrbitraBankPdaTransferMessage(recipientAccount.Comp.Number, 10)));
+        await AssertBalance(start - 10);
+        await Server.WaitAssertion(() => Assert.That(recipientAccount.Comp.Balance, Is.EqualTo(recipientStart + 10)));
+
+        await Server.WaitPost(() => Assert.That(bank.TryTransfer(recipientAccount, ownerAccount.Comp.Number, 4), Is.True));
+        await Pair.RunTicksSync(12);
+        await AssertBalance(start - 6);
+
+        await Server.WaitPost(() => serverUi.CloseUi(pda, PdaUiKey.Key, actor));
+        await Pair.RunTicksSync(12);
+        await Server.WaitAssertion(() => Assert.That(serverUi.IsUiOpen(pda, PdaUiKey.Key, actor), Is.False));
+
+        await Server.WaitPost(() => Assert.That(serverUi.TryOpenUi(pda, PdaUiKey.Key, actor), Is.True));
+        await Pair.RunTicksSync(15);
+        await AssertBalance(start - 6);
+
+        async Task Send(BoundUserInterfaceMessage message)
+        {
+            await Client.WaitPost(() => Client.System<SharedUserInterfaceSystem>()
+                .ClientSendUiMessage(CEntMan.GetEntity(netPda), PdaUiKey.Key, message));
+            await Pair.RunTicksSync(15);
+        }
+
+        async Task AssertBalance(int? expected)
+        {
+            await Client.WaitAssertion(() =>
+            {
+                var clientUi = Client.System<SharedUserInterfaceSystem>();
+                Assert.That(clientUi.TryGetOpenUi<PdaBoundUserInterface>(CEntMan.GetEntity(netPda), PdaUiKey.Key, out var bui), Is.True);
+                Assert.That(bui!.Menu!.ProgramView.ChildCount, Is.EqualTo(1));
+                var fragment = (OrbitraBankPdaFragment)bui.Menu.ProgramView.GetChild(0);
+                var balance = fragment.FindControl<Label>("BalanceLabel").Text;
+                if (expected is { } amount)
+                    Assert.That(balance, Does.Contain(amount.ToString()));
+                else
+                    Assert.That(balance, Is.Empty);
+            });
         }
     }
 

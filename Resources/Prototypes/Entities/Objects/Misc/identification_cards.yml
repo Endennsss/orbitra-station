@@ -7,6 +7,7 @@
   components:
   - type: Sprite
     sprite: Objects/Misc/id_cards.rsi
+    scale: 0.625, 0.625 # Orbitra-Edit - уменьшаем корпус и эмблему карты вместе
   - type: Clothing
     slots:
     - idcard
@@ -38,7 +39,7 @@
     layers:
     - state: default
     - sprite: &icon-rsi Interface/Misc/job_icons.rsi
-      offset: &icon-offset -0.09375, 0.0625 #3 pixels left, 2 pixels up
+      offset: &icon-offset -0.15625, 0.03125 # Orbitra-Edit: эмблема в окошке карты /tg/station
       state: Passenger
   - type: PresetIdCard
     job: Passenger

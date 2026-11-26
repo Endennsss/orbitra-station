@@ -12,6 +12,7 @@
        pda
   - type: Sprite
     sprite: Objects/Devices/pda.rsi
+    scale: 0.67, 0.67 # Orbitra-Edit - исходный размер КПК на полу с высоким корпусом /tg/station
     layers:
     - map: [ "enum.PdaVisualLayers.Base" ]
       state: "pda"
@@ -80,6 +81,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 9 # Orbitra-Edit - сохраняем место для устанавливаемых программ
     cartridgeSlot:
       name: device-pda-slot-component-slot-name-cartridge
       priority: 1
@@ -92,6 +94,7 @@
     containers:
       preinstalled-program-container: !type:AllSelector
         children:
+        - id: OrbitraBankCartridge # Orbitra-Edit - личный банк на КПК
         - id: CrewManifestCartridge
         - id: NotekeeperCartridge
         - id: NanoTaskCartridge
@@ -157,6 +160,7 @@
     containers:
       preinstalled-program-container: !type:AllSelector
         children:
+        - id: OrbitraBankCartridge # Orbitra-Edit - личный банк на КПК
         - id: CrewManifestCartridge
         - id: NotekeeperCartridge
         - id: NanoTaskCartridge
@@ -172,6 +176,7 @@
     containers:
       preinstalled-program-container: !type:AllSelector
         children:
+        - id: OrbitraBankCartridge # Orbitra-Edit - личный банк на КПК
         - id: CrewManifestCartridge
         - id: NotekeeperCartridge
         - id: NanoTaskCartridge
@@ -187,7 +192,7 @@
   - type: Pda
     id: PassengerIDCard
   - type: PdaBorderColor
-    borderColor: "#717059"
+    borderColor: "#B0B0B0" # Orbitra-Edit - вставка в цвет спрайта КПК
 
 - type: entity
   parent: BasePDA
@@ -301,7 +306,7 @@
        !type:String
        pda-cook
   - type: PdaBorderColor
-    borderColor: "#d7d7d0"
+    borderColor: "#DFDFDF" # Orbitra-Edit - цвет корпуса с нового спрайта
   - type: Icon
     state: pda-cook
 
@@ -318,9 +323,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-hydro
+  # Orbitra edit start - цвета корпуса с нового спрайта.
   - type: PdaBorderColor
-    borderColor: "#44843c"
-    accentVColor: "#00cc35"
+    borderColor: "#47C983"
+    accentVColor: "#71A7CA"
+  # Orbitra edit end
   - type: Icon
     state: pda-hydro
 
@@ -346,8 +353,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-clown
+  # Orbitra edit start - цвета корпуса с нового спрайта.
   - type: PdaBorderColor
-    borderColor: "#C18199"
+    borderColor: "#E02090"
+    accentHColor: "#FFA613"
+  # Orbitra edit end
   - type: Icon
     state: pda-clown
   - type: Slippery # secretly made of bananium
@@ -427,15 +437,18 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-mime
+  # Orbitra edit start - цвета корпуса с нового спрайта.
   - type: PdaBorderColor
-    borderColor: "#d7d7d0"
-    accentHColor: "#333333"
+    borderColor: "#DFDFDF"
+    accentHColor: "#414141"
+  # Orbitra edit end
   - type: Icon
     state: pda-mime
   - type: EntityTableContainerFill
     containers:
       preinstalled-program-container: !type:AllSelector
         children:
+        - id: OrbitraBankCartridge # Orbitra-Edit - личный банк на КПК
         - id: CrewManifestCartridge
         - id: NewsReaderCartridge
   - type: PermanentStatusEffects # for random sentience event
@@ -455,8 +468,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-chaplain
+  # Orbitra edit start - цвета корпуса с нового спрайта.
   - type: PdaBorderColor
-    borderColor: "#333333"
+    borderColor: "#414141"
+    accentVColor: "#FFD800"
+  # Orbitra edit end
   - type: Icon
     state: pda-chaplain
 
@@ -484,15 +500,19 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-qm
+  # Orbitra edit start - цвета корпуса с нового спрайта.
   - type: PdaBorderColor
-    borderColor: "#e39751"
-    accentVColor: "#a23e3e"
+    borderColor: "#AFA378"
+    accentHColor: "#7C432B"
+    accentVColor: "#3C94C5"
+  # Orbitra edit end
   - type: Icon
     state: pda-qm
   - type: EntityTableContainerFill
     containers:
       preinstalled-program-container: !type:AllSelector
         children:
+        - id: OrbitraBankCartridge # Orbitra-Edit - личный банк на КПК
         - id: CrewManifestCartridge
         - id: NotekeeperCartridge
         - id: NanoTaskCartridge
@@ -513,7 +533,7 @@
        !type:String
        pda-cargo
   - type: PdaBorderColor
-    borderColor: "#e39751"
+    borderColor: "#A46B46" # Orbitra-Edit - вставка в цвет спрайта КПК
   - type: Icon
     state: pda-cargo
 
@@ -531,14 +551,14 @@
        !type:String
        pda-miner
   - type: PdaBorderColor
-    borderColor: "#af9366"
-    accentVColor: "#8900c9"
+    borderColor: "#82673C" # Orbitra-Edit - цвет корпуса с нового спрайта
   - type: Icon
     state: pda-miner
   - type: EntityTableContainerFill
     containers:
       preinstalled-program-container: !type:AllSelector
         children:
+        - id: OrbitraBankCartridge # Orbitra-Edit - личный банк на КПК
         - id: CrewManifestCartridge
         - id: NotekeeperCartridge
         - id: NanoTaskCartridge
@@ -559,7 +579,7 @@
        !type:String
        pda-bartender
   - type: PdaBorderColor
-    borderColor: "#333333"
+    borderColor: "#414141" # Orbitra-Edit - цвет корпуса с нового спрайта
   - type: Icon
     state: pda-bartender
 
@@ -582,8 +602,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-library
+  # Orbitra edit start - цвета корпуса с нового спрайта.
   - type: PdaBorderColor
-    borderColor: "#858585"
+    borderColor: "#AAAFAF"
+    accentHColor: "#22359E"
+  # Orbitra edit end
   - type: Icon
     state: pda-library
 
@@ -618,7 +641,7 @@
        !type:String
        pda-lawyer
   - type: PdaBorderColor
-    borderColor: "#6f6192"
+    borderColor: "#4369B2" # Orbitra-Edit - цвет корпуса с нового спрайта
   - type: Icon
     state: pda-lawyer
 
@@ -647,7 +670,7 @@
        !type:String
        pda-janitor
   - type: PdaBorderColor
-    borderColor: "#5D2D56"
+    borderColor: "#833796" # Orbitra-Edit - цвет корпуса с нового спрайта
   - type: Icon
     state: pda-janitor
 
@@ -670,8 +693,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-captain
+  # Orbitra edit start - вставки в цвет спрайта КПК.
   - type: PdaBorderColor
-    borderColor: "#7C5D00"
+    borderColor: "#276E9F"
+    accentHColor: "#E4BE51"
+  # Orbitra edit end
   - type: Icon
     state: pda-captain
 
@@ -694,9 +720,12 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-hop
+  # Orbitra edit start - цвета корпуса с нового спрайта.
   - type: PdaBorderColor
-    borderColor: "#789876"
-    accentHColor: "#447987"
+    borderColor: "#374F7E"
+    accentHColor: "#932A24"
+    accentVColor: "#3C94C5"
+  # Orbitra edit end
   - type: Icon
     state: pda-hop
 
@@ -713,9 +742,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-ce
+  # Orbitra edit start - вставки в цвет спрайта КПК.
   - type: PdaBorderColor
-    borderColor: "#949137"
-    accentHColor: "#447987"
+    borderColor: "#C28929"
+    accentHColor: "#3C94C5"
+  # Orbitra edit end
   - type: Icon
     state: pda-ce
 
@@ -732,9 +763,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-engineer
+  # Orbitra edit start - вставки в цвет спрайта КПК.
   - type: PdaBorderColor
-    borderColor: "#949137"
-    accentVColor: "#A32D26"
+    borderColor: "#C28929"
+    accentVColor: "#CAC736"
+  # Orbitra edit end
   - type: Icon
     state: pda-engineer
 
@@ -751,10 +784,12 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-cmo
+  # Orbitra edit start - вставки в цвет спрайта КПК.
   - type: PdaBorderColor
-    borderColor: "#d7d7d0"
-    accentHColor: "#447987"
-    accentVColor: "#447987"
+    borderColor: "#D7D7D0"
+    accentHColor: "#3F96CC"
+    accentVColor: "#3886B6"
+  # Orbitra edit end
   - type: Icon
     state: pda-cmo
 
@@ -771,9 +806,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-medical
+  # Orbitra edit start - вставки в цвет спрайта КПК.
   - type: PdaBorderColor
-    borderColor: "#d7d7d0"
-    accentVColor: "#447987"
+    borderColor: "#D7D7D0"
+    accentVColor: "#3F96CC"
+  # Orbitra edit end
   - type: Icon
     state: pda-medical
   - type: GuideHelp
@@ -804,9 +841,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-paramedic
+  # Orbitra edit start - цвета корпуса с нового спрайта.
   - type: PdaBorderColor
-    borderColor: "#d7d7d0"
-    accentVColor: "#2a4b5b"
+    borderColor: "#3886B6"
+    accentHColor: "#1B4058"
+  # Orbitra edit end
   - type: Icon
     state: pda-paramedic
 
@@ -823,9 +862,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-chemistry
+  # Orbitra edit start - цвета корпуса с нового спрайта.
   - type: PdaBorderColor
-    borderColor: "#d7d7d0"
-    accentVColor: "#B34200"
+    borderColor: "#DFDFDF"
+    accentVColor: "#D15900"
+  # Orbitra edit end
   - type: Icon
     state: pda-chemistry
 
@@ -842,10 +883,12 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-rd
+  # Orbitra edit start - вставки в цвет спрайта КПК.
   - type: PdaBorderColor
-    borderColor: "#d7d7d0"
-    accentHColor: "#447987"
-    accentVColor: "#8900c9"
+    borderColor: "#D7D7D0"
+    accentHColor: "#3C94C5"
+    accentVColor: "#A03FA8"
+  # Orbitra edit end
   - type: Icon
     state: pda-rd
 
@@ -862,9 +905,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-science
+  # Orbitra edit start - вставки в цвет спрайта КПК.
   - type: PdaBorderColor
-    borderColor: "#d7d7d0"
-    accentVColor: "#8900c9"
+    borderColor: "#D7D7D0"
+    accentVColor: "#A03FA8"
+  # Orbitra edit end
   - type: Icon
     state: pda-science
 
@@ -881,15 +926,18 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-hos
+  # Orbitra edit start - вставки в цвет спрайта КПК.
   - type: PdaBorderColor
-    borderColor: "#A32D26"
-    accentHColor: "#447987"
+    borderColor: "#D12C2C"
+    accentHColor: "#3C94C5"
+  # Orbitra edit end
   - type: Icon
     state: pda-hos
   - type: EntityTableContainerFill
     containers:
       preinstalled-program-container: !type:AllSelector
         children:
+        - id: OrbitraBankCartridge # Orbitra-Edit - личный банк на КПК
         - id: CrewManifestCartridge
         - id: NotekeeperCartridge
         - id: NanoTaskCartridge
@@ -910,9 +958,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-warden
+  # Orbitra edit start - цвета корпуса с нового спрайта.
   - type: PdaBorderColor
-    borderColor: "#A32D26"
-    accentVColor: "#949137"
+    borderColor: "#D12C2C"
+    accentHColor: "#931F1F"
+  # Orbitra edit end
   - type: Icon
     state: pda-warden
 
@@ -930,7 +980,7 @@
        !type:String
        pda-security
   - type: PdaBorderColor
-    borderColor: "#A32D26"
+    borderColor: "#D12C2C" # Orbitra-Edit - вставка в цвет спрайта КПК
   - type: Icon
     state: pda-security
 
@@ -961,6 +1011,7 @@
     containers:
       preinstalled-program-container: !type:AllSelector
         children:
+        - id: OrbitraBankCartridge # Orbitra-Edit - личный банк на КПК
         - id: CrewManifestCartridge
         - id: NotekeeperCartridge
         - id: NanoTaskCartridge
@@ -989,6 +1040,7 @@
     containers:
       preinstalled-program-container: !type:AllSelector
         children:
+        - id: OrbitraBankCartridge # Orbitra-Edit - личный банк на КПК
         - id: CrewManifestCartridge
         - id: NotekeeperCartridge
         - id: NanoTaskCartridge
@@ -1059,9 +1111,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-atmos
+  # Orbitra edit start - цвета корпуса с нового спрайта.
   - type: PdaBorderColor
-    borderColor: "#949137"
-    accentVColor: "#447987"
+    borderColor: "#D4C43B"
+    accentHColor: "#656565"
+  # Orbitra edit end
   - type: Icon
     state: pda-atmos
 
@@ -1078,8 +1132,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-clear
+  # Orbitra edit start - цвета корпуса с нового спрайта.
   - type: PdaBorderColor
-    borderColor: "#288e4d"
+    borderColor: "#8ACBF7"
+    accentHColor: "#69A478"
+  # Orbitra edit end
   - type: Icon
     state: pda-clear
 
@@ -1115,14 +1172,18 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-syndi
+  # Orbitra edit start - цвета корпуса с нового спрайта.
   - type: PdaBorderColor
-    borderColor: "#891417"
+    borderColor: "#960000"
+    accentVColor: "#2B1919"
+  # Orbitra edit end
   - type: Icon
     state: pda-syndi
   - type: EntityTableContainerFill
     containers:
       preinstalled-program-container: !type:AllSelector
         children:
+        - id: OrbitraBankCartridge # Orbitra-Edit - личный банк на КПК
         - id: NotekeeperCartridge
         - id: NanoTaskCartridge
 
@@ -1139,6 +1200,10 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-syndi-operative
+  # Orbitra added start - цвета корпуса с нового спрайта.
+  - type: PdaBorderColor
+    borderColor: "#72151C"
+  # Orbitra added end
   - type: Icon
     state: pda-syndi-operative
 
@@ -1155,12 +1220,18 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-syndi-corpsman
+  # Orbitra added start - цвета корпуса с нового спрайта.
+  - type: PdaBorderColor
+    borderColor: "#631B28"
+    accentHColor: "#D6D7DB"
+  # Orbitra added end
   - type: Icon
     state: pda-syndi-corpsman
   - type: EntityTableContainerFill
     containers:
       preinstalled-program-container: !type:AllSelector
         children:
+        - id: OrbitraBankCartridge # Orbitra-Edit - личный банк на КПК
         - id: NotekeeperCartridge
         - id: NanoTaskCartridge
         - id: MedTekCartridge
@@ -1178,6 +1249,12 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-syndi-commander
+  # Orbitra added start - цвета корпуса с нового спрайта.
+  - type: PdaBorderColor
+    borderColor: "#3F2025"
+    accentHColor: "#FEC04D"
+    accentVColor: "#A43226"
+  # Orbitra added end
   - type: Icon
     state: pda-syndi-commander
 
@@ -1205,6 +1282,7 @@
     containers:
       preinstalled-program-container: !type:AllSelector
         children:
+        - id: OrbitraBankCartridge # Orbitra-Edit - личный банк на КПК
         - id: CrewManifestCartridge
         - id: NotekeeperCartridge
         - id: NanoTaskCartridge
@@ -1390,13 +1468,14 @@
        !type:String
        pda-detective
   - type: PdaBorderColor
-    borderColor: "#774705"
+    borderColor: "#72502A" # Orbitra-Edit - цвет корпуса с нового спрайта
   - type: Icon
     state: pda-detective
   - type: EntityTableContainerFill
     containers:
       preinstalled-program-container: !type:AllSelector
         children:
+        - id: OrbitraBankCartridge # Orbitra-Edit - личный банк на КПК
         - id: CrewManifestCartridge
         - id: NotekeeperCartridge
         - id: NanoTaskCartridge
@@ -1427,6 +1506,7 @@
     containers:
       preinstalled-program-container: !type:AllSelector
         children:
+        - id: OrbitraBankCartridge # Orbitra-Edit - личный банк на КПК
         - id: CrewManifestCartridge
         - id: NotekeeperCartridge
         - id: NanoTaskCartridge
@@ -1455,8 +1535,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-cluwne
+  # Orbitra edit start - цвета корпуса с нового спрайта.
   - type: PdaBorderColor
-    borderColor: "#1c8f4d"
+    borderColor: "#63184B"
+    accentHColor: "#71460D"
+  # Orbitra edit end
   - type: Icon
     state: pda-cluwne
   - type: Unremoveable
@@ -1571,6 +1654,11 @@
       enum.PdaVisuals.PdaType:
         !type:String
         pda-ninja
+  # Orbitra added start - цвета корпуса с нового спрайта.
+  - type: PdaBorderColor
+    borderColor: "#303938"
+    accentVColor: "#569946"
+  # Orbitra added end
   - type: Icon
     state: pda-ninja
 
@@ -1587,6 +1675,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-pirate
+  # Orbitra added start - цвета корпуса с нового спрайта.
+  - type: PdaBorderColor
+    borderColor: "#704631"
+    accentHColor: "#B47939"
+  # Orbitra added end
   - type: Icon
     state: pda-pirate
 
@@ -1598,7 +1691,7 @@
   suffix: Chameleon
   components:
   - type: PdaBorderColor
-    borderColor: "#717059"
+    borderColor: "#B0B0B0" # Orbitra-Edit - вставка в цвет спрайта КПК
   - type: Tag
     tags: # ignore "WhitelistChameleon" tag
     - DoorBumpOpener
@@ -1656,8 +1749,11 @@
      enum.PdaVisuals.PdaType:
        !type:String
        pda-wizard
+  # Orbitra edit start - цвета корпуса с нового спрайта.
   - type: PdaBorderColor
-    borderColor: "#7F3300"
+    borderColor: "#B58461"
+    accentHColor: "#BE824A"
+  # Orbitra edit end
   - type: Icon
     state: pda-wizard
 

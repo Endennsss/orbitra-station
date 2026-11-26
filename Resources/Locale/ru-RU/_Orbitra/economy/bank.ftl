@@ -1,11 +1,11 @@
-ent-OrbitraAtm = банкомат Orbitra
+ent-OrbitraAtm = банкомат
     .desc = Терминал для управления личным счётом. Принимает и выдаёт кредиты.
 ent-OrbitraAtmBoard = плата банкомата
-    .desc = Печатная плата для банкомата Orbitra.
+    .desc = Печатная плата для банкомата.
 ent-OrbitraAtmKit = набор для сборки банкомата
     .desc = Плата и материалы для сборки банкомата.
 
-orbitra-atm-title = Банкомат Orbitra
+orbitra-atm-title = Банкомат
 orbitra-atm-account = Личный счёт №{ $account }
 orbitra-atm-balance =
     { $amount ->
@@ -38,5 +38,15 @@ orbitra-atm-withdraw-denied = Вставьте свою ID-карту и про�
 orbitra-atm-transfer-denied = Вставьте свою ID-карту и проверьте сумму и номер счёта получателя.
 orbitra-payroll-notification-title = Зарплата
 orbitra-payroll-notification = На ваш счёт зачислено { orbitra-atm-balance }.
+
+ent-OrbitraBankCartridge = картридж банка
+    .desc = Программа для просмотра личного счёта и перевода кредитов.
+orbitra-bank-pda-program-name = Банк
+orbitra-bank-pda-loading = Загружаем данные счёта…
+orbitra-bank-pda-insert-id = Вставьте свою ID-карту в КПК, чтобы открыть счёт.
+orbitra-bank-pda-wrong-id = Для доступа к личному счёту нужна ваша ID-карта.
+orbitra-bank-pda-copy-account = Скопировать номер
+orbitra-bank-pda-transfer-denied = Перевод не выполнен. Проверьте свою ID-карту, сумму и номер счёта получателя.
 orbitra-retail-vending-price = { $price } кр.
 orbitra-retail-payment-denied = Оплата не прошла. Нужно { $price } кр. на счёте или в активной руке.
+orbitra-bank-pda-load-failed = Не удалось загрузить счёт. Откройте приложение повторно.

@@ -1,0 +1,24 @@
+<ui:OrbitraBankPdaFragment xmlns="https://spacestation14.io"
+                           xmlns:ui="clr-namespace:Content.Client._Orbitra.Economy"
+                           VerticalExpand="True" HorizontalExpand="True" HScrollEnabled="False">
+    <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="10" HorizontalExpand="True">
+        <RichTextLabel Name="LoginNotice"/>
+        <BoxContainer Name="AccountView" Orientation="Vertical" SeparationOverride="10" Visible="False">
+            <PanelContainer StyleClasses="PdaInfoPanel">
+                <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="5">
+                    <Label Name="AccountLabel" ClipText="True"/>
+                    <Label Name="BalanceLabel" StyleClasses="LabelHeading" ClipText="True"/>
+                    <Button Name="CopyAccountButton" HorizontalAlignment="Left" StyleClasses="button OrbitraButtonSecondary"
+                            Text="{Loc 'orbitra-bank-pda-copy-account'}"/>
+                </BoxContainer>
+            </PanelContainer>
+            <BoxContainer Orientation="Vertical" SeparationOverride="5">
+                <LineEdit Name="Recipient" StyleClasses="OrbitraEditorControl" PlaceHolder="{Loc 'orbitra-atm-recipient'}"/>
+                <LineEdit Name="Amount" StyleClasses="OrbitraEditorControl" PlaceHolder="{Loc 'orbitra-atm-amount'}"/>
+                <Button Name="TransferButton" StyleClasses="button OrbitraButtonPrimary" Text="{Loc 'orbitra-atm-transfer'}" Disabled="True"/>
+            </BoxContainer>
+            <Label Text="{Loc 'orbitra-atm-history'}" StyleClasses="LabelSubHeading"/>
+            <BoxContainer Name="History" Orientation="Vertical" SeparationOverride="4"/>
+        </BoxContainer>
+    </BoxContainer>
+</ui:OrbitraBankPdaFragment>

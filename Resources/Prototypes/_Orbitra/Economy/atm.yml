@@ -1,8 +1,8 @@
 - type: entity
   parent: BaseComputer
   id: OrbitraAtm
-  name: bank terminal
-  description: An Orbitra cash terminal. It handles personal accounts and physical credits.
+  name: ATM
+  description: A cash terminal that handles personal accounts and physical credits.
   components:
   - type: OrbitraAtm
   - type: ItemSlots
@@ -45,8 +45,8 @@
 - type: entity
   parent: BaseComputerCircuitboard
   id: OrbitraAtmBoard
-  name: bank terminal circuit board
-  description: A circuit board for an Orbitra bank terminal.
+  name: ATM circuit board
+  description: A circuit board for an ATM.
   components:
   - type: ComputerBoard
     prototype: OrbitraAtm
@@ -54,7 +54,7 @@
 - type: entity
   parent: CrateGenericSteel
   id: OrbitraAtmKit
-  name: bank terminal kit
+  name: ATM kit
   description: A terminal board and materials to assemble it.
   components:
   - type: StorageFill

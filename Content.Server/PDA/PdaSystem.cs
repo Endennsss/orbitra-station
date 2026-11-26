@@ -111,6 +111,7 @@ namespace Content.Server.PDA
             if (id != null)
                 pda.OwnerName = id.FullName;
             UpdatePdaUi(uid, pda);
+            _bankPda.RefreshCard(uid, args.Container.ID); // Orbitra-Edit - обновляем счёт после вставки карты
         }
 
         protected override void OnItemRemoved(EntityUid uid, PdaComponent pda, EntRemovedFromContainerMessage args)
@@ -124,6 +125,7 @@ namespace Content.Server.PDA
 
             base.OnItemRemoved(uid, pda, args);
             UpdatePdaUi(uid, pda);
+            _bankPda.RefreshCard(uid, args.Container.ID); // Orbitra-Edit - закрываем доступ к счёту после извлечения карты
         }
 
         private void OnLightToggle(EntityUid uid, PdaComponent pda, LightToggleEvent args)

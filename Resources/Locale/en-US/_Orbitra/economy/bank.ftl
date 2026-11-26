@@ -1,11 +1,11 @@
-ent-OrbitraAtm = Orbitra bank terminal
+ent-OrbitraAtm = ATM
     .desc = A terminal for personal accounts. It accepts and dispenses physical credits.
-ent-OrbitraAtmBoard = bank terminal circuit board
-    .desc = A circuit board for an Orbitra bank terminal.
-ent-OrbitraAtmKit = bank terminal kit
+ent-OrbitraAtmBoard = ATM circuit board
+    .desc = A circuit board for an ATM.
+ent-OrbitraAtmKit = ATM kit
     .desc = A terminal board and materials to assemble it.
 
-orbitra-atm-title = Orbitra Bank
+orbitra-atm-title = ATM
 orbitra-atm-account = Personal account #{ $account }
 orbitra-atm-balance =
     { $amount ->
@@ -37,5 +37,15 @@ orbitra-atm-withdraw-denied = Insert your ID and check your balance.
 orbitra-atm-transfer-denied = Insert your ID and check the amount and recipient account number.
 orbitra-payroll-notification-title = Payday
 orbitra-payroll-notification = Your account was credited with { orbitra-atm-balance }.
+
+ent-OrbitraBankCartridge = banking cartridge
+    .desc = A program for viewing your personal account and transferring credits.
+orbitra-bank-pda-program-name = Bank
+orbitra-bank-pda-loading = Loading account details…
+orbitra-bank-pda-insert-id = Insert your ID card into the PDA to access your account.
+orbitra-bank-pda-wrong-id = You need your own ID card to access your personal account.
+orbitra-bank-pda-copy-account = Copy account number
+orbitra-bank-pda-transfer-denied = Transfer failed. Check your ID card, the amount, and the recipient's account number.
 orbitra-retail-vending-price = { $price } cr.
 orbitra-retail-payment-denied = Payment failed. You need { $price } credits in your account or active hand.
+orbitra-bank-pda-load-failed = Could not load the account. Reopen the app to try again.

@@ -1,3 +1,4 @@
+using Content.Client._Orbitra.Stylesheets;
 using Content.Client.PDA;
 using Content.IntegrationTests.Fixtures;
 using Robust.Shared.Maths;
@@ -8,7 +9,7 @@ namespace Content.IntegrationTests.Tests._Orbitra;
 public sealed class OrbitraPdaColorsTest : GameTest
 {
     [Test]
-    public async Task CaseColorsFollowThePdaAndMissingAccentsAreHidden()
+    public async Task CaseColorFollowsThePda()
     {
         await Pair.Client.WaitAssertion(() =>
         {
@@ -18,19 +19,13 @@ public sealed class OrbitraPdaColorsTest : GameTest
                 foreach (var color in new[] { "#C04030", "#3070C0" })
                 {
                     window.BorderColor = color;
-                    window.AccentHColor = color;
-                    window.AccentVColor = color;
-                    Assert.That(window.Background.ActualModulateSelf, Is.EqualTo(Color.FromHex(color)));
-                    Assert.That(window.AccentH.ActualModulateSelf, Is.EqualTo(Color.FromHex(color)));
-                    Assert.That(window.AccentV.ActualModulateSelf, Is.EqualTo(Color.FromHex(color)));
-                    Assert.That(window.AccentH.Visible && window.AccentV.Visible, Is.True);
+                    var baseColor = Color.FromHex(color);
+                    var shell = Color.InterpolateBetween(OrbitraPalettes.PanelHighlight, baseColor, 0.54f);
+                    Assert.That(window.Background.ActualModulateSelf, Is.EqualTo(shell));
                 }
 
                 window.BorderColor = null;
-                window.AccentHColor = null;
-                window.AccentVColor = null;
-                Assert.That(window.Background.ActualModulateSelf, Is.EqualTo(Color.White));
-                Assert.That(window.AccentH.Visible || window.AccentV.Visible, Is.False);
+                Assert.That(window.Background.ActualModulateSelf, Is.EqualTo(OrbitraPalettes.PanelHighlight));
             }
             finally
             {

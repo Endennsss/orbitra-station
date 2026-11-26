@@ -1,0 +1,16 @@
+- type: entity
+  parent: BasePDACartridge
+  id: OrbitraBankCartridge
+  name: banking cartridge
+  description: A program for viewing your personal account and transferring credits.
+  components:
+  - type: Sprite
+    state: cart-y
+  - type: Cartridge
+    programName: orbitra-bank-pda-program-name
+    icon:
+      sprite: Objects/Economy/cash.rsi
+      state: cash_100
+  - type: UIFragment
+    ui: !type:OrbitraBankPdaUi
+  - type: OrbitraBankCartridge

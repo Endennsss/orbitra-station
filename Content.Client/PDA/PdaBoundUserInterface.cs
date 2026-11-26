@@ -3,12 +3,13 @@ using Content.Shared.CartridgeLoader;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.PDA;
 using JetBrains.Annotations;
+using Robust.Client.GameObjects; // Orbitra-Edit
 using Robust.Client.UserInterface;
 
 namespace Content.Client.PDA
 {
     [UsedImplicitly]
-    public sealed class PdaBoundUserInterface : CartridgeLoaderBoundUserInterface
+    public sealed partial class PdaBoundUserInterface : CartridgeLoaderBoundUserInterface // Orbitra-Edit - личные данные банковского приложения
     {
         private readonly PdaSystem _pdaSystem;
 
@@ -77,13 +78,12 @@ namespace Content.Client.PDA
             _menu.OnUninstallButtonPressed += UninstallCartridge;
             _menu.ProgramCloseButton.OnPressed += _ => DeactivateActiveCartridge();
 
-            var borderColorComponent = GetBorderColorComponent();
-            if (borderColorComponent == null)
-                return;
-
-            _menu.BorderColor = borderColorComponent.BorderColor;
-            _menu.AccentHColor = borderColorComponent.AccentHColor;
-            _menu.AccentVColor = borderColorComponent.AccentVColor;
+            // Orbitra edit start - полосы берём с корпуса открытого КПК.
+            _menu.BorderColor = GetBorderColorComponent()?.BorderColor;
+            var sprites = EntMan.System<SpriteSystem>();
+            if (sprites.TryGetLayer(Owner, PdaVisualizerSystem.PdaVisualLayers.Base, out var layer, logMissing: false))
+                _menu.CaseTrim.SetSprite(layer);
+            // Orbitra edit end
         }
 
         protected override void UpdateState(BoundUserInterfaceState state)
@@ -106,6 +106,7 @@ namespace Content.Client.PDA
         {
             _menu?.ProgramView.AddChild(cartridgeUIFragment);
             _menu?.ToProgramView(title ?? Loc.GetString("comp-pda-io-program-fallback-title"));
+            RequestBankSnapshot(cartridgeUIFragment); // Orbitra-Edit
         }
 
         protected override void DetachCartridgeUI(Control cartridgeUIFragment)
@@ -113,7 +114,6 @@ namespace Content.Client.PDA
             if (_menu is null)
                 return;
 
-            _menu.ToHomeScreen();
             _menu.HideProgramHeader();
             _menu.ProgramView.RemoveChild(cartridgeUIFragment);
         }

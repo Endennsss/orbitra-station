@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-	"copyright": "Taken and modified from /tg/station 13 at commit https://github.com/tgstation/tgstation/commit/d917f4c, edited by AJCM-git, CrudeWax, and DinnerCalzone (github) | inhands taken and modified from /vg/station13 at https://github.com/vgstation-coders/vgstation13/blob/2c2b9966ea0d03b10e6e9c59626f72bbe8475d9d/icons/mob/in-hand/left/items_lefthand.dmi | pirate made by brainfood1183 (github) | wizard by ScarkKy0 (github) | stripe_cluwne by brainfood1183 (github) | black-inhands by DinnerCalzone (github), ninja made by ThatGuyUSA (github)",
+	"copyright": "Taken and modified from /tg/station 13 at commit https://github.com/tgstation/tgstation/commit/d917f4c, edited by AJCM-git, CrudeWax, and DinnerCalzone (github) | inhands taken and modified from /vg/station13 at https://github.com/vgstation-coders/vgstation13/blob/2c2b9966ea0d03b10e6e9c59626f72bbe8475d9d/icons/mob/in-hand/left/items_lefthand.dmi | pirate made by brainfood1183 (github) | wizard by ScarkKy0 (github) | stripe_cluwne by brainfood1183 (github) | black-inhands by DinnerCalzone (github), ninja made by ThatGuyUSA (github) | Корпуса ID-карт и полосы из /tg/station (EricZilla, #78761; SmArtKar, #84442; unit0016 и Mothblocks, #68217): https://github.com/tgstation/tgstation/blob/5238e03261e063f9cd29435db8f4d4dcb4fdc661/icons/obj/card.dmi. В Orbitra адаптированы полосы и положение эмблем.",
     "size": {
         "x": 32,
         "y": 32

@@ -1,4 +1,5 @@
-using Content.Client.PDA;
+using System.Numerics;
+using Content.Client._Orbitra.Stylesheets; // Orbitra-Edit - палитра корпуса КПК
 using Content.Client.Stylesheets;
 using Content.Client.Stylesheets.Sheetlets;
 using Content.Client.Stylesheets.SheetletConfigs;
@@ -15,78 +16,59 @@ public sealed class PdaSheetlet : Sheetlet<NanotrasenStylesheet>
 {
     public override StyleRule[] GetRules(NanotrasenStylesheet sheet, object config)
     {
-        IPanelConfig panelCfg = sheet;
-        IButtonConfig btnCfg = sheet;
-
-        // TODO: This should have its own set of images, instead of using button cfg directly.
-        var angleBorderRect =
-            sheet.GetTexture(panelCfg.GeometricPanelBorderPath).IntoPatch(StyleBox.Margin.All, 10);
+        // Orbitra added start - общая скруглённая текстура с переменным цветом корпуса.
+        IButtonConfig buttons = sheet;
+        var caseBox = sheet.GetTextureOr(buttons.RoundedButtonBorderedPath, NanotrasenStylesheet.TextureRoot)
+            .IntoPatch(StyleBox.Margin.All, 8);
+        caseBox.TextureScale = new Vector2(2f);
+        // Orbitra added end
 
         return
         [
-            //PDA - Backgrounds
+            // Orbitra edit start - палитра экрана и корпуса КПК.
             E<PanelContainer>()
                 .Class("PdaContentBackground")
-                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.SquareStyleBox(sheet))
-                .Prop(Control.StylePropertyModulateSelf, Content.Client._Orbitra.Stylesheets.OrbitraPalettes.PanelBackground), // Orbitra-Edit - общий серый стиль
+                .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat(OrbitraPalettes.PanelInset)
+                {
+                    BorderColor = Color.Black,
+                    BorderThickness = new Thickness(2),
+                }),
+            // Orbitra edit end
 
             E<PanelContainer>()
                 .Class("PdaBackground")
                 .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.SquareStyleBox(sheet))
                 .Prop(Control.StylePropertyModulateSelf, Color.FromHex("#000000")),
 
+            // Orbitra edit start - корпус, вставки и цвета экрана.
             E<PanelContainer>()
                 .Class("PdaBackgroundRect")
-                .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.BaseStyleBox((sheet)))
-                .Prop(Control.StylePropertyModulateSelf, sheet.PrimaryPalette.Element), // Orbitra-Edit - корпус КПК без оливкового оттенка
+                .Prop(PanelContainer.StylePropertyPanel, caseBox)
+                .Modulate(OrbitraPalettes.PanelHighlight),
 
             E<PanelContainer>()
-                .Class("PdaBorderRect")
-                .Prop(PanelContainer.StylePropertyPanel, angleBorderRect),
+                .Class("PdaInfoPanel")
+                .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat(OrbitraPalettes.PanelBackground)
+                {
+                    BorderColor = OrbitraPalettes.PanelBorder,
+                    BorderThickness = new Thickness(1),
+                }),
 
-            //PDA - Buttons
-            E<PdaSettingsButton>()
-                .Pseudo(ContainerButton.StylePseudoClassNormal)
-                .Prop(PdaSettingsButton.StylePropertyBgColor, sheet.SecondaryPalette.Background)
-                .Prop(PdaSettingsButton.StylePropertyFgColor, Color.FromHex(PdaSettingsButton.EnabledFgColor)),
+            E<PanelContainer>()
+                .Class("PdaStatusBar")
+                .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat(OrbitraPalettes.PanelInset)
+                {
+                    BorderColor = OrbitraPalettes.PanelBorder,
+                    BorderThickness = new Thickness(0, 1, 0, 0),
+                }),
 
-            E<PdaSettingsButton>()
-                .Pseudo(ContainerButton.StylePseudoClassHover)
-                .Prop(PdaSettingsButton.StylePropertyBgColor, sheet.PrimaryPalette.HoveredElement)
-                .Prop(PdaSettingsButton.StylePropertyFgColor, Color.FromHex(PdaSettingsButton.EnabledFgColor)),
-
-            E<PdaSettingsButton>()
-                .Pseudo(ContainerButton.StylePseudoClassPressed)
-                .Prop(PdaSettingsButton.StylePropertyBgColor, sheet.PrimaryPalette.PressedElement)
-                .Prop(PdaSettingsButton.StylePropertyFgColor, Color.FromHex(PdaSettingsButton.EnabledFgColor)),
-
-            E<PdaSettingsButton>()
-                .Pseudo(ContainerButton.StylePseudoClassDisabled)
-                .Prop(PdaSettingsButton.StylePropertyBgColor, sheet.PrimaryPalette.DisabledElement)
-                .Prop(PdaSettingsButton.StylePropertyFgColor, Color.FromHex(PdaSettingsButton.DisabledFgColor)),
-
-            E<PdaProgramItem>()
-                .Pseudo(ContainerButton.StylePseudoClassNormal)
-                .Prop(PdaProgramItem.StylePropertyBgColor, sheet.SecondaryPalette.Background),
-
-            E<PdaProgramItem>()
-                .Pseudo(ContainerButton.StylePseudoClassHover)
-                .Prop(PdaProgramItem.StylePropertyBgColor, sheet.PrimaryPalette.HoveredElement),
-
-            E<PdaProgramItem>()
-                .Pseudo(ContainerButton.StylePseudoClassPressed)
-                .Prop(PdaProgramItem.StylePropertyBgColor, sheet.PrimaryPalette.PressedElement),
+            // Orbitra edit end
 
             //PDA - Text
             E<Label>()
                 .Class("PdaContentFooterText")
-                .Prop(Label.StylePropertyFont, sheet.BaseFont.GetFont(10))
-                .Prop(Label.StylePropertyFontColor, Color.FromHex("#757575")),
-
-            E<Label>()
-                .Class("PdaWindowFooterText")
-                .Prop(Label.StylePropertyFont, sheet.BaseFont.GetFont(10))
-                .Prop(Label.StylePropertyFontColor, sheet.SecondaryPalette.TextDark), // Orbitra-Edit - читаемый нейтральный текст
+                .Prop(Label.StylePropertyFont, sheet.BaseFont.GetFont(11)) // Orbitra-Edit - читаемый адрес внизу экрана
+                .Prop(Label.StylePropertyFontColor, OrbitraPalettes.IconNormal), // Orbitra-Edit - светлый текст строки состояния
         ];
     }
 }

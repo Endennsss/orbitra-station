@@ -38,6 +38,9 @@ comp-pda-ui-eject-id-button = Извлечь ID
 
 comp-pda-ui-eject-pen-button = Извлечь ручку
 
+# Orbitra-Edit - подсказка кнопки извлечения пИИ
+comp-pda-ui-eject-pai-button = Извлечь пИИ
+
 comp-pda-ui-ringtone-button = Рингтон
 
 comp-pda-ui-ringtone-button-description = Измените рингтон вашего КПК

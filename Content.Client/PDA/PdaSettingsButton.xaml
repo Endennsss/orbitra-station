@@ -1,11 +1,12 @@
 ﻿<pda:PdaSettingsButton xmlns="https://spacestation14.io"
                        xmlns:pda="clr-namespace:Content.Client.PDA"
+                       StyleClasses="button OrbitraOptionRow"
                        HorizontalExpand="True"
-                       MinHeight="48"
-                       Margin="5 4 6 0">
-<PanelContainer Name="Panel"/>
-<BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" Margin="8 4 0 4">
-    <Label Name="OptionName"/>
-    <Label Name="OptionDescription"/>
-</BoxContainer>
+                       MinHeight="48">
+    <!-- Orbitra edit start - описание переносится по ширине экрана. -->
+    <BoxContainer Orientation="Vertical" Margin="10 6" SeparationOverride="3" MouseFilter="Ignore">
+        <Label Name="OptionName" ClipText="True" MouseFilter="Ignore"/>
+        <RichTextLabel Name="OptionDescription" MouseFilter="Ignore"/>
+    </BoxContainer>
+    <!-- Orbitra edit end -->
 </pda:PdaSettingsButton>
