@@ -51,6 +51,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
     public void Populate(HealthAnalyzerUiState state)
     {
         PopulateDataFields(state.TargetEntity, state.ScanMode, state.BloodLevel, state.Unrevivable, state.Bleeding);
+        PopulateOrbitraTrauma(state); // Orbitra-Edit - показываем локальные травмы пациента.
         if (!float.IsNaN(state.Temperature))
             PopulateTemperature(state.Temperature);
     }

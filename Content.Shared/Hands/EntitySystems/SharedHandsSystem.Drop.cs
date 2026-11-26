@@ -248,14 +248,16 @@ public abstract partial class SharedHandsSystem
             return;
         }
 
-        if (targetDropLocation != null)
+        // Orbitra edit start - над интерфейсом у курсора нет мировых координат, предмет остаётся у ног.
+        if (targetDropLocation is { } location && location.IsValid(EntityManager))
         {
             var (itemPos, itemRot) = TransformSystem.GetWorldPositionRotation(entity.Value);
             // otherwise, also move dropped item and rotate it properly according to grid/map
             var origin = new MapCoordinates(itemPos, Transform(entity.Value).MapID);
-            var target = TransformSystem.ToMapCoordinates(targetDropLocation.Value);
+            var target = TransformSystem.ToMapCoordinates(location);
             TransformSystem.SetWorldPositionRotation(entity.Value, GetFinalDropCoordinates(ent, origin, target, entity.Value), itemRot);
         }
+        // Orbitra edit end
 
         Dirty(ent);
 

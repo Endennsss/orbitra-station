@@ -64,6 +64,10 @@
         - id: Cautery
         - id: Drill
         - id: Saw
+        # Orbitra added start
+        - id: OrbitraBoneSetter
+        - id: OrbitraSplint
+        # Orbitra added end
         - id: Hemostat
         - id: ClothingMaskSterile
 

@@ -8,6 +8,10 @@
     containers:
       storagebase: !type:AllSelector
         children:
+        # Orbitra added start
+        - id: OrbitraBoneSetter
+        - id: OrbitraSplint
+        # Orbitra added end
         - id: Hemostat
         - id: Saw
         - id: Drill
@@ -25,6 +29,10 @@
     containers:
       storagebase: !type:AllSelector
         children:
+        # Orbitra added start
+        - id: OrbitraBoneSetter
+        - id: OrbitraSplint
+        # Orbitra added end
         - id: Hemostat
         - id: SawAdvanced
         - id: Drill

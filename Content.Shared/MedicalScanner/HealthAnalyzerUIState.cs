@@ -1,3 +1,4 @@
+using Content.Shared._Orbitra.Surgery; // Orbitra-Edit
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.MedicalScanner;
@@ -14,6 +15,7 @@ public sealed class HealthAnalyzerUiState : BoundUserInterfaceState
     public bool ScanMode;
     public bool Bleeding;
     public bool Unrevivable;
+    public Dictionary<SurgeryZone, SurgeryInjury>? OrbitraTrauma; // Orbitra-Edit
 
     public HealthAnalyzerUiState() {}
 

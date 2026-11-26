@@ -1,5 +1,8 @@
 using System.Numerics;
+using Content.Shared._Orbitra.DoAfter;
 using Content.Shared.DoAfter;
+using Robust.Client.GameObjects;
+using Robust.Shared.Map;
 
 #pragma warning disable IDE0130 // Пространство имён совпадает с расширяемым vanilla-классом.
 namespace Content.Client.DoAfter;
@@ -12,6 +15,20 @@ public sealed partial class DoAfterOverlay
     private readonly Dictionary<DoAfterId, TimeSpan> _entranceStartTimes = new();
     private readonly HashSet<DoAfterId> _activeDoAfters = new();
     private readonly List<DoAfterId> _staleDoAfters = new();
+
+    /// <summary>Сохраняет поворот и масштаб полосы, привязывая её к спрайту цели выбранного действия.</summary>
+    private Entity<SpriteComponent> ResolveProgressAnchor(DoAfterArgs args, Entity<SpriteComponent> actor,
+        MapId map, ref Matrix3x2 matrix)
+    {
+        if (args.Event is not IOrbitraTargetProgress || args.Target is not { } target ||
+            !_entManager.TryGetComponent<TransformComponent>(target, out var xform) || xform.MapID != map ||
+            !_entManager.TryGetComponent<SpriteComponent>(target, out var sprite) ||
+            _container.IsEntityOrParentInContainer(target, xform: xform))
+            return actor;
+
+        matrix.Translation = _transform.GetWorldPosition(xform);
+        return (target, sprite);
+    }
 
     private void BeginEntranceFrame()
     {

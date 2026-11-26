@@ -1,0 +1,9 @@
+ent-OrbitraBoneSetter = bone setter
+    .desc = A pair of surgical forceps for setting fractured limbs.
+ent-OrbitraSplint = field splint
+    .desc = A rigid medical brace for stabilizing a fractured limb during evacuation.
+orbitra-surgery-open = Examine patient
+orbitra-surgery-wrong-tool = Hold the required tool in your active hand.
+orbitra-surgery-wrong-limb = Use this patient's own limb from the selected side.
+ent-OrbitraExtractedFragment = extracted fragment
+    .desc = A small metal fragment removed during surgery.

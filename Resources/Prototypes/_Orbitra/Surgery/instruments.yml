@@ -1,0 +1,43 @@
+- type: entity
+  parent: Retractor
+  id: OrbitraBoneSetter
+  name: bone setter
+  description: A pair of surgical forceps for setting fractured limbs.
+  components:
+  - type: OrbitraSurgicalTool
+    kind: OrbitraBoneSetter
+  - type: Sprite
+    state: setter
+  - type: Item
+    heldPrefix: setter
+
+- type: entity
+  parent: BaseItem
+  id: OrbitraSplint
+  name: field splint
+  description: A rigid medical brace for stabilizing a fractured limb during evacuation.
+  components:
+  - type: OrbitraTraumaDressing
+    treatment: Splinted
+  - type: Sprite
+    sprite: _Orbitra/Objects/Medical/splint.rsi
+    state: splint
+  - type: Item
+    size: Small
+  - type: Tag
+    tags:
+    - Gauze
+  - type: StaticPrice
+    price: 10
+
+- type: entity
+  parent: BaseItem
+  id: OrbitraExtractedFragment
+  name: extracted fragment
+  description: A small metal fragment removed during surgery.
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    state: buckshot
+  - type: Item
+    size: Tiny

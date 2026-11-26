@@ -1,0 +1,43 @@
+- type: orbitraTrauma
+  id: OrbitraHumanoidTrauma
+  fracture:
+    threshold: 28
+    chance: 0.35
+  internalBleeding:
+    threshold: 36
+    chance: 0.22
+  shrapnel:
+    threshold: 22
+    chance: 0.35
+  dismemberment:
+    threshold: 85
+    chance: 0.04
+  fragmentProjectiles:
+  - BulletPistol
+  - BulletMagnum
+  - BulletMagnumAP
+  - BulletMagnumIncendiary
+  - BulletMagnumUranium
+  - BulletRifle
+  - BulletHeavyRifle
+  - BulletLightRifle
+  - BulletCaselessRifle
+  - BulletAntiMateriel
+  - PelletShotgun
+  - PelletShotgunSlug
+  - PelletGrapeshot
+  - PelletClusterLethal
+  fracturedLegSpeed: 0.72
+  splintedLegSpeed: 0.91
+  fracturedArmDelay: 1.6
+  splintedArmDelay: 1.15
+  tickSeconds: 3
+  dismemberBloodLoss: 12
+  dismemberBleedRate: 2.5
+  bloodLoss: 3
+  bandagedBloodLoss: 1
+  fragmentDamage:
+    types:
+      Piercing: 0.1
+  dressingSeconds: 120
+  splintSeconds: 300

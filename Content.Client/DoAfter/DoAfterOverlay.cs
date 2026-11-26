@@ -112,7 +112,7 @@ public sealed partial class DoAfterOverlay : Overlay // Orbitra-Edit - аним�
             var worldMatrix = Matrix3Helpers.CreateTranslation(worldPosition);
             var scaledWorld = Matrix3x2.Multiply(scaleMatrix, worldMatrix);
             var matty = Matrix3x2.Multiply(rotationMatrix, scaledWorld);
-            handle.SetTransform(matty);
+            // Orbitra-Edit - матрица применяется ниже после выбора спрайта для конкретного действия.
 
             var offset = 0f;
 
@@ -141,7 +141,12 @@ public sealed partial class DoAfterOverlay : Overlay // Orbitra-Edit - аним�
 
                 // Use the sprite itself if we know its bounds. This means short or tall sprites don't get overlapped
                 // by the bar.
-                var spriteBounds = _sprite.GetLocalBounds((uid, sprite));
+                // Orbitra edit start - операция отображается над пациентом, остальные действия над исполнителем.
+                var barMatrix = matty;
+                var anchor = ResolveProgressAnchor(doAfter.Args, (uid, sprite), args.MapId, ref barMatrix);
+                handle.SetTransform(barMatrix);
+                var spriteBounds = _sprite.GetLocalBounds(anchor);
+                // Orbitra edit end
                 var yFinished = spriteBounds.Height / 2f + 0.05f;
                 var yStart = yFinished / 6f;
                 var yOffset = yFinished; // Orbitra-Edit - смещение задаёт единая анимация появления

@@ -172,6 +172,7 @@
   id: BaseSpeciesMobOrganicNoCrawl
   save: false
   components:
+  - type: OrbitraSurgicalPatient # Orbitra-Edit
   - type: Satiation
     satiations:
       Hunger:

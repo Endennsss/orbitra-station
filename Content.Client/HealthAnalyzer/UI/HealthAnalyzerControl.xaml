@@ -38,6 +38,10 @@
         </GridContainer>
     </BoxContainer>
 
+    <!-- Orbitra added start - показания к операции по зонам тела. -->
+    <BoxContainer Name="OrbitraTraumaContainer" Margin="0 4" Visible="False" Orientation="Vertical" />
+    <!-- Orbitra added end -->
+
     <controls:Separator Name="AlertsDivider" Visible="False" StyleClasses="LowDivider"/>
 
     <BoxContainer Name="AlertsContainer" Visible="False" Margin="0 5" Orientation="Vertical" HorizontalAlignment="Center">

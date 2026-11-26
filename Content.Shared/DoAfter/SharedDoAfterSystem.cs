@@ -327,6 +327,7 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             return true;
         }
 
+        ApplyOrbitraTraumaDelay(args); // Orbitra-Edit - учитываем травму действующей руки.
         comp.DoAfters.Add(doAfter.Index, doAfter);
         EnsureComp<ActiveDoAfterComponent>(args.User);
         Dirty(args.User, comp);

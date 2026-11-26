@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Splint sprite introduced by comma (https://github.com/ParadiseSS13/Paradise/commit/de1309102e4b3642965f7bf8d28ab8dbaad87231). Paradise Station contributors. State splint from https://github.com/ParadiseSS13/Paradise/blob/024697e885d0f7b3be36d2f46e95a1c1f4ba37ba/icons/obj/medical.dmi",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "splint"
+    }
+  ]
+}

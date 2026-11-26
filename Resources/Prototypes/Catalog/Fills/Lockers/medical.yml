@@ -117,6 +117,10 @@
   id: LockerFillParamedic
   table: !type:AllSelector
     children:
+    # Orbitra added start — шины для выездов парамедика.
+    - id: OrbitraSplint
+      amount: 2
+    # Orbitra added end
     - id: ClothingEyesHudMedical
     - id: ClothingOuterHardsuitVoidParamed
     - id: ClothingBeltMedicalEMTFilled

@@ -20,6 +20,10 @@
   parent: BaseToolSurgery
   description: A surgical tool used to cauterize open wounds.
   components:
+  # Orbitra added start
+  - type: OrbitraSurgicalTool
+    kind: Cautery
+  # Orbitra added end
   - type: Sprite
     sprite: Objects/Specific/Medical/Surgery/cautery.rsi
     state: cautery
@@ -66,6 +70,10 @@
   parent: BaseToolSurgery
   description: A surgical tool used to make incisions into flesh.
   components:
+  # Orbitra added start
+  - type: OrbitraSurgicalTool
+    kind: Scalpel
+  # Orbitra added end
   - type: Tool
     qualities:
     - Slicing
@@ -145,6 +153,10 @@
   parent: BaseToolSurgery
   description: A surgical tool used to hold open incisions.
   components:
+  # Orbitra added start
+  - type: OrbitraSurgicalTool
+    kind: Retractor
+  # Orbitra added end
   - type: Sprite
     sprite: Objects/Specific/Medical/Surgery/scissors.rsi
     state: retractor
@@ -158,6 +170,10 @@
   parent: Retractor
   description: A surgical tool used to compress blood vessels to prevent bleeding.
   components:
+  # Orbitra added start
+  - type: OrbitraSurgicalTool
+    kind: Hemostat
+  # Orbitra added end
   - type: Sprite
     state: hemostat
   - type: Item
@@ -178,6 +194,10 @@
   parent: BaseToolSurgery
   description: For cutting wood and other objects to pieces. Or sawing bones, in case of emergency.
   components:
+  # Orbitra added start
+  - type: OrbitraSurgicalTool
+    kind: Saw
+  # Orbitra added end
   - type: Utensil
     types:
       - Knife

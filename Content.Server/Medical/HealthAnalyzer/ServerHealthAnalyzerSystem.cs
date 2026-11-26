@@ -16,6 +16,7 @@ public sealed partial class ServerHealthAnalyzerSystem : HealthAnalyzerSystem
         if (_temperatureQuery.TryComp(target, out var temp))
             state.Temperature = temp.Temperature;
 
+        PopulateOrbitraTrauma(state, target); // Orbitra-Edit - локальные хирургические показания.
         return state;
     }
 }

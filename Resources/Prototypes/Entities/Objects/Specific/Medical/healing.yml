@@ -295,6 +295,10 @@
   id: Gauze
   suffix: Full
   components:
+  # Orbitra added start - временная стабилизация внутреннего кровотечения.
+  - type: OrbitraTraumaDressing
+    treatment: Bandaged
+  # Orbitra added end
   - type: Tag
     tags:
     - Gauze

@@ -2,7 +2,7 @@
   id: OperatingTable
   parent: Bed
   name: operating table
-  description: Special medical table for surgery. This one just seems to be a useless prop, though.
+  description: Secure a patient on the table to examine their injuries and perform surgery. # Orbitra-Edit
   components:
   - type: Sprite
     sprite: Structures/Furniture/Tables/optable.rsi
@@ -12,3 +12,17 @@
     sprite: Structures/Furniture/Tables/optable.rsi
     state: operating_table
   - type: AmbientMusicMarkerMedical
+  # Orbitra added start
+  - type: Strap
+    buckleOnInteractHand: false
+  - type: OrbitraSurgeryTable
+  - type: ActivatableUI
+    key: enum.OrbitraSurgeryUiKey.Key
+    verbText: orbitra-surgery-open
+    blockSpectators: true
+  - type: UserInterface
+    interfaces:
+      enum.OrbitraSurgeryUiKey.Key:
+        type: OrbitraSurgeryBoundUserInterface
+        interactionRange: 1.5
+  # Orbitra added end
