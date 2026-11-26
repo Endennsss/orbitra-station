@@ -11,6 +11,7 @@ namespace Content.Client.Forensics;
 public sealed partial class ForensicScannerMenu : DefaultWindow
 {
     [Dependency] private IGameTiming _gameTiming = default!;
+    [Dependency] private Robust.Shared.Prototypes.IPrototypeManager _prototypes = default!; // Orbitra-Edit
 
     private TimeSpan? _printReady;
 
@@ -47,6 +48,7 @@ public sealed partial class ForensicScannerMenu : DefaultWindow
         NameLabel.Text = scanner.LastScannedName;
 
         var text = new StringBuilder();
+        scanner.AppendOrbitraFragment(text, _prototypes); // Orbitra-Edit
 
         text.AppendLine(Loc.GetString("forensic-scanner-interface-fingerprints"));
         foreach (var fingerprint in scanner.Fingerprints)

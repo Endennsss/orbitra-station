@@ -62,7 +62,7 @@ public sealed partial class BloodstreamSystem : EntitySystem
             // Blood level regulation. Must be alive.
             if (!_mobStateSystem.IsDead(uid))
             {
-                TryRegulateBloodLevel(uid, bloodstream.BloodRefreshAmount);
+                RegulateOrbitraBloodLevel(uid, bloodstream); // Orbitra-Edit
 
                 TickBleed((uid, bloodstream));
 

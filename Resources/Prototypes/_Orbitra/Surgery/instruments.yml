@@ -36,6 +36,7 @@
   name: extracted fragment
   description: A small metal fragment removed during surgery.
   components:
+  - type: OrbitraFragmentEvidence
   - type: Sprite
     sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
     state: buckshot

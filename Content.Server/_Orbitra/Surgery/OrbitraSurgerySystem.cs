@@ -35,6 +35,7 @@ public sealed partial class OrbitraSurgerySystem : EntitySystem
     {
         base.Initialize();
         InitializeLimbs();
+        InitializeMonitor();
         Subs.BuiEvents<OrbitraSurgeryTableComponent>(OrbitraSurgeryUiKey.Key, subs =>
         {
             subs.Event<BoundUIOpenedEvent>((Entity<OrbitraSurgeryTableComponent> ent, ref BoundUIOpenedEvent _) => Publish(ent));
@@ -87,13 +88,22 @@ public sealed partial class OrbitraSurgerySystem : EntitySystem
         _ => SurgeryInjury.None,
     };
 
-    private bool HasIndication(EntityUid patient, SurgeryZone zone, SurgeryProcedure procedure)
+    private bool HasIndication(EntityUid patient, SurgeryZone zone, SurgeryProcedure procedure, SurgeryOrgan? organ)
     {
         if (!_anatomy.SupportsZone(patient, zone))
             return false;
 
+        if (OrbitraOrganSystem.IsProcedure(procedure))
+            return zone == SurgeryZone.Torso && organ is { } kind && CanOperateOnOrgan(patient, kind, procedure);
+        if (organ != null)
+            return false;
+
         if (procedure == SurgeryProcedure.Amputate)
-            return TryGetLimb(patient, zone, out _, out _, out _);
+            return TryGetLimb(patient, zone, out _, out var root, out _) && !HasComp<OrbitraProstheticJointComponent>(root);
+        if (procedure == SurgeryProcedure.InstallProsthesis)
+            return CanFitProsthesis(patient, zone, out _, out _);
+        if (procedure == SurgeryProcedure.RemoveProsthesis)
+            return CanRemoveProsthesis(patient, zone, out _, out _);
 
         var injuries = _trauma.GetInjuries(patient, zone);
         if ((injuries & SurgeryInjury.Missing) != 0)
@@ -102,10 +112,16 @@ public sealed partial class OrbitraSurgerySystem : EntitySystem
         return (injuries & Indication(procedure)) != 0;
     }
 
-    private bool HasTool(EntityUid patient, SurgeryZone zone, EntityUid? tool, string expected)
+    private bool HasTool(EntityUid patient, SurgeryZone zone, EntityUid? tool, string expected, SurgeryOrgan? organ)
     {
         if (tool == null || TerminatingOrDeleted(tool.Value))
             return false;
+
+        if (expected == OrbitraSurgerySteps.Prosthesis)
+            return CanUseProsthesis(tool.Value, zone, out _);
+
+        if (expected == OrbitraSurgerySteps.DonorOrgan)
+            return organ is { } kind && _organs.IsDonor(tool.Value, kind);
 
         if (expected == "DetachedBody")
             return CanReattachLimb(patient, zone, tool.Value, out _, out _, out _);
@@ -116,29 +132,32 @@ public sealed partial class OrbitraSurgerySystem : EntitySystem
     private void OnStep(Entity<OrbitraSurgeryTableComponent> table, ref OrbitraSurgeryStepMessage args)
     {
         if (TryGetEntity(args.Patient, out var patient))
-            TryStartStep(table, args.Actor, patient.Value, args.Zone, args.Procedure, args.Step, args.Confirmed);
+            TryStartStep(table, args.Actor, patient.Value, args.Zone, args.Procedure, args.Step, args.Confirmed, args.Organ);
     }
 
     /// <summary>Начинает ожидаемый сервером шаг в открытом интерфейсе стола с этим пациентом.</summary>
     public bool TryStartStep(EntityUid table, EntityUid user, EntityUid patient, SurgeryZone zone,
-        SurgeryProcedure procedure, int step, bool confirmed)
+        SurgeryProcedure procedure, int step, bool confirmed, SurgeryOrgan? organ = null)
     {
         var steps = OrbitraSurgerySteps.Get(procedure);
-        if ((uint) step >= (uint) steps.Length || !CanOperate(table, user, patient) ||
-            !HasComp<DoAfterComponent>(user) || !HasIndication(patient, zone, procedure) ||
-            (procedure == SurgeryProcedure.Amputate && step == 0 && !confirmed))
+        if (!TryComp<OrbitraSurgeryTableComponent>(table, out var station) ||
+            !OrbitraSurgeryTableComponent.Supports(station.FieldTable, procedure) ||
+            (uint) step >= (uint) steps.Length || !CanOperate(table, user, patient) ||
+            !HasComp<DoAfterComponent>(user) || !HasIndication(patient, zone, procedure, organ) ||
+            (procedure is SurgeryProcedure.Amputate or SurgeryProcedure.ExtractOrgan && step == 0 && !confirmed))
             return false;
 
         if (TryComp<OrbitraSurgeryOperationComponent>(patient, out var operation))
         {
-            if (operation.Surgeon != null || operation.Zone != zone || operation.Procedure != procedure || operation.Step != step)
+            if (operation.Surgeon != null || operation.Zone != zone || operation.Procedure != procedure ||
+                operation.Organ != organ || !MatchesOriginalOrgan(patient, operation) || operation.Step != step)
                 return false;
         }
         else if (step != 0)
             return false;
 
         var tool = _hands.GetActiveItem(user);
-        if (!HasTool(patient, zone, tool, steps[step]))
+        if (!HasTool(patient, zone, tool, steps[step], organ))
         {
             var key = steps[step] == "DetachedBody" ? "orbitra-surgery-wrong-limb" : "orbitra-surgery-wrong-tool";
             _popup.PopupEntity(Loc.GetString(key), table, user);
@@ -148,12 +167,14 @@ public sealed partial class OrbitraSurgerySystem : EntitySystem
         operation ??= EnsureComp<OrbitraSurgeryOperationComponent>(patient);
         operation.Zone = zone;
         operation.Procedure = procedure;
+        operation.Organ = organ;
+        operation.OriginalOrgan = organ is { } kind ? _organs.Installed(patient, kind) : null;
         operation.Table = table;
         operation.Surgeon = user;
         operation.Ticket = ++_nextTicket;
         var speed = TryComp<ToolComponent>(tool, out var toolComp) ? Math.Clamp(toolComp.SpeedModifier, 0.25f, 4f) : 1f;
         var ev = new OrbitraSurgeryDoAfterEvent { Ticket = operation.Ticket };
-        var args = new DoAfterArgs(EntityManager, user, StepSeconds / speed, ev, patient, patient, tool)
+        var args = new DoAfterArgs(EntityManager, user, StepSeconds * station.StepDurationMultiplier / speed, ev, patient, patient, tool)
         {
             NeedHand = true,
             BreakOnMove = true,
@@ -189,8 +210,8 @@ public sealed partial class OrbitraSurgerySystem : EntitySystem
         args.Handled = true;
         var steps = OrbitraSurgerySteps.Get(op.Procedure);
         if (!args.Cancelled && args.Used is { } tool && (uint) op.Step < (uint) steps.Length &&
-            CanOperate(table, args.User, patient) && HasIndication(patient, op.Zone, op.Procedure) &&
-            _hands.GetActiveItem(args.User) == tool && HasTool(patient, op.Zone, tool, steps[op.Step]))
+            CanOperate(table, args.User, patient) && HasIndication(patient, op.Zone, op.Procedure, op.Organ) && MatchesOriginalOrgan(patient, op) &&
+            _hands.GetActiveItem(args.User) == tool && HasTool(patient, op.Zone, tool, steps[op.Step], op.Organ))
         {
             if (op.Step + 1 < steps.Length)
                 op.Step++;
@@ -200,7 +221,7 @@ public sealed partial class OrbitraSurgerySystem : EntitySystem
                 op.Finishing = true;
                 try
                 {
-                    if (TryFinishProcedure(patient, op.Zone, op.Procedure, tool))
+                    if (TryFinishProcedure(patient, op.Zone, op.Procedure, tool, op.Organ))
                         op.Step = 0;
                 }
                 finally
@@ -214,17 +235,33 @@ public sealed partial class OrbitraSurgerySystem : EntitySystem
         Publish(table);
     }
 
-    private bool TryFinishProcedure(EntityUid patient, SurgeryZone zone, SurgeryProcedure procedure, EntityUid tool)
+    private bool TryFinishProcedure(EntityUid patient, SurgeryZone zone, SurgeryProcedure procedure, EntityUid tool, SurgeryOrgan? organ)
     {
+        if (organ is { } kind)
+            return TryFinishOrganProcedure(patient, kind, procedure, tool);
+
         if (procedure == SurgeryProcedure.Amputate)
             return TryDetachLimb(patient, zone, out _);
+        if (procedure == SurgeryProcedure.InstallProsthesis)
+            return TryInstallProsthesis(patient, zone, tool);
+        if (procedure == SurgeryProcedure.RemoveProsthesis)
+            return TryRemoveProsthesis(patient, zone, out _);
         if (procedure == SurgeryProcedure.Reattach)
             return TryReattachLimb(patient, zone, tool);
+        EntProtoId? source = null;
+        if (procedure == SurgeryProcedure.Shrapnel && TryComp<OrbitraTraumaComponent>(patient, out var trauma) &&
+            trauma.FragmentSources.TryGetValue(zone, out var projectile))
+            source = projectile;
         if (!_trauma.TryTreat(patient, zone, Indication(procedure)))
             return false;
 
         if (procedure == SurgeryProcedure.Shrapnel)
-            SpawnNextToOrDrop(ExtractedFragment, patient);
+        {
+            var fragment = SpawnNextToOrDrop(ExtractedFragment, patient);
+            var evidence = Comp<OrbitraFragmentEvidenceComponent>(fragment);
+            evidence.Projectile = source;
+            Dirty(fragment, evidence);
+        }
         return true;
     }
 
@@ -240,15 +277,15 @@ public sealed partial class OrbitraSurgerySystem : EntitySystem
     private void OnCancel(Entity<OrbitraSurgeryTableComponent> table, ref OrbitraSurgeryCancelMessage args)
     {
         if (TryGetEntity(args.Patient, out var patient))
-            TryAbandon(table, args.Actor, patient.Value, args.Zone, args.Procedure, args.Step);
+            TryAbandon(table, args.Actor, patient.Value, args.Zone, args.Procedure, args.Step, args.Organ);
     }
 
     /// <summary>Отменяет подготовку между шагами. Завершение активного DoAfter проверяется отдельно.</summary>
     public bool TryAbandon(EntityUid table, EntityUid user, EntityUid patient, SurgeryZone zone,
-        SurgeryProcedure procedure, int step)
+        SurgeryProcedure procedure, int step, SurgeryOrgan? organ = null)
     {
         if (!CanOperate(table, user, patient) || !TryComp<OrbitraSurgeryOperationComponent>(patient, out var op) ||
-            op.Surgeon != null || op.Zone != zone || op.Procedure != procedure || op.Step != step)
+            op.Surgeon != null || op.Zone != zone || op.Procedure != procedure || op.Organ != organ || op.Step != step)
             return false;
 
         RemComp<OrbitraSurgeryOperationComponent>(patient);
@@ -258,6 +295,7 @@ public sealed partial class OrbitraSurgerySystem : EntitySystem
 
     private void OnClosed(Entity<OrbitraSurgeryTableComponent> table, ref BoundUIClosedEvent args)
     {
+        CloseMonitor(table, args.Actor);
         if (GetPatient(table) is { } patient && TryComp<OrbitraSurgeryOperationComponent>(patient, out var op) &&
             op.Table == table.Owner && op.Surgeon == args.Actor)
             Interrupt(patient, op);
@@ -310,7 +348,7 @@ public sealed partial class OrbitraSurgerySystem : EntitySystem
             if (op.Finishing)
                 return;
 
-            if (!HasIndication(patient, op.Zone, op.Procedure))
+            if (!HasIndication(patient, op.Zone, op.Procedure, op.Organ) || !MatchesOriginalOrgan(patient, op))
             {
                 var pending = op.Pending;
                 RemComp<OrbitraSurgeryOperationComponent>(patient);
@@ -330,6 +368,7 @@ public sealed partial class OrbitraSurgerySystem : EntitySystem
             return;
 
         var patient = GetPatient(table);
+        UpdateMonitorPatients(table, patient);
         var injuries = new Dictionary<SurgeryZone, SurgeryInjury>();
         OrbitraSurgeryOperationComponent? op = null;
         if (patient is { } occupant)
@@ -346,6 +385,12 @@ public sealed partial class OrbitraSurgerySystem : EntitySystem
         var busy = op?.Surgeon != null;
         _ui.SetUiState(table, OrbitraSurgeryUiKey.Key, new OrbitraSurgeryState(GetNetEntity(patient),
             patient is { } uid ? Name(uid) : string.Empty, injuries, op?.Zone, op?.Procedure, op?.Step ?? 0,
-            busy, busy ? op!.StartedAt : null, busy ? op!.Duration : default));
+            busy, busy ? op!.StartedAt : null, busy ? op!.Duration : default,
+            patient is { } body ? _organs.GetConditions(body) : null, op?.Organ)
+        {
+            AcceptsProstheses = HasComp<OrbitraHumanOrganPatientComponent>(patient),
+            Prostheses = TryComp<OrbitraFittedProsthesesComponent>(patient, out var fitted) ? new(fitted.Parts) : new(),
+            FieldTable = Comp<OrbitraSurgeryTableComponent>(table).FieldTable,
+        });
     }
 }

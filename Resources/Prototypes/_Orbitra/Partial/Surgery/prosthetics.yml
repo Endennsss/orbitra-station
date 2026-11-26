@@ -1,0 +1,11 @@
+- type: !PartialOnly entity
+  id: Drill
+  components:
+  - type: OrbitraSurgicalTool
+    kind: Drill
+
+- type: !PartialOnly latheRecipePack
+  id: Robotics
+  recipes:
+  - OrbitraAdvancedProstheticArm
+  - OrbitraAdvancedProstheticLeg

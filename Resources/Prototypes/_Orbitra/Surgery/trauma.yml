@@ -12,6 +12,12 @@
   dismemberment:
     threshold: 85
     chance: 0.04
+  organInjury:
+    threshold: 40
+    chance: 0.25
+  organFailure:
+    threshold: 70
+    chance: 0.06
   fragmentProjectiles:
   - BulletPistol
   - BulletMagnum

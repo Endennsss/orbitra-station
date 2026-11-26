@@ -16,6 +16,13 @@ public sealed partial class OrbitraSurgeryOperationComponent : Component
     [DataField]
     public int Step;
 
+    [DataField]
+    public SurgeryOrgan? Organ;
+
+    /// <summary>Фиксирует конкретный орган для восстановления или извлечения.</summary>
+    [DataField]
+    public EntityUid? OriginalOrgan;
+
     /// <summary>Блокировка действует только в течение текущего действия.</summary>
     public EntityUid? Surgeon;
     public EntityUid? Table;

@@ -6,6 +6,8 @@ namespace Content.Shared._Orbitra.Surgery;
 /// <summary>Сопоставляет зоны травм со штатными категориями органов конкретного вида.</summary>
 public sealed partial class OrbitraSurgeryAnatomySystem : EntitySystem
 {
+    [Dependency] private InitialBodySystem _initialBody = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -43,8 +45,7 @@ public sealed partial class OrbitraSurgeryAnatomySystem : EntitySystem
     public bool SupportsZone(EntityUid patient, SurgeryZone zone)
     {
         return Category(zone) is { } category && HasComp<OrbitraSurgicalPatientComponent>(patient) &&
-               HasComp<BodyComponent>(patient) && TryComp<InitialBodyComponent>(patient, out var initial) &&
-               initial.Organs.ContainsKey(category);
+               HasComp<BodyComponent>(patient) && _initialBody.HasInitialOrgan(patient, category);
     }
 
     /// <summary>Показывает утрату органа, который у этого пациента должен присутствовать.</summary>

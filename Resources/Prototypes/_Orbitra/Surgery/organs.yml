@@ -1,0 +1,43 @@
+- type: technology
+  id: OrbitraOrganCulture
+  name: research-technology-orbitra-organ-culture
+  icon:
+    sprite: Mobs/Species/Human/organs.rsi
+    state: heart-on
+  discipline: OrbitraBiochemical
+  tier: 2
+  cost: 7500
+  technologyPrerequisites:
+  - MechanizedTreatment
+  recipeUnlocks:
+  - OrbitraCulturedHeart
+  - OrbitraCulturedLungs
+  - OrbitraCulturedLiver
+
+- type: latheRecipePack
+  id: OrbitraCulturedOrgans
+  recipes:
+  - OrbitraCulturedHeart
+  - OrbitraCulturedLungs
+  - OrbitraCulturedLiver
+
+- type: latheRecipe
+  id: OrbitraCulturedHeart
+  result: OrganHumanHeart
+  completetime: 20
+  materials:
+    Biomass: 50
+
+- type: latheRecipe
+  id: OrbitraCulturedLungs
+  result: OrganHumanLungs
+  completetime: 20
+  materials:
+    Biomass: 45
+
+- type: latheRecipe
+  id: OrbitraCulturedLiver
+  result: OrganHumanLiver
+  completetime: 20
+  materials:
+    Biomass: 40

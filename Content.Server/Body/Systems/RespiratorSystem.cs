@@ -42,6 +42,8 @@ public sealed partial class RespiratorSystem : EntitySystem
     [Dependency] private SharedEntityConditionsSystem _entityConditions = default!;
     [Dependency] private SharedSolutionContainerSystem _solutionContainerSystem = default!;
 
+    [Dependency] private Content.Shared._Orbitra.Surgery.OrbitraOrganSystem _orbitraOrgans = default!; // Orbitra-Edit
+
     private static readonly ProtoId<MetabolismStagePrototype> RespirationStage = new("Respiration");
 
     public override void Initialize()
@@ -142,7 +144,7 @@ public sealed partial class RespiratorSystem : EntitySystem
         if (ev.Gas is null)
             return;
 
-        var gas = ev.Gas.RemoveVolume(entity.Comp.BreathVolume);
+        var gas = ev.Gas.RemoveVolume(entity.Comp.BreathVolume * _orbitraOrgans.BreathFraction(entity)); // Orbitra-Edit
 
         var inhaleEv = new InhaledGasEvent(gas);
         RaiseLocalEvent(entity, ref inhaleEv);
@@ -236,7 +238,7 @@ public sealed partial class RespiratorSystem : EntitySystem
         if (!ev.Handled || ev.Toxic)
             return false;
 
-        return ev.Saturation > ent.Comp.UpdateInterval.TotalSeconds;
+        return ev.Saturation * _orbitraOrgans.BreathFraction(ent) > ent.Comp.UpdateInterval.TotalSeconds; // Orbitra-Edit
     }
 
     /// <summary>

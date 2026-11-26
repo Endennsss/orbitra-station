@@ -17,11 +17,26 @@ public sealed partial class HealthAnalyzerControl
 
         _orbitraPatient = state.TargetEntity;
         OrbitraTraumaContainer.RemoveAllChildren();
-        OrbitraTraumaContainer.Visible = state.OrbitraTrauma is { Count: > 0 };
-        if (state.OrbitraTrauma is not { Count: > 0 } readings)
+        var organFindings = state.OrbitraOrgans is { } organs &&
+            (organs.ContainsValue(SurgeryOrganCondition.Damaged) || organs.ContainsValue(SurgeryOrganCondition.Nonfunctional) ||
+            organs.ContainsValue(SurgeryOrganCondition.Missing));
+        OrbitraTraumaContainer.Visible = state.OrbitraTrauma is { Count: > 0 } || organFindings;
+        if (!OrbitraTraumaContainer.Visible || state.OrbitraTrauma is not { } readings)
             return;
 
         OrbitraTraumaContainer.AddChild(new Label { Text = Loc.GetString("orbitra-trauma-analyzer-title") });
+        if (organFindings)
+        {
+            foreach (var (kind, condition) in state.OrbitraOrgans!)
+            {
+                if (condition != SurgeryOrganCondition.Healthy)
+                {
+                    OrbitraTraumaContainer.AddChild(new Label { Text = Loc.GetString("orbitra-surgery-organ-reading",
+                        ("organ", Loc.GetString($"orbitra-surgery-organ-{kind.ToString().ToLowerInvariant()}")),
+                        ("condition", Loc.GetString($"orbitra-surgery-organ-condition-{condition.ToString().ToLowerInvariant()}"))) });
+                }
+            }
+        }
         foreach (var (zone, injuries) in readings)
         {
             var findings = new List<string>();

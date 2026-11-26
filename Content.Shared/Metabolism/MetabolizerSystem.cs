@@ -23,6 +23,7 @@ namespace Content.Shared.Metabolism;
 /// <inheritdoc/>
 public sealed partial class MetabolizerSystem : EntitySystem
 {
+    [Dependency] private Content.Shared._Orbitra.Surgery.OrbitraOrganSystem _orbitraOrgans = default!; // Orbitra-Edit
     [Dependency] private BodySystem _body = default!;
     [Dependency] private IGameTiming _gameTiming = default!;
     [Dependency] private MobStateSystem _mobStateSystem = default!;
@@ -69,8 +70,12 @@ public sealed partial class MetabolizerSystem : EntitySystem
             if (_gameTiming.CurTime < comp.NextUpdate)
                 continue;
 
-            comp.NextUpdate += comp.AdjustedUpdateInterval;
-            TryMetabolize((uid, comp));
+            // Orbitra edit start
+            var interval = _orbitraOrgans.LiverInterval(uid);
+            comp.NextUpdate += comp.AdjustedUpdateInterval * Math.Max(1f, interval);
+            if (interval > 0f)
+                TryMetabolize((uid, comp));
+            // Orbitra edit end
             Dirty(uid, comp);
         }
     }

@@ -15,7 +15,10 @@ public sealed class HealthAnalyzerUiState : BoundUserInterfaceState
     public bool ScanMode;
     public bool Bleeding;
     public bool Unrevivable;
-    public Dictionary<SurgeryZone, SurgeryInjury>? OrbitraTrauma; // Orbitra-Edit
+    // Orbitra added start
+    public Dictionary<SurgeryZone, SurgeryInjury>? OrbitraTrauma;
+    public Dictionary<SurgeryOrgan, SurgeryOrganCondition>? OrbitraOrgans;
+    // Orbitra added end
 
     public HealthAnalyzerUiState() {}
 

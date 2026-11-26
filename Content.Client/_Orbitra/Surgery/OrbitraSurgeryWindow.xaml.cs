@@ -32,7 +32,7 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
     private SurgeryZone? _zone;
     private SurgeryProcedure? _procedure;
     private EntityUid? _held;
-    private bool _confirmAmputation;
+    private bool _awaitingConfirmation;
     private bool _interrupted;
     private bool _completed;
     private Vector2 _viewport;
@@ -62,6 +62,7 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
             ZoneButtons.AddChild(button);
             _zones[zone] = button;
         }
+        InitializeOrgans();
         foreach (var procedure in Enum.GetValues<SurgeryProcedure>())
         {
             var button = new OrbitraButton { ToggleMode = true, ClipText = true, Text = ProcedureName(procedure) };
@@ -109,26 +110,33 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
     {
         var previous = _state;
         var changed = previous?.Patient != state.Patient || previous?.ActiveZone != state.ActiveZone ||
-            previous?.ActiveProcedure != state.ActiveProcedure || previous?.Step != state.Step || previous?.Busy != state.Busy;
+            previous?.ActiveProcedure != state.ActiveProcedure || previous?.ActiveOrgan != state.ActiveOrgan || previous?.Step != state.Step || previous?.Busy != state.Busy;
         if (changed)
         {
-            _confirmAmputation = false;
+            _awaitingConfirmation = false;
             _interrupted = previous is { Busy: true } && !state.Busy && previous.Patient == state.Patient &&
                 (state.ActiveProcedure == previous.ActiveProcedure && state.Step == previous.Step ||
                  state.ActiveProcedure == null && previous.Step == 0);
             _completed = previous is { Busy: true, ActiveProcedure: { } finished } && !state.Busy &&
                 state.ActiveProcedure == null && previous.Patient == state.Patient && previous.Step == OrbitraSurgerySteps.Get(finished).Length - 1;
         }
+        if (_organ is { } kind && previous?.Organs.GetValueOrDefault(kind) != state.Organs.GetValueOrDefault(kind))
+            _awaitingConfirmation = false;
         _state = state;
+        Title = _loc.GetString(state.FieldTable ? "orbitra-surgery-field-title" : "orbitra-surgery-title");
         if (previous?.Patient != state.Patient)
         {
+            _organ = null;
             _zone = null;
             _procedure = null;
         }
         if (state.ActiveZone is { } active && (changed || _zone == null))
             _zone = active;
         if (state.ActiveZone == _zone && state.ActiveProcedure != null)
+        {
             _procedure = state.ActiveProcedure;
+            _organ = state.ActiveOrgan;
+        }
         BodyMap.State = state;
         RefreshSelection();
     }
@@ -140,6 +148,7 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
         if (_zone != zone)
         {
             _zone = zone;
+            _organ = _state.ActiveZone == zone ? _state.ActiveOrgan : null;
             _procedure = _state.ActiveZone == zone ? _state.ActiveProcedure : null;
             ClearFeedback();
         }
@@ -156,7 +165,7 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
 
     private void ClearFeedback()
     {
-        _confirmAmputation = false;
+        _awaitingConfirmation = false;
         _interrupted = false;
         _completed = false;
     }
@@ -175,6 +184,14 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
             if ((injuries & injury) != 0)
                 names.Add(InjuryName(injury));
         }
+        if (zone == SurgeryZone.Torso && _state != null)
+        {
+            foreach (var (organ, condition) in _state.Organs)
+            {
+                if (condition != SurgeryOrganCondition.Healthy)
+                    names.Add(OrganReading(organ, condition));
+            }
+        }
         return _loc.GetString("orbitra-surgery-zone-status", ("zone", ZoneNameFor(zone)),
             ("status", names.Count > 0 ? string.Join(", ", names) : InjuryName(SurgeryInjury.None)));
     }
@@ -187,10 +204,10 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
         var count = 0;
         foreach (var (zone, button) in _zones)
         {
-            var injury = InjuryAt(zone);
-            if (injury != SurgeryInjury.None)
+            var marked = _state?.HasFindings(zone) == true;
+            if (marked)
                 count++;
-            button.Text = injury == SurgeryInjury.None ? ZoneNameFor(zone) :
+            button.Text = !marked ? ZoneNameFor(zone) :
                 _loc.GetString("orbitra-surgery-zone-marked", ("zone", ZoneNameFor(zone)));
             button.ToolTip = DescribeZone(zone);
             button.Pressed = zone == _zone;
@@ -204,6 +221,7 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
         Columns.Visible = supported;
         ZoneName.Text = _zone is { } selected ? ZoneNameFor(selected) : _loc.GetString("orbitra-surgery-assessment");
         UpdateDiagnoses();
+        UpdateOrgans();
         UpdateProcedures();
         UpdateStep();
     }
@@ -215,7 +233,7 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
         {
             foreach (var region in ZoneOrder)
             {
-                if (InjuryAt(region) == SurgeryInjury.None)
+                if (_state?.HasFindings(region) != true)
                     continue;
                 var entry = new RichTextLabel { HorizontalExpand = true };
                 entry.SetMessage(DescribeZone(region));
@@ -226,9 +244,12 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
             return;
         }
         var injuries = InjuryAt(zone);
+        if (_state?.Prostheses.TryGetValue(zone, out var advanced) == true)
+            Diagnoses.AddChild(new RichTextLabel { Text = _loc.GetString(advanced ? "orbitra-surgery-fitted-advanced" : "orbitra-surgery-fitted-basic") });
         if (injuries == SurgeryInjury.None)
         {
-            Diagnoses.AddChild(new RichTextLabel { Text = InjuryName(SurgeryInjury.None) });
+            if (_state?.HasFindings(zone) != true)
+                Diagnoses.AddChild(new RichTextLabel { Text = InjuryName(SurgeryInjury.None) });
             return;
         }
         foreach (var injury in InjuryOrder)
@@ -258,14 +279,23 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
 
     private bool Available(SurgeryProcedure procedure)
     {
-        if (_zone is not { } zone || _state?.Patient == null || !_state.Injuries.ContainsKey(zone))
+        if (_zone is not { } zone || _state?.Patient == null || !_state.Injuries.ContainsKey(zone) ||
+            !OrbitraSurgeryTableComponent.Supports(_state.FieldTable, procedure))
             return false;
         if (_state.ActiveProcedure is { } active)
             return _state.ActiveZone == zone && active == procedure;
+        if (OrbitraOrganSystem.IsProcedure(procedure))
+            return zone == SurgeryZone.Torso && _organ is { } kind && _state.Organs.TryGetValue(kind, out var condition) &&
+                OrbitraOrganSystem.Indicated(procedure, condition);
+        if (_organ != null)
+            return false;
         var injury = InjuryAt(zone);
         var limb = zone is not (SurgeryZone.Head or SurgeryZone.Torso);
+        if (_state.Prostheses.ContainsKey(zone) && procedure is SurgeryProcedure.Amputate or SurgeryProcedure.RemoveProsthesis)
+            return procedure == SurgeryProcedure.RemoveProsthesis;
         if ((injury & SurgeryInjury.Missing) != 0)
-            return limb && procedure == SurgeryProcedure.Reattach;
+            return limb && (procedure == SurgeryProcedure.Reattach ||
+                procedure == SurgeryProcedure.InstallProsthesis && _state.AcceptsProstheses);
         return procedure switch
         {
             SurgeryProcedure.Fracture => (injury & SurgeryInjury.Fracture) != 0,
@@ -281,14 +311,14 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
         if (_procedure is { } selected && !Available(selected))
         {
             _procedure = null;
-            _confirmAmputation = false;
+            _awaitingConfirmation = false;
         }
         var any = false;
         foreach (var (procedure, button) in _procedures)
         {
             button.Visible = Available(procedure);
             any |= button.Visible;
-            if (_procedure == null && button.Visible && procedure != SurgeryProcedure.Amputate)
+            if (_procedure == null && button.Visible && procedure is not (SurgeryProcedure.Amputate or SurgeryProcedure.ExtractOrgan))
                 _procedure = procedure;
             button.Pressed = procedure == _procedure;
         }

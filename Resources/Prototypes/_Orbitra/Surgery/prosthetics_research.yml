@@ -1,0 +1,32 @@
+- type: technology
+  id: OrbitraMedicalProsthetics
+  name: research-technology-orbitra-medical-prosthetics
+  icon:
+    sprite: Objects/Specific/Robotics/cyborg_parts.rsi
+    state: borg_l_arm
+  discipline: OrbitraBiochemical
+  tier: 2
+  cost: 5000
+  technologyPrerequisites:
+  - MechanizedTreatment
+  recipeUnlocks:
+  - OrbitraAdvancedProstheticArm
+  - OrbitraAdvancedProstheticLeg
+
+- type: latheRecipe
+  id: OrbitraAdvancedProstheticArm
+  result: OrbitraAdvancedProstheticArm
+  completetime: 6
+  materials:
+    Steel: 500
+    Plastic: 250
+    Gold: 100
+
+- type: latheRecipe
+  id: OrbitraAdvancedProstheticLeg
+  result: OrbitraAdvancedProstheticLeg
+  completetime: 6
+  materials:
+    Steel: 600
+    Plastic: 250
+    Gold: 100

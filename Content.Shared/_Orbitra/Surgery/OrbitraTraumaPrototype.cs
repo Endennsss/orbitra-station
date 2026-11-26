@@ -16,6 +16,9 @@ public sealed partial class OrbitraTraumaPrototype : IPrototype
     [DataField(required: true)] public OrbitraTraumaRoll Dismemberment = new();
     [DataField(required: true)] public HashSet<EntProtoId> FragmentProjectiles = new();
 
+    [DataField] public OrbitraTraumaRoll OrganInjury = new();
+    [DataField] public OrbitraTraumaRoll OrganFailure = new();
+
     [DataField] public float FracturedLegSpeed = 0.72f;
     [DataField] public float SplintedLegSpeed = 0.91f;
     [DataField] public float FracturedArmDelay = 1.6f;

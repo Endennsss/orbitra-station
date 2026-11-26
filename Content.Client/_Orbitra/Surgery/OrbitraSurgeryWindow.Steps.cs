@@ -7,7 +7,7 @@ namespace Content.Client._Orbitra.Surgery;
 
 public sealed partial class OrbitraSurgeryWindow
 {
-    // Инструмент берём из локальной активной руки, ход операции — только из состояния стола.
+    // Инструмент определяем по активной руке, а ход операции получаем из состояния стола.
     private int Step => _state?.ActiveZone == _zone && _state?.ActiveProcedure == _procedure ? _state?.Step ?? 0 : 0;
     private string? _requirement;
     private bool _toolReady;
@@ -26,7 +26,18 @@ public sealed partial class OrbitraSurgeryWindow
                 _requirement = steps[step];
                 StepNumber.Text = _loc.GetString("orbitra-surgery-step-count", ("step", step + 1), ("count", steps.Length));
                 StepName.SetMessage(_loc.GetString($"orbitra-surgery-step-{procedure.ToString().ToLowerInvariant()}-{step + 1}"));
-                if (_requirement == "DetachedBody")
+                if (_requirement == OrbitraSurgerySteps.Prosthesis)
+                {
+                    var arm = zone is SurgeryZone.LeftArm or SurgeryZone.RightArm;
+                    RequiredTool.SetMessage(_loc.GetString(arm ? "orbitra-surgery-require-arm" : "orbitra-surgery-require-leg"));
+                    RequiredIcon.Texture = _sprites.GetPrototypeIcon(arm ? "OrbitraProstheticArm" : "OrbitraProstheticLeg").Default;
+                }
+                else if (_requirement == OrbitraSurgerySteps.DonorOrgan && _organ is { } kind)
+                {
+                    RequiredTool.SetMessage(_loc.GetString("orbitra-surgery-organ-required", ("organ", OrganName(kind))));
+                    RequiredIcon.Texture = _sprites.GetPrototypeIcon(OrbitraOrganSystem.Prototype(kind)).Default;
+                }
+                else if (_requirement == "DetachedBody")
                 {
                     RequiredTool.SetMessage(_loc.GetString("orbitra-surgery-original-limb", ("zone", ZoneNameFor(zone))));
                     RequiredIcon.Texture = _sprites.GetPrototypeIcon(zone switch
@@ -52,6 +63,10 @@ public sealed partial class OrbitraSurgeryWindow
     {
         if (_requirement == null || _held is not { } held)
             return false;
+        if (_requirement == OrbitraSurgerySteps.Prosthesis)
+            return _zone is { } zone && _entity.TryGetComponent<OrbitraProsthesisComponent>(held, out var kit) && kit.Fits(zone);
+        if (_requirement == OrbitraSurgerySteps.DonorOrgan)
+            return _organ is { } kind && _organs.IsDonor(held, kind);
         if (_requirement != "DetachedBody")
             return _entity.TryGetComponent<OrbitraSurgicalToolComponent>(held, out var tool) && tool.Kind == _requirement;
         return _entity.TryGetComponent<OrbitraDetachedLimbComponent>(held, out var limb) && limb.Zone == _zone &&
@@ -64,6 +79,8 @@ public sealed partial class OrbitraSurgeryWindow
         HandIcon.SetEntity(_held);
         var name = _entity.TryGetComponent<MetaDataComponent>(_held, out var meta)
             ? meta.EntityName : _loc.GetString("orbitra-surgery-empty-hand");
+        if (_held is { } held && _entity.TryGetComponent<OrbitraOrganComponent>(held, out var organ) && _organs.IsHumanOrgan(held, organ.Kind))
+            name = OrganReading(organ.Kind, organ.Condition);
         HeldTool.SetMessage(name);
         UpdateActions();
     }
@@ -72,30 +89,34 @@ public sealed partial class OrbitraSurgeryWindow
     {
         _toolReady = HasRequiredItem();
         ActionButton.Disabled = _state?.Patient == null || _state.Busy || !_toolReady;
-        var action = _confirmAmputation ? "orbitra-surgery-confirm-action" :
+        var action = _awaitingConfirmation && _procedure == SurgeryProcedure.ExtractOrgan ? "orbitra-surgery-organ-confirm-action" :
+            _awaitingConfirmation ? "orbitra-surgery-confirm-action" :
             _state?.Busy == true ? "orbitra-surgery-in-progress" : "orbitra-surgery-start-step";
         ActionButton.Text = _loc.GetString(action);
-        if (_confirmAmputation)
+        if (_awaitingConfirmation)
             ActionButton.AddStyleClass(OrbitraButtonStyles.Danger);
         else
             ActionButton.RemoveStyleClass(OrbitraButtonStyles.Danger);
-        CancelButton.Visible = _confirmAmputation || _state is { Busy: false, ActiveProcedure: not null };
+        CancelButton.Visible = _awaitingConfirmation || _state is { Busy: false, ActiveProcedure: not null };
         var hint = _state?.Patient == null ? "orbitra-surgery-table-empty" :
             _state.Injuries.Count == 0 ? "orbitra-surgery-unsupported" :
             _state.Busy ? "orbitra-surgery-busy" :
-            _confirmAmputation ? "orbitra-surgery-confirm-warning" :
+            _awaitingConfirmation && _procedure == SurgeryProcedure.ExtractOrgan ? "orbitra-surgery-organ-confirm" :
+            _awaitingConfirmation ? "orbitra-surgery-confirm-warning" :
             _completed ? "orbitra-surgery-complete" :
             _zone == null ? "orbitra-surgery-select-zone" :
             _state.ActiveZone != null && _zone != _state.ActiveZone ? "orbitra-surgery-other-zone" :
+            _zone == SurgeryZone.Torso && _organ == null && OrganButtons.Visible && !_state.FieldTable && _procedure == null ? "orbitra-surgery-organ-select" :
             _procedure == null ? (ProcedurePanel.Visible ? "orbitra-surgery-select-procedure" : "orbitra-surgery-no-procedure") :
             _toolReady ? "orbitra-surgery-ready" :
+            _requirement == OrbitraSurgerySteps.DonorOrgan && _held != null ? "orbitra-surgery-organ-incompatible" :
             _requirement == "DetachedBody" && _held != null ? "orbitra-surgery-wrong-limb" : "orbitra-surgery-take-tool";
-        var message = _loc.GetString(hint, ("patient", _state?.PatientName ?? ""),
+        var message = _loc.GetString(hint, ("patient", _state?.PatientName ?? ""), ("organ", _organ is { } kind ? OrganName(kind) : ""),
             ("zone", (_state?.ActiveZone ?? _zone) is { } region ? ZoneNameFor(region) : ""));
         if (_interrupted)
             message = _loc.GetString("orbitra-surgery-interrupted", ("hint", message));
         Status.ToolTip = message;
-        Status.SetMessage(message, _confirmAmputation || _interrupted ? Color.LightSalmon :
+        Status.SetMessage(message, _awaitingConfirmation || _interrupted ? Color.LightSalmon :
             _toolReady && _state?.Busy == false ? Color.PaleTurquoise : Color.White);
     }
 
@@ -107,39 +128,41 @@ public sealed partial class OrbitraSurgeryWindow
         if (!HasRequiredItem() || !Available(procedure))
             return;
         var step = Step;
-        if (procedure == SurgeryProcedure.Amputate && step == 0 && !_confirmAmputation)
+        if (procedure is SurgeryProcedure.Amputate or SurgeryProcedure.ExtractOrgan && step == 0 && !_awaitingConfirmation)
         {
-            _confirmAmputation = true;
+            _awaitingConfirmation = true;
             UpdateActions();
             return;
         }
-        var confirmed = _confirmAmputation;
+        var confirmed = _awaitingConfirmation;
         ClearFeedback();
         UpdateActions();
-        StepRequested?.Invoke(new OrbitraSurgeryStepMessage(patient, zone, procedure, step, confirmed));
+        StepRequested?.Invoke(new OrbitraSurgeryStepMessage(patient, zone, procedure, step, confirmed,
+            OrbitraOrganSystem.IsProcedure(procedure) ? _organ : null));
     }
 
     private void Cancel()
     {
-        if (_confirmAmputation)
+        if (_awaitingConfirmation)
         {
-            _confirmAmputation = false;
+            _awaitingConfirmation = false;
             UpdateActions();
         }
         else if (_state is { Patient: { } patient, ActiveZone: { } zone, ActiveProcedure: { } procedure, Busy: false })
         {
-            CancelRequested?.Invoke(new OrbitraSurgeryCancelMessage(patient, zone, procedure, _state.Step));
+            CancelRequested?.Invoke(new OrbitraSurgeryCancelMessage(patient, zone, procedure, _state.Step, _state.ActiveOrgan));
         }
     }
 
     protected override void FrameUpdate(FrameEventArgs args)
     {
         base.FrameUpdate(args);
+        UpdateMonitor();
         if (UserInterfaceManager.WindowRoot.Size != _viewport)
             FitToViewport();
         if (_hands.GetActiveHandEntity() != _held)
         {
-            _confirmAmputation = false;
+            _awaitingConfirmation = false;
             _completed = false;
             UpdateHand();
         }

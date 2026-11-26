@@ -8,12 +8,15 @@ public sealed partial class ServerHealthAnalyzerSystem
 {
     [Dependency] private OrbitraTraumaSystem _trauma = default!;
 
+    [Dependency] private OrbitraOrganSystem _organs = default!;
+
     private void PopulateOrbitraTrauma(HealthAnalyzerUiState state, EntityUid? target)
     {
         state.OrbitraTrauma = new();
         if (target is not {} patient || !HasComp<OrbitraSurgicalPatientComponent>(patient))
             return;
 
+        state.OrbitraOrgans = _organs.GetConditions(patient);
         foreach (var zone in OrbitraTraumaEffectsSystem.Zones)
         {
             var injury = _trauma.GetInjuries(patient, zone);

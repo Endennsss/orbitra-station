@@ -1,0 +1,118 @@
+- type: entity
+  id: OrbitraProstheticArm
+  parent: BaseItem
+  name: basic prosthetic arm
+  description: Fits either shoulder. The mechanical hand takes 15% longer to perform timed actions.
+  components:
+  - type: OrbitraProsthesis
+    arm: true
+  - type: Sprite
+    sprite: Objects/Specific/Robotics/cyborg_parts.rsi
+    state: borg_l_arm
+    color: "#A5B6CA"
+  - type: Item
+    size: Normal
+    sprite: Objects/Specific/Robotics/cyborg_parts.rsi
+    heldPrefix: borg-arm
+
+- type: entity
+  id: OrbitraProstheticLeg
+  parent: BaseItem
+  name: basic prosthetic leg
+  description: Fits either hip and includes a foot. Walking and running speed is 90% of normal while using a basic leg.
+  components:
+  - type: OrbitraProsthesis
+  - type: Sprite
+    sprite: Objects/Specific/Robotics/cyborg_parts.rsi
+    state: borg_l_leg
+    color: "#A5B6CA"
+  - type: Item
+    size: Normal
+    sprite: Objects/Specific/Robotics/cyborg_parts.rsi
+    heldPrefix: borg-leg
+
+- type: entity
+  id: OrbitraAdvancedProstheticArm
+  parent: OrbitraProstheticArm
+  name: advanced prosthetic arm
+  description: A powered arm with a precision hand. Fits either shoulder and restores full hand speed.
+  components:
+  - type: OrbitraProsthesis
+    advanced: true
+    finish: "#79C9CD"
+  - type: Sprite
+    color: "#82DEE0"
+
+- type: entity
+  id: OrbitraAdvancedProstheticLeg
+  parent: OrbitraProstheticLeg
+  name: advanced prosthetic leg
+  description: A powered leg with an articulated foot. Fits either hip and restores full movement speed.
+  components:
+  - type: OrbitraProsthesis
+    advanced: true
+    finish: "#79C9CD"
+  - type: Sprite
+    color: "#82DEE0"
+
+- type: entity
+  id: OrbitraProstheticSegment
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/parts.rsi
+  - type: VisualOrgan
+    data:
+      sprite: Mobs/Species/Human/parts.rsi
+      color: "#798FA6"
+  - type: VisualOrganMarkings
+    markingData:
+      group: None
+
+- type: entity
+  id: OrbitraProstheticArmLeft
+  parent: [OrganBaseArmLeft, OrbitraProstheticSegment]
+  name: left prosthetic arm
+  categories: [HideSpawnMenu]
+
+- type: entity
+  id: OrbitraProstheticArmRight
+  parent: [OrganBaseArmRight, OrbitraProstheticSegment]
+  name: right prosthetic arm
+  categories: [HideSpawnMenu]
+
+- type: entity
+  id: OrbitraProstheticHandLeft
+  parent: [OrganBaseHandLeft, OrbitraProstheticSegment]
+  name: left prosthetic hand
+  categories: [HideSpawnMenu]
+
+- type: entity
+  id: OrbitraProstheticHandRight
+  parent: [OrganBaseHandRight, OrbitraProstheticSegment]
+  name: right prosthetic hand
+  categories: [HideSpawnMenu]
+
+- type: entity
+  id: OrbitraProstheticLegLeft
+  parent: [OrganBaseLegLeft, OrbitraProstheticSegment]
+  name: left prosthetic leg
+  categories: [HideSpawnMenu]
+
+- type: entity
+  id: OrbitraProstheticLegRight
+  parent: [OrganBaseLegRight, OrbitraProstheticSegment]
+  name: right prosthetic leg
+  categories: [HideSpawnMenu]
+
+- type: entity
+  id: OrbitraProstheticFootLeft
+  parent: [OrganBaseFootLeft, OrbitraProstheticSegment]
+  name: left prosthetic foot
+  categories: [HideSpawnMenu]
+
+- type: entity
+  id: OrbitraProstheticFootRight
+  parent: [OrganBaseFootRight, OrbitraProstheticSegment]
+  name: right prosthetic foot
+  categories: [HideSpawnMenu]

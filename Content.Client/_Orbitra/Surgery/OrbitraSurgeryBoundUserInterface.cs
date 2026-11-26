@@ -7,22 +7,27 @@ namespace Content.Client._Orbitra.Surgery;
 [UsedImplicitly]
 public sealed class OrbitraSurgeryBoundUserInterface(EntityUid owner, Enum uiKey) : BoundUserInterface(owner, uiKey)
 {
-    private OrbitraSurgeryWindow? _window;
+    internal OrbitraSurgeryWindow? Window { get; private set; }
     private NetEntity? _patient;
 
     protected override void Open()
     {
         base.Open();
-        _window = this.CreateWindow<OrbitraSurgeryWindow>();
-        _window.StepRequested += SendMessage;
-        _window.CancelRequested += SendMessage;
+        // При синхронизации клиент может повторно получить открытие того же стола.
+        if (Window != null)
+            return;
+
+        Window = this.CreateWindow<OrbitraSurgeryWindow>();
+        Window.MonitorTable = EntMan.GetNetEntity(Owner);
+        Window.StepRequested += SendMessage;
+        Window.CancelRequested += SendMessage;
         Update<OrbitraSurgeryState>();
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)
     {
         base.UpdateState(state);
-        if (state is not OrbitraSurgeryState surgery || _window == null)
+        if (state is not OrbitraSurgeryState surgery || Window == null)
             return;
         if (_patient != null && _patient != surgery.Patient)
         {
@@ -30,6 +35,6 @@ public sealed class OrbitraSurgeryBoundUserInterface(EntityUid owner, Enum uiKey
             return;
         }
         _patient = surgery.Patient;
-        _window.UpdateState(surgery);
+        Window.UpdateState(surgery);
     }
 }

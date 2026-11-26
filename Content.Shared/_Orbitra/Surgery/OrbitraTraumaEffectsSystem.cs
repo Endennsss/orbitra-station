@@ -23,6 +23,8 @@ public sealed partial class OrbitraTraumaEffectsSystem : EntitySystem
 
     public override void Initialize()
     {
+        SubscribeLocalEvent<OrbitraFittedProsthesesComponent, RefreshMovementSpeedModifiersEvent>(OnProstheticSpeed);
+        SubscribeLocalEvent<OrbitraFittedProsthesesComponent, OrbitraHandActionDelayEvent>(OnProstheticHandAction);
         SubscribeLocalEvent<OrbitraTraumaComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshSpeed);
         SubscribeLocalEvent<OrbitraTraumaComponent, OrbitraHandActionDelayEvent>(OnHandAction);
         SubscribeLocalEvent<OrbitraTraumaDressingComponent, AfterInteractEvent>(OnAfterInteract, before: [typeof(HealingSystem)]);
@@ -40,6 +42,28 @@ public sealed partial class OrbitraTraumaEffectsSystem : EntitySystem
         return TryComp<OrbitraTraumaComponent>(patient, out var trauma)
             ? trauma.Injuries.GetValueOrDefault(zone)
             : SurgeryInjury.None;
+    }
+
+    private void OnProstheticSpeed(Entity<OrbitraFittedProsthesesComponent> ent, ref RefreshMovementSpeedModifiersEvent args)
+    {
+        if (ent.Comp.Parts.TryGetValue(SurgeryZone.LeftLeg, out var left) && !left ||
+            ent.Comp.Parts.TryGetValue(SurgeryZone.RightLeg, out var right) && !right)
+            args.ModifySpeed(0.9f);
+    }
+
+    private void OnProstheticHandAction(Entity<OrbitraFittedProsthesesComponent> ent, ref OrbitraHandActionDelayEvent args)
+    {
+        if (!_hands.TryGetHand(ent.Owner, _hands.GetActiveHand(ent.Owner), out var hand))
+            return;
+
+        var zone = hand.Value.Location switch
+        {
+            HandLocation.Left => SurgeryZone.LeftArm,
+            HandLocation.Right => SurgeryZone.RightArm,
+            _ => (SurgeryZone?) null,
+        };
+        if (zone is { } side && ent.Comp.Parts.TryGetValue(side, out var advanced) && !advanced)
+            args.Multiplier *= 1.15f;
     }
 
     private void OnRefreshSpeed(Entity<OrbitraTraumaComponent> ent, ref RefreshMovementSpeedModifiersEvent args)

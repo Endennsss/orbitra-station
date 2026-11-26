@@ -1,0 +1,29 @@
+- type: !PartialOnly entity
+  id: MobHuman
+  components:
+  - type: OrbitraHumanOrganPatient
+
+- type: !PartialOnly entity
+  id: OrganHumanHeart
+  components:
+  - type: OrbitraOrgan
+    kind: Heart
+
+- type: !PartialOnly entity
+  id: OrganHumanLungs
+  components:
+  - type: OrbitraOrgan
+    kind: Lungs
+
+- type: !PartialOnly entity
+  id: OrganHumanLiver
+  components:
+  - type: OrbitraOrgan
+    kind: Liver
+
+- type: !PartialOnly entity
+  id: MedicalTechFab
+  components:
+  - type: Lathe
+    dynamicPacks:
+    - OrbitraCulturedOrgans

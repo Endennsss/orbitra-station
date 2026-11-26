@@ -14,9 +14,20 @@ using Robust.Shared.Timing;
 namespace Content.IntegrationTests.Tests._Orbitra.Surgery;
 
 [TestFixture, NonParallelizable]
-public sealed class OrbitraSurgeryDevTest : GameTest
+public sealed partial class OrbitraSurgeryDevTest : GameTest
 {
     public override PoolSettings PoolSettings => new() { Connected = true, DummyTicker = false, Dirty = true, Map = "Dev" };
+
+    private EntityUid StationTable()
+    {
+        var tables = SEntMan.AllEntityQueryEnumerator<OrbitraSurgeryTableComponent>();
+        while (tables.MoveNext(out var table, out var spec))
+        {
+            if (!spec.FieldTable)
+                return table;
+        }
+        throw new AssertionException("На Деве нет стационарного операционного стола.");
+    }
 
     [Test]
     public async Task DevTableTreatsInjuriesAndReturnsTheSameWorkingHand()
@@ -32,8 +43,7 @@ public sealed class OrbitraSurgeryDevTest : GameTest
             var station = Server.System<ServerStationSystem>().GetStations().Single();
             Server.System<ServerGameTicker>().MakeJoinGame(ServerSession!, station, "MedicalDoctor", silent: true);
             surgeon = ServerSession!.AttachedEntity!.Value;
-            var tables = SEntMan.AllEntityQueryEnumerator<OrbitraSurgeryTableComponent>();
-            Assert.That(tables.MoveNext(out table, out _), Is.True);
+            table = StationTable();
             var coords = SEntMan.GetComponent<TransformComponent>(table).Coordinates;
             Server.System<SharedTransformSystem>().SetCoordinates(surgeon, coords.Offset(new Vector2(0, -0.65f)));
             patient = SEntMan.SpawnAttachedTo("MobHuman", coords);

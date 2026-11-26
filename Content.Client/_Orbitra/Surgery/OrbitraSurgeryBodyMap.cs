@@ -12,7 +12,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Client._Orbitra.Surgery;
 
 /// <summary>Фронтальная схема человека. Стороны принадлежат пациенту, как и слои тела в игре.</summary>
-public sealed class OrbitraSurgeryBodyMap : Control
+public sealed partial class OrbitraSurgeryBodyMap : Control
 {
     [Dependency] private IResourceCache _cache = default!;
     [Dependency] private IClickMapManager _clickMap = default!;
@@ -116,9 +116,10 @@ public sealed class OrbitraSurgeryBodyMap : Control
                 continue;
             }
             var missing = (injury & SurgeryInjury.Missing) != 0;
-            var tinted = missing || Selected == zone || Hovered == zone || injury != SurgeryInjury.None;
+            var marked = State.HasFindings(zone);
+            var tinted = missing || Selected == zone || Hovered == zone || marked;
             var tint = Hovered == zone ? Color.PaleTurquoise : Selected == zone ? Color.Turquoise :
-                injury != SurgeryInjury.None ? Color.LightSalmon : Color.White;
+                marked ? Color.LightSalmon : Color.White;
             if (missing)
             {
                 foreach (var offset in OutlineOffsets)
@@ -135,7 +136,7 @@ public sealed class OrbitraSurgeryBodyMap : Control
 
         foreach (var (zone, bounds, _) in Regions)
         {
-            if ((State?.Injuries.GetValueOrDefault(zone) ?? SurgeryInjury.None) == SurgeryInjury.None)
+            if (State?.HasFindings(zone) != true)
                 continue;
             // Выносим знак за пределы фигуры, чтобы выбранный цвет не скрывал травму.
             var right = zone is SurgeryZone.LeftArm or SurgeryZone.LeftLeg or SurgeryZone.Torso;

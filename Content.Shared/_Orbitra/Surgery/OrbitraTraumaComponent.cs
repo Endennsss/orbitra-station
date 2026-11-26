@@ -18,6 +18,9 @@ public sealed partial class OrbitraTraumaComponent : Component
 {
     [AutoNetworkedField] public Dictionary<SurgeryZone, SurgeryInjury> Injuries = new();
 
+    // Тип снаряда хранится на пациенте до извлечения, даже если сам снаряд давно удалён.
+    [DataField] public Dictionary<SurgeryZone, EntProtoId> FragmentSources = new();
+
     // Остаток времени считается только пока карта активна.
     public Dictionary<SurgeryZone, float> StabilizationRemaining = new();
     public float Elapsed;

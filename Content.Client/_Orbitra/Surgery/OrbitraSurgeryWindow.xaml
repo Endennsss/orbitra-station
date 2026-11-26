@@ -8,6 +8,7 @@
             <BoxContainer Orientation="Vertical" SeparationOverride="2" Margin="12 6">
                 <Label Name="PatientName" StyleClasses="LabelHeading" ClipText="True"/>
                 <Label Name="PatientSummary" StyleClasses="LabelSubText" ClipText="True"/>
+                <RichTextLabel Name="PatientMonitor" Visible="False" HorizontalExpand="True"/>
             </BoxContainer>
         </PanelContainer>
         <ScrollContainer HScrollEnabled="False" ReserveScrollbarSpace="True" HorizontalExpand="True" VerticalExpand="True">
@@ -23,6 +24,7 @@
                     <BoxContainer Orientation="Vertical" Margin="12 10" HorizontalExpand="True" SeparationOverride="8">
                         <Label Name="ZoneName" StyleClasses="LabelHeading" ClipText="True"/>
                         <BoxContainer Name="Diagnoses" Orientation="Vertical" SeparationOverride="2"/>
+                        <BoxContainer Name="OrganButtons" Orientation="Vertical" SeparationOverride="3" Visible="False"/>
                         <BoxContainer Name="ProcedurePanel" Orientation="Vertical" SeparationOverride="4" Visible="False">
                             <Label Text="{Loc 'orbitra-surgery-procedure'}" StyleClasses="LabelSubText"/>
                             <BoxContainer Name="ProcedureButtons" Orientation="Vertical" SeparationOverride="3"/>

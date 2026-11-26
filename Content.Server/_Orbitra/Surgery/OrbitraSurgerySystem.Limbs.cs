@@ -37,6 +37,12 @@ public sealed partial class OrbitraSurgerySystem
             !TryComp<OrganComponent>(args.Organ, out var organ) || organ.Category is not { } category)
             return;
 
+        if (TryComp<OrbitraProstheticJointComponent>(args.Organ, out var joint))
+            OnProsthesisChanged(patient, joint, false);
+
+        if (HasComp<OrbitraOrganComponent>(args.Organ) && HasComp<OrbitraHumanOrganPatientComponent>(patient))
+            OnTraumaChanged(patient);
+
         foreach (var zone in Zones)
         {
             if (OrbitraSurgeryAnatomySystem.Category(zone) != category.Id || !_anatomy.IsMissing(patient, zone))
@@ -53,7 +59,10 @@ public sealed partial class OrbitraSurgerySystem
 
     private void OnOrganInserted(Entity<InitialBodyComponent> patient, ref OrganInsertedIntoEvent args)
     {
-        if (HasComp<OrbitraMissingLegsComponent>(patient) && IsLeg(args.Organ))
+        if (TryComp<OrbitraProstheticJointComponent>(args.Organ, out var joint))
+            OnProsthesisChanged(patient, joint, true);
+
+        if ((joint != null || HasComp<OrbitraMissingLegsComponent>(patient)) && IsLeg(args.Organ))
             RefreshLegs(patient);
 
         // Вставка штатной системой тела тоже может устранить показание к пришиванию.
@@ -92,6 +101,9 @@ public sealed partial class OrbitraSurgerySystem
             !_containers.CanRemove(root, source) || !_containers.CanRemove(extremity, source))
             return false;
 
+        if (HasComp<OrbitraProstheticJointComponent>(root))
+            return TryRemoveProsthesis(patient, zone, out item);
+
         if (_detach.Detach(root) is not { } detached)
             return false;
 
@@ -121,7 +133,7 @@ public sealed partial class OrbitraSurgerySystem
             !HasComp<DetachableOrganComponent>(proximal) ||
             !TryComp<ChildOrganComponent>(proximal, out var upper) || upper.Parent != torso ||
             !TryComp<ParentOrganComponent>(proximal, out var joint) || joint.Children.Count != 1 ||
-            !joint.Children.Contains(child) || !TryComp<ChildOrganComponent>(child, out var lower) ||
+            !_relations.HasDirectChild((proximal, joint), child) || !TryComp<ChildOrganComponent>(child, out var lower) ||
             lower.Parent != proximal || (TryComp<ParentOrganComponent>(child, out var tip) && tip.Children.Count > 0))
             return false;
 
@@ -147,7 +159,7 @@ public sealed partial class OrbitraSurgerySystem
                _anatomy.FindOrgan(item, distal) == limb.Extremity &&
                TryComp<ChildOrganComponent>(limb.Root, out var upper) && upper.Parent == null &&
                TryComp<ParentOrganComponent>(limb.Root, out var joint) && joint.Children.Count == 1 &&
-               joint.Children.Contains(limb.Extremity) &&
+               _relations.HasDirectChild((limb.Root, joint), limb.Extremity) &&
                TryComp<ChildOrganComponent>(limb.Extremity, out var lower) && lower.Parent == limb.Root &&
                _containers.TryGetContainer(item, BodyComponent.ContainerID, out source) &&
                source.ContainedEntities.Count == 2 &&

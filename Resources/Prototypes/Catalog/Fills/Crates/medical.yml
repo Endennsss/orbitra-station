@@ -67,6 +67,8 @@
         # Orbitra added start
         - id: OrbitraBoneSetter
         - id: OrbitraSplint
+        - id: OrbitraProstheticArm
+        - id: OrbitraProstheticLeg
         # Orbitra added end
         - id: Hemostat
         - id: ClothingMaskSterile

@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Text;
+using Content.Shared._Orbitra.Surgery; // Orbitra-Edit
 using Content.Shared.UserInterface;
 using Content.Shared.DoAfter;
 using Content.Shared.Hands.EntitySystems;
@@ -14,12 +15,14 @@ using Content.Shared.Forensics.Components;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Popups;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Network; // Orbitra-Edit
 // todo: remove this stinky LINQy
 
 namespace Content.Shared.Forensics.Systems;
 
 public sealed partial class SharedForensicScannerSystem : EntitySystem
 {
+    [Dependency] private INetManager _net = default!; // Orbitra-Edit
     [Dependency] private IGameTiming _gameTiming = default!;
     [Dependency] private SharedDoAfterSystem _doAfterSystem = default!;
     [Dependency] private SharedUserInterfaceSystem _uiSystem = default!;
@@ -76,6 +79,10 @@ public sealed partial class SharedForensicScannerSystem : EntitySystem
             }
 
             scanner.Comp.LastScannedName = Identity.Name(args.Args.Target.Value, EntityManager, args.Args.User);
+            // Orbitra added start - сохраняем результат экспертизы до следующего сканирования.
+            scanner.Comp.OrbitraProjectile = TryComp<OrbitraFragmentEvidenceComponent>(args.Args.Target, out var fragment)
+                ? fragment.Projectile?.Id ?? string.Empty : null;
+            // Orbitra added end
 
             DirtyFields(scanner.AsNullable(),
                 null,
@@ -83,6 +90,7 @@ public sealed partial class SharedForensicScannerSystem : EntitySystem
                 nameof(ForensicScannerComponent.Fibers),
                 nameof(ForensicScannerComponent.DNAs),
                 nameof(ForensicScannerComponent.Residues),
+                nameof(ForensicScannerComponent.OrbitraProjectile), // Orbitra-Edit
                 nameof(ForensicScannerComponent.LastScannedName));
         }
 
@@ -172,7 +180,7 @@ public sealed partial class SharedForensicScannerSystem : EntitySystem
 
     private void OpenUserInterface(EntityUid user, Entity<ForensicScannerComponent> scanner)
     {
-        _uiSystem.OpenUi(scanner.Owner, ForensicScannerUiKey.Key, user, true);
+        _uiSystem.OpenUi(scanner.Owner, ForensicScannerUiKey.Key, user, predicted: _net.IsClient); // Orbitra-Edit
 
         UpdateUi(scanner);
     }
@@ -203,6 +211,7 @@ public sealed partial class SharedForensicScannerSystem : EntitySystem
         _metaData.SetEntityName(printed, Loc.GetString("forensic-scanner-report-title", ("entity", scanner.Comp.LastScannedName)));
 
         var text = new StringBuilder();
+        scanner.Comp.AppendOrbitraFragment(text, ProtoMan); // Orbitra-Edit
 
         text.AppendLine(Loc.GetString("forensic-scanner-interface-fingerprints"));
         foreach (var fingerprint in scanner.Comp.Fingerprints)
@@ -247,12 +256,14 @@ public sealed partial class SharedForensicScannerSystem : EntitySystem
         scanner.Comp.Fibers = [];
         scanner.Comp.DNAs = [];
         scanner.Comp.LastScannedName = string.Empty;
+        scanner.Comp.OrbitraProjectile = null; // Orbitra-Edit
 
         DirtyFields(scanner.AsNullable(),
             null,
             nameof(ForensicScannerComponent.Fingerprints),
             nameof(ForensicScannerComponent.Fibers),
             nameof(ForensicScannerComponent.DNAs),
+            nameof(ForensicScannerComponent.OrbitraProjectile), // Orbitra-Edit
             nameof(ForensicScannerComponent.LastScannedName));
 
         UpdateUi(scanner);

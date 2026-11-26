@@ -1,0 +1,27 @@
+- type: entity
+  parent: EmergencyRollerBedSpawnFolded
+  id: OrbitraFieldOperatingTable
+  name: portable operating table
+  description: Unfold it to treat internal bleeding or remove shrapnel in the field.
+  components:
+  - type: OrbitraSurgeryTable
+    fieldTable: true
+    stepDurationMultiplier: 1.5
+  - type: ActivatableUI
+    key: enum.OrbitraSurgeryUiKey.Key
+    verbText: orbitra-surgery-open
+    blockSpectators: true
+  - type: UserInterface
+    interfaces:
+      enum.OrbitraSurgeryUiKey.Key:
+        type: OrbitraSurgeryBoundUserInterface
+        interactionRange: 1.5
+
+- type: latheRecipe
+  parent: RollerBedSpawnFolded
+  id: OrbitraFieldOperatingTable
+  result: OrbitraFieldOperatingTable
+  completetime: 5
+  materials:
+    Steel: 800
+    Plastic: 400

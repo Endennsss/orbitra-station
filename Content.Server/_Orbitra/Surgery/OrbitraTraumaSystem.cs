@@ -56,6 +56,7 @@ public sealed partial class OrbitraTraumaSystem : EntitySystem
             return;
 
         var profile = _prototype.Index(ent.Comp.TraumaProfile);
+        ApplyOrganTrauma(ent, physical, profile);
         if (Roll(physical, profile.Dismemberment)
             && TryPickZone(ent, SurgeryInjury.Missing, limbsOnly: true, out var lost))
         {
@@ -84,7 +85,7 @@ public sealed partial class OrbitraTraumaSystem : EntitySystem
         var profile = _prototype.Index(surgical.TraumaProfile);
         if (profile.FragmentProjectiles.Contains(source.ID) && Roll(piercing, profile.Shrapnel)
             && TryPickZone(patient, SurgeryInjury.Shrapnel, limbsOnly: false, out var zone))
-            AddInjury(patient, zone, SurgeryInjury.Shrapnel);
+            AddInjury(patient, zone, SurgeryInjury.Shrapnel, source.ID);
     }
 
     private bool Roll(FixedPoint2 damage, OrbitraTraumaRoll roll)
@@ -109,7 +110,7 @@ public sealed partial class OrbitraTraumaSystem : EntitySystem
         return count != 0;
     }
 
-    private void AddInjury(EntityUid patient, SurgeryZone zone, SurgeryInjury injury)
+    private void AddInjury(EntityUid patient, SurgeryZone zone, SurgeryInjury injury, EntProtoId? projectile = null)
     {
         var trauma = EnsureComp<OrbitraTraumaComponent>(patient);
         var existing = trauma.Injuries.GetValueOrDefault(zone);
@@ -117,6 +118,8 @@ public sealed partial class OrbitraTraumaSystem : EntitySystem
             return;
 
         trauma.Injuries[zone] = existing | injury;
+        if (projectile is { } source)
+            trauma.FragmentSources[zone] = source;
         NotifyChanged((patient, trauma));
     }
 
@@ -136,6 +139,8 @@ public sealed partial class OrbitraTraumaSystem : EntitySystem
         };
         if (dressing != SurgeryInjury.None)
             trauma.StabilizationRemaining.Remove(zone);
+        if (injury == SurgeryInjury.Shrapnel)
+            trauma.FragmentSources.Remove(zone);
 
         var remaining = existing & ~(injury | dressing);
         if (remaining == SurgeryInjury.None)
@@ -150,6 +155,7 @@ public sealed partial class OrbitraTraumaSystem : EntitySystem
     {
         if (missing && TryComp<OrbitraTraumaComponent>(patient, out var trauma) && trauma.Injuries.Remove(zone))
         {
+            trauma.FragmentSources.Remove(zone);
             trauma.StabilizationRemaining.Remove(zone);
             NotifyChanged((patient, trauma));
             return;

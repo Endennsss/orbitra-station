@@ -13,6 +13,11 @@ public sealed partial class ForensicScannerBoundUserInterface(EntityUid owner, E
     protected override void Open()
     {
         base.Open();
+        // Orbitra added start - предсказанное открытие и ответ сервера используют одно окно.
+        if (_window != null)
+            return;
+        // Orbitra added end
+
         _window = this.CreateWindow<ForensicScannerMenu>();
         _window.Print.OnPressed += _ => Print();
         _window.Clear.OnPressed += _ => Clear();
