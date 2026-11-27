@@ -1,0 +1,18 @@
+light_mode unshaded;
+const highp float g_MinVariance = 0.0;
+#include "/Shaders/Internal/shadow_cast_shared.swsl"
+uniform sampler2D FOV_TEXTURE;
+uniform bool use_fov;
+uniform highp vec2 eye_position;
+varying highp vec2 trail_eye;
+
+void vertex() {
+    trail_eye = (modelMatrix * vec3(aPos, 1.0)).xy - eye_position;
+}
+
+void fragment() {
+    // Проверяем каждый пиксель следа: видимый кончик не раскрывает путь за дверью.
+    if (use_fov && doesOcclude(trail_eye, FOV_TEXTURE, 0.75, -0.75 / 32.0))
+        discard;
+    COLOR = vec4(1.0);
+}

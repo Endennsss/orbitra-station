@@ -1,0 +1,117 @@
+- type: !PartialOnly entity
+  id: BulletPistol
+  components: &pistol
+  - type: OrbitraBulletTrail
+
+- type: !PartialOnly entity
+  id: BulletHivebot
+  components: *pistol
+
+- type: !PartialOnly entity
+  id: BulletPistolIncendiary
+  components:
+  - type: OrbitraBulletTrail
+    tint: &copper "#BF8059"
+
+- type: !PartialOnly entity
+  id: BulletPistolUranium
+  components:
+  - type: OrbitraBulletTrail
+    tint: &uranium "#929B70"
+
+- type: !PartialOnly entity
+  id: BulletMagnum
+  components: &heavy
+  - type: OrbitraBulletTrail
+    lengthPixels: 20
+
+- type: !PartialOnly entity
+  id: BulletMagnumAP
+  components: *heavy
+
+- type: !PartialOnly entity
+  id: BulletRifle
+  components: *heavy
+
+- type: !PartialOnly entity
+  id: BulletLightRifle
+  components: *heavy
+
+- type: !PartialOnly entity
+  id: BulletHeavyRifle
+  components: *heavy
+
+- type: !PartialOnly entity
+  id: BulletCaselessRifle
+  components: *heavy
+
+- type: !PartialOnly entity
+  id: BulletAntiMateriel
+  components: *heavy
+
+- type: !PartialOnly entity
+  id: PelletShotgunSlug
+  components: *heavy
+
+- type: !PartialOnly entity
+  id: BulletMagnumIncendiary
+  components: &heavyIncendiary
+  - type: OrbitraBulletTrail
+    lengthPixels: 20
+    tint: *copper
+
+- type: !PartialOnly entity
+  id: BulletRifleIncendiary
+  components: *heavyIncendiary
+
+- type: !PartialOnly entity
+  id: BulletLightRifleIncendiary
+  components: *heavyIncendiary
+
+- type: !PartialOnly entity
+  id: BulletMagnumUranium
+  components: &heavyUranium
+  - type: OrbitraBulletTrail
+    lengthPixels: 20
+    tint: *uranium
+
+- type: !PartialOnly entity
+  id: BulletRifleUranium
+  components: *heavyUranium
+
+- type: !PartialOnly entity
+  id: BulletLightRifleUranium
+  components: *heavyUranium
+
+- type: !PartialOnly entity
+  id: PelletShotgun
+  components: &pellets
+  - type: OrbitraBulletTrail
+    lengthPixels: 6
+    tint: "#C8AC78A8"
+
+- type: !PartialOnly entity
+  id: PelletShotgunImprovised
+  components: *pellets
+
+- type: !PartialOnly entity
+  id: PelletGrapeshot
+  components: *pellets
+
+- type: !PartialOnly entity
+  id: PelletClusterLethal
+  components: *pellets
+
+- type: !PartialOnly entity
+  id: PelletShotgunIncendiary
+  components:
+  - type: OrbitraBulletTrail
+    lengthPixels: 6
+    tint: "#BF8059A8"
+
+- type: !PartialOnly entity
+  id: PelletShotgunUranium
+  components:
+  - type: OrbitraBulletTrail
+    lengthPixels: 6
+    tint: "#929B70A8"

@@ -8,6 +8,11 @@
   kind: source
   path: /Textures/_Orbitra/Shaders/particle_glow.swsl
 
+- type: shader
+  id: OrbitraBulletTrail
+  kind: source
+  path: /Textures/_Orbitra/Shaders/bullet_trail.swsl
+
 - type: orbitraParticleEffect
   id: OrbitraParticleWelding
   shape: 1

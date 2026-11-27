@@ -48,12 +48,14 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
 
     public override void Initialize()
     {
+        UpdatesAfter.Add(typeof(TransformSystem));
         _appearanceQuery = GetEntityQuery<AppearanceComponent>();
         _doAfterQuery = GetEntityQuery<DoAfterComponent>();
         _transformQuery = GetEntityQuery<TransformComponent>();
         _spriteQuery = GetEntityQuery<SpriteComponent>();
         _overlay = new OrbitraParticleOverlay(EntityManager, this);
         _overlays.AddOverlay(_overlay);
+        InitializeBulletTrails();
         Subs.CVar(_configuration, OrbitraParticleCVars.Quality, PreviewQuality, true);
         SubscribeNetworkEvent<OrbitraParticleBurstEvent>(OnBurst);
         SubscribeNetworkEvent<RoundRestartCleanupEvent>(_ => Clear());
@@ -61,6 +63,7 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
 
     public void PreviewQuality(string quality)
     {
+        ConfigureBulletTrails(quality);
         var (capacity, density) = OrbitraParticleCVars.GetBudget(quality);
         if (capacity != Pool.Capacity)
             _overlay?.ClearCache();
@@ -80,6 +83,7 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
             _viewerMap = map;
         }
         Pool.Update(frameTime);
+        UpdateBulletTrails(map);
         UpdateGravityDust(frameTime);
         PruneImpactMarks();
         _stale.Clear();
@@ -244,6 +248,7 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
     private void Clear()
     {
         Pool.Clear();
+        ClearBulletTrails();
         _emitters.Clear();
         _runningDust.Clear();
         _hasGravityDust = false;
@@ -254,6 +259,8 @@ public sealed partial class OrbitraParticleSystem : EntitySystem
     public override void Shutdown()
     {
         Clear();
+        _overlays.RemoveOverlay(_bulletOverlay);
+        _bulletOverlay.Dispose();
         if (_overlay != null)
         {
             _overlays.RemoveOverlay(_overlay);
