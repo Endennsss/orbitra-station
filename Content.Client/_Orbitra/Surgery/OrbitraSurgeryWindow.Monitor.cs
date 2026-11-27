@@ -25,6 +25,7 @@ public sealed partial class OrbitraSurgeryWindow
 
         _reading = reading;
         PatientMonitor.Visible = reading.HasValue;
+        MonitorPanel.Visible = !_collapsed && reading.HasValue;
         if (reading is not { } current)
         {
             PatientMonitor.SetMessage(string.Empty);

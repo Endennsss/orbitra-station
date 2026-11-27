@@ -17,9 +17,10 @@ public sealed class OrbitraSurgeryBoundUserInterface(EntityUid owner, Enum uiKey
         if (Window != null)
             return;
 
-        Window = this.CreateWindow<OrbitraSurgeryWindow>();
+        Window = this.CreateWindowCenteredLeft<OrbitraSurgeryWindow>();
         Window.MonitorTable = EntMan.GetNetEntity(Owner);
-        Window.StepRequested += SendMessage;
+        Window.TaskSelected += SendMessage;
+        Window.TaskDeselected += SendMessage;
         Window.CancelRequested += SendMessage;
         Update<OrbitraSurgeryState>();
     }

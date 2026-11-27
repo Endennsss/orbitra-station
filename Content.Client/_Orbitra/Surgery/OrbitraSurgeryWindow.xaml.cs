@@ -33,15 +33,17 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
     private SurgeryProcedure? _procedure;
     private EntityUid? _held;
     private bool _awaitingConfirmation;
-    private bool _interrupted;
-    private bool _completed;
+    private bool _collapsed;
+    private bool _armed;
+    private string? _feedback;
     private Vector2 _viewport;
     private static readonly SurgeryZone[] ZoneOrder =
         [SurgeryZone.Head, SurgeryZone.Torso, SurgeryZone.RightArm, SurgeryZone.LeftArm, SurgeryZone.RightLeg, SurgeryZone.LeftLeg];
     private static readonly SurgeryInjury[] InjuryOrder =
         [SurgeryInjury.Missing, SurgeryInjury.InternalBleeding, SurgeryInjury.Fracture, SurgeryInjury.Shrapnel, SurgeryInjury.Splinted, SurgeryInjury.Bandaged];
 
-    internal event Action<OrbitraSurgeryStepMessage>? StepRequested;
+    internal event Action<OrbitraSurgeryStepMessage>? TaskSelected;
+    internal event Action<OrbitraSurgeryDeselectMessage>? TaskDeselected;
     internal event Action<OrbitraSurgeryCancelMessage>? CancelRequested;
 
     public OrbitraSurgeryWindow()
@@ -55,9 +57,8 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
 
         foreach (var zone in ZoneOrder)
         {
-            var button = new OrbitraButton { ToggleMode = true, ClipText = true, HorizontalExpand = true };
-            button.AddStyleClass("OrbitraCompactRow");
-            button.MinHeight = 32;
+            var button = new OrbitraButton { ToggleMode = true, HorizontalExpand = true };
+            button.AddStyleClass("OrbitraSurgeryRow");
             button.OnPressed += _ => SelectZone(zone);
             ZoneButtons.AddChild(button);
             _zones[zone] = button;
@@ -65,15 +66,23 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
         InitializeOrgans();
         foreach (var procedure in Enum.GetValues<SurgeryProcedure>())
         {
-            var button = new OrbitraButton { ToggleMode = true, ClipText = true, Text = ProcedureName(procedure) };
+            var button = new OrbitraButton { ToggleMode = true, ClipText = true, HorizontalExpand = true };
+            button.AddStyleClass("OrbitraSurgeryRow");
+            button.TextAlign = Label.AlignMode.Left;
             button.OnPressed += _ => SelectProcedure(procedure);
             ProcedureButtons.AddChild(button);
             _procedures[procedure] = button;
         }
         Progress.BackgroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = OrbitraPalettes.PanelInset };
-        Progress.ForegroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = Color.LightSeaGreen };
-        ActionButton.AddStyleClass(OrbitraButtonStyles.Primary);
-        ActionButton.OnPressed += _ => RequestStep();
+        Progress.ForegroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = OrbitraSurgerySheetlet.Accent };
+        CollapseButton.OnPressed += _ =>
+        {
+            _collapsed = !_collapsed;
+            CollapseButton.Text = _loc.GetString(_collapsed ? "orbitra-surgery-expand" : "orbitra-surgery-collapse");
+            FitToViewport();
+            RefreshSelection();
+        };
+        ConfirmButton.OnPressed += _ => ArmTask();
         CancelButton.OnPressed += _ => Cancel();
         FitToViewport();
         RefreshSelection();
@@ -85,9 +94,9 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
         if (_viewport.X <= 0 || _viewport.Y <= 0)
             return;
         var available = Vector2.Max(Vector2.One, _viewport - new Vector2(OrbitraUiMetrics.ScreenMargin * 2));
-        MinSize = Vector2.Min(new Vector2(330, 320), available);
+        MinSize = Vector2.Min(_collapsed ? new Vector2(270, 140) : new Vector2(310, 280), available);
         MaxSize = available;
-        SetSize = Vector2.Min(new Vector2(780, 640), available);
+        SetSize = _collapsed ? new Vector2(Math.Min(370, available.X), float.NaN) : Vector2.Min(new Vector2(710, 580), available);
         SetColumns(SetSize.X);
     }
 
@@ -100,44 +109,62 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
 
     private void SetColumns(float width)
     {
-        var narrow = width < 700;
+        var narrow = width < 600;
         Columns.Orientation = narrow ? BoxContainer.LayoutOrientation.Vertical : BoxContainer.LayoutOrientation.Horizontal;
-        MapPanel.SetWidth = narrow ? float.NaN : 320;
+        MapPanel.MinWidth = narrow ? 0 : 308;
         MapPanel.HorizontalExpand = narrow;
+        // На узком экране переносим активную руку в карту, чтобы оставить место для текущего этапа.
+        var inChart = narrow && StepPanel.Visible;
+        var handParent = inChart ? ChartContents : Instruments;
+        if (HandPanel.Parent != handParent)
+        {
+            HandPanel.Orphan();
+            handParent.AddChild(HandPanel);
+        }
+        HandPanel.Visible = !_collapsed && _state?.Patient != null;
+        HandPanel.SetWidth = !inChart && StepPanel.Visible ? 165 : float.NaN;
+        HandPanel.HorizontalExpand = inChart || !StepPanel.Visible;
+        Instruments.Visible = StepPanel.Visible || HandPanel.Visible && !inChart;
     }
 
     internal void UpdateState(OrbitraSurgeryState state)
     {
-        var previous = _state;
-        var changed = previous?.Patient != state.Patient || previous?.ActiveZone != state.ActiveZone ||
-            previous?.ActiveProcedure != state.ActiveProcedure || previous?.ActiveOrgan != state.ActiveOrgan || previous?.Step != state.Step || previous?.Busy != state.Busy;
-        if (changed)
+        if (state.Busy || _state?.Patient != state.Patient)
+            _feedback = null;
+        else if (_state is { Busy: true, ActiveProcedure: { } task, ActiveZone: { } zone } previous &&
+            task == _procedure && zone == _zone && previous.ActiveOrgan == _organ)
         {
-            _awaitingConfirmation = false;
-            _interrupted = previous is { Busy: true } && !state.Busy && previous.Patient == state.Patient &&
-                (state.ActiveProcedure == previous.ActiveProcedure && state.Step == previous.Step ||
-                 state.ActiveProcedure == null && previous.Step == 0);
-            _completed = previous is { Busy: true, ActiveProcedure: { } finished } && !state.Busy &&
-                state.ActiveProcedure == null && previous.Patient == state.Patient && previous.Step == OrbitraSurgerySteps.Get(finished).Length - 1;
+            var advanced = previous.GetAccess(zone) != state.GetAccess(zone) ||
+                previous.Dressed.Contains(zone) != state.Dressed.Contains(zone) ||
+                previous.Injuries.GetValueOrDefault(zone) != state.Injuries.GetValueOrDefault(zone) ||
+                previous.Prostheses.ContainsKey(zone) != state.Prostheses.ContainsKey(zone) ||
+                _organ is { } organ && previous.Organs.GetValueOrDefault(organ) != state.Organs.GetValueOrDefault(organ);
+            if (state.ActiveProcedure == null && advanced)
+                _feedback = task != SurgeryProcedure.OpenAccess || state.GetAccess(zone) == SurgeryAccess.Open ? "orbitra-surgery-complete" : null;
+            else if (previous.Step == state.Step && !advanced)
+                _feedback = "orbitra-surgery-step-stopped";
         }
-        if (_organ is { } kind && previous?.Organs.GetValueOrDefault(kind) != state.Organs.GetValueOrDefault(kind))
+
+        if (_state?.Patient != state.Patient)
+        {
+            _zone = null;
+            _organ = null;
+            _procedure = null;
             _awaitingConfirmation = false;
+        }
+        if (_awaitingConfirmation && (_state?.Busy != state.Busy || _state?.ActiveProcedure != state.ActiveProcedure ||
+            _organ is { } kind && _state?.Organs.GetValueOrDefault(kind) != state.Organs.GetValueOrDefault(kind)))
+            _awaitingConfirmation = false;
+
         _state = state;
         Title = _loc.GetString(state.FieldTable ? "orbitra-surgery-field-title" : "orbitra-surgery-title");
-        if (previous?.Patient != state.Patient)
+        // При открытии показываем текущую работу для передачи другому врачу. Выбор делает сам врач.
+        if (_zone == null && state.ActiveZone is { } active)
         {
-            _organ = null;
-            _zone = null;
-            _procedure = null;
-        }
-        if (state.ActiveZone is { } active && (changed || _zone == null))
             _zone = active;
-        if (state.ActiveZone == _zone && state.ActiveProcedure != null)
-        {
-            _procedure = state.ActiveProcedure;
             _organ = state.ActiveOrgan;
         }
-        BodyMap.SetReadings(state.Injuries, state.Organs);
+        BodyMap.SetReadings(state.Injuries, state.Organs, state.Access);
         RefreshSelection();
     }
 
@@ -147,27 +174,60 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
             return;
         if (_zone != zone)
         {
+            ClearTask();
+            _feedback = null;
             _zone = zone;
             _organ = _state.ActiveZone == zone ? _state.ActiveOrgan : null;
-            _procedure = _state.ActiveZone == zone ? _state.ActiveProcedure : null;
-            ClearFeedback();
         }
         RefreshSelection();
+        if (Columns.Orientation == BoxContainer.LayoutOrientation.Vertical)
+        {
+            UserInterfaceManager.DeferAction(() =>
+            {
+                if (ChartPanel.VisibleInTree && _zone == zone)
+                    Details.VScrollTarget = Details.VScroll + ChartPanel.GlobalPosition.Y - Details.GlobalPosition.Y;
+            });
+        }
     }
 
     private void SelectProcedure(SurgeryProcedure procedure)
     {
+        if (_state is not { Busy: false } || !Available(procedure))
+            return;
+        _feedback = null;
         if (_procedure != procedure)
-            ClearFeedback();
+            ClearTask();
         _procedure = procedure;
+        if (!OrbitraOrganSystem.IsProcedure(procedure))
+            _organ = null;
+
+        if (!IsArmed())
+        {
+            if (procedure is SurgeryProcedure.Amputate or SurgeryProcedure.ExtractOrgan)
+                _awaitingConfirmation = true;
+            else
+                ArmTask();
+        }
         RefreshSelection();
     }
 
-    private void ClearFeedback()
+    private void ClearTask()
     {
+        if (_procedure != null && _state?.Patient is { } patient)
+            TaskDeselected?.Invoke(new OrbitraSurgeryDeselectMessage(patient));
+        _procedure = null;
         _awaitingConfirmation = false;
-        _interrupted = false;
-        _completed = false;
+        _armed = false;
+    }
+
+    private string MarkSelected(string text, bool selected) =>
+        selected ? _loc.GetString("orbitra-surgery-selected", ("name", text)) : text;
+
+    private string AccessAt(SurgeryZone zone)
+    {
+        var access = _state!.GetAccess(zone);
+        var text = _loc.GetString($"orbitra-surgery-access-{access.ToString().ToLowerInvariant()}");
+        return _state.Dressed.Contains(zone) ? _loc.GetString("orbitra-surgery-access-dressed", ("access", text)) : text;
     }
 
     private string ZoneNameFor(SurgeryZone zone) => _loc.GetString($"orbitra-surgery-zone-{zone.ToString().ToLowerInvariant()}");
@@ -177,6 +237,12 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
 
     private string DescribeZone(SurgeryZone zone)
     {
+        var findings = RegionFindings(zone, true);
+        return _loc.GetString("orbitra-surgery-zone-status", ("zone", ZoneNameFor(zone)), ("status", findings));
+    }
+
+    private string RegionFindings(SurgeryZone zone, bool includeClosed)
+    {
         var names = new List<string>();
         var injuries = InjuryAt(zone);
         foreach (var injury in InjuryOrder)
@@ -184,21 +250,27 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
             if ((injuries & injury) != 0)
                 names.Add(InjuryName(injury));
         }
-        if (zone == SurgeryZone.Torso && _state != null)
+        if (_state != null)
         {
             foreach (var (organ, condition) in _state.Organs)
             {
-                if (condition != SurgeryOrganCondition.Healthy)
+                if (OrbitraOrganSystem.ZoneFor(organ) == zone && condition != SurgeryOrganCondition.Healthy)
                     names.Add(OrganReading(organ, condition));
             }
         }
-        return _loc.GetString("orbitra-surgery-zone-status", ("zone", ZoneNameFor(zone)),
-            ("status", names.Count > 0 ? string.Join(", ", names) : InjuryName(SurgeryInjury.None)));
+        if (names.Count == 0)
+            names.Add(InjuryName(SurgeryInjury.None));
+        if (_state?.Injuries.ContainsKey(zone) == true && (includeClosed || _state.GetAccess(zone) != SurgeryAccess.Closed))
+            names.Add(AccessAt(zone));
+        return string.Join(", ", names);
     }
 
     private void RefreshSelection()
     {
         var hasPatient = _state?.Patient != null;
+        PortraitPanel.Visible = !_collapsed && hasPatient;
+        if (_state?.Patient is { } patient)
+            PatientPortrait.SetEntity(patient);
         PatientName.Text = hasPatient ? _state!.PatientName : _loc.GetString("orbitra-surgery-no-patient");
         PatientName.ToolTip = PatientName.Text;
         var count = 0;
@@ -207,20 +279,28 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
             var marked = _state?.HasFindings(zone) == true;
             if (marked)
                 count++;
-            button.Text = !marked ? ZoneNameFor(zone) :
-                _loc.GetString("orbitra-surgery-zone-marked", ("zone", ZoneNameFor(zone)));
+            var name = marked ? _loc.GetString("orbitra-surgery-zone-marked", ("zone", ZoneNameFor(zone))) : ZoneNameFor(zone);
+            button.RemoveStyleClass(marked ? "OrbitraSurgeryRow" : "OrbitraSurgeryFinding");
+            button.AddStyleClass(marked ? "OrbitraSurgeryFinding" : "OrbitraSurgeryRow");
+            button.Text = MarkSelected(name, zone == _zone);
             button.ToolTip = DescribeZone(zone);
             button.Pressed = zone == _zone;
             button.Disabled = !hasPatient || !_state!.Injuries.ContainsKey(zone);
         }
         var supported = hasPatient && _state!.Injuries.Count > 0;
-        PatientSummary.Visible = supported;
+        PatientSummary.Visible = supported && !_collapsed;
         if (supported)
             PatientSummary.Text = _loc.GetString("orbitra-surgery-patient-summary", ("count", count), ("total", _state!.Injuries.Count));
         BodyMap.Selected = _zone;
         Columns.Visible = supported;
+        Details.Visible = supported && !_collapsed;
+        MonitorPanel.Visible = !_collapsed && _reading.HasValue;
+        AccessName.Visible = _zone != null;
+        if (_zone is { } site)
+            AccessName.Text = AccessAt(site);
         ZoneName.Text = _zone is { } selected ? ZoneNameFor(selected) : _loc.GetString("orbitra-surgery-assessment");
         UpdateDiagnoses();
+        UpdateEvidenceHint();
         UpdateOrgans();
         UpdateProcedures();
         UpdateStep();
@@ -235,12 +315,18 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
             {
                 if (_state?.HasFindings(region) != true)
                     continue;
-                var entry = new RichTextLabel { HorizontalExpand = true };
-                entry.SetMessage(DescribeZone(region));
-                Diagnoses.AddChild(entry);
+                var button = new OrbitraContainerButton { HorizontalExpand = true, ToolTip = DescribeZone(region) };
+                button.AddStyleClass(ContainerButton.StyleClassButton);
+                button.AddStyleClass("OrbitraSurgeryFinding");
+                var contents = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 0 };
+                contents.AddChild(new Label { Text = ZoneNameFor(region), StyleClasses = { "OrbitraSurgerySection" } });
+                contents.AddChild(new RichTextLabel { Text = RegionFindings(region, false), HorizontalExpand = true });
+                button.AddChild(contents);
+                button.OnPressed += _ => SelectZone(region);
+                Diagnoses.AddChild(button);
             }
             if (Diagnoses.ChildCount == 0 && _state?.Patient != null)
-                Diagnoses.AddChild(new RichTextLabel { Text = InjuryName(SurgeryInjury.None) });
+                Diagnoses.AddChild(new RichTextLabel { Text = _loc.GetString("orbitra-surgery-overview-clear") });
             return;
         }
         var injuries = InjuryAt(zone);
@@ -261,7 +347,7 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
             if (texture != null)
                 row.AddChild(new TextureRect { Texture = texture, SetSize = new Vector2(24), Stretch = TextureRect.StretchMode.KeepAspectCentered });
             var label = new RichTextLabel { HorizontalExpand = true };
-            label.SetMessage(InjuryName(injury), injury is SurgeryInjury.Bandaged or SurgeryInjury.Splinted ? Color.PaleTurquoise : Color.LightSalmon);
+            label.SetMessage(InjuryName(injury), injury is SurgeryInjury.Bandaged or SurgeryInjury.Splinted ? OrbitraSurgerySheetlet.Accent : OrbitraSurgerySheetlet.Finding);
             row.AddChild(label);
             Diagnoses.AddChild(row);
         }
@@ -283,12 +369,15 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
             !OrbitraSurgeryTableComponent.Supports(_state.FieldTable, procedure))
             return false;
         if (_state.ActiveProcedure is { } active)
-            return _state.ActiveZone == zone && active == procedure;
-        if (OrbitraOrganSystem.IsProcedure(procedure))
-            return zone == SurgeryZone.Torso && _organ is { } kind && _state.Organs.TryGetValue(kind, out var condition) &&
-                OrbitraOrganSystem.Indicated(procedure, condition);
-        if (_organ != null)
+            return _state.ActiveZone == zone && active == procedure &&
+                (!OrbitraOrganSystem.IsProcedure(procedure) || _organ == _state.ActiveOrgan);
+        if (!_state.CanAccess(procedure, zone))
             return false;
+        if (procedure is SurgeryProcedure.OpenAccess or SurgeryProcedure.CloseAccess or SurgeryProcedure.DressAccess)
+            return (InjuryAt(zone) & SurgeryInjury.Missing) == 0;
+        if (OrbitraOrganSystem.IsProcedure(procedure))
+            return _organ is { } kind && OrbitraOrganSystem.ZoneFor(kind) == zone && _state.Organs.TryGetValue(kind, out var condition) &&
+                OrbitraOrganSystem.Indicated(procedure, condition);
         var injury = InjuryAt(zone);
         var limb = zone is not (SurgeryZone.Head or SurgeryZone.Torso);
         if (_state.Prostheses.ContainsKey(zone) && procedure is SurgeryProcedure.Amputate or SurgeryProcedure.RemoveProsthesis)
@@ -308,19 +397,17 @@ public sealed partial class OrbitraSurgeryWindow : FancyWindow
 
     private void UpdateProcedures()
     {
-        if (_procedure is { } selected && !Available(selected))
-        {
-            _procedure = null;
-            _awaitingConfirmation = false;
-        }
+        if (_procedure is { } selected && _state?.ActiveProcedure == null && !Available(selected))
+            ClearTask();
         var any = false;
         foreach (var (procedure, button) in _procedures)
         {
             button.Visible = Available(procedure);
             any |= button.Visible;
-            if (_procedure == null && button.Visible && procedure is not (SurgeryProcedure.Amputate or SurgeryProcedure.ExtractOrgan))
-                _procedure = procedure;
+            button.Disabled = _state?.Busy == true;
             button.Pressed = procedure == _procedure;
+            button.Text = MarkSelected(ProcedureName(procedure), button.Pressed);
+            button.ToolTip = ProcedureName(procedure);
         }
         ProcedurePanel.Visible = any;
     }

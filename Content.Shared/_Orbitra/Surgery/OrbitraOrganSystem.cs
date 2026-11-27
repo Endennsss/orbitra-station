@@ -12,6 +12,7 @@ public sealed partial class OrbitraOrganSystem : EntitySystem
     public override void Initialize()
     {
         SubscribeLocalEvent<OrbitraOrganComponent, ExaminedEvent>(OnExamined);
+        InitializeSenses();
     }
 
     public static string Prototype(SurgeryOrgan kind) => kind switch
@@ -19,6 +20,17 @@ public sealed partial class OrbitraOrganSystem : EntitySystem
         SurgeryOrgan.Heart => "OrganHumanHeart",
         SurgeryOrgan.Lungs => "OrganHumanLungs",
         SurgeryOrgan.Liver => "OrganHumanLiver",
+        SurgeryOrgan.Kidneys => "OrganHumanKidneys",
+        SurgeryOrgan.Stomach => "OrganHumanStomach",
+        SurgeryOrgan.Eyes => "OrganHumanEyes",
+        SurgeryOrgan.Ears => "OrganHumanEars",
+        _ => throw new ArgumentOutOfRangeException(nameof(kind)),
+    };
+
+    public static SurgeryZone ZoneFor(SurgeryOrgan kind) => kind switch
+    {
+        SurgeryOrgan.Eyes or SurgeryOrgan.Ears => SurgeryZone.Head,
+        SurgeryOrgan.Heart or SurgeryOrgan.Lungs or SurgeryOrgan.Liver or SurgeryOrgan.Kidneys or SurgeryOrgan.Stomach => SurgeryZone.Torso,
         _ => throw new ArgumentOutOfRangeException(nameof(kind)),
     };
 
@@ -62,13 +74,13 @@ public sealed partial class OrbitraOrganSystem : EntitySystem
         return result;
     }
 
-    public static bool HasFindings(Dictionary<SurgeryOrgan, SurgeryOrganCondition>? conditions)
+    public static bool HasFindings(Dictionary<SurgeryOrgan, SurgeryOrganCondition>? conditions, SurgeryZone? zone = null)
     {
         if (conditions == null)
             return false;
-        foreach (var condition in conditions.Values)
+        foreach (var (kind, condition) in conditions)
         {
-            if (condition != SurgeryOrganCondition.Healthy)
+            if (condition != SurgeryOrganCondition.Healthy && (zone == null || ZoneFor(kind) == zone))
                 return true;
         }
         return false;
@@ -101,15 +113,18 @@ public sealed partial class OrbitraOrganSystem : EntitySystem
         };
     }
 
-    /// <summary>Нулевой множитель отключает только обработку реагентов поражённой печенью.</summary>
-    public float LiverInterval(EntityUid organ)
+    /// <summary>Нулевой множитель отключает только обработку реагентов поражённым органом.</summary>
+    public float MetabolismInterval(EntityUid organ)
     {
-        if (!TryComp<OrbitraOrganComponent>(organ, out var comp) || comp.Kind != SurgeryOrgan.Liver ||
+        if (!TryComp<OrbitraOrganComponent>(organ, out var comp) || comp.Kind is not (SurgeryOrgan.Liver or SurgeryOrgan.Kidneys or SurgeryOrgan.Stomach) ||
             comp.Condition == SurgeryOrganCondition.Healthy || !TryComp<OrganComponent>(organ, out var slot) ||
             !TryComp<OrbitraHumanOrganPatientComponent>(slot.Body, out var patient))
             return 1f;
 
-        return comp.Condition == SurgeryOrganCondition.Damaged ? patient.DamagedLiverInterval : 0f;
+        if (comp.Condition != SurgeryOrganCondition.Damaged)
+            return 0f;
+
+        return comp.Kind == SurgeryOrgan.Liver ? patient.DamagedLiverInterval : 2f;
     }
 
     private void OnExamined(Entity<OrbitraOrganComponent> organ, ref ExaminedEvent args)

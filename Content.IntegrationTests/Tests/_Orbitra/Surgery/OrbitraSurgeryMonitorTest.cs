@@ -145,6 +145,7 @@ public sealed class OrbitraSurgeryMonitorTest : GameTest
             var retractor = SSpawnAtPosition("Retractor", SComp<TransformComponent>(doctor).Coordinates);
             Assert.That(hands.TryPickup(doctor, retractor), Is.True);
             var surgery = Server.System<OrbitraSurgerySystem>();
+            SEntMan.EnsureComponent<OrbitraSurgicalAccessComponent>(patient).Zones[SurgeryZone.LeftLeg] = SurgeryAccess.Open;
             Assert.That(surgery.TryStartStep(table, doctor, patient, SurgeryZone.LeftLeg, SurgeryProcedure.Fracture, 0, false), Is.True);
             var pending = SComp<OrbitraSurgeryOperationComponent>(patient).Pending;
             Assert.That(inventory.TryUnequip(doctor, "back"), Is.True);

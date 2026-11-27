@@ -82,6 +82,7 @@ public sealed partial class SharedForensicScannerSystem : EntitySystem
             // Orbitra added start - сохраняем результат экспертизы до следующего сканирования.
             scanner.Comp.OrbitraProjectile = TryComp<OrbitraFragmentEvidenceComponent>(args.Args.Target, out var fragment)
                 ? fragment.Projectile?.Id ?? string.Empty : null;
+            scanner.Comp.OrbitraFragmentZones = ScanRetainedFragments(args.Args.Target.Value);
             // Orbitra added end
 
             DirtyFields(scanner.AsNullable(),
@@ -91,6 +92,7 @@ public sealed partial class SharedForensicScannerSystem : EntitySystem
                 nameof(ForensicScannerComponent.DNAs),
                 nameof(ForensicScannerComponent.Residues),
                 nameof(ForensicScannerComponent.OrbitraProjectile), // Orbitra-Edit
+                nameof(ForensicScannerComponent.OrbitraFragmentZones), // Orbitra-Edit
                 nameof(ForensicScannerComponent.LastScannedName));
         }
 
@@ -257,6 +259,7 @@ public sealed partial class SharedForensicScannerSystem : EntitySystem
         scanner.Comp.DNAs = [];
         scanner.Comp.LastScannedName = string.Empty;
         scanner.Comp.OrbitraProjectile = null; // Orbitra-Edit
+        scanner.Comp.OrbitraFragmentZones = null; // Orbitra-Edit
 
         DirtyFields(scanner.AsNullable(),
             null,
@@ -264,6 +267,7 @@ public sealed partial class SharedForensicScannerSystem : EntitySystem
             nameof(ForensicScannerComponent.Fibers),
             nameof(ForensicScannerComponent.DNAs),
             nameof(ForensicScannerComponent.OrbitraProjectile), // Orbitra-Edit
+            nameof(ForensicScannerComponent.OrbitraFragmentZones), // Orbitra-Edit
             nameof(ForensicScannerComponent.LastScannedName));
 
         UpdateUi(scanner);

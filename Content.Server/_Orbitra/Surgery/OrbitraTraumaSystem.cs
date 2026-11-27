@@ -1,7 +1,6 @@
 using Content.Shared._Orbitra.Surgery;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Systems;
-using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
@@ -38,7 +37,8 @@ public sealed partial class OrbitraTraumaSystem : EntitySystem
     public override void Initialize()
     {
         SubscribeLocalEvent<OrbitraSurgicalPatientComponent, DamageChangedEvent>(OnDamageChanged);
-        SubscribeLocalEvent<OrbitraTraumaComponent, RejuvenateEvent>(OnRejuvenate);
+        SubscribeLocalEvent<OrbitraSurgicalPatientComponent, OrbitraFlashExposureEvent>(OnFlashExposure);
+        SubscribeLocalEvent<OrbitraSurgicalPatientComponent, RejuvenateEvent>(OnRejuvenate);
         SubscribeLocalEvent<OrbitraTraumaDressingComponent, OrbitraTraumaDressingDoAfterEvent>(OnDressingFinished);
     }
 
@@ -46,17 +46,53 @@ public sealed partial class OrbitraTraumaSystem : EntitySystem
 
     private void OnDamageChanged(Entity<OrbitraSurgicalPatientComponent> ent, ref DamageChangedEvent args)
     {
-        if (!args.InterruptsDoAfters || args.DamageDelta == null)
+        if (args.DamageDelta == null)
             return;
 
         var damage = args.DamageDelta.DamageDict;
+        var piercing = damage.GetValueOrDefault(Piercing);
+        if (piercing < 0 && TryComp<OrbitraHumanOrganPatientComponent>(ent, out var organs))
+        {
+            organs.BallisticDamage = FixedPoint2.Max(0, organs.BallisticDamage + piercing);
+            if (organs.BallisticDamage == 0)
+                organs.BallisticOrganThreshold = 0;
+        }
+        if (!args.InterruptsDoAfters)
+            return;
+
         var blunt = FixedPoint2.Max(0, damage.GetValueOrDefault(Blunt));
-        var physical = blunt + FixedPoint2.Max(0, damage.GetValueOrDefault(Slash)) + FixedPoint2.Max(0, damage.GetValueOrDefault(Piercing));
+        var physical = blunt + FixedPoint2.Max(0, damage.GetValueOrDefault(Slash)) + FixedPoint2.Max(0, piercing);
         if (physical <= 0)
             return;
 
         var profile = _prototype.Index(ent.Comp.TraumaProfile);
-        ApplyOrganTrauma(ent, physical, profile);
+        var source = piercing > 0 && TryComp<MetaDataComponent>(args.Projectile, out var meta) ? meta.EntityPrototype : null;
+        var ballistic = source != null && IsFragmentProjectile(source, profile);
+        if (ballistic && profile.MaxBallisticOrganThreshold > 0)
+            ApplyBallisticOrganTrauma(ent, piercing, profile);
+        else
+            ApplyOrganTrauma(ent, physical, profile, args.IsExplosion);
+
+        ApplyPhysicalTrauma(ent, physical, blunt, profile);
+        if (ballistic && Roll(piercing, profile.Shrapnel)
+            && TryPickZone(ent, SurgeryInjury.Shrapnel, limbsOnly: false, out var zone))
+            AddInjury(ent, zone, SurgeryInjury.Shrapnel, source!.ID);
+    }
+
+    private bool IsFragmentProjectile(EntityPrototype source, OrbitraTraumaPrototype profile)
+    {
+        if (profile.FragmentProjectiles.Contains(source.ID))
+            return true;
+        foreach (var (parentId, _) in _prototype.EnumerateAllParents<EntityPrototype>(source.ID))
+        {
+            if (profile.FragmentProjectiles.Contains(parentId))
+                return true;
+        }
+        return false;
+    }
+
+    private void ApplyPhysicalTrauma(EntityUid ent, FixedPoint2 physical, FixedPoint2 blunt, OrbitraTraumaPrototype profile)
+    {
         if (Roll(physical, profile.Dismemberment)
             && TryPickZone(ent, SurgeryInjury.Missing, limbsOnly: true, out var lost))
         {
@@ -72,20 +108,6 @@ public sealed partial class OrbitraTraumaSystem : EntitySystem
         if (Roll(physical, profile.InternalBleeding)
             && _anatomy.SupportsZone(ent, SurgeryZone.Torso) && !_anatomy.IsMissing(ent, SurgeryZone.Torso))
             AddInjury(ent, SurgeryZone.Torso, SurgeryInjury.InternalBleeding);
-    }
-
-    /// <summary>Вызывается после попадания снаряда, когда уже известен урон с учётом брони.</summary>
-    public void OnProjectileDamage(EntityUid patient, EntityUid projectile, DamageSpecifier damage)
-    {
-        if (!TryComp<OrbitraSurgicalPatientComponent>(patient, out var surgical)
-            || !damage.DamageDict.TryGetValue(Piercing, out var piercing)
-            || MetaData(projectile).EntityPrototype is not {} source)
-            return;
-
-        var profile = _prototype.Index(surgical.TraumaProfile);
-        if (profile.FragmentProjectiles.Contains(source.ID) && Roll(piercing, profile.Shrapnel)
-            && TryPickZone(patient, SurgeryInjury.Shrapnel, limbsOnly: false, out var zone))
-            AddInjury(patient, zone, SurgeryInjury.Shrapnel, source.ID);
     }
 
     private bool Roll(FixedPoint2 damage, OrbitraTraumaRoll roll)
@@ -173,14 +195,40 @@ public sealed partial class OrbitraTraumaSystem : EntitySystem
         Changed?.Invoke(ent.Owner);
     }
 
-    private void OnRejuvenate(Entity<OrbitraTraumaComponent> ent, ref RejuvenateEvent args)
+    private void OnRejuvenate(Entity<OrbitraSurgicalPatientComponent> patient, ref RejuvenateEvent args)
     {
-        ent.Comp.Injuries.Clear();
-        NotifyChanged(ent);
+        if (TryComp<OrbitraHumanOrganPatientComponent>(patient, out var organs))
+        {
+            organs.BallisticDamage = 0;
+            organs.BallisticOrganThreshold = 0;
+        }
+        var organsRestored = RestoreInstalledOrgans(patient);
+        if (TryComp<OrbitraTraumaComponent>(patient, out var trauma))
+        {
+            trauma.Injuries.Clear();
+            NotifyChanged((patient, trauma));
+        }
+        else if (organsRestored)
+            Changed?.Invoke(patient);
     }
 
     private void OnDressingFinished(Entity<OrbitraTraumaDressingComponent> item, ref OrbitraTraumaDressingDoAfterEvent args)
     {
+        if (args.Incision)
+        {
+            if (!args.Handled && !args.Cancelled && args.Used == item.Owner && args.Target is { } recipient &&
+                TryComp<OrbitraSurgicalAccessComponent>(recipient, out var access) &&
+                TryComp<OrbitraSurgicalPatientComponent>(recipient, out var surgical) &&
+                _effects.CanDressIncision(item, args.User, recipient, access, args.Zone) && _stack.TryUse(item.Owner, 1))
+            {
+                access.DressingRemaining[args.Zone] = _prototype.Index(surgical.TraumaProfile).DressingSeconds;
+                Dirty(recipient, access);
+                Changed?.Invoke(recipient);
+            }
+            args.Handled = true;
+            return;
+        }
+
         if (args.Handled || args.Cancelled || args.Used != item.Owner || args.Target is not {} target
             || !TryComp<OrbitraTraumaComponent>(target, out var trauma)
             || !TryComp<OrbitraSurgicalPatientComponent>(target, out var patient)

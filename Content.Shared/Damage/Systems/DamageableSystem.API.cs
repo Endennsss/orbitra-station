@@ -123,7 +123,9 @@ public sealed partial class DamageableSystem
         bool ignoreResistances = false,
         bool interruptsDoAfters = true,
         EntityUid? origin = null,
-        bool ignoreGlobalModifiers = false
+        bool ignoreGlobalModifiers = false,
+        bool isExplosion = false, // Orbitra-Edit
+        EntityUid? projectile = null // Orbitra-Edit - источник попадания передаётся вместе с уроном после защиты.
     )
     {
         var damageDone = new DamageSpecifier();
@@ -159,7 +161,7 @@ public sealed partial class DamageableSystem
         if (!ignoreGlobalModifiers)
             damage = ApplyUniversalAllModifiers(damage);
 
-        var evt = new DamageDealtEvent(damage, origin, interruptsDoAfters);
+        var evt = new DamageDealtEvent(damage, origin, interruptsDoAfters) { IsExplosion = isExplosion, Projectile = projectile }; // Orbitra-Edit
         RaiseLocalEvent(ent, ref evt);
 
         return damage;

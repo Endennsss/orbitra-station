@@ -5,7 +5,6 @@ using System.Numerics;
 using Content.Client._Orbitra.Surgery;
 using Content.IntegrationTests.Fixtures;
 using Content.Shared._Orbitra.Surgery;
-using Content.Shared.Hands.EntitySystems;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared;
@@ -32,8 +31,6 @@ public sealed class OrbitraSurgeryLayoutTest : GameTest
         {
             var actor = SSpawnAtPosition("MobHuman", map.GridCoords);
             Server.PlayerMan.SetAttachedEntity(ServerSession!, actor);
-            var tool = SSpawnAtPosition("OrbitraBoneSetter", map.GridCoords);
-            Assert.That(Server.System<SharedHandsSystem>().TryPickup(actor, tool), Is.True);
             patient = SEntMan.GetNetEntity(SSpawnAtPosition("MobHuman", map.GridCoords));
         });
         await Pair.RunTicksSync(12);
@@ -44,8 +41,18 @@ public sealed class OrbitraSurgeryLayoutTest : GameTest
         var injuries = Enum.GetValues<SurgeryZone>().ToDictionary(zone => zone, _ => SurgeryInjury.None);
         injuries[SurgeryZone.LeftArm] = SurgeryInjury.Missing;
         injuries[SurgeryZone.RightArm] = SurgeryInjury.Fracture;
-        var idle = new OrbitraSurgeryState(patient, "Urist", injuries, null, null, 0, false);
-        var active = new OrbitraSurgeryState(patient, "Urist", injuries, SurgeryZone.RightArm, SurgeryProcedure.Fracture, 1, false);
+        injuries[SurgeryZone.RightLeg] = SurgeryInjury.Shrapnel;
+        injuries[SurgeryZone.Head] = SurgeryInjury.Shrapnel;
+        var loc = Client.ResolveDependency<ILocalizationManager>();
+        var idle = new OrbitraSurgeryState(patient, "Urist", injuries, null, null, 0, false)
+        {
+            Access = { [SurgeryZone.RightArm] = SurgeryAccess.Open, [SurgeryZone.Head] = SurgeryAccess.Open },
+            Organs = { [SurgeryOrgan.Eyes] = SurgeryOrganCondition.Damaged },
+        };
+        var active = new OrbitraSurgeryState(patient, "Urist", injuries, SurgeryZone.RightArm, SurgeryProcedure.Fracture, 1, false)
+        {
+            Access = { [SurgeryZone.RightArm] = SurgeryAccess.Open },
+        };
         OrbitraSurgeryWindow? window = null;
         try
         {
@@ -54,7 +61,7 @@ public sealed class OrbitraSurgeryLayoutTest : GameTest
                 config.SetCVar(CVars.ResAutoScaleEnabled, false);
                 config.SetCVar(CVars.DisplayUIScale, 1f);
                 window = new OrbitraSurgeryWindow();
-                window.OpenCentered();
+                window.OpenCenteredLeft();
                 window.UpdateState(new OrbitraSurgeryState(patient, "Urist", [], null, null, 0, false));
             });
             await Client.WaitAssertion(() =>
@@ -62,7 +69,7 @@ public sealed class OrbitraSurgeryLayoutTest : GameTest
                 Assert.That(window!.FindControl<BoxContainer>("Columns").Visible, Is.False);
                 Assert.That(window.FindControl<Label>("PatientSummary").Visible, Is.False);
                 Assert.That(window.FindControl<RichTextLabel>("Status").GetMessage(),
-                    Is.EqualTo(Client.ResolveDependency<ILocalizationManager>().GetString("orbitra-surgery-unsupported")));
+                    Is.EqualTo(loc.GetString("orbitra-surgery-unsupported")));
             });
             await Client.WaitPost(() => window!.UpdateState(idle));
             await DrawFrames();
@@ -88,43 +95,140 @@ public sealed class OrbitraSurgeryLayoutTest : GameTest
             }
             OrbitraSurgeryStepMessage? requested = null;
             OrbitraSurgeryCancelMessage? cancelled = null;
+            int deselections = 0;
+            var procedures = window.FindControl<BoxContainer>("ProcedureButtons");
+            var zones = window.FindControl<GridContainer>("ZoneButtons");
+            var collapse = window.FindControl<Button>("CollapseButton");
+            var confirm = window.FindControl<Button>("ConfirmButton");
+            var status = window.FindControl<RichTextLabel>("Status");
             await Client.WaitPost(() =>
             {
-                window.StepRequested += message => requested = message;
+                window.TaskSelected += message => requested = message;
+                window.TaskDeselected += _ => deselections++;
                 window.CancelRequested += message => cancelled = message;
-                window.UpdateState(active);
             });
+
+            var head = zones.Children.OfType<Button>().ElementAt(0);
+            var rightArm = zones.Children.OfType<Button>().ElementAt(2);
+            var rightLeg = zones.Children.OfType<Button>().ElementAt(4);
+            var evidence = window.FindControl<RichTextLabel>("EvidenceHint");
+            await Press(rightLeg);
+            await DrawFrames();
+            await Client.WaitAssertion(() =>
+            {
+                Assert.That(evidence.VisibleInTree, Is.True);
+                Assert.That(evidence.GetMessage(), Is.EqualTo(loc.GetString("orbitra-surgery-fragment-access")));
+                Assert.That(rightLeg.Label.Width + 1, Is.GreaterThanOrEqualTo(rightLeg.Label.DesiredSize.X));
+            });
+            await Client.WaitPost(() =>
+            {
+                idle.Access[SurgeryZone.RightLeg] = SurgeryAccess.Open;
+                window.UpdateState(idle);
+            });
+            await Client.WaitAssertion(() =>
+                Assert.That(evidence.GetMessage(), Is.EqualTo(loc.GetString("orbitra-surgery-fragment-ready"))));
+            await Press(rightArm);
+            await Client.WaitAssertion(() => Assert.That(evidence.Visible, Is.False));
+            await Press(head);
+            var eye = window.FindControl<BoxContainer>("OrganButtons").Children.OfType<Button>().Single(button => button.Visible);
+            await Press(eye);
+            await Client.WaitAssertion(() => Assert.That(Procedure("shrapnel").VisibleInTree, Is.True));
+            await Press(Procedure("extractorgan"));
+            await Client.WaitAssertion(() =>
+            {
+                Assert.That(confirm.VisibleInTree, Is.True);
+                Assert.That(requested, Is.Null);
+                Assert.That(status.GetMessage(), Does.Contain("Urist").And.Contain(loc.GetString("orbitra-surgery-organ-eyes")));
+            });
+            await Press(confirm);
+            await Client.WaitAssertion(() =>
+            {
+                Assert.That(requested?.Organ, Is.EqualTo(SurgeryOrgan.Eyes));
+                Assert.That(requested?.Confirmed, Is.True);
+            });
+            requested = null;
+            await Press(rightArm);
+            await Press(Procedure("amputate"));
+            await Client.WaitAssertion(() =>
+            {
+                Assert.That(deselections, Is.Positive);
+                Assert.That(requested, Is.Null);
+                Assert.That(status.GetMessage(), Does.Contain("Urist").And.Contain(loc.GetString("orbitra-surgery-zone-rightarm")));
+            });
+            var cancel = window.FindControl<Button>("CancelButton");
+            await Press(cancel);
+            await Client.WaitAssertion(() => Assert.That(confirm.Visible, Is.False));
+            await Client.WaitPost(() => window.UpdateState(active));
+
             foreach (var scale in new[] { 1f, 1.8f })
             {
                 await Client.WaitPost(() => config.SetCVar(CVars.DisplayUIScale, scale));
                 await DrawFrames();
-                var action = window.FindControl<Button>("ActionButton");
-                var cancel = window.FindControl<Button>("CancelButton");
+                await Press(Procedure("fracture"));
+                var selection = window.FindControl<RichTextLabel>("SelectionSummary");
+                var tool = window.FindControl<RichTextLabel>("RequiredTool");
+                var details = window.FindControl<ScrollContainer>("Details");
+                var progress = window.FindControl<ProgressBar>("Progress");
                 await Client.WaitAssertion(() =>
                 {
                     Assert.That(window.UIScale, Is.EqualTo(scale).Within(0.01f));
-                    Assert.That(window.FindControl<BoxContainer>("Columns").Orientation, Is.EqualTo(scale == 1
-                        ? BoxContainer.LayoutOrientation.Horizontal : BoxContainer.LayoutOrientation.Vertical));
-                    foreach (var button in new[] { action, cancel })
+                    Assert.That(requested?.Zone, Is.EqualTo(SurgeryZone.RightArm));
+                    Assert.That(requested?.Procedure, Is.EqualTo(SurgeryProcedure.Fracture));
+                    Assert.That(requested?.Step, Is.EqualTo(1));
+                    Assert.That(Procedure("fracture").Text, Does.StartWith("▸"));
+                    Assert.That(selection.GetMessage(), Does.Contain(loc.GetString("orbitra-surgery-access-open")));
+                    Assert.That(details.VisibleInTree, Is.True);
+                });
+
+                var before = deselections;
+                var expanded = window.Size;
+                await Press(collapse);
+                await DrawFrames();
+                await Client.WaitAssertion(() =>
+                {
+                    Assert.That(window.IsOpen && selection.VisibleInTree && tool.VisibleInTree && progress.VisibleInTree, Is.True);
+                    Assert.That(details.VisibleInTree, Is.False);
+                    Assert.That(window.Width, Is.LessThan(expanded.X));
+                    Assert.That(window.Height, Is.LessThan(expanded.Y));
+                    Assert.That(progress.Value, Is.GreaterThan(0f));
+                    Assert.That(selection.GetMessage(), Does.Contain(loc.GetString("orbitra-surgery-procedure-fracture")));
+                    Assert.That(deselections, Is.EqualTo(before));
+                    foreach (var button in new[] { collapse, cancel })
                     {
                         var point = button.GlobalPixelPosition + button.PixelSize / 2;
-                        Assert.That(point.X, Is.InRange(0, 1279));
-                        Assert.That(point.Y, Is.InRange(0, 719));
                         Assert.That(button.VisibleInTree && button.CanKeyboardFocus && !button.Disabled, Is.True, button.Name);
                         Assert.That(ui.MouseGetControl(new ScreenCoordinates(point, button.Window!.Id)), Is.SameAs(button), button.Name);
                     }
                 });
-                await Click(action, (Vector2) action.PixelSize / 2);
-                await Click(cancel, (Vector2) cancel.PixelSize / 2);
+                await Client.WaitPost(() => window.UpdateState(new OrbitraSurgeryState(patient, "Urist", injuries,
+                    SurgeryZone.Head, SurgeryProcedure.ExtractOrgan, 1, true, organs: idle.Organs, activeOrgan: SurgeryOrgan.Eyes)
+                {
+                    Access = idle.Access,
+                }));
                 await Client.WaitAssertion(() =>
                 {
-                    Assert.That(requested?.Zone, Is.EqualTo(SurgeryZone.RightArm));
-                    Assert.That(requested?.Step, Is.EqualTo(1));
+                    Assert.That(selection.GetMessage(), Does.Contain(loc.GetString("orbitra-surgery-procedure-fracture")));
+                    Assert.That(status.GetMessage(), Does.Contain(loc.GetString("orbitra-surgery-procedure-extractorgan")));
+                    Assert.That(deselections, Is.EqualTo(before));
+                    Assert.That(cancel.Visible, Is.False);
+                });
+                await Client.WaitPost(() => window.UpdateState(active));
+                await Press(cancel);
+                await Press(collapse);
+                await DrawFrames();
+                await Client.WaitAssertion(() =>
+                {
+                    Assert.That(details.VisibleInTree, Is.True);
                     Assert.That(cancelled?.Patient, Is.EqualTo(patient));
                     Assert.That(cancelled?.Step, Is.EqualTo(1));
                 });
                 requested = null;
                 cancelled = null;
+            }
+            Button Procedure(string key)
+            {
+                var name = loc.GetString($"orbitra-surgery-procedure-{key}");
+                return procedures.Children.OfType<Button>().Single(button => button.ToolTip == name);
             }
         }
         finally
@@ -144,6 +248,12 @@ public sealed class OrbitraSurgeryLayoutTest : GameTest
                 for (var frame = 0; frame < 12; frame++)
                     OrbitraWindowLifecycleTest.Frame(ui, 0.025f);
             });
+        }
+
+        async Task Press(Button button)
+        {
+            await DrawFrames();
+            await Click(button, (Vector2) button.PixelSize / 2);
         }
 
         async Task Click(Control control, Vector2 pixel)

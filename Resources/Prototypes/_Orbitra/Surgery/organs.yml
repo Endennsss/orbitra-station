@@ -13,6 +13,10 @@
   - OrbitraCulturedHeart
   - OrbitraCulturedLungs
   - OrbitraCulturedLiver
+  - OrbitraCulturedKidneys
+  - OrbitraCulturedStomach
+  - OrbitraCulturedEyes
+  - OrbitraCulturedEars
 
 - type: latheRecipePack
   id: OrbitraCulturedOrgans
@@ -20,6 +24,10 @@
   - OrbitraCulturedHeart
   - OrbitraCulturedLungs
   - OrbitraCulturedLiver
+  - OrbitraCulturedKidneys
+  - OrbitraCulturedStomach
+  - OrbitraCulturedEyes
+  - OrbitraCulturedEars
 
 - type: latheRecipe
   id: OrbitraCulturedHeart
@@ -41,3 +49,31 @@
   completetime: 20
   materials:
     Biomass: 40
+
+- type: latheRecipe
+  id: OrbitraCulturedKidneys
+  result: OrganHumanKidneys
+  completetime: 20
+  materials:
+    Biomass: 40
+
+- type: latheRecipe
+  id: OrbitraCulturedStomach
+  result: OrganHumanStomach
+  completetime: 20
+  materials:
+    Biomass: 40
+
+- type: latheRecipe
+  id: OrbitraCulturedEyes
+  result: OrganHumanEyes
+  completetime: 20
+  materials:
+    Biomass: 35
+
+- type: latheRecipe
+  id: OrbitraCulturedEars
+  result: OrganHumanEars
+  completetime: 20
+  materials:
+    Biomass: 30

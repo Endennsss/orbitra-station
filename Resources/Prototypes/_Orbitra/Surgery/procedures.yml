@@ -1,0 +1,21 @@
+- type: orbitraSurgeryProfile
+  id: OrbitraStandardSurgery
+  steps:
+    OpenAccess: [Scalpel, Hemostat, Retractor]
+    CloseAccess: [Cautery]
+    DressAccess: [Gauze]
+    Fracture: [Retractor, OrbitraBoneSetter, Cautery]
+    InternalBleeding: [Hemostat, Cautery]
+    Shrapnel: [Retractor, Hemostat]
+    RepairOrgan: [Hemostat, Cautery]
+    ExtractOrgan: [Retractor, Hemostat]
+    TransplantOrgan: [Hemostat, DonorOrgan]
+    Amputate: [Saw, Cautery]
+    Reattach: [Hemostat, DetachedBody]
+    InstallProsthesis: [Drill, Prosthesis]
+    RemoveProsthesis: [Retractor, Drill]
+  surfaceAccess: [Scalpel, Retractor]
+  opensTo:
+    Scalpel: Incised
+    Hemostat: Clamped
+    Retractor: Open

@@ -61,9 +61,12 @@ public sealed partial class ProjectileSystem : SharedProjectileSystem
 
         var orbitraImpact = _orbitraParticles.CaptureBulletImpact(target, uid, component.ImpactEffect == "BulletImpactEffect", args.PointCount > 0 ? args.WorldPoints[0] : null); // Orbitra-Edit - сохраняем контакт до разрушения.
         var orbitraMaterialImpact = false; // Orbitra-Edit
-        if (_damageableSystem.TryChangeDamage((target, damageableComponent), ev.Damage, out var damage, component.IgnoreResistances, origin: component.Shooter))
+        // Orbitra edit start - передаём сам снаряд отдельно от стрелка до расчёта фактической травмы.
+        var damage = _damageableSystem.ChangeDamage((target, damageableComponent), ev.Damage,
+            component.IgnoreResistances, origin: component.Shooter, projectile: uid);
+        if (!damage.Empty)
+        // Orbitra edit end
         {
-            _orbitraTrauma.OnProjectileDamage(target, uid, damage); // Orbitra-Edit - остаточный урон от снаряда определяет глубокий осколок.
             orbitraMaterialImpact = _orbitraParticles.TryBulletImpact(orbitraImpact, damage) && orbitraImpact?.Effect != "OrbitraParticleBlood"; // Orbitra-Edit - косметика только после подтверждённого урона.
             if (!Deleted(target))
             {

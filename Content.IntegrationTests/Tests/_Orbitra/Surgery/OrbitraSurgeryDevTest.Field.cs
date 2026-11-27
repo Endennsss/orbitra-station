@@ -26,8 +26,8 @@ namespace Content.IntegrationTests.Tests._Orbitra.Surgery;
 
 public sealed partial class OrbitraSurgeryDevTest
 {
-    [Test]
-    public async Task FieldTableTreatsWoundsAndScannerPrintsProjectile()
+    [TestCase(false), TestCase(true)]
+    public async Task FieldTableTreatsWoundsAndScannerPrintsProjectile(bool handsFull)
     {
         var surgery = Server.System<OrbitraSurgerySystem>();
         var fold = Server.System<FoldableSystem>();
@@ -46,7 +46,7 @@ public sealed partial class OrbitraSurgeryDevTest
         await Server.WaitAssertion(() =>
         {
             var station = Server.System<ServerStationSystem>().GetStations().Single();
-            Server.System<ServerGameTicker>().MakeJoinGame(ServerSession!, station, "Paramedic", silent: true);
+            Server.System<ServerGameTicker>().MakeJoinGame(ServerSession!, station, "Detective", silent: true);
             surgeon = ServerSession!.AttachedEntity!.Value;
             coords = SComp<TransformComponent>(StationTable()).Coordinates.Offset(new Vector2(0, -1));
             patient = SSpawnAtPosition("MobHuman", range.GridCoords);
@@ -61,6 +61,8 @@ public sealed partial class OrbitraSurgeryDevTest
             var transform = Server.System<SharedTransformSystem>();
             transform.SetCoordinates(patient, coords);
             transform.SetCoordinates(surgeon, coords);
+            foreach (var held in hands.EnumerateHeld(surgeon).ToArray())
+                Assert.That(hands.TryDrop(surgeon, held), Is.True);
             var supplies = coords.Offset(new Vector2(3, 0));
             var fab = SSpawnAtPosition("MedicalTechFab", supplies);
             Assert.That(Server.System<LatheSystem>().GetAvailableRecipes(fab, SComp<LatheComponent>(fab)),
@@ -78,26 +80,55 @@ public sealed partial class OrbitraSurgeryDevTest
             var trauma = SComp<OrbitraTraumaComponent>(patient);
             wound = trauma.FragmentSources.Single().Key;
             Assert.That(trauma.FragmentSources[wound].Id, Is.EqualTo("BulletMagnum"));
+            var tags = Server.System<TagSystem>();
+            var instant = new ProtoId<TagPrototype>("InstantDoAfters");
+            tags.AddTag(surgeon, instant);
+            scanner = Equip("ForensicScanner");
+            netScanner = SEntMan.GetNetEntity(scanner);
+            Server.System<SharedInteractionSystem>().InteractUsing(surgeon, scanner, patient, coords);
+            var bodyScan = SComp<ForensicScannerComponent>(scanner);
+            Assert.That(bodyScan.OrbitraFragmentZones, Is.EqualTo(new[] { wound }));
+            Assert.That(bodyScan.OrbitraProjectile, Is.Null);
             trauma.Injuries[SurgeryZone.LeftLeg] = trauma.Injuries.GetValueOrDefault(SurgeryZone.LeftLeg) | SurgeryInjury.Fracture;
             trauma.Injuries[SurgeryZone.Torso] = trauma.Injuries.GetValueOrDefault(SurgeryZone.Torso) | SurgeryInjury.InternalBleeding;
+            foreach (var region in new[] { wound, SurgeryZone.Torso }.Distinct())
+            {
+                var tools = OrbitraSurgerySteps.Get(SProtoMan, SurgeryProcedure.OpenAccess, region);
+                for (var step = 0; step < tools.Length; step++)
+                {
+                    Equip(tools[step]);
+                    Assert.That(surgery.TryStartStep(table, surgeon, patient, region, SurgeryProcedure.OpenAccess, step, false), Is.True);
+                }
+            }
+            tags.RemoveTag(surgeon, instant);
             Equip("Retractor");
+            if (handsFull)
+                Assert.That(hands.TryPickupAnyHand(surgeon, SSpawnAtPosition("Gauze", coords)), Is.True);
             Assert.That(surgery.TryStartStep(table, surgeon, patient, SurgeryZone.LeftLeg, SurgeryProcedure.Fracture, 0, true), Is.False);
             Assert.That(surgery.TryStartStep(table, surgeon, patient, wound, SurgeryProcedure.Shrapnel, 0, false), Is.True);
             Assert.That(SComp<OrbitraSurgeryOperationComponent>(patient).Duration.TotalSeconds, Is.EqualTo(4.5).Within(0.01));
         });
 
         await Pair.RunTicksSync(5 * SGameTiming.TickRate);
+        await Client.WaitAssertion(() =>
+        {
+            var scan = CEntMan.GetComponent<ForensicScannerComponent>(CEntMan.GetEntity(netScanner));
+            Assert.That(scan.OrbitraFragmentZones, Is.EqualTo(new[] { wound }));
+            Assert.That(scan.OrbitraProjectile, Is.Null);
+        });
         await Server.WaitAssertion(() =>
         {
             Server.System<TagSystem>().AddTag(surgeon, new ProtoId<TagPrototype>("InstantDoAfters"));
-            for (var step = 1; step < 3; step++)
+            var fragmentTools = OrbitraSurgerySteps.Get(SProtoMan, SurgeryProcedure.Shrapnel, wound);
+            for (var step = 1; step < fragmentTools.Length; step++)
             {
-                Equip(OrbitraSurgerySteps.Get(SurgeryProcedure.Shrapnel)[step]);
+                Equip(fragmentTools[step]);
                 Assert.That(surgery.TryStartStep(table, surgeon, patient, wound, SurgeryProcedure.Shrapnel, step, false), Is.True);
             }
-            for (var step = 0; step < 3; step++)
+            var bleedTools = OrbitraSurgerySteps.Get(SProtoMan, SurgeryProcedure.InternalBleeding, SurgeryZone.Torso);
+            for (var step = 0; step < bleedTools.Length; step++)
             {
-                Equip(OrbitraSurgerySteps.Get(SurgeryProcedure.InternalBleeding)[step]);
+                Equip(bleedTools[step]);
                 Assert.That(surgery.TryStartStep(table, surgeon, patient, SurgeryZone.Torso, SurgeryProcedure.InternalBleeding, step, false), Is.True);
             }
             Assert.That(SComp<OrbitraTraumaComponent>(patient).FragmentSources, Is.Empty);
@@ -105,11 +136,23 @@ public sealed partial class OrbitraSurgeryDevTest
             Assert.That(objects.MoveNext(out fragment, out var evidence), Is.True);
             Assert.That(evidence!.Projectile?.Id, Is.EqualTo("BulletMagnum"));
             Assert.That(objects.MoveNext(out _, out _), Is.False);
+            Assert.That(hands.IsHolding(surgeon, fragment), Is.EqualTo(!handsFull));
+            if (handsFull)
+            {
+                var transform = Server.System<SharedTransformSystem>();
+                Assert.That(transform.GetMapCoordinates(fragment).InRange(transform.GetMapCoordinates(surgeon), 0.1f), Is.True);
+            }
+            else
+                Assert.That(hands.TryDrop(surgeon, fragment), Is.True);
             buckle.Unbuckle(patient, surgeon);
             Assert.That(fold.TryToggleFold(table, SComp<FoldableComponent>(table), surgeon), Is.True);
-            scanner = Equip("ForensicScanner");
-            netScanner = SEntMan.GetNetEntity(scanner);
+            if (hands.GetActiveItem(surgeon) is { } held)
+                Assert.That(hands.TryDrop(surgeon, held), Is.True);
+            Assert.That(hands.TryPickup(surgeon, scanner), Is.True);
+            Server.System<SharedInteractionSystem>().InteractUsing(surgeon, scanner, patient, coords);
+            Assert.That(SComp<ForensicScannerComponent>(scanner).OrbitraFragmentZones, Is.Empty);
             Server.System<SharedInteractionSystem>().InteractUsing(surgeon, scanner, fragment, coords);
+            Assert.That(SComp<ForensicScannerComponent>(scanner).OrbitraFragmentZones, Is.Null);
             Assert.That(SComp<ForensicScannerComponent>(scanner).OrbitraProjectile, Is.EqualTo("BulletMagnum"));
             Assert.That(ui.IsUiOpen(scanner, scannerKey, surgeon), Is.True);
         });

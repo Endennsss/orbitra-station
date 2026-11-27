@@ -52,6 +52,7 @@ public sealed partial class OrbitraSurgerySystem
                 RefreshLegs(patient);
 
             // Штатное отделение и операции используют один и тот же момент фактической потери органа.
+            ClearZoneAccess(patient, zone);
             _trauma.NotifyAnatomyChanged(patient, zone, true);
             return;
         }

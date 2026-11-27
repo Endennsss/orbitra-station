@@ -129,6 +129,7 @@ public sealed partial class OrbitraSurgerySystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+        UpdateAccess(frameTime);
         var now = _timing.CurTime;
         foreach (var ((table, doctor), view) in _monitorViews)
         {

@@ -1,5 +1,8 @@
+using System.Numerics;
 using Content.Client._Orbitra.UserInterface;
 using Content.Shared._Orbitra.Surgery;
+using Robust.Client.UserInterface;
+using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client._Orbitra.Surgery;
 
@@ -15,13 +18,25 @@ public sealed partial class OrbitraSurgeryWindow
         foreach (var kind in OrbitraOrganSystem.Kinds)
         {
             var button = new OrbitraButton { ToggleMode = true, ClipText = true, HorizontalExpand = true };
+            button.AddStyleClass("OrbitraSurgeryRow");
+            button.TextAlign = Label.AlignMode.Left;
+            button.Label.Margin = new Thickness(30, 0, 0, 0);
+            button.AddChild(new TextureRect
+            {
+                Texture = _sprites.GetPrototypeIcon(OrbitraOrganSystem.Prototype(kind)).Default,
+                SetSize = new Vector2(26),
+                HorizontalAlignment = Control.HAlignment.Left,
+                VerticalAlignment = Control.VAlignment.Center,
+                Stretch = TextureRect.StretchMode.KeepAspectCentered,
+                MouseFilter = Control.MouseFilterMode.Ignore,
+            });
             button.OnPressed += _ =>
             {
-                if (_state?.ActiveProcedure != null)
+                if (_state?.Busy == true)
                     return;
+                ClearTask();
+                _feedback = null;
                 _organ = _organ == kind ? null : kind;
-                _procedure = null;
-                ClearFeedback();
                 RefreshSelection();
             };
             OrganButtons.AddChild(button);
@@ -38,17 +53,22 @@ public sealed partial class OrbitraSurgeryWindow
 
     private void UpdateOrgans()
     {
-        OrganButtons.Visible = _zone == SurgeryZone.Torso && _state?.Organs.Count > 0;
-        if (!OrganButtons.Visible)
+        OrganPanel.Visible = false;
+        if (_zone == null || _state == null)
             return;
 
         foreach (var (kind, button) in _organButtons)
         {
-            button.Visible = _state!.Organs.TryGetValue(kind, out var condition);
-            button.Disabled = _state.FieldTable || _state.ActiveProcedure != null;
-            button.Text = OrganReading(kind, condition);
-            button.ToolTip = button.Text;
+            button.Visible = _state.Organs.TryGetValue(kind, out var condition) && OrbitraOrganSystem.ZoneFor(kind) == _zone;
+            if (!button.Visible)
+                continue;
+            OrganPanel.Visible = true;
+            button.Disabled = _state.FieldTable || _state.Busy;
             button.Pressed = _organ == kind;
+            button.RemoveStyleClass(condition == SurgeryOrganCondition.Healthy ? "OrbitraSurgeryFinding" : "OrbitraSurgeryRow");
+            button.AddStyleClass(condition == SurgeryOrganCondition.Healthy ? "OrbitraSurgeryRow" : "OrbitraSurgeryFinding");
+            button.Text = MarkSelected(OrganReading(kind, condition), button.Pressed);
+            button.ToolTip = button.Text;
         }
     }
 }

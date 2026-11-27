@@ -4,7 +4,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Orbitra.Surgery;
 
-/// <summary>Пороги относятся к одному удару после применения защиты.</summary>
+/// <summary>Настраивает последствия отдельных ударов и накопление огнестрельного урона после защиты.</summary>
 [Prototype]
 public sealed partial class OrbitraTraumaPrototype : IPrototype
 {
@@ -18,6 +18,13 @@ public sealed partial class OrbitraTraumaPrototype : IPrototype
 
     [DataField] public OrbitraTraumaRoll OrganInjury = new();
     [DataField] public OrbitraTraumaRoll OrganFailure = new();
+    /// <summary>Верхняя граница случайного порога для следующей огнестрельной травмы органа.</summary>
+    [DataField] public FixedPoint2 MaxBallisticOrganThreshold;
+    [DataField] public float TorsoOrganWeight = 80f;
+    [DataField] public float HeadOrganWeight = 20f;
+    [DataField] public float ExplosionEarChance;
+    [DataField] public TimeSpan FlashEyeDuration = TimeSpan.FromSeconds(4);
+    [DataField] public float FlashEyeChance;
 
     [DataField] public float FracturedLegSpeed = 0.72f;
     [DataField] public float SplintedLegSpeed = 0.91f;
@@ -27,6 +34,7 @@ public sealed partial class OrbitraTraumaPrototype : IPrototype
     [DataField] public float DismemberBloodLoss = 12f;
     [DataField] public float DismemberBleedRate = 2.5f;
     [DataField] public FixedPoint2 BloodLoss = 3f;
+    [DataField] public FixedPoint2 IncisionBloodLoss = 1f;
     [DataField] public FixedPoint2 BandagedBloodLoss = 1f;
     [DataField] public DamageSpecifier FragmentDamage = new();
     [DataField] public float DressingSeconds = 120f;

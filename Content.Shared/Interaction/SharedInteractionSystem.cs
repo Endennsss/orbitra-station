@@ -1051,6 +1051,11 @@ namespace Content.Shared.Interaction
                 LogImpact.Low,
                 $"{ToPrettyString(user):user} interacted with {ToPrettyString(target):target} using {ToPrettyString(used):used}");
 
+            // Orbitra added start - хирургический режим врача имеет приоритет при работе с пациентом.
+            if (TryUseSurgicalTool(user, used, target))
+                return true;
+            // Orbitra added end
+
             if (RangedInteractDoBefore(user, used, target, clickLocation, canReach: true, checkDeletion: false))
                 return true;
 

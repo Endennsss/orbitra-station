@@ -20,8 +20,13 @@
         <Label
             Name="NameLabel"
             Align="Center" />
-        <Label
-            Name="Diagnostics"
-            Text="{Loc forensic-scanner-interface-no-data}"/>
+        <!-- Orbitra edit start - длинные результаты и подсказка по улике прокручиваются под кнопками. -->
+        <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="6">
+                <RichTextLabel Name="EvidenceHint" HorizontalExpand="True" Visible="False"/>
+                <Label Name="Diagnostics" Text="{Loc forensic-scanner-interface-no-data}"/>
+            </BoxContainer>
+        </ScrollContainer>
+        <!-- Orbitra edit end -->
     </BoxContainer>
 </DefaultWindow>

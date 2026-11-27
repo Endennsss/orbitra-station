@@ -21,7 +21,9 @@ public sealed partial class OrbitraSurgeryBodyMap : Control
     private readonly RSI _parts;
     private readonly ShaderInstance _grayscale;
     private Dictionary<SurgeryZone, SurgeryInjury>? _injuries;
-    private bool _organFindings;
+    private Dictionary<SurgeryZone, SurgeryAccess>? _access;
+    private bool _headOrganFindings;
+    private bool _torsoOrganFindings;
     private static readonly (SurgeryZone Zone, UIBox2 Bounds, string[] States)[] Regions =
     [
         (SurgeryZone.Head, new(11, 3, 20, 10), ["head_m"]),
@@ -46,10 +48,12 @@ public sealed partial class OrbitraSurgeryBodyMap : Control
     }
 
     internal void SetReadings(Dictionary<SurgeryZone, SurgeryInjury>? injuries,
-        Dictionary<SurgeryOrgan, SurgeryOrganCondition>? organs)
+        Dictionary<SurgeryOrgan, SurgeryOrganCondition>? organs, Dictionary<SurgeryZone, SurgeryAccess>? access = null)
     {
         _injuries = injuries;
-        _organFindings = OrbitraOrganSystem.HasFindings(organs);
+        _access = access;
+        _headOrganFindings = OrbitraOrganSystem.HasFindings(organs, SurgeryZone.Head);
+        _torsoOrganFindings = OrbitraOrganSystem.HasFindings(organs, SurgeryZone.Torso);
         if (Hovered is { } zone)
         {
             if (injuries?.ContainsKey(zone) != true)
@@ -59,7 +63,8 @@ public sealed partial class OrbitraSurgeryBodyMap : Control
     }
 
     internal bool HasFindings(SurgeryZone zone) => _injuries?.TryGetValue(zone, out var injury) == true &&
-        (injury != SurgeryInjury.None || zone == SurgeryZone.Torso && _organFindings);
+        (injury != SurgeryInjury.None || _access?.TryGetValue(zone, out var access) == true && access != SurgeryAccess.Closed ||
+         zone == SurgeryZone.Head && _headOrganFindings || zone == SurgeryZone.Torso && _torsoOrganFindings);
 
     private float SpriteScale => Math.Max(1, MathF.Floor(Math.Min(PixelWidth - 16 * UIScale,
         PixelHeight - 12 * UIScale) / _parts.Size.Y));
@@ -133,8 +138,13 @@ public sealed partial class OrbitraSurgeryBodyMap : Control
     protected override void Draw(DrawingHandleScreen handle)
     {
         base.Draw(handle);
-        handle.DrawRect(PixelSizeBox, OrbitraPalettes.PanelInset);
+        handle.DrawRect(PixelSizeBox, OrbitraSurgerySheetlet.Chart);
         var rect = SpriteRect();
+        var spacing = SpriteScale * 4;
+        for (var x = rect.Center.X % spacing; x < PixelWidth; x += spacing)
+            handle.DrawLine(new Vector2(x, 0), new Vector2(x, PixelHeight), OrbitraSurgerySheetlet.Grid);
+        for (var y = rect.Center.Y % spacing; y < PixelHeight; y += spacing)
+            handle.DrawLine(new Vector2(0, y), new Vector2(PixelWidth, y), OrbitraSurgerySheetlet.Grid);
         foreach (var (zone, _, states) in Regions)
         {
             if (_injuries == null || !_injuries.TryGetValue(zone, out var injury))
@@ -145,13 +155,13 @@ public sealed partial class OrbitraSurgeryBodyMap : Control
             var missing = (injury & SurgeryInjury.Missing) != 0;
             var marked = HasFindings(zone);
             var tinted = missing || Selected == zone || Hovered == zone || marked;
-            var tint = Hovered == zone ? Color.PaleTurquoise : Selected == zone ? Color.Turquoise :
-                marked ? Color.LightSalmon : Color.White;
+            var tint = Hovered == zone ? Color.PaleTurquoise : Selected == zone ? OrbitraSurgerySheetlet.Accent :
+                marked ? OrbitraSurgerySheetlet.Finding : Color.White;
             if (missing)
             {
                 foreach (var offset in OutlineOffsets)
                     DrawStates(handle, states, rect.Translated(offset * MathF.Max(1, MathF.Round(SpriteScale / 2))), tint);
-                DrawStates(handle, states, rect, OrbitraPalettes.PanelInset);
+                DrawStates(handle, states, rect, OrbitraSurgerySheetlet.Chart);
                 continue;
             }
             if (!tinted)
@@ -163,6 +173,10 @@ public sealed partial class OrbitraSurgeryBodyMap : Control
 
         foreach (var (zone, bounds, _) in Regions)
         {
+            if (Selected == zone)
+                handle.DrawRect(new UIBox2(rect.TopLeft + bounds.TopLeft * SpriteScale,
+                    rect.TopLeft + bounds.BottomRight * SpriteScale), Color.PaleTurquoise, filled: false);
+
             if (!HasFindings(zone))
                 continue;
             // Выносим знак за пределы фигуры, чтобы выбранный цвет не скрывал травму.
@@ -170,10 +184,10 @@ public sealed partial class OrbitraSurgeryBodyMap : Control
             var markerY = zone == SurgeryZone.Torso ? 13 : bounds.Center.Y;
             var point = rect.TopLeft + new Vector2(right ? bounds.Right : bounds.Left, markerY) * SpriteScale;
             var sign = new Vector2(rect.Center.X + (right ? 1 : -1) * 13 * SpriteScale, point.Y);
-            handle.DrawLine(point, sign, Color.LightSalmon);
-            handle.DrawCircle(sign, 6 * UIScale, Color.LightSalmon);
-            handle.DrawRect(new UIBox2(sign.X - UIScale, sign.Y - 4 * UIScale, sign.X + UIScale, sign.Y + UIScale), OrbitraPalettes.PanelInset);
-            handle.DrawRect(new UIBox2(sign.X - UIScale, sign.Y + 2 * UIScale, sign.X + UIScale, sign.Y + 4 * UIScale), OrbitraPalettes.PanelInset);
+            handle.DrawLine(point, sign, OrbitraSurgerySheetlet.Finding);
+            handle.DrawCircle(sign, 6 * UIScale, OrbitraSurgerySheetlet.Finding);
+            handle.DrawRect(new UIBox2(sign.X - UIScale, sign.Y - 4 * UIScale, sign.X + UIScale, sign.Y + UIScale), OrbitraSurgerySheetlet.Chart);
+            handle.DrawRect(new UIBox2(sign.X - UIScale, sign.Y + 2 * UIScale, sign.X + UIScale, sign.Y + 4 * UIScale), OrbitraSurgerySheetlet.Chart);
         }
     }
 

@@ -1,3 +1,9 @@
 orbitra-surgery-field-title = Field operating table
 orbitra-forensic-ammo = Ammunition: { $type }
 orbitra-forensic-ammo-unknown = type undetermined
+orbitra-forensic-body-clear = No retained fragments detected.
+orbitra-forensic-body-fragments = Retained fragments ({ $zones }). Buckle the patient to an operating or field table. Choose “{ orbitra-surgery-open }” from the table menu and select a listed region. Open surgical access if needed. Scan the recovered fragment to identify the ammunition.
+orbitra-surgery-fragment-access = Select Open surgical access to reach the fragment. Use each indicated tool on the patient.
+orbitra-surgery-fragment-ready = Select Remove shrapnel. Use a retractor on the patient, then a hemostat.
+orbitra-surgery-fragment-in-hand = The recovered fragment is in your hand, ready for forensic examination.
+orbitra-surgery-fragment-at-feet = The recovered fragment is at your feet, ready to scan.

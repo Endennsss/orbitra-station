@@ -1,4 +1,5 @@
 using System.Text;
+using Content.Shared._Orbitra.Surgery;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
@@ -8,6 +9,9 @@ public sealed partial class ForensicScannerComponent
 {
     // Для осколка неизвестного происхождения сохраняется пустая строка. Для остальных типов образцов сохраняется null.
     [DataField, AutoNetworkedField] public string? OrbitraProjectile;
+
+    // null означает сканирование предмета, пустой список означает пациента без застрявших осколков.
+    [DataField, AutoNetworkedField] public SurgeryZone[]? OrbitraFragmentZones;
 
     public void AppendOrbitraFragment(StringBuilder text, IPrototypeManager prototypes)
     {

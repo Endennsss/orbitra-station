@@ -18,6 +18,8 @@ public sealed class HealthAnalyzerUiState : BoundUserInterfaceState
     // Orbitra added start
     public Dictionary<SurgeryZone, SurgeryInjury>? OrbitraTrauma;
     public Dictionary<SurgeryOrgan, SurgeryOrganCondition>? OrbitraOrgans;
+    public Dictionary<SurgeryZone, SurgeryAccess> OrbitraAccess = new();
+    public HashSet<SurgeryZone> OrbitraDressed = new();
     // Orbitra added end
 
     public HealthAnalyzerUiState() {}

@@ -269,6 +269,80 @@ public sealed class OrbitraHealthAnalyzerTest : GameTest
     }
 
     [Test]
+    public async Task ScanShowsAnEvacuatedPatientsIncisionAndDressing()
+    {
+        const SurgeryZone zone = SurgeryZone.LeftArm;
+        HealthAnalyzerUiState incised = null!, dressed = null!, closed = null!;
+        await Server.WaitPost(() =>
+        {
+            var patient = SEntMan.GetEntity(_otherPatient);
+            var scans = Server.System<ServerHealthAnalyzerSystem>();
+            var access = SEntMan.EnsureComponent<OrbitraSurgicalAccessComponent>(patient);
+            access.Zones[zone] = SurgeryAccess.Incised;
+            incised = scans.GetHealthAnalyzerUiState(patient, true);
+            access.DressingRemaining[zone] = 120f;
+            dressed = scans.GetHealthAnalyzerUiState(patient, true);
+            SEntMan.RemoveComponent<OrbitraSurgicalAccessComponent>(patient);
+            closed = scans.GetHealthAnalyzerUiState(patient, true);
+        });
+
+        var anatomy = _analyzer.FindControl<OrbitraAnalyzerAnatomy>("AnalyzerAnatomy");
+        var map = anatomy.FindControl<OrbitraSurgeryBodyMap>("BodyMap");
+        await Populate(incised);
+        await Client.WaitAssertion(() =>
+        {
+            Assert.That(map.Selected, Is.EqualTo(zone));
+            Assert.That(map.HasFindings(zone), Is.True);
+            Assert.That(ZoneDetails(anatomy), Is.EqualTo(Localized("orbitra-surgery-access-incised")));
+        });
+        await Populate(dressed);
+        await Client.WaitAssertion(() =>
+        {
+            var reading = Client.ResolveDependency<ILocalizationManager>().GetString("orbitra-surgery-access-dressed",
+                ("access", Localized("orbitra-surgery-access-incised")));
+            Assert.That(map.DescribeZone!(zone), Does.Contain(reading));
+            Assert.That(ZoneDetails(anatomy), Is.EqualTo(reading));
+        });
+        await Populate(closed);
+        await Client.WaitAssertion(() =>
+        {
+            Assert.That(map.HasFindings(zone), Is.False);
+            Assert.That(ZoneDetails(anatomy), Is.EqualTo(Localized("orbitra-surgery-injury-none")));
+        });
+    }
+
+    [Test]
+    public async Task OrganFindingsAppearInTheirOwnRegion()
+    {
+        var anatomy = _analyzer.FindControl<OrbitraAnalyzerAnatomy>("AnalyzerAnatomy");
+        var map = anatomy.FindControl<OrbitraSurgeryBodyMap>("BodyMap");
+        foreach (var (patient, selected) in new[] { (_patient, SurgeryZone.Head), (_otherPatient, SurgeryZone.Torso) })
+        {
+            var organs = OrbitraOrganSystem.Kinds.ToDictionary(organ => organ, organ =>
+                OrbitraOrganSystem.ZoneFor(organ) == selected ? SurgeryOrganCondition.Damaged : SurgeryOrganCondition.Healthy);
+            await Populate(new HealthAnalyzerUiState(patient, 310f, 1f, true, false, false)
+            {
+                OrbitraTrauma = HumanZones(),
+                OrbitraOrgans = organs,
+            });
+            await Client.WaitAssertion(() =>
+            {
+                Assert.That(map.Selected, Is.EqualTo(selected));
+                var details = ZoneDetails(anatomy);
+                foreach (var zone in Enum.GetValues<SurgeryZone>())
+                    Assert.That(map.HasFindings(zone), Is.EqualTo(zone == selected));
+                foreach (var organ in OrbitraOrganSystem.Kinds)
+                {
+                    var name = Localized($"orbitra-surgery-organ-{organ.ToString().ToLowerInvariant()}");
+                    Assert.That(details.Contains(name), Is.EqualTo(OrbitraOrganSystem.ZoneFor(organ) == selected));
+                }
+                var effect = selected == SurgeryZone.Head ? "eyes" : "kidneys";
+                Assert.That(details, Does.Contain(Localized($"orbitra-analyzer-anatomy-{effect}-damaged")));
+            });
+        }
+    }
+
+    [Test]
     public async Task SilhouetteShowsPatientRightArmAndShinAndKeepsVitalsVisibleOnResize()
     {
         await Populate(new HealthAnalyzerUiState(_patient, 310f, 1f, true, false, false)

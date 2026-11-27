@@ -1,3 +1,4 @@
+using Content.Shared.Buckle.Components;
 using Content.Shared.DoAfter;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
@@ -112,17 +113,20 @@ public sealed partial class OrbitraTraumaEffectsSystem : EntitySystem
 
     private bool TryStartDressing(Entity<OrbitraTraumaDressingComponent> item, EntityUid user, EntityUid patient)
     {
-        if (!TryComp<OrbitraTraumaComponent>(patient, out var trauma))
+        var access = CompOrNull<OrbitraSurgicalAccessComponent>(patient);
+        var trauma = CompOrNull<OrbitraTraumaComponent>(patient);
+        if (access == null && trauma == null)
             return false;
 
         foreach (var zone in Zones)
         {
-            if (!CanDress(item, user, (patient, trauma), zone))
+            var incision = access != null && CanDressIncision(item, user, patient, access, zone);
+            if (!incision && (trauma == null || !CanDress(item, user, (patient, trauma), zone)))
                 continue;
 
             // Повторный щелчок может отменить наложение. Не передаём его обычному лечению бинтом.
             _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, user, item.Comp.Delay,
-                new OrbitraTraumaDressingDoAfterEvent { Zone = zone }, item, target: patient, used: item)
+                new OrbitraTraumaDressingDoAfterEvent { Zone = zone, Incision = incision }, item, target: patient, used: item)
             {
                 NeedHand = true,
                 BreakOnMove = true,
@@ -133,6 +137,16 @@ public sealed partial class OrbitraTraumaEffectsSystem : EntitySystem
 
         return false;
     }
+
+    /// <summary>После снятия со стола спасатель может обычной марлей временно остановить кровопотерю из разреза.</summary>
+    public bool CanDressIncision(Entity<OrbitraTraumaDressingComponent> item, EntityUid user, EntityUid patient,
+        OrbitraSurgicalAccessComponent access, SurgeryZone zone) =>
+        item.Comp.Treatment == SurgeryInjury.Bandaged && !TerminatingOrDeleted(patient) &&
+        !(TryComp<BuckleComponent>(patient, out var buckle) && HasComp<OrbitraSurgeryTableComponent>(buckle.BuckledTo)) &&
+        OrbitraSurgerySteps.Allows(SurgeryProcedure.DressAccess, access.Zones.GetValueOrDefault(zone),
+            access.DressingRemaining.ContainsKey(zone)) &&
+        !EntityManager.IsQueuedForDeletion(item) && _hands.GetActiveItem(user) == item.Owner &&
+        _interaction.InRangeUnobstructed(user, patient);
 
     public bool CanDress(Entity<OrbitraTraumaDressingComponent> item, EntityUid user,
         Entity<OrbitraTraumaComponent> patient, SurgeryZone zone)

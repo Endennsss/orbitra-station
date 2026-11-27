@@ -9,5 +9,6 @@ public sealed partial class OrbitraSurgeryTableComponent : Component
     [DataField] public float StepDurationMultiplier = 1f;
 
     public static bool Supports(bool fieldTable, SurgeryProcedure procedure) =>
-        !fieldTable || procedure is SurgeryProcedure.InternalBleeding or SurgeryProcedure.Shrapnel;
+        !fieldTable || procedure is SurgeryProcedure.InternalBleeding or SurgeryProcedure.Shrapnel
+            or SurgeryProcedure.OpenAccess or SurgeryProcedure.CloseAccess or SurgeryProcedure.DressAccess;
 }

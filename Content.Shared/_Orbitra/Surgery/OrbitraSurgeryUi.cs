@@ -14,6 +14,12 @@ public enum SurgeryZone : byte
     Head, Torso, LeftArm, RightArm, LeftLeg, RightLeg,
 }
 
+[Serializable, NetSerializable]
+public enum SurgeryAccess : byte
+{
+    Closed, Incised, Clamped, Open,
+}
+
 [Flags, Serializable, NetSerializable]
 public enum SurgeryInjury : byte
 {
@@ -32,6 +38,7 @@ public enum SurgeryProcedure : byte
     Fracture, InternalBleeding, Shrapnel, Amputate, Reattach,
     RepairOrgan = 10, ExtractOrgan = 11, TransplantOrgan = 12,
     InstallProsthesis = 20, RemoveProsthesis = 21,
+    OpenAccess = 30, CloseAccess, DressAccess,
 }
 
 /// <summary>Общее состояние стола. Выбор области до начала операции у каждого врача свой.</summary>
@@ -45,8 +52,18 @@ public sealed class OrbitraSurgeryState(NetEntity? patient, string patientName,
     public readonly NetEntity? Patient = patient;
     public readonly Dictionary<SurgeryOrgan, SurgeryOrganCondition> Organs = organs ?? new();
     public readonly SurgeryOrgan? ActiveOrgan = activeOrgan;
+    public Dictionary<SurgeryZone, SurgeryAccess> Access = new();
+    public HashSet<SurgeryZone> Dressed = new();
+    public SurgeryAccess GetAccess(SurgeryZone zone) => Access.GetValueOrDefault(zone);
+    public int GetStep(SurgeryProcedure procedure, SurgeryZone zone) =>
+        ActiveZone == zone && ActiveProcedure == procedure ? Step :
+        procedure == SurgeryProcedure.OpenAccess ? (int) GetAccess(zone) : 0;
+    public bool CanAccess(SurgeryProcedure procedure, SurgeryZone zone) =>
+        OrbitraSurgerySteps.Allows(procedure, GetAccess(zone), Dressed.Contains(zone)) &&
+        (!FieldTable || procedure != SurgeryProcedure.OpenAccess || GetAccess(zone) != SurgeryAccess.Closed ||
+         (Injuries.GetValueOrDefault(zone) & (SurgeryInjury.Shrapnel | SurgeryInjury.InternalBleeding)) != 0);
     public bool HasFindings(SurgeryZone zone) => Injuries.GetValueOrDefault(zone) != SurgeryInjury.None ||
-        zone == SurgeryZone.Torso && OrbitraOrganSystem.HasFindings(Organs);
+        GetAccess(zone) != SurgeryAccess.Closed || OrbitraOrganSystem.HasFindings(Organs, zone);
     public readonly string PatientName = patientName;
     public bool AcceptsProstheses { get; init; }
     public bool FieldTable { get; init; }

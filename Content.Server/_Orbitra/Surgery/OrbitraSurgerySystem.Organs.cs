@@ -10,15 +10,15 @@ public sealed partial class OrbitraSurgerySystem
     private bool CanOperateOnOrgan(EntityUid patient, SurgeryOrgan kind, SurgeryProcedure procedure)
     {
         if (!HasComp<OrbitraHumanOrganPatientComponent>(patient) || !Enum.IsDefined(kind) ||
-            _anatomy.FindOrgan(patient, "Torso") is not { } torso ||
-            !TryComp<ParentOrganComponent>(torso, out var parent))
+            _anatomy.FindOrgan(patient, OrbitraOrganSystem.ZoneFor(kind).ToString()) is not { } region ||
+            !TryComp<ParentOrganComponent>(region, out var parent))
             return false;
 
         if (_organs.Installed(patient, kind) is not { } organ)
             return procedure == SurgeryProcedure.TransplantOrgan;
 
         return _organs.IsHumanOrgan(organ, kind) && Comp<OrganComponent>(organ).Body == patient &&
-            _relations.HasDirectChild((torso, parent), organ) && TryComp<ChildOrganComponent>(organ, out var child) && child.Parent == torso &&
+            _relations.HasDirectChild((region, parent), organ) && TryComp<ChildOrganComponent>(organ, out var child) && child.Parent == region &&
             OrbitraOrganSystem.Indicated(procedure, Comp<OrbitraOrganComponent>(organ).Condition);
     }
 
@@ -34,11 +34,11 @@ public sealed partial class OrbitraSurgerySystem
 
         if (procedure == SurgeryProcedure.TransplantOrgan)
         {
-            if (!_organs.IsDonor(tool, kind) || _anatomy.FindOrgan(patient, "Torso") is not { } torso ||
+            if (!_organs.IsDonor(tool, kind) || _anatomy.FindOrgan(patient, OrbitraOrganSystem.ZoneFor(kind).ToString()) is not { } region ||
                 !_containers.Insert(tool, body))
                 return false;
 
-            _relations.Relate(torso, tool);
+            _relations.Relate(region, tool);
             return true;
         }
 

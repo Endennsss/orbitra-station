@@ -7,6 +7,7 @@ using Content.Server.Station.Systems;
 using Content.Shared._Orbitra.Surgery;
 using Content.Shared.Buckle;
 using Content.Shared.Hands.EntitySystems;
+using Content.Shared.Interaction;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
@@ -58,7 +59,9 @@ public sealed partial class OrbitraSurgeryDevTest : GameTest
         await Pair.RunTicksSync(12);
         await Server.WaitPost(() => Assert.That(serverUi.TryOpenUi(table, key, surgeon), Is.True));
         await Pair.RunTicksSync(10);
+        await Operate(SurgeryZone.LeftLeg, SurgeryProcedure.OpenAccess, SurgeryInjury.None);
         await Operate(SurgeryZone.LeftLeg, SurgeryProcedure.Fracture, SurgeryInjury.Fracture);
+        await Operate(SurgeryZone.Torso, SurgeryProcedure.OpenAccess, SurgeryInjury.None);
         await Operate(SurgeryZone.Torso, SurgeryProcedure.InternalBleeding, SurgeryInjury.InternalBleeding);
         await Operate(SurgeryZone.Torso, SurgeryProcedure.Shrapnel, SurgeryInjury.Shrapnel);
         await Server.WaitAssertion(() =>
@@ -72,6 +75,7 @@ public sealed partial class OrbitraSurgeryDevTest : GameTest
             }
             Assert.That(fragments, Is.EqualTo(1));
         });
+        await Operate(SurgeryZone.LeftArm, SurgeryProcedure.OpenAccess, SurgeryInjury.None);
         await Operate(SurgeryZone.LeftArm, SurgeryProcedure.Amputate, SurgeryInjury.None);
         await Server.WaitAssertion(() =>
         {
@@ -93,7 +97,15 @@ public sealed partial class OrbitraSurgeryDevTest : GameTest
 
         async Task Operate(SurgeryZone zone, SurgeryProcedure procedure, SurgeryInjury indication)
         {
-            var tools = OrbitraSurgerySteps.Get(procedure);
+            var tools = OrbitraSurgerySteps.Get(SProtoMan, procedure, zone);
+            await Client.WaitPost(() => Client.System<SharedUserInterfaceSystem>().ClientSendUiMessage(
+                CEntMan.GetEntity(netTable), key, new OrbitraSurgeryStepMessage(netPatient, zone, procedure, 0, true)));
+            await Pair.RunTicksSync(6);
+            await Server.WaitAssertion(() =>
+            {
+                Assert.That(SEntMan.GetComponent<OrbitraSurgerySelectionComponent>(surgeon).Procedure, Is.EqualTo(procedure));
+                Assert.That(SEntMan.HasComponent<Content.Server._Orbitra.Surgery.OrbitraSurgeryOperationComponent>(patient), Is.False);
+            });
             for (var step = 0; step < tools.Length; step++)
             {
                 await Server.WaitPost(() =>
@@ -111,8 +123,12 @@ public sealed partial class OrbitraSurgeryDevTest : GameTest
                     Assert.That(hands.TryPickup(surgeon, item), Is.True);
                 });
                 await Pair.RunTicksSync(6);
-                await Client.WaitPost(() => Client.System<SharedUserInterfaceSystem>().ClientSendUiMessage(
-                    CEntMan.GetEntity(netTable), key, new OrbitraSurgeryStepMessage(netPatient, zone, procedure, step, true)));
+                await Server.WaitAssertion(() =>
+                {
+                    var coords = SComp<TransformComponent>(patient).Coordinates;
+                    Assert.That(Server.System<SharedInteractionSystem>().InteractUsing(surgeon,
+                        hands.GetActiveItem(surgeon)!.Value, patient, coords), Is.True);
+                });
                 await Pair.RunTicksSync(6);
                 var ticks = 0;
                 await Server.WaitAssertion(() =>

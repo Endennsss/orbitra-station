@@ -38,8 +38,14 @@ public sealed partial class OrbitraTraumaDressingDoAfterEvent : DoAfterEvent
 {
     [DataField] public SurgeryZone Zone;
 
-    public override DoAfterEvent Clone() => new OrbitraTraumaDressingDoAfterEvent { Zone = Zone };
+    [DataField] public bool Incision;
+
+    public override DoAfterEvent Clone() => new OrbitraTraumaDressingDoAfterEvent { Zone = Zone, Incision = Incision };
 }
 
 [ByRefEvent]
 public record struct OrbitraHandActionDelayEvent(float Multiplier);
+
+/// <summary>Длительность одной вспышки, которая прошла защиту и ослепила пациента.</summary>
+[ByRefEvent]
+public readonly record struct OrbitraFlashExposureEvent(TimeSpan Duration);

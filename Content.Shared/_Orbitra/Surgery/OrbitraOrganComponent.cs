@@ -1,3 +1,4 @@
+using Content.Shared.FixedPoint;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
@@ -6,7 +7,7 @@ namespace Content.Shared._Orbitra.Surgery;
 [Serializable, NetSerializable]
 public enum SurgeryOrgan : byte
 {
-    Heart, Lungs, Liver,
+    Heart, Lungs, Liver, Kidneys, Stomach, Eyes, Ears,
 }
 
 [Serializable, NetSerializable]
@@ -27,6 +28,10 @@ public sealed partial class OrbitraOrganComponent : Component
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class OrbitraHumanOrganPatientComponent : Component
 {
+    [AutoNetworkedField] public SurgeryOrganCondition Eyes;
+    /// <summary>Невылеченный проникающий урон от пуль с последней травмы органа и порог следующей травмы.</summary>
+    [DataField] public FixedPoint2 BallisticDamage;
+    [DataField] public FixedPoint2 BallisticOrganThreshold;
     [DataField, AutoNetworkedField] public float DamagedHeartRecovery = 0.45f;
     [DataField, AutoNetworkedField] public float FailedHeartBloodLoss = 2f;
     [DataField, AutoNetworkedField] public float DamagedBreathFraction = 0.8f;

@@ -2,62 +2,91 @@
                       xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
                       xmlns:orbitra="clr-namespace:Content.Client._Orbitra.UserInterface"
                       xmlns:surgery="clr-namespace:Content.Client._Orbitra.Surgery"
-                      Title="{Loc 'orbitra-surgery-title'}" MinSize="330 320" SetSize="780 640" StyleClasses="OrbitraEditorLayout">
-    <BoxContainer Orientation="Vertical" SeparationOverride="8" VerticalExpand="True" HorizontalExpand="True">
-        <PanelContainer StyleClasses="OrbitraWindowHeader">
-            <BoxContainer Orientation="Vertical" SeparationOverride="2" Margin="12 6">
-                <Label Name="PatientName" StyleClasses="LabelHeading" ClipText="True"/>
-                <Label Name="PatientSummary" StyleClasses="LabelSubText" ClipText="True"/>
-                <RichTextLabel Name="PatientMonitor" Visible="False" HorizontalExpand="True"/>
+                      Title="{Loc 'orbitra-surgery-title'}" MinSize="310 280">
+    <BoxContainer Orientation="Vertical" SeparationOverride="6" VerticalExpand="True" HorizontalExpand="True">
+        <PanelContainer StyleClasses="OrbitraSurgeryPatient">
+            <BoxContainer Orientation="Vertical" Margin="9 5" SeparationOverride="3">
+                <BoxContainer SeparationOverride="9">
+                    <PanelContainer Name="PortraitPanel" StyleClasses="OrbitraSurgeryInset" VerticalAlignment="Center">
+                        <SpriteView Name="PatientPortrait" SetSize="42 42" Stretch="Fill" OverrideDirection="South"/>
+                    </PanelContainer>
+                    <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalAlignment="Center" SeparationOverride="0">
+                        <Label Name="PatientName" StyleClasses="OrbitraSurgeryTitle" ClipText="True" HorizontalExpand="True"/>
+                        <Label Name="PatientSummary" StyleClasses="OrbitraSurgeryCaption" ClipText="True"/>
+                    </BoxContainer>
+                    <orbitra:OrbitraButton Name="CollapseButton" VerticalAlignment="Center" Text="{Loc 'orbitra-surgery-collapse'}"/>
+                </BoxContainer>
+                <BoxContainer Name="MonitorPanel" Visible="False">
+                    <RichTextLabel Name="PatientMonitor" Visible="False" HorizontalExpand="True"/>
+                </BoxContainer>
             </BoxContainer>
         </PanelContainer>
-        <ScrollContainer HScrollEnabled="False" ReserveScrollbarSpace="True" HorizontalExpand="True" VerticalExpand="True">
-            <BoxContainer Name="Columns" SeparationOverride="10" HorizontalExpand="True" VerticalAlignment="Top">
-                <PanelContainer Name="MapPanel" StyleClasses="OrbitraWindowSurface" SetWidth="320" VerticalAlignment="Top">
-                    <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="6">
-                        <Label Text="{Loc 'orbitra-surgery-map'}" StyleClasses="LabelHeading"/>
-                        <surgery:OrbitraSurgeryBodyMap Name="BodyMap" SetHeight="204" HorizontalExpand="True"/>
+        <ScrollContainer Name="Details" HScrollEnabled="False" ReserveScrollbarSpace="True" HorizontalExpand="True" VerticalExpand="True">
+            <BoxContainer Name="Columns" SeparationOverride="8" HorizontalExpand="True" VerticalAlignment="Top">
+                <PanelContainer Name="MapPanel" StyleClasses="OrbitraWindowSurface" VerticalAlignment="Top">
+                    <BoxContainer Orientation="Vertical" SeparationOverride="5" Margin="7">
+                        <Label Text="{Loc 'orbitra-surgery-map'}" StyleClasses="OrbitraSurgerySection"/>
+                        <Control SetHeight="158">
+                            <surgery:OrbitraSurgeryBodyMap Name="BodyMap" HorizontalExpand="True" VerticalExpand="True"/>
+                            <Label Text="{Loc 'orbitra-surgery-map-right'}" StyleClasses="OrbitraSurgeryCaption"
+                                   Margin="8 4" HorizontalAlignment="Left" VerticalAlignment="Top" MouseFilter="Ignore"/>
+                            <Label Text="{Loc 'orbitra-surgery-map-left'}" StyleClasses="OrbitraSurgeryCaption"
+                                   Margin="8 4" HorizontalAlignment="Right" VerticalAlignment="Top" MouseFilter="Ignore"/>
+                        </Control>
                         <GridContainer Name="ZoneButtons" Columns="2" HSeparationOverride="4" VSeparationOverride="3" HorizontalExpand="True"/>
                     </BoxContainer>
                 </PanelContainer>
-                <PanelContainer StyleClasses="OrbitraWindowSurface" HorizontalExpand="True" VerticalAlignment="Top">
-                    <BoxContainer Orientation="Vertical" Margin="12 10" HorizontalExpand="True" SeparationOverride="8">
-                        <Label Name="ZoneName" StyleClasses="LabelHeading" ClipText="True"/>
-                        <BoxContainer Name="Diagnoses" Orientation="Vertical" SeparationOverride="2"/>
-                        <BoxContainer Name="OrganButtons" Orientation="Vertical" SeparationOverride="3" Visible="False"/>
-                        <BoxContainer Name="ProcedurePanel" Orientation="Vertical" SeparationOverride="4" Visible="False">
-                            <Label Text="{Loc 'orbitra-surgery-procedure'}" StyleClasses="LabelSubText"/>
-                            <BoxContainer Name="ProcedureButtons" Orientation="Vertical" SeparationOverride="3"/>
+                <PanelContainer Name="ChartPanel" StyleClasses="OrbitraWindowSurface" HorizontalExpand="True" VerticalAlignment="Top">
+                    <BoxContainer Name="ChartContents" Orientation="Vertical" HorizontalExpand="True" SeparationOverride="5" Margin="9 7">
+                        <BoxContainer SeparationOverride="6">
+                            <Label Name="ZoneName" StyleClasses="OrbitraSurgerySection" ClipText="True" HorizontalExpand="True"/>
+                            <Label Name="AccessName" StyleClasses="OrbitraSurgeryCaption" Visible="False"/>
                         </BoxContainer>
-                        <BoxContainer Name="StepPanel" Orientation="Vertical" SeparationOverride="6" Visible="False">
-                            <Label Name="StepNumber" StyleClasses="LabelSubText"/>
-                            <RichTextLabel Name="StepName" HorizontalExpand="True"/>
-                            <BoxContainer SeparationOverride="8">
-                                <TextureRect Name="RequiredIcon" SetSize="38 38" Stretch="KeepAspectCentered"/>
-                                <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="0">
-                                    <Label Text="{Loc 'orbitra-surgery-required'}" StyleClasses="LabelSubText"/>
-                                    <RichTextLabel Name="RequiredTool" HorizontalExpand="True"/>
-                                </BoxContainer>
-                            </BoxContainer>
+                        <BoxContainer Name="Diagnoses" Orientation="Vertical" SeparationOverride="3"/>
+                        <RichTextLabel Name="EvidenceHint" Visible="False" HorizontalExpand="True"/>
+                        <BoxContainer Name="ProcedurePanel" Orientation="Vertical" SeparationOverride="3" Visible="False">
+                            <Label Text="{Loc 'orbitra-surgery-procedure'}" StyleClasses="OrbitraSurgeryCaption"/>
+                            <BoxContainer Name="ProcedureButtons" Orientation="Vertical" SeparationOverride="2"/>
                         </BoxContainer>
-                        <BoxContainer SeparationOverride="8">
-                            <SpriteView Name="HandIcon" SetSize="38 38" Stretch="Fill" OverrideDirection="South"/>
-                            <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="0">
-                                <Label Text="{Loc 'orbitra-surgery-in-hand'}" StyleClasses="LabelSubText"/>
-                                <RichTextLabel Name="HeldTool" HorizontalExpand="True"/>
-                            </BoxContainer>
+                        <BoxContainer Name="OrganPanel" Orientation="Vertical" Visible="False" SeparationOverride="3">
+                            <Label Text="{Loc 'orbitra-surgery-organs'}" StyleClasses="OrbitraSurgeryCaption"/>
+                            <BoxContainer Name="OrganButtons" Orientation="Vertical" SeparationOverride="2"/>
                         </BoxContainer>
                     </BoxContainer>
                 </PanelContainer>
             </BoxContainer>
         </ScrollContainer>
-        <BoxContainer Orientation="Vertical" SeparationOverride="4">
-            <RichTextLabel Name="Status" SetHeight="42" HorizontalExpand="True"/>
-            <ProgressBar Name="Progress" MinValue="0" MaxValue="1" SetHeight="8" HorizontalExpand="True"/>
-            <BoxContainer SeparationOverride="6">
-                <orbitra:OrbitraButton Name="CancelButton" Text="{Loc 'orbitra-surgery-cancel'}" Visible="False" ClipText="True"/>
-                <orbitra:OrbitraButton Name="ActionButton" Text="{Loc 'orbitra-surgery-start-step'}" Disabled="True" HorizontalExpand="True" ClipText="True"/>
+        <PanelContainer StyleClasses="OrbitraSurgeryWork">
+            <BoxContainer Orientation="Vertical" Margin="9 5" SeparationOverride="3">
+                <RichTextLabel Name="SelectionSummary" HorizontalExpand="True" Visible="False"/>
+                <BoxContainer Name="Instruments" SeparationOverride="8">
+                    <BoxContainer Name="StepPanel" SeparationOverride="7" HorizontalExpand="True" Visible="False">
+                        <PanelContainer StyleClasses="OrbitraSurgeryInset" VerticalAlignment="Center">
+                            <TextureRect Name="RequiredIcon" SetSize="38 38" Stretch="KeepAspectCentered"/>
+                        </PanelContainer>
+                        <BoxContainer Orientation="Vertical" VerticalAlignment="Center" HorizontalExpand="True" SeparationOverride="0">
+                            <Label Name="StepNumber" StyleClasses="OrbitraSurgeryCaption"/>
+                            <RichTextLabel Name="StepName" StyleClasses="OrbitraSurgeryAction" HorizontalExpand="True"/>
+                            <RichTextLabel Name="RequiredTool" HorizontalExpand="True"/>
+                        </BoxContainer>
+                    </BoxContainer>
+                    <BoxContainer Name="HandPanel" SeparationOverride="6" VerticalAlignment="Center">
+                        <PanelContainer StyleClasses="OrbitraSurgeryInset" VerticalAlignment="Center">
+                            <SpriteView Name="HandIcon" SetSize="32 32" Stretch="Fill" OverrideDirection="South"/>
+                        </PanelContainer>
+                        <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalAlignment="Center" SeparationOverride="0">
+                            <Label Text="{Loc 'orbitra-surgery-in-hand'}" StyleClasses="OrbitraSurgeryCaption"/>
+                            <RichTextLabel Name="HeldTool" HorizontalExpand="True"/>
+                        </BoxContainer>
+                    </BoxContainer>
+                </BoxContainer>
+                <ProgressBar Name="Progress" MinValue="0" MaxValue="1" SetHeight="5" HorizontalExpand="True" Visible="False"/>
+                <RichTextLabel Name="Status" HorizontalExpand="True"/>
+                <BoxContainer Name="ActionButtons" Visible="False" SeparationOverride="4">
+                    <orbitra:OrbitraButton Name="CancelButton" Text="{Loc 'orbitra-surgery-cancel'}" Visible="False"/>
+                    <orbitra:OrbitraButton Name="ConfirmButton" StyleClasses="OrbitraButtonDanger" HorizontalExpand="True" Visible="False"/>
+                </BoxContainer>
             </BoxContainer>
-        </BoxContainer>
+        </PanelContainer>
     </BoxContainer>
 </controls:FancyWindow>

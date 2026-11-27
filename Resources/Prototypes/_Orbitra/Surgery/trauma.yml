@@ -2,34 +2,49 @@
   id: OrbitraHumanoidTrauma
   fracture:
     threshold: 28
-    chance: 0.35
+    chance: 0.45
   internalBleeding:
     threshold: 36
-    chance: 0.22
+    chance: 0.30
   shrapnel:
-    threshold: 22
-    chance: 0.35
+    threshold: 8
+    chance: 0.45
   dismemberment:
     threshold: 85
     chance: 0.04
   organInjury:
-    threshold: 40
-    chance: 0.25
+    threshold: 30
+    chance: 0.40
   organFailure:
-    threshold: 70
-    chance: 0.06
+    threshold: 60
+    chance: 0.10
+  maxBallisticOrganThreshold: 64
+  torsoOrganWeight: 80
+  headOrganWeight: 20
+  explosionEarChance: 0.50
+  flashEyeDuration: 4
+  flashEyeChance: 0.20
   fragmentProjectiles:
   - BulletPistol
+  - BulletPistolIncendiary
+  - BulletPistolUranium
   - BulletMagnum
   - BulletMagnumAP
   - BulletMagnumIncendiary
   - BulletMagnumUranium
   - BulletRifle
+  - BulletRifleIncendiary
+  - BulletRifleUranium
   - BulletHeavyRifle
   - BulletLightRifle
+  - BulletLightRifleIncendiary
+  - BulletLightRifleUranium
   - BulletCaselessRifle
   - BulletAntiMateriel
   - PelletShotgun
+  - PelletShotgunIncendiary
+  - PelletShotgunUranium
+  - PelletShotgunImprovised
   - PelletShotgunSlug
   - PelletGrapeshot
   - PelletClusterLethal
@@ -41,6 +56,7 @@
   dismemberBloodLoss: 12
   dismemberBleedRate: 2.5
   bloodLoss: 3
+  incisionBloodLoss: 2
   bandagedBloodLoss: 1
   fragmentDamage:
     types:

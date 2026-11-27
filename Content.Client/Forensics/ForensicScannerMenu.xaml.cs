@@ -33,6 +33,7 @@ public sealed partial class ForensicScannerMenu : DefaultWindow
 
     public void Update(ForensicScannerComponent scanner)
     {
+        UpdateFragmentHint(scanner); // Orbitra-Edit
         if (string.IsNullOrEmpty(scanner.LastScannedName))
         {
             Print.Disabled = true;

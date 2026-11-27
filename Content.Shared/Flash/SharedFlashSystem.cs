@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared._Orbitra.Surgery; // Orbitra-Edit - травмы глаз после вспышки.
 using Content.Shared.Charges.Components;
 using Content.Shared.Charges.Systems;
 using Content.Shared.Clothing.Components;
@@ -227,6 +228,11 @@ public abstract partial class SharedFlashSystem : EntitySystem
         // don't paralyze, slowdown or convert to rev if the target is immune to flashes
         if (!_statusEffectsSystem.TryAddStatusEffectDuration(target, FlashedKey, flashDuration))
             return;
+
+        // Orbitra added start - сообщаем только пострадавшему о длительности этой вспышки.
+        var exposure = new OrbitraFlashExposureEvent(flashDuration);
+        RaiseLocalEvent(target, ref exposure);
+        // Orbitra added end
 
         if (stunDuration != null)
             _stun.TryUpdateParalyzeDuration(target, stunDuration.Value);

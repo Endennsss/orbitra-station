@@ -1,34 +1,38 @@
+using Robust.Shared.Prototypes;
+
 namespace Content.Shared._Orbitra.Surgery;
 
-/// <summary>Последовательности игровых инструментов общие для подсказок окна и проверки на сервере.</summary>
+/// <summary>Одни и те же инструменты и переходы доступа используют окно стола и серверный обработчик взаимодействия.</summary>
+[Prototype]
+public sealed partial class OrbitraSurgeryProfilePrototype : IPrototype
+{
+    [IdDataField] public string ID { get; private set; } = default!;
+    [DataField(required: true)] public Dictionary<SurgeryProcedure, string[]> Steps = new();
+    [DataField(required: true)] public string[] SurfaceAccess = [];
+    [DataField(required: true)] public Dictionary<string, SurgeryAccess> OpensTo = new();
+}
+
 public static class OrbitraSurgerySteps
 {
-    private static readonly string[] Fracture = ["Retractor", "OrbitraBoneSetter", "Cautery"];
-    private static readonly string[] InternalBleeding = ["Scalpel", "Hemostat", "Cautery"];
-    private static readonly string[] Shrapnel = ["Retractor", "Hemostat", "Cautery"];
-    private static readonly string[] Amputate = ["Scalpel", "Saw", "Cautery"];
-    public const string Prosthesis = "Prosthesis";
-    private static readonly string[] InstallProsthesis = ["Drill", Prosthesis];
-    private static readonly string[] RemoveProsthesis = ["Retractor", "Drill"];
-    private static readonly string[] Reattach = ["Hemostat", "DetachedBody"];
-
     public const string DonorOrgan = "DonorOrgan";
-    private static readonly string[] RepairOrgan = ["Scalpel", "Hemostat", "Cautery"];
-    private static readonly string[] ExtractOrgan = ["Scalpel", "Retractor", "Hemostat"];
-    private static readonly string[] TransplantOrgan = ["Retractor", "Hemostat", DonorOrgan];
+    public const string Prosthesis = "Prosthesis";
+    public static readonly ProtoId<OrbitraSurgeryProfilePrototype> Profile = "OrbitraStandardSurgery";
 
-    public static string[] Get(SurgeryProcedure procedure) => procedure switch
+    public static string[] Get(IPrototypeManager prototypes, SurgeryProcedure procedure, SurgeryZone zone)
     {
-        SurgeryProcedure.RepairOrgan => RepairOrgan,
-        SurgeryProcedure.ExtractOrgan => ExtractOrgan,
-        SurgeryProcedure.TransplantOrgan => TransplantOrgan,
-        SurgeryProcedure.Fracture => Fracture,
-        SurgeryProcedure.InternalBleeding => InternalBleeding,
-        SurgeryProcedure.Shrapnel => Shrapnel,
-        SurgeryProcedure.Amputate => Amputate,
-        SurgeryProcedure.Reattach => Reattach,
-        SurgeryProcedure.InstallProsthesis => InstallProsthesis,
-        SurgeryProcedure.RemoveProsthesis => RemoveProsthesis,
-        _ => [],
+        var profile = prototypes.Index(Profile);
+        if (procedure == SurgeryProcedure.OpenAccess && zone == SurgeryZone.Head)
+            return profile.SurfaceAccess;
+
+        return profile.Steps.TryGetValue(procedure, out var steps) ? steps : [];
+    }
+
+    public static bool Allows(SurgeryProcedure procedure, SurgeryAccess access, bool dressed) => procedure switch
+    {
+        SurgeryProcedure.OpenAccess => access != SurgeryAccess.Open,
+        SurgeryProcedure.CloseAccess => access != SurgeryAccess.Closed,
+        SurgeryProcedure.DressAccess => access != SurgeryAccess.Closed && !dressed,
+        SurgeryProcedure.Reattach or SurgeryProcedure.InstallProsthesis or SurgeryProcedure.RemoveProsthesis => true,
+        _ => access == SurgeryAccess.Open,
     };
 }

@@ -72,6 +72,11 @@ public sealed partial class ChatSystem
             if (entRange == MessageRangeCheckResult.Disallowed)
                 continue;
             var entHideChat = entRange == MessageRangeCheckResult.HideChat;
+            // Orbitra added start
+            if (channel == ChatChannel.Local &&
+                HandleImpairedHearing(GetSpeechReception(channel, source, session.AttachedEntity, data), channel, source, entHideChat, session))
+                continue;
+            // Orbitra added end
             _chatManager.ChatMessageToOne(channel, message, wrappedMessage, source, entHideChat, session.Channel, author: author);
         }
 

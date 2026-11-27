@@ -90,7 +90,7 @@ public sealed partial class HealthAnalyzerControl
 
         if (state.OrbitraTrauma is { } zones)
         {
-            AnalyzerAnatomy.SetReadings(zones, state.OrbitraOrgans, uid);
+            AnalyzerAnatomy.SetReadings(state, uid);
             _internalBleeding = (zones.GetValueOrDefault(SurgeryZone.Torso) & SurgeryInjury.InternalBleeding) != 0;
             _heart = state.OrbitraOrgans?.GetValueOrDefault(SurgeryOrgan.Heart) ?? SurgeryOrganCondition.Healthy;
             _lungs = state.OrbitraOrgans?.GetValueOrDefault(SurgeryOrgan.Lungs) ?? SurgeryOrganCondition.Healthy;

@@ -71,7 +71,7 @@ public sealed partial class MetabolizerSystem : EntitySystem
                 continue;
 
             // Orbitra edit start
-            var interval = _orbitraOrgans.LiverInterval(uid);
+            var interval = _orbitraOrgans.MetabolismInterval(uid);
             comp.NextUpdate += comp.AdjustedUpdateInterval * Math.Max(1f, interval);
             if (interval > 0f)
                 TryMetabolize((uid, comp));
@@ -269,6 +269,8 @@ public sealed partial class MetabolizerSystem : EntitySystem
     {
         _organQuery.Resolve(ent, ref ent.Comp2, logMissing: false);
         _solutionQuery.Resolve(ent, ref ent.Comp3, logMissing: false);
+
+        _orbitraOrgans.FilterKidneyMetabolites(ent, ent.Comp2?.Body); // Orbitra-Edit
 
         foreach (var stage in ent.Comp1.Stages)
         {

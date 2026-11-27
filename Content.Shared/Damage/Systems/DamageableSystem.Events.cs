@@ -241,7 +241,7 @@ public sealed partial class DamageableSystem
         }
 
         if (!damageDone.Empty)
-            OnEntityDamageChanged((ent, damageable), damageDone, args.InterruptsDoAfters, args.Origin);
+            OnEntityDamageChanged((ent, damageable), damageDone, args.InterruptsDoAfters, args.Origin, args.IsExplosion, args.Projectile); // Orbitra-Edit
     }
 }
 
@@ -291,11 +291,18 @@ public sealed class DamageModifyEvent(DamageSpecifier damage, EntityUid? origin 
 /// <param name="Origin">The originator of the damage</param>
 /// <param name="InterruptsDoAfters">If the damage being dealt will interrupt do-afters</param>
 [ByRefEvent]
-public readonly record struct DamageDealtEvent(DamageSpecifier Damage, EntityUid? Origin, bool InterruptsDoAfters);
+public readonly record struct DamageDealtEvent(DamageSpecifier Damage, EntityUid? Origin, bool InterruptsDoAfters)
+{
+    public bool IsExplosion { get; init; } // Orbitra-Edit - причина именно этого попадания.
+    public EntityUid? Projectile { get; init; } // Orbitra-Edit
+}
 
 [Obsolete("Will be replaced with damage-model specific events; general 'took damage' can be served by DamageDealtEvent")]
 public sealed class DamageChangedEvent : EntityEventArgs
 {
+    public bool IsExplosion { get; init; } // Orbitra-Edit - причина разового изменения урона.
+    public EntityUid? Projectile { get; init; } // Orbitra-Edit
+
     /// <summary>
     ///     This is the component whose damage was changed.
     /// </summary>

@@ -101,6 +101,7 @@ public sealed class OrbitraSurgeryTableTest : GameTest
             Assert.That(Server.System<SharedUserInterfaceSystem>().TryOpenUi(table, OrbitraSurgeryUiKey.Key, doctor), Is.True);
             Assert.That(hands.TryPickup(doctor, retractor), Is.True);
             tags.AddTag(doctor, InstantDoAfters);
+            SEntMan.EnsureComponent<OrbitraSurgicalAccessComponent>(patient).Zones[zone] = SurgeryAccess.Open;
             Assert.That(surgery.TryStartStep(table, doctor, patient, zone, SurgeryProcedure.Fracture, 0, false), Is.True);
             tags.RemoveTag(doctor, InstantDoAfters);
             Assert.That(hands.TryDrop(doctor, retractor), Is.True);

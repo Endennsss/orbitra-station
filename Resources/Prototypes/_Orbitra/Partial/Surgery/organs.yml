@@ -22,6 +22,30 @@
     kind: Liver
 
 - type: !PartialOnly entity
+  id: OrganHumanKidneys
+  components:
+  - type: OrbitraOrgan
+    kind: Kidneys
+
+- type: !PartialOnly entity
+  id: OrganHumanStomach
+  components:
+  - type: OrbitraOrgan
+    kind: Stomach
+
+- type: !PartialOnly entity
+  id: OrganHumanEyes
+  components:
+  - type: OrbitraOrgan
+    kind: Eyes
+
+- type: !PartialOnly entity
+  id: OrganHumanEars
+  components:
+  - type: OrbitraOrgan
+    kind: Ears
+
+- type: !PartialOnly entity
   id: MedicalTechFab
   components:
   - type: Lathe
