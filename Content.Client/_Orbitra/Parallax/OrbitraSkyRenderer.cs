@@ -11,7 +11,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Client._Orbitra.Parallax;
 
-internal sealed class OrbitraSkyRenderer : IDisposable
+internal sealed class OrbitraSkyRenderer(bool dockingBackground = false) : IDisposable
 {
     private static readonly ProtoId<ShaderPrototype> ShaderId = "OrbitraProceduralSky";
 
@@ -23,6 +23,7 @@ internal sealed class OrbitraSkyRenderer : IDisposable
 
     private ShaderInstance? _shader;
     private bool _unavailable;
+    private TimeSpan _firstFrame;
 
     public bool TryDrawWorld(in OverlayDrawArgs args, Vector2 cameraPosition, float warpSpeed)
     {
@@ -72,6 +73,8 @@ internal sealed class OrbitraSkyRenderer : IDisposable
             try
             {
                 _shader = prototype.InstanceUnique();
+                _shader.SetParameter("docking_background", dockingBackground);
+                _firstFrame = _timing.RealTime;
             }
             catch (Exception exception)
             {
@@ -86,7 +89,8 @@ internal sealed class OrbitraSkyRenderer : IDisposable
         var drift = motion / (Vector2.One + Vector2.Abs(motion));
         var reducedMotion = _configuration.GetCVar(CCVars.ReducedMotion);
         var now = _timing.RealTime;
-        var time = reducedMotion ? 0f : (float) now.TotalSeconds;
+        var phase = dockingBackground ? now - _firstFrame : now;
+        var time = reducedMotion ? 0f : (float) phase.TotalSeconds;
         if (reducedMotion)
             warpSpeed = 0f;
 

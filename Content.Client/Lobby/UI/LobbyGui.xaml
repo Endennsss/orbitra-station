@@ -1,5 +1,6 @@
 <lobbyUi:LobbyGui xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface" xmlns="https://spacestation14.io"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:atlas="clr-namespace:Content.Client._Orbitra.Lobby.Roadmap"
     xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
     xmlns:vote="clr-namespace:Content.Client.Voting.UI"
     xmlns:lobbyUi="clr-namespace:Content.Client.Lobby.UI"
@@ -16,6 +17,7 @@
                 <Label Name="Brand" Text="ORBITRA" StyleClasses="OrbitraLobbyHeading" VerticalAlignment="Center" />
                 <Label Name="ServerName" Access="Public" HorizontalExpand="True" ClipText="True"
                        StyleClasses="OrbitraLobbyMuted" VerticalAlignment="Center" />
+                <atlas:OrbitraAtlasButton Name="AtlasButton" />
                 <orbitra:OrbitraLobbyButton Name="InfoToggle" Text="{Loc 'orbitra-lobby-information'}" StyleClasses="OrbitraLobbyButton" Visible="False" />
                 <orbitra:OrbitraLobbyButton Name="ChatToggle" Text="{Loc 'orbitra-lobby-chat'}" StyleClasses="OrbitraLobbyButton" Visible="False" />
                 <orbitra:OrbitraLobbyButton Name="AHelpButton" Access="Public" Text="{Loc 'ui-lobby-ahelp-button'}" StyleClasses="OrbitraLobbyButton" />

@@ -1,6 +1,7 @@
 using Content.Client._Orbitra.Shaders.Bloom;
 using Content.Client.Options.UI;
 using Content.Shared._Orbitra.Graphics;
+using Robust.Shared.Configuration;
 
 #pragma warning disable IDE0130 // Расширение ванильной вкладки из папки Orbitra.
 namespace Content.Client.Options.UI.Tabs;
@@ -11,9 +12,24 @@ public sealed partial class GraphicsTab
 
     private void InitializeOrbitraBloomOptions()
     {
-        var enabled = Control.AddOptionCheckBox(OrbitraBloomCVars.Enabled, OrbitraBloomEnabledCheckBox);
-        var strength = Control.AddOptionPercentSlider(OrbitraBloomCVars.Strength, OrbitraBloomStrengthSlider);
-        var quality = Control.AddOptionDropDown(
+        var bloomOptions = new List<BaseOption>();
+        var tuning = OrbitraBloomTuning;
+
+        void Track<T>(BaseOptionCVar<T> option) where T : notnull
+        {
+            bloomOptions.Add(option);
+            option.ImmediateValueChanged += _ => UpdateOrbitraBloomOptions();
+        }
+
+        void AddPercentSlider(CVarDef<float> cVar, OptionSlider slider)
+        {
+            RoundOrbitraBloomSlider(slider);
+            Track(Control.AddOptionPercentSlider(cVar, slider));
+        }
+
+        Track(Control.AddOptionCheckBox(OrbitraBloomCVars.Enabled, OrbitraBloomEnabledCheckBox));
+        AddPercentSlider(OrbitraBloomCVars.Strength, OrbitraBloomStrengthSlider);
+        Track(Control.AddOptionDropDown(
             OrbitraBloomCVars.Quality,
             OrbitraBloomQualityDropDown,
             [
@@ -26,51 +42,65 @@ public sealed partial class GraphicsTab
                 new OptionDropDownCVar<string>.ValueOption(
                     OrbitraBloomCVars.QualityHigh,
                     Loc.GetString("orbitra-options-bloom-quality-high")),
-            ]);
+            ]));
 
-        OrbitraBloomStrengthSlider.Slider.Rounded = true;
-        OrbitraBloomStrengthSlider.Slider.RoundingDecimals = 2;
+        RoundOrbitraBloomSlider(tuning.Radius);
+        Track(Control.AddOption(new OptionSliderFloatCVar(Control, _cfg, OrbitraBloomCVars.Radius,
+            tuning.Radius, OrbitraBloomCVars.MinRadius, OrbitraBloomCVars.MaxRadius, 1f,
+            (_, value) => Loc.GetString("orbitra-options-bloom-radius-value", ("value", value)))));
+        AddPercentSlider(OrbitraBloomCVars.Softness, tuning.Softness);
+        AddPercentSlider(OrbitraBloomCVars.Threshold, tuning.Threshold);
+        AddPercentSlider(OrbitraBloomCVars.Saturation, tuning.Saturation);
 
-        enabled.ImmediateValueChanged += PreviewOrbitraBloomEnabled;
-        strength.ImmediateValueChanged += PreviewOrbitraBloomStrength;
-        quality.ImmediateValueChanged += PreviewOrbitraBloomQuality;
-        OrbitraBloomEnabledCheckBox.OnToggled += _ => UpdateOrbitraBloomVisibility();
-        Control.ValuesLoaded += UpdateOrbitraBloomVisibility;
+        tuning.ResetButton.OnPressed += _ =>
+        {
+            foreach (var option in bloomOptions)
+                option.ResetToDefault();
+
+            UpdateOrbitraBloomOptions();
+            Control.ValueChanged();
+        };
+        Control.ValuesLoaded += UpdateOrbitraBloomOptions;
     }
 
-    private void UpdateOrbitraBloomVisibility()
+    private static void RoundOrbitraBloomSlider(OptionSlider slider)
     {
-        OrbitraBloomStrengthSlider.Visible = OrbitraBloomEnabledCheckBox.Pressed;
-        OrbitraBloomQualityDropDown.Visible = OrbitraBloomEnabledCheckBox.Pressed;
+        slider.Slider.RoundingDecimals = 2;
+        slider.Slider.Rounded = true;
     }
 
-    private void PreviewOrbitraBloomEnabled(bool enabled)
+    private void UpdateOrbitraBloomOptions()
     {
-        if (_entityManager.TrySystem<OrbitraLightBloomSystem>(out var bloom))
-            bloom.PreviewEnabled(enabled);
-    }
+        var enabled = OrbitraBloomEnabledCheckBox.Pressed;
+        OrbitraBloomStrengthSlider.Visible = enabled;
+        OrbitraBloomQualityDropDown.Visible = enabled;
 
-    private void PreviewOrbitraBloomStrength(float strength)
-    {
-        if (_entityManager.TrySystem<OrbitraLightBloomSystem>(out var bloom))
-            bloom.PreviewStrength(strength);
-    }
+        if (!IsInsideTree || !_entityManager.TrySystem<OrbitraLightBloomSystem>(out var bloom))
+            return;
 
-    private void PreviewOrbitraBloomQuality(string quality)
-    {
-        if (_entityManager.TrySystem<OrbitraLightBloomSystem>(out var bloom))
+        // Загрузка и сброс меняют флажок и список качества без события пользовательского ввода.
+        bloom.PreviewEnabled(enabled);
+        bloom.PreviewStrength(OrbitraBloomStrengthSlider.Slider.Value);
+        if (OrbitraBloomQualityDropDown.Button.SelectedMetadata is string quality)
             bloom.PreviewQuality(quality);
+        bloom.PreviewRadius(OrbitraBloomTuning.Radius.Slider.Value);
+        bloom.PreviewSoftness(OrbitraBloomTuning.Softness.Slider.Value);
+        bloom.PreviewThreshold(OrbitraBloomTuning.Threshold.Slider.Value);
+        bloom.PreviewSaturation(OrbitraBloomTuning.Saturation.Slider.Value);
+    }
+
+    protected override void ExitedTree()
+    {
+        if (_entityManager.TrySystem<OrbitraLightBloomSystem>(out var bloom))
+            bloom.RestoreConfiguredSettings();
+
+        base.ExitedTree();
     }
 
     protected override void Dispose(bool disposing)
     {
         if (disposing)
-        {
             RestoreOrbitraParticleOptions();
-            PreviewOrbitraBloomEnabled(_cfg.GetCVar(OrbitraBloomCVars.Enabled));
-            PreviewOrbitraBloomStrength(_cfg.GetCVar(OrbitraBloomCVars.Strength));
-            PreviewOrbitraBloomQuality(_cfg.GetCVar(OrbitraBloomCVars.Quality));
-        }
 
         base.Dispose(disposing);
     }

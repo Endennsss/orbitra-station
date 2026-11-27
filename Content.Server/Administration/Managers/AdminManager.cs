@@ -481,6 +481,12 @@ namespace Content.Server.Administration.Managers
                     }
                 }
 
+                // Orbitra added start
+                // Хост может выдавать право на атлас через штатное управление рангами.
+                if ((flags & AdminFlags.Host) != 0)
+                    flags |= AdminFlags.RoadmapEdit;
+                // Orbitra added end
+
                 var data = new AdminData
                 {
                     Flags = flags,

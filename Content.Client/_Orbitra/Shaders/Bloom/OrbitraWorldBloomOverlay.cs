@@ -19,9 +19,8 @@ namespace Content.Client._Orbitra.Shaders.Bloom;
 /// </summary>
 internal sealed partial class OrbitraWorldBloomOverlay : Overlay
 {
-    private const float BrightnessThreshold = 0.10f;
-    private const float SoftKnee = 0.05f;
-    internal const int TargetPadding = 18;
+    // Ограничение памяти для экстремального приближения админской камеры, в пикселях экрана.
+    private const float MaxScreenRadius = 128f;
 
     private static readonly ProtoId<ShaderPrototype> ExtractShader = "OrbitraWorldBloomExtract";
     private static readonly ProtoId<ShaderPrototype> BlurShader = "OrbitraBloomBlur";
@@ -56,6 +55,10 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
 
     public bool Enabled = true;
     public float Strength = 0.4f;
+    public float Radius = OrbitraBloomCVars.DefaultRadius;
+    public float Softness = OrbitraBloomCVars.DefaultSoftness;
+    public float Threshold = OrbitraBloomCVars.DefaultThreshold;
+    public float Saturation = OrbitraBloomCVars.DefaultSaturation;
     public OrbitraBloomQuality Quality = OrbitraBloomQuality.Medium;
 
     public OrbitraWorldBloomOverlay(IEntityManager entityManager)
@@ -69,8 +72,6 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
         _gridQuery = entityManager.GetEntityQuery<MapGridComponent>();
 
         _extract = _prototypeManager.Index(ExtractShader).InstanceUnique();
-        _extract.SetParameter("threshold", BrightnessThreshold);
-        _extract.SetParameter("soft_knee", SoftKnee);
         _downsample = _prototypeManager.Index(DownsampleShader).InstanceUnique();
         _blurHorizontal = _prototypeManager.Index(BlurShader).InstanceUnique();
         _blurVertical = _prototypeManager.Index(BlurShader).InstanceUnique();
@@ -112,21 +113,27 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
             return;
 
         var resources = _resources.GetForViewport(viewport, static _ => new CachedResources());
-        var divisor = Quality == OrbitraBloomQuality.High ? 2 : 4;
+        var (divisor, pairs) = Quality.GetFilter();
         var contentSize = Vector2i.ComponentMax(Vector2i.One, viewport.Size / divisor);
-        var targetSize = contentSize + new Vector2i(TargetPadding * 2, TargetPadding * 2);
+        var pixelsPerMeter = EyeManager.PixelsPerMeter * viewport.RenderScale / eye.Zoom;
+        var radius = CalculateBlurRadius(Radius, pixelsPerMeter, (Vector2) contentSize / (Vector2) viewport.Size);
+        var padding = GetBlurPadding(radius);
+        var targetSize = contentSize + new Vector2i(padding * 2, padding * 2);
         var handle = args.WorldHandle;
-        var worldToTarget = GetWorldToTargetMatrix(viewport.GetWorldToLocalMatrix(), viewport.Size, contentSize);
+        var worldToTarget = GetWorldToTargetMatrix(viewport.GetWorldToLocalMatrix(), viewport.Size, contentSize, padding);
         var oldTransform = handle.GetTransform();
         var oldShader = handle.GetShader();
-        var pixelsPerMeter = EyeManager.PixelsPerMeter * viewport.RenderScale / eye.Zoom *
-                             ((Vector2) contentSize / (Vector2) viewport.Size);
 
-        PrepareSprites(eye, viewport, worldToTarget, targetSize);
+        _extract.SetParameter("threshold", Threshold);
+        _composite.SetParameter("core_halo_weights", GetCoreHaloWeights(Softness, radius) * GetBloomStrength(Strength));
+        _composite.SetParameter("saturation", Saturation);
+        _blurHorizontal.SetParameter("tap_pairs", pairs);
+        _blurVertical.SetParameter("tap_pairs", pairs);
+        PrepareSprites(eye, viewport, worldToTarget, targetSize, padding);
         var localSize = Vector2i.One;
         foreach (var index in _sourceIndices)
         {
-            localSize = Vector2i.ComponentMax(localSize, GetBloomTargetSize(_orderedSprites[index].Bounds));
+            localSize = Vector2i.ComponentMax(localSize, GetBloomTargetSize(_orderedSprites[index].Bounds, padding));
         }
         localSize = Vector2i.ComponentMin(localSize, targetSize);
         var atlasGrid = GetAtlasGrid(_sourceIndices.Count, localSize, divisor);
@@ -140,7 +147,7 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
                 EnsureTargets(tiles, targetSize, targetSize * divisor);
                 _batch.Clear();
                 AddBatchEntry(-1, worldToTarget, Vector2i.Zero, targetSize);
-                DrawBatch(args.RenderHandle, tiles, eye, viewport, pixelsPerMeter, divisor, Vector2i.One);
+                DrawBatch(args.RenderHandle, tiles, eye, viewport, radius, divisor, Vector2i.One);
             }
 
             if (_sourceIndices.Count == 0)
@@ -157,14 +164,14 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
                     var index = _sourceIndices[start + slot];
                     var sprite = _orderedSprites[index];
                     var origin = Vector2.Max(Vector2.Zero, new Vector2(
-                        MathF.Floor(sprite.Bounds.Left) - TargetPadding,
-                        MathF.Floor(sprite.Bounds.Bottom) - TargetPadding));
+                        MathF.Floor(sprite.Bounds.Left) - padding,
+                        MathF.Floor(sprite.Bounds.Bottom) - padding));
                     var atlasOrigin = new Vector2i(slot % atlasGrid.X * localSize.X, slot / atlasGrid.X * localSize.Y);
                     var matrix = worldToTarget * Matrix3x2.CreateTranslation((Vector2) atlasOrigin - origin);
                     AddBatchEntry(index, matrix, atlasOrigin, localSize);
                 }
 
-                DrawBatch(args.RenderHandle, resources, eye, viewport, pixelsPerMeter, divisor, atlasGrid);
+                DrawBatch(args.RenderHandle, resources, eye, viewport, radius, divisor, atlasGrid);
             }
         }
         finally
@@ -179,7 +186,7 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
         CachedResources resources,
         IEye eye,
         IClydeViewport viewport,
-        Vector2 pixelsPerMeter,
+        Vector2 radius,
         int divisor,
         Vector2i atlasGrid)
     {
@@ -211,13 +218,13 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
             screen.DrawTextureRect(source.Texture, UIBox2.FromDimensions(Vector2.Zero, targetSize));
         }, Color.Black);
 
-        var texelSize = Vector2.One / (Vector2) targetSize;
-        DrawBlurPass(screen, ping.Texture, pong, _blurHorizontal, texelSize, Vector2.UnitX,
-            CalculateBlurRadius(Quality, pixelsPerMeter.X), atlasGrid);
-        DrawBlurPass(screen, pong.Texture, ping, _blurVertical, texelSize, Vector2.UnitY,
-            CalculateBlurRadius(Quality, pixelsPerMeter.Y), atlasGrid);
+        var uvRadius = radius / (Vector2) targetSize;
+        DrawBlurPass(screen, ping.Texture, pong, _blurHorizontal, new Vector2(uvRadius.X, 0f), atlasGrid);
+        DrawBlurPass(screen, pong.Texture, ping, _blurVertical, new Vector2(0f, uvRadius.Y), atlasGrid);
 
-        _composite.SetParameter("bloom_strength", GetBloomStrength(Strength));
+        _composite.SetParameter("atlas_grid", (Vector2) atlasGrid);
+        _composite.SetParameter("source_texel_size", Vector2.One / (Vector2) source.Size);
+        _composite.SetParameter("core_texture", source.Texture);
         _composite.SetParameter("occlusion_texture", occlusion.Texture);
         screen.UseShader(_composite);
         foreach (var entry in _batch)
@@ -232,14 +239,10 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
         Texture source,
         IRenderTarget destination,
         ShaderInstance shader,
-        Vector2 texelSize,
-        Vector2 direction,
-        float radius,
+        Vector2 uvRadius,
         Vector2i atlasGrid)
     {
-        shader.SetParameter("texel_size", texelSize);
-        shader.SetParameter("blur_direction", direction);
-        shader.SetParameter("blur_radius", radius);
+        shader.SetParameter("uv_radius", uvRadius);
         shader.SetParameter("atlas_grid", (Vector2) atlasGrid);
 
         handle.RenderInRenderTarget(destination, () =>
@@ -410,16 +413,31 @@ internal sealed partial class OrbitraWorldBloomOverlay : Overlay
         return value * (2.5f + 2.5f * value);
     }
 
-    internal static Matrix3x2 GetWorldToTargetMatrix(Matrix3x2 worldToViewport, Vector2 viewportSize, Vector2 contentSize)
+    internal static Matrix3x2 GetWorldToTargetMatrix(Matrix3x2 worldToViewport, Vector2 viewportSize, Vector2 contentSize, int padding)
     {
         return worldToViewport * Matrix3x2.CreateScale(contentSize / viewportSize) *
-               Matrix3x2.CreateTranslation(TargetPadding, TargetPadding);
+               Matrix3x2.CreateTranslation(padding, padding);
     }
 
-    internal static float CalculateBlurRadius(OrbitraBloomQuality quality, float pixelsPerMeter)
+    internal static Vector2 CalculateBlurRadius(float worldRadius, Vector2 pixelsPerMeter, Vector2 targetScale)
     {
-        // Качество меняет разрешение маски, но не мировой радиус ореола.
-        return Math.Clamp(0.22f * pixelsPerMeter, 0.5f, 16f);
+        return Vector2.Min(worldRadius * pixelsPerMeter, new Vector2(MaxScreenRadius)) * targetScale;
+    }
+
+    internal static int GetBlurPadding(Vector2 radius)
+    {
+        // Запас для bilinear-фильтрации маски и субпиксельного положения края спрайта.
+        return (int) MathF.Ceiling(MathF.Max(radius.X, radius.Y)) + 2;
+    }
+
+    internal static Vector2 GetCoreHaloWeights(float softness, Vector2 radius)
+    {
+        // Перераспределяем свет между полноразмерным ядром и размытым краем при том же радиусе.
+        var halo = 0.80f + 0.64f * softness;
+        // Издали один тексель маски шире самого ореола. Возвращаем лишнюю энергию в точное ядро.
+        var coverage = MathF.Min(1f, MathF.Min(radius.X, radius.Y));
+        halo *= coverage * coverage;
+        return new Vector2(1.60f - halo, halo);
     }
 
     private void DrawTileEmission(DrawingHandleWorld handle, IEye eye, IClydeViewport viewport, Matrix3x2 worldToTarget)
@@ -500,6 +518,16 @@ internal enum OrbitraBloomQuality : byte
 
 internal static class OrbitraBloomQualityExtensions
 {
+    public static (int Divisor, int Pairs) GetFilter(this OrbitraBloomQuality quality)
+    {
+        return quality switch
+        {
+            OrbitraBloomQuality.Low => (4, 2),
+            OrbitraBloomQuality.High => (2, 8),
+            _ => (4, 4),
+        };
+    }
+
     public static OrbitraBloomQuality Parse(string quality)
     {
         return quality switch

@@ -1,58 +1,66 @@
 <Control xmlns="https://spacestation14.io"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:parallax="clr-namespace:Content.Client.Parallax"
+         xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
+         xmlns:dock="clr-namespace:Content.Client._Orbitra.Launcher"
          xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface">
-    <!-- Orbitra edit start - экран подключения использует общую тему меню. -->
-    <parallax:ParallaxControl Name="BackgroundParallax" SpeedX="5" SpeedY="20" ScaleX="3" ScaleY="3" />
-    <ScrollContainer HorizontalAlignment="Center" VerticalAlignment="Center"
+    <!-- Orbitra edit start - общий экран стыковки для входа на сервер. -->
+    <parallax:ParallaxControl Name="BackgroundParallax" ScaleX="3" ScaleY="3" />
+    <ScrollContainer Name="PageScroll" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12"
                      HScrollEnabled="False" ReturnMeasure="True">
-        <BoxContainer Name="ConnectionCard" Orientation="Vertical" Margin="16" SeparationOverride="12">
-            <BoxContainer HorizontalAlignment="Center" SeparationOverride="12">
-                <TextureRect SetSize="72 72" Stretch="KeepAspectCentered" StyleClasses="OrbitraBrandLogo" />
-                <Label Text="Orbitra" VerticalAlignment="Center" StyleClasses="OrbitraLobbyTitle" />
-            </BoxContainer>
-
-            <PanelContainer StyleClasses="OrbitraLobbyPanel">
-                <BoxContainer Orientation="Vertical" SeparationOverride="16">
-                    <BoxContainer Orientation="Vertical" Name="ConnectingStatus" SeparationOverride="8">
-                        <Label Text="{Loc 'connecting-in-progress'}" StyleClasses="OrbitraLobbyHeading" />
-                        <Label Name="ConnectStatus" StyleClasses="OrbitraLobbyMuted" />
+        <PanelContainer Name="ConnectionCard" StyleClasses="OrbitraLobbyPanel">
+            <BoxContainer Orientation="Vertical" SeparationOverride="12">
+                <BoxContainer SeparationOverride="10">
+                    <TextureRect SetSize="38 38" CanShrink="True" Stretch="KeepAspectCentered"
+                                 StyleClasses="OrbitraBrandLogo" />
+                    <BoxContainer Orientation="Vertical" VerticalAlignment="Center" HorizontalExpand="True" SeparationOverride="0">
+                        <Label Text="Orbitra" StyleClasses="OrbitraLobbyMuted" />
+                        <Label Text="{Loc 'orbitra-docking-arrivals'}" StyleClasses="OrbitraLobbyHeading" ClipText="True" />
                     </BoxContainer>
-
-                    <BoxContainer Orientation="Vertical" Name="ConnectFail" Visible="False" SeparationOverride="12">
-                        <RichTextLabel Name="ConnectFailReason" />
-                        <kit:OrbitraAdaptiveRow Breakpoint="420" SeparationOverride="8">
-                            <kit:OrbitraButton Name="RetryButton" Text="{Loc 'connecting-retry'}"
-                                               StyleClasses="OrbitraButtonPrimary" HorizontalExpand="True" />
-                            <kit:OrbitraButton Name="CopyButton" Text="{Loc 'connecting-copy'}"
-                                               StyleClasses="OrbitraButtonSecondary" HorizontalExpand="True" />
-                        </kit:OrbitraAdaptiveRow>
-                    </BoxContainer>
-
-                    <BoxContainer Orientation="Vertical" Name="Disconnected" Visible="False" SeparationOverride="12">
-                        <Label Text="{Loc 'connecting-disconnected'}" StyleClasses="OrbitraLobbyHeading" />
-                        <RichTextLabel Name="DisconnectReason" />
-                        <kit:OrbitraAdaptiveRow Breakpoint="420" SeparationOverride="8">
-                            <kit:OrbitraButton Name="ReconnectButton" Text="{Loc 'connecting-reconnect'}"
-                                               StyleClasses="OrbitraButtonPrimary" HorizontalExpand="True" />
-                            <kit:OrbitraButton Name="CopyButtonDisconnected" Text="{Loc 'connecting-copy'}"
-                                               StyleClasses="OrbitraButtonSecondary" HorizontalExpand="True" />
-                        </kit:OrbitraAdaptiveRow>
-                    </BoxContainer>
-
-                    <Label Name="ConnectingAddress" StyleClasses="OrbitraLobbyMuted" ClipText="True" Visible="False" />
                     <kit:OrbitraButton Name="ExitButton" Text="{Loc 'connecting-exit'}"
-                                       StyleClasses="OrbitraButtonGhost" HorizontalAlignment="Right" />
+                                       VerticalAlignment="Center" StyleClasses="OrbitraButtonGhost" />
                 </BoxContainer>
-            </PanelContainer>
 
-            <PanelContainer Name="LoginTips" StyleClasses="OrbitraLobbyPanel">
-                <BoxContainer Orientation="Vertical" SeparationOverride="6">
-                    <Label Name="LoginTipTitle" StyleClasses="OrbitraLobbyHeading" />
+                <dock:OrbitraDockingScene Name="Docking" />
+
+                <BoxContainer Name="ConnectingStatus" Orientation="Vertical" SeparationOverride="2">
+                    <Label Text="{Loc 'connecting-in-progress'}" StyleClasses="OrbitraLobbyMuted" />
+                    <Label Name="ConnectStatus" StyleClasses="OrbitraLobbyHeading" />
+                </BoxContainer>
+
+                <BoxContainer Orientation="Vertical" Name="ConnectFail" Visible="False" SeparationOverride="8">
+                    <ScrollContainer Name="FailureScroll" HScrollEnabled="False" MaxHeight="128" ReturnMeasure="True">
+                        <RichTextLabel Name="ConnectFailReason" />
+                    </ScrollContainer>
+                    <kit:OrbitraAdaptiveRow Breakpoint="410" SeparationOverride="8">
+                        <kit:OrbitraButton Name="RetryButton" Text="{Loc 'connecting-retry'}"
+                                           StyleClasses="OrbitraButtonPrimary" HorizontalExpand="True" />
+                        <kit:OrbitraButton Name="CopyButton" Text="{Loc 'connecting-copy'}"
+                                           StyleClasses="OrbitraButtonSecondary" HorizontalExpand="True" />
+                    </kit:OrbitraAdaptiveRow>
+                </BoxContainer>
+
+                <BoxContainer Orientation="Vertical" Name="Disconnected" Visible="False" SeparationOverride="8">
+                    <Label Text="{Loc 'connecting-disconnected'}" StyleClasses="OrbitraLobbyHeading" />
+                    <ScrollContainer Name="DisconnectScroll" HScrollEnabled="False" MaxHeight="128" ReturnMeasure="True">
+                        <RichTextLabel Name="DisconnectReason" />
+                    </ScrollContainer>
+                    <kit:OrbitraAdaptiveRow Breakpoint="410" SeparationOverride="8">
+                        <kit:OrbitraButton Name="ReconnectButton" Text="{Loc 'connecting-reconnect'}"
+                                           StyleClasses="OrbitraButtonPrimary" HorizontalExpand="True" />
+                        <kit:OrbitraButton Name="CopyButtonDisconnected" Text="{Loc 'connecting-copy'}"
+                                           StyleClasses="OrbitraButtonSecondary" HorizontalExpand="True" />
+                    </kit:OrbitraAdaptiveRow>
+                </BoxContainer>
+
+                <Label Name="ConnectingAddress" StyleClasses="OrbitraLobbyMuted" ClipText="True" Visible="False" />
+                <BoxContainer Name="LoginTips" Orientation="Vertical" SeparationOverride="5">
+                    <ui:Separator StyleClasses="LowDivider" />
+                    <Label Name="LoginTipTitle" StyleClasses="OrbitraLobbyMuted" />
                     <RichTextLabel Name="LoginTip" />
                 </BoxContainer>
-            </PanelContainer>
-        </BoxContainer>
+            </BoxContainer>
+        </PanelContainer>
     </ScrollContainer>
     <!-- Orbitra edit end -->
 </Control>

@@ -193,6 +193,7 @@ namespace Content.Server.GameTicking
                 _chatManager.DispatchServerMessage(session, Loc.GetString("game-ticker-player-join-game-message"));
 
             _playerGameStatuses[session.UserId] = PlayerGameStatus.JoinedGame;
+            RaiseLocalEvent(new Content.Server._Orbitra.Roadmap.OrbitraLeftLobbyEvent(session)); // Orbitra-Edit
             _db.AddRoundPlayers(RoundId, session.UserId);
 
             if (_adminManager.HasAdminFlag(session, AdminFlags.Admin))

@@ -7,7 +7,7 @@ namespace Content.Client._Orbitra.Shaders.Bloom;
 
 internal sealed partial class OrbitraWorldBloomOverlay
 {
-    private void PrepareSprites(IEye eye, IClydeViewport viewport, Matrix3x2 worldToTarget, Vector2i targetSize)
+    private void PrepareSprites(IEye eye, IClydeViewport viewport, Matrix3x2 worldToTarget, Vector2i targetSize, int padding)
     {
         _orderedSprites.Clear();
         foreach (var entity in _sprites)
@@ -29,7 +29,7 @@ internal sealed partial class OrbitraWorldBloomOverlay
         for (var i = 0; i < _orderedSprites.Count; i++)
         {
             var sprite = _orderedSprites[i];
-            if (sprite.Emissive && sprite.Bounds.Enlarged(TargetPadding).Intersects(viewportBounds))
+            if (sprite.Emissive && sprite.Bounds.Enlarged(padding).Intersects(viewportBounds))
                 _sourceIndices.Add(i);
         }
     }
@@ -50,10 +50,10 @@ internal sealed partial class OrbitraWorldBloomOverlay
         return comparison != 0 ? comparison : leftUid.CompareTo(rightUid);
     }
 
-    internal static Vector2i GetBloomTargetSize(Box2 bounds)
+    internal static Vector2i GetBloomTargetSize(Box2 bounds, int padding)
     {
         // Выравнивание гасит перераспределения буферов при субпиксельном движении камеры.
-        var size = bounds.Size + new Vector2(TargetPadding * 2 + 2);
+        var size = bounds.Size + new Vector2(padding * 2 + 2);
         return new Vector2i((int) MathF.Ceiling(size.X / 16f) * 16, (int) MathF.Ceiling(size.Y / 16f) * 16);
     }
 

@@ -21,9 +21,13 @@ public sealed partial class OrbitraLightBloomSystem : EntitySystem
         _overlay = new OrbitraWorldBloomOverlay(EntityManager);
         _overlayManager.AddOverlay(_overlay);
 
-        Subs.CVar(_configuration, OrbitraBloomCVars.Enabled, SetEnabled, true);
-        Subs.CVar(_configuration, OrbitraBloomCVars.Strength, SetStrength, true);
-        Subs.CVar(_configuration, OrbitraBloomCVars.Quality, SetQuality, true);
+        Subs.CVar(_configuration, OrbitraBloomCVars.Enabled, PreviewEnabled, true);
+        Subs.CVar(_configuration, OrbitraBloomCVars.Strength, PreviewStrength, true);
+        Subs.CVar(_configuration, OrbitraBloomCVars.Quality, PreviewQuality, true);
+        Subs.CVar(_configuration, OrbitraBloomCVars.Radius, PreviewRadius, true);
+        Subs.CVar(_configuration, OrbitraBloomCVars.Softness, PreviewSoftness, true);
+        Subs.CVar(_configuration, OrbitraBloomCVars.Threshold, PreviewThreshold, true);
+        Subs.CVar(_configuration, OrbitraBloomCVars.Saturation, PreviewSaturation, true);
     }
 
     public override void Shutdown()
@@ -36,6 +40,18 @@ public sealed partial class OrbitraLightBloomSystem : EntitySystem
         }
 
         base.Shutdown();
+    }
+
+    /// <summary>Отменяет временный предпросмотр при закрытии настроек.</summary>
+    public void RestoreConfiguredSettings()
+    {
+        PreviewEnabled(_configuration.GetCVar(OrbitraBloomCVars.Enabled));
+        PreviewStrength(_configuration.GetCVar(OrbitraBloomCVars.Strength));
+        PreviewQuality(_configuration.GetCVar(OrbitraBloomCVars.Quality));
+        PreviewRadius(_configuration.GetCVar(OrbitraBloomCVars.Radius));
+        PreviewSoftness(_configuration.GetCVar(OrbitraBloomCVars.Softness));
+        PreviewThreshold(_configuration.GetCVar(OrbitraBloomCVars.Threshold));
+        PreviewSaturation(_configuration.GetCVar(OrbitraBloomCVars.Saturation));
     }
 
     public void PreviewEnabled(bool enabled)
@@ -58,18 +74,31 @@ public sealed partial class OrbitraLightBloomSystem : EntitySystem
             _overlay.Quality = value;
     }
 
-    private void SetEnabled(bool enabled)
+    public void PreviewRadius(float radius)
     {
-        PreviewEnabled(enabled);
+        if (_overlay != null)
+            _overlay.Radius = ClampSetting(radius, OrbitraBloomCVars.DefaultRadius,
+                OrbitraBloomCVars.MinRadius, OrbitraBloomCVars.MaxRadius);
     }
 
-    private void SetStrength(float strength)
+    public void PreviewSoftness(float softness)
     {
-        PreviewStrength(strength);
+        if (_overlay != null)
+            _overlay.Softness = ClampSetting(softness, OrbitraBloomCVars.DefaultSoftness);
     }
 
-    private void SetQuality(string quality)
+    public void PreviewThreshold(float threshold)
     {
-        PreviewQuality(quality);
+        if (_overlay != null)
+            _overlay.Threshold = ClampSetting(threshold, OrbitraBloomCVars.DefaultThreshold);
     }
+
+    public void PreviewSaturation(float saturation)
+    {
+        if (_overlay != null)
+            _overlay.Saturation = ClampSetting(saturation, OrbitraBloomCVars.DefaultSaturation);
+    }
+
+    private static float ClampSetting(float value, float fallback, float min = 0f, float max = 1f) =>
+        float.IsFinite(value) ? Math.Clamp(value, min, max) : fallback;
 }

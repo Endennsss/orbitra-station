@@ -1,17 +1,28 @@
 light_mode unshaded;
 blend_mode add;
 
-uniform mediump float bloom_strength;
+uniform highp vec2 atlas_grid;
+uniform highp vec2 source_texel_size;
+uniform sampler2D core_texture;
 uniform sampler2D occlusion_texture;
+uniform mediump vec2 core_halo_weights;
+uniform mediump float saturation;
 
 void fragment() {
-    lowp vec4 glow = zTexture(UV);
-    // Ореол остаётся над своим источником, но скрывается силуэтами передних спрайтов.
-    glow.rgb *= zTextureSpec(occlusion_texture, UV).rgb;
-    mediump float energy = max(glow.r, max(glow.g, glow.b));
-    if (energy <= 0.001)
+    highp vec2 cell = floor(UV * atlas_grid);
+    highp vec2 first = cell / atlas_grid;
+    highp vec2 last = (cell + 1.0) / atlas_grid;
+    highp vec2 halo_uv = clamp(UV, first + 0.5 * TEXTURE_PIXEL_SIZE, last - 0.5 * TEXTURE_PIXEL_SIZE);
+    highp vec2 source_uv = clamp(UV, first + 0.5 * source_texel_size, last - 0.5 * source_texel_size);
+
+    // Ядро берём из полноразмерной маски: даже светодиод в один пиксель сохраняет яркий центр.
+    mediump vec3 glow = zTextureSpec(core_texture, source_uv).rgb * core_halo_weights.x
+                      + zTexture(halo_uv).rgb * core_halo_weights.y;
+    // Насыщенность применяется к добавочному свету до наложения на исходную сцену.
+    glow = mix(vec3(zGrayscale(glow)), glow, saturation);
+    glow *= zTextureSpec(occlusion_texture, source_uv).rgb;
+    if (max(glow.r, max(glow.g, glow.b)) <= 0.0)
         discard;
 
-    // Энергия уже содержит прозрачность источника. Повторное умножение уничтожает мягкий край.
-    COLOR = vec4(max(glow.rgb, vec3(0.0)) * bloom_strength, 1.0);
+    COLOR = vec4(glow, 1.0);
 }

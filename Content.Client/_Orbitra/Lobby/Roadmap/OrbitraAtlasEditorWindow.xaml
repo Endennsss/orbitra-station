@@ -1,0 +1,55 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
+                      Title="{Loc 'orbitra-atlas-editor-title'}" StyleClasses="OrbitraEditorLayout"
+                      MinSize="380 360" SetSize="620 570">
+    <BoxContainer Orientation="Vertical" Margin="12" SeparationOverride="8">
+        <ScrollContainer HScrollEnabled="False" ReserveScrollbarSpace="True" VerticalExpand="True">
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="8" Margin="0 0 6 0">
+                <kit:OrbitraAdaptiveRow SeparationOverride="8" Breakpoint="440">
+                    <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+                        <Label Text="{Loc 'orbitra-atlas-editor-name'}"/>
+                        <LineEdit Name="EntryTitle"/>
+                    </BoxContainer>
+                    <BoxContainer Orientation="Vertical">
+                        <Label Text="{Loc 'orbitra-atlas-editor-status'}"/>
+                        <kit:OrbitraOptionButton Name="EntryStatus"/>
+                    </BoxContainer>
+                </kit:OrbitraAdaptiveRow>
+                <BoxContainer Orientation="Vertical">
+                    <BoxContainer>
+                        <Label Text="{Loc 'orbitra-atlas-editor-description'}" HorizontalExpand="True"/>
+                        <Label Name="DescriptionLength" StyleClasses="LabelSubText"/>
+                    </BoxContainer>
+                    <TextEdit Name="EntryDescription" SetHeight="112"/>
+                </BoxContainer>
+                <BoxContainer SeparationOverride="8">
+                    <Label Text="{Loc 'orbitra-atlas-editor-tasks'}" StyleClasses="LabelHeading" HorizontalExpand="True"/>
+                    <kit:OrbitraButton Name="AddTask" Text="{Loc 'orbitra-atlas-editor-add-task'}"/>
+                </BoxContainer>
+                <BoxContainer Name="TaskList" Orientation="Vertical" SeparationOverride="4"/>
+                <WrapContainer Name="EntryControls" SeparationOverride="6" CrossSeparationOverride="4">
+                    <kit:OrbitraButton Name="EntryUp" Text="{Loc 'orbitra-atlas-editor-move-up'}"/>
+                    <kit:OrbitraButton Name="EntryDown" Text="{Loc 'orbitra-atlas-editor-move-down'}"/>
+                    <controls:ConfirmButton Name="Unpublish" Text="{Loc 'orbitra-atlas-editor-unpublish'}"
+                                            ToolTip="{Loc 'orbitra-atlas-editor-unpublish-hint'}"
+                                            ConfirmationText="{Loc 'orbitra-atlas-editor-confirm-unpublish'}"
+                                            StyleClasses="OrbitraButtonDanger"/>
+                </WrapContainer>
+            </BoxContainer>
+        </ScrollContainer>
+        <BoxContainer Name="ConflictPanel" Orientation="Vertical" SeparationOverride="4" Visible="False">
+            <RichTextLabel Text="{Loc 'orbitra-atlas-editor-conflict'}"/>
+            <WrapContainer SeparationOverride="6" CrossSeparationOverride="4">
+                <kit:OrbitraButton Name="KeepForm" Text="{Loc 'orbitra-atlas-editor-keep'}"/>
+                <kit:OrbitraButton Name="LoadLatest" Text="{Loc 'orbitra-atlas-editor-reload'}"/>
+            </WrapContainer>
+        </BoxContainer>
+        <RichTextLabel Name="Feedback" Visible="False"/>
+        <BoxContainer SeparationOverride="8">
+            <kit:OrbitraButton Name="Save" Text="{Loc 'orbitra-atlas-editor-save'}" HorizontalExpand="True"/>
+            <kit:OrbitraButton Name="Publish" Text="{Loc 'orbitra-atlas-editor-publish'}" HorizontalExpand="True"
+                               StyleClasses="OrbitraButtonPrimary"/>
+        </BoxContainer>
+    </BoxContainer>
+</controls:FancyWindow>

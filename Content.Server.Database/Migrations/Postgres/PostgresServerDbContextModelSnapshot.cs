@@ -980,6 +980,27 @@ namespace Content.Server.Database.Migrations.Postgres
                     b.ToTable("job", (string)null);
                 });
 
+            modelBuilder.Entity("Content.Server.Database.OrbitraRoadmap", b =>
+                {
+                    b.Property<string>("ServerId")
+                        .HasColumnType("text")
+                        .HasColumnName("server_id");
+
+                    b.Property<string>("Json")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("json");
+
+                    b.Property<long>("Version")
+                        .HasColumnType("bigint")
+                        .HasColumnName("version");
+
+                    b.HasKey("ServerId")
+                        .HasName("PK_orbitra_roadmap");
+
+                    b.ToTable("orbitra_roadmap", (string)null);
+                });
+
             modelBuilder.Entity("Content.Server.Database.PlayTime", b =>
                 {
                     b.Property<int>("Id")

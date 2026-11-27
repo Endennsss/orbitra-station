@@ -1,0 +1,11 @@
+orbitra-atlas-button = Roadmap
+orbitra-atlas-title = Roadmap
+orbitra-atlas-chart = Star chart
+orbitra-atlas-count = Updates complete: { $done } of { $total }
+orbitra-atlas-loading = Loading the chart…
+orbitra-atlas-empty = The first coordinates have yet to be published.
+orbitra-atlas-create = Create update
+orbitra-atlas-edit = Edit update
+orbitra-atlas-tasks = Tasks · { $done } / { $total }
+orbitra-atlas-pending = Draft changes are visible only to editors.
+orbitra-atlas-draft = Only editors can see this draft.

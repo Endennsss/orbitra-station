@@ -2,6 +2,7 @@
           xmlns:tabs="clr-namespace:Content.Client.Options.UI.Tabs"
           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
           xmlns:ui="clr-namespace:Content.Client.Options.UI"
+          xmlns:bloom="clr-namespace:Content.Client._Orbitra.Graphics"
           xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface">
     <!-- Orbitra-Edit - клавиатурные действия используют штатные обработчики. -->
     <BoxContainer Orientation="Vertical">
@@ -36,6 +37,7 @@
                 <kit:OrbitraCheckBox Name="OrbitraBloomEnabledCheckBox" Text="{Loc 'orbitra-options-bloom-enabled'}" />
                 <ui:OptionSlider Name="OrbitraBloomStrengthSlider" Title="{Loc 'orbitra-options-bloom-strength'}" />
                 <ui:OptionDropDown Name="OrbitraBloomQualityDropDown" Title="{Loc 'orbitra-options-bloom-quality'}" />
+                <bloom:OrbitraBloomTuning Name="OrbitraBloomTuning" />
                 <!-- Orbitra-Edit - плотность косметических частиц. -->
                 <ui:OptionDropDown Name="OrbitraParticleQualityDropDown" Title="{Loc 'orbitra-options-particles-quality'}" />
                 <!-- Orbitra added end -->
@@ -46,7 +48,7 @@
 
                 <!-- Interface -->
                 <Label Text="{Loc 'ui-options-interface-label'}" StyleClasses="LabelKeyText"/>
-                <kit:OrbitraCheckBox Name="OrbitraBackgroundCheckBox" Text="{Loc 'orbitra-options-standard-background'}" ToolTip="{Loc 'orbitra-options-standard-background-tooltip'}" /> <!-- Orbitra-Edit -->
+                <ui:OptionDropDown Name="OrbitraBackgroundDropDown" Title="{Loc 'orbitra-options-menu-background'}" /> <!-- Orbitra-Edit -->
                 <ui:OptionDropDown Name="DropDownUIScale" Title="{Loc 'ui-options-scale-label'}" />
                 <kit:OrbitraCheckBox Name="ViewportStretchCheckBox" Text="{Loc 'ui-options-vp-stretch'}" />
                 <ui:OptionSlider Name="ViewportScaleSlider" Title="{Loc ui-options-vp-scale}" />

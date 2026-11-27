@@ -18,6 +18,10 @@ public sealed partial class ExtendedDisconnectInformationManager
 
     private NetDisconnectedArgs? _lastNetDisconnectedArgs = null;
 
+    // Orbitra added start - адрес нужен и после перехода из меню в игру.
+    internal (string Address, string Host, ushort Port)? DirectTarget { get; set; }
+    // Orbitra added end
+
     public NetDisconnectedArgs? LastNetDisconnectedArgs
     {
         get => _lastNetDisconnectedArgs;
@@ -35,6 +39,13 @@ public sealed partial class ExtendedDisconnectInformationManager
     public void Initialize()
     {
         _clientNetManager.Disconnect += OnNetDisconnect;
+        // Orbitra added start - новая попытка сбрасывает причину и задержку предыдущего отключения.
+        _clientNetManager.ClientConnectStateChanged += state =>
+        {
+            if (state == ClientConnectionState.ResolvingHost)
+                LastNetDisconnectedArgs = null;
+        };
+        // Orbitra added end
     }
 
     private void OnNetDisconnect(object? sender, NetDisconnectedArgs args)

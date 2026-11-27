@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Reflection;
+using Content.Client._Orbitra.Graphics;
+using Content.Client._Orbitra.Shaders.Bloom;
 using Content.Client._Orbitra.UserInterface;
 using Content.Client.Options.UI;
 using Content.Client.Options.UI.Tabs;
@@ -11,6 +13,7 @@ using Content.Shared._Orbitra.Graphics;
 using Content.Shared._Orbitra.Particles;
 using Content.Shared.CCVar;
 using Content.Shared.Ghost.Systems;
+using Robust.Client.Graphics;
 using Robust.Client.Input;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -162,6 +165,7 @@ public sealed class OrbitraFeedbackTest : GameTest
             preset.GrabKeyboardFocus();
             Key(Keyboard.Key.Return);
             Assert.That(bloom.Pressed, Is.False);
+            Assert.That(Client.Resolve<IOverlayManager>().GetOverlay<OrbitraWorldBloomOverlay>().Enabled, Is.False);
             Assert.That(bloomQuality.Visible, Is.False);
             Assert.That(particles.Button.SelectedMetadata, Is.EqualTo("Low"));
             Assert.That(config.GetCVar(OrbitraBloomCVars.Enabled), Is.True);
@@ -169,6 +173,7 @@ public sealed class OrbitraFeedbackTest : GameTest
             graphics.Control.FindControl<OrbitraButton>("ResetButton").GrabKeyboardFocus();
             Key(Keyboard.Key.Return);
             Assert.That(bloom.Pressed, Is.True);
+            Assert.That(Client.Resolve<IOverlayManager>().GetOverlay<OrbitraWorldBloomOverlay>().Enabled, Is.True);
             Assert.That(bloomQuality.Visible, Is.True);
             Assert.That(particles.Button.SelectedMetadata, Is.EqualTo("Medium"));
 
@@ -181,6 +186,90 @@ public sealed class OrbitraFeedbackTest : GameTest
             Assert.That(config.GetCVar(CCVars.ParallaxLowQuality), Is.True);
             Assert.That(config.GetCVar(CCVars.AmbientOcclusion), Is.False);
             Assert.That(config.GetCVar(OrbitraGasCVars.SmoothGases), Is.True);
+        });
+    }
+
+    [Test]
+    public async Task BloomTuningPreviewsResetsAndRestoresTheSavedProfile()
+    {
+        await Client.WaitAssertion(() =>
+        {
+            var config = Client.Resolve<IConfigurationManager>();
+            config.SetCVar(CCVars.ReducedMotion, true);
+            config.SetCVar(OrbitraBloomCVars.Enabled, false);
+            config.SetCVar(OrbitraBloomCVars.Strength, 0.66f);
+            config.SetCVar(OrbitraBloomCVars.Quality, OrbitraBloomCVars.QualityHigh);
+            config.SetCVar(OrbitraBloomCVars.Radius, 0.30f);
+            config.SetCVar(OrbitraBloomCVars.Softness, 0.40f);
+            config.SetCVar(OrbitraBloomCVars.Threshold, 0f);
+            config.SetCVar(OrbitraBloomCVars.Saturation, 0f);
+            config.SetCVar(OrbitraGasCVars.SmoothGases, true);
+
+            using var options = new OptionsMenu();
+            options.OpenCentered();
+            var graphics = options.Tabs.Children.OfType<GraphicsTab>().Single();
+            options.Tabs.CurrentTab = System.Array.IndexOf(options.Tabs.Children.ToArray(), graphics);
+            var tuning = graphics.FindControl<OrbitraBloomTuning>("OrbitraBloomTuning");
+            var toggle = tuning.FindControl<OrbitraButton>("ExpandButton");
+            var reset = tuning.FindControl<OrbitraButton>("ResetButton");
+            var quality = graphics.FindControl<OptionDropDown>("OrbitraBloomQualityDropDown").Button;
+            var gas = graphics.FindControl<OrbitraCheckBox>("OrbitraSmoothGasesCheckBox");
+            var overlay = Client.Resolve<IOverlayManager>().GetOverlay<OrbitraWorldBloomOverlay>();
+
+            void Press(Control control)
+            {
+                options.Measure(new Vector2(960, 720));
+                options.Arrange(UIBox2.FromDimensions(Vector2.Zero, new Vector2(960, 720)));
+                OrbitraKeyboardNavigation.Focus(control);
+                Key(Keyboard.Key.Return);
+            }
+
+            Assert.That(tuning.Radius.VisibleInTree, Is.False);
+            Press(toggle);
+            Assert.That(tuning.Radius.VisibleInTree, Is.True);
+            Press(gas);
+            Press(reset);
+            Assert.That((overlay.Enabled, overlay.Strength, overlay.Quality), Is.EqualTo((true, 0.4f, OrbitraBloomQuality.Medium)));
+            Assert.That((overlay.Radius, overlay.Softness, overlay.Threshold, overlay.Saturation),
+                Is.EqualTo((0.22f, 0.35f, 0.10f, 1f)));
+            Assert.That(gas.Pressed, Is.False);
+            Assert.That(config.GetCVar(OrbitraBloomCVars.Radius), Is.EqualTo(0.30f));
+            Press(graphics.Control.FindControl<OrbitraButton>("ResetButton"));
+            Assert.That((overlay.Enabled, overlay.Strength, overlay.Quality), Is.EqualTo((false, 0.66f, OrbitraBloomQuality.High)));
+            Assert.That((overlay.Radius, overlay.Softness, overlay.Threshold, overlay.Saturation),
+                Is.EqualTo((0.30f, 0.40f, 0f, 0f)));
+            Assert.That(gas.Pressed, Is.True);
+
+            Press(reset);
+            tuning.Radius.Slider.Value = 0.45f;
+            tuning.Softness.Slider.Value = 0.07f;
+            tuning.Threshold.Slider.Value = 0.80f;
+            tuning.Saturation.Slider.Value = 0.25f;
+            Press(quality);
+            Key(Keyboard.Key.Home);
+            Key(Keyboard.Key.Return);
+            Assert.That(overlay.Quality, Is.EqualTo(OrbitraBloomQuality.Low));
+            Assert.That((overlay.Radius, overlay.Softness, overlay.Threshold, overlay.Saturation),
+                Is.EqualTo((0.45f, 0.07f, 0.80f, 0.25f)));
+            Press(graphics.Control.FindControl<OrbitraButton>("ApplyButton"));
+            Assert.That(config.GetCVar(OrbitraBloomCVars.Enabled), Is.True);
+            Assert.That(config.GetCVar(OrbitraBloomCVars.Quality), Is.EqualTo(OrbitraBloomCVars.QualityLow));
+            Assert.That((config.GetCVar(OrbitraBloomCVars.Radius), config.GetCVar(OrbitraBloomCVars.Softness),
+                config.GetCVar(OrbitraBloomCVars.Threshold), config.GetCVar(OrbitraBloomCVars.Saturation)),
+                Is.EqualTo((0.45f, 0.07f, 0.80f, 0.25f)));
+
+            Press(reset);
+            Assert.That(overlay.Radius, Is.EqualTo(0.22f));
+            options.Close();
+            Assert.That(overlay.Quality, Is.EqualTo(OrbitraBloomQuality.Low));
+            Assert.That((overlay.Radius, overlay.Softness, overlay.Threshold, overlay.Saturation),
+                Is.EqualTo((0.45f, 0.07f, 0.80f, 0.25f)));
+            options.UpdateTabs();
+            options.OpenCentered();
+            Assert.That(tuning.Radius.VisibleInTree, Is.False);
+            Press(toggle);
+            Assert.That((tuning.Radius.Slider.Value, tuning.Softness.Slider.Value,
+                tuning.Threshold.Slider.Value, tuning.Saturation.Slider.Value), Is.EqualTo((0.45f, 0.07f, 0.80f, 0.25f)));
         });
     }
 

@@ -1,0 +1,255 @@
+light_mode unshaded;
+
+uniform highp vec2 resolution;
+uniform highp vec2 camera;
+uniform highp float phase;
+uniform lowp int scene;
+uniform bool low_quality;
+
+#include "/Textures/_Orbitra/Shaders/sky_noise.swsl"
+
+highp float cloud(highp vec2 p) {
+    highp float n = valueNoise(p) * 0.56 + valueNoise(p * 2.13 + 5.7) * 0.29;
+    if (low_quality) {
+        return n / 0.85;
+    }
+    return n + 0.15 * valueNoise(p * 5.18 - 3.1);
+}
+
+highp float disc(highp float radius, highp float dist, highp float aa) {
+    return 1.0 - smoothstep(radius - aa, radius + aa, dist);
+}
+
+highp vec3 rings(highp vec2 p, highp vec3 sky, highp float aspect, highp float pixel) {
+    // Кольца за диском и перед ним используют один наклон и одну систему координат.
+    highp float radius = 0.174;
+    highp vec2 q = rotateSky(p - vec2(-0.19 * aspect, 0.08), -0.26) / radius;
+    highp float aa = pixel / radius;
+    highp float d = length(q);
+    highp vec3 sun = normalize(vec3(-0.87, 0.40, 0.49));
+    highp vec3 n = vec3(q, sqrt(max(0.0, 1.0 - dot(q, q))));
+    highp float bands = cloud(vec2(q.x * 1.8 + phase * 0.012, q.y * 11.0) + n.z * 0.55);
+    highp float stripe = 0.5 + 0.5 * sin(q.y * 42.0 + n.z * 2.1 + bands * 3.2);
+    highp vec3 gas = mix(vec3(0.24,0.108,0.046), vec3(0.83,0.64,0.42), bands * 0.73 + stripe * 0.27);
+    gas *= 0.047 + 0.90 * max(0.0, dot(n, sun));
+    gas += vec3(0.37,0.25,0.13) * pow(1.0 - n.z, 4.0) * max(0.0, dot(n.xy,sun.xy));
+    highp vec2 plane = vec2(q.x, q.y / 0.265);
+    highp float r = length(plane);
+    highp float belt = smoothstep(1.22, 1.36, r) * (1.0 - smoothstep(2.25, 2.32, r));
+    highp float gap = smoothstep(0.012, 0.042, abs(r - 1.91));
+    // Мелкие кольца сливаются там, где их проекция становится тоньше пикселя.
+    highp float footprint = aa * mix(1.0,3.77,abs(plane.y)/max(r,0.01));
+    highp float broad = valueNoise(vec2(r * 11.0,4.1));
+    highp float lines = 0.26 + 0.50*broad + 0.12*sin(r*63.0)*(1.0-smoothstep(0.02,0.07,footprint))
+                      + 0.10*sin(r*155.0)*(1.0-smoothstep(0.007,0.035,footprint));
+    highp float shadow = smoothstep(-0.08, 0.15, plane.x) * (1.0 - smoothstep(0.63, 1.15, abs(plane.y + 0.2 * plane.x)));
+    highp vec3 dust = mix(vec3(0.27,0.16,0.094), vec3(0.81,0.69,0.49), lines) * (1.0 - 0.79 * shadow);
+    highp float opacity = belt * gap * (0.38 + lines * 0.56);
+    sky = mix(sky, dust, q.y >= 0.0 ? opacity : 0.0);
+    sky = mix(sky, gas, disc(1.0,d,aa));
+    sky = mix(sky, dust, q.y < 0.0 ? opacity : 0.0);
+    highp vec2 moon = (p - vec2(0.28 * aspect,0.22)) / 0.024;
+    highp vec3 m = vec3(moon,sqrt(max(0.0,1.0-dot(moon,moon))));
+    return mix(sky,vec3(0.35,0.32,0.28)*(0.05+max(0.0,dot(m,sun))),disc(1.0,length(moon),pixel/0.024));
+}
+
+highp vec3 curtain(highp vec2 p, highp float depth, highp float time) {
+    highp float x = p.x * depth + time + p.y * 0.13;
+    highp float bend = cloud(vec2(x * 2.2,depth * 4.7));
+    highp float fold = sin(x * 5.3 + bend * 3.5) * 0.47 + sin(x * 10.7 + bend * 4.0) * 0.20;
+    highp float base = -0.14 + fold * 0.16 + (bend - 0.45) * 0.53;
+    highp float h = p.y - base;
+    highp float streak = cloud(vec2(x * 68.0 + fold * 6.0 + h * 4.0, depth * 8.1));
+    highp float veil = exp(-max(h,0.0) * (9.0 + 12.0 * streak)) * smoothstep(-0.014,0.018,h);
+    highp float tip = smoothstep(0.018,0.18,h);
+    return mix(vec3(0.018,0.49,0.25),vec3(0.32,0.10,0.48),tip) * veil * (0.15 + streak * streak * 1.8);
+}
+
+highp vec3 polarSky(highp vec2 p, highp vec3 sky, highp float time, highp float pixel) {
+    sky += curtain(p * 0.92 + vec2(0.35,-0.10), 1.1, time * 0.31) * 0.53;
+    sky += curtain(p, 1.47, time * 0.48);
+    highp vec2 earth = p - vec2(-0.26,-2.36);
+    highp float altitude = length(earth) - 2.13;
+    highp float dawn = exp(-abs(earth.x + 0.62) * 2.4);
+    highp vec3 air = mix(vec3(0.018,0.12,0.29),vec3(0.75,0.35,0.15),dawn);
+    sky += air * exp(-max(altitude,0.0)*58.0) * 0.74;
+    highp float ice = cloud(p * vec2(18.0,70.0));
+    highp vec3 ground = vec3(0.005,0.012,0.027) + vec3(0.019,0.047,0.073) * ice * ice;
+    ground += air * exp(min(altitude,0.0)*160.0);
+    return mix(ground,sky,smoothstep(-pixel,pixel,altitude));
+}
+
+highp vec3 eclipse(highp vec2 p, highp vec3 sky, highp float aspect, highp float pixel) {
+    highp vec2 q = p - vec2(0.078 * aspect,0.12);
+    highp float r = length(q);
+    highp vec2 direction = q / max(r,0.001);
+    highp float rays = cloud(direction * 5.0 + 14.7);
+    highp float threads = valueNoise(direction * 49.0 + rays * 5.0);
+    highp float above = max(r - 0.155, 0.0);
+    highp float stream = exp(-above * mix(12.0,43.0,rays)) * (0.15 + rays * rays * (0.43 + threads * 0.65));
+    sky += vec3(0.89,0.37,0.13) * stream + vec3(0.86,0.69,0.39) * exp(-above*170.0);
+    highp vec2 moon = q - vec2(0.006, -0.004);
+    highp float m = length(moon);
+    highp vec3 surface = vec3(0.006,0.007,0.012) + vec3(0.014,0.012,0.016) * cloud(moon*34.0);
+    sky = mix(sky,surface,disc(0.163,m,pixel));
+    highp vec2 bead = q - vec2(-0.134,0.084);
+    sky += vec3(0.95,0.74,0.45) * (0.74 * exp(-length(bead)*82.0) +
+        0.20 * exp(-abs(bead.x)*32.0-abs(bead.y)*700.0));
+    return sky;
+}
+
+highp vec3 remnant(highp vec2 p, highp vec3 sky, highp float aspect) {
+    highp vec2 q = rotateSky(p - vec2(-0.09 * aspect,0.03),0.36);
+    q *= vec2(0.87,1.21);
+    highp float r = length(q);
+    highp float large = cloud(q * 6.2 + 3.4);
+    highp float knots = cloud(q * 27.0 + large * 3.7);
+    highp float shell = r + (large - 0.5) * 0.17 + (knots - 0.5) * 0.037;
+    highp float outer = abs(shell - 0.338);
+    highp float inner = abs(shell * 1.17 + 0.026 * sin(q.x * 20.0 + large * 7.0) - 0.327);
+    highp float lace = 0.050 * exp(-outer * 33.0) + 0.34 * exp(-outer * 160.0);
+    sky += vec3(0.99,0.27,0.11) * lace * (0.18 + knots * 1.7);
+    sky += vec3(0.13,0.46,0.79) * (0.11 * exp(-inner * 50.0) + 0.27 * exp(-inner * 195.0)) * large;
+    sky += vec3(0.034,0.072,0.14) * knots * smoothstep(0.35,0.48,large) * (1.0 - smoothstep(0.26,0.37,r));
+    if (!low_quality) {
+        highp float field = cloud(q*12.0 + vec2(large,knots)*3.4);
+        highp float filaments = exp(-abs(field - 0.49)*68.0) * smoothstep(0.13,0.29,r) *
+            (1.0-smoothstep(0.32,0.355,shell));
+        sky += mix(vec3(0.14,0.42,0.51),vec3(0.73,0.32,0.13),knots) * filaments * 0.35;
+    }
+    highp vec2 jet = rotateSky(q,0.29);
+    sky += vec3(0.30,0.55,0.94) * (0.13*exp(-abs(jet.x)*200.0-abs(jet.y)*16.0) + exp(-r*345.0));
+    return sky;
+}
+
+highp vec3 brightStars(highp vec2 p, highp float pixel) {
+    highp vec2 grid = p * 8.0;
+    highp vec2 cell = floor(grid);
+    highp float magnitude = hashCell(cell + 0.73);
+    if (magnitude < 0.66) {
+        return vec3(0.0);
+    }
+
+    highp vec2 seed = vec2(hashCell(cell + 27.4), hashCell(cell - 31.6));
+    highp vec2 delta = fract(grid) - (0.22 + seed * 0.56);
+    highp float r = length(delta);
+    if (r >= 0.21) {
+        return vec3(0.0);
+    }
+
+    highp float power = smoothstep(0.68, 1.0, magnitude);
+    highp float warmth = hashCell(cell - 53.9);
+    highp vec3 tint = mix(vec3(0.33, 0.58, 1.0), vec3(1.0, 0.64, 0.32), warmth * warmth);
+    highp float radius = mix(0.0035, 0.012, power * power);
+    // Усредняем свет ядра по площади пикселя, чтобы слабые звёзды не мигали при движении.
+    highp float area = radius * radius;
+    highp float filtered = area + pixel * pixel * 13.0;
+    highp float core = exp(-r * r / filtered) * area / filtered;
+    highp float halo = exp(-r / (0.009 + 0.024 * power)) * (0.035 + 0.30 * power * power);
+    highp vec3 star = mix(tint, vec3(1.0), 0.68) * core * (0.33 + power) + tint * halo;
+    if (magnitude > 0.951) {
+        highp vec2 ray = abs(rotateSky(delta, 0.16));
+        highp float width = max(0.0028, pixel * 3.2);
+        highp float spikes = exp(-ray.x / 0.049 - ray.y / width) + exp(-ray.y / 0.032 - ray.x / width);
+        star += tint * spikes * 0.32;
+    } else if (!low_quality && warmth > 0.82) {
+        highp vec2 offset = delta - vec2(0.036 + 0.034 * seed.y, 0.043 - 0.084 * seed.x);
+        star += vec3(0.48, 0.66, 1.0) * exp(-dot(offset, offset) / filtered) * (0.42 * area / filtered);
+    }
+    return star * (1.0 - smoothstep(0.16, 0.21, r));
+}
+
+highp vec3 starField(highp vec2 p, highp vec2 drift, highp float pixel) {
+    highp float index = float(scene);
+    highp vec2 seed = vec2(index * 7.17, 3.91);
+    highp vec2 distant = p + drift * 0.18;
+    highp float tilt = scene == 4 ? 0.63 : 0.33 * cos(index * 1.81) + 0.14;
+    highp vec2 lane = rotateSky(distant, tilt);
+    lane.y += scene == 4 ? -0.30 + 0.08 * sin(lane.x * 3.8)
+                         : 0.18 * sin(lane.x * 2.6 + index) - 0.12 * cos(index * 2.7);
+    highp vec2 field = lane * vec2(3.6, 8.5) + seed;
+    highp float dust = cloud(field);
+    highp float ridge = lane.y + 0.09 * (dust - 0.5);
+    highp float band = exp(-ridge * ridge * 19.0);
+    highp float rift = abs(ridge - 0.036 + (dust - 0.5) * 0.13);
+    highp float clumps = dust;
+    if (!low_quality && band > 0.02) {
+        highp float wisps = valueNoise(field * 6.7 + vec2(dust, ridge) * 3.5);
+        highp float grain = valueNoise(field * 21.4 + wisps);
+        clumps += (0.31 * wisps + 0.16 * grain - 0.235) * smoothstep(0.02, 0.20, band);
+    }
+    highp float light = band * smoothstep(0.25, 0.90, clumps) * (0.32 + 0.68 * smoothstep(0.003, 0.064, rift));
+    highp vec3 dustColor = mix(vec3(0.014, 0.024, 0.057), vec3(0.053, 0.042, 0.051), dust);
+    highp vec3 sky = vec3(0.002, 0.003, 0.007) + dustColor * light;
+    sky += starLayer(distant + seed, 59.0, pixel, 0.32 + 0.89 * light);
+    if (!low_quality) {
+        sky += starLayer(p + drift * 0.31 - seed, 131.0, pixel, band * (0.09 + 1.61 * light));
+    }
+    return sky + brightStars(p + drift * 0.54 + seed, pixel);
+}
+
+highp vec3 comet(highp vec2 p, highp vec3 sky, highp float aspect, highp float pixel) {
+    highp vec2 q = rotateSky(p - vec2(-0.21 * aspect, -0.12), -0.46);
+    highp float x = max(q.x, 0.0);
+    highp float reach = 1.0 - smoothstep(0.68, 1.15, x);
+    if (q.x < -0.18 || reach <= 0.0 || abs(q.y) > 0.19 + 0.48 * x) {
+        return sky;
+    }
+
+    // Пыль отстаёт по дуге и расширяется. Ионы уходят почти прямо и расслаиваются дальше от головы.
+    highp float dustWidth = 0.015 + x * (0.115 + 0.035 * x);
+    highp float dustSpine = -x * (0.035 + 0.245 * x);
+    highp float dustY = (q.y - dustSpine) / dustWidth;
+    highp float ionWidth = 0.012 + x * 0.052;
+    highp float ionSpine = x * (0.115 + 0.029 * sin(11.0 * x - phase * 0.15));
+    highp float ionY = (q.y - ionSpine) / ionWidth;
+    highp float behind = smoothstep(-0.036, 0.048, q.x) * reach;
+    highp float dust = behind * exp(-dustY * dustY * 0.76 - x * 2.85);
+    highp float ion = behind * exp(-ionY * ionY * 0.94 - x * 3.1);
+    highp float wind = x * 6.0 - phase * 0.085;
+    if (dust + ion > 0.0002) {
+        highp float fibers = valueNoise(vec2(wind, dustY * 2.4 + x * 2.3));
+        highp float stream = valueNoise(vec2(wind * 1.6 + 13.3, ionY * 3.2 - x * 1.3));
+        if (!low_quality) {
+            fibers = 0.72 * fibers + 0.28 * valueNoise(vec2(wind * 2.1, dustY * 7.1 + fibers));
+        }
+        highp float nearHead = exp(-x * 7.0);
+        highp vec3 dustTint = mix(vec3(0.75, 0.56, 0.37), vec3(0.77, 0.83, 0.73), nearHead);
+        highp float fan = mix(0.58, 0.26 + 0.88 * fibers * fibers, 1.0 - nearHead);
+        sky += dustTint * dust * fan;
+        sky += vec3(0.22, 0.47, 0.79) * ion * (0.12 + 0.80 * stream * stream);
+    }
+
+    // Газовая оболочка сжата с солнечной стороны и переходит в хвост с противоположной.
+    highp vec2 coma = vec2(q.x * (1.35 - 0.75 * smoothstep(-0.018, 0.080, q.x)), q.y);
+    highp float distance = length(coma);
+    highp float envelope = exp(-distance * 41.0);
+    highp float coreRadius = max(0.0019, pixel * 0.72);
+    highp float nucleus = exp(-dot(q, q) / (coreRadius * coreRadius));
+    highp float sunward = 1.0 - smoothstep(-0.009, 0.055, q.x);
+    highp float hood = (distance + q.x * 0.36 - 0.026) / 0.009;
+    sky += vec3(0.14, 0.51, 0.43) * (envelope + 0.095 * sunward * exp(-hood * hood));
+    sky += vec3(0.66, 0.89, 0.80) * exp(-distance * 130.0);
+    return sky + vec3(1.0, 0.95, 0.81) * nucleus;
+}
+
+void fragment() {
+    highp float aspect = resolution.x / resolution.y;
+    highp float pixel = 1.0 / resolution.y;
+    highp vec2 p = (UV2 - 0.5) * vec2(aspect,1.0);
+    highp vec2 drift = camera * 0.06 + vec2(0.042*sin(phase*0.034), 0.026*sin(phase*0.027));
+    highp vec2 subject = p + drift * 0.83;
+    highp vec3 color = starField(p, drift, pixel);
+    if (scene == 0) {
+        color = rings(subject,color,aspect,pixel);
+    } else if (scene == 1) {
+        color = polarSky(subject,color,phase*0.022,pixel);
+    } else if (scene == 2) {
+        color = eclipse(subject,color,aspect,pixel);
+    } else if (scene == 3) {
+        color = remnant(subject,color,aspect);
+    } else {
+        color = comet(subject,color,aspect,pixel);
+    }
+    COLOR = vec4(clamp(color,vec3(0.0),vec3(1.0)),1.0);
+}

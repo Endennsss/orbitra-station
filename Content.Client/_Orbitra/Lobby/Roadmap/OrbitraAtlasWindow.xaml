@@ -1,0 +1,51 @@
+<ui:FancyWindow xmlns="https://spacestation14.io"
+                xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
+                xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
+                xmlns:atlas="clr-namespace:Content.Client._Orbitra.Lobby.Roadmap"
+                Title="{Loc 'orbitra-atlas-title'}" MinSize="330 280" SetSize="940 600">
+    <BoxContainer Orientation="Vertical" SeparationOverride="10">
+        <BoxContainer SeparationOverride="8">
+            <BoxContainer Orientation="Vertical" SeparationOverride="1" HorizontalExpand="True">
+                <Label Text="{Loc 'orbitra-atlas-chart'}" StyleClasses="OrbitraLobbyTitle" ClipText="True"/>
+                <Label Name="ChartCount" StyleClasses="OrbitraLobbyMuted" ClipText="True" Visible="False"/>
+            </BoxContainer>
+            <kit:OrbitraButton Name="CreateButton" Text="{Loc 'orbitra-atlas-create'}" VerticalAlignment="Center"
+                               StyleClasses="OrbitraButtonSecondary" Visible="False"/>
+        </BoxContainer>
+        <RichTextLabel Name="Notice" Visible="False"/>
+        <BoxContainer Name="Columns" VerticalExpand="True" SeparationOverride="12">
+            <Control Name="Plot" HorizontalExpand="True" VerticalExpand="True" RectClipContent="True">
+                <atlas:OrbitraAtlasSky/>
+                <ScrollContainer Name="ChartScroll" HScrollEnabled="False" Visible="False" Margin="1">
+                    <BoxContainer Name="Route" Orientation="Vertical" VerticalAlignment="Top" Margin="8 12" SeparationOverride="0"/>
+                </ScrollContainer>
+                <BoxContainer Name="Empty" Orientation="Vertical" SeparationOverride="5" HorizontalAlignment="Center"
+                              VerticalAlignment="Center" Margin="16" MaxWidth="330">
+                    <atlas:OrbitraAtlasMarker SetSize="34 34" HorizontalAlignment="Center"/>
+                    <Label Name="EmptyTitle" StyleClasses="OrbitraLobbyHeading" Align="Center" ClipText="True"/>
+                    <RichTextLabel Name="EmptyMessage" StyleClasses="OrbitraLobbyMuted"/>
+                </BoxContainer>
+            </Control>
+            <ScrollContainer Name="Dock" HScrollEnabled="False" Visible="False" VerticalExpand="True">
+                <PanelContainer Name="Detail" StyleClasses="OrbitraLobbyPanel" VerticalAlignment="Top">
+                    <BoxContainer Orientation="Vertical" SeparationOverride="10">
+                        <BoxContainer SeparationOverride="6">
+                            <atlas:OrbitraAtlasMarker Name="DetailMarker" SetSize="16 16" VerticalAlignment="Center"/>
+                            <Label Name="DetailStatus" StyleClasses="OrbitraLobbyMuted" HorizontalExpand="True" ClipText="True"/>
+                        </BoxContainer>
+                        <RichTextLabel Name="DetailTitle" StyleClasses="OrbitraAtlasTitle"/>
+                        <RichTextLabel Name="Description"/>
+                        <RichTextLabel Name="Publication" StyleClasses="OrbitraLobbyMuted" Visible="False"/>
+                        <BoxContainer Name="TaskSection" Orientation="Vertical" SeparationOverride="8">
+                            <PanelContainer StyleClasses="LowDivider"/>
+                            <Label Name="TaskCount" StyleClasses="OrbitraLobbyHeading"/>
+                            <BoxContainer Name="Tasks" Orientation="Vertical" SeparationOverride="8"/>
+                        </BoxContainer>
+                        <kit:OrbitraButton Name="EditButton" Text="{Loc 'orbitra-atlas-edit'}"
+                                           HorizontalAlignment="Left" StyleClasses="OrbitraButtonSecondary" Visible="False"/>
+                    </BoxContainer>
+                </PanelContainer>
+            </ScrollContainer>
+        </BoxContainer>
+    </BoxContainer>
+</ui:FancyWindow>

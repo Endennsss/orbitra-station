@@ -61,32 +61,42 @@ public sealed class OrbitraUiKitTest : GameTest
     }
 
     [Test]
-    public async Task StaticLobbyBackgroundSwitchesWithoutReplacingFallback()
+    public async Task LobbySwitchesBetweenArtworkAndParallaxScenes()
     {
-        Content.Client.Lobby.UI.LobbyGui lobby = null!;
         var cfg = Client.Resolve<Robust.Shared.Configuration.IConfigurationManager>();
-        await Client.WaitPost(() =>
+        await Client.WaitAssertion(() =>
         {
-            cfg.SetCVar(OrbitraMenuCVars.StandardBackground, false);
-            lobby = new Content.Client.Lobby.UI.LobbyGui();
-            Client.Resolve<IUserInterfaceManager>().StateRoot.AddChild(lobby);
-        });
-        try
-        {
-            foreach (var enabled in new[] { true, false, true, false })
+            var original = cfg.GetCVar(OrbitraMenuCVars.Background);
+            using var lobby = new Content.Client.Lobby.UI.LobbyGui();
+            try
             {
-                await Client.WaitPost(() => cfg.SetCVar(OrbitraMenuCVars.StandardBackground, enabled));
-                await Client.WaitAssertion(() =>
+                cfg.SetCVar(OrbitraMenuCVars.Background, OrbitraMenuCVars.Artwork);
+                Client.Resolve<IUserInterfaceManager>().StateRoot.AddChild(lobby);
+                var background = Descendants(lobby).OfType<OrbitraMenuBackground>().Single();
+                Assert.That(lobby.Background.Visible, Is.True);
+                Assert.That(background.Visible, Is.False);
+
+                foreach (var scene in new[] { "rings", "aurora", "eclipse", "remnant", "comet", OrbitraMenuCVars.RandomScene })
                 {
-                    var background = Descendants(lobby).OfType<OrbitraMenuBackground>().Single();
-                    Assert.That(background.Visible, Is.EqualTo(enabled));
-                    Assert.That(lobby.Background.Visible, Is.EqualTo(!enabled));
-                    Assert.That(background.CanShrink, Is.True);
-                    Assert.That(background.Texture, Is.Not.Null);
-                });
+                    cfg.SetCVar(OrbitraMenuCVars.Background, scene);
+                    Assert.That(background.Visible, Is.True, scene);
+                    Assert.That(lobby.Background.Visible, Is.False, scene);
+                    Assert.That(lobby.LobbyBackground.Visible, Is.False, scene);
+                }
+
+                foreach (var fallback in new[] { "unknown-scene", OrbitraMenuCVars.Artwork })
+                {
+                    cfg.SetCVar(OrbitraMenuCVars.Background, fallback);
+                    Assert.That(background.Visible, Is.False, fallback);
+                    Assert.That(lobby.Background.Visible, Is.True, fallback);
+                    Assert.That(lobby.LobbyBackground.Visible, Is.True, fallback);
+                }
             }
-        }
-        finally { await Client.WaitPost(() => lobby.Dispose()); }
+            finally
+            {
+                cfg.SetCVar(OrbitraMenuCVars.Background, original);
+            }
+        });
     }
 
     [TestCase(false)]

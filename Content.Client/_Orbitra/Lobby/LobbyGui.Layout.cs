@@ -1,4 +1,5 @@
 using Content.Client._Orbitra.Lobby;
+using Content.Client._Orbitra.Lobby.Roadmap;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 
@@ -19,6 +20,7 @@ public sealed partial class LobbyGui
 
     private void InitializeOrbitraLayout()
     {
+        AtlasButton.OnPressed += _ => UserInterfaceManager.GetUIController<OrbitraAtlasController>().OpenAtlas();
         VoteContainer.OnChildAdded += _ => VoteScroll.Visible = true;
         VoteContainer.OnChildRemoved += _ => VoteScroll.Visible = VoteContainer.ChildCount != 0;
 
@@ -140,6 +142,7 @@ public sealed partial class LobbyGui
         RightSide.SetWidth = Math.Min(_orbitraChatWidth, Math.Max(280, width - 48));
         InfoToggle.Visible = !editing && !dockInfo;
         ChatToggle.Visible = !editing && (!dockChat || !_orbitraChatVisible);
+        AtlasButton.Compact = width < 900;
         Brand.Visible = width >= 900;
         var previewWidth = Math.Min(640, bodyWidth - (dockInfo ? sideWidth * 2 + 32 : 0));
         ReadyCard.SetWidth = Math.Max(0, Math.Min(480, previewWidth));

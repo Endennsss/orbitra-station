@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using Content.Client.Launcher; // Orbitra-Edit
 using Content.Client.MainMenu.UI;
 using Content.Client.UserInterface.Systems.EscapeMenu;
 using Robust.Client;
@@ -7,7 +8,6 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared;
 using Robust.Shared.Configuration;
-using Robust.Shared.Network;
 using Robust.Shared.Utility;
 using UsernameHelpers = Robust.Shared.AuthLib.UsernameHelpers;
 
@@ -20,7 +20,6 @@ namespace Content.Client.MainMenu
     public sealed partial class MainScreen : Robust.Client.State.State
     {
         [Dependency] private IBaseClient _client = default!;
-        [Dependency] private IClientNetManager _netManager = default!;
         [Dependency] private IConfigurationManager _configurationManager = default!;
         [Dependency] private IGameController _controllerProxy = default!;
         [Dependency] private IResourceCache _resourceCache = default!;
@@ -49,6 +48,7 @@ namespace Content.Client.MainMenu
             _mainMenuControl.AddressBox.OnTextEntered += AddressBoxEntered;
             _mainMenuControl.ChangelogButton.OnPressed += ChangelogButtonPressed;
             InitializeOrbitraDevLobby(); // Orbitra-Edit - кнопка только для локальной dev-сборки.
+            RestoreDirectAddress(); // Orbitra-Edit
 
             _client.RunLevelChanged += RunLevelChanged;
         }
@@ -58,7 +58,6 @@ namespace Content.Client.MainMenu
         {
             ShutdownOrbitraDevLobby(); // Orbitra-Edit
             _client.RunLevelChanged -= RunLevelChanged;
-            _netManager.ConnectFailed -= _onConnectFailed;
 
             _mainMenuControl.Dispose();
         }
@@ -115,17 +114,17 @@ namespace Content.Client.MainMenu
             }
 
             _setConnectingState(true);
-            _netManager.ConnectFailed += _onConnectFailed;
             try
             {
                 ParseAddress(address, out var ip, out var port);
+                _disconnectInfo.DirectTarget = (address, ip, port); // Orbitra-Edit
                 _client.ConnectToServer(ip, port);
             }
             catch (ArgumentException e)
             {
                 _userInterfaceManager.Popup($"Unable to connect: {e.Message}", "Connection error.");
                 _sawmill.Warning(e.ToString());
-                _netManager.ConnectFailed -= _onConnectFailed;
+                _disconnectInfo.DirectTarget = null; // Orbitra-Edit
                 _setConnectingState(false);
             }
         }
@@ -135,11 +134,17 @@ namespace Content.Client.MainMenu
             switch (args.NewLevel)
             {
                 case ClientRunLevel.Connecting:
+                    // Orbitra added start - экран подписывается до первого сетевого этапа.
+                    if (_disconnectInfo.DirectTarget != null)
+                    {
+                        _stateManager.RequestStateChange<LauncherConnecting>();
+                        break;
+                    }
+                    // Orbitra added end
                     _setConnectingState(true);
                     break;
                 case ClientRunLevel.Initialize:
                     _setConnectingState(false);
-                    _netManager.ConnectFailed -= _onConnectFailed;
                     break;
             }
         }
@@ -180,13 +185,6 @@ namespace Content.Client.MainMenu
                     throw new ArgumentException("Not a valid port.");
                 }
             }
-        }
-
-        private void _onConnectFailed(object? _, NetConnectFailArgs args)
-        {
-            _userInterfaceManager.Popup(Loc.GetString("main-menu-failed-to-connect",("reason", args.Reason)));
-            _netManager.ConnectFailed -= _onConnectFailed;
-            _setConnectingState(false);
         }
 
         private void _setConnectingState(bool state)

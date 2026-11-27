@@ -205,15 +205,17 @@ namespace Content.Client.Entry
                 _playbackMan.LastLoad = (null, ReplayConstants.ReplayZipFolder.ToRootedPath());
                 _replayLoad.LoadAndStartReplay(reader);
             }
-            else if (_gameController.LaunchState.FromLauncher)
+            else if (_gameController.LaunchState.FromLauncher || _extendedDisconnectInformation.DirectTarget != null) // Orbitra-Edit
             {
-                _stateManager.RequestStateChange<LauncherConnecting>();
-                var state = (LauncherConnecting) _stateManager.CurrentState;
+                // Orbitra edit start - после выхода из игры стыковка уже завершена.
+                var wasDocked = _stateManager.CurrentState is not LauncherConnecting;
+                var state = _stateManager.RequestStateChange<LauncherConnecting>();
 
                 if (disconnected)
                 {
-                    state.SetDisconnected();
+                    state.SetDisconnected(wasDocked);
                 }
+                // Orbitra edit end
             }
             else
             {

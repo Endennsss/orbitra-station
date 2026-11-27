@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Stylesheets;
 using Content.Shared.CCVar;
 using Content.Shared.Dataset;
@@ -20,6 +19,7 @@ namespace Content.Client.Launcher
     {
         private const float RedialWaitTimeSeconds = 15f;
         private readonly LauncherConnecting _state;
+        private readonly ExtendedDisconnectInformationManager _disconnectInfo; // Orbitra-Edit
         private float _waitTime;
 
         // Pressing reconnect will redial instead of simply reconnecting.
@@ -38,6 +38,7 @@ namespace Content.Client.Launcher
             _prototype = prototype;
             _cfg = config;
             _clipboard = clipboard;
+            _disconnectInfo = IoCManager.Resolve<ExtendedDisconnectInformationManager>(); // Orbitra-Edit
 
             RobustXamlLoader.Load(this);
 
@@ -53,18 +54,6 @@ namespace Content.Client.Launcher
             CopyButton.OnPressed += CopyButtonPressed;
             CopyButtonDisconnected.OnPressed += CopyButtonDisconnectedPressed;
             ExitButton.OnPressed += _ => _state.Exit();
-
-            state.PageChanged += OnPageChanged;
-            state.ConnectFailReasonChanged += ConnectFailReasonChanged;
-            state.ConnectionStateChanged += ConnectionStateChanged;
-            state.ConnectFailed += HandleDisconnectReason;
-
-            ConnectionStateChanged(state.ConnectionState);
-
-            // Redial flag setup
-            var edim = IoCManager.Resolve<ExtendedDisconnectInformationManager>();
-            edim.LastNetDisconnectedArgsChanged += LastNetDisconnectedArgsChanged;
-            LastNetDisconnectedArgsChanged(edim.LastNetDisconnectedArgs);
         }
 
         // Just button, there's only one at once anyways :)
@@ -82,7 +71,7 @@ namespace Content.Client.Launcher
 
         private void CopyButtonPressed(BaseButton.ButtonEventArgs args)
         {
-            CopyText(ConnectFailReason.Text);
+            CopyText(_state.ConnectFailReason); // Orbitra-Edit - в буфер попадает исходная причина.
         }
 
         private void CopyButtonDisconnectedPressed(BaseButton.ButtonEventArgs args)
@@ -107,30 +96,19 @@ namespace Content.Client.Launcher
 
         private void LastNetDisconnectedArgsChanged(NetDisconnectedArgs? args)
         {
-            HandleDisconnectReason(args);
+            // Orbitra edit start - разрыв может произойти ещё до входа в лобби.
+            if (args != null)
+                _state.SetDisconnected();
+            // Orbitra edit end
         }
 
         private void HandleDisconnectReason(INetStructuredReason? reason)
         {
-            if (reason == null)
-            {
-                _waitTime = 0;
-                _redial = false;
-            }
-            else
-            {
-                _redial = reason.RedialFlag;
-
-                if (reason.Message.Int32Of("delay") is { } delay)
-                {
-                    _waitTime = delay;
-                }
-                else if (_redial)
-                {
-                    _waitTime = RedialWaitTimeSeconds;
-                }
-
-            }
+            // Orbitra edit start - интервал сервера применяется и при прямом подключении.
+            _redial = reason?.RedialFlag == true && !_state.IsDirectConnection;
+            _waitTime = reason?.Message.Int32Of("delay") ?? (reason?.RedialFlag == true ? RedialWaitTimeSeconds : 0f);
+            UpdateRetryButton();
+            // Orbitra edit end
         }
 
         private void ChangeLoginTip()
@@ -159,28 +137,15 @@ namespace Content.Client.Launcher
         protected override void FrameUpdate(FrameEventArgs args)
         {
             base.FrameUpdate(args);
+            // Orbitra edit start - обновляем текст только при изменении показанных секунд.
+            if (_waitTime <= 0 || _state.CurrentPage == LauncherConnecting.Page.Connecting)
+                return;
 
-            var button = _state.CurrentPage == LauncherConnecting.Page.ConnectFailed
-                ? RetryButton
-                : ReconnectButton;
-
-            _waitTime -= args.DeltaSeconds;
-            if (_waitTime <= 0)
-            {
-                button.Disabled = false;
-                var key = _redial
-                    ? "connecting-redial"
-                    : _state.CurrentPage == LauncherConnecting.Page.ConnectFailed
-                        ? "connecting-reconnect"
-                        : "connecting-retry";
-
-                button.Text = Loc.GetString(key);
-            }
-            else
-            {
-                button.Disabled = true;
-                button.Text = Loc.GetString("connecting-redial-wait", ("time", _waitTime.ToString("00.000")));
-            }
+            var previous = MathF.Ceiling(_waitTime);
+            _waitTime = MathF.Max(0, _waitTime - args.DeltaSeconds);
+            if (previous != MathF.Ceiling(_waitTime))
+                UpdateRetryButton();
+            // Orbitra edit end
         }
 
         private void OnPageChanged(LauncherConnecting.Page page)
@@ -189,12 +154,19 @@ namespace Content.Client.Launcher
             ConnectFail.Visible = page == LauncherConnecting.Page.ConnectFailed;
             Disconnected.Visible = page == LauncherConnecting.Page.Disconnected;
 
+            UpdateDockingPage(page); // Orbitra-Edit
             if (page == LauncherConnecting.Page.Disconnected)
                 DisconnectReason.SetMessage(_state.LastDisconnectReason ?? ""); // Orbitra-Edit - длинная причина переносится.
         }
 
         private void ConnectionStateChanged(ClientConnectionState state)
         {
+            // Orbitra added start - поздний NotConnecting не должен перемещать остановленный шаттл.
+            if (_state.CurrentPage != LauncherConnecting.Page.Connecting)
+                return;
+            if (state != ClientConnectionState.NotConnecting)
+                Docking.SetStage(state);
+            // Orbitra added end
             ConnectStatus.Text = Loc.GetString($"connecting-state-{state}");
         }
     }

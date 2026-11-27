@@ -1,0 +1,11 @@
+orbitra-atlas-button = Дорожная карта
+orbitra-atlas-title = Дорожная карта
+orbitra-atlas-chart = Звёздная карта
+orbitra-atlas-count = Завершено обновлений: { $done } из { $total }
+orbitra-atlas-loading = Загружаем карту…
+orbitra-atlas-empty = Первые координаты пока не опубликованы.
+orbitra-atlas-create = Создать обновление
+orbitra-atlas-edit = Редактировать
+orbitra-atlas-tasks = Задачи · { $done } / { $total }
+orbitra-atlas-pending = Изменения в черновике видны только редакторам.
+orbitra-atlas-draft = Черновик виден только редакторам.

@@ -5,50 +5,12 @@ uniform highp vec2 camera_drift;
 uniform highp float camera_rotation;
 uniform highp float phase_time;
 uniform bool menu_background;
+uniform bool docking_background;
 uniform bool low_quality;
 uniform highp float warp_speed;
 uniform highp float warp_distance;
 
-highp float hashCell(highp vec2 p) {
-    highp vec3 v = fract(vec3(p.x, p.y, p.x) * vec3(0.1031, 0.11369, 0.13787));
-    v += dot(v, v.yzx + 19.19);
-    return fract((v.x + v.y) * v.z);
-}
-
-highp float valueNoise(highp vec2 p) {
-    highp vec2 cell = floor(p);
-    highp vec2 within = fract(p);
-    highp vec2 blend = within * within * (3.0 - 2.0 * within);
-    return mix(
-        mix(hashCell(cell), hashCell(cell + vec2(1.0, 0.0)), blend.x),
-        mix(hashCell(cell + vec2(0.0, 1.0)), hashCell(cell + vec2(1.0, 1.0)), blend.x),
-        blend.y);
-}
-
-highp vec2 rotateSky(highp vec2 p, highp float angle) {
-    highp float cosine = cos(angle);
-    highp float sine = sin(angle);
-    return vec2(cosine * p.x - sine * p.y, sine * p.x + cosine * p.y);
-}
-
-highp vec3 starLayer(highp vec2 p, highp float density, highp float pixel, highp float gain) {
-    highp vec2 scaled = p * density;
-    highp vec2 cell = floor(scaled);
-    highp float seed = hashCell(cell);
-    if (seed < 0.68) {
-        return vec3(0.0);
-    }
-
-    highp vec2 offset = vec2(hashCell(cell + 16.2), hashCell(cell - 41.7));
-    highp vec2 local = fract(scaled) - (0.23 + offset * 0.54);
-    highp float strength = hashCell(cell + 57.3);
-    highp float radius = 0.018 + 0.055 * strength * strength;
-    highp float fade = clamp(pixel * density * 0.62, 0.015, 0.19);
-    highp float core = 1.0 - smoothstep(max(0.0, radius - fade), radius + fade, length(local));
-    highp float light = core * (0.018 + 0.44 * strength * strength * strength) * gain;
-    highp vec3 color = mix(vec3(0.49, 0.72, 1.0), vec3(1.0, 0.80, 0.58), offset.x * offset.x);
-    return color * light;
-}
+#include "/Textures/_Orbitra/Shaders/sky_noise.swsl"
 
 highp vec3 warpStars(highp vec2 view, highp vec2 density, highp float pixel, highp float speed, highp float gain) {
     highp vec2 scaled = view * density;
@@ -108,6 +70,42 @@ highp vec3 backgroundLight(highp vec2 sky, highp float pixel) {
     return result;
 }
 
+// Расстояния заданы в долях высоты окна: звёзды сохраняют форму на широком экране.
+highp float beaconLight(highp vec2 delta, highp float size, highp float pixel) {
+    highp vec2 d = abs(delta) / size;
+    highp float core = 1.0 - smoothstep(0.0007, 0.0017 + pixel / size, length(d));
+    highp float halo = 0.058 * exp(-length(d) * 220.0);
+    if (low_quality) {
+        return core + halo;
+    }
+    highp float rays = exp(-(d.x * 130.0 + d.y * 1900.0)) +
+                       exp(-(d.x * 1900.0 + d.y * 180.0));
+    return core + halo + 0.26 * rays;
+}
+
+highp vec3 dockingLight(highp vec2 view, highp float pixel) {
+    highp vec2 drift = vec2(0.16 * sin(phase_time * 0.01125), -0.08 * sin(phase_time * 0.005625));
+    highp vec2 dust = view + drift * 0.22;
+    highp vec2 p = nebulaCoordinates(dust);
+    highp float folds = valueNoise(p * 1.6 + 12.3);
+    highp float grain = valueNoise(p * 4.2 + folds * 1.45);
+    if (!low_quality) {
+        grain = mix(grain, valueNoise(p * 11.0 + grain * 2.3), 0.24);
+    }
+    highp float latitude = dust.y + dust.x * 0.30 + (folds - 0.5) * 0.14;
+    highp float ribbon = exp(-abs(latitude) * 10.0);
+    highp float light = ribbon * smoothstep(0.25, 0.82, folds * 0.46 + grain * 0.54);
+    highp vec3 tint = mix(vec3(0.023, 0.067, 0.112), vec3(0.079, 0.040, 0.096), folds);
+    highp vec3 sky = vec3(0.0016, 0.0025, 0.0050) + tint * light;
+    sky += starLayer(view + drift * 0.5, 110.0, pixel, 0.44);
+    highp vec2 nearSky = view + drift * 1.6;
+    sky += starLayer(nearSky + 17.0, 43.0, pixel, 1.25);
+    sky += vec3(0.62, 0.80, 1.0) * beaconLight(nearSky - vec2(-0.53, 0.13), 1.45, pixel);
+    sky += vec3(0.89, 0.79, 1.0) * beaconLight(nearSky - vec2(0.40, -0.095), 1.1, pixel);
+    sky += vec3(0.61, 0.78, 1.0) * beaconLight(nearSky - vec2(0.68, -0.21), 0.72, pixel);
+    return sky;
+}
+
 void fragment() {
     highp vec2 uv = FRAGCOORD.xy / viewport_size;
     if (menu_background) {
@@ -117,6 +115,6 @@ void fragment() {
     highp float pixel = 1.0 / viewport_size.y;
     highp vec2 view = (uv - 0.5) * vec2(aspect, 1.0);
     highp vec2 world = rotateSky(view, -camera_rotation);
-    highp vec3 result = backgroundLight(world, pixel);
+    highp vec3 result = docking_background ? dockingLight(view, pixel) : backgroundLight(world, pixel);
     COLOR = vec4(clamp(result, vec3(0.0), vec3(1.0)), 1.0);
 }

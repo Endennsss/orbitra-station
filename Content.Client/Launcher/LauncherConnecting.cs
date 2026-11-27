@@ -28,7 +28,7 @@ namespace Content.Client.Launcher
         private Page _currentPage;
         private string? _connectFailReason;
 
-        public string? Address => _gameController.LaunchState.Ss14Address ?? _gameController.LaunchState.ConnectAddress;
+        public string? Address => _disconnectInfo.DirectTarget?.Address ?? _gameController.LaunchState.Ss14Address ?? _gameController.LaunchState.ConnectAddress; // Orbitra-Edit
 
         public string? ConnectFailReason
         {
@@ -40,7 +40,7 @@ namespace Content.Client.Launcher
             }
         }
 
-        public string? LastDisconnectReason => _baseClient.LastDisconnectReason;
+        public string? LastDisconnectReason => _disconnectInfo.LastNetDisconnectedArgs?.Reason ?? _baseClient.LastDisconnectReason; // Orbitra-Edit
 
         public Page CurrentPage
         {
@@ -48,6 +48,13 @@ namespace Content.Client.Launcher
             private set
             {
                 _currentPage = value;
+                // Orbitra added start - новая попытка сбрасывает результат предыдущего рейса.
+                if (value == Page.Connecting)
+                {
+                    WasDocked = false;
+                    ConnectFailReason = null;
+                }
+                // Orbitra added end
                 PageChanged?.Invoke(value);
             }
         }
@@ -65,25 +72,26 @@ namespace Content.Client.Launcher
 
             _sawmill = _logManager.GetSawmill("launcher-ui");
 
+            CurrentPage = Page.Connecting; // Orbitra-Edit - экран прочитает начальную страницу при входе в дерево.
             _userInterfaceManager.StateRoot.AddChild(_control);
 
             _clientNetManager.ConnectFailed += OnConnectFailed;
             _clientNetManager.ClientConnectStateChanged += OnConnectStateChanged;
-
-            CurrentPage = Page.Connecting;
         }
 
         protected override void Shutdown()
         {
-            _control?.Dispose();
-
             _clientNetManager.ConnectFailed -= OnConnectFailed;
             _clientNetManager.ClientConnectStateChanged -= OnConnectStateChanged;
+            // Orbitra edit start - выход из дерева снимает подписки экрана.
+            _control?.Orphan();
+            _control = null;
+            // Orbitra edit end
         }
 
         private void OnConnectFailed(object? _, NetConnectFailArgs args)
         {
-            if (args.RedialFlag)
+            if (args.RedialFlag && !IsDirectConnection) // Orbitra-Edit
             {
                 // We've just *attempted* to connect and we've been told we need to redial, so do it.
                 // Result deliberately discarded.
@@ -101,10 +109,20 @@ namespace Content.Client.Launcher
 
         public void RetryConnect()
         {
+            // Orbitra added start - повторяем подключение к адресу из главного меню.
+            if (_disconnectInfo.DirectTarget is { } target)
+            {
+                CurrentPage = Page.Connecting;
+                _baseClient.ConnectToServer(target.Host, target.Port);
+                return;
+            }
+            // Orbitra added end
             if (_gameController.LaunchState.ConnectEndpoint != null)
             {
-                _baseClient.ConnectToServer(_gameController.LaunchState.ConnectEndpoint);
+                // Orbitra edit start - быстрый отказ сервера может прийти прямо при вызове.
                 CurrentPage = Page.Connecting;
+                _baseClient.ConnectToServer(_gameController.LaunchState.ConnectEndpoint);
+                // Orbitra edit end
             }
         }
 
@@ -131,6 +149,13 @@ namespace Content.Client.Launcher
 
         public void Exit()
         {
+            // Orbitra added start - после ошибки прямого подключения можно исправить адрес в меню.
+            if (CanReturnToMenu)
+            {
+                _stateManager.RequestStateChange<MainMenu.MainScreen>();
+                return;
+            }
+            // Orbitra added end
             _gameController.Shutdown("Exit button pressed");
         }
 

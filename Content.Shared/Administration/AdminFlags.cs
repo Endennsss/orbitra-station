@@ -124,6 +124,9 @@ namespace Content.Shared.Administration
         /// </summary>
         NameColor = 1 << 21,
 
+        /// <summary>Редактирование и публикация дорожной карты в лобби.</summary>
+        RoadmapEdit = 1 << 22, // Orbitra-Edit
+
         /// <summary>
         ///     Dangerous host permissions like scsi.
         /// </summary>

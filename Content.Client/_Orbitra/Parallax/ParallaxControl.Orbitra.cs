@@ -9,13 +9,14 @@ public sealed partial class ParallaxControl
     private OrbitraSkyRenderer? _orbitraSky;
 
     internal bool UseOrbitraSky { get; set; }
+    internal bool IsDockingBackground { get; set; }
 
     private bool TryDrawOrbitraSky(DrawingHandleScreen handle)
     {
         if (!UseOrbitraSky)
             return false;
 
-        _orbitraSky ??= new OrbitraSkyRenderer();
+        _orbitraSky ??= new OrbitraSkyRenderer(IsDockingBackground);
         return _orbitraSky.TryDrawMenu(handle, PixelSize);
     }
 

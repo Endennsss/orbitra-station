@@ -1,0 +1,15 @@
+<BoxContainer xmlns="https://spacestation14.io"
+              xmlns:kit="clr-namespace:Content.Client._Orbitra.UserInterface"
+              xmlns:ui="clr-namespace:Content.Client.Options.UI"
+              Orientation="Vertical">
+    <kit:OrbitraButton Name="ExpandButton" ToggleMode="True" Text="{Loc 'orbitra-options-bloom-tuning'}">
+        <kit:OrbitraIcon Name="Chevron" HorizontalAlignment="Right" />
+    </kit:OrbitraButton>
+    <BoxContainer Name="Settings" Orientation="Vertical" Visible="False">
+        <ui:OptionSlider Name="Radius" Access="Internal" Title="{Loc 'orbitra-options-bloom-radius'}" />
+        <ui:OptionSlider Name="Softness" Access="Internal" Title="{Loc 'orbitra-options-bloom-softness'}" />
+        <ui:OptionSlider Name="Threshold" Access="Internal" Title="{Loc 'orbitra-options-bloom-threshold'}" />
+        <ui:OptionSlider Name="Saturation" Access="Internal" Title="{Loc 'orbitra-options-bloom-saturation'}" />
+        <kit:OrbitraButton Name="ResetButton" Access="Internal" Text="{Loc 'orbitra-options-bloom-reset'}" />
+    </BoxContainer>
+</BoxContainer>

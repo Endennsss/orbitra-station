@@ -1,0 +1,4 @@
+- type: shader
+  id: OrbitraMenuParallax
+  kind: source
+  path: /Textures/_Orbitra/Shaders/menu_parallax.swsl

@@ -926,6 +926,27 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.ToTable("job", (string)null);
                 });
 
+            modelBuilder.Entity("Content.Server.Database.OrbitraRoadmap", b =>
+                {
+                    b.Property<string>("ServerId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("server_id");
+
+                    b.Property<string>("Json")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("json");
+
+                    b.Property<long>("Version")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("version");
+
+                    b.HasKey("ServerId")
+                        .HasName("PK_orbitra_roadmap");
+
+                    b.ToTable("orbitra_roadmap", (string)null);
+                });
+
             modelBuilder.Entity("Content.Server.Database.PlayTime", b =>
                 {
                     b.Property<int>("Id")

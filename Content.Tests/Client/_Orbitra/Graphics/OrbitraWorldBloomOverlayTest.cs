@@ -40,13 +40,12 @@ public sealed class OrbitraWorldBloomOverlayTest
         Assert.That(Math.Sign(comparison), Is.EqualTo(expected));
     }
 
-    [TestCase(8.2f, 9.9f)]
-    [TestCase(63.9f, 32.1f)]
-    public void LocalBloomTargetContainsSourceAndBlurPadding(float width, float height)
+    [TestCase(8.2f, 9.9f, 4)]
+    [TestCase(63.9f, 32.1f, 19)]
+    public void LocalBloomTargetContainsSourceAndBlurPadding(float width, float height, int padding)
     {
         var bounds = Box2.FromDimensions(new Vector2(10.9f, 20.1f), new Vector2(width, height));
-        var size = OrbitraWorldBloomOverlay.GetBloomTargetSize(bounds);
-        var padding = OrbitraWorldBloomOverlay.TargetPadding;
+        var size = OrbitraWorldBloomOverlay.GetBloomTargetSize(bounds, padding);
         Assert.That(size.X, Is.GreaterThanOrEqualTo(MathF.Ceiling(width) + 2 * padding));
         Assert.That(size.Y, Is.GreaterThanOrEqualTo(MathF.Ceiling(height) + 2 * padding));
         Assert.That(size.X % 16, Is.Zero);
@@ -104,16 +103,61 @@ public sealed class OrbitraWorldBloomOverlayTest
         Assert.That(OrbitraWorldBloomOverlay.GetBloomStrength(configured), Is.EqualTo(expected).Within(0.0001f));
     }
 
-    [TestCase((int) OrbitraBloomQuality.Low, 8f, 1.76f)]
-    [TestCase((int) OrbitraBloomQuality.Medium, 8f, 1.76f)]
-    [TestCase((int) OrbitraBloomQuality.High, 16f, 3.52f)]
-    [TestCase((int) OrbitraBloomQuality.High, 1000f, 16f)]
-    [TestCase((int) OrbitraBloomQuality.Low, 0.5f, 0.5f)]
-    public void BlurRadiusFitsPaddedMask(int quality, float pixelsPerMeter, float expected)
+    [TestCase(0.08f, 2f)]
+    [TestCase(0.22f, 32f)]
+    [TestCase(0.45f, 140f)]
+    public void BlurRadiusProjectsFromTilesEvenBelowOneMaskTexel(float worldRadius, float pixelsPerMeter)
     {
-        var radius = OrbitraWorldBloomOverlay.CalculateBlurRadius((OrbitraBloomQuality) quality, pixelsPerMeter);
-        Assert.That(radius, Is.EqualTo(expected).Within(0.0001f));
-        Assert.That(radius, Is.LessThan(OrbitraWorldBloomOverlay.TargetPadding));
+        var projection = new Vector2(pixelsPerMeter, pixelsPerMeter * 0.75f);
+        foreach (var quality in Enum.GetValues<OrbitraBloomQuality>())
+        {
+            var (divisor, _) = quality.GetFilter();
+            var radius = OrbitraWorldBloomOverlay.CalculateBlurRadius(worldRadius, projection, Vector2.One / divisor);
+            Assert.That(Vector2.Distance(radius * divisor, projection * worldRadius), Is.LessThan(0.0001f));
+            var padding = OrbitraWorldBloomOverlay.GetBlurPadding(radius);
+            Assert.That(padding, Is.GreaterThanOrEqualTo(MathF.Ceiling(radius.X) + 1));
+            Assert.That(padding, Is.GreaterThanOrEqualTo(MathF.Ceiling(radius.Y) + 1));
+        }
+    }
+
+    [Test]
+    public void LowUsesFewerBlurSamplesAtMediumResolution()
+    {
+        var low = OrbitraBloomQuality.Low.GetFilter();
+        var medium = OrbitraBloomQuality.Medium.GetFilter();
+        var high = OrbitraBloomQuality.High.GetFilter();
+        Assert.That(low.Divisor, Is.EqualTo(4));
+        Assert.That(medium.Divisor, Is.EqualTo(low.Divisor));
+        Assert.That(high.Divisor, Is.EqualTo(2));
+        Assert.That(low.Pairs, Is.LessThan(medium.Pairs));
+        Assert.That(high.Pairs, Is.GreaterThanOrEqualTo(medium.Pairs));
+    }
+
+    [Test]
+    public void SoftnessMovesEnergyFromCoreToHalo()
+    {
+        var hard = OrbitraWorldBloomOverlay.GetCoreHaloWeights(0f, Vector2.One);
+        var normal = OrbitraWorldBloomOverlay.GetCoreHaloWeights(0.35f, Vector2.One);
+        var soft = OrbitraWorldBloomOverlay.GetCoreHaloWeights(1f, Vector2.One);
+        Assert.That(hard.X, Is.GreaterThan(normal.X));
+        Assert.That(normal.X, Is.GreaterThan(soft.X));
+        Assert.That(soft.X, Is.Positive);
+        Assert.That(hard.Y, Is.Positive);
+        Assert.That(normal.Y, Is.GreaterThan(hard.Y));
+        Assert.That(soft.Y, Is.GreaterThan(normal.Y));
+        Assert.That(soft.X + soft.Y, Is.EqualTo(hard.X + hard.Y).Within(0.0001f));
+    }
+
+    [Test]
+    public void SubTexelHaloReturnsUnresolvedLightToFullResolutionCore()
+    {
+        var resolved = OrbitraWorldBloomOverlay.GetCoreHaloWeights(0.35f, Vector2.One);
+        var halfTexel = OrbitraWorldBloomOverlay.GetCoreHaloWeights(0.35f, new Vector2(0.5f));
+        var quarterTexel = OrbitraWorldBloomOverlay.GetCoreHaloWeights(0.35f, new Vector2(0.25f));
+        Assert.That(halfTexel.X, Is.GreaterThan(resolved.X));
+        Assert.That(quarterTexel.X, Is.GreaterThan(halfTexel.X));
+        Assert.That(quarterTexel.Y * 4f, Is.EqualTo(halfTexel.Y).Within(0.0001f));
+        Assert.That(quarterTexel.X + quarterTexel.Y, Is.EqualTo(resolved.X + resolved.Y).Within(0.0001f));
     }
 
     [TestCase(1920, 1080, 4, 0f)]
@@ -126,9 +170,10 @@ public sealed class OrbitraWorldBloomOverlayTest
         var camera = Matrix3x2.CreateTranslation(-17.2f, 23.4f) *
                      Matrix3x2.CreateRotation((float) Angle.FromDegrees(rotation)) *
                      Matrix3x2.CreateScale(48f, -48f) * Matrix3x2.CreateTranslation(viewportSize / 2f);
-        var mask = OrbitraWorldBloomOverlay.GetWorldToTargetMatrix(camera, viewportSize, contentSize);
+        const int paddingPixels = 9;
+        var mask = OrbitraWorldBloomOverlay.GetWorldToTargetMatrix(camera, viewportSize, contentSize, paddingPixels);
         Assert.That(Matrix3x2.Invert(mask, out var composite), Is.True);
-        var padding = new Vector2(OrbitraWorldBloomOverlay.TargetPadding);
+        var padding = new Vector2(paddingPixels);
         var topLeft = Vector2.Transform(Vector2.Transform(padding, composite), camera);
         var bottomRight = Vector2.Transform(Vector2.Transform(contentSize + padding, composite), camera);
         Assert.That(Vector2.Distance(topLeft, Vector2.Zero), Is.LessThan(0.001f));
