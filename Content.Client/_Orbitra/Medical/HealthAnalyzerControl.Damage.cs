@@ -15,7 +15,7 @@ namespace Content.Client.HealthAnalyzer.UI;
 
 public sealed partial class HealthAnalyzerControl
 {
-    [Dependency] private readonly IResourceCache _resources = default!;
+    [Dependency] private IResourceCache _resources = default!;
 
     private readonly Dictionary<ProtoId<DamageGroupPrototype>, (BoxContainer Row, Label Title, RichTextLabel Types)> _groups = new();
     private DamageSpecifier? _lastDamage;

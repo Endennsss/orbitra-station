@@ -14,9 +14,9 @@ namespace Content.Client._Orbitra.Surgery;
 [GenerateTypedNameReferences]
 public sealed partial class OrbitraAnalyzerAnatomy : BoxContainer
 {
-    [Dependency] private readonly IEntityManager _entity = default!;
-    [Dependency] private readonly ILocalizationManager _loc = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private IEntityManager _entity = default!;
+    [Dependency] private ILocalizationManager _loc = default!;
+    [Dependency] private IPrototypeManager _prototype = default!;
 
     private static readonly SurgeryInjury[] Findings =
         [SurgeryInjury.Missing, SurgeryInjury.InternalBleeding, SurgeryInjury.Fracture,
