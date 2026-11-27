@@ -1,0 +1,19 @@
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values: [GasCanister, AirCanister, GasCanisterBrokenBase]
+  components:
+  - type: Sprite
+    sprite: &canisterSprite _Orbitra/Structures/Storage/canister.rsi
+
+- type: !PartialOnly cargoProduct
+  id: !type:CreateVariants
+    values: [AtmosphericsAir, AtmosphericsOxygen, AtmosphericsNitrogen, AtmosphericsCarbonDioxide, AtmosphericsStorage, AtmosphericsPlasma]
+  icon:
+    sprite: *canisterSprite
+
+- type: !PartialOnly entity
+  id: SalvageCanisterSpawner
+  components:
+  - type: Sprite
+    layers:
+    - !CombineIndex:1 sprite: *canisterSprite

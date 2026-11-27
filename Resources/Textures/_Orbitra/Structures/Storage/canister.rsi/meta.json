@@ -1,0 +1,167 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Canister bodies, wrecks, fittings and pressure indicators by Tex (War-Tex) and Partheo for Yogstation (https://github.com/yogstation13/Yogstation/pull/9496, https://github.com/yogstation13/Yogstation/pull/9715), via Aurorastation: https://github.com/Aurorastation/Aurora.3/blob/301d7f252bc5a1761bce1bd152733d785ac03517/icons/obj/atmos.dmi. Tritium, ammonia, water vapor and frezon repaletted for Orbitra; integrity masks adapted for these bodies. Paper labels by Vermidia. Lock indicators and integrity glow adapted from SS14's Structures/Storage/canister.rsi, originally from https://github.com/tgstation/tgstation/commit/f8581a636acfc1517611a680b7711a74fc7ef335.",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "grey"
+        },
+        {
+            "name": "grey-1"
+        },
+        {
+            "name": "mask-grey"
+        },
+        {
+            "name": "blue"
+        },
+        {
+            "name": "blue-1"
+        },
+        {
+            "name": "mask-blue"
+        },
+        {
+            "name": "red"
+        },
+        {
+            "name": "red-1"
+        },
+        {
+            "name": "mask-red"
+        },
+        {
+            "name": "black"
+        },
+        {
+            "name": "black-1"
+        },
+        {
+            "name": "mask-black"
+        },
+        {
+            "name": "orange"
+        },
+        {
+            "name": "orange-1"
+        },
+        {
+            "name": "mask-orange"
+        },
+        {
+            "name": "redws"
+        },
+        {
+            "name": "redws-1"
+        },
+        {
+            "name": "mask-redws"
+        },
+        {
+            "name": "yellow"
+        },
+        {
+            "name": "yellow-1"
+        },
+        {
+            "name": "mask-yellow"
+        },
+        {
+            "name": "green"
+        },
+        {
+            "name": "green-1"
+        },
+        {
+            "name": "mask-green"
+        },
+        {
+            "name": "greenys"
+        },
+        {
+            "name": "greenys-1"
+        },
+        {
+            "name": "mask-greenys"
+        },
+        {
+            "name": "water_vapor"
+        },
+        {
+            "name": "water_vapor-1"
+        },
+        {
+            "name": "mask-water_vapor"
+        },
+        {
+            "name": "frezon"
+        },
+        {
+            "name": "frezon-1"
+        },
+        {
+            "name": "mask-frezon"
+        },
+        {
+            "name": "can-open"
+        },
+        {
+            "name": "can-connector"
+        },
+        {
+            "name": "can-o1"
+        },
+        {
+            "name": "can-o2"
+        },
+        {
+            "name": "can-o3"
+        },
+        {
+            "name": "can-o0",
+            "delays": [
+                [
+                    0.2,
+                    0.6
+                ]
+            ]
+        },
+        {
+            "name": "paper"
+        },
+        {
+            "name": "captains_paper"
+        },
+        {
+            "name": "invoice"
+        },
+        {
+            "name": "bounty"
+        },
+        {
+            "name": "locked"
+        },
+        {
+            "name": "unlocked"
+        },
+        {
+            "name": "integrity-unshaded-0"
+        },
+        {
+            "name": "integrity-unshaded-1"
+        },
+        {
+            "name": "integrity-unshaded-2"
+        },
+        {
+            "name": "integrity-unshaded-3"
+        },
+        {
+            "name": "integrity-unshaded-4"
+        }
+    ]
+}
