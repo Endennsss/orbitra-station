@@ -10,21 +10,25 @@
         !type:GeneratedParallaxTextureSource
         id: "hq_wizard_stars"
         configPath: "/Prototypes/Parallaxes/parallax_config_stars.toml"
+      orbitraSky: Stars # Orbitra-Edit
       slowness: 0.996625
     - texture:
         !type:GeneratedParallaxTextureSource
         id: "hq_wizard_stars_dim"
         configPath: "/Prototypes/Parallaxes/parallax_config_stars_dim.toml"
+      orbitraSky: Stars # Orbitra-Edit
       slowness: 0.989375
     - texture:
         !type:GeneratedParallaxTextureSource
         id: "hq_wizard_stars_faster"
         configPath: "/Prototypes/Parallaxes/parallax_config_stars-2.toml"
+      orbitraSky: Stars # Orbitra-Edit
       slowness: 0.987265625
     - texture:
         !type:GeneratedParallaxTextureSource
         id: "hq_wizard_stars_dim_faster"
         configPath: "/Prototypes/Parallaxes/parallax_config_stars_dim-2.toml"
+      orbitraSky: Stars # Orbitra-Edit
       slowness: 0.984352
     - texture:
         !type:ImageParallaxTextureSource
@@ -49,5 +53,6 @@
         !type:GeneratedParallaxTextureSource
         id: ""
         configPath: "/Prototypes/Parallaxes/parallax_config.toml"
+      orbitraSky: Full # Orbitra-Edit
       slowness: 0.875
   layersLQUseHQ: false

@@ -1,7 +1,7 @@
 using System.Numerics;
 using Content.Client._Orbitra.Parallax;
+using Content.Client.Parallax.Data;
 using Content.Shared.Shuttles.Components;
-using Content.Shared.Shuttles.Systems;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
 
@@ -11,10 +11,10 @@ namespace Content.Client.Parallax;
 
 public sealed partial class ParallaxOverlay
 {
-    private const float OrbitraWarpAccelerationSeconds = 1.2f;
     private readonly IEyeManager _orbitraEye = IoCManager.Resolve<IEyeManager>();
     private readonly IPlayerManager _orbitraPlayer = IoCManager.Resolve<IPlayerManager>();
     private OrbitraSkyRenderer? _orbitraSky;
+    private OrbitraSkyRenderer OrbitraSky => _orbitraSky ??= new OrbitraSkyRenderer();
 
     private bool TryDrawOrbitraSky(in OverlayDrawArgs args, Vector2 position)
     {
@@ -22,36 +22,46 @@ public sealed partial class ParallaxOverlay
         if (!hyperspace && _parallax.GetParallax(args.MapUid) != "Default")
             return false;
 
-        var warpSpeed = hyperspace ? GetOrbitraWarpSpeed(args) : 0f;
-        _orbitraSky ??= new OrbitraSkyRenderer();
-        return _orbitraSky.TryDrawWorld(args, position - _manager.ParallaxAnchor, warpSpeed);
+        var camera = position - _manager.ParallaxAnchor;
+        if (!hyperspace)
+            return OrbitraSky.TryDrawWorld(args, camera, 0f);
+
+        var (speed, distance) = OrbitraWarpMotion.Sample(GetOrbitraFlight(args), _timing.CurTime);
+        return OrbitraSky.TryDrawWorld(args, camera, speed, warpDistance: distance);
     }
 
-    private float GetOrbitraWarpSpeed(in OverlayDrawArgs args)
+    private FTLComponent? GetOrbitraFlight(in OverlayDrawArgs args)
     {
         if (args.Viewport.Eye != _orbitraEye.CurrentEye ||
             !_entManager.TryGetComponent<TransformComponent>(_orbitraPlayer.LocalEntity, out var viewer) ||
             viewer.MapUid != args.MapUid || viewer.GridUid is not { } grid ||
             !_entManager.TryGetComponent<FTLComponent>(grid, out var flight))
         {
-            return 1f;
+            return null;
         }
 
-        var duration = (float) flight.StateTime.Length.TotalSeconds;
-        var elapsed = (float) (_timing.CurTime - flight.StateTime.Start).TotalSeconds;
-        return flight.State switch
-        {
-            // Даже короткий перелёт успевает выйти на полную скорость перед торможением.
-            FTLState.Travelling => EaseOrbitraWarp(elapsed, Math.Min(OrbitraWarpAccelerationSeconds, duration * 0.5f)),
-            FTLState.Arriving => 1f - EaseOrbitraWarp(elapsed, duration),
-            _ => 0f,
-        };
+        return flight;
     }
 
-    private static float EaseOrbitraWarp(float elapsed, float duration)
+    private bool TryReplaceOrbitraLayer(in OverlayDrawArgs args, Vector2 position, ParallaxLayerConfig layer, ref OrbitraSkyLayer? drawn)
     {
-        var progress = duration > 0f ? Math.Clamp(elapsed / duration, 0f, 1f) : 1f;
-        return progress * progress * (3f - 2f * progress);
+        if (layer.OrbitraSky is not { } sky || sky == OrbitraSkyLayer.Accents)
+            return false;
+
+        if (drawn == sky)
+            return true;
+
+        if (!OrbitraSky.TryDrawWorld(args, position - _manager.ParallaxAnchor, 0f, sky))
+            return false;
+
+        drawn = sky;
+        return true;
+    }
+
+    private void DrawOrbitraAccents(in OverlayDrawArgs args, Vector2 position, ParallaxLayerConfig layer)
+    {
+        if (layer.OrbitraSky == OrbitraSkyLayer.Accents)
+            OrbitraSky.TryDrawWorld(args, position - _manager.ParallaxAnchor, 0f, OrbitraSkyLayer.Accents);
     }
 
     protected override void DisposeBehavior()

@@ -58,9 +58,15 @@ public sealed partial class ParallaxOverlay : Overlay
 
         var layers = _parallax.GetParallaxLayers(args.MapId);
         var realTime = (float) _timing.RealTime.TotalSeconds;
+        Content.Client._Orbitra.Parallax.OrbitraSkyLayer? orbitraLayerDrawn = null; // Orbitra-Edit
 
         foreach (var layer in layers)
         {
+            // Orbitra added start - сохраняем порядок авторских слоёв при замене звёзд.
+            if (TryReplaceOrbitraLayer(args, position, layer.Config, ref orbitraLayerDrawn))
+                continue;
+            // Orbitra added end
+
             ShaderInstance? shader;
 
             if (!string.IsNullOrEmpty(layer.Config.Shader))
@@ -117,6 +123,8 @@ public sealed partial class ParallaxOverlay : Overlay
             {
                 worldHandle.DrawTextureRect(tex, Box2.FromDimensions(originBL, size));
             }
+
+            DrawOrbitraAccents(args, position, layer.Config); // Orbitra-Edit
         }
     }
 }

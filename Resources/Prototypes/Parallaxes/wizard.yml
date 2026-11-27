@@ -4,6 +4,7 @@
     - texture:
         !type:ImageParallaxTextureSource
         path: "/Textures/Parallaxes/purple_nebula.png"
+      orbitraSky: Accents # Orbitra-Edit
       slowness: 0.98
       scale: 1,1
     - texture:
