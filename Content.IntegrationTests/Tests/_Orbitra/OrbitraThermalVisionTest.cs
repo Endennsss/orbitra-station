@@ -102,7 +102,7 @@ public sealed class OrbitraThermalVisionTest : GameTest
                 SEntMan.GetComponent<OrbitraThermalVisionComponent>(goggles)), wearer);
         });
         await Pair.RunTicksSync(15);
-        OrbitraThermalContactsEvent? snapshot = null;
+        OrbitraThermalContactsEvent snapshot = null;
         await Client.WaitAssertion(() =>
         {
             Assert.That(equipped && toggled, Is.True);
