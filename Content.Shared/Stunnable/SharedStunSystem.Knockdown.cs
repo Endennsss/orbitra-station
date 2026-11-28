@@ -110,7 +110,8 @@ public abstract partial class SharedStunSystem
     {
         // hate. let me tell you how much i hate...
         // this may have unforseen consequences. blame scar
-        ForceStandUp((entity.Owner, null), true);
+        if (!TerminatingOrDeleted(entity.Owner)) // Orbitra-Edit: при удалении лежащего пассажира уже нельзя тратить выносливость.
+            ForceStandUp((entity.Owner, null), true);
     }
 
     private void OnKnockInit(Entity<KnockedDownComponent> entity, ref ComponentInit args)

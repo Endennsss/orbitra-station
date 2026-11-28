@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 08/23/2026 10:22:08
-  entityCount: 3692
+  entityCount: 3698 # Orbitra-Edit
 maps:
 - 23
 grids:
@@ -862,7 +862,7 @@ entities:
           15,15:
             2: 65535
           16,16:
-            2: 831
+            2: 4927 # Orbitra-Edit
           16,12:
             0: 17472
           17,14:
@@ -1414,7 +1414,8 @@ entities:
     components:
     - type: Transform
       parent: 1
-      pos: 64.5,66.5
+      rot: -1.5707963267948966 rad # Orbitra-Edit
+      pos: 65.5,65.5 # Orbitra-Edit
   - uid: 3432
     components:
     - type: Transform
@@ -3506,6 +3507,18 @@ entities:
     - type: InsideEntityStorage
 - proto: CableApcExtension
   entities:
+  # Orbitra added start
+  - uid: 4004
+    components:
+    - type: Transform
+      parent: 1
+      pos: 64.5,66.5
+  - uid: 4005
+    components:
+    - type: Transform
+      parent: 1
+      pos: 64.5,67.5
+  # Orbitra added end
   - uid: 40
     components:
     - type: Transform
@@ -13110,7 +13123,7 @@ entities:
     components:
     - type: Transform
       parent: 1
-      pos: 65.5,65.5
+      pos: 63.5,63.5 # Orbitra-Edit
   - uid: 3304
     components:
     - type: Transform
@@ -19265,7 +19278,7 @@ entities:
     components:
     - type: Transform
       parent: 1
-      pos: 64.5,66.5
+      pos: 64.5,62.5 # Orbitra-Edit
 - proto: SpawnMobCorgiMouse
   entities:
   - uid: 577
@@ -20729,11 +20742,6 @@ entities:
     - type: Transform
       parent: 1
       pos: 36.5,20.5
-  - uid: 63
-    components:
-    - type: Transform
-      parent: 1
-      pos: 64.5,67.5
   - uid: 66
     components:
     - type: Transform
@@ -25054,4 +25062,21 @@ entities:
       parent: 1
       rot: 1.5707963267948966 rad
       pos: 81.338554,6.671567
+# Orbitra added start
+- proto: OrbitraLavalandStationDock
+  entities:
+  - uid: 63
+    components:
+    - type: Transform
+      parent: 1
+      rot: 3.141592653589793 rad
+      pos: 64.5,67.5
+- proto: OrbitraLavalandStationTerminal
+  entities:
+  - uid: 4003
+    components:
+    - type: Transform
+      parent: 1
+      pos: 65.5,64.5
+# Orbitra added end
 ...

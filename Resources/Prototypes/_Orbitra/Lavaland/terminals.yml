@@ -1,0 +1,40 @@
+- type: entity
+  parent: BaseStructure
+  abstract: true
+  id: OrbitraLavalandTerminalBase
+  name: mining ferry terminal
+  description: Dispatches the mining ferry between cargo and the Lavaland outpost.
+  components:
+  - type: TelecomExempt
+  - type: Sprite
+    sprite: Structures/Machines/computers.rsi
+    layers:
+    - state: computer
+    - state: generic_keyboard
+    - state: shuttle
+      shader: unshaded
+    - state: generic_keys
+      shader: unshaded
+  - type: InteractionOutline
+  - type: ActivatableUI
+    key: enum.OrbitraLavalandUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.OrbitraLavalandUiKey.Key:
+        type: OrbitraLavalandBoundUserInterface
+
+- type: entity
+  parent: OrbitraLavalandTerminalBase
+  id: OrbitraLavalandStationTerminal
+  suffix: Station
+  components:
+  - type: OrbitraLavalandTerminal
+    side: Station
+
+- type: entity
+  parent: OrbitraLavalandTerminalBase
+  id: OrbitraLavalandOutpostTerminal
+  suffix: Outpost
+  components:
+  - type: OrbitraLavalandTerminal
+    side: Outpost

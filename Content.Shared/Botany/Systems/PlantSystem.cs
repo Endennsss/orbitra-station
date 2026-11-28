@@ -3,6 +3,7 @@ using Content.Shared.Botany.Components;
 using Content.Shared.Botany.Events;
 using Content.Shared.Botany.Traits.Components;
 using Content.Shared.Examine;
+using Content.Shared.Power.EntitySystems; // Orbitra-Edit
 using JetBrains.Annotations;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
@@ -18,6 +19,7 @@ public sealed partial class PlantSystem : EntitySystem
     [Dependency] private IGameTiming _gameTiming = default!;
     [Dependency] private PlantMutationSystem _mutation = default!;
     [Dependency] private PlantHolderSystem _plantHolder = default!;
+    [Dependency] private SharedPowerReceiverSystem _power = default!; // Orbitra-Edit
     [Dependency] private IRobustRandom _random = default!;
 
     [Dependency] private EntityQuery<PlantHolderComponent> _holderQuery;
@@ -138,7 +140,10 @@ public sealed partial class PlantSystem : EntitySystem
         if (_plantHolder.IsDead(ent.Owner))
             return;
 
-        TryGetTray(ent.Owner, out var trayEnt);
+        // Orbitra edit start - гидропоника с электрическим насосом ждёт восстановления питания.
+        if (TryGetTray(ent.Owner, out var trayEnt) && !_power.IsPowered(trayEnt.Owner))
+            return;
+        // Orbitra edit end
         var plantGrow = new PlantGrowEvent(trayEnt.Owner);
         RaiseLocalEvent(ent.Owner, ref plantGrow);
 

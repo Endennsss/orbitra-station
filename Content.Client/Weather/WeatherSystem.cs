@@ -65,6 +65,15 @@ public sealed partial class WeatherSystem : SharedWeatherSystem
                 continue;
             }
 
+            // Orbitra added start - ветер слышен только рядом с проходящим фронтом.
+            var localStrength = GetAshFrontGain(uid, status, playerXform);
+            if (localStrength <= 0f)
+            {
+                weather.Stream = _audio.Stop(weather.Stream);
+                continue;
+            }
+            // Orbitra added end
+
             weather.Stream ??= _audio.PlayGlobal(weather.Sound, Filter.Local(), true)?.Entity;
 
             if (!_audioQuery.TryComp(weather.Stream, out var audio))
@@ -135,7 +144,7 @@ public sealed partial class WeatherSystem : SharedWeatherSystem
 
             var alpha = GetWeatherPercent((uid, status));
             alpha *= SharedAudioSystem.VolumeToGain(weather.Sound.Params.Volume);
-            alpha *= _weatherGain;
+            alpha *= _weatherGain * localStrength; // Orbitra-Edit
             _audio.SetGain(weather.Stream, alpha, audio);
             audio.Occlusion = occlusion;
         }

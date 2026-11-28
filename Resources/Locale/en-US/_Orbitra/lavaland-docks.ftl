@@ -1,0 +1,11 @@
+ent-OrbitraLavalandStationDock = mining ferry docking airlock
+    .desc = Connects the mining ferry to its berth.
+    .suffix = Station
+ent-OrbitraLavalandOutpostDock = { ent-OrbitraLavalandStationDock }
+    .desc = { ent-OrbitraLavalandStationDock.desc }
+    .suffix = Outpost
+ent-OrbitraLavalandFerryDock = { ent-OrbitraLavalandStationDock }
+    .desc = { ent-OrbitraLavalandStationDock.desc }
+    .suffix = Shuttle
+ent-OrbitraLavalandReturnSign = station ferry sign
+    .desc = The northern airlock leads to the mining ferry. Use the terminal next to it to call the return flight.

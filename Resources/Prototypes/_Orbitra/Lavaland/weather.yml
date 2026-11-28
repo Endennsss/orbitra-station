@@ -1,0 +1,10 @@
+- type: entity
+  parent: WeatherAshfallHeavy
+  id: OrbitraWeatherAshFront
+  components:
+  - type: OrbitraAshBand
+
+- type: entity
+  parent: StatusEffectSlowdown
+  id: OrbitraAshSlowdown
+  name: moving through ash

@@ -469,6 +469,17 @@ public sealed partial class ShuttleSystem
         var xform = Transform(uid);
         var body = _physicsQuery.GetComponent(uid);
         var comp = entity.Comp1;
+        // Orbitra added start: маршрутный борт ждёт свободного причала до выхода из БСС.
+        var landing = new ShuttleFTLLandingEvent();
+        RaiseLocalEvent(uid, ref landing);
+        if (landing.Hold)
+        {
+            comp.StateTime = StartEndTime.FromCurTime(_gameTiming, 1f);
+            Dirty(uid, comp);
+            return;
+        }
+        // Orbitra added end
+
         DoTheDinosaur(xform);
         _dockSystem.SetDockBolts(entity, false);
 
@@ -482,7 +493,14 @@ public sealed partial class ShuttleSystem
         QueueDel(entity.Comp1.VisualizerEntity);
         entity.Comp1.VisualizerEntity = null;
 
-        if (!Exists(entity.Comp1.TargetCoordinates.EntityId))
+        // Orbitra edit start: применяем проверенную пару портов маршрутного борта.
+        if (landing.Dock is {} exactDock)
+        {
+            FTLDock((uid, xform), exactDock);
+            mapId = _transform.GetMapId(exactDock.Coordinates);
+        }
+        else if (!Exists(entity.Comp1.TargetCoordinates.EntityId))
+        // Orbitra edit end
         {
             // Get a list of maps
             var maps = EntityQuery<MapComponent, FTLDestinationComponent>()

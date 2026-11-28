@@ -1,0 +1,48 @@
+- type: entity
+  parent: MechRipley
+  id: OrbitraMechRipleyAbandoned
+  name: abandoned Ripley APLU
+  description: Ash cakes the loader's knee joints. A charred length of cable hangs from the drive housing.
+  save: true
+  components:
+  - type: OrbitraSalvageMech
+  - type: Physics
+    bodyType: Static
+  - type: WiresPanel
+    open: true
+  - type: Mech
+    startingEquipment:
+    - OrbitraMechMiningDrill
+  - type: PowerCellSlot
+    cellSlotId: mech-battery-slot
+    fitsInCharger: false
+  - type: ItemSlots
+    slots:
+      mech-battery-slot:
+        # Вставкой и извлечением управляет штатная сервисная панель меха.
+        locked: true
+  - type: PowerCellDraw
+    enabled: false
+    drawRate: 1
+  - type: Sprite
+    layers:
+    - map: ["enum.MechVisualLayers.Base"]
+      state: ripley
+      visible: false
+    - map: ["damaged-drive"]
+      state: ripley-broken
+  - type: GenericVisualizer
+    visuals:
+      enum.OrbitraSalvageMechVisuals.DriveRepaired:
+        enum.MechVisualLayers.Base:
+          True: { visible: true }
+        damaged-drive:
+          True: { visible: false }
+
+- type: entity
+  parent: MiningDrill
+  id: OrbitraMechMiningDrill
+  name: quick-release mining drill
+  description: A rock drill with a hand grip and a quick-release bracket for an exosuit tool mount.
+  components:
+  - type: MechEquipment

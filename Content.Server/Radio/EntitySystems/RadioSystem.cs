@@ -112,7 +112,7 @@ public sealed partial class RadioSystem : SharedRadioSystem
                     continue;
             }
 
-            if (!channel.LongRange && transform.MapID != sourceMapId && !radio.GlobalReceive)
+            if (!channel.LongRange && transform.MapID != sourceMapId && transform.MapID != sendAttemptEv.RelayMap && !radio.GlobalReceive) // Orbitra-Edit - учитываем карту ретранслятора.
                 continue;
 
             // don't need telecom server for long range channels or handheld radios and intercoms

@@ -1,0 +1,11 @@
+ent-OrbitraLavalandStationDock = стыковочный шлюз шахтёрского шаттла
+    .desc = Соединяет причал с шахтёрским шаттлом.
+    .suffix = Станция
+ent-OrbitraLavalandOutpostDock = { ent-OrbitraLavalandStationDock }
+    .desc = { ent-OrbitraLavalandStationDock.desc }
+    .suffix = Аванпост
+ent-OrbitraLavalandFerryDock = { ent-OrbitraLavalandStationDock }
+    .desc = { ent-OrbitraLavalandStationDock.desc }
+    .suffix = Шаттл
+ent-OrbitraLavalandReturnSign = указатель обратного рейса
+    .desc = Шахтёрский шаттл стыкуется у северного шлюза. Терминал рядом с ним вызывает рейс до станции.

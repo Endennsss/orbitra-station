@@ -1,4 +1,5 @@
 using Content.Shared.Chat;
+using Robust.Shared.Map; // Orbitra-Edit - маршрут ретранслятора.
 
 namespace Content.Shared.Radio;
 
@@ -35,4 +36,5 @@ public record struct RadioSendAttemptEvent(RadioChannelPrototype Channel, Entity
     public readonly RadioChannelPrototype Channel = Channel;
     public readonly EntityUid RadioSource = RadioSource;
     public bool Cancelled = false;
+    public MapId? RelayMap; // Orbitra-Edit - дополнительная карта для этой передачи.
 }

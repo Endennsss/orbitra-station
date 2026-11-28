@@ -1,0 +1,10 @@
+- type: entity
+  parent: HydroponicsTray
+  id: OrbitraLavalandHydroponicsTray
+  name: pumped hydroponics tray
+  description: An electric pump circulates nutrient solution around the roots. Crops stop growing when the pump loses power.
+  components:
+  - type: ApcPowerReceiver
+    powerLoad: 75
+  - type: ExtensionCableReceiver
+  - type: AmbientOnPowered

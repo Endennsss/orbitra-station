@@ -48,7 +48,8 @@ public sealed partial class DockingSystem
         bool isMap,
         out Matrix3x2 matty,
         out Box2 shuttleDockedAABB,
-        out Angle gridRotation)
+        out Angle gridRotation,
+        bool allowDepartingDock = false) // Orbitra-Edit
     {
         shuttleDockedAABB = Box2.UnitCentered;
         gridRotation = Angle.Zero;
@@ -57,7 +58,7 @@ public sealed partial class DockingSystem
         var shuttleDockXform = Transform(shuttleDockUid);
         var gridDockXform = Transform(gridDockUid);
 
-        if (shuttleDock.Docked ||
+        if ((shuttleDock.Docked && !allowDepartingDock) || // Orbitra-Edit: маршрут проверяет место посадки до отстыковки.
             gridDock.Docked ||
             !shuttleDockXform.Anchored ||
             !gridDockXform.Anchored)
@@ -116,7 +117,7 @@ public sealed partial class DockingSystem
     /// <param name="priorityTag">Priority docking tag to prefer, e.g. for emergency shuttle</param>
     public DockingConfig? GetDockingConfig(EntityUid shuttleUid, EntityUid targetGrid, string? priorityTag = null)
     {
-        var gridDocks = GetDocks(targetGrid);
+        var gridDocks = GetAutomaticDockTargets(targetGrid); // Orbitra-Edit: пропускаем зарезервированные причалы.
         var shuttleDocks = GetDocks(shuttleUid);
 
         return GetDockingConfigPrivate(shuttleUid, targetGrid, shuttleDocks, gridDocks, priorityTag);
@@ -131,7 +132,7 @@ public sealed partial class DockingSystem
         Angle angle,
         bool fallback = true)
     {
-        var gridDocks = GetDocks(targetGrid);
+        var gridDocks = GetAutomaticDockTargets(targetGrid); // Orbitra-Edit: пропускаем зарезервированные причалы.
         var shuttleDocks = GetDocks(shuttleUid);
 
         var configs = GetDockingConfigs(shuttleUid, targetGrid, shuttleDocks, gridDocks);
@@ -159,7 +160,8 @@ public sealed partial class DockingSystem
         EntityUid shuttleUid,
         EntityUid targetGrid,
         List<Entity<DockingComponent>> shuttleDocks,
-        List<Entity<DockingComponent>> gridDocks)
+        List<Entity<DockingComponent>> gridDocks,
+        bool allowDepartingDock = false) // Orbitra-Edit
     {
         var validDockConfigs = new List<DockingConfig>();
 
@@ -194,7 +196,8 @@ public sealed partial class DockingSystem
                             isMap,
                             out var matty,
                             out var dockedAABB,
-                            out var targetAngle))
+                            out var targetAngle,
+                            allowDepartingDock)) // Orbitra-Edit
                     {
                         continue;
                     }

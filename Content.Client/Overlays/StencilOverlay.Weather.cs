@@ -17,6 +17,9 @@ public sealed partial class StencilOverlay
         var worldBounds = args.WorldBounds;
         var position = args.Viewport.Eye?.Position.Position ?? Vector2.Zero;
 
+        if (!HasWeatherInView(worldAABB, weathers)) // Orbitra-Edit: не строим маску для далёкого фронта.
+            return;
+
         // Cut out the irrelevant bits via stencil
         // This is why we don't just use parallax; we might want specific tiles to get drawn over
         // particularly for planet maps or stations.
@@ -42,6 +45,10 @@ public sealed partial class StencilOverlay
 
             // Draw the rain
             worldHandle.UseShader(_protoManager.Index(StencilDraw).Instance());
+            // Orbitra added start - фронт занимает только часть поверхности.
+            if (DrawAshFront(worldHandle, uid, status, worldAABB, sprite, (weather.Color ?? Color.White).WithAlpha(alpha)))
+                continue;
+            // Orbitra added end
             _parallax.DrawParallax(worldHandle,
                 worldAABB,
                 sprite,

@@ -1,0 +1,18 @@
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      xmlns:orbitra="clr-namespace:Content.Client._Orbitra.UserInterface"
+                      Title="{Loc 'orbitra-lavaland-terminal-title'}" MinSize="320 205" SetSize="385 235">
+    <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="8">
+        <PanelContainer StyleClasses="OrbitraWindowHeader" HorizontalExpand="True">
+            <BoxContainer Orientation="Vertical" Margin="8" SeparationOverride="4">
+                <Label Text="{Loc 'orbitra-lavaland-route'}" StyleClasses="LabelSubText"/>
+                <RichTextLabel Name="Location" StyleClasses="LabelHeading" HorizontalExpand="True"/>
+            </BoxContainer>
+        </PanelContainer>
+        <RichTextLabel Name="Status" HorizontalExpand="True"/>
+        <Label Name="Countdown" Access="Internal" Visible="False"/>
+        <Control VerticalExpand="True"/>
+        <orbitra:OrbitraButton Name="RequestButton" Access="Internal" HorizontalExpand="True" Disabled="True"
+                               Text="{Loc 'orbitra-lavaland-call'}"/>
+    </BoxContainer>
+</controls:FancyWindow>

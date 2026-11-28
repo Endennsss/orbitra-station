@@ -1,0 +1,32 @@
+- type: entity
+  parent: AirlockGlassShuttle
+  id: OrbitraLavalandStationDock
+  name: mining ferry docking airlock
+  description: Connects the mining ferry to its berth.
+  suffix: Station
+  components:
+  - type: OrbitraLavalandReservedDock
+
+- type: entity
+  parent: AirlockGlassShuttle
+  id: OrbitraLavalandOutpostDock
+  name: mining ferry docking airlock
+  description: Connects the mining ferry to its berth.
+  suffix: Outpost
+  components:
+  - type: OrbitraLavalandReservedDock
+
+- type: entity
+  parent: AirlockShuttle
+  id: OrbitraLavalandFerryDock
+  name: mining ferry docking airlock
+  description: Connects the mining ferry to its berth.
+  suffix: Shuttle
+  components:
+  - type: OrbitraLavalandReservedDock
+
+- type: entity
+  parent: SignShipDock
+  id: OrbitraLavalandReturnSign
+  name: station ferry sign
+  description: The northern airlock leads to the mining ferry. Use the terminal next to it to call the return flight.

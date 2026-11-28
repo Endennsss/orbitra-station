@@ -5,7 +5,7 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 10/20/2026 20:38:43
-  entityCount: 27224
+  entityCount: 27255 # Orbitra-Edit
 maps:
 - 1
 grids:
@@ -334,7 +334,7 @@ entities:
           version: 7
         -6,2:
           ind: -6,2
-          tiles: IAAAAAAAACAAAAAAAAAgAAAAAAAAAwAAAAAAAAMAAAAAAAADAAAAAAAAgwAAAAAAAIMAAAAAAAAFAAAAAAAAgwAAAAAAAIMAAAAAAACDAAAAAAAAgwAAAAAAAAEAAAAAAgABAAAAAAIAAAAAAAAAACAAAAAAAAAgAAAAAAAAIAAAAAAAAAMAAAAAAAADAAAAAAAAAwAAAAAAAIMAAAAAAAAFAAAAAAAABQAAAAAAAAUAAAAAAAAFAAAAAAAAAQAAAAACAAAAAAAAAAAAAAAAAAAAAQAAAAABAAAAAAAAAAAgAAAAAAAAIAAAAAAAACAAAAAAAAADAAAAAAAAAwAAAAAAAAMAAAAAAACDAAAAAAAABQAAAAAAAAUAAAAAAAAFAAAAAAAABQAAAAAAAAEAAAAAAgAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAAAAAAAIAAAAAAAACAAAAAAAAAgAAAAAAAAAwAAAAAAAAMAAAAAAAADAAAAAAAAgwAAAAAAAAUAAAAAAAAFAAAAAAAABQAAAAAAAAUAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAIMAAAAAAAAEAAAAAAAAgwAAAAAAAIMAAAAAAACDAAAAAAAAgwAAAAAAAIMAAAAAAACDAAAAAAAAgwAAAAAAAIMAAAAAAACDAAAAAAAAAQAAAAABAAEAAAAAAAABAAAAAAIAAQAAAAABAAAAAAAAAACDAAAAAAAABAAAAAAAAIMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAgwAAAAAAAAQAAAAAAACDAAAAAAAAAQAAAAACAAEAAAAAAQABAAAAAAIAAQAAAAACAAEAAAAAAAABAAAAAAEAAQAAAAAAAAEAAAAAAgABAAAAAAEAAQAAAAABAAEAAAAAAQABAAAAAAIAAAAAAAAAAIMAAAAAAAAEAAAAAAAAgwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAQAAAAABAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAACAAEAAAAAAQABAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAAAEAAQAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAQAAAAAAAAEAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAEAAAAAAgABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAAQAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAIAgwAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAACAAEAAAAAAgABAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+          tiles: IAAAAAAAACAAAAAAAAAgAAAAAAAAAwAAAAAAAAMAAAAAAAADAAAAAAAAgwAAAAAAAIMAAAAAAAAFAAAAAAAAgwAAAAAAAIMAAAAAAACDAAAAAAAAgwAAAAAAAAEAAAAAAgABAAAAAAIAAAAAAAAAACAAAAAAAAAgAAAAAAAAIAAAAAAAAAMAAAAAAAADAAAAAAAAAwAAAAAAAIMAAAAAAAAFAAAAAAAABQAAAAAAAAUAAAAAAAAFAAAAAAAAAQAAAAACAAAAAAAAAAAAAAAAAAAAAQAAAAABAAAAAAAAAAAgAAAAAAAAIAAAAAAAACAAAAAAAAADAAAAAAAAAwAAAAAAAAMAAAAAAACDAAAAAAAABQAAAAAAAAUAAAAAAAAFAAAAAAAABQAAAAAAAAEAAAAAAgAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAAAAAAAIAAAAAAAACAAAAAAAAAgAAAAAAAAAwAAAAAAAAMAAAAAAAADAAAAAAAAgwAAAAAAAAUAAAAAAAAFAAAAAAAABQAAAAAAAAUAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAIMAAAAAAAAEAAAAAAAAgwAAAAAAAIMAAAAAAAAiAAAAAAAAgwAAAAAAAIMAAAAAAACDAAAAAAAAgwAAAAAAAIMAAAAAAACDAAAAAAAAAQAAAAABAAEAAAAAAAABAAAAAAIAAQAAAAABAAAAAAAAAACDAAAAAAAABAAAAAAAAIMAAAAAAACDAAAAAAAAIAAAAAAAAIMAAAAAAACDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAgwAAAAAAAAQAAAAAAACDAAAAAAAAgwAAAAAAACAAAAAAAAAiAAAAAAAAgwAAAAAAAAEAAAAAAAABAAAAAAEAAQAAAAAAAAEAAAAAAgABAAAAAAEAAQAAAAABAAEAAAAAAQABAAAAAAIAAAAAAAAAAIMAAAAAAAAEAAAAAAAAgwAAAAAAAIMAAAAAAAAgAAAAAAAAIgAAAAAAAIMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAQAAAAABAAEAAAAAAACDAAAAAAAAIAAAAAAAACIAAAAAAACDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAACAAEAAAAAAQABAAAAAAIAgwAAAAAAACAAAAAAAAAiAAAAAAAAgwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAAAEAAQAAAAABAIMAAAAAAAAgAAAAAAAAgwAAAAAAAIMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAQAAAAAAAAEAAAAAAgCDAAAAAAAAIAAAAAAAAIMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAEAAAAAAgABAAAAAAAAgwAAAAAAACAAAAAAAAAiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAAQAAAAACAIMAAAAAAACDAAAAAAAAgwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAIAgwAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAACAAEAAAAAAgABAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA== # Orbitra-Edit
           version: 7
         -7,1:
           ind: -7,1
@@ -539,6 +539,12 @@ entities:
             Oxygen: 1400.0662
             Nitrogen: 5266.916
         tiles:
+          # Orbitra added start
+          -23,10:
+            2: 4403
+          -23,11:
+            2: 3
+          # Orbitra added end
           -40,-13:
             0: 19584
           -40,-12:
@@ -2097,8 +2103,9 @@ entities:
           -25,8:
             2: 61166
           -24,9:
+            # Orbitra edit start
             2: 8738
-            0: 2048
+            # Orbitra edit end
           -25,9:
             0: 7440
             1: 8736
@@ -2110,7 +2117,10 @@ entities:
           -24,11:
             0: 30071
           -23,9:
-            0: 3904
+            # Orbitra edit start
+            0: 2048
+            2: 13073
+            # Orbitra edit end
           -22,9:
             0: 3976
           -21,9:
@@ -5045,6 +5055,13 @@ entities:
       pos: -38.5,-61.5
 - proto: AirlockCargoGlassLocked
   entities:
+  # Orbitra added start
+  - uid: 27225
+    components:
+    - type: Transform
+      parent: 2
+      pos: -91.5,36.5
+  # Orbitra added end
   - uid: 4540
     components:
     - type: Transform
@@ -20938,6 +20955,63 @@ entities:
       pos: -32.5,-20.5
 - proto: CableApcExtension
   entities:
+  # Orbitra added start
+  - uid: 27226
+    components:
+    - type: Transform
+      parent: 2
+      pos: -91.5,35.5
+  - uid: 27227
+    components:
+    - type: Transform
+      parent: 2
+      pos: -91.5,36.5
+  - uid: 27228
+    components:
+    - type: Transform
+      parent: 2
+      pos: -91.5,37.5
+  - uid: 27229
+    components:
+    - type: Transform
+      parent: 2
+      pos: -91.5,38.5
+  - uid: 27230
+    components:
+    - type: Transform
+      parent: 2
+      pos: -91.5,39.5
+  - uid: 27231
+    components:
+    - type: Transform
+      parent: 2
+      pos: -91.5,40.5
+  - uid: 27232
+    components:
+    - type: Transform
+      parent: 2
+      pos: -91.5,41.5
+  - uid: 27233
+    components:
+    - type: Transform
+      parent: 2
+      pos: -91.5,42.5
+  - uid: 27234
+    components:
+    - type: Transform
+      parent: 2
+      pos: -91.5,43.5
+  - uid: 27235
+    components:
+    - type: Transform
+      parent: 2
+      pos: -91.5,44.5
+  - uid: 27236
+    components:
+    - type: Transform
+      parent: 2
+      pos: -90.5,44.5
+  # Orbitra added end
   - uid: 7
     components:
     - type: Transform
@@ -125013,11 +125087,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -125.5,-7.5
-  - uid: 485
-    components:
-    - type: Transform
-      parent: 2
-      pos: -92.5,38.5
   - uid: 557
     components:
     - type: Transform
@@ -126903,11 +126972,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -140.5,-41.5
-  - uid: 8161
-    components:
-    - type: Transform
-      parent: 2
-      pos: -89.5,38.5
   - uid: 8169
     components:
     - type: Transform
@@ -130152,11 +130216,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -87.5,38.5
-  - uid: 7525
-    components:
-    - type: Transform
-      parent: 2
-      pos: -91.5,38.5
   - uid: 8166
     components:
     - type: Transform
@@ -130372,11 +130431,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -86.5,38.5
-  - uid: 16221
-    components:
-    - type: Transform
-      parent: 2
-      pos: -90.5,38.5
   - uid: 17071
     components:
     - type: Transform
@@ -138760,8 +138814,9 @@ entities:
   - uid: 22192
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad # Orbitra-Edit
       parent: 2
-      pos: -91.5,35.5
+      pos: -91.5,37.5 # Orbitra-Edit
   - uid: 22306
     components:
     - type: Transform
@@ -138985,9 +139040,9 @@ entities:
   - uid: 22016
     components:
     - type: Transform
+      rot: 1.5707963267948966 rad # Orbitra-Edit
       parent: 2
-      rot: 3.141592653589793 rad
-      pos: -89.5,37.5
+      pos: -91.5,38.5 # Orbitra-Edit
   - uid: 23247
     components:
     - type: Transform
@@ -139130,6 +139185,14 @@ entities:
       pos: -105.5,-8.5
 - proto: PoweredSmallLight
   entities:
+  # Orbitra added start
+  - uid: 27239
+    components:
+    - type: Transform
+      parent: 2
+      rot: 4.71238898038469 rad
+      pos: -91.5,43.5
+  # Orbitra added end
   - uid: 70
     components:
     - type: Transform
@@ -145620,6 +145683,58 @@ entities:
       pos: -109.45768,-36.52115
 - proto: ShuttleWindow
   entities:
+  # Orbitra added start
+  - uid: 27240
+    components:
+    - type: Transform
+      parent: 2
+      pos: -92.5,39.5
+  - uid: 27241
+    components:
+    - type: Transform
+      parent: 2
+      pos: -92.5,40.5
+  - uid: 27242
+    components:
+    - type: Transform
+      parent: 2
+      pos: -92.5,42.5
+  - uid: 27243
+    components:
+    - type: Transform
+      parent: 2
+      pos: -92.5,43.5
+  - uid: 27244
+    components:
+    - type: Transform
+      parent: 2
+      pos: -92.5,44.5
+  - uid: 27245
+    components:
+    - type: Transform
+      parent: 2
+      pos: -91.5,45.5
+  - uid: 27246
+    components:
+    - type: Transform
+      parent: 2
+      pos: -90.5,45.5
+  - uid: 27247
+    components:
+    - type: Transform
+      parent: 2
+      pos: -89.5,39.5
+  - uid: 27248
+    components:
+    - type: Transform
+      parent: 2
+      pos: -89.5,40.5
+  - uid: 27249
+    components:
+    - type: Transform
+      parent: 2
+      pos: -89.5,41.5
+  # Orbitra added end
   - uid: 4384
     components:
     - type: Transform
@@ -148326,6 +148441,13 @@ entities:
       pos: -93.5,-16.5
 - proto: SignShipDock
   entities:
+  # Orbitra added start
+  - uid: 27250
+    components:
+    - type: Transform
+      parent: 2
+      pos: -92.5,37.5
+  # Orbitra added end
   - uid: 16513
     components:
     - type: Transform
@@ -158828,7 +158950,7 @@ entities:
     components:
     - type: Transform
       parent: 2
-      pos: -91.5,35.5
+      pos: -90.5,38.5 # Orbitra-Edit
   - uid: 23166
     components:
     - type: Transform
@@ -158917,6 +159039,58 @@ entities:
       pos: -61.5,-21.5
 - proto: WallReinforced
   entities:
+  # Orbitra added start
+  - uid: 27251
+    components:
+    - type: Transform
+      parent: 2
+      pos: -92.5,37.5
+  - uid: 27252
+    components:
+    - type: Transform
+      parent: 2
+      pos: -92.5,38.5
+  - uid: 27253
+    components:
+    - type: Transform
+      parent: 2
+      pos: -92.5,41.5
+  - uid: 27254
+    components:
+    - type: Transform
+      parent: 2
+      pos: -92.5,45.5
+  - uid: 27255
+    components:
+    - type: Transform
+      parent: 2
+      pos: -90.5,37.5
+  - uid: 27256
+    components:
+    - type: Transform
+      parent: 2
+      pos: -90.5,42.5
+  - uid: 27257
+    components:
+    - type: Transform
+      parent: 2
+      pos: -90.5,43.5
+  - uid: 27258
+    components:
+    - type: Transform
+      parent: 2
+      pos: -89.5,37.5
+  - uid: 27259
+    components:
+    - type: Transform
+      parent: 2
+      pos: -89.5,38.5
+  - uid: 27260
+    components:
+    - type: Transform
+      parent: 2
+      pos: -89.5,42.5
+  # Orbitra added end
   - uid: 8
     components:
     - type: Transform
@@ -164894,11 +165068,6 @@ entities:
     - type: Transform
       parent: 2
       pos: -90.5,36.5
-  - uid: 727
-    components:
-    - type: Transform
-      parent: 2
-      pos: -91.5,36.5
   - uid: 737
     components:
     - type: Transform
@@ -176576,4 +176745,21 @@ entities:
     - type: Transform
       parent: 2
       pos: -20.5,20.5
+# Orbitra added start
+- proto: OrbitraLavalandStationDock
+  entities:
+  - uid: 27237
+    components:
+    - type: Transform
+      parent: 2
+      rot: 1.5707963267948966 rad
+      pos: -90.5,44.5
+- proto: OrbitraLavalandStationTerminal
+  entities:
+  - uid: 27238
+    components:
+    - type: Transform
+      parent: 2
+      pos: -90.5,41.5
+# Orbitra added end
 ...
