@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Updated sprites from /tg/station contributors under CC-BY-SA-3.0 (https://github.com/tgstation/tgstation/tree/fa46f5053e0c93bdee1cd4de0c4c1348dfed23f9/icons; mob/clothing/back/backpack.dmi, mob/inhands/equipment/backpack_righthand.dmi, obj/storage/backpack.dmi; states: satchel-norm). Original SS14 atlas credit (CC-BY-SA-3.0): Taken from tgstation at commit https://github.com/tgstation/tgstation/commit/547852588166c8e091b441e4e67169e156bb09c1",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon"
+    },
+    {
+      "name": "equipped-BACKPACK",
+      "directions": 4
+    },
+    {
+      "name": "inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "inhand-right",
+      "directions": 4
+    }
+  ]
+}

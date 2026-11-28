@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Updated sprites from /tg/station contributors under CC-BY-SA-3.0 (https://github.com/tgstation/tgstation/tree/fa46f5053e0c93bdee1cd4de0c4c1348dfed23f9/icons; mob/clothing/under/shorts_pants_shirts.dmi, obj/clothing/under/shorts_pants_shirts.dmi; states: buttondown; GAGS buttondown_skirt #c35759#d7bd94#5c393d#676773 (Orbitra palette)). Original SS14 atlas credit (CC-BY-SA-3.0): Edit by Nairodian (github) of secskirt taken from tgstation at commit https://github.com/tgstation/tgstation/commit/7779930358ba4776575975690d2c952f0d05c6cc",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon"
+    },
+    {
+      "name": "equipped-INNERCLOTHING",
+      "directions": 4
+    },
+    {
+      "name": "equipped-INNERCLOTHING-monkey",
+      "directions": 4
+    },
+    {
+      "name": "inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "inhand-right",
+      "directions": 4
+    }
+  ]
+}

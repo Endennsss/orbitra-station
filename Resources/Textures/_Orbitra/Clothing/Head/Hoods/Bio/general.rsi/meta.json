@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Updated sprites from /tg/station contributors under CC-BY-SA-3.0 (https://github.com/tgstation/tgstation/tree/fa46f5053e0c93bdee1cd4de0c4c1348dfed23f9/icons; mob/clothing/head/bio.dmi, mob/inhands/clothing/hats_lefthand.dmi, mob/inhands/clothing/hats_righthand.dmi, obj/clothing/head/bio.dmi; states: bio). Original SS14 atlas credit (CC-BY-SA-3.0): Taken from tgstation at commit https://github.com/tgstation/tgstation/commit/4f6190e2895e09116663ef282d3ce1d8b35c032e. equipped-HELMET-vox state taken from /vg/station at commit https://github.com/vgstation-coders/vgstation13/commit/31d6576ba8102135d058ef49c3cb6ecbe8db8a79",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon"
+    },
+    {
+      "name": "equipped-HELMET",
+      "directions": 4
+    },
+    {
+      "name": "inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "equipped-HELMET-vox",
+      "directions": 4
+    }
+  ]
+}

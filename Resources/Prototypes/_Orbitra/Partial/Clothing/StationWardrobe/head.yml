@@ -1,0 +1,648 @@
+- type: !PartialOnly entity
+  id: ChangelingFleshClothingHead
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Soft/greysoft.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadFishCap
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/fishcap.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/fishcap.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ClothingHeadHatBeret
+    - ClothingHeadHatChameleon
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/beret.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/beret.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatBeretCmo
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/beret_cmo.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/beret_cmo.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatBeretEngineering
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/beret_engineering.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/beret_engineering.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatBeretQM
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/beret_qm.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/beret_qm.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatBeretRND
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/beret_rnd.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/beret_rnd.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatBeretSecurity
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/beret_security.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/beret_security.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatBeretWarden
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/beret_warden.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/beret_warden.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatBlacksoft
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Soft/blacksoft.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Soft/blacksoft.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatBluesoft
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Soft/bluesoft.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Soft/bluesoft.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatBowlerHat
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/bowler_hat.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/bowler_hat.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatCapcap
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/capcap.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/capcap.rsi
+  - type: Item
+    sprite: _Orbitra/Clothing/Head/Hats/capcap.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatCaptain
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/captain.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/captain.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatCargosoft
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Soft/cargosoft.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Soft/cargosoft.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatCentcom
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/centcom.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/centcom.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatChef
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/chefhat.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/chefhat.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatFedoraBrown
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/brownfedora.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/brownfedora.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatFedoraGrey
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/greyfedora.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/greyfedora.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatFedoraPress
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/presshat.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/presshat.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatGreensoft
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Soft/greensoft.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Soft/greensoft.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatGreysoft
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Soft/greysoft.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Soft/greysoft.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHardhatBlue
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hardhats/blue.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHardhatOrange
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hardhats/orange.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHardhatRed
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hardhats/red.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHardhatWhite
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hardhats/white.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHardhatYellow
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hardhats/yellow.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodBioCmo
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/cmo.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/cmo.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodBioGeneral
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/general.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/general.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodBioJanitor
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/janitor.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/janitor.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodBioScientist
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/scientist.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/scientist.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodBioSecurity
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/security.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/security.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodBioVirology
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/virology.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/virology.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodChaplainHood
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/chaplain.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/chaplain.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodNunHood
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/nun.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/nun.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterCE
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodce.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodce.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterCMO
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodcmo.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodcmo.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterCaptain
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodcaptain.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodcaptain.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterCargo
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodcargo.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodcargo.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterCentcom
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodcentcom.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodcentcom.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterChem
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodchemist.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodchemist.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ClothingHeadHatHoodWinterColorBlack
+    - ClothingHeadHatHoodWinterColorBlue
+    - ClothingHeadHatHoodWinterColorBrown
+    - ClothingHeadHatHoodWinterColorGray
+    - ClothingHeadHatHoodWinterColorGreen
+    - ClothingHeadHatHoodWinterColorLightBrown
+    - ClothingHeadHatHoodWinterColorOrange
+    - ClothingHeadHatHoodWinterColorPurple
+    - ClothingHeadHatHoodWinterColorRed
+    - ClothingHeadHatHoodWinterColorWhite
+    - ClothingHeadHatHoodWinterColorYellow
+    - ClothingHeadHatHoodWinterDefault
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hooddefault.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hooddefault.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterEngineer
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodengi.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodengi.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterHOP
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodhop.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodhop.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterHOS
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodhos.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodhos.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterHydro
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodhydro.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodhydro.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterJani
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodjani.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodjani.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterMed
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodmed.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodmed.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterMiner
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodminer.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodminer.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterPara
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodpara.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodpara.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterQM
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodqm.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodqm.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterRD
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodrd.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodrd.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterRobo
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodrobo.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodrobo.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoodWinterSci
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodsci.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodsci.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ClothingHeadHatHoodWinterSec
+    - ClothingHeadHatHoodWinterWarden
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodsec.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hoods/Coat/hoodsec.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHopcap
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/hopcap.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/hopcap.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatHoshat
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/hoshat.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/hoshat.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatJester
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/jester.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/jester.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatMimesoft
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Soft/mimesoft.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Soft/mimesoft.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatMitreClown
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/mitre_clown.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/mitre_clown.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatOrangesoft
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Soft/orangesoft.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Soft/orangesoft.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatParamedicsoft
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Soft/paramedicsoft.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Soft/paramedicsoft.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatPirate
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/pirate.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/pirate.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatPirateTricord
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/piratetricord.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/piratetricord.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatPlaguedoctor
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/plaguedoctor.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/plaguedoctor.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatPurplesoft
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Soft/purplesoft.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Soft/purplesoft.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatRedsoft
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Soft/redsoft.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Soft/redsoft.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatSecsoft
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Soft/secsoft.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Soft/secsoft.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatSurgcapBlue
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/surgcap_blue.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/surgcap_blue.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatSurgcapGreen
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/surgcap_green.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/surgcap_green.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatSurgcapPurple
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/surgcap_purple.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/surgcap_purple.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatWarden
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/warden.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/warden.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatWitch1
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/witchhat.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/witchhat.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatYellowsoft
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Soft/yellowsoft.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Soft/yellowsoft.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetRiot
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Helmets/light_riot.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Helmets/light_riot.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetSwat
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Helmets/swat.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Helmets/swat.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetSwatSyndicate
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Helmets/swat_syndicate.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Helmets/swat_syndicate.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadNurseHat
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/nursehat.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/nursehat.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadPaperSack
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/papersack.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/papersack.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHeadPaperSackSmile
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Head/Hats/papersacksmile.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Head/Hats/papersacksmile.rsi

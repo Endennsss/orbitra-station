@@ -1,0 +1,65 @@
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ActionToggleMask
+    - ChangelingFleshClothingMask
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Mask/gas.rsi
+
+- type: !PartialOnly entity
+  id: ClothingMaskBlushingMime
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Mask/blushingmime.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Mask/blushingmime.rsi
+
+- type: !PartialOnly entity
+  id: ClothingMaskBreath
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Mask/breath.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Mask/breath.rsi
+
+- type: !PartialOnly entity
+  id: ClothingMaskClown
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Mask/clown.rsi
+
+- type: !PartialOnly entity
+  id: ClothingMaskClownBase
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Mask/clown.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Mask/clown.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ClothingMaskGas
+    - ClothingMaskGasChameleon
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Mask/gas.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Mask/gas.rsi
+
+- type: !PartialOnly entity
+  id: ClothingMaskGasCaptain
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Mask/gascaptain.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Mask/gascaptain.rsi
+
+- type: !PartialOnly entity
+  id: ClothingMaskPlague
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Mask/plaguedoctormask.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Mask/plaguedoctormask.rsi

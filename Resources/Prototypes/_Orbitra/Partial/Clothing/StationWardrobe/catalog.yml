@@ -1,0 +1,162 @@
+- type: !PartialOnly adminVerb
+  id: AdminSmiteElectrocute
+  icon:
+    sprite: _Orbitra/Clothing/Hands/Gloves/Color/yellow.rsi
+
+- type: !PartialOnly adminVerb
+  id: AdminSmiteMaid
+  icon:
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/janimaid.rsi
+
+- type: !PartialOnly adminVerb
+  id: AdminSmiteMakeStinky
+  icon:
+    sprite: _Orbitra/Clothing/Mask/gas.rsi
+
+- type: !PartialOnly cargoProduct
+  id: EmergencyBiosuit
+  icon:
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/general.rsi
+
+- type: !PartialOnly cargoProduct
+  id: FunBoxing
+  icon:
+    sprite: _Orbitra/Clothing/Hands/Gloves/Boxing/boxingred.rsi
+
+- type: !PartialOnly cargoProduct
+  id: JanitorialBiosuit
+  icon:
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/janitor.rsi
+
+- type: !PartialOnly cargoProduct
+  id: ScienceBiosuit
+  icon:
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/scientist.rsi
+
+- type: !PartialOnly cargoProduct
+  id: SecurityArmor
+  icon:
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/bulletproof.rsi
+
+- type: !PartialOnly cargoProduct
+  id: SecurityBiosuit
+  icon:
+    sprite: _Orbitra/Clothing/Head/Hoods/Bio/security.rsi
+
+- type: !PartialOnly cargoProduct
+  id: SecurityRiot
+  icon:
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/riot.rsi
+
+- type: !PartialOnly constructionGraph
+  id: BananaClownJumpsuit
+  graph:
+  - !CombineIndex:0
+    edges:
+    - !CombineIndex:0
+      steps:
+      - !CombineIndex:4
+        icon:
+          sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/clown.rsi
+
+- type: !PartialOnly constructionGraph
+  id: BananaClownMask
+  graph:
+  - !CombineIndex:0
+    edges:
+    - !CombineIndex:0
+      steps:
+      - !CombineIndex:4
+        icon:
+          sprite: _Orbitra/Clothing/Mask/clown.rsi
+
+- type: !PartialOnly constructionGraph
+  id: ClothingBagPet
+  graph:
+  - !CombineIndex:0
+    edges:
+    - !CombineIndex:0
+      steps:
+      - !CombineIndex:0
+        icon:
+          sprite: _Orbitra/Clothing/Back/Backpacks/backpack.rsi
+
+- type: !PartialOnly constructionGraph
+  id: GlassesSecHUD
+  graph:
+  - !CombineIndex:0
+    edges:
+    - !CombineIndex:0
+      steps:
+      - !CombineIndex:0
+        icon:
+          sprite: _Orbitra/Clothing/Eyes/Glasses/sunglasses.rsi
+      - !CombineIndex:1
+        icon:
+          sprite: _Orbitra/Clothing/Eyes/Hud/sec.rsi
+
+- type: !PartialOnly constructionGraph
+  id: Honker
+  graph:
+  - !CombineIndex:0
+    edges:
+    - !CombineIndex:0
+      steps:
+      - !CombineIndex:10
+        icon:
+          sprite: _Orbitra/Clothing/Mask/clown.rsi
+
+- type: !PartialOnly constructionGraph
+  id: HudMedSec
+  graph:
+  - !CombineIndex:0
+    edges:
+    - !CombineIndex:0
+      steps:
+      - !CombineIndex:0
+        icon:
+          sprite: _Orbitra/Clothing/Eyes/Hud/med.rsi
+      - !CombineIndex:1
+        icon:
+          sprite: _Orbitra/Clothing/Eyes/Hud/sec.rsi
+
+- type: !PartialOnly constructionGraph
+  id: scraparmor
+  graph:
+  - !CombineIndex:3
+    edges:
+    - !CombineIndex:0
+      steps:
+      - !CombineIndex:0
+        icon:
+          sprite: _Orbitra/Clothing/Belt/utility.rsi
+
+- type: !PartialOnly listing
+  id: UplinkAcolyteArmor
+  icon:
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/cult_armour.rsi
+
+- type: !PartialOnly listing
+  id: UplinkRiggedBoxingGloves
+  icon:
+    sprite: _Orbitra/Clothing/Hands/Gloves/Boxing/boxingblue.rsi
+
+- type: !PartialOnly stealTargetGroup
+  id: ChiefEngineerToolBelt
+  sprite:
+    sprite: _Orbitra/Clothing/Belt/ce.rsi
+
+- type: !PartialOnly stealTargetGroup
+  id: ClothingEyesHuds
+  sprite:
+    sprite: _Orbitra/Clothing/Eyes/Hud/sec.rsi
+
+- type: !PartialOnly stealTargetGroup
+  id: ClothingHeadHatWarden
+  sprite:
+    sprite: _Orbitra/Clothing/Head/Hats/warden.rsi
+
+- type: !PartialOnly stealTargetGroup
+  id: HeadCloak
+  sprite:
+    sprite: _Orbitra/Clothing/Neck/Cloaks/cap.rsi

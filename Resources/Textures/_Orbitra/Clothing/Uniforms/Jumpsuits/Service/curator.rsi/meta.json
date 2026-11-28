@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Updated sprites from /tg/station contributors under CC-BY-SA-3.0 (https://github.com/tgstation/tgstation/tree/fa46f5053e0c93bdee1cd4de0c4c1348dfed23f9/icons; mob/clothing/under/civilian.dmi, obj/clothing/under/civilian.dmi; states: curator). Original SS14 atlas credit (CC-BY-SA-3.0): Taken from tgstation at commit https://github.com/tgstation/tgstation/commit/47718914e47c6fbf23d6dc97f073a9daa11b23cb and modified by potato1234x (github) for ss14",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon"
+    },
+    {
+      "name": "equipped-INNERCLOTHING",
+      "directions": 4
+    },
+    {
+      "name": "equipped-INNERCLOTHING-monkey",
+      "directions": 4
+    },
+    {
+      "name": "inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "inhand-right",
+      "directions": 4
+    }
+  ]
+}

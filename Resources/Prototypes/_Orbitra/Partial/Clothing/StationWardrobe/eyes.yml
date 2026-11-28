@@ -1,0 +1,122 @@
+- type: !PartialOnly entity
+  id: ChangelingFleshClothingEyes
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Eyes/Glasses/glasses.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ClothingEyesChameleon
+    - ClothingEyesGlassesCheapSunglasses
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Eyes/Glasses/sunglasses.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Eyes/Glasses/sunglasses.rsi
+
+- type: !PartialOnly entity
+  id: ClothingEyesEyepatchHudMedical
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Eyes/Hud/medpatch.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Eyes/Hud/medpatch.rsi
+
+- type: !PartialOnly entity
+  id: ClothingEyesEyepatchHudSecurity
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Eyes/Hud/secpatch.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Eyes/Hud/secpatch.rsi
+
+- type: !PartialOnly entity
+  id: ClothingEyesGlasses
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Eyes/Glasses/glasses.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Eyes/Glasses/glasses.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ClothingEyesGlassesGar
+    - ClothingEyesGlassesGarGiga
+    - ClothingEyesGlassesGarOrange
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Eyes/Glasses/gar.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Eyes/Glasses/gar.rsi
+
+- type: !PartialOnly entity
+  id: ClothingEyesGlassesJensen
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Eyes/Glasses/jensen.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Eyes/Glasses/jensen.rsi
+
+- type: !PartialOnly entity
+  id: ClothingEyesGlassesMeson
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Eyes/Glasses/meson.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Eyes/Glasses/meson.rsi
+
+- type: !PartialOnly entity
+  id: ClothingEyesGlassesNoir
+  components:
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Eyes/Glasses/sunglasses.rsi
+
+- type: !PartialOnly entity
+  id: ClothingEyesGlassesThermal
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Eyes/Glasses/thermal.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Eyes/Glasses/thermal.rsi
+
+- type: !PartialOnly entity
+  id: ClothingEyesHudDiagnostic
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Eyes/Hud/diag.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Eyes/Hud/diag.rsi
+
+- type: !PartialOnly entity
+  id: ClothingEyesHudMedSec
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Eyes/Hud/medsec.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Eyes/Hud/medsec.rsi
+
+- type: !PartialOnly entity
+  id: ClothingEyesHudMedical
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Eyes/Hud/med.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Eyes/Hud/med.rsi
+
+- type: !PartialOnly entity
+  id: ClothingEyesHudSecurity
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Eyes/Hud/sec.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Eyes/Hud/sec.rsi
+
+- type: !PartialOnly entity
+  id: MaintenanceFluffSpawner
+  components:
+  - type: Sprite
+    layers:
+    - !CombineIndex:1
+      sprite: _Orbitra/Clothing/Eyes/Glasses/gar.rsi

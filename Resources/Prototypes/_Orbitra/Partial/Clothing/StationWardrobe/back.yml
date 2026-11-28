@@ -1,0 +1,275 @@
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ActionOpenStorageImplant
+    - ChangelingFleshClothingBack
+    - ClothingBackpack
+    - ClothingBackpackChameleon
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/backpack.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackCaptain
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/captain.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackChemistry
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/chemistry.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackClown
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/clown.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ClothingBackpackDeathSquad
+    - ClothingBackpackERTSecurity
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/ertsec.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackDuffel
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Duffels/duffel.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackDuffelCaptain
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Duffels/captain.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackDuffelChemistry
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Duffels/chemistry.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackDuffelClown
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Duffels/clown.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackDuffelEngineering
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Duffels/engineering.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackDuffelGenetics
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Duffels/genetics.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackDuffelHydroponics
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Duffels/hydroponics.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackDuffelMedical
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Duffels/medical.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackDuffelSalvage
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Duffels/salvage.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackDuffelScience
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Duffels/science.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackDuffelSecurity
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Duffels/security.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ClothingBackpackDuffelSyndicate
+    - ClothingBackpackDuffelSyndicateAmmo
+    - ClothingBackpackDuffelSyndicateMedical
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Duffels/syndicate.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackDuffelVirology
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Duffels/virology.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackERTClown
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/ertclown.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackERTEngineer
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/erteng.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackERTJanitor
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/ertjanitor.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackERTLeader
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/ertleader.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackERTMedical
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/ertmed.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackEngineering
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/engineering.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackGenetics
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/genetics.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackHydroponics
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/hydroponics.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackMedical
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/medical.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackMime
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/mime.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackSalvage
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/salvage.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackSatchel
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Satchels/satchel.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackSatchelCaptain
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Satchels/captain.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackSatchelChemistry
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Satchels/chemistry.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackSatchelEngineering
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Satchels/engineering.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackSatchelGenetics
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Satchels/genetics.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackSatchelHydroponics
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Satchels/hydroponics.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackSatchelLeather
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Satchels/leather.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackSatchelMedical
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Satchels/medical.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackSatchelSalvage
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Satchels/salvage.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackSatchelScience
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Satchels/science.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackSatchelSecurity
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Satchels/security.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackSatchelVirology
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Satchels/virology.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackScience
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/science.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackSecurity
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/security.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBackpackVirology
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Back/Backpacks/virology.rsi

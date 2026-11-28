@@ -1,0 +1,90 @@
+- type: !PartialOnly entity
+  id: ClothingShoesBootsCowboyBlack
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Shoes/Boots/cowboybootsblack.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Shoes/Boots/cowboybootsblack.rsi
+
+- type: !PartialOnly entity
+  id: ClothingShoesBootsCowboyBrown
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Shoes/Boots/cowboybootsbrown.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Shoes/Boots/cowboybootsbrown.rsi
+
+- type: !PartialOnly entity
+  id: ClothingShoesBootsCowboyFancy
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Shoes/Boots/cowboybootsfancy.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Shoes/Boots/cowboybootsfancy.rsi
+
+- type: !PartialOnly entity
+  id: ClothingShoesBootsCowboyWhite
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Shoes/Boots/cowboybootswhite.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Shoes/Boots/cowboybootswhite.rsi
+
+- type: !PartialOnly entity
+  id: ClothingShoesBootsJack
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Shoes/Boots/jackboots.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Shoes/Boots/jackboots.rsi
+
+- type: !PartialOnly entity
+  id: ClothingShoesBootsWinter
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Shoes/Boots/winterboots.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Shoes/Boots/winterboots.rsi
+
+- type: !PartialOnly entity
+  id: ClothingShoesBootsWork
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Shoes/Boots/workboots.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Shoes/Boots/workboots.rsi
+
+- type: !PartialOnly entity
+  id: ClothingShoesChef
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Shoes/Specific/chef.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Shoes/Specific/chef.rsi
+
+- type: !PartialOnly entity
+  id: ClothingShoesCult
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Shoes/Specific/cult.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Shoes/Specific/cult.rsi
+
+- type: !PartialOnly entity
+  id: ClothingShoesGaloshes
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Shoes/Specific/galoshes.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Shoes/Specific/galoshes.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ClothingShoesSandalsBlack
+    - ClothingShoesSandalsBrown
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Shoes/Misc/sandals.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Shoes/Misc/sandals.rsi

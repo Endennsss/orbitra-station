@@ -1,0 +1,108 @@
+- type: !PartialOnly entity
+  id: ClothingCloakCmo
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Neck/Cloaks/cmo.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ClothingNeckChameleon
+    - ClothingNeckScarfStripedRed
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Neck/Scarfs/red.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Neck/Scarfs/red.rsi
+
+- type: !PartialOnly entity
+  id: ClothingNeckCloakCap
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Neck/Cloaks/cap.rsi
+
+- type: !PartialOnly entity
+  id: ClothingNeckCloakCe
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Neck/Cloaks/ce.rsi
+
+- type: !PartialOnly entity
+  id: ClothingNeckCloakHop
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Neck/Cloaks/hop.rsi
+
+- type: !PartialOnly entity
+  id: ClothingNeckCloakHos
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Neck/Cloaks/hos.rsi
+
+- type: !PartialOnly entity
+  id: ClothingNeckCloakQm
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Neck/Cloaks/qm.rsi
+
+- type: !PartialOnly entity
+  id: ClothingNeckCloakRd
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Neck/Cloaks/rd.rsi
+
+- type: !PartialOnly entity
+  id: ClothingNeckScarfStripedBlack
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Neck/Scarfs/black.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Neck/Scarfs/black.rsi
+
+- type: !PartialOnly entity
+  id: ClothingNeckScarfStripedBlue
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Neck/Scarfs/blue.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Neck/Scarfs/blue.rsi
+
+- type: !PartialOnly entity
+  id: ClothingNeckScarfStripedGreen
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Neck/Scarfs/green.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Neck/Scarfs/green.rsi
+
+- type: !PartialOnly entity
+  id: ClothingNeckScarfStripedLightBlue
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Neck/Scarfs/lightblue.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Neck/Scarfs/lightblue.rsi
+
+- type: !PartialOnly entity
+  id: ClothingNeckScarfStripedOrange
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Neck/Scarfs/orange.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Neck/Scarfs/orange.rsi
+
+- type: !PartialOnly entity
+  id: ClothingNeckScarfStripedPurple
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Neck/Scarfs/purple.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Neck/Scarfs/purple.rsi
+
+- type: !PartialOnly entity
+  id: ClothingNeckScarfStripedZebra
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Neck/Scarfs/zebra.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Neck/Scarfs/zebra.rsi

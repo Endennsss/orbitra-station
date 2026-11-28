@@ -1,0 +1,474 @@
+- type: !PartialOnly entity
+  id: ClothingOuterApron
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/apron.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/apron.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterApronChef
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/apronchef.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/apronchef.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterArmorBase
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/security.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/security.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterArmorBasicSlim
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/security_slim.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/security_slim.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterArmorBone
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/bone_armor.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/bone_armor.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterArmorBulletproof
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/bulletproof.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/bulletproof.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterArmorCaptainCarapace
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/captain_carapace.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/captain_carapace.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterArmorChangeling
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/lingarmor.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/lingarmor.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterArmorCult
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/cult_armour.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/cult_armour.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterArmorHeavy
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/heavy.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/heavy.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterArmorMagusblue
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/magusblue.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/magusblue.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterArmorMagusred
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/magusred.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/magusred.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterArmorReflective
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/armor_reflec.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/armor_reflec.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterArmorRiot
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/riot.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Armor/riot.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterBioCmo
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Bio/cmo.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Bio/cmo.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterBioGeneral
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Bio/general.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Bio/general.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterBioJanitor
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Bio/janitor.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Bio/janitor.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterBioScientist
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Bio/scientist.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Bio/scientist.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterBioSecurity
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Bio/security.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Bio/security.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterBioVirology
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Bio/virology.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Bio/virology.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCardborg
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/cardborg.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/cardborg.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCoatDetective
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/detective.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/detective.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCoatDetectiveLoadoutGrey
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/detective_grey.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/detective_grey.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCoatHoSTrench
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/hos_trenchcoat.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/hos_trenchcoat.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCoatLab
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCoatLabChem
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat_chem.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat_chem.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCoatLabCmo
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat_cmo.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat_cmo.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCoatLabGene
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat_gene.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat_gene.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCoatLabViro
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat_viro.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat_viro.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCoatParamedicWB
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/windbreaker_paramedic.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/windbreaker_paramedic.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCoatPirate
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/pirate.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/pirate.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCoatRD
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat_rd.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat_rd.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCoatRnd
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat_sci.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat_sci.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCoatRobo
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat_robo.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/labcoat_robo.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCoatTrench
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/trenchcoat.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/trenchcoat.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterCoatWarden
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/warden.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Coats/warden.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterHoodieChaplain
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/chaplain_hoodie.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/chaplain_hoodie.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterJacketChef
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/chef.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/chef.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterNunRobe
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/nunrobe.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/nunrobe.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterPonchoClassic
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/classicponcho.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/classicponcho.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterRobesJudge
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/judge.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/judge.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterSanta
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/santa.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/santa.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterStraightjacket
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/straight_jacket.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterSuitChicken
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Suits/chicken.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Suits/chicken.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterSuitIan
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Suits/iansuit.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Suits/iansuit.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterSuitMonkey
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Suits/monkey.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Suits/monkey.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterVestDetective
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Vests/detvest.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Vests/detvest.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterVestHazard
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Vests/hazard.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Vests/hazard.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterVestPress
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Vests/pressvest.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Vests/pressvest.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ClothingOuterWinterAtmos
+    - ClothingOuterWinterBar
+    - ClothingOuterWinterCE
+    - ClothingOuterWinterCMO
+    - ClothingOuterWinterCap
+    - ClothingOuterWinterCargo
+    - ClothingOuterWinterCentcom
+    - ClothingOuterWinterChef
+    - ClothingOuterWinterChem
+    - ClothingOuterWinterCoat
+    - ClothingOuterWinterColorBlack
+    - ClothingOuterWinterColorBlue
+    - ClothingOuterWinterColorBrown
+    - ClothingOuterWinterColorGray
+    - ClothingOuterWinterColorGreen
+    - ClothingOuterWinterColorLightBrown
+    - ClothingOuterWinterColorOrange
+    - ClothingOuterWinterColorPurple
+    - ClothingOuterWinterColorRed
+    - ClothingOuterWinterColorWhite
+    - ClothingOuterWinterColorYellow
+    - ClothingOuterWinterEngi
+    - ClothingOuterWinterGen
+    - ClothingOuterWinterHoP
+    - ClothingOuterWinterHoSUnarmored
+    - ClothingOuterWinterHydro
+    - ClothingOuterWinterJani
+    - ClothingOuterWinterMed
+    - ClothingOuterWinterMime
+    - ClothingOuterWinterMiner
+    - ClothingOuterWinterPara
+    - ClothingOuterWinterQM
+    - ClothingOuterWinterRD
+    - ClothingOuterWinterRobo
+    - ClothingOuterWinterSci
+    - ClothingOuterWinterSec
+    - ClothingOuterWinterSyndie
+    - ClothingOuterWinterSyndieCap
+    - ClothingOuterWinterViro
+    - ClothingOuterWinterWardenUnarmored
+    - ClothingOuterWinterWeb
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/WinterCoats/coat.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/WinterCoats/coat.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterWizardBlue
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/wizard_blue.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/wizard_blue.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterWizardFake
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/wizard_fake.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/wizard_fake.rsi
+
+- type: !PartialOnly entity
+  id: ClothingOuterWizardRed
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/wizard_red.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/OuterClothing/Misc/wizard_red.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - LootSpawnerArmory
+    - LootSpawnerArmoryArmorOnly
+  components:
+  - type: Sprite
+    layers:
+    - !CombineIndex:1
+      sprite: _Orbitra/Clothing/OuterClothing/Armor/security.rsi

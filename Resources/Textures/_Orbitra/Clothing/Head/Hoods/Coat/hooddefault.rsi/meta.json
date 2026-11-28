@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Updated sprites from /tg/station contributors under CC-BY-SA-3.0 (https://github.com/tgstation/tgstation/tree/fa46f5053e0c93bdee1cd4de0c4c1348dfed23f9/icons; mob/clothing/head/winterhood.dmi, obj/clothing/head/winterhood.dmi; states: hood_winter). Original SS14 atlas credit (CC-BY-SA-3.0): By Gotimanga for SS14, grayscale layering by IProduceWidgets (Github)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon"
+    },
+    {
+      "name": "coatybits-icon"
+    },
+    {
+      "name": "winterbits-icon"
+    },
+    {
+      "name": "winterbits-tan-icon"
+    },
+    {
+      "name": "equipped-HELMET",
+      "directions": 4
+    },
+    {
+      "name": "coatybits-equipped-HELMET",
+      "directions": 4
+    },
+    {
+      "name": "winterbits-equipped-HELMET",
+      "directions": 4
+    },
+    {
+      "name": "winterbits-tan-equipped-HELMET",
+      "directions": 4
+    }
+  ]
+}

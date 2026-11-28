@@ -1,0 +1,109 @@
+- type: !PartialOnly entity
+  id: ChangelingFleshClothingBelt
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Belt/utility.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBeltChampion
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Belt/champion.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Belt/champion.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBeltChiefEngineer
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Belt/ce.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Belt/ce.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBeltHolster
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Belt/holster.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Belt/holster.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBeltJanitor
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Belt/janitor.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Belt/janitor.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBeltMedical
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Belt/medical.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Belt/medical.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBeltMedicalEMT
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Belt/emt.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Belt/emt.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBeltMilitaryWebbing
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Belt/militarywebbing.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Belt/militarywebbing.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBeltPlant
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Belt/plant.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Belt/plant.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBeltSecurity
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Belt/security.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Belt/security.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBeltSecurityWebbing
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Belt/securitywebbing.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Belt/securitywebbing.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBeltStorageWaistbag
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Belt/waistbag_leather.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Belt/waistbag_leather.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBeltSyndieHolster
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Belt/syndieholster.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Belt/syndieholster.rsi
+
+- type: !PartialOnly entity
+  id: ClothingBeltUtility
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Belt/utility.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Belt/utility.rsi

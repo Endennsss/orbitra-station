@@ -1,0 +1,131 @@
+- type: !PartialOnly entity
+  id: ChangelingFleshClothingGloves
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Hands/Gloves/Color/color.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ClothingHandsChameleon
+    - ClothingHandsGlovesColorBlack
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Hands/Gloves/Color/black.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Hands/Gloves/Color/black.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHandsGlovesBoxingBlue
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Hands/Gloves/Boxing/boxingblue.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Hands/Gloves/Boxing/boxingblue.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHandsGlovesBoxingGreen
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Hands/Gloves/Boxing/boxinggreen.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Hands/Gloves/Boxing/boxinggreen.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHandsGlovesBoxingRed
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Hands/Gloves/Boxing/boxingred.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Hands/Gloves/Boxing/boxingred.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHandsGlovesBoxingYellow
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Hands/Gloves/Boxing/boxingyellow.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Hands/Gloves/Boxing/boxingyellow.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHandsGlovesCaptain
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Hands/Gloves/captain.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Hands/Gloves/captain.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ClothingHandsGlovesColorBlue
+    - ClothingHandsGlovesColorBrown
+    - ClothingHandsGlovesColorGray
+    - ClothingHandsGlovesColorGreen
+    - ClothingHandsGlovesColorLightBrown
+    - ClothingHandsGlovesColorOrange
+    - ClothingHandsGlovesColorPurple
+    - ClothingHandsGlovesColorRed
+    - ClothingHandsGlovesColorTeal
+    - ClothingHandsGlovesColorWhite
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Hands/Gloves/Color/color.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Hands/Gloves/Color/color.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHandsGlovesColorYellow
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Hands/Gloves/Color/yellow.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Hands/Gloves/Color/yellow.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHandsGlovesFingerless
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Hands/Gloves/fingerless.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Hands/Gloves/fingerless.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHandsGlovesFingerlessInsulated
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Hands/Gloves/fingerlessinsuls.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Hands/Gloves/fingerlessinsuls.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHandsGlovesLatex
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Hands/Gloves/latex.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Hands/Gloves/latex.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHandsGlovesLeather
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Hands/Gloves/leather.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Hands/Gloves/leather.rsi
+
+- type: !PartialOnly entity
+  id: ClothingHandsGlovesNitrile
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Hands/Gloves/nitrile.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Hands/Gloves/nitrile.rsi
+
+- type: !PartialOnly entity
+  id: MaintenanceInsulsSpawner
+  components:
+  - type: Sprite
+    layers:
+    - !CombineIndex:1
+      sprite: _Orbitra/Clothing/Hands/Gloves/Color/yellow.rsi

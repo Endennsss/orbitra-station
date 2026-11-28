@@ -1,0 +1,1160 @@
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ChangelingFleshClothingInner
+    - ClothingUniformJumpsuitChameleon
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Color/color.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtAtmos
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Engineering/atmosf.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Engineering/atmosf.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtBartender
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/bartender.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/bartender.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtCMO
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/cmo.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/cmo.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtCMOTurtle
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/cmo_turtle.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/cmo_turtle.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtCapFormalDress
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Command/capformaldress.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Command/capformaldress.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtCaptain
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Command/captain.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Command/captain.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtCargo
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Cargo/cargotech.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Cargo/cargotech.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtCentcomFormalDress
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Centcomm/centcomformaldress.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Centcomm/centcomformaldress.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtChaplain
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/chaplain.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/chaplain.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtChef
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/chef.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/chef.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtChemistry
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/chemistry.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/chemistry.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtChiefEngineer
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Engineering/ce.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Engineering/ce.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtChiefEngineerTurtle
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Engineering/ce_turtle.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Engineering/ce_turtle.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtClown
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/clown.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/clown.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ClothingUniformJumpskirtColorBlack
+    - ClothingUniformJumpskirtColorBlue
+    - ClothingUniformJumpskirtColorBrown
+    - ClothingUniformJumpskirtColorDarkBlue
+    - ClothingUniformJumpskirtColorDarkGreen
+    - ClothingUniformJumpskirtColorGreen
+    - ClothingUniformJumpskirtColorGrey
+    - ClothingUniformJumpskirtColorLightBrown
+    - ClothingUniformJumpskirtColorMaroon
+    - ClothingUniformJumpskirtColorOrange
+    - ClothingUniformJumpskirtColorPink
+    - ClothingUniformJumpskirtColorPurple
+    - ClothingUniformJumpskirtColorRed
+    - ClothingUniformJumpskirtColorTeal
+    - ClothingUniformJumpskirtColorWhite
+    - ClothingUniformJumpskirtColorYellow
+    - ClothingUniformJumpskirtPrisoner
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Color/color.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Color/color.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtColorRainbow
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Color/rainbow.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Color/rainbow.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtCommandGeneric
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Command/commandgeneric.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Command/commandgeneric.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtCurator
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/curator.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/curator.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtDetective
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/detective.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/detective.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtDetectiveGrey
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/detective_grey.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/detective_grey.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtEngineering
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Engineering/engineering.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Engineering/engineering.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtGenetics
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/genetics.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/genetics.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtHoP
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Command/hop.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Command/hop.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtHoS
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/hos.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/hos.rsi
+  - type: Item
+    inhandVisuals:
+      left:
+      - !CombineIndex:0
+        sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Color/color.rsi
+      - !CombineIndex:1
+        sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/hos.rsi
+      right:
+      - !CombineIndex:0
+        sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Color/color.rsi
+      - !CombineIndex:1
+        sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/hos.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtHoSAlt
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/hos_alt.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/hos_alt.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtHoSParadeMale
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/hos_parade.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/hos_parade.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtHosFormal
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/hosformaldress.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/hosformaldress.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtHydroponics
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/hydro.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/hydro.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtJanimaid
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/janimaid.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/janimaid.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtJanitor
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/janitor.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/janitor.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtLawyerBlack
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/lawyerblack.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/lawyerblack.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtLawyerBlue
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/lawyerblue.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/lawyerblue.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtLawyerGood
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/lawyergood.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/lawyergood.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtLawyerPurple
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/lawyerpurple.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/lawyerpurple.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtLawyerRed
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/lawyerred.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/lawyerred.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtLibrarian
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/librarian.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/librarian.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtMedicalDoctor
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/medical.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/medical.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtMime
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/mime.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/mime.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtMusician
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/musician.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/musician.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtOperative
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Special/operative_s.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Special/operative_s.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtParamedic
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/paramedic.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/paramedic.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtPsychologist
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/psychologist.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Service/psychologist.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtQM
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Cargo/qm.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Cargo/qm.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtQMFormalDress
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Cargo/qmformaldress.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Cargo/qmformaldress.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtResearchDirector
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Science/rnd.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Science/rnd.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtRoboticist
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Science/roboticist.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Science/roboticist.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtScientist
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Science/scientist.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Science/scientist.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtSec
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/security.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/security.rsi
+  - type: Item
+    inhandVisuals:
+      left:
+      - !CombineIndex:0
+        sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Color/color.rsi
+      - !CombineIndex:1
+        sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/security.rsi
+      right:
+      - !CombineIndex:0
+        sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Color/color.rsi
+      - !CombineIndex:1
+        sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/security.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtSeniorEngineer
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Engineering/senior_engineer.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Engineering/senior_engineer.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtSeniorOfficer
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/senior_officer.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/senior_officer.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtSeniorPhysician
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/senior_physician.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/senior_physician.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtSeniorResearcher
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Science/senior_researcher.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Science/senior_researcher.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtSyndieFormalDress
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Special/syndieformaldress.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Special/syndieformaldress.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtTacticool
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Special/tacticool_s.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Special/tacticool_s.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtVirology
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/virology.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Medical/virology.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpskirtWarden
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/warden.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Security/warden.rsi
+  - type: Item
+    inhandVisuals:
+      left:
+      - !CombineIndex:0
+        sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Color/color.rsi
+      - !CombineIndex:1
+        sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/warden.rsi
+      right:
+      - !CombineIndex:0
+        sprite: _Orbitra/Clothing/Uniforms/Jumpskirts/Color/color.rsi
+      - !CombineIndex:1
+        sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/warden.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitAncient
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Civilian/ancient.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Civilian/ancient.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitAtmos
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Engineering/atmos.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitBartender
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/bartender.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitBartenderPurple
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/bartender_purple.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/bartender_purple.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitCMO
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Medical/cmo.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitCMOTurtle
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Medical/cmo_turtle.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Medical/cmo_turtle.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitCapFormal
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Command/capformal.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Command/capformal.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitCaptain
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Command/captain.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Command/captain.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitCargo
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Cargo/cargotech.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitCentcomAgent
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Centcomm/centcom_agent.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Centcomm/centcom_agent.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitCentcomFormal
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Centcomm/centcomformal.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Centcomm/centcomformal.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitCentcomOfficer
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Centcomm/centcom_officer.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Centcomm/centcom_officer.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitCentcomOfficial
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Centcomm/centcom_official.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Centcomm/centcom_official.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitChaplain
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/chaplain.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/chaplain.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitChef
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/chef.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/chef.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitChemistry
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Medical/chemistry.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitChiefEngineer
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Engineering/ce.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitChiefEngineerTurtle
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Engineering/ce_turtle.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Engineering/ce_turtle.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitClown
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/clown.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/clown.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitClownBanana
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/clown_banana.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/clown_banana.rsi
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - ClothingUniformJumpsuitColorBlack
+    - ClothingUniformJumpsuitColorBlue
+    - ClothingUniformJumpsuitColorBrown
+    - ClothingUniformJumpsuitColorDarkBlue
+    - ClothingUniformJumpsuitColorDarkGreen
+    - ClothingUniformJumpsuitColorGreen
+    - ClothingUniformJumpsuitColorGrey
+    - ClothingUniformJumpsuitColorLightBrown
+    - ClothingUniformJumpsuitColorMaroon
+    - ClothingUniformJumpsuitColorOrange
+    - ClothingUniformJumpsuitColorPink
+    - ClothingUniformJumpsuitColorPurple
+    - ClothingUniformJumpsuitColorRed
+    - ClothingUniformJumpsuitColorTeal
+    - ClothingUniformJumpsuitColorWhite
+    - ClothingUniformJumpsuitColorYellow
+    - ClothingUniformJumpsuitPrisoner
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Color/color.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Color/color.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitCommandGeneric
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Command/commandgeneric.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Command/commandgeneric.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitCurator
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/curator.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/curator.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitDetective
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/detective.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/detective.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitDetectiveGrey
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/detective_grey.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/detective_grey.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitEngineering
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Engineering/engineering.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitEngineeringHazard
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Engineering/engineering_hazard.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitGenetics
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Medical/genetics.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Medical/genetics.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitHoP
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Command/hop.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitHoS
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/hos.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/hos.rsi
+  - type: Item
+    inhandVisuals:
+      left:
+      - !CombineIndex:0
+        sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Color/color.rsi
+      right:
+      - !CombineIndex:0
+        sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Color/color.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitHoSAlt
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/hos_alt.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/hos_alt.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitHoSBlue
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/hos_blue.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/hos_blue.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitHoSGrey
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/hos_grey.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/hos_grey.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitHoSParadeMale
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/hos_parade.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/hos_parade.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitHydroponics
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/hydro.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitJanitor
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/janitor.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitJester
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/jester.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/jester.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitJesterAlt
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/jester2.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/jester2.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitJournalist
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/journalist.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/journalist.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitKimono
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Civilian/kimono.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Civilian/kimono.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitLawyerBlack
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/lawyerblack.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/lawyerblack.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitLawyerBlue
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/lawyerblue.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/lawyerblue.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitLawyerGood
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/lawyergood.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/lawyergood.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitLawyerPurple
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/lawyerpurple.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/lawyerpurple.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitLawyerRed
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/lawyerred.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/lawyerred.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitLibrarian
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/librarian.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/librarian.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitMedicalDoctor
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Medical/medical.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitMercenary
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Special/mercenary.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Special/mercenary.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitMime
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/mime.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/mime.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitMusician
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/musician.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/musician.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitOperative
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Special/operative.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Special/operative.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitParamedic
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Medical/paramedic.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Medical/paramedic.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitPirate
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Special/pirate.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Special/pirate.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitPyjamaSyndicateRed
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Special/pyjamasyndicatered.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Special/pyjamasyndicatered.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitQM
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Cargo/qm.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Cargo/qm.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitQMFormal
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Cargo/qmformal.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Cargo/qmformal.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitReporter
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/reporter.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/reporter.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitResearchDirector
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Science/rnd.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Science/rnd.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitRoboticist
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Science/roboticist.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitSalvageSpecialist
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Cargo/salvage.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitScientist
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Science/scientist.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitScientistFormal
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Science/scientist_formal.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Science/scientist_formal.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitSec
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/security.rsi
+  - type: Item
+    inhandVisuals:
+      left:
+      - !CombineIndex:0
+        sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Color/color.rsi
+      right:
+      - !CombineIndex:0
+        sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Color/color.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitSecBlue
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/security_blue.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/security_blue.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitSecGrey
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/security_grey.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/security_grey.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitSeniorEngineer
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Engineering/senior_engineer.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Engineering/senior_engineer.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitSeniorOfficer
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/senior_officer.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/senior_officer.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitSeniorPhysician
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Medical/senior_physician.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Medical/senior_physician.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitSeniorResearcher
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Science/senior_researcher.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Science/senior_researcher.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitSyndieFormal
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Special/syndieformal.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Special/syndieformal.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitTacticool
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Special/tacticool.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Special/tacticool.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitVirology
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Medical/virology.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Medical/virology.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformJumpsuitWarden
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/warden.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/warden.rsi
+  - type: Item
+    inhandVisuals:
+      left:
+      - !CombineIndex:0
+        sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Color/color.rsi
+      right:
+      - !CombineIndex:0
+        sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Color/color.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformOveralls
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/overalls.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Service/overalls.rsi
+
+- type: !PartialOnly entity
+  id: ClothingUniformSecurityTrooper
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/security_trooper.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Security/security_trooper.rsi
+
+- type: !PartialOnly entity
+  id: SpawnMobSyndicateFootSoldier
+  components:
+  - type: Sprite
+    layers:
+    - !CombineIndex:3
+      sprite: _Orbitra/Clothing/Uniforms/Jumpsuits/Special/operative.rsi
+    - !CombineIndex:4
+      sprite: _Orbitra/Clothing/OuterClothing/Armor/security.rsi
+    - !CombineIndex:5
+      sprite: _Orbitra/Clothing/Hands/Gloves/Color/black.rsi
+    - !CombineIndex:6
+      sprite: _Orbitra/Clothing/Mask/gas.rsi
+    - !CombineIndex:7
+      sprite: _Orbitra/Clothing/Head/Helmets/swat_syndicate.rsi
+
+- type: !PartialOnly entity
+  id: UniformScrubsColorBlue
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Scrubs/blue.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Scrubs/blue.rsi
+
+- type: !PartialOnly entity
+  id: UniformScrubsColorGreen
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Scrubs/green.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Scrubs/green.rsi
+
+- type: !PartialOnly entity
+  id: UniformScrubsColorPurple
+  components:
+  - type: Sprite
+    sprite: _Orbitra/Clothing/Uniforms/Scrubs/purple.rsi
+  - type: Clothing
+    sprite: _Orbitra/Clothing/Uniforms/Scrubs/purple.rsi
